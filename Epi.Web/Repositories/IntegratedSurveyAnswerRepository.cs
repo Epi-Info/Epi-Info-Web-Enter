@@ -16,9 +16,9 @@ namespace Epi.Web.MVC.Repositories
 
 
 
-        private Epi.Web.WCF.SurveyService.IDataService _iDataService;
+        private Epi.Web.WCF.SurveyService.IEWEDataService _iDataService;
 
-        public IntegratedSurveyAnswerRepository(Epi.Web.WCF.SurveyService.IDataService iDataService)
+        public IntegratedSurveyAnswerRepository(Epi.Web.WCF.SurveyService.IEWEDataService iDataService)
         {
             _iDataService = iDataService;
         }
