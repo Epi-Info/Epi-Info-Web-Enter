@@ -47,7 +47,7 @@ namespace Epi.Web.MVC
             if (IsIntegrated)
             {
 
-                container.RegisterType<Epi.Web.WCF.SurveyService.IDataService, Epi.Web.WCF.SurveyService.DataService>();
+                container.RegisterType<Epi.Web.WCF.SurveyService.IEWEDataService, Epi.Web.WCF.SurveyService.EWEDataService>();
                 container.RegisterType<SurveyResponseXML, SurveyResponseXML>()
                     .Configure<InjectedMembers>()
                     .ConfigureInjectionFor<SurveyResponseXML>(new InjectionConstructor());
