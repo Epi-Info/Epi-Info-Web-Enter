@@ -11,7 +11,7 @@ using Epi.Web.Common.Exception;
 namespace Epi.Web.WCF.SurveyService
 {
     [ServiceContract]
-    public interface IDataService
+    public interface IEWEDataService
     {
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]

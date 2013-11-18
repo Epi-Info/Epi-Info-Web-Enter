@@ -18,7 +18,7 @@ using Epi.Web.Common.Security;
  
 namespace Epi.Web.WCF.SurveyService
 {
-    public class ManagerService : IManagerService
+    public class EWEManagerService : IEWEManagerService
     {
 
         // Session state variables
