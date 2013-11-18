@@ -26,6 +26,7 @@
     <script src="@Url.Content("~/Scripts/jquery.idletimeout.js")" type="text/javascript"></script>
     <script src="@Url.Content("~/Scripts/jquery.idletimer.js")" type="text/javascript"></script>
     <link href="@Url.Content("~/Content/css/epistyle.css")" rel="Stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/css/ewe.css")" rel="Stylesheet" type="text/css" />
      <link href="@Url.Content("~/Content/css/page.css")" rel="Stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/css/validationEngine.jquery.css")" rel="Stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/css/ui-lightness/jquery-ui-1.8.16.custom.css")" rel="Stylesheet" type="text/css" />
@@ -106,21 +107,17 @@
 	<![endif]-->
     
 </head>
-<body>
-     
-     <div id ="container" style =" width:@TempData["Width"]px">
-            
-            <div id="body">
-                @RenderBody()
-                
-            </div>
-          
-                   
-            
-       @Html.Partial("FooterPartial")
+<body>    
+<div id="container">
+    <div id="header">
+        <img alt="Epi Info 7 - Epi Web Enter" src="../../Content/images/epiIcon.png" />
+        <h1>Epi Web Enter</h1>
     </div>
-     
-    
+    <div id="maincontent">  
+        @RenderBody()
+    </div>
+    @Html.Partial("FooterPartial")
+</div>   
 </body>
 </html>
  
