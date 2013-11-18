@@ -11,9 +11,9 @@ namespace Epi.Web.SurveyManager.Client
 {
     public class ServiceClient
     {
-        public static SurveyManagerService.ManagerServiceClient GetClient(string pEndPointAddress, bool pIsAuthenticated, bool pIsWsHttpBinding = true)
+        public static EWEManagerService.EWEManagerServiceClient GetClient(string pEndPointAddress, bool pIsAuthenticated, bool pIsWsHttpBinding = true)
         {
-            SurveyManagerService.ManagerServiceClient result = null;
+        EWEManagerService.EWEManagerServiceClient result = null;
             try
             {
                 if (pIsAuthenticated) // Windows Authentication
@@ -47,8 +47,8 @@ namespace Epi.Web.SurveyManager.Client
                     binding.Security.Message.ClientCredentialType = System.ServiceModel.BasicHttpMessageCredentialType.UserName;
 
                     System.ServiceModel.EndpointAddress endpoint = new System.ServiceModel.EndpointAddress(pEndPointAddress);
-                    
-                    result = new SurveyManagerService.ManagerServiceClient(binding, endpoint);
+
+                    result = new EWEManagerService.EWEManagerServiceClient(binding, endpoint);
                     result.ClientCredentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
                     result.ChannelFactory.Credentials.Windows.ClientCredential = System.Net.CredentialCache.DefaultNetworkCredentials;
                 }
@@ -91,7 +91,7 @@ namespace Epi.Web.SurveyManager.Client
 
                         System.ServiceModel.EndpointAddress endpoint = new System.ServiceModel.EndpointAddress(pEndPointAddress);
 
-                        result = new SurveyManagerService.ManagerServiceClient(binding, endpoint);
+                        result = new EWEManagerService.EWEManagerServiceClient(binding, endpoint);
 
                     }
                     else
@@ -124,7 +124,7 @@ namespace Epi.Web.SurveyManager.Client
 
                         System.ServiceModel.EndpointAddress endpoint = new System.ServiceModel.EndpointAddress(pEndPointAddress);
 
-                        result = new SurveyManagerService.ManagerServiceClient(binding, endpoint);
+                        result = new EWEManagerService.EWEManagerServiceClient(binding, endpoint);
                     }
                 }
             }
@@ -155,7 +155,7 @@ namespace Epi.Web.SurveyManager.Client
                 return result;
         }
 
-        public static SurveyManagerService.ManagerServiceClient GetClient()
+        public static EWEManagerService.EWEManagerServiceClient GetClient()
         {
             string pEndPointAddress = ConfigurationManager.AppSettings["EndPointAddress"];
             bool pIsAuthenticated = false;

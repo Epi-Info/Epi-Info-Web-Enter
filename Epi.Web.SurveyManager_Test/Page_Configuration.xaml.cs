@@ -173,7 +173,7 @@ namespace Epi.Web.SurveyManager.Client
 
             try
             {
-                SurveyManagerService.ManagerServiceClient Client = ServiceClient.GetClient(pEndPointAddress, pIsAuthenticated, pIsWsHTTPBinding);
+                EWEManagerService.EWEManagerServiceClient Client = ServiceClient.GetClient(pEndPointAddress, pIsAuthenticated, pIsWsHTTPBinding);
                 Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
                 var Result = Client.GetOrganization(Request);
                 this.PingResultTextBox.Text = "Successfully Created Service Client";

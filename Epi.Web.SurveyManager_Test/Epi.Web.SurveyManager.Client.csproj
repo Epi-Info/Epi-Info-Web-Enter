@@ -97,6 +97,11 @@
     <Compile Include="Page_Publish.xaml.cs">
       <DependentUpon>Page_Publish.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service References\EWEManagerService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ServiceClient.cs" />
     <Page Include="DownLoad.xaml">
       <SubType>Designer</SubType>
@@ -161,6 +166,22 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\EWEManagerService\EWEManagerService.wsdl" />
+    <None Include="Service References\EWEManagerService\EWEManagerService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EWEManagerService\EWEManagerService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EWEManagerService\EWEManagerService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EWEManagerService\EWEManagerService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\EWEManagerService\EWEManagerService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -199,6 +220,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\EWEManagerService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EWEManagerService\EWEManagerService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EWEManagerService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EWEManagerService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\EWEManagerService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

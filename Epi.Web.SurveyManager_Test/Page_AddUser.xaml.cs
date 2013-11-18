@@ -76,7 +76,7 @@ namespace Epi.Web.SurveyManager.Client
         private void AddOrganization_Click(object sender, RoutedEventArgs e)
         {
             MessagerichTextBox1.Document.Blocks.Clear();
-            SurveyManagerService.ManagerServiceClient client = ServiceClient.GetClient();
+            EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
             Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
             MessagerichTextBox1.Foreground = Brushes.Red;
 
@@ -148,7 +148,7 @@ namespace Epi.Web.SurveyManager.Client
         private void GetKey_Clik(object sender, RoutedEventArgs e)
         {
 
-            SurveyManagerService.ManagerServiceClient client = ServiceClient.GetClient();
+        EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
             Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
 
             this.ONameEditTextBox1.Clear();
@@ -244,7 +244,7 @@ namespace Epi.Web.SurveyManager.Client
         {
             //if (!string.IsNullOrEmpty(EditOtextBox1.Text))
             //{
-                SurveyManagerService.ManagerServiceClient client = ServiceClient.GetClient();
+                EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
                 Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
 
                 richTextBox1.Document.Blocks.Clear();
@@ -293,7 +293,7 @@ namespace Epi.Web.SurveyManager.Client
         private void Save_Click(object sender, RoutedEventArgs e)
         {
             MessagerichTextBox1.Document.Blocks.Clear();
-            SurveyManagerService.ManagerServiceClient client = ServiceClient.GetClient();
+            EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
             Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
             richTextBox1.Foreground = Brushes.Red;
             richTextBox1.Document.Blocks.Clear();
@@ -344,7 +344,7 @@ namespace Epi.Web.SurveyManager.Client
         public void GetOrganizationNames()
         {
 
-            SurveyManagerService.ManagerServiceClient client = ServiceClient.GetClient();
+            EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
             Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
 
             richTextBox1.Document.Blocks.Clear();
