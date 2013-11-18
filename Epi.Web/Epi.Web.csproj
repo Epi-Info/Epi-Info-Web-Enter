@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
-    <SccProjectName>%24/EpiInfoWebSurvey/Epi Info Web Survey/Epi.Web</SccProjectName>
+    <SccProjectName>%24/ewe/Epi.Web</SccProjectName>
     <SccLocalPath>.</SccLocalPath>
     <SccAuxPath>https://tfs.codeplex.com/tfs/tfs04</SccAuxPath>
     <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
@@ -219,7 +219,9 @@
     <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\css\demos.css" />
     <Content Include="Content\css\epistyle.css" />
+    <Content Include="Content\css\ewe.css" />
     <Content Include="Content\css\images\check.gif" />
+    <Content Include="Content\css\images\footer_bar.png" />
     <Content Include="Content\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\css\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -265,19 +267,29 @@
     <Content Include="Content\css\ui-lightness\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\css\validationEngine.jquery.css" />
     <Content Include="Content\css\validationEngine.jquery.Mobile.css" />
+    <Content Include="Content\images\addnew.png" />
     <Content Include="Content\images\ajax-loader.gif" />
     <Content Include="Content\images\arrow_left.png" />
     <Content Include="Content\images\arrow_right.png" />
+    <Content Include="Content\images\backform.png" />
+    <Content Include="Content\images\backform1.png" />
+    <Content Include="Content\images\bg2.png" />
     <Content Include="Content\images\bgMainDropShadowGradient.png" />
     <Content Include="Content\images\black_arrow2.png" />
     <Content Include="Content\images\button_check.png" />
     <Content Include="Content\images\cdclogo.png" />
+    <Content Include="Content\images\collectlegend.png" />
+    <Content Include="Content\images\delset.png" />
+    <Content Include="Content\images\designlegend.png" />
     <Content Include="Content\images\DRAFT.png" />
     <Content Include="Content\images\epi.png" />
+    <Content Include="Content\images\epiIcon.png" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error1.png" />
     <Content Include="Content\images\error2.png" />
     <Content Include="Content\images\go.png" />
+    <Content Include="Content\images\header_bg.png" />
+    <Content Include="Content\images\header_bg2.png" />
     <Content Include="Content\images\icon-search-black.png" />
     <Content Include="Content\images\icons-18-black.png" />
     <Content Include="Content\images\icons-18-white.png" />
@@ -285,16 +297,26 @@
     <Content Include="Content\images\icons-36-white.png" />
     <Content Include="Content\images\logo_dhhs.gif" />
     <Content Include="Content\images\next.png" />
+    <Content Include="Content\images\next1.png" />
     <Content Include="Content\images\next_d.png" />
     <Content Include="Content\images\overlay.png" />
     <Content Include="Content\images\pagination_bg.png" />
     <Content Include="Content\images\pagination_bg_1.png" />
     <Content Include="Content\images\pagination_bg_2.png" />
     <Content Include="Content\images\prev.png" />
+    <Content Include="Content\images\prev1.png" />
     <Content Include="Content\images\prev_d.png" />
+    <Content Include="Content\images\prod.png" />
+    <Content Include="Content\images\prodlegend.png" />
     <Content Include="Content\images\save.png" />
+    <Content Include="Content\images\saveset.png" />
+    <Content Include="Content\images\secondary_bar.png" />
+    <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\sign_warning.png" />
+    <Content Include="Content\images\staging.png" />
+    <Content Include="Content\images\staginglegend.png" />
     <Content Include="Content\images\submit.png" />
+    <Content Include="Content\images\toc.png" />
     <Content Include="Content\images\video.png" />
     <Content Include="Content\images\warn.png" />
     <Content Include="Content\jquery.mobile-1.0b3.css" />

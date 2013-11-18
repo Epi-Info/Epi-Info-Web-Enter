@@ -1,76 +1,4 @@
-﻿html, body 
- { 
- margin:0; 
- padding:0; 
- height: 100%;
- } 
-
-body 
- {
- background-image:url('../images/bgMainDropShadowGradient.png');
- }
- 
-#container
- {
- width: 840px;
-/* min-height: 99%;*/
-min-height:30%;
- position:relative;
- margin: auto;
- background-color: #fff;
- color: #333;
- border: 1px solid #4e9689;
- line-height: 130%;
- -moz-border-radius: 10px;
- border-radius: 10px;
- -moz-box-shadow: 10px 10px 5px #888;
- -webkit-box-shadow: 10px 10px 5px #888;
- box-shadow: 10px 10px 5px #bfbfbf;
- font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-/*behavior: url('../Scripts/PIE.htc');*/
-/*background-image:url('../images/bgdraft.png');
-background-repeat:repeat-y;
-background-position: center center;
-background-size: stretch;
-background-origin:content-box;*/
- }
- 
-#header
- {
- padding: 0.5em 0.5em 1.0em .5em;
- background-color: #bfe7ea;
- border-bottom: 1px solid #4e9689;
- -moz-border-radius: 10px 10px 0 0;
- border-radius: 10px 10px 0 0;
- /*behavior: url('../Scripts/PIE.htc');*/
- }
-
-#header h1
- {
- padding: 0;
- margin: 0;
- font-size: 16pt;
- font-weight: bold;
- }
-
-#content
- {
- clear:both;
- margin-left: 0.1em;
- margin-right: 0.1em;
- 
- /*padding: 1em;*/
- /*font: 10pt;*/
-/* padding-bottom:80px; */
- }
-
-#content h2
- {
- font-size: 12pt;
- font-weight: bold;
- }
- 
-.MvcDynamicForm
+﻿.MvcDynamicForm
  {
   /*width:800px; 
   height:1200px;*/
@@ -80,44 +8,7 @@ background-origin:content-box;*/
   position:relative;  
  }
  
-#infobox
- {
- /*margin-top: -1em;*/
- border-right: 1px solid #4e9689 inset;
- padding: 0.5em;
- font-size: 9pt;
-/* margin-bottom: 1em;*/
- background: #87d69b;
- min-height:20px;
- }
-/*DIv Style for Splash Page*/
-#surveyno
- {
- float: left;
- width: 33%;
- white-space:normal; 
- word-wrap: break-word;
- }
 
-#orgn
- {
- float: right;
- width: 55%;
- white-space:normal;
- word-wrap: break-word;
-  text-align:right;
- }
-
-#dept
- {
- display:none;
- visibility:collapse;
- float: right;
- width: 33%;
- text-align: right;
- white-space:normal;
- word-wrap: break-word;
- }
 /*---*/
 /*Div Style for pagination*/
 #exit
@@ -153,11 +44,7 @@ background-origin:content-box;*/
  }
 /*---*/
 
-.boldlabel
- {
- font-weight: bold;	
- }
- 
+
 #nav
 {
 width: 95%;
@@ -171,40 +58,6 @@ bottom: 100px;
 /*clear:both;*/
 }
 
-
-#footer
- {
- position:absolute;
- bottom:0px;
- width: 100%;
-/**/ padding: .5em 0;
- color: #333;
- background-color: #f4fce8;
- border-top: 1px solid #4e9689;
- -moz-border-radius: 0 0 10px 10px;
- border-radius: 0 0 10px 10px;
- height: 40px;
- vertical-align:middle;
- -moz-box-shadow: -1px -1px 0px 0px #888;
- -webkit-box-shadow: 1px -1px 0px 0px #888;
- box-shadow: 0px -1px 1px 0px #888;
- /*behavior: url('../Scripts/PIE.htc');*/
- }
-
-#content h2 { margin: 0 0 .5em 0; }
-
-#footleft
- {
- float:left;
- width: 55%;
- /**/margin-left: 10px;
- }
-
-#footright
- {
- float: right;
- /**/margin-right: 10px;
- }
 
 button.exitsurvey:hover,  button.save:hover, button.prev:hover, button.next:hover, button.begin:hover, button.submits:hover, button.login:hover, a.returnto:hover
  {
