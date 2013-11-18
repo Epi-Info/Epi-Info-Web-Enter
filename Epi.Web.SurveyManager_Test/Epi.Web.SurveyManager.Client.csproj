@@ -97,11 +97,6 @@
     <Compile Include="Page_Publish.xaml.cs">
       <DependentUpon>Page_Publish.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Service References\SurveyManagerService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ServiceClient.cs" />
     <Page Include="DownLoad.xaml">
       <SubType>Designer</SubType>
@@ -166,43 +161,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\SurveyManagerService\Service.wsdl" />
-    <None Include="Service References\SurveyManagerService\SurveyManagerService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SurveyManagerService\SurveyManagerService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SurveyManagerService\SurveyManagerService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SurveyManagerService\SurveyManagerService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\SurveyManagerService\SurveyManagerService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\SurveyManagerService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SurveyManagerService\SurveyManagerService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SurveyManagerService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SurveyManagerService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SurveyManagerService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Epi.Web.Common\Epi.Web.Common.csproj">
