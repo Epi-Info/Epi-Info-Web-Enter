@@ -4,7 +4,7 @@ using Epi.Web.Common.Message;
 using Epi.Web.MVC.Constants;
 using Epi.Web.MVC.Utility;
 using Epi.Web.MVC.Models;
-
+using System.Collections.Generic;
 namespace Epi.Web.MVC.Facade
 {
     public interface ISurveyFacade
@@ -15,6 +15,7 @@ namespace Epi.Web.MVC.Facade
         void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel, string responseId, MvcDynamicForms.Form form, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved, int PageNumber);
         
         SurveyInfoModel GetSurveyInfoModel(string surveyId);
+        List<FormInfoModel> GetFormsInfoModelList(FormsInfoRequest formReq);
         SurveyAnswerResponse GetSurveyAnswerResponse(string responseId);
         UserAuthenticationResponse ValidateUser(string responseId, string passcode);
         void UpdatePassCode(string responseId, string passcode);

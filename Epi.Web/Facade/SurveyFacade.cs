@@ -5,6 +5,8 @@ using Epi.Web.MVC.Constants;
 using Epi.Web.MVC.Utility;
 using Epi.Web.MVC.Models;
 using Epi.Web.MVC.Facade;
+using System.Collections.Generic;
+using Epi.Web.Common.Criteria;
 namespace Epi.Web.MVC.Facade
 {
     public class SurveyFacade : ISurveyFacade
@@ -149,6 +151,35 @@ namespace Epi.Web.MVC.Facade
             _surveyAuthenticationRequest.SurveyResponseId = responseId;
             UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.GetAuthenticationResponse(_surveyAuthenticationRequest);
             return AuthenticationResponse;
+        }
+
+
+        /// <summary>
+        /// Gets the information of Forms User has assigned/authorized.
+        /// </summary>
+        /// <param name="surveyId"></param>
+        /// <returns></returns>
+
+        public List<FormInfoModel> GetFormsInfoModelList(FormsInfoRequest formReq)
+        {
+            //_surveyInfoRequest.Criteria.SurveyIdList.Add(surveyId);
+            //_surveyInfoRequest.Criteria.UserId = userId;
+            //_surveyInfoRequest.Criteria.OrganizationKey = organizationKey;
+            //FormsInfoRequest formReq = new FormsInfoRequest();
+
+            //formReq.Criteria.UserId = userId;
+
+            FormsInfoResponse formInfoResponse = _iSurveyInfoRepository.GetSurveyInfoList(formReq);
+
+            //FormsInfoResponse GetSurveyInfoList(FormsInfoRequest pRequestId)
+            List<FormInfoModel> listOfForms = new List<FormInfoModel>();
+            for (int i = 0; i < formInfoResponse.SurveyInfoList.Count; i++)
+            {
+                FormInfoModel s = Mapper.ToFormInfoModel(formInfoResponse.SurveyInfoList[i]);
+                listOfForms.Add(s);
+            }
+
+            return listOfForms;
         }
     }
 }
