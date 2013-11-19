@@ -70,11 +70,13 @@
     <Compile Include="BusinessRule\ValidateRequired.cs" />
     <Compile Include="BusinessRule\ValidationDataType.cs" />
     <Compile Include="BusinessRule\ValidationOperator.cs" />
+    <Compile Include="Criteria\FormInfoCriteria.cs" />
     <Compile Include="Criteria\OrganizationCriteria.cs" />
     <Compile Include="Criteria\SurveyAnswerCriteria.cs" />
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\SurveyInfoCriteria.cs" />
     <Compile Include="DTO\AdminDTO.cs" />
+    <Compile Include="DTO\FormInfoDTO.cs" />
     <Compile Include="DTO\OrganizationDTO.cs" />
     <Compile Include="DTO\PageInfoDTO.cs" />
     <Compile Include="DTO\PassCodeDTO.cs" />
@@ -85,6 +87,8 @@
     <Compile Include="Message\Base\PersistType.cs" />
     <Compile Include="Message\Base\RequestBase.cs" />
     <Compile Include="Message\Base\ResponseBase.cs" />
+    <Compile Include="Message\FormsInfoRequest.cs" />
+    <Compile Include="Message\FormsInfoResponse.cs" />
     <Compile Include="Message\OrganizationRequest.cs" />
     <Compile Include="Message\OrganizationResponse.cs" />
     <Compile Include="Message\UserAuthenticationRequest.cs" />
