@@ -88,6 +88,23 @@ namespace Epi.Web.WCF.SurveyService
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pRequest"></param>
+        /// <returns></returns>
+        public FormsInfoResponse GetFormsInfo(FormsInfoRequest pRequest) 
+            
+            {
+            FormsInfoResponse result = new FormsInfoResponse();
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+            Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
+
+            return result;
+            
+            }
+
 
         /// <summary>
         /// Set (add, update, delete) SurveyInfo value.
@@ -528,6 +545,6 @@ namespace Epi.Web.WCF.SurveyService
             return result;
         }
 
-
+      
     }
 }
