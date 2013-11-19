@@ -221,6 +221,7 @@
     <Content Include="Content\css\demos.css" />
     <Content Include="Content\css\epistyle.css" />
     <Content Include="Content\css\ewe.css" />
+    <Content Include="Content\css\eweMobile.css" />
     <Content Include="Content\css\images\check.gif" />
     <Content Include="Content\css\images\footer_bar.png" />
     <Content Include="Content\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
