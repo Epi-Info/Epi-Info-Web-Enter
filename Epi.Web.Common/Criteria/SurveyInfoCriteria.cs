@@ -23,6 +23,11 @@ namespace Epi.Web.Common.Criteria
         [DataMember]
         public Guid OrganizationKey { get; set; }
 
+        /// <summary>
+        /// Contains the User Id of logged in User.
+        /// </summary>
+        [DataMember]
+        public int UserId { get; set; }
 
         /// <summary>
         /// Which page to retrieve

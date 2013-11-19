@@ -155,5 +155,13 @@ namespace Epi.Web.MVC.Repositories
             {
                 throw new NotImplementedException();
             }
+
+
+            public FormsInfoResponse GetSurveyInfoList(FormsInfoRequest fRequest)
+            {
+
+                //SurveyInfoResponse GetSurveyInfo(SurveyInfoRequest pRequest)
+                throw new NotImplementedException();
+            }
     }
 }
