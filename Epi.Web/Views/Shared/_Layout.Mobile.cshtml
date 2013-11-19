@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="@Url.Content("~/Content/Site.Mobile.css")" />
         <link href="@Url.Content("~/Content/css/MobilePage.css")" rel="Stylesheet" type="text/css" />
         <link href="@Url.Content("~/Content/css/validationEngine.jquery.Mobile.css")" rel="stylesheet"type="text/css" />
-        <link href="@Url.Content("~/Content/css/MobileEpiStyle.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/css/eweMobile.css")" rel="stylesheet" type="text/css" />
 
         <link href="@Url.Content("~/Content/css/TabletEpiStyle.css")" rel="stylesheet" type="text/css" />
        
@@ -91,29 +91,21 @@
     </head> 
 
 <body> 
-
-    <div  data-role="page" data-theme="c">
-        <div id="container">
-           @* @Html.Partial("_ViewSwitcher")*@
-
-       @* <div data-role="header">
-            <h1>@ViewBag.Title</h1>
-        </div>*@
-            
-        <div data-role="content" style="padding:0px !important;">
-        
-
-                   
+<div  data-role="page" data-theme="c">
+    <div id="container">
+            @* @Html.Partial("_ViewSwitcher")*@
+            @* <div data-role="header"><h1>@ViewBag.Title</h1></div>*@
+        <div id="header">
+            <img alt="Epi Info 7 - Epi Web Enter" src="../../Content/images/epiIcon.png" />
+            <h1>Epi Web Enter</h1>
+        </div>
+        <div data-role="content" style="padding:0px !important;" id="maincontent">   
             @RenderSection("featured", false)
-
-            
-
             @RenderBody()		
         </div>
         @Html.Partial("FooterPartial")
-        </div>
     </div>
-     
-        <input type="hidden" name="IsMobile" id="IsMobile"/>
+</div>
+<input type="hidden" name="IsMobile" id="IsMobile"/>
 </body>
 </html>
