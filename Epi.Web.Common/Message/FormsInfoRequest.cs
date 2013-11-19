@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Epi.Web.Common.MessageBase;
 using Epi.Web.Common.Criteria;
-using Epi.Web.Common.DTO;.Text;
+using Epi.Web.Common.DTO;
 
 namespace Epi.Web.Common.Message
     {
