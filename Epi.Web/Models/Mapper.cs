@@ -11,13 +11,35 @@ namespace Epi.Web.MVC.Models
     public static class Mapper
     {
 
+
+
+        /// <summary>
+        /// Maps FormInfo DTO to FormInfo Model
+        /// </summary>
+        /// <param name="FormInfoDTO"></param>
+        /// <returns></returns>
+        public static FormInfoModel ToFormInfoModel(this Epi.Web.Common.DTO.FormInfoDTO FormInfoDTO)
+        {
+            return new FormInfoModel
+            {
+                FormId = FormInfoDTO.FormId,
+                FormName = FormInfoDTO.FormName,
+                FormNumber = FormInfoDTO.FormNumber,
+                IsDraftMode = FormInfoDTO.IsDraftMode,
+                OrganizationKey = FormInfoDTO.OrganizationKey,
+                OrganizationName = FormInfoDTO.OrganizationName,
+                UserId = FormInfoDTO.UserId
+
+            };
+        }
+
         /// <summary>
         /// Maps SurveyInfo DTO to SurveyInfo Model.
         /// </summary>
         /// <param name="customer"></param>
         /// <returns></returns>
 
-       
+
         public static SurveyInfoModel ToSurveyInfoModel(this Epi.Web.Common.DTO.SurveyInfoDTO SurveyInfoDTO)
         {
             return new SurveyInfoModel
@@ -36,7 +58,7 @@ namespace Epi.Web.MVC.Models
                 UserPublishKey = SurveyInfoDTO.UserPublishKey,
                 IsDraftMode = SurveyInfoDTO.IsDraftMode,
                 StartDate = SurveyInfoDTO.StartDate,
-               
+
             };
 
         }
@@ -64,7 +86,7 @@ namespace Epi.Web.MVC.Models
                 UserPublishKey = SurveyInfoModel.UserPublishKey,
                 IsDraftMode = SurveyInfoModel.IsDraftMode,
                 StartDate = SurveyInfoModel.StartDate,
-                
+
             };
         }
 
@@ -105,8 +127,8 @@ namespace Epi.Web.MVC.Models
         {
             return new Epi.Web.Common.Message.UserAuthenticationRequest
             {
-                SurveyResponseId =pDTO.ResponseId,
-                PassCode =pDTO.PassCode
+                SurveyResponseId = pDTO.ResponseId,
+                PassCode = pDTO.PassCode
 
             };
         }
