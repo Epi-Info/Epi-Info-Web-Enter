@@ -184,11 +184,6 @@
     <Compile Include="Repositories\Core\RepositoryBase.cs" />
     <Compile Include="Repositories\SurveyAnswerRepository.cs" />
     <Compile Include="Repositories\SurveyInfoRepository.cs" />
-    <Compile Include="Service References\DataServiceClient\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Utility\ExceptionMessage.cs" />
     <Compile Include="Utility\FormProvider.cs" />
     <Compile Include="Utility\MobileFormProvider.cs" />
@@ -427,13 +422,6 @@
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource" />
-    <None Include="Service References\DataServiceClient\SurveyDataService.disco" />
-    <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
-    <None Include="Service References\DataServiceClient\configuration.svcinfo" />
-    <None Include="Service References\DataServiceClient\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="SurveyDataService.svc" />
     <Content Include="SurveyManagerService.svc" />
     <Content Include="Unity.Mvc3.README.txt" />
@@ -507,24 +495,6 @@
       <Project>{31F91938-2997-4650-8D36-71C845F1071D}</Project>
       <Name>Epi.Web.WCF.SurveyService</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\DataServiceClient\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\DataServiceClient\DataService.wsdl" />
-    <None Include="Service References\DataServiceClient\SurveyDataService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DataServiceClient\SurveyDataService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DataServiceClient\SurveyDataService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DataServiceClient\SurveyDataService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
