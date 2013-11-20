@@ -37,9 +37,9 @@ namespace Epi.Web.EF
         /// Gof pattern: Factory method. 
         /// </remarks>
         /// <returns>Action Entities context.</returns>
-        public static Epi.Web.EF.EIWSEntities CreateContext()
+        public static Epi.Web.EF.OSELS_EWEEntities CreateContext()
         {
-            return new Epi.Web.EF.EIWSEntities(_connectionString);
+            return new Epi.Web.EF.OSELS_EWEEntities(_connectionString);
         }
         public static Epi.Web.EF.SurveyMetaData CreateSurveyMetaData()
         {
