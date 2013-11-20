@@ -34,12 +34,12 @@ namespace Epi.Web.EF
                 result.DateCreated = entity.DateCreated;
                 result.IsDraftMode = entity.IsDraftMode;
                 result.StartDate = entity.StartDate;
-                
-                //if (entity.UserPublishKey != null)
-                //{
-                //   // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;
-                //    result.UserPublishKey = entity.UserPublishKey;
-                //}
+
+                if (entity.UserPublishKey != null)
+                    {
+                    // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;
+                    result.UserPublishKey = entity.UserPublishKey;
+                    }
                 result.SurveyType = entity.SurveyTypeId; 
             
 
@@ -62,6 +62,7 @@ namespace Epi.Web.EF
             result.OrganizationName = entity.OrganizationName;
             result.OrganizationId = entity.OrganizationId;
             result.IsDraftMode = entity.IsDraftMode;
+            result.UserId = entity.OwnerId;
              return result;
             }
 

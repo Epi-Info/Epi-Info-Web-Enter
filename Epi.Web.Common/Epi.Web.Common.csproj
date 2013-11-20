@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="BusinessObject\AdminBO.cs" />
     <Compile Include="BusinessObject\BusinessObject.cs" />
+    <Compile Include="BusinessObject\FormInfoBO.cs" />
     <Compile Include="BusinessObject\OrganizationBO.cs" />
     <Compile Include="BusinessObject\PageInfoBO.cs" />
     <Compile Include="BusinessObject\UserAuthenticationRequestBO.cs" />

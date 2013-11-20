@@ -877,13 +877,14 @@ namespace Epi.Web.EF
         /// <param name="closingDate">Initial value of the ClosingDate property.</param>
         /// <param name="surveyName">Initial value of the SurveyName property.</param>
         /// <param name="templateXML">Initial value of the TemplateXML property.</param>
-        /// <param name="userID">Initial value of the UserID property.</param>
         /// <param name="templateXMLSize">Initial value of the TemplateXMLSize property.</param>
         /// <param name="dateCreated">Initial value of the DateCreated property.</param>
         /// <param name="organizationId">Initial value of the OrganizationId property.</param>
         /// <param name="isDraftMode">Initial value of the IsDraftMode property.</param>
         /// <param name="startDate">Initial value of the StartDate property.</param>
-        public static SurveyMetaData CreateSurveyMetaData(global::System.Guid surveyId, global::System.Int32 surveyTypeId, global::System.DateTime closingDate, global::System.String surveyName, global::System.String templateXML, global::System.Guid userID, global::System.Int64 templateXMLSize, global::System.DateTime dateCreated, global::System.Int32 organizationId, global::System.Boolean isDraftMode, global::System.DateTime startDate)
+        /// <param name="userPublishKey">Initial value of the UserPublishKey property.</param>
+        /// <param name="ownerId">Initial value of the OwnerId property.</param>
+        public static SurveyMetaData CreateSurveyMetaData(global::System.Guid surveyId, global::System.Int32 surveyTypeId, global::System.DateTime closingDate, global::System.String surveyName, global::System.String templateXML, global::System.Int64 templateXMLSize, global::System.DateTime dateCreated, global::System.Int32 organizationId, global::System.Boolean isDraftMode, global::System.DateTime startDate, global::System.Guid userPublishKey, global::System.Guid ownerId)
         {
             SurveyMetaData surveyMetaData = new SurveyMetaData();
             surveyMetaData.SurveyId = surveyId;
@@ -891,12 +892,13 @@ namespace Epi.Web.EF
             surveyMetaData.ClosingDate = closingDate;
             surveyMetaData.SurveyName = surveyName;
             surveyMetaData.TemplateXML = templateXML;
-            surveyMetaData.UserID = userID;
             surveyMetaData.TemplateXMLSize = templateXMLSize;
             surveyMetaData.DateCreated = dateCreated;
             surveyMetaData.OrganizationId = organizationId;
             surveyMetaData.IsDraftMode = isDraftMode;
             surveyMetaData.StartDate = startDate;
+            surveyMetaData.UserPublishKey = userPublishKey;
+            surveyMetaData.OwnerId = ownerId;
             return surveyMetaData;
         }
 
@@ -1152,30 +1154,6 @@ namespace Epi.Web.EF
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Guid UserID
-        {
-            get
-            {
-                return _UserID;
-            }
-            set
-            {
-                OnUserIDChanging(value);
-                ReportPropertyChanging("UserID");
-                _UserID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UserID");
-                OnUserIDChanged();
-            }
-        }
-        private global::System.Guid _UserID;
-        partial void OnUserIDChanging(global::System.Guid value);
-        partial void OnUserIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
         public global::System.Int64 TemplateXMLSize
         {
             get
@@ -1290,6 +1268,54 @@ namespace Epi.Web.EF
         private global::System.DateTime _StartDate;
         partial void OnStartDateChanging(global::System.DateTime value);
         partial void OnStartDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserPublishKey
+        {
+            get
+            {
+                return _UserPublishKey;
+            }
+            set
+            {
+                OnUserPublishKeyChanging(value);
+                ReportPropertyChanging("UserPublishKey");
+                _UserPublishKey = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserPublishKey");
+                OnUserPublishKeyChanged();
+            }
+        }
+        private global::System.Guid _UserPublishKey;
+        partial void OnUserPublishKeyChanging(global::System.Guid value);
+        partial void OnUserPublishKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid OwnerId
+        {
+            get
+            {
+                return _OwnerId;
+            }
+            set
+            {
+                OnOwnerIdChanging(value);
+                ReportPropertyChanging("OwnerId");
+                _OwnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerId");
+                OnOwnerIdChanged();
+            }
+        }
+        private global::System.Guid _OwnerId;
+        partial void OnOwnerIdChanging(global::System.Guid value);
+        partial void OnOwnerIdChanged();
 
         #endregion
 
