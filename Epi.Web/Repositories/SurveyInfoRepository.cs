@@ -75,8 +75,13 @@ namespace Epi.Web.MVC.Repositories
                 }
                 else 
                 {
-                    result = (SurveyInfoResponse)_iDataService.GetSurveyInfo(pRequest);
-                    return result;
+                    //result = (SurveyInfoResponse)_iDataService.GetSurveyInfo(pRequest);
+                    //return result;
+                    FormsInfoRequest  FormsInfoRequest = new FormsInfoRequest();
+                    //DataServiceClient;
+                result = (FormsInfoResponse)_iDataService.(FormsInfoRequest);
+
+                return result;
                 }
  
                 // return result;
