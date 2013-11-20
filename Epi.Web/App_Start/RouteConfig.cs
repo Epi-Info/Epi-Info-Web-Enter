@@ -33,12 +33,22 @@ namespace Epi.Web.MVC
             );
 
 
+            //routes.MapRoute
+            //(
+            //   "ListForms", // Route name
+            //    "Home/ListForms", // URL with parameters
+            //    new { controller = "Home", action = "ListForms" }
+            //); // Parameter defaults
+
             routes.MapRoute
             (
                 null, // Route name
-                "Home/{surveyid}", // URL with parameters
+                "{controller}/{surveyid}", // URL with parameters
                 new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional }
             ); // Parameter defaults
+
+
+
 
             routes.MapRoute
          (
@@ -47,12 +57,12 @@ namespace Epi.Web.MVC
              new { controller = "EIWST", action = "Index", surveyid = UrlParameter.Optional }
          ); // Parameter defaults
 
-       //     routes.MapRoute
-       //(
-       //    null, // Route name
-       //    "EIWST/ManagerService", // URL with parameters
-       //    new { controller = "EIWST", action = "TestManagerService" }
-       //); // Parameter defaults
+            //     routes.MapRoute
+            //(
+            //    null, // Route name
+            //    "EIWST/ManagerService", // URL with parameters
+            //    new { controller = "EIWST", action = "TestManagerService" }
+            //); // Parameter defaults
             routes.MapRoute
      (
        null,                                              // Route name
@@ -60,11 +70,11 @@ namespace Epi.Web.MVC
        new { controller = "Survey", action = "UpdateResponseXml", id = "" }
        );  // Parameter defaults
 
-            routes.MapRoute (
+            routes.MapRoute(
                    null,                                              // Route name
                    "Survey/SaveSurvey/{id}",                           // URL with parameters
                    new { controller = "Survey", action = "SaveSurvey", id = "" }
-                   ); 
+                   );
 
             routes.MapRoute
                 (

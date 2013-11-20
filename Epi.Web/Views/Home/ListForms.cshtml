@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Epi.Web.MVC.Models.FormInfoModel>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<table>
+    <tr>
+    <td>
+    @foreach (var item in Model)
+    {
+        if (item.IsDraftMode)
+        {
+           <div class="metro-tile metro-design metro-staging"> 
+             <h3>@item.FormName</h3>
+                    </div> 
+        }
+        else
+        {
+            <div class="metro-tile metro-design metro-prod">
+              <h3>@item.FormName</h3>
+                    </div> 
+        }
+        
+                        
+    }
+      
+                    
+                    </td>
+      
+    </tr>
+
+</table>
