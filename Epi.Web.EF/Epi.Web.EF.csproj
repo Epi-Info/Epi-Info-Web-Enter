@@ -49,11 +49,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityAdminDao.cs" />
+    <Compile Include="EntityFormInfoDao.cs" />
     <Compile Include="EntityOrganizationDao.cs" />
     <Compile Include="EntitySurveyResponseDao.cs" />
     <Compile Include="DataObjectFactory.cs" />
     <Compile Include="EntityDaoFactory.cs" />
     <Compile Include="EntitySurveyInfoDao.cs" />
+    <Compile Include="Epi.Web.Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Epi.Web.Model.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +67,10 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
+    <EntityDeploy Include="Epi.Web.Model.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Epi.Web.Model.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Epi.Web.Common\Epi.Web.Common.csproj">
