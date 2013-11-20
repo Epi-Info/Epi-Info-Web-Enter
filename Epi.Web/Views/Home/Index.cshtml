@@ -1,4 +1,4 @@
-﻿@model Epi.Web.MVC.Models.SurveyInfoModel
+﻿@model IEnumerable<Epi.Web.MVC.Models.FormInfoModel>
 @{
     ViewBag.Title = "Epi Web Enter - My Forms";// + " - "+ 
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
@@ -34,8 +34,7 @@
   	<div style="clear:both;"></div>
 </div>  
 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = @Model.IsDraftModeStyleClass.ToString() }))
-{ 
+ 
         
     <div id="content" style="margin-bottom:200px; padding-left:10px; min-height:375px;">
         <div id="leftarrangeby" style="float:left; vertical-align:middle; width: 320px;">
@@ -59,7 +58,7 @@
         <div class="section group" id="main">
             <div id="left" class="col span_1_of_3">
                     <div class="divcontents">  
-	                <div class="metro-tile metro-design metro-staging">
+	             @*   <div class="metro-tile metro-design metro-staging">
                         <h3>Form Designer Form in Staging</h3>
                     </div> 
                     <div class="metro-tile metro-design metro-prod">
@@ -85,14 +84,16 @@
                     </div>
                     <div class="metro-tile metro-collect metro-prod">
                         <h3>Data Collector Form in Production</h3>
-                    </div>
+                    </div>*@
+
+                   @Html.Partial("ListForms", Model)
               </div> 
 	        </div>
 	        <div id="right" class="col span_2_of_3" style="background:white; min-width:800px;">
                
-                <div id="formtitle">
+                @*<div id="formtitle">
 	                <h2 class="surveyTitle">@Model.SurveyName</h2><!--<hr class="hr1" />-->
-                </div>
+                </div>*@
                 <div id="editsettings">
                     <button id="btneditsettings" class="default settings" type="button">Settings</button>
                 </div>
@@ -340,7 +341,7 @@
 	     </div>  
     
     
-    @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
+   @* @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
     {            
             <p><button id="beginsurvey" class="default" type="submit">Begin Survey</button></p>          
     }
@@ -352,7 +353,7 @@
                 @* <div id="attention">
                         <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle; padding-right: 10px;" />Survey has not yet started.
                         <p style="text-align:center">Survey Starting Date: @string.Format("{0:f}", Model.StartDate)</p>
-                   </div>*@
+                   </div>
         }
         if (Model.ClosingDate < DateTime.Now)
         {      
@@ -360,16 +361,16 @@
                     <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle; padding-right: 10px;" />
                     This survey is currently closed. Please contact the author of this survey for further assistance.
                     <p style="text-align:center">Survey Closing Date: @string.Format("{0:f}", Model.ClosingDate)</p>
-               </div>*@
+               </div>
         }
-    }
+    }*@
              
     </div>
-}          
-  @{if (ViewBag.Omniture.IsEnabled == true)
+         
+@*  @{if (ViewBag.Omniture.IsEnabled == true)
         { 
          Html.RenderPartial("OmniturePartial");  
         } 
-        }
+        }*@
   
  

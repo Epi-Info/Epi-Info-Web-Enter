@@ -56,9 +56,9 @@ namespace Epi.Web.MVC
             }
             else
             {
-                container.RegisterType<Epi.Web.DataServiceClient.IDataService, Epi.Web.DataServiceClient.DataServiceClient>()
+                container.RegisterType<Epi.Web.MVC.DataServiceClient.IEWEDataService, Epi.Web.MVC.DataServiceClient.EWEDataServiceClient>()
                 .Configure<InjectedMembers>()
-                .ConfigureInjectionFor<Epi.Web.DataServiceClient.DataServiceClient>(new InjectionConstructor(ConfigurationManager.AppSettings["ENDPOINT_USED"]));
+                .ConfigureInjectionFor<Epi.Web.MVC.DataServiceClient.EWEDataServiceClient>(new InjectionConstructor(ConfigurationManager.AppSettings["ENDPOINT_USED"]));
                 container.RegisterType<Epi.Web.MVC.Repositories.Core.ISurveyInfoRepository, Epi.Web.MVC.Repositories.SurveyInfoRepository>();
             }
 
