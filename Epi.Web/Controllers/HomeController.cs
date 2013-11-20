@@ -37,17 +37,24 @@ namespace Epi.Web.MVC.Controllers
             return View("Default");
         }
 
-        /// <summary>
-        /// Accept SurveyId as parameter, 
-        /// 
-        /// Get the SurveyInfoResponse by GetSurveyInfo call and convert it to a SurveyInfoModel object
-        /// pump the SurveyInfoModel to the "SurveyIntroduction" view
-        /// </summary>
-        /// <param name="surveyid"></param>
-        /// <returns></returns>
         [HttpGet]
-        public ActionResult Index(Guid UserId)
+        public ActionResult Index()
         {
+            //    return View();
+            //}
+
+            ///// <summary>
+            ///// Accept SurveyId as parameter, 
+            ///// 
+            ///// Get the SurveyInfoResponse by GetSurveyInfo call and convert it to a SurveyInfoModel object
+            ///// pump the SurveyInfoModel to the "SurveyIntroduction" view
+            ///// </summary>
+            ///// <param name="surveyid"></param>
+            ///// <returns></returns>
+            //[HttpGet]
+            //public ActionResult ListForms()
+            //{
+            Guid UserId = new Guid();
             try
             {
                 string SurveyMode = "";
@@ -348,6 +355,33 @@ namespace Epi.Web.MVC.Controllers
             FormsInfoRequest formReq = new FormsInfoRequest();
             formReq.Criteria.UserId = UserId;
             List<FormInfoModel> listOfFormsInfoModel = _isurveyFacade.GetFormsInfoModelList(formReq);
+            //List<FormInfoModel> listOfFormsInfoModel = new List<FormInfoModel>();
+            //listOfFormsInfoModel.Add(new FormInfoModel()
+            //{
+            //    FormId = "1",
+            //    FormName = "NDHHS Form",
+            //    FormNumber = "1",
+            //    IsDraftMode = false,
+            //    OrganizationKey = new Guid(),
+            //    OrganizationName = "NDHHS Org",
+            //    UserId = new Guid()
+            //}
+                       
+            //);
+
+            //listOfFormsInfoModel.Add(new FormInfoModel()
+            //{
+            //    FormId = "2",
+            //    FormName = "Epi Form",
+            //    FormNumber = "2",
+            //    IsDraftMode = true,
+            //    OrganizationKey = new Guid(),
+            //    OrganizationName = "Epi Org",
+            //    UserId = new Guid()
+            //}
+
+            //);
+            
             return listOfFormsInfoModel;
         }
     }

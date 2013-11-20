@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Epi.Web.MVC.Repositories.Core;
-using Epi.Web.DataServiceClient;
+using Epi.Web.MVC.DataServiceClient;
 using Epi.Web.Common.Message;
 using Epi.Web.Common.Exception;
 using System.ServiceModel;
-using Epi.Web.DataServiceClient;
+using Epi.Web.MVC.DataServiceClient;
 using System.Web.Caching;
 using System.Configuration;
 namespace Epi.Web.MVC.Repositories
@@ -159,7 +159,12 @@ namespace Epi.Web.MVC.Repositories
 
             public FormsInfoResponse GetSurveyInfoList(FormsInfoRequest pRequestId)
             {
-                throw new NotImplementedException();
+                //SurveyInfoResponse GetSurveyInfo(SurveyInfoRequest pRequest)
+                //throw new NotImplementedException();
+                pRequestId.Criteria.UserId = new Guid();
+                FormsInfoResponse result;
+                result = (FormsInfoResponse)_iDataService.GetFormsInfo(pRequestId);
+                return result;
             }
     }
 }

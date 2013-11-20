@@ -489,6 +489,7 @@
     <None Include="Service References\DataServiceClient\EWEDataService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Home\ListForms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
