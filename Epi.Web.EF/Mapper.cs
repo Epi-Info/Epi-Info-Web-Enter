@@ -35,11 +35,11 @@ namespace Epi.Web.EF
                 result.IsDraftMode = entity.IsDraftMode;
                 result.StartDate = entity.StartDate;
                 
-                if (entity.UserPublishKey != null)
-                {
-                   // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;
-                    result.UserPublishKey = entity.UserPublishKey;
-                }
+                //if (entity.UserPublishKey != null)
+                //{
+                //   // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;
+                //    result.UserPublishKey = entity.UserPublishKey;
+                //}
                 result.SurveyType = entity.SurveyTypeId; 
             
 
@@ -47,6 +47,23 @@ namespace Epi.Web.EF
             return result;
         }
 
+        /// <summary>
+        /// Maps SurveyMetaData entity to FormInfoBO business object.
+        /// </summary>
+        /// <param name="entity">A SurveyMetaData entity to be transformed.</param>
+        /// <returns>A FormInfoBO business object.</returns>
+        internal static FormInfoBO MapToFormInfoBO(SurveyMetaData entity)
+            {
+            FormInfoBO result = new FormInfoBO();
+
+            result.FormId = entity.SurveyId.ToString();
+            result.FormName = entity.SurveyName;
+            result.FormNumber = entity.SurveyNumber;
+            result.OrganizationName = entity.OrganizationName;
+            result.OrganizationId = entity.OrganizationId;
+            result.IsDraftMode = entity.IsDraftMode;
+             return result;
+            }
 
         internal static List<SurveyInfoBO> Map(List<SurveyMetaData> entities)
         {
@@ -129,7 +146,7 @@ namespace Epi.Web.EF
 
             };
         }
-
+         
         /// <summary>
         /// Maps SurveyMetaData entity to SurveyInfoBO business object.
         /// </summary>
