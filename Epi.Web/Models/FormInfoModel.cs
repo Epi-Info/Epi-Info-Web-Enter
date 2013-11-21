@@ -12,7 +12,7 @@ namespace Epi.Web.MVC.Models
         private string _FormName;
         private Guid _UserId;
         private string _OrganizationName;
-        private Guid _OrganizationKey;
+        private int _OrganizationId;
         private bool _IsDraftMode;
         private bool _IsSelected;
         private bool _IsOwner;
@@ -39,10 +39,10 @@ namespace Epi.Web.MVC.Models
             get { return _OrganizationName; }
             set { _OrganizationName = value; }
         }
-        public Guid OrganizationKey
+        public int OrganizationId
         {
-            get { return _OrganizationKey; }
-            set { _OrganizationKey = value; }
+            get { return _OrganizationId; }
+            set { _OrganizationId = value; }
         }
         public bool IsDraftMode
         {

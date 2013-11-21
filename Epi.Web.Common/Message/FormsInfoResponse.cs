@@ -12,6 +12,14 @@ namespace Epi.Web.Common.Message
     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
    public class FormsInfoResponse
         {
+           /// <summary>
+        /// Default Constructor for SurveyInfoResponse.
+        /// </summary>
+        public FormsInfoResponse() 
+        {
+        this.SurveyInfoList = new List<FormInfoDTO>(); 
+        }
+
         /// <summary>
         /// Single SurveyInfo
         /// </summary>

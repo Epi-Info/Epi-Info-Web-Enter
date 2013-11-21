@@ -167,7 +167,7 @@ namespace Epi.Web.MVC.Facade
             //_surveyInfoRequest.Criteria.OrganizationKey = organizationKey;
             //FormsInfoRequest formReq = new FormsInfoRequest();
 
-            //formReq.Criteria.UserId = userId;
+           
 
             FormsInfoResponse formInfoResponse = _iSurveyInfoRepository.GetFormsInfoList(formReq);
 
