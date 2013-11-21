@@ -169,7 +169,9 @@ namespace Epi.Web.MVC.Facade
 
             //formReq.Criteria.UserId = userId;
 
-            FormsInfoResponse formInfoResponse = _iSurveyInfoRepository.GetSurveyInfoList(formReq);
+            FormsInfoResponse formInfoResponse = _iSurveyInfoRepository.GetFormsInfoList(formReq);
+
+            CssClassProvider cssProvider = new CssClassProvider();
 
             //FormsInfoResponse GetSurveyInfoList(FormsInfoRequest pRequestId)
             List<FormInfoModel> listOfForms = new List<FormInfoModel>();
@@ -178,6 +180,9 @@ namespace Epi.Web.MVC.Facade
                 FormInfoModel s = Mapper.ToFormInfoModel(formInfoResponse.SurveyInfoList[i]);
                 listOfForms.Add(s);
             }
+
+
+            listOfForms = cssProvider.GetFormInfoCssClass(listOfForms);
 
             return listOfForms;
         }

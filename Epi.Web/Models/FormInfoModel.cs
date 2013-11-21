@@ -14,6 +14,9 @@ namespace Epi.Web.MVC.Models
         private string _OrganizationName;
         private Guid _OrganizationKey;
         private bool _IsDraftMode;
+        private bool _IsSelected;
+        private bool _IsOwner;
+        private string _CssClassName;
 
         public string FormId
         {
@@ -46,11 +49,25 @@ namespace Epi.Web.MVC.Models
             get { return _IsDraftMode; }
             set { _IsDraftMode = value; }
         }
-
+        public bool IsOwner
+        {
+            get { return _IsOwner; }
+            set { _IsOwner = value; }
+        }
+        public bool IsSelected
+        {
+            get { return _IsSelected; }
+            set { _IsSelected = value; }
+        }
         public Guid UserId
         {
             get { return _UserId; }
             set { _UserId = value; }
+        }
+        public string CssClassName 
+        {
+            get { return _CssClassName; }
+            set { _CssClassName = value; }
         }
     }
 }

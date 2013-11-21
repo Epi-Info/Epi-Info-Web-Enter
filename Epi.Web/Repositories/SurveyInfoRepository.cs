@@ -158,7 +158,7 @@ namespace Epi.Web.MVC.Repositories
             }
 
 
-            public FormsInfoResponse GetSurveyInfoList(FormsInfoRequest fRequest)
+            public FormsInfoResponse GetFormsInfoList(FormsInfoRequest fRequest)
             {
 
                 //SurveyInfoResponse GetSurveyInfo(SurveyInfoRequest pRequest)
