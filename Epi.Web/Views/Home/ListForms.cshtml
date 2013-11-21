@@ -8,18 +8,11 @@
     <td>
     @foreach (var item in Model)
     {
-        if (item.IsDraftMode)
-        {
-           <div class="metro-tile metro-design metro-staging"> 
+        
+           <div class="@item.CssClassName"> 
              <h3>@item.FormName</h3>
                     </div> 
-        }
-        else
-        {
-            <div class="metro-tile metro-design metro-prod">
-              <h3>@item.FormName</h3>
-                    </div> 
-        }
+       
         
                         
     }

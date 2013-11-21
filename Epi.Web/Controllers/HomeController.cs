@@ -364,7 +364,8 @@ namespace Epi.Web.MVC.Controllers
                 IsDraftMode = false,
                 OrganizationKey = new Guid(),
                 OrganizationName = "NDHHS Org",
-                UserId = new Guid()
+                UserId = new Guid("38153e3f-5a64-4232-ae6c-8b39cd6b28da"),
+                CssClassName = "metro-tile metro-collect metro-prod"
             }
 
             );
@@ -377,7 +378,8 @@ namespace Epi.Web.MVC.Controllers
                 IsDraftMode = true,
                 OrganizationKey = new Guid(),
                 OrganizationName = "Epi Org",
-                UserId = new Guid()
+                UserId = new Guid("38153e3f-5a64-4232-ae6c-8b39cd6b28da"),
+                CssClassName = "metro-tile metro-design metro-staging"
             }
 
             );
