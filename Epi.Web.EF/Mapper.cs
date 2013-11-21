@@ -47,6 +47,21 @@ namespace Epi.Web.EF
             return result;
         }
 
+        public static FormInfoBO ToFormInfoBO(SurveyMetaData entity)
+            {
+            return new FormInfoBO
+            {
+                FormId =  entity.SurveyId.ToString(),
+                FormNumber = entity.SurveyNumber,
+                FormName = entity.SurveyName,
+                OrganizationName = entity.OrganizationName,
+                OrganizationId = entity.OrganizationId,
+                IsDraftMode = entity.IsDraftMode,
+                UserId = entity.OwnerId,
+
+
+            };
+            }
         /// <summary>
         /// Maps SurveyMetaData entity to FormInfoBO business object.
         /// </summary>

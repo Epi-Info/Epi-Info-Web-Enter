@@ -14,7 +14,7 @@ namespace Epi.Web.Common.DTO
         private string _FormName;
         private Guid _UserId;
         private string _OrganizationName;
-        private Guid _OrganizationKey;
+        private int _OrganizationId;
         private bool _IsDraftMode;
 
         [DataMember]
@@ -43,10 +43,10 @@ namespace Epi.Web.Common.DTO
             set { _OrganizationName = value; }
             }
         [DataMember]
-        public Guid OrganizationKey
+        public int OrganizationId
             {
-            get { return _OrganizationKey; }
-            set { _OrganizationKey = value; }
+            get { return _OrganizationId; }
+            set { _OrganizationId = value; }
             }
          [DataMember]
         public bool IsDraftMode

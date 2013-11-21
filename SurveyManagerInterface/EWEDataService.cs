@@ -11,6 +11,8 @@ using Epi.Web.Common.Criteria;
 using Epi.Web.Common.ObjectMapping;
 using Epi.Web.Common.BusinessObject;
 using Epi.Web.Common.Exception;
+using System.Collections;
+using Epi.Web.Interfaces.DataInterface;
 namespace Epi.Web.WCF.SurveyService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
@@ -98,10 +100,26 @@ namespace Epi.Web.WCF.SurveyService
             {
             FormsInfoResponse result = new FormsInfoResponse();
             Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
-            Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
-            Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
+             IFormInfoDao FormInfoDao = entityDaoFactory.FormInfoDao;
+             Epi.Web.BLL.FormInfo implementation = new Epi.Web.BLL.FormInfo(FormInfoDao);
+             try
+                 {
+                 List<FormInfoBO> FormInfoBOList = implementation.GetFormsInfoByUserId(pRequest.Criteria.UserId);
+                 //  result.SurveyInfoList = FormInfoBOList;
 
-            return result;
+                 foreach (FormInfoBO item in FormInfoBOList)
+                     {
+                     result.SurveyInfoList.Add(Mapper.ToFormInfoDTO(item));
+                     }
+                
+
+                 }
+             catch (Exception ex)
+                 {
+
+                 }
+             return result;
+            
             
             }
 
