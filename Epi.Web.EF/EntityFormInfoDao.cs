@@ -22,9 +22,12 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
-                        FormList.Add(Mapper.MapToFormInfoBO(Context.SurveyMetaDatas.FirstOrDefault(x => x.OwnerId == Id)));
-                        }
-                
+                        var items =   Context.SurveyMetaDatas.Where(x => x.OwnerId == Id).ToList();
+                        foreach (var item in items)
+                            {
+                            FormList.Add(Mapper.MapToFormInfoBO(item));
+                            }
+                         }
                 }
             catch (Exception ex)
                 {

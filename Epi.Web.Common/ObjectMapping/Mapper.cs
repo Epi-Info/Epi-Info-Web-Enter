@@ -39,6 +39,23 @@ namespace Epi.Web.Common.ObjectMapping
             };
         }
 
+        public static FormInfoDTO ToFormInfoDTO(FormInfoBO BO)
+            {
+            return new FormInfoDTO
+            {
+                FormId = BO.FormId,
+                FormNumber = BO.FormNumber,
+                FormName = BO.FormName,
+                OrganizationName = BO.OrganizationName,
+                OrganizationId = BO.OrganizationId,
+                IsDraftMode = BO.IsDraftMode,
+                UserId = BO.UserId,
+
+
+            };
+            }
+
+    
         public static OrganizationBO ToBusinessObject(OrganizationDTO pDTO)
         {
             return new OrganizationBO

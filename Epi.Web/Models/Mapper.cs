@@ -26,7 +26,7 @@ namespace Epi.Web.MVC.Models
                 FormName = FormInfoDTO.FormName,
                 FormNumber = FormInfoDTO.FormNumber,
                 IsDraftMode = FormInfoDTO.IsDraftMode,
-                OrganizationKey = FormInfoDTO.OrganizationKey,
+                OrganizationId = FormInfoDTO.OrganizationId,
                 OrganizationName = FormInfoDTO.OrganizationName,
                 UserId = FormInfoDTO.UserId
 

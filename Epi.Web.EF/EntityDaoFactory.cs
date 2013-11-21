@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Epi.Web.Interfaces.DataInterfaces;
+using Epi.Web.Interfaces.DataInterface;
 
 namespace Epi.Web.EF
 {
@@ -21,6 +22,10 @@ namespace Epi.Web.EF
             get { return new EntitySurveyInfoDao(); }
         }
 
+        public IFormInfoDao FormInfoDao
+            {
+            get { return new  EntityFormInfoDao(); }
+            }
 
         public ISurveyResponseDao SurveyResponseDao
         {

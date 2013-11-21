@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Epi.Web.Interfaces.DataInterface;
 
 namespace Epi.Web.Interfaces.DataInterfaces
 {
@@ -19,7 +20,7 @@ namespace Epi.Web.Interfaces.DataInterfaces
         /// </summary>
         ISurveyInfoDao SurveyInfoDao { get; }
 
-
+        IFormInfoDao FormInfoDao { get; }
         ISurveyResponseDao SurveyResponseDao { get; }
 
         IOrganizationDao OrganizationDao { get; }

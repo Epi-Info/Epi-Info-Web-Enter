@@ -429,6 +429,18 @@
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource" />
+    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.FormsInfoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.SurveyAnswerResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.SurveyInfoResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.UserAuthenticationResponse1.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\DataServiceClient\EWEDataService.disco" />
     <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
     <None Include="Service References\DataServiceClient\configuration.svcinfo" />

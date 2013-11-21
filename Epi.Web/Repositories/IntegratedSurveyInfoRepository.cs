@@ -159,11 +159,8 @@ namespace Epi.Web.MVC.Repositories
 
             public FormsInfoResponse GetFormsInfoList(FormsInfoRequest pRequestId)
             {
-                //SurveyInfoResponse GetSurveyInfo(SurveyInfoRequest pRequest)
-                //throw new NotImplementedException();
-                pRequestId.Criteria.UserId = new Guid();
-                FormsInfoResponse result;
-                result = (FormsInfoResponse)_iDataService.GetFormsInfo(pRequestId);
+               
+                FormsInfoResponse result = (FormsInfoResponse)_iDataService.GetFormsInfo(pRequestId);
                 return result;
             }
     }
