@@ -14,6 +14,6 @@ namespace Epi.Web.MVC.Repositories.Core
     {
         SurveyInfoResponse GetSurveyInfo(SurveyInfoRequest pRequestId);
 
-        FormsInfoResponse GetSurveyInfoList(FormsInfoRequest pRequestId);
+        FormsInfoResponse GetFormsInfoList(FormsInfoRequest pRequestId);
     }
 }
