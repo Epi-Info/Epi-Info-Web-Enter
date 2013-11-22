@@ -106,7 +106,15 @@
                 </div>
                 
                 <div id="recordscontent" ><!--style="display:inline-block;"-->   
-                    <div id="addnew"><button class="default record">Add New Record</button></div>
+
+                   @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
+                       {
+                    <div id="addnew">
+                    <button class="default record" type="submit">Add New Record</button>
+                    </div>
+
+                       }
+
                     <div id="paging">
                         <button class="default paging"><img alt="Previous" src="../../Content/images/prev1.png" align="middle" /></button>
                         &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
