@@ -104,7 +104,7 @@ namespace Epi.Web.WCF.SurveyService
              Epi.Web.BLL.FormInfo implementation = new Epi.Web.BLL.FormInfo(FormInfoDao);
              try
                  {
-                 List<FormInfoBO> FormInfoBOList = implementation.GetFormsInfoByUserId(pRequest.Criteria.UserId);
+                 List<FormInfoBO> FormInfoBOList = implementation.GetFormsInfo(pRequest.Criteria.UserId);
                  //  result.SurveyInfoList = FormInfoBOList;
 
                  foreach (FormInfoBO item in FormInfoBOList)
