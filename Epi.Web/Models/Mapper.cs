@@ -28,8 +28,8 @@ namespace Epi.Web.MVC.Models
                 IsDraftMode = FormInfoDTO.IsDraftMode,
                 OrganizationId = FormInfoDTO.OrganizationId,
                 OrganizationName = FormInfoDTO.OrganizationName,
-                UserId = FormInfoDTO.UserId
-
+                UserId = FormInfoDTO.UserId,
+                IsOwner = FormInfoDTO.IsOwner
             };
         }
 

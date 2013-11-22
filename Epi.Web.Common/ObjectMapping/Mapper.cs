@@ -50,7 +50,7 @@ namespace Epi.Web.Common.ObjectMapping
                 OrganizationId = BO.OrganizationId,
                 IsDraftMode = BO.IsDraftMode,
                 UserId = BO.UserId,
-
+                IsOwner = BO.IsOwner,
 
             };
             }

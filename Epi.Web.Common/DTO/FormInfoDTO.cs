@@ -16,6 +16,7 @@ namespace Epi.Web.Common.DTO
         private string _OrganizationName;
         private int _OrganizationId;
         private bool _IsDraftMode;
+        private bool _IsOwner;
 
         [DataMember]
         public string FormId
@@ -60,6 +61,12 @@ namespace Epi.Web.Common.DTO
             {
             get { return _UserId; }
             set { _UserId = value; }
+            }
+       [DataMember]
+        public bool IsOwner
+            {
+            get { return _IsOwner; }
+            set { _IsOwner = value; }
             }
         }
     }
