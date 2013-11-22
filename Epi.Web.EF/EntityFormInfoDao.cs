@@ -13,7 +13,7 @@ namespace Epi.Web.EF
         {
         public List<FormInfoBO> GetFormInfo(Guid UserId) {
         List<FormInfoBO> FormList = new List<FormInfoBO>();
-
+        FormInfoBO FormInfoBO;
      
             try
                 {
@@ -25,7 +25,10 @@ namespace Epi.Web.EF
                         var items =   Context.SurveyMetaDatas.Where(x => x.OwnerId == Id).ToList();
                         foreach (var item in items)
                             {
-                            FormList.Add(Mapper.MapToFormInfoBO(item));
+                            FormInfoBO = Mapper.MapToFormInfoBO(item);
+                            FormInfoBO.IsOwner = true;
+                            FormList.Add(FormInfoBO);
+                            
                             }
                          }
                 }
