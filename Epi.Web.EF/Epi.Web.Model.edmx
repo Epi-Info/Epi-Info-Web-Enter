@@ -7,6 +7,7 @@
     <Schema Namespace="OSELS_EWEModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="OSELS_EWEModelStoreContainer">
           <EntitySet Name="Admin" EntityType="OSELS_EWEModel.Store.Admin" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="AssignForms" EntityType="OSELS_EWEModel.Store.AssignForms" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="lk_Status" EntityType="OSELS_EWEModel.Store.lk_Status" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="lk_SurveyType" EntityType="OSELS_EWEModel.Store.lk_SurveyType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Organization" EntityType="OSELS_EWEModel.Store.Organization" store:Type="Tables" Schema="dbo" />
@@ -42,6 +43,14 @@
           <Property Name="OrganizationId" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Notify" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AssignForms">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FormId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="lk_Status">
           <Key>
@@ -195,6 +204,7 @@
             <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
             <End Role="SurveyResponse" EntitySet="SurveyResponses" />
           </AssociationSet>
+          <EntitySet Name="AssignForms" EntityType="OSELS_EWEModel.AssignForm" />
         </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -337,6 +347,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="AssignForm">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FormId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="Guid" Name="FormId" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -420,6 +438,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AssignForms">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.AssignForm">
+              <MappingFragment StoreEntitySet="AssignForms">
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -441,33 +467,33 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Epi.Web.Model" ZoomLevel="83">
-        <EntityTypeShape EntityType="OSELS_EWEModel.Admin" Width="1.5" PointX="3" PointY="6.375" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="6" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="8.875" PointY="7.125" Height="1.5956835937499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.Organization" Width="1.5" PointX="0.75" PointY="4.375" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaData" Width="1.5" PointX="4.875" PointY="2.5" Height="4.8648079427083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="9.875" PointY="1.25" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.Admin" Width="1.5" PointX="0.75" PointY="0.75" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="9.125" PointY="1.875" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="7.25" PointY="4.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.Organization" Width="1.5" PointX="2.875" PointY="0.625" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaData" Width="1.5" PointX="5.125" PointY="0.5" Height="4.8648079427083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="7.25" PointY="0.75" Height="3.3263964843749996" IsExpanded="true" />
         <AssociationConnector Association="OSELS_EWEModel.FK_Admin_Organization" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.5574446614583328" />
-          <ConnectorPoint PointX="3" PointY="6.5574446614583328" />
+          <ConnectorPoint PointX="2.875" PointY="1.8362939453124998" />
+          <ConnectorPoint PointX="2.25" PointY="1.8362939453124998" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_lk_Status" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="1.7978417968749998" />
-          <ConnectorPoint PointX="9.875" PointY="1.7978417968749998" />
+          <ConnectorPoint PointX="9.125" PointY="2.672841796875" />
+          <ConnectorPoint PointX="8.75" PointY="2.672841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_lk_SurveyType" ManuallyRouted="false">
-          <ConnectorPoint PointX="8.875" PointY="8.0427462682291662" />
-          <ConnectorPoint PointX="5.625" PointY="8.0427462682291662" />
-          <ConnectorPoint PointX="5.625" PointY="7.3648079427083335" />
+          <ConnectorPoint PointX="7.25" PointY="4.9324039713541667" />
+          <ConnectorPoint PointX="6.625" PointY="4.9324039713541667" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_Organization" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="5.34375" />
-          <ConnectorPoint PointX="4.875" PointY="5.34375" />
+          <ConnectorPoint PointX="4.375" PointY="1.8074446614583328" />
+          <ConnectorPoint PointX="5.125" PointY="1.8074446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.375" PointY="3.5381982421875" />
-          <ConnectorPoint PointX="9.875" PointY="3.5381982421875" />
+          <ConnectorPoint PointX="6.625" PointY="2.4131982421875" />
+          <ConnectorPoint PointX="7.25" PointY="2.4131982421875" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="OSELS_EWEModel.AssignForm" Width="1.5" PointX="2.875" PointY="3.75" Height="1.4033821614583317" />
       </Diagram>
     </Diagrams>
   </Designer>

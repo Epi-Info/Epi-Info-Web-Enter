@@ -170,6 +170,22 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<SurveyResponse> _SurveyResponses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<AssignForm> AssignForms
+        {
+            get
+            {
+                if ((_AssignForms == null))
+                {
+                    _AssignForms = base.CreateObjectSet<AssignForm>("AssignForms");
+                }
+                return _AssignForms;
+            }
+        }
+        private ObjectSet<AssignForm> _AssignForms;
 
         #endregion
 
@@ -221,6 +237,14 @@ namespace Epi.Web.EF
         public void AddToSurveyResponses(SurveyResponse surveyResponse)
         {
             base.AddObject("SurveyResponses", surveyResponse);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the AssignForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToAssignForms(AssignForm assignForm)
+        {
+            base.AddObject("AssignForms", assignForm);
         }
 
         #endregion
@@ -432,6 +456,92 @@ namespace Epi.Web.EF
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="AssignForm")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class AssignForm : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new AssignForm object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="formId">Initial value of the FormId property.</param>
+        public static AssignForm CreateAssignForm(global::System.Guid userId, global::System.Guid formId)
+        {
+            AssignForm assignForm = new AssignForm();
+            assignForm.UserId = userId;
+            assignForm.FormId = formId;
+            return assignForm;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid FormId
+        {
+            get
+            {
+                return _FormId;
+            }
+            set
+            {
+                if (_FormId != value)
+                {
+                    OnFormIdChanging(value);
+                    ReportPropertyChanging("FormId");
+                    _FormId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("FormId");
+                    OnFormIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _FormId;
+        partial void OnFormIdChanging(global::System.Guid value);
+        partial void OnFormIdChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>
