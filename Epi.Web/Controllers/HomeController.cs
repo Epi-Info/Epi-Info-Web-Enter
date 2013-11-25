@@ -102,7 +102,7 @@ namespace Epi.Web.MVC.Controllers
         /// <param name="surveyModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(int FormId)
+        public ActionResult Index(string surveyid)
         {
             
             //    bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
