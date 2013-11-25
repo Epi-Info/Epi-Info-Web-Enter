@@ -17,7 +17,7 @@ namespace Epi.Web.MVC.Facade
 
         // declare ISurveyResponseRepository which inherits IRepository of SurveyResponseResponse object
         private ISurveyAnswerRepository _iSurveyAnswerRepository;
-        public ISurveyAnswerRepository GetSurveyAnswerRepository() { return this._iSurveyAnswerRepository; } 
+        public ISurveyAnswerRepository GetSurveyAnswerRepository() { return this._iSurveyAnswerRepository; }
 
         //declare SurveyInfoRequest
         private Epi.Web.Common.Message.SurveyInfoRequest _surveyInfoRequest;
@@ -66,16 +66,16 @@ namespace Epi.Web.MVC.Facade
         {
 
             //Get the SurveyInfoDTO
-            Epi.Web.Common.DTO.SurveyInfoDTO surveyInfoDTO = SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest,_iSurveyInfoRepository,surveyId);
+            Epi.Web.Common.DTO.SurveyInfoDTO surveyInfoDTO = SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest, _iSurveyInfoRepository, surveyId);
             MvcDynamicForms.Form form = null;
-           
+
             if (IsMobileDevice)
             {
                 form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
             }
             else
             {
-               form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
+                form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
             }
             return form;
         }
@@ -86,7 +86,7 @@ namespace Epi.Web.MVC.Facade
         /// <returns></returns>
         public Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId)
         {
-           
+
             return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository);
         }
 
@@ -96,17 +96,17 @@ namespace Epi.Web.MVC.Facade
         {
             // 1 Get the record for the current survey response
             // 2 update the current survey response and save the response
-            
+
             //// 1 Get the record for the current survey response
             SurveyAnswerResponse surveyAnswerResponse = GetSurveyAnswerResponse(responseId);
-            
+
             ///2 Update the current survey response and save it
 
             SurveyHelper.UpdateSurveyResponse(surveyInfoModel, form, _surveyAnswerRequest, _surveyResponseXML, _iSurveyAnswerRepository, surveyAnswerResponse, responseId, surveyAnswerDTO, IsSubmited, IsSaved, PageNumber);
         }
-        
 
-       
+
+
 
         public SurveyInfoModel GetSurveyInfoModel(string surveyId)
         {
@@ -130,23 +130,25 @@ namespace Epi.Web.MVC.Facade
             return surveyAnswerResponse;
         }
 
-        public UserAuthenticationResponse ValidateUser(string responseId,string passcode)
+        public UserAuthenticationResponse ValidateUser(string responseId, string passcode)
         {
             _surveyAuthenticationRequest.PassCode = passcode;
             _surveyAuthenticationRequest.SurveyResponseId = responseId;
             UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.ValidateUser(_surveyAuthenticationRequest);
             return AuthenticationResponse;
         }
-        public void UpdatePassCode(string ResponseId, string Passcode ) {
+        public void UpdatePassCode(string ResponseId, string Passcode)
+        {
 
             // convert DTO to  UserAuthenticationRquest
             _PassCodeDTO.ResponseId = ResponseId;
             _PassCodeDTO.PassCode = Passcode;
             UserAuthenticationRequest AuthenticationRequestObj = Mapper.ToUserAuthenticationObj(_PassCodeDTO);
             SurveyHelper.UpdatePassCode(AuthenticationRequestObj, _iSurveyAnswerRepository);
-        
+
         }
-        public UserAuthenticationResponse GetAuthenticationResponse(string responseId) {
+        public UserAuthenticationResponse GetAuthenticationResponse(string responseId)
+        {
 
             _surveyAuthenticationRequest.SurveyResponseId = responseId;
             UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.GetAuthenticationResponse(_surveyAuthenticationRequest);
@@ -175,14 +177,15 @@ namespace Epi.Web.MVC.Facade
 
             //FormsInfoResponse GetSurveyInfoList(FormsInfoRequest pRequestId)
             List<FormInfoModel> listOfForms = new List<FormInfoModel>();
-            for (int i = 0; i < formInfoResponse.SurveyInfoList.Count; i++)
+
+            foreach (var item in formInfoResponse.FormInfoList)
             {
-                FormInfoModel s = Mapper.ToFormInfoModel(formInfoResponse.SurveyInfoList[i]);
-                listOfForms.Add(s);
+                FormInfoModel formInfoModel = Mapper.ToFormInfoModel(item);
+                listOfForms.Add(formInfoModel);
             }
 
 
-            listOfForms = cssProvider.GetFormInfoCssClass(listOfForms);
+
 
             return listOfForms;
         }

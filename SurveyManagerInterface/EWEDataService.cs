@@ -109,7 +109,7 @@ namespace Epi.Web.WCF.SurveyService
 
                  foreach (FormInfoBO item in FormInfoBOList)
                      {
-                     result.SurveyInfoList.Add(Mapper.ToFormInfoDTO(item));
+                     result.FormInfoList.Add(Mapper.ToFormInfoDTO(item));
                      }
                 
 
