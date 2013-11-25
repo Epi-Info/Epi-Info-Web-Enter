@@ -174,18 +174,34 @@ namespace Epi.Web.EF
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<AssignForm> AssignForms
+        public ObjectSet<SurveyMetaDataUser> SurveyMetaDataUsers
         {
             get
             {
-                if ((_AssignForms == null))
+                if ((_SurveyMetaDataUsers == null))
                 {
-                    _AssignForms = base.CreateObjectSet<AssignForm>("AssignForms");
+                    _SurveyMetaDataUsers = base.CreateObjectSet<SurveyMetaDataUser>("SurveyMetaDataUsers");
                 }
-                return _AssignForms;
+                return _SurveyMetaDataUsers;
             }
         }
-        private ObjectSet<AssignForm> _AssignForms;
+        private ObjectSet<SurveyMetaDataUser> _SurveyMetaDataUsers;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<User> Users
+        {
+            get
+            {
+                if ((_Users == null))
+                {
+                    _Users = base.CreateObjectSet<User>("Users");
+                }
+                return _Users;
+            }
+        }
+        private ObjectSet<User> _Users;
 
         #endregion
 
@@ -240,11 +256,19 @@ namespace Epi.Web.EF
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the AssignForms EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the SurveyMetaDataUsers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToAssignForms(AssignForm assignForm)
+        public void AddToSurveyMetaDataUsers(SurveyMetaDataUser surveyMetaDataUser)
         {
-            base.AddObject("AssignForms", assignForm);
+            base.AddObject("SurveyMetaDataUsers", surveyMetaDataUser);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Users EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUsers(User user)
+        {
+            base.AddObject("Users", user);
         }
 
         #endregion
@@ -456,92 +480,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="AssignForm")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class AssignForm : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new AssignForm object.
-        /// </summary>
-        /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="formId">Initial value of the FormId property.</param>
-        public static AssignForm CreateAssignForm(global::System.Guid userId, global::System.Guid formId)
-        {
-            AssignForm assignForm = new AssignForm();
-            assignForm.UserId = userId;
-            assignForm.FormId = formId;
-            return assignForm;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid UserId
-        {
-            get
-            {
-                return _UserId;
-            }
-            set
-            {
-                if (_UserId != value)
-                {
-                    OnUserIdChanging(value);
-                    ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("UserId");
-                    OnUserIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _UserId;
-        partial void OnUserIdChanging(global::System.Guid value);
-        partial void OnUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid FormId
-        {
-            get
-            {
-                return _FormId;
-            }
-            set
-            {
-                if (_FormId != value)
-                {
-                    OnFormIdChanging(value);
-                    ReportPropertyChanging("FormId");
-                    _FormId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("FormId");
-                    OnFormIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _FormId;
-        partial void OnFormIdChanging(global::System.Guid value);
-        partial void OnFormIdChanged();
-
-        #endregion
-
-    
     }
     
     /// <summary>
@@ -1537,6 +1475,92 @@ namespace Epi.Web.EF
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="SurveyMetaDataUser")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SurveyMetaDataUser : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SurveyMetaDataUser object.
+        /// </summary>
+        /// <param name="userId">Initial value of the UserId property.</param>
+        /// <param name="formId">Initial value of the FormId property.</param>
+        public static SurveyMetaDataUser CreateSurveyMetaDataUser(global::System.Guid userId, global::System.Guid formId)
+        {
+            SurveyMetaDataUser surveyMetaDataUser = new SurveyMetaDataUser();
+            surveyMetaDataUser.UserId = userId;
+            surveyMetaDataUser.FormId = formId;
+            return surveyMetaDataUser;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _UserId;
+        partial void OnUserIdChanging(global::System.Guid value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid FormId
+        {
+            get
+            {
+                return _FormId;
+            }
+            set
+            {
+                if (_FormId != value)
+                {
+                    OnFormIdChanging(value);
+                    ReportPropertyChanging("FormId");
+                    _FormId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("FormId");
+                    OnFormIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _FormId;
+        partial void OnFormIdChanging(global::System.Guid value);
+        partial void OnFormIdChanged();
+
+        #endregion
+
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="SurveyResponse")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1897,6 +1921,245 @@ namespace Epi.Web.EF
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="User")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class User : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new User object.
+        /// </summary>
+        /// <param name="userID">Initial value of the UserID property.</param>
+        /// <param name="userName">Initial value of the UserName property.</param>
+        /// <param name="firstName">Initial value of the FirstName property.</param>
+        /// <param name="lastName">Initial value of the LastName property.</param>
+        /// <param name="passwordHash">Initial value of the PasswordHash property.</param>
+        /// <param name="resetPassword">Initial value of the ResetPassword property.</param>
+        /// <param name="emailAddress">Initial value of the EmailAddress property.</param>
+        /// <param name="phoneNumber">Initial value of the PhoneNumber property.</param>
+        public static User CreateUser(global::System.Int32 userID, global::System.String userName, global::System.String firstName, global::System.String lastName, global::System.String passwordHash, global::System.Boolean resetPassword, global::System.String emailAddress, global::System.String phoneNumber)
+        {
+            User user = new User();
+            user.UserID = userID;
+            user.UserName = userName;
+            user.FirstName = firstName;
+            user.LastName = lastName;
+            user.PasswordHash = passwordHash;
+            user.ResetPassword = resetPassword;
+            user.EmailAddress = emailAddress;
+            user.PhoneNumber = phoneNumber;
+            return user;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                if (_UserID != value)
+                {
+                    OnUserIDChanging(value);
+                    ReportPropertyChanging("UserID");
+                    _UserID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserID");
+                    OnUserIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
+        partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String UserName
+        {
+            get
+            {
+                return _UserName;
+            }
+            set
+            {
+                OnUserNameChanging(value);
+                ReportPropertyChanging("UserName");
+                _UserName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("UserName");
+                OnUserNameChanged();
+            }
+        }
+        private global::System.String _UserName;
+        partial void OnUserNameChanging(global::System.String value);
+        partial void OnUserNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FirstName
+        {
+            get
+            {
+                return _FirstName;
+            }
+            set
+            {
+                OnFirstNameChanging(value);
+                ReportPropertyChanging("FirstName");
+                _FirstName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FirstName");
+                OnFirstNameChanged();
+            }
+        }
+        private global::System.String _FirstName;
+        partial void OnFirstNameChanging(global::System.String value);
+        partial void OnFirstNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String LastName
+        {
+            get
+            {
+                return _LastName;
+            }
+            set
+            {
+                OnLastNameChanging(value);
+                ReportPropertyChanging("LastName");
+                _LastName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("LastName");
+                OnLastNameChanged();
+            }
+        }
+        private global::System.String _LastName;
+        partial void OnLastNameChanging(global::System.String value);
+        partial void OnLastNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PasswordHash
+        {
+            get
+            {
+                return _PasswordHash;
+            }
+            set
+            {
+                OnPasswordHashChanging(value);
+                ReportPropertyChanging("PasswordHash");
+                _PasswordHash = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PasswordHash");
+                OnPasswordHashChanged();
+            }
+        }
+        private global::System.String _PasswordHash;
+        partial void OnPasswordHashChanging(global::System.String value);
+        partial void OnPasswordHashChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean ResetPassword
+        {
+            get
+            {
+                return _ResetPassword;
+            }
+            set
+            {
+                OnResetPasswordChanging(value);
+                ReportPropertyChanging("ResetPassword");
+                _ResetPassword = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ResetPassword");
+                OnResetPasswordChanged();
+            }
+        }
+        private global::System.Boolean _ResetPassword;
+        partial void OnResetPasswordChanging(global::System.Boolean value);
+        partial void OnResetPasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String EmailAddress
+        {
+            get
+            {
+                return _EmailAddress;
+            }
+            set
+            {
+                OnEmailAddressChanging(value);
+                ReportPropertyChanging("EmailAddress");
+                _EmailAddress = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("EmailAddress");
+                OnEmailAddressChanged();
+            }
+        }
+        private global::System.String _EmailAddress;
+        partial void OnEmailAddressChanging(global::System.String value);
+        partial void OnEmailAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PhoneNumber
+        {
+            get
+            {
+                return _PhoneNumber;
+            }
+            set
+            {
+                OnPhoneNumberChanging(value);
+                ReportPropertyChanging("PhoneNumber");
+                _PhoneNumber = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PhoneNumber");
+                OnPhoneNumberChanged();
+            }
+        }
+        private global::System.String _PhoneNumber;
+        partial void OnPhoneNumberChanging(global::System.String value);
+        partial void OnPhoneNumberChanged();
+
+        #endregion
+
+    
     }
 
     #endregion

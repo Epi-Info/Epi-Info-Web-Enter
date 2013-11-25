@@ -7,12 +7,13 @@
     <Schema Namespace="OSELS_EWEModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="OSELS_EWEModelStoreContainer">
           <EntitySet Name="Admin" EntityType="OSELS_EWEModel.Store.Admin" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="AssignForms" EntityType="OSELS_EWEModel.Store.AssignForms" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="lk_Status" EntityType="OSELS_EWEModel.Store.lk_Status" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="lk_SurveyType" EntityType="OSELS_EWEModel.Store.lk_SurveyType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Organization" EntityType="OSELS_EWEModel.Store.Organization" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyMetaData" EntityType="OSELS_EWEModel.Store.SurveyMetaData" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SurveyMetaDataUser" EntityType="OSELS_EWEModel.Store.SurveyMetaDataUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyResponse" EntityType="OSELS_EWEModel.Store.SurveyResponse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="User" EntityType="OSELS_EWEModel.Store.User" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Admin_Organization" Association="OSELS_EWEModel.Store.FK_Admin_Organization">
             <End Role="Organization" EntitySet="Organization" />
             <End Role="Admin" EntitySet="Admin" />
@@ -43,14 +44,6 @@
           <Property Name="OrganizationId" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="Notify" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="AssignForms">
-          <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="FormId" />
-          </Key>
-          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FormId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="lk_Status">
           <Key>
@@ -98,6 +91,14 @@
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
           <Property Name="StartDate" Type="datetime2" Nullable="false" />
         </EntityType>
+        <EntityType Name="SurveyMetaDataUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="FormId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FormId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
             <PropertyRef Name="ResponseId" />
@@ -112,6 +113,19 @@
           <Property Name="ResponseXMLSize" Type="bigint" />
           <Property Name="DateCreated" Type="datetime2" Nullable="false" />
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="PasswordHash" Type="varchar(max)" Nullable="false" />
+          <Property Name="ResetPassword" Type="bit" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <Association Name="FK_Admin_Organization">
           <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1" />
@@ -204,7 +218,8 @@
             <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
             <End Role="SurveyResponse" EntitySet="SurveyResponses" />
           </AssociationSet>
-          <EntitySet Name="AssignForms" EntityType="OSELS_EWEModel.AssignForm" />
+          <EntitySet Name="SurveyMetaDataUsers" EntityType="OSELS_EWEModel.SurveyMetaDataUser" />
+          <EntitySet Name="Users" EntityType="OSELS_EWEModel.User" />
         </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -347,13 +362,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="AssignForm">
+        <EntityType Name="SurveyMetaDataUser">
           <Key>
             <PropertyRef Name="UserId" />
             <PropertyRef Name="FormId" />
           </Key>
           <Property Type="Guid" Name="UserId" Nullable="false" />
           <Property Type="Guid" Name="FormId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int32" Name="UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="ResetPassword" Nullable="false" />
+          <Property Type="String" Name="EmailAddress" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -438,11 +466,25 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AssignForms">
-            <EntityTypeMapping TypeName="OSELS_EWEModel.AssignForm">
-              <MappingFragment StoreEntitySet="AssignForms">
+          <EntitySetMapping Name="SurveyMetaDataUsers">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyMetaDataUser">
+              <MappingFragment StoreEntitySet="SurveyMetaDataUser">
                 <ScalarProperty Name="FormId" ColumnName="FormId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="ResetPassword" ColumnName="ResetPassword" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -493,7 +535,8 @@
           <ConnectorPoint PointX="6.625" PointY="2.4131982421875" />
           <ConnectorPoint PointX="7.25" PointY="2.4131982421875" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="OSELS_EWEModel.AssignForm" Width="1.5" PointX="2.875" PointY="3.75" Height="1.4033821614583317" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaDataUser" Width="1.5" PointX="0.875" PointY="3.5" Height="1.4033821614583317" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.User" Width="1.5" PointX="3.125" PointY="3.5" Height="2.5571907552083317" />
       </Diagram>
     </Diagrams>
   </Designer>
