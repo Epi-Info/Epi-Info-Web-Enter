@@ -21,49 +21,38 @@
 </script>
 <div id="left" class="col span_1_of_3">
     <div class="divcontents">
-        <table>
-            <tr>
-                <td>
-                    <div class="metro-tile metro-collect metro-prod">
-                        <h3>
-                            Test Form</h3>
-                    </div>
-                    @foreach (var item in Model)
-                    {
-                        var divClass = "metro-tile ";
+               
+        @foreach (var item in Model)
+        {
+            var divClass = "metro-tile ";
 
-                        if (item.IsOwner)
-                        {
-                            divClass += "metro-design ";
-                        }
-                        else
-                        {
-                            divClass += "metro-collect ";
-                        }
+            if (item.IsOwner)
+            {
+                divClass += "metro-design ";
+            }
+            else
+            {
+                divClass += "metro-collect ";
+            }
 
-                        if (item.IsDraftMode)
-                        {
+            if (item.IsDraftMode)
+            {
 
-                            divClass += "metro-staging";
-                        }
-                        else
-                        {
-                            divClass += "metro-prod";
-                        }
-@*<a href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", formid = item.FormId })" >*@
-@*<a onclick="document.getElementById('formsList').submit()" href="#">*@
-                        <button id="@item.FormName" class="@divClass" type=submit >
-                            
-                                <!--onclick="clickme(this)" -->
-                                <h3>@item.FormName</h3>
-                            
-                        </button>
-@*  </a>*@
+                divClass += "metro-staging";
+            }
+            else
+            {
+                divClass += "metro-prod";
+            }
+            @*<a href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", formid = item.FormId })" >*@
+            @*<a onclick="document.getElementById('formsList').submit()" href="#">*@
+            <button id="@item.FormName" class="@divClass" type=submit >
+                    <h3>@item.FormName</h3>            
+            </button>
+
                 
-                    }
-                </td>
-            </tr>
-        </table>
+       }
+                
     </div>
 </div>
 <div id="right" class="col span_2_of_3" style="background: white; min-width: 800px;">
