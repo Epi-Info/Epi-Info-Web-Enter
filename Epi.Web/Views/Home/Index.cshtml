@@ -1,384 +1,397 @@
 ﻿@model IEnumerable<Epi.Web.MVC.Models.FormInfoModel>
 @{
-    ViewBag.Title = "Epi Web Enter - My Forms";// + " - "+ 
-       // Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    
+	ViewBag.Title = "Epi Web Enter - My Forms";// + " - "+ 
+	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	
 }
-
 @*<script type="text/javascript" >
 
-    $(document).ready(function () {
-        // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
-        
-       
- 
+	  $(document).ready(function () {
+		  // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
-         $("#VideoDialog").dialog({
-            autoOpen: false,
-            show: "blind",
-            hide: "blind",
-            resizable: false,
-            height: 410,
-            width: 500,
-            modal: true
-        });
 
-          });
+
+
+		  $("#VideoDialog").dialog({
+			  autoOpen: false,
+			  show: "blind",
+			  hide: "blind",
+			  resizable: false,
+			  height: 410,
+			  width: 500,
+			  modal: true
+		  });
+
+	  });
 
 </script>*@
 
- <div id="pageHeader">
-  	<div id="pageTitle"><h2>My Forms</h2></div>
-   	<div id="userwelcome">Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
-  	<div style="clear:both;"></div>
-</div>  
-
- 
-        
-    <div id="content" style="margin-bottom:200px; padding-left:10px; min-height:375px;">
-        <div id="leftarrangeby" style="float:left; vertical-align:middle; width: 320px;">
-            <span class="css3-metro-dropdown">
-                <select name="dropdown-1">
-                    <option value="0" selected="selected" disabled="disabled">Arrange by:</option>
-                    <option value="1">Published Forms First</option>        
-                    <option value="2">Collection Forms First</option>
-                    <option value="3">Last Saved Forms First</option>
-                </select>
-            </span>           
-         </div>
-         <div id="rightlegend" style="float:left; font-size:9pt; vertical-align:baseline; margin-top: 8px;">
-            <div id="Div1" style="display:inline; margin-right: 30px;"><img alt="" src="../../Content/images/designlegend.png" align="middle" style="width:16px; vertical-align:middle;" /> My Forms</div>
-            <div id="Div2" style="display:inline; margin-right: 30px;"><img alt="" src="../../Content/images/collectlegend.png" align="middle" style="width:16px; vertical-align:middle;" /> Forms Assigned to Me</div>
-            <div id="Div4" style="display:inline; margin-right: 30px;"><img alt="" src="../../Content/images/prodlegend.png" align="middle" style="width:16px; vertical-align:middle;"/> Production</div> 
-            <div id="Div3" style="display:inline;"><img alt="" src="../../Content/images/staginglegend.png" align="middle" style="width:16px; vertical-align:middle;" /> Staging</div>          
-         </div>
-         <div style="clear:both;"></div>
-           <!-- <a href="#" class="show_hide">Show/hide</a>-->
-        <div class="section group" id="main">
-            <div id="left" class="col span_1_of_3">
-                    <div class="divcontents">  
-	             @*   <div class="metro-tile metro-design metro-staging">
-                        <h3>Form Designer Form in Staging</h3>
-                    </div> 
-                    <div class="metro-tile metro-design metro-prod">
-                        <h3>Form Designer Form in Production</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-staging">
-                        <h3>Data Collector Form in Staging</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-prod">
-                        <h3>Data Collector Form in Production</h3>
-                    </div>
-                    <div class="metro-tile metro-design metro-staging metro-set">
-                        <h3>NIO Feedback Survey - Selected for Viewing</h3>
-                    </div>
-                    <div class="metro-tile metro-design metro-staging">
-                        <h3>Form Designer Form in Staging</h3>
-                    </div>
-                    <div class="metro-tile metro-design metro-prod">
-                        <h3>Form Designer Form in Production</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-staging">
-                        <h3>Data Collector Form in Staging</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-prod">
-                        <h3>Data Collector Form in Production</h3>
-                    </div>*@
-
-                   @Html.Partial("ListForms", Model)
-              </div> 
-	        </div>
-	        <div id="right" class="col span_2_of_3" style="background:white; min-width:800px;">
-               
-                @*<div id="formtitle">
-	                <h2 class="surveyTitle">@Model.SurveyName</h2><!--<hr class="hr1" />-->
-                </div>*@
-                <div id="editsettings">
-                    <button id="btneditsettings" class="default settings" type="button">Settings</button>
-                </div>
-                <div style="clear:both"></div>
-                <div id="infobox1">
-                    <div id="create"><span>Created by:</span> <span class="boldlabel">John Doe</span></div>
-                    <div id="status"><span>Status:</span> <span class="boldlabel">Active</span></div>
-                    <div id="mode" ><span>Mode:</span> <span class="boldlabel">Staging</span></div>
-                    <div style="clear:both;"></div>
-                </div>
-                
-                <div id="recordscontent" ><!--style="display:inline-block;"-->   
-
-                   @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
-                       {
-                    <div id="addnew">
-                    <button class="default record" type="submit">Add New Record</button>
-                    </div>
-
-                       }
-
-                    <div id="paging">
-                        <button class="default paging"><img alt="Previous" src="../../Content/images/prev1.png" align="middle" /></button>
-                        &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
-                        <button class="default paging"><img alt="Next" src="../../Content/images/next1.png" align="middle" /></button>
-                    </div>
-                    <div style="clear:both; margin-bottom:10px;"></div>
-                    <div id="recordstable"><!-- style="display:inline-block;">-->
-						@*<table >
-		                    <thead>
-		                    <tr>
-			                    <th>Actions</th>
-			                    <th>Record</th>
-			                    <th>Id</th>
-			                    <th>State</th>
-			                    <th>Ill</th>
-			                    <th>City</th>
-			                    <th>DOB</th>
-			                    <th>Last Saved</th>		
-		                    </tr>
-		                    </thead>
-		                    <tbody>
-		                    <tr>
-			                    <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-			                    <td>1</td>
-			                    <td>A7610</td>
-			                    <td>FL</td>
-			                    <td>Yes</td>
-			                    <td>Gainesville</td>
-			                    <td>January 13, 1979</td>
-			                    <td>11/05/2013 12:55 PM</td>			
-		                    </tr>
-		                    <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>2</td>
-		                        <td>A7611</td>
-		                        <td>NC</td>
-		                        <td>No</td>
-		                        <td>Charlotte</td>
-		                        <td>July 19, 1968</td>
-		                        <td>11/05/2013 12:55 PM</td>		  
-		                    </tr>
-		                    <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>3</td>
-		                        <td>A7612</td>
-		                        <td>AL</td>
-		                        <td>No</td>
-		                        <td>Montgomery</td>
-		                        <td>May 18, 1945</td>
-		                        <td>11/05/2013 12:55 PM</td>		  
-		                    </tr>
-		                    <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>4</td>
-		                        <td>A7613</td>
-		                        <td>SC</td>
-		                        <td>--</td>
-		                        <td>Columbia</td>
-		                        <td>July 5, 1956</td>
-		                        <td>11/05/2013 12:55 PM</td>		  
-		                    </tr>
-		                    <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>5</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>6</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>7</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>8</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>9</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>9</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>9</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>9</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>9</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-                            <tr>
-		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
-		                        <td>9</td>
-		                        <td>A7614</td>
-		                        <td>GA</td>
-		                        <td>Yes</td>
-		                        <td>Atlanta</td>
-		                        <td>December 13, 1982</td>
-		                        <td>11/05/2013 12:55 PM</td>		 
-		                    </tr>
-		            </tbody>
-	            </table>*@
-                    </div>
-                </div>   
-                <div id="settingscontent"> <!--style="display:inline-block;"-->
-                   
-                    @*<a href="#" class="backbtnlink" ><img alt="Next" src="../../Content/images/backform.png" align="middle" style="vertical-align:text-top; margin-top:-2px; border:none;" /></a>
-                    <h3 class="surveyTitle">Edit Form Settings</h3><!--<hr class="hr1" />-->
-                    <form id="formsettings" action="Index">
-                        <div class="formname">
-                        <label>Form Name</label> <br />
-                        <input id="tbformname" type="text"  />
-                        </div>
-                        <div>
-                            <div class="formstatus">
-                                <label>Status</label> <br />
-                                <select name="dropdown-1">
-                                    <option value="0" selected="selected">Active</option>
-                                    <option value="1">Inactive</option>        
-                                </select>
-                            </div>
-                            <div class="formmode">
-                                <label>Mode</label> <br />
-                                <select name="dropdown-1">
-                                    <option value="0" selected="selected">Staging</option>
-                                    <option value="1">Production</option>        
-                                </select>
-                            </div>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <div class="formuser">
-                            <label>Assign Users</label><br />
-                            <div id="formusers" class="scrollcheck">
-                                <ul>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="formcolumns">
-                            <label>Columns to Display for a Record</label><br />
-                            <div id="formcolumns" class="scrollcheck">
-                                <ul>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Id</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>State</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Ill</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>City</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>Zip</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>DOB</label></li>
-                                    <li><input type="checkbox" style="vertical-align:middle;" /> <label>DoctorVisit</label></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div style="clear:both;"></div>
-                        <div class="formbutton1">
-                            <button class="default savesettings" type="button">Save Settings</button> &nbsp;&nbsp;&nbsp;&nbsp; 
-                            <button class="default cancelsettings" type="button">Cancel</button>
-                        </div>
-                        <div class="formbutton2">
-                            <button class="default delsettings" type="button">Delete Form</button>
-                        </div>
-                    </form>*@
-                </div>  
-               
-            </div>
-	     </div>  
-    
-    
-   @* @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
-    {            
-            <p><button id="beginsurvey" class="default" type="submit">Begin Survey</button></p>          
-    }
-
-    else
+<div id="pageHeader">
+	<div id="pageTitle">
+		<h2>
+			My Forms</h2>
+	</div>
+	<div id="userwelcome">
+		Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
+	<div style="clear: both;">
+	</div>
+</div>
+<div id="content" style="margin-bottom: 200px; padding-left: 10px; min-height: 375px;">
+	<div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
+		<span class="css3-metro-dropdown">
+			<select name="dropdown-1">
+				<option value="0" selected="selected" disabled="disabled">Arrange by:</option>
+				<option value="1">Published Forms First</option>
+				<option value="2">Collection Forms First</option>
+				<option value="3">Last Saved Forms First</option>
+			</select>
+		</span>
+	</div>
+	<div id="rightlegend" style="float: left; font-size: 9pt; vertical-align: baseline;
+		margin-top: 8px;">
+		<div id="Div1" style="display: inline; margin-right: 30px;">
+			<img alt="" src="../../Content/images/designlegend.png" align="middle" style="width: 16px;
+				vertical-align: middle;" />
+			My Forms</div>
+		<div id="Div2" style="display: inline; margin-right: 30px;">
+			<img alt="" src="../../Content/images/collectlegend.png" align="middle" style="width: 16px;
+				vertical-align: middle;" />
+			Forms Assigned to Me</div>
+		<div id="Div4" style="display: inline; margin-right: 30px;">
+			<img alt="" src="../../Content/images/prodlegend.png" align="middle" style="width: 16px;
+				vertical-align: middle;" />
+			Production</div>
+		<div id="Div3" style="display: inline;">
+			<img alt="" src="../../Content/images/staginglegend.png" align="middle" style="width: 16px;
+				vertical-align: middle;" />
+			Staging</div>
+	</div>
+	<div style="clear: both;">
+	</div>
+	<!-- <a href="#" class="show_hide">Show/hide</a>-->
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "formsList"}))
     {
-        if (Model.StartDate > DateTime.Now)
-        { 
-                @* <div id="attention">
-                        <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle; padding-right: 10px;" />Survey has not yet started.
-                        <p style="text-align:center">Survey Starting Date: @string.Format("{0:f}", Model.StartDate)</p>
-                   </div>
-        }
-        if (Model.ClosingDate < DateTime.Now)
-        {      
-            @* <div id="attention">
-                    <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle; padding-right: 10px;" />
-                    This survey is currently closed. Please contact the author of this survey for further assistance.
-                    <p style="text-align:center">Survey Closing Date: @string.Format("{0:f}", Model.ClosingDate)</p>
-               </div>
-        }
-    }*@
-             
-    </div>
-         
+        
+    
+	<div class="section group" id="main">
+	
+				@Html.Partial("ListForms", Model)
+				@*   <div class="metro-tile metro-design metro-staging">
+						<h3>Form Designer Form in Staging</h3>
+					</div> 
+					<div class="metro-tile metro-design metro-prod">
+						<h3>Form Designer Form in Production</h3>
+					</div>
+					<div class="metro-tile metro-collect metro-staging">
+						<h3>Data Collector Form in Staging</h3>
+					</div>
+					<div class="metro-tile metro-collect metro-prod">
+						<h3>Data Collector Form in Production</h3>
+					</div>
+					<div class="metro-tile metro-design metro-staging metro-set">
+						<h3>NIO Feedback Survey - Selected for Viewing</h3>
+					</div>
+					<div class="metro-tile metro-design metro-staging">
+						<h3>Form Designer Form in Staging</h3>
+					</div>
+					<div class="metro-tile metro-design metro-prod">
+						<h3>Form Designer Form in Production</h3>
+					</div>
+					<div class="metro-tile metro-collect metro-staging">
+						<h3>Data Collector Form in Staging</h3>
+					</div>
+					<div class="metro-tile metro-collect metro-prod">
+						<h3>Data Collector Form in Production</h3>
+					</div>*@
+	   
+			@*<div id="formtitle">
+					<h2 class="surveyTitle">@Model.SurveyName</h2><!--<hr class="hr1" />-->
+				</div>
+			<div id="editsettings">
+				<button id="btneditsettings" class="default settings" type="button">
+					Settings</button>
+			</div>
+			<div style="clear: both">
+			</div>
+			<div id="infobox1">
+				<div id="create">
+					<span>Created by:</span> <span class="boldlabel">John Doe</span></div>
+				<div id="status">
+					<span>Status:</span> <span class="boldlabel">Active</span></div>
+				<div id="mode">
+					<span>Mode:</span> <span class="boldlabel">Staging</span></div>
+				<div style="clear: both;">
+				</div>
+			</div>
+			<div id="recordscontent">
+				<!--style="display:inline-block;"-->
+				<div id="addnew">
+					<button class="default record">
+						Add New Record
+					</button>
+				</div>
+				<div id="paging">
+					<button class="default paging">
+						<img alt="Previous" src="../../Content/images/prev1.png" align="middle" /></button>
+					&nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
+					<button class="default paging">
+						<img alt="Next" src="../../Content/images/next1.png" align="middle" /></button>
+				</div>
+				<div style="clear: both; margin-bottom: 10px;">
+				</div>
+				<div id="recordstable">*@
+					<!-- style="display:inline-block;">-->
+					@*<table >
+							<thead>
+							<tr>
+								<th>Actions</th>
+								<th>Record</th>
+								<th>Id</th>
+								<th>State</th>
+								<th>Ill</th>
+								<th>City</th>
+								<th>DOB</th>
+								<th>Last Saved</th>		
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>1</td>
+								<td>A7610</td>
+								<td>FL</td>
+								<td>Yes</td>
+								<td>Gainesville</td>
+								<td>January 13, 1979</td>
+								<td>11/05/2013 12:55 PM</td>			
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>2</td>
+								<td>A7611</td>
+								<td>NC</td>
+								<td>No</td>
+								<td>Charlotte</td>
+								<td>July 19, 1968</td>
+								<td>11/05/2013 12:55 PM</td>		  
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>3</td>
+								<td>A7612</td>
+								<td>AL</td>
+								<td>No</td>
+								<td>Montgomery</td>
+								<td>May 18, 1945</td>
+								<td>11/05/2013 12:55 PM</td>		  
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>4</td>
+								<td>A7613</td>
+								<td>SC</td>
+								<td>--</td>
+								<td>Columbia</td>
+								<td>July 5, 1956</td>
+								<td>11/05/2013 12:55 PM</td>		  
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>5</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>6</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>7</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>8</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>9</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>9</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>9</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>9</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>9</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+							<tr>
+								<td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+								<td>9</td>
+								<td>A7614</td>
+								<td>GA</td>
+								<td>Yes</td>
+								<td>Atlanta</td>
+								<td>December 13, 1982</td>
+								<td>11/05/2013 12:55 PM</td>		 
+							</tr>
+					</tbody>
+				</table>*@
+			</div>
+    }
+			<div id="settingscontent">
+				<!--style="display:inline-block;"-->
+				@*<a href="#" class="backbtnlink" ><img alt="Next" src="../../Content/images/backform.png" align="middle" style="vertical-align:text-top; margin-top:-2px; border:none;" /></a>
+					<h3 class="surveyTitle">Edit Form Settings</h3><!--<hr class="hr1" />-->
+					<form id="formsettings" action="Index">
+						<div class="formname">
+						<label>Form Name</label> <br />
+						<input id="tbformname" type="text"  />
+						</div>
+						<div>
+							<div class="formstatus">
+								<label>Status</label> <br />
+								<select name="dropdown-1">
+									<option value="0" selected="selected">Active</option>
+									<option value="1">Inactive</option>        
+								</select>
+							</div>
+							<div class="formmode">
+								<label>Mode</label> <br />
+								<select name="dropdown-1">
+									<option value="0" selected="selected">Staging</option>
+									<option value="1">Production</option>        
+								</select>
+							</div>
+							<div style="clear:both;"></div>
+						</div>
+						<div class="formuser">
+							<label>Assign Users</label><br />
+							<div id="formusers" class="scrollcheck">
+								<ul>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Jane Doe</label></li>
+								</ul>
+							</div>
+						</div>
+						<div class="formcolumns">
+							<label>Columns to Display for a Record</label><br />
+							<div id="formcolumns" class="scrollcheck">
+								<ul>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Id</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>State</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Ill</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>City</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>Zip</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>DOB</label></li>
+									<li><input type="checkbox" style="vertical-align:middle;" /> <label>DoctorVisit</label></li>
+								</ul>
+							</div>
+						</div>
+						<div style="clear:both;"></div>
+						<div class="formbutton1">
+							<button class="default savesettings" type="button">Save Settings</button> &nbsp;&nbsp;&nbsp;&nbsp; 
+							<button class="default cancelsettings" type="button">Cancel</button>
+						</div>
+						<div class="formbutton2">
+							<button class="default delsettings" type="button">Delete Form</button>
+						</div>
+					</form>*@
+			</div>
+		</div>
+	</div>
+	@* @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
+	{            
+			<p><button id="beginsurvey" class="default" type="submit">Begin Survey</button></p>          
+	}
+
+	else
+	{
+		if (Model.StartDate > DateTime.Now)
+		{ 
+				@* <div id="attention">
+						<img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle; padding-right: 10px;" />Survey has not yet started.
+						<p style="text-align:center">Survey Starting Date: @string.Format("{0:f}", Model.StartDate)</p>
+				   </div>
+		}
+		if (Model.ClosingDate < DateTime.Now)
+		{      
+			@* <div id="attention">
+					<img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle; padding-right: 10px;" />
+					This survey is currently closed. Please contact the author of this survey for further assistance.
+					<p style="text-align:center">Survey Closing Date: @string.Format("{0:f}", Model.ClosingDate)</p>
+			   </div>
+		}
+	}*@
+</div>
 @*  @{if (ViewBag.Omniture.IsEnabled == true)
-        { 
-         Html.RenderPartial("OmniturePartial");  
-        } 
-        }*@
-  
- 
+		{ 
+		 Html.RenderPartial("OmniturePartial");  
+		} 
+		}*@ 
