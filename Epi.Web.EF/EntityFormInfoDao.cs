@@ -89,7 +89,7 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
-                        var items =   Context.AssignForms.Where(x => x.UserId == Id).ToList();
+                        var items =   Context.SurveyMetaDataUsers.Where(x => x.UserId == Id).ToList();
                         foreach (var item in items)
                             {
                             FormId.Add(item.FormId);
