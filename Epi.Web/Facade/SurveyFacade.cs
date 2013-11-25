@@ -173,8 +173,6 @@ namespace Epi.Web.MVC.Facade
 
             FormsInfoResponse formInfoResponse = _iSurveyInfoRepository.GetFormsInfoList(formReq);
 
-            CssClassProvider cssProvider = new CssClassProvider();
-
             //FormsInfoResponse GetSurveyInfoList(FormsInfoRequest pRequestId)
             List<FormInfoModel> listOfForms = new List<FormInfoModel>();
 
