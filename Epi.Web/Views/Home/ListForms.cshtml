@@ -13,8 +13,8 @@
 
 
     $(function () {
-        $("div[class*='metro-tile']").click(function () {
-            $("div[class*='metro-tile']").removeClass('metro-set');
+        $("button[class*='metro-tile']").click(function () {
+            $("button[class*='metro-tile']").removeClass('metro-set');
             $(this).addClass('metro-set');
         })
     });
@@ -52,7 +52,7 @@
                         }
 @*<a href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", formid = item.FormId })" >*@
 @*<a onclick="document.getElementById('formsList').submit()" href="#">*@
-                        <button id="@item.FormName" class="@divClass" type=submit>
+                        <button id="@item.FormName" class="@divClass" type=submit >
                             
                                 <!--onclick="clickme(this)" -->
                                 <h3>@item.FormName</h3>
