@@ -70,13 +70,16 @@
 	<div style="clear: both;">
 	</div>
 	<!-- <a href="#" class="show_hide">Show/hide</a>-->
-    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "formsList"}))
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList"}))
     {
         
     
 	<div class="section group" id="main">
 	
 				@Html.Partial("ListForms", Model)
+
+
+
 				@*   <div class="metro-tile metro-design metro-staging">
 						<h3>Form Designer Form in Staging</h3>
 					</div> 
