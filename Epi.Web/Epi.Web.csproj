@@ -503,6 +503,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Home\ListForms.cshtml" />
+    <Content Include="Views\Home\ListResponses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

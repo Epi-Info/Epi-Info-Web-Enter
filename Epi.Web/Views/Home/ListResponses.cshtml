@@ -1,0 +1,261 @@
+﻿@model dynamic
+    <div id="formtitle">
+	                <h2 class="surveyTitle">(Model.id)
+                                               </h2><!--<hr class="hr1" />-->
+                </div>
+    
+    <div id="editsettings">
+                <button id="btneditsettings" class="default settings" type="button">
+                    Settings</button>
+            </div>
+            <div style="clear: both">
+            </div>
+            <div id="infobox1">
+                <div id="create">
+                    <span>Created by:</span> <span class="boldlabel">John Doe</span></div>
+                <div id="status">
+                    <span>Status:</span> <span class="boldlabel">Active</span></div>
+                <div id="mode">
+                    <span>Mode:</span> <span class="boldlabel">Staging</span></div>
+                <div style="clear: both;">
+                </div>
+            </div>
+            <div id="recordscontent">
+                <!--style="display:inline-block;"-->
+                <div id="addnew">
+                    <button class="default record">
+                        Add New Record
+                    </button>
+                </div>
+                <div id="paging">
+                    <button class="default paging">
+                        <img alt="Previous" src="../../Content/images/prev1.png" align="middle" /></button>
+                    &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
+                    <button class="default paging">
+                        <img alt="Next" src="../../Content/images/next1.png" align="middle" /></button>
+                </div>
+                <div style="clear: both; margin-bottom: 10px;">
+                </div>
+                <div id="recordstable">
+                    <!-- style="display:inline-block;">-->
+                    @*<table >
+		                    <thead>
+		                    <tr>
+			                    <th>Actions</th>
+			                    <th>Record</th>
+			                    <th>Id</th>
+			                    <th>State</th>
+			                    <th>Ill</th>
+			                    <th>City</th>
+			                    <th>DOB</th>
+			                    <th>Last Saved</th>		
+		                    </tr>
+		                    </thead>
+		                    <tbody>
+		                    <tr>
+			                    <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+			                    <td>1</td>
+			                    <td>A7610</td>
+			                    <td>FL</td>
+			                    <td>Yes</td>
+			                    <td>Gainesville</td>
+			                    <td>January 13, 1979</td>
+			                    <td>11/05/2013 12:55 PM</td>			
+		                    </tr>
+		                    <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>2</td>
+		                        <td>A7611</td>
+		                        <td>NC</td>
+		                        <td>No</td>
+		                        <td>Charlotte</td>
+		                        <td>July 19, 1968</td>
+		                        <td>11/05/2013 12:55 PM</td>		  
+		                    </tr>
+		                    <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>3</td>
+		                        <td>A7612</td>
+		                        <td>AL</td>
+		                        <td>No</td>
+		                        <td>Montgomery</td>
+		                        <td>May 18, 1945</td>
+		                        <td>11/05/2013 12:55 PM</td>		  
+		                    </tr>
+		                    <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>4</td>
+		                        <td>A7613</td>
+		                        <td>SC</td>
+		                        <td>--</td>
+		                        <td>Columbia</td>
+		                        <td>July 5, 1956</td>
+		                        <td>11/05/2013 12:55 PM</td>		  
+		                    </tr>
+		                    <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>5</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>6</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>7</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>8</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>9</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>9</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>9</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>9</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>9</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+                            <tr>
+		                        <td><button class="default">Edit</button> &nbsp;&nbsp; <button class="default">Delete</button></td>
+		                        <td>9</td>
+		                        <td>A7614</td>
+		                        <td>GA</td>
+		                        <td>Yes</td>
+		                        <td>Atlanta</td>
+		                        <td>December 13, 1982</td>
+		                        <td>11/05/2013 12:55 PM</td>		 
+		                    </tr>
+		            </tbody>
+	            </table>*@
+                </div>
+            </div>
+    
+    
+    
+@*    <fieldset>
+        <legend>SurveyAnswerModel</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ResponseId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ResponseId)
+            @Html.ValidationMessageFor(model => model.ResponseId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.SurveyId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.SurveyId)
+            @Html.ValidationMessageFor(model => model.SurveyId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateUpdated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateUpdated)
+            @Html.ValidationMessageFor(model => model.DateUpdated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateCompleted)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateCompleted)
+            @Html.ValidationMessageFor(model => model.DateCompleted)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Status)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Status)
+            @Html.ValidationMessageFor(model => model.Status)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.XML)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.XML)
+            @Html.ValidationMessageFor(model => model.XML)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>*@
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
