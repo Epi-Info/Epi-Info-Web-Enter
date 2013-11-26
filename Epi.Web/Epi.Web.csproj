@@ -167,10 +167,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FormInfoModel.cs" />
+    <Compile Include="Models\FormResponseInfoModel.cs" />
     <Compile Include="Models\Mapper.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Omniture.cs" />
     <Compile Include="Models\PassCodeModel.cs" />
+    <Compile Include="Models\ResponseInfoModel.cs" />
     <Compile Include="Models\SurveyInfoModel.cs" />
     <Compile Include="Models\SurveyResponseModel.cs" />
     <Compile Include="Models\EIWSTModel.cs" />
