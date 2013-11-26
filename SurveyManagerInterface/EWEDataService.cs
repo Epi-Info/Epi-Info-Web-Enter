@@ -543,9 +543,10 @@ namespace Epi.Web.WCF.SurveyService
             return result;
         }
 
-         public  FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest) { 
-            
-            
+         public  FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest) {
+
+         FormResponseInfoResponse FormResponseInfoResponse = new FormResponseInfoResponse();
+         return FormResponseInfoResponse;
             
             }
         /// <summary>
