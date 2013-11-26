@@ -170,6 +170,7 @@
     <Compile Include="Models\FormResponseInfoModel.cs" />
     <Compile Include="Models\Mapper.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Model.cs" />
     <Compile Include="Models\Omniture.cs" />
     <Compile Include="Models\PassCodeModel.cs" />
     <Compile Include="Models\ResponseInfoModel.cs" />
