@@ -2,24 +2,7 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<script>
-    //    function clickme(form) {
-    ////        alert("This is Partial View");
-    ////        debugger;
-    //        //alert('form name is ' + form.id);
-    //        form.className = form.className + " metro-set"
 
-    //        }
-
-
-    $(function () {
-        $("button[class*='metro-tile']").click(function () {
-            $("button[class*='metro-tile']").removeClass('metro-set');
-            $(this).addClass('metro-set');
-        })
-    });
-</script>
-<div id="left" class="col span_1_of_3">
     <div class="divcontents">
                
         @foreach (var item in Model)
@@ -51,10 +34,9 @@
             </button>
 
                 
-       }
-                
+                    }
+                </td>
+            </tr>
+        </table>
     </div>
-</div>
-<div id="right" class="col span_2_of_3" style="background: white; min-width: 800px;">
-    @Html.Partial("ListResponses", this)
-</div>
+

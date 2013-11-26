@@ -1,6 +1,6 @@
-﻿@model dynamic
+﻿@model Epi.Web.MVC.Models.ResponseInfoModel
     <div id="formtitle">
-	                <h2 class="surveyTitle">(Model.id)
+	                <h2 class="surveyTitle">(Model.ResponseId)
                                                </h2><!--<hr class="hr1" />-->
                 </div>
     
@@ -23,9 +23,10 @@
             <div id="recordscontent">
                 <!--style="display:inline-block;"-->
                 <div id="addnew">
-                    <button class="default record">
+                    <button  type="submit"  name="AddNewButton" class="default record" value="AddNew">
                         Add New Record
                     </button>
+
                 </div>
                 <div id="paging">
                     <button class="default paging">
@@ -199,63 +200,4 @@
     
     
     
-@*    <fieldset>
-        <legend>SurveyAnswerModel</legend>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.ResponseId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.ResponseId)
-            @Html.ValidationMessageFor(model => model.ResponseId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.SurveyId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.SurveyId)
-            @Html.ValidationMessageFor(model => model.SurveyId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateUpdated)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateUpdated)
-            @Html.ValidationMessageFor(model => model.DateUpdated)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DateCompleted)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DateCompleted)
-            @Html.ValidationMessageFor(model => model.DateCompleted)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Status)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Status)
-            @Html.ValidationMessageFor(model => model.Status)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.XML)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.XML)
-            @Html.ValidationMessageFor(model => model.XML)
-        </div>
-
-        <p>
-            <input type="submit" value="Create" />
-        </p>
-    </fieldset>*@
-
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

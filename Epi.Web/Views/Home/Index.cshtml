@@ -27,6 +27,33 @@
 
 </script>*@
 
+<script>
+    //    function clickme(form) {
+    ////        alert("This is Partial View");
+    ////        debugger;
+    //        //alert('form name is ' + form.id);
+    //        form.className = form.className + " metro-set"
+
+    //        }
+
+
+    $(function () {
+        $("button[class*='metro-tile']").click(function (e) {
+            SelectDivCss(e);
+
+
+            //            $.get('www.google.com', function (data) {
+            //                $('#right').html(data);
+            //                        });
+
+            PopulateDiv(this.id);
+            // $('#myDiv').load('Home/Read'); 
+
+        })
+    });
+
+</script>
+
 <div id="pageHeader">
 	<div id="pageTitle">
 		<h2>
@@ -76,8 +103,12 @@
     
 	<div class="section group" id="main">
 	
+<div id="left" class="col span_1_of_3">
 				@Html.Partial("ListForms", Model)
-
+</div>
+<div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
+  @*  @Html.Partial("ListResponses", this)*@
+</div>
 
 
 				@*   <div class="metro-tile metro-design metro-staging">

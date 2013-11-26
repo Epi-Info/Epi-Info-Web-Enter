@@ -1,5 +1,32 @@
 ﻿
+function SelectDivCss(e) {
+    e.preventDefault();
 
+    $("button[class*='metro-tile']").removeClass('metro-set');
+    $(this).addClass('metro-set');
+}
+
+function PopulateDiv(id) {
+    var serviceURL = '/Home/ReadResponseInfo';
+
+    $.ajax({
+        type: "POST",
+        url: serviceURL + '?formid=' + id + '&userid=ali',
+        //data: param = this.id,
+        contentType: "application/html; charset=utf-8",
+        dataType: "html",
+        success: successFunc,
+        error: errorFunc
+    });
+
+    function successFunc(data, status) {
+        $('#right').html(data);
+    }
+
+    function errorFunc() {
+        alert('error');
+    }
+}
 
 function NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl,passCode,EmailSubject) {
     /*post email address and redirect url asynchronously to Post controller */
