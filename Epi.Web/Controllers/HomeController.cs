@@ -191,12 +191,21 @@ namespace Epi.Web.MVC.Controllers
                 // return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResponseID, PageNumber = 1 });
                // return View("ListResponses");
-            //////}
-            //////catch (Exception ex)
-            //////{
-            //////    //Epi.Web.Utility.ExceptionMessage.SendLogMessage(ex, this.HttpContext);
-            //////    //return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
-            //////}
+            //}
+            //catch (Exception ex)
+            //{
+            //    //Epi.Web.Utility.ExceptionMessage.SendLogMessage(ex, this.HttpContext);
+            //    //return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
+            //}
+        }
+
+        [HttpPost]
+        public ActionResult ReadResponseInfo(string formid, string userid) 
+        {
+            var model = new ResponseInfoModel();
+            model.ResponseId = formid;
+
+            return View("ListResponses", model);
         }
 
         private Epi.Web.Common.DTO.SurveyAnswerDTO GetCurrentSurveyAnswer()
