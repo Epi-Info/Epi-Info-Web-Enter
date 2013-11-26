@@ -543,6 +543,11 @@ namespace Epi.Web.WCF.SurveyService
             return result;
         }
 
+         public  FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest) { 
+            
+            
+            
+            }
         /// <summary>
         /// Validation options enum. Used in validation of messages.
         /// </summary>
@@ -562,6 +567,7 @@ namespace Epi.Web.WCF.SurveyService
 
             return result;
         }
+
 
       
     }

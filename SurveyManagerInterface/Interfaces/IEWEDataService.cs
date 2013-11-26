@@ -7,6 +7,7 @@ using System.Text;
 using Epi.Web.Common.DTO;
 using Epi.Web.Common.Message;
 using Epi.Web.Common.Exception;
+using Epi.Web.WCF.SurveyService;
 
 namespace Epi.Web.WCF.SurveyService
 {
@@ -39,6 +40,11 @@ namespace Epi.Web.WCF.SurveyService
         [FaultContract(typeof(CustomFaultException))]
 
         FormsInfoResponse GetFormsInfo(FormsInfoRequest pRequest);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+
+        FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest);
     }
 
 }

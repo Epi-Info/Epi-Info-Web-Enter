@@ -2,26 +2,22 @@
 using System.Runtime.Serialization;
 using Epi.Web.Common.MessageBase;
 using Epi.Web.Common.DTO;
-
 namespace Epi.Web.Common.Message
-{
-    /// <summary>
-    /// Represents a SurveyInfo response message to client
-    /// </summary>    
-    [DataContract(Namespace = "http://www.yourcompany.com/types/")]
-    public class FormsInfoResponse
     {
+     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
+    public class FormResponseInfoResponse
+        {
            /// <summary>
         /// Default Constructor for SurveyInfoResponse.
         /// </summary>
-        public FormsInfoResponse() 
+        public FormResponseInfoResponse() 
         {
-            this.FormInfoList = new List<FormInfoDTO>(); 
+        this.FormResponseInfoList = new List<FormResponseInfoDTO>(); 
         }
         /// <summary>
         /// Single SurveyInfo
         /// </summary>
         [DataMember]
-        public List<FormInfoDTO> FormInfoList;
+        public List<FormResponseInfoDTO> FormResponseInfoList;
+        }
     }
-}
