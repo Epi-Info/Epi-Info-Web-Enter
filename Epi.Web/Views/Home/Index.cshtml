@@ -39,19 +39,48 @@
 
     $(function () {
         $("button[class*='metro-tile']").click(function (e) {
-            SelectDivCss(e);
+            e.preventDefault();
 
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $(this).addClass('metro-set');
+            $("#right").show();
 
-            //            $.get('www.google.com', function (data) {
-            //                $('#right').html(data);
-            //                        });
+            var serviceURL = '/Home/ReadResponseInfo';
 
-            PopulateDiv(this.id);
-            // $('#myDiv').load('Home/Read'); 
+            $.ajax({
+                type: "POST",
+                url: serviceURL + '?formid=' + this.id + '&name=' + this.name,
+                //data: param = this.id,
+                contentType: "application/html; charset=utf-8",
+                dataType: "html",
+                success: successFunc,
+                error: errorFunc
+            });
+
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            } 
 
         })
+
+        $("#dropdown-1").change(function () {
+
+            FilterRecords(this);
+            $("#right").hide();
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $("button:visible").triggerHandler('click');
+        });
+
+        $("button:visible").triggerHandler('click');
+
     });
 
+
+    
 </script>
 
 <div id="pageHeader">
@@ -67,11 +96,12 @@
 <div id="content" style="margin-bottom: 200px; padding-left: 10px; min-height: 375px;">
 	<div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
 		<span class="css3-metro-dropdown">
-			<select name="dropdown-1">
+			<select id="dropdown-1" >
 				<option value="0" selected="selected" disabled="disabled">Arrange by:</option>
 				<option value="1">Published Forms First</option>
 				<option value="2">Collection Forms First</option>
-				<option value="3">Last Saved Forms First</option>
+                <option value="3">View All</option>
+			@*	<option value="3">Last Saved Forms First</option>*@
 			</select>
 		</span>
 	</div>
@@ -107,9 +137,8 @@
 				@Html.Partial("ListForms", Model)
 </div>
 <div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
-  @*  @Html.Partial("ListResponses", this)*@
+@*  @Html.Partial("ListResponses", this)*@
 </div>
-
 
 				@*   <div class="metro-tile metro-design metro-staging">
 						<h3>Form Designer Form in Staging</h3>

@@ -102,7 +102,7 @@ namespace Epi.Web.MVC.Controllers
         /// <param name="surveyModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(string surveyid)
+        public ActionResult Index(string surveyid, string AddNewButton)
         {
             
                 bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
@@ -200,12 +200,13 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReadResponseInfo(string formid, string userid) 
+        public ActionResult ReadResponseInfo(string formid, string name) 
         {
-            var model = new ResponseInfoModel();
-            model.ResponseId = formid;
+            var model = new FormResponseInfoModel();
+            model.FormInfoModel.FormId = formid;
+            model.FormInfoModel.FormName = name;
 
-            return View("ListResponses", model);
+            return PartialView("ListResponses", model);
         }
 
         private Epi.Web.Common.DTO.SurveyAnswerDTO GetCurrentSurveyAnswer()
