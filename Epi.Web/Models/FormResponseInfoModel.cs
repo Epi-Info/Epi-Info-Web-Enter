@@ -9,5 +9,11 @@ namespace Epi.Web.MVC.Models
     {
         public List<ResponseInfoModel> ResponseInfoModels { get; set; }
         public FormInfoModel FormInfoModel { get; set; }
+
+        public FormResponseInfoModel()
+        {
+            ResponseInfoModels = new List<ResponseInfoModel>();
+            FormInfoModel = new FormInfoModel();
+        }
     }
 }

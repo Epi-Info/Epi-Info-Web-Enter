@@ -1,6 +1,6 @@
-﻿@model Epi.Web.MVC.Models.ResponseInfoModel
+﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
     <div id="formtitle">
-	                <h2 class="surveyTitle">(Model.ResponseId)
+	                <h2 class="surveyTitle">@Model.FormInfoModel.FormName
                                                </h2><!--<hr class="hr1" />-->
                 </div>
     
@@ -23,10 +23,10 @@
             <div id="recordscontent">
                 <!--style="display:inline-block;"-->
                 <div id="addnew">
-                    <button  type="submit"  name="AddNewButton" class="default record" value="AddNew">
+                    <button  type="submit"  name="AddNewButton" class="default record" value="@Model.FormInfoModel.FormId">
                         Add New Record
                     </button>
-
+                    
                 </div>
                 <div id="paging">
                     <button class="default paging">
