@@ -1,31 +1,26 @@
 ﻿
-function SelectDivCss(e) {
-    e.preventDefault();
-
-    $("button[class*='metro-tile']").removeClass('metro-set');
-    $(this).addClass('metro-set');
+function PopulateDiv(id, name) {
+  
 }
 
-function PopulateDiv(id) {
-    var serviceURL = '/Home/ReadResponseInfo';
+function FilterRecords(ctrl) {
+    var src = $(ctrl).val();
+    //  alert(src);
+    //$("#imagePreview").html(src ? "<img src='" + src + "'>" : "");
 
-    $.ajax({
-        type: "POST",
-        url: serviceURL + '?formid=' + id + '&userid=ali',
-        //data: param = this.id,
-        contentType: "application/html; charset=utf-8",
-        dataType: "html",
-        success: successFunc,
-        error: errorFunc
-    });
-
-    function successFunc(data, status) {
-        $('#right').html(data);
+    if (src == 1) {
+        $(".metro-collect").hide();
+        $(".metro-design").show();
     }
 
-    function errorFunc() {
-        alert('error');
+    if (src == 2) {
+        $(".metro-design").hide();
+        $(".metro-collect").show();
     }
+
+    if (src == 3) {
+        $(".metro-tile").show();
+    } 
 }
 
 function NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl,passCode,EmailSubject) {
