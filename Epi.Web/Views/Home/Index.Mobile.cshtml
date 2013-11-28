@@ -54,7 +54,7 @@
   	<div style="clear:both;"></div>
 </div> 
        		 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = @Model.IsDraftModeStyleClass.ToString() }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
 { 
      
         
@@ -106,7 +106,7 @@
 	        </div>
 	       
 	     </div> 
-     @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
+     @*@if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
       {
                       
             <p style="width: 250px; min-width:120px; margin: 0 auto;"><button id="beginsurvey" class="ui-btn-hidden" data-theme="e" type="submit" aria-disabled="false" > Begin Survey</button></p>
@@ -133,7 +133,7 @@
                         <p style="text-align:center">Survey Closing Date: @string.Format("{0:f}", Model.ClosingDate)</p>
                 </div>
                 }
-        }
+        }*@
                 
     </div>
            
