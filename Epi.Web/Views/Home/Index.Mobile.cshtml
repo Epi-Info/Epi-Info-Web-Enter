@@ -1,51 +1,86 @@
-﻿@{
+﻿@model IEnumerable<Epi.Web.MVC.Models.FormInfoModel>
+@{
     ViewBag.Title = "Epi Web Enter - My Forms"; //+ " - " +
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
 
-<script type="text/javascript" >
+<script>
 
-    $(document).ready(function () {
-        // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
-        
-       
- 
 
-//         $("#VideoDialog").dialog({
-//            autoOpen: false,
-//            show: "blind",
-//            hide: "blind",
-//            resizable: false,
-//            height: 410,
-//            width: 500,
-//            modal: true
-//        });
+    $(function () {
+        $("button[class*='metro-tile']").click(function (e) {
+            e.preventDefault();
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $(this).addClass('metro-set');
+            $("#right").show();
 
-//          
-//          document.getElementById("VideoDialog").style.display ="none";
-       });
-        
-// $(document).delegate('#VideoDialog', 'click', function() {
-// $(this).simpledialog({
-//                'mode' : 'blank',
-//                'prompt': false,
-//                'forceInput': false,
-//                'useModal':true,
-//                'buttons' : {
-//                              'OK': {
-//                                click: function () {
-//                                  $('#dialogoutput').text('OK');
-//                                }
-//                              }
-//                       
-//                            },
-//                      'fullHTML': "<Div><iframe width='480' height='360' src='http://www.youtube.com/embed/BgTJnSKQKIs?rel=0' frameborder='0' allowfullscreen></iframe><span style='font: bold 10pt Segoe UI; color:#04aeda; '>  Epi Info 7</span></Div>"
-//                         })
+            var serviceURL = '/Home/ReadResponseInfo';
+            //var submodel = null;
+            //                    $.each(@Model, function (key, value) {
+            ////                    if (value.FormId == this.id) {
+            ////                    submodel = value;
+            ////                    }
+            //                        alert(value);
+            //                    }
+            //                    for (var i = 0; i < @Model.Count(); i++) {
+            //                    //alert(@Model);
+            //                    }
+            $.ajax({
+                type: "POST",
+                url: serviceURL + '?formid=' + this.id + '&name=' + this.name,
+                //data: param = this.id,
+                contentType: "application/html; charset=utf-8",
+                dataType: "html",
+                success: successFunc,
+                error: errorFunc
+            });
 
-//               
+            function successFunc(data, status) {
+                //$('#right').html(data);
+                window.location.href = serviceURL;
+            }
 
-//         
-//});
+            function errorFunc() {
+                alert('error');
+            }
+
+        });
+
+        //        $("a[class*='metro-tile']").click(function () {
+        //           // alert(data);
+
+        ////            var $this = $(this);
+        ////            alert($this.attr('FormId'));
+        //            var model = @Html.Raw(Json.Encode(Model));
+
+
+        //            $.ajax({
+        //                url: this.href,
+        //                type: 'POST',
+        //                contentType: 'application/json; charset=utf-8',
+        //                data: JSON.stringify(model),
+        //                success: function (result) {
+
+        //                }
+        //            });
+        //                        return false;
+
+        //        });
+
+        $("#dropdown-1").change(function () {
+
+            FilterRecords(this);
+            $("#right").hide();
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $("button:visible").triggerHandler('click');
+        });
+
+        //$("button:visible").triggerHandler('click');
+
+    });
+
+
+    
 </script>
  
 <div id="pageHeader">
@@ -53,9 +88,7 @@
    	<div id="userwelcome">Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
   	<div style="clear:both;"></div>
 </div> 
-       		 
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
-{ 
+
      
         
 <div id="content" style="margin-bottom:200px;">
@@ -69,10 +102,11 @@
             </select>
         </span>           
      </div>
-
+      @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
+      {
       <div class="section group" id="main">
             <div id="left" class="col span_1_of_3">
-                    <div class="divcontents">
+                    @*<div class="divcontents">
                     <a id="linkform" href="#" style="text-decoration:none;">
 	                <div class="metro-tile metro-design metro-staging">
                         <h3>Form Designer Form in Staging</h3>
@@ -102,10 +136,12 @@
                     <div class="metro-tile metro-collect metro-prod">
                         <h3>Data Collector Form in Production</h3>
                     </div>
-              </div> 
+              </div> *@
+               @Html.Partial("ListForms", Model);
 	        </div>
 	       
 	     </div> 
+      }
      @*@if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
       {
                       
@@ -139,8 +175,7 @@
            
         
 
-               
-    }
+   
 
      
 
