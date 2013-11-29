@@ -202,11 +202,22 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult ReadResponseInfo(string formid, string name) 
         {
-            var model = new FormResponseInfoModel();
-            model.FormInfoModel.FormId = formid;
-            model.FormInfoModel.FormName = name;
+            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
-            return PartialView("ListResponses", model);
+            if (IsMobileDevice == false)
+            {
+                var model = new FormResponseInfoModel();
+                //model.FormInfoModel.FormId = formid;
+                //model.FormInfoModel.FormName = name;
+
+                return PartialView("ListResponses");
+                //var stringView = RenderRazorViewToString("ListResponses", model);
+                //return Json(stringView);
+            }
+            else
+            {
+                return View("ListResponses");
+            }
         }
 
         private Epi.Web.Common.DTO.SurveyAnswerDTO GetCurrentSurveyAnswer()
