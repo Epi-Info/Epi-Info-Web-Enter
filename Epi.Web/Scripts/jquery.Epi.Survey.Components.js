@@ -17,9 +17,9 @@ function FilterRecords(ctrl) {
         $(".metro-design").hide();
         $(".metro-collect").show();
     }
-
     if (src == 3) {
-        $(".metro-tile").show();
+        $(".metro-design").show();
+        $(".metro-collect").show();
     } 
 }
 
