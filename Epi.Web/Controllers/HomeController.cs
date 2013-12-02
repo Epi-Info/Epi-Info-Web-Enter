@@ -190,7 +190,6 @@ namespace Epi.Web.MVC.Controllers
                 //string page;
                 // return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResponseID, PageNumber = 1 });
-               // return View("ListResponses");
             //}
             //catch (Exception ex)
             //{
@@ -204,12 +203,14 @@ namespace Epi.Web.MVC.Controllers
         {
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
+            //This is where we shall make call to the web service for the form and list of responses.
+
+            var model = new FormResponseInfoModel();
+            model.FormInfoModel.FormId = formid;
+            //model.FormInfoModel.FormName = name;
+
             if (IsMobileDevice == false)
             {
-                var model = new FormResponseInfoModel();
-                model.FormInfoModel.FormId = formid;
-                //model.FormInfoModel.FormName = name;
-
                 return PartialView("ListResponses", model);
                 //var stringView = RenderRazorViewToString("ListResponses", model);
                 //return Json(stringView);
