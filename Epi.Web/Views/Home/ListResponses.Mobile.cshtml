@@ -1,9 +1,12 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
+
+
     <div id="formtitle">
 	                <h2 class="surveyTitle">@Model.FormInfoModel.FormId
                                                </h2><!--<hr class="hr1" />-->
                 </div>
-    
+   @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
+   { 
     <div id="editsettings">
                 <button id="btneditsettings" class="default settings" type="button">
                     Settings</button>
@@ -199,5 +202,5 @@
             </div>
     
     
-    
+   }
 
