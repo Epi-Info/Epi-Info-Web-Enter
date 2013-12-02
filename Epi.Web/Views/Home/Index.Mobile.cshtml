@@ -4,39 +4,38 @@
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
 
-
 <script>
 
 
     $(function () {
-        $("button[class*='metro-tile']").click(function (e) {
-            e.preventDefault();
-            $("button[class*='metro-tile']").removeClass('metro-set');
-            $(this).addClass('metro-set');
-            $("#right").show();
-            alert('hi');
-            var serviceURL = '/Home/ReadResponseInfo';
-         
-            $.ajax({
-                type: "POST",
-                url: serviceURL + '?formid=' + this.id ,
-                //data: param = this.id,
-                contentType: "application/html; charset=utf-8",
-                dataType: "html",
-                success: successFunc,
-                error: errorFunc
-            });
+//                $("button[class*='metro-tile']").click(function (e) {
+//                    e.preventDefault();
+//                    //$("button[class*='metro-tile']").removeClass('metro-set');
+//                    //$(this).addClass('metro-set');
+//                    $("#right").show();
+//                    alert('hi');
+//                    var serviceURL = '/Home/ReadResponseInfo';
+//                 
+//                    $.ajax({
+//                        type: "POST",
+//                        url: serviceURL + '?formid=' +  $(this).attr('data-FormId'),
+//                        //data: param = this.id,
+//                        contentType: "application/html; charset=utf-8",
+//                        dataType: "html",
+//                        success: successFunc,
+//                        error: errorFunc
+//                    });
 
-            function successFunc(data, status) {
-                //$('#right').html(data);
-                window.location.href = serviceURL;
-            }
+//                    function successFunc(data, status) {
+//                        $('#right').html(data);
+//                        //window.location.href = serviceURL;
+//                    }
 
-            function errorFunc() {
-                alert('error');
-            }
+//                    function errorFunc() {
+//                        alert('error');
+//                    }
 
-        });
+//                });
 
         //        $("a[class*='metro-tile']").click(function () {
         //           // alert(data);
@@ -59,15 +58,15 @@
 
         //        });
 
-        $("#dropdown-1").change(function () {
+//        $("#dropdown-1").on('change', function () {
+//            alert(1);
+//            FilterRecords(this);
+//            //$("#right").hide();
+//            //$("button[class*='metro-tile']").removeClass('metro-set');
+//            //$("button:visible").triggerHandler('click');
+//        });
 
-            FilterRecords(this);
-            $("#right").hide();
-            $("button[class*='metro-tile']").removeClass('metro-set');
-            $("button:visible").triggerHandler('click');
-        });
-
-        $("button:visible").triggerHandler('click');
+        //$("button:visible").triggerHandler('click');
 
     });
 
@@ -86,11 +85,11 @@
 <div id="content" style="margin-bottom:200px;">
      <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; width:150px;">
         
-            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; width:150px;">
+            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; width:150px;" onchange="FilterRecords(this);">
                 <option value="0" selected="selected" disabled="disabled">Arrange by:</option>
                 <option value="1">Published Forms First</option>        
                 <option value="2">Collection Forms First</option>
-                <option value="3">Last Saved Forms First</option>
+                <option value="3">View All</option>
             </select>
                   
      </div>

@@ -29,15 +29,13 @@
 <script>
 
 
-
     $(function () {
-                $("button[class*='metro-tile']").click(function (e) {
+        $("input[class*='metro-tile']").click(function (e) {
                     e.preventDefault();
-                    $("button[class*='metro-tile']").removeClass('metro-set');
+                    $("input[class*='metro-tile']").removeClass('metro-set');
                     $(this).addClass('metro-set');
                     $("#right").show();
-                   // var serviceURL = '/Home/ReadResponseInfo';
-                    var serviceURL ='@Url.Action("ReadResponseInfo","Home")';
+                    var serviceURL = '/Home/ReadResponseInfo';
                     //var submodel = null;
 //                    $.each(@Model, function (key, value) {
 ////                    if (value.FormId == this.id) {
@@ -93,11 +91,11 @@
 
             FilterRecords(this);
             $("#right").hide();
-            $("button[class*='metro-tile']").removeClass('metro-set');
-            $("button:visible").triggerHandler('click');
+            $("input[class*='metro-tile']").removeClass('metro-set');
+            $("input:visible").triggerHandler('click');
         });
 
-        $("button:visible").triggerHandler('click');
+        $("input:visible").triggerHandler('click');
 
     });
 

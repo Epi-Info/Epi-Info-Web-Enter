@@ -27,9 +27,10 @@
         }
 @*<a href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", formid = item.FormId })" >*@
 @*<a onclick="document.getElementById('formsList').submit()" href="#">*@
-  <input  class="@divClass" type=submit id="@item.FormId" data-FormId="@item.FormId" data-theme="@divClass" value="@item.FormName">
-          
-  </input>
+  <button  class="@divClass" type=submit id="@item.FormId" data-FormId="@item.FormId" data-theme="@divClass" value="@item.FormId" name="surveyid">
+          <h3>@item.FormName</h3>
+  </button>
+        
         
               
             

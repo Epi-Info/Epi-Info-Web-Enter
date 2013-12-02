@@ -107,6 +107,14 @@ namespace Epi.Web.MVC.Controllers
             
                 bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
+                if (surveyid != null && AddNewFormId == null)
+                {
+                    //
+                    FormResponseInfoModel model = new FormResponseInfoModel();
+                    model.FormInfoModel.FormId = surveyid;
+                    return View("ListResponses", model);
+                }
+
                 if (IsMobileDevice == false)
                 {
                     IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
@@ -199,7 +207,7 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReadResponseInfo(string formid, string name) 
+        public ActionResult ReadResponseInfo(string formid) 
         {
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
@@ -217,7 +225,7 @@ namespace Epi.Web.MVC.Controllers
             }
             else
             {
-                return View("ListResponses");
+                return View("ListResponses", model);
             }
         }
 
