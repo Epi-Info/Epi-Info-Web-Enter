@@ -1,9 +1,9 @@
 ﻿@model IEnumerable<Epi.Web.MVC.Models.FormInfoModel>
 @{
-	ViewBag.Title = "Epi Web Enter - My Forms";// + " - "+ 
-	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
-	Layout = "~/Views/Shared/_Layout.cshtml";
-   
+    ViewBag.Title = "Epi Web Enter - My Forms";// + " - "+ 
+    // Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+	
 }
 @*<script type="text/javascript" >
 
@@ -26,46 +26,67 @@
 	  });
 
 </script>*@
-
 <script>
-    //    function clickme(form) {
-    ////        alert("This is Partial View");
-    ////        debugger;
-    //        //alert('form name is ' + form.id);
-    //        form.className = form.className + " metro-set"
-
-    //        }
 
 
     $(function () {
-        $("button[class*='metro-tile']").click(function (e) {
-            e.preventDefault();
+                $("button[class*='metro-tile']").click(function (e) {
+                    e.preventDefault();
+                    $("button[class*='metro-tile']").removeClass('metro-set');
+                    $(this).addClass('metro-set');
+                    $("#right").show();
 
-            $("button[class*='metro-tile']").removeClass('metro-set');
-            $(this).addClass('metro-set');
-            $("#right").show();
+                    var serviceURL = '/Home/ReadResponseInfo';
+                    //var submodel = null;
+//                    $.each(@Model, function (key, value) {
+////                    if (value.FormId == this.id) {
+////                    submodel = value;
+////                    }
+//                        alert(value);
+//                    }
+//                    for (var i = 0; i < @Model.Count(); i++) {
+//                    //alert(@Model);
+//                    }
+                    $.ajax({
+                        type: "POST",
+                        url: serviceURL + '?formid=' + this.id + '&name=' + this.name,
+                        //data: param = this.id,
+                        contentType: "application/html; charset=utf-8",
+                        dataType: "html",
+                        success: successFunc,
+                        error: errorFunc
+                    });
 
-            var serviceURL = '/Home/ReadResponseInfo';
+                    function successFunc(data, status) {
+                        $('#right').html(data);
+                    }
+
+                    function errorFunc() {
+                        alert('error');
+                    }
+
+                });
+
+        $("a[class*='metro-tile']").click(function () {
+           // alert(data);
+
+//            var $this = $(this);
+//            alert($this.attr('FormId'));
+            var model = @Html.Raw(Json.Encode(Model));
+
 
             $.ajax({
-                type: "POST",
-                url: serviceURL + '?formid=' + this.id + '&name=' + this.name,
-                //data: param = this.id,
-                contentType: "application/html; charset=utf-8",
-                dataType: "html",
-                success: successFunc,
-                error: errorFunc
+                url: this.href,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(model),
+                success: function (result) {
+
+                }
             });
+                        return false;
 
-            function successFunc(data, status) {
-                $('#right').html(data);
-            }
-
-            function errorFunc() {
-                alert('error');
-            } 
-
-        })
+        });
 
         $("#dropdown-1").change(function () {
 
@@ -82,65 +103,62 @@
 
     
 </script>
-
 <div id="pageHeader">
-	<div id="pageTitle">
-		<h2>
-			My Forms</h2>
-	</div>
-	<div id="userwelcome">
-		Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
-	<div style="clear: both;">
-	</div>
+    <div id="pageTitle">
+        <h2>
+            My Forms</h2>
+    </div>
+    <div id="userwelcome">
+        Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
+    <div style="clear: both;">
+    </div>
 </div>
 <div id="content" style="margin-bottom: 200px; padding-left: 10px; min-height: 375px;">
-	<div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
-		<span class="css3-metro-dropdown">
-			<select id="dropdown-1" >
-				<option value="0" selected="selected" disabled="disabled">Arrange by:</option>
-				<option value="1">Published Forms First</option>
-				<option value="2">Collection Forms First</option>
+    <div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
+        <span class="css3-metro-dropdown">
+            <select id="dropdown-1">
+                <option value="0" selected="selected" disabled="disabled">Arrange by:</option>
+                <option value="1">Published Forms First</option>
+                <option value="2">Collection Forms First</option>
                 <option value="3">View All</option>
-			@*	<option value="3">Last Saved Forms First</option>*@
-			</select>
-		</span>
-	</div>
-	<div id="rightlegend" style="float: left; font-size: 9pt; vertical-align: baseline;
-		margin-top: 8px;">
-		<div id="Div1" style="display: inline; margin-right: 30px;">
-			<img alt="" src="../../Content/images/designlegend.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			My Forms</div>
-		<div id="Div2" style="display: inline; margin-right: 30px;">
-			<img alt="" src="../../Content/images/collectlegend.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			Forms Assigned to Me</div>
-		<div id="Div4" style="display: inline; margin-right: 30px;">
-			<img alt="" src="../../Content/images/prodlegend.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			Production</div>
-		<div id="Div3" style="display: inline;">
-			<img alt="" src="../../Content/images/staginglegend.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			Staging</div>
-	</div>
-	<div style="clear: both;">
-	</div>
-	<!-- <a href="#" class="show_hide">Show/hide</a>-->
-    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList"}))
+                @*	<option value="3">Last Saved Forms First</option>*@
+            </select>
+        </span>
+    </div>
+    <div id="rightlegend" style="float: left; font-size: 9pt; vertical-align: baseline;
+        margin-top: 8px;">
+        <div id="Div1" style="display: inline; margin-right: 30px;">
+            <img alt="" src="../../Content/images/designlegend.png" align="middle" style="width: 16px;
+                vertical-align: middle;" />
+            My Forms</div>
+        <div id="Div2" style="display: inline; margin-right: 30px;">
+            <img alt="" src="../../Content/images/collectlegend.png" align="middle" style="width: 16px;
+                vertical-align: middle;" />
+            Forms Assigned to Me</div>
+        <div id="Div4" style="display: inline; margin-right: 30px;">
+            <img alt="" src="../../Content/images/prodlegend.png" align="middle" style="width: 16px;
+                vertical-align: middle;" />
+            Production</div>
+        <div id="Div3" style="display: inline;">
+            <img alt="" src="../../Content/images/staginglegend.png" align="middle" style="width: 16px;
+                vertical-align: middle;" />
+            Staging</div>
+    </div>
+    <div style="clear: both;">
+    </div>
+    <!-- <a href="#" class="show_hide">Show/hide</a>-->
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
     {
         
     
-	<div class="section group" id="main">
-	
-<div id="left" class="col span_1_of_3">
-				@Html.Partial("ListForms", Model)
-</div>
-<div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
-@*  @Html.Partial("ListResponses", this)*@
-</div>
-
-				@*   <div class="metro-tile metro-design metro-staging">
+        <div class="section group" id="main">
+            <div id="left" class="col span_1_of_3">
+                @Html.Partial("ListForms", Model)
+            </div>
+            <div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
+                @*  @Html.Partial("ListResponses", this)*@
+            </div>
+            @*   <div class="metro-tile metro-design metro-staging">
 						<h3>Form Designer Form in Staging</h3>
 					</div> 
 					<div class="metro-tile metro-design metro-prod">
@@ -166,9 +184,7 @@
 					</div>
 					<div class="metro-tile metro-collect metro-prod">
 						<h3>Data Collector Form in Production</h3>
-					</div>*@
-	   
-			@*<div id="formtitle">
+					</div>*@ @*<div id="formtitle">
 					<h2 class="surveyTitle">@Model.SurveyName</h2><!--<hr class="hr1" />-->
 				</div>
 			<div id="editsettings">
@@ -204,8 +220,8 @@
 				<div style="clear: both; margin-bottom: 10px;">
 				</div>
 				<div id="recordstable">*@
-					<!-- style="display:inline-block;">-->
-					@*<table >
+            <!-- style="display:inline-block;">-->
+            @*<table >
 							<thead>
 							<tr>
 								<th>Actions</th>
@@ -361,11 +377,11 @@
 							</tr>
 					</tbody>
 				</table>*@
-			</div>
+        </div>
     }
-			<div id="settingscontent">
-				<!--style="display:inline-block;"-->
-				@*<a href="#" class="backbtnlink" ><img alt="Next" src="../../Content/images/backform.png" align="middle" style="vertical-align:text-top; margin-top:-2px; border:none;" /></a>
+    <div id="settingscontent">
+        <!--style="display:inline-block;"-->
+        @*<a href="#" class="backbtnlink" ><img alt="Next" src="../../Content/images/backform.png" align="middle" style="vertical-align:text-top; margin-top:-2px; border:none;" /></a>
 					<h3 class="surveyTitle">Edit Form Settings</h3><!--<hr class="hr1" />-->
 					<form id="formsettings" action="Index">
 						<div class="formname">
@@ -426,10 +442,9 @@
 							<button class="default delsettings" type="button">Delete Form</button>
 						</div>
 					</form>*@
-			</div>
-		</div>
-	</div>
-	@* @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
+    </div>
+</div>
+</div> @* @if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
 	{            
 			<p><button id="beginsurvey" class="default" type="submit">Begin Survey</button></p>          
 	}
@@ -451,9 +466,7 @@
 					<p style="text-align:center">Survey Closing Date: @string.Format("{0:f}", Model.ClosingDate)</p>
 			   </div>
 		}
-	}*@
-</div>
-@*  @{if (ViewBag.Omniture.IsEnabled == true)
+	}*@ </div> @*  @{if (ViewBag.Omniture.IsEnabled == true)
 		{ 
 		 Html.RenderPartial("OmniturePartial");  
 		} 

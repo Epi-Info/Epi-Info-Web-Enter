@@ -207,10 +207,10 @@ namespace Epi.Web.MVC.Controllers
             if (IsMobileDevice == false)
             {
                 var model = new FormResponseInfoModel();
-                //model.FormInfoModel.FormId = formid;
+                model.FormInfoModel.FormId = formid;
                 //model.FormInfoModel.FormName = name;
 
-                return PartialView("ListResponses");
+                return PartialView("ListResponses", model);
                 //var stringView = RenderRazorViewToString("ListResponses", model);
                 //return Json(stringView);
             }
