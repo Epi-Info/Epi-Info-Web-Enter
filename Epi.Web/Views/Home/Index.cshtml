@@ -35,7 +35,6 @@
                     $("button[class*='metro-tile']").removeClass('metro-set');
                     $(this).addClass('metro-set');
                     $("#right").show();
-
                     var serviceURL = '/Home/ReadResponseInfo';
                     //var submodel = null;
 //                    $.each(@Model, function (key, value) {
@@ -49,7 +48,7 @@
 //                    }
                     $.ajax({
                         type: "POST",
-                        url: serviceURL + '?formid=' + this.id + '&name=' + this.name,
+                        url: serviceURL + '?formid=' + $(this).attr('data-FormId'),
                         //data: param = this.id,
                         contentType: "application/html; charset=utf-8",
                         dataType: "html",
@@ -67,26 +66,26 @@
 
                 });
 
-        $("a[class*='metro-tile']").click(function () {
-           // alert(data);
+        //$("a[class*='metro-tile']").click(function () {
+//           // alert(data);
 
-//            var $this = $(this);
-//            alert($this.attr('FormId'));
-            var model = @Html.Raw(Json.Encode(Model));
+////            var $this = $(this);
+////            alert($this.attr('FormId'));
+//            var model = @Html.Raw(Json.Encode(Model));
 
 
-            $.ajax({
-                url: this.href,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(model),
-                success: function (result) {
+//            $.ajax({
+//                url: this.href,
+//                type: 'POST',
+//                contentType: 'application/json; charset=utf-8',
+//                data: JSON.stringify(model),
+//                success: function (result) {
 
-                }
-            });
-                        return false;
+//                }
+//            });
+//                        return false;
 
-        });
+//        });
 
         $("#dropdown-1").change(function () {
 
