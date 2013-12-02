@@ -99,42 +99,50 @@ body
     text-align:right;
  }
 
-/*
 #infobox
  {
     padding: 0.5em;
     font-size: 10pt;
-    background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
-    background-size: 100% 100%;
-    height: 32px;
+   border-bottom: 3px solid #2878EC;  
  }
  
- #surveyno
- {
-    float: left;
-    width: 33%;
-    white-space:normal; 
-    word-wrap: break-word;
-    margin-top: 3px;
- }
-
-#orgn
- {
-    float: right;
-    width: 55%;
-    white-space:normal;
-    word-wrap: break-word;
-    text-align:right;
-    margin-top: 3px;
- }
-
 #exit
  {
     float: right;
     position:relative;
     vertical-align:middle;
  }
-*/
+ 
+ #nav
+{
+text-align: center;
+padding: 0em 0.5em 0.5em 0.5em;
+position:relative;
+bottom: 100px;
+}
+
+ #prev
+ {
+ float: left;
+ width: 33%;
+ vertical-align:middle;
+ }
+
+#savediv
+ {
+ float: left;
+ width: 33%;
+ margin: auto;
+ vertical-align:middle;
+ }
+
+#next
+ {
+ float: right;
+ width: 33%;
+ vertical-align:middle;
+ }
+
 #content
  {
     clear:both; 
@@ -142,9 +150,22 @@ body
     min-height:330px;
  }
 
-/*#content h2
+div.recordcontentdiv
  {
-    font-size: 12pt; font-weight: bold; margin: 0 0 .5em 0;
+     background-image: linear-gradient(to right, #fbfbfc, #d6d7e0);
+    /*-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;*/    
+ }
+ 
+ #formdisplay
+ {
+     display:inline-block; 
+     background:white;border-right: 1px solid #abafbc;  
+     -webkit-box-shadow: 1px 0 0 rgba(162, 164, 185, 0.4); 
+     -moz-box-shadow: 1px 0 0 rgba(162, 164, 185, 0.4); 
+     box-shadow: 1px 0 0 rgba(162, 164, 185, 0.4);
+     padding:0.2em;
  }
  
  /*  SECTIONS  */
@@ -220,16 +241,14 @@ body
         margin: 1% 0 1% 0%;
         display: block;
 	    float:left;
-	  -moz-column-width: 288px;  
-    -webkit-column-width: 288px;   
-    column-width: 288px; 
--moz-column-gap:40px; /* Firefox */
--webkit-column-gap:40px; /* Safari and Chrome */
-column-gap:40px;
+        -moz-column-width: 288px;  
+        -webkit-column-width: 288px;   
+        column-width: 288px; 
+        -moz-column-gap:40px; /* Firefox */
+        -webkit-column-gap:40px; /* Safari and Chrome */
+        column-gap:40px;
 	
     }
-    
-    
     
     #right 
     {
@@ -241,6 +260,7 @@ column-gap:40px;
         border: 1px solid #c2c2c2;
         display: table-cell;
     }
+    
 #left::-webkit-scrollbar, #right::-webkit-scrollbar,#recordstable::-webkit-scrollbar, #formusers::-webkit-scrollbar, #formcolumns::-webkit-scrollbar {
     width: 8px;
 }
@@ -334,6 +354,7 @@ button.default:hover, button.default:active
 {
     background-image: url('../images/settings.png');
     background-repeat: no-repeat; 
+    background-size: 18px;
     background-position: 8px center;
     width: 110px;
     height: 35px;
@@ -381,20 +402,81 @@ button.default:hover, button.default:active
 {
     background-image: url('../images/addnew.png');
     background-repeat: no-repeat; 
+    background-size: 18px;
     background-position: 8px center;
     width: 180px;
     height: 35px;
     padding: 4px 6px 4px 30px;
 }
 
+button.exitsurvey
+ {
+    /*background: #2878ec;*/
+    width: 80px;
+    padding: 3px 2px;
+    font-size: 9pt;
+     height: 26px;
+ }
+ 
+ button.submits
+ {
+     background-image: url('../images/submit12.png');
+     background-repeat: no-repeat; 
+     background-size: 18px;
+     background-position: 8px center;
+     width: 140px;
+     padding: 4px 6px 4px 25px;
+     height: 31px;
+     font-size: 10pt;
+ }
+ 
+ button.next
+{
+  background-image: url('../images/next1.png');
+  background-position:84px center;
+  background-size: 18px;
+  background-repeat:no-repeat;
+  width:110px;
+  padding: 4px 6px 4px 4px;
+  height: 31px;
+   font-size: 10pt;
+}
+
+button.prev
+{
+  background-image: url('../images/prev1.png');
+  background-position:10px center;
+  background-size: 18px;
+  background-repeat:no-repeat;
+  padding: 4px 6px 4px 25px;
+  text-align:left;
+  width:110px;
+  height: 31px;
+   font-size: 10pt;
+}
+
+button.save
+{
+    background-image: url('../images/saveset.png');
+    background-position:10px center;
+    background-size: 18px;
+    background-repeat: repeat-x;
+    background-repeat:no-repeat;
+    padding: 4px 6px 4px 25px;
+    width:140px;
+    height: 31px;
+     font-size: 10pt;
+}
+
 button.paging
 {
-    padding: 4px 6px 4px 6px;
+    padding: 4px 4px 1px 4px;
 }
 
 button.paging img
 {
    vertical-align:text-top;
+   width: 16px;
 }
  
  #paging
@@ -604,29 +686,29 @@ button.metro-set:hover {
         margin-bottom:10px;
         max-width: 780px;
 	}
-	table { 
+	#recordstable table { 
 		/*width: 100%; */
 		border-spacing: 1px !important;
 		border-collapse: collapse; 
 		/*border: 1px solid #2878ec; */
 	}
 	/* Zebra striping */
-	tr:nth-of-type(even) { 
+	#recordstable tr:nth-of-type(even) { 
 		background: #e0ebfc; 
 	}
-	th { 
+	#recordstable th { 
 		background: white;
 		color:#2878ec;  
 		font-size:12pt;
 		font-weight: lighter; 
 		border-bottom: 3px solid #2878ec !important;
 	}
-	td, th { 
+	#recordstable td, #recordstable th { 
 		padding: 6px; 
 		/*border-bottom: 1px solid #2878ec; */
 		text-align: left; 
 	}
-	td:nth-of-type(1) { width:130px; min-width:130px; }
+	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
 	
 	#formsettings label, #formsettings select { font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; display:inline-block; height: 28px;}
 	#formsettings input { font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; display:inline-block; height: 28px;}
@@ -640,10 +722,29 @@ button.metro-set:hover {
 	.scrollcheck ul {margin:0; padding:0;}
 	.scrollcheck li { list-style: none;}
 	.scrollcheck li:nth-of-type(even) { background: #e0ebfc; }
+	
+	/*for TimePicker*/
+   .ui-timepicker-div .ui-widget-header { margin-bottom: 8px;font-size:75%; }
+   .ui-timepicker-div dl { text-align: left;font-size:75%; }
+   .ui-timepicker-div dl dt { height: 20px; margin-bottom: -20px;font-size:11px; }
+   .ui-timepicker-div dl dd { margin: 0 10px 10px 65px; font-size:11px; font-weight:bold;}
+   .ui-timepicker-div td { font-size: 1em;font-size:75%; }
+   .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0;font-size:75%; }          
+   .ui-datepicker .ui-datepicker-buttonpane {font-size:65%;}         
+
+
+    /*FieldSet Style*/
+    fieldset
+    {
+        border:1px solid #c4c4c4;
+        padding:2px;
+    }
+
 	button.savesettings
         {
         background-image: url('../images/saveset.png');
         background-repeat: no-repeat; 
+        background-size: 18px;
         background-position: 8px center;
         width: 150px;
         height: 35px;
@@ -656,6 +757,7 @@ button.metro-set:hover {
         {
         background-image: url('../images/delset.png');
         background-repeat: no-repeat; 
+        background-size: 18px;
         background-position: 8px center;
         background-color: #6cb71e;
         width: 150px;
@@ -680,3 +782,91 @@ button.metro-set:hover {
 #confirm-container a.modal-close:active,
 #confirm-container a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:2px; color:#fff;}
 #confirm-container a.modal-close:hover {color:#ccc;}
+
+/* Page Numbers */
+.pages {
+ font: 9pt;
+ float: left;
+ margin-top: 0px;
+ width:75%;
+ font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+ color: #244640;
+ 
+}
+
+img { border: none;}
+
+.pages a {
+	color:#244640;
+    display: block;
+    float: left;
+    padding: 0.2em 0.5em;
+    margin-right: 0.1em;
+    border: 1px solid #fff;
+    background: #fff;
+    text-decoration:none;
+}
+
+.pages span {
+	color:#244640;
+    display: block;
+    float: left;
+    padding: 0.2em 0.5em;
+    margin-right: 0.1em;
+    /*border: 1px solid #fff;*/
+   /* background: #fff;*/
+}
+
+.pages span.current {
+    border: 1px solid #5c53ac;
+    font-weight: bold;
+    background: #5c53ac;
+    color: #fff;
+}
+
+.pages a {
+    border: 1px solid #5c53ac;
+    text-decoration: none;
+}
+
+.pages a:hover {
+    border-color: #2878ec;
+    cursor: pointer;
+    opacity:0.8;
+}
+
+.pages a.nextprev {
+    font-weight: bold;
+    background: #fff;
+    padding: 0.2em 0.2em;
+    background-repeat:no-repeat;
+    background-position:center; 
+    width:13px;
+}
+
+.pages span.nextprev {
+    color: #666;
+     padding: 0.2em 0.2em;
+     vertical-align: middle;
+}
+
+.pages span.nextprev {
+    border: 1px solid #2878ec;
+    color: #999;
+    background: #fff;
+}
+
+.pages .nextprev-next {
+    float: right;
+}
+
+* html .pages a.nextprev, * html .pages span.nextprev { /*IE 6 and below. Adjust non linked LIs slightly to account for bugs*/
+vertical-align: middle;
+margin-top: 100px;
+}
+/*End Page Numbers*/
+
+.MvcDynamicForm
+{
+    position:relative;
+}

@@ -287,14 +287,10 @@ button.MobileExitSurvey:hover
  }
 .MvcDynamicMobileForm
  {
- /* width:450px; 
-  /*height:auto;
-  min-height:600px;*/
-  display:block; 
-  /*border:1px solid white; */
-  position:relative;  
-  padding: 1em;
-  clear:both;
+    display:block; 
+    position:relative;  
+    padding: 0.2em 1em;
+    clear:both;
  }
 
 div.MvcFieldWrapper

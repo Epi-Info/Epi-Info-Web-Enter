@@ -4,6 +4,7 @@
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
 
+
 <script>
 
 
@@ -83,54 +84,28 @@
      
         
 <div id="content" style="margin-bottom:200px;">
-     <div id="leftarrangeby" style="float:left; vertical-align:middle; font-size:10pt;">
-        <span class="css3-metro-dropdown">
-            <select name="dropdown-1">
+     <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; width:150px;">
+        
+            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; width:150px;">
                 <option value="0" selected="selected" disabled="disabled">Arrange by:</option>
                 <option value="1">Published Forms First</option>        
                 <option value="2">Collection Forms First</option>
                 <option value="3">Last Saved Forms First</option>
             </select>
-        </span>           
+                  
      </div>
+     <div style="clear:both;"></div>
+
+    
       @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
       {
       <div class="section group" id="main">
             <div id="left" class="col span_1_of_3">
-                    @*<div class="divcontents">
-                    <a id="linkform" href="#" style="text-decoration:none;">
-	                <div class="metro-tile metro-design metro-staging">
-                        <h3>Form Designer Form in Staging</h3>
-                    </div>
-                    </a>
-                    <div class="metro-tile metro-design metro-prod">
-                        <h3>Form Designer Form in Production</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-staging">
-                        <h3>Data Collector Form in Staging</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-prod">
-                        <h3>Data Collector Form in Production</h3>
-                    </div>
-                    <div class="metro-tile metro-design metro-staging">
-                        <h3>NIO Feedback Survey - Selected for Viewing</h3>
-                    </div>
-                    <div class="metro-tile metro-design metro-staging">
-                        <h3>Form Designer Form in Staging</h3>
-                    </div>
-                    <div class="metro-tile metro-design metro-prod">
-                        <h3>Form Designer Form in Production</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-staging">
-                        <h3>Data Collector Form in Staging</h3>
-                    </div>
-                    <div class="metro-tile metro-collect metro-prod">
-                        <h3>Data Collector Form in Production</h3>
-                    </div>
-              </div> *@
-               @Html.Partial("ListForms", Model);
+               @Html.Partial("ListForms", Model)
 	        </div>
-	       
+	       <div id="right" class="col span_1_of_3" style="background: white;">
+               @*  @Html.Partial("ListResponses", this)*@
+           </div>
 	     </div> 
       }
      @*@if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
