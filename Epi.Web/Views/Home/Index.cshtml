@@ -30,9 +30,9 @@
 
 
     $(function () {
-        $("input[class*='metro-tile']").click(function (e) {
+        $("button[class*='metro-tile']").click(function (e) {
                     e.preventDefault();
-                    $("input[class*='metro-tile']").removeClass('metro-set');
+                    $("button[class*='metro-tile']").removeClass('metro-set');
                     $(this).addClass('metro-set');
                     $("#right").show();
                     var serviceURL = '/Home/ReadResponseInfo';
@@ -91,11 +91,11 @@
 
             FilterRecords(this);
             $("#right").hide();
-            $("input[class*='metro-tile']").removeClass('metro-set');
-            $("input:visible").triggerHandler('click');
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $("button:visible").triggerHandler('click');
         });
 
-        $("input:visible").triggerHandler('click');
+        $("button:visible").triggerHandler('click');
 
     });
 
