@@ -402,7 +402,7 @@ $(document).delegate('#close', 'click', function () {
                     },
 
 
-         'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to save and close this record? </p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important;'>Save & Close</a>        <a class='login'  style='width:50px; padding:8px 15px !important;'rel='close'   id='simpleclose'>Cancel</a></div></p>"
+            'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Any unsaved changes to this record will be lost.<br /> <br />Are you sure you want to close this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important;'>Yes</a>        <a class='login'  style='width:50px; padding:8px 15px !important;'rel='close'   id='simpleclose'>No</a></div></p>"
         })
 
  });
@@ -506,9 +506,10 @@ function ReplaceString(string){
       
       </div>
 	  
-    <div align="right" style="vertical-align:bottom; margin-top: 6px;">
+    <div id="exit" align="right" style="vertical-align:bottom; margin-top: 6px;">
         @*<button  class="MobileExitSurvey"    type="submit" id="close">Exit Survey</button>*@
-       <a id="close" class="exitsurvey"><img src="../../Content/images/saveset.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" /> </a>
+        <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Finalize</button>
+       <a id="close" class="exitsurvey"><img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" /> </a>
        @* <a id="close" class="exitsurvey" onclick="Submit();"  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", SurveyId = Model.SurveyInfo.SurveyId })">Exit</a>*@
     </div>
     <div style="clear: both;">
@@ -574,7 +575,7 @@ function ReplaceString(string){
              @*<a  onclick="Save();" style="" class="save" title="Click this button to finish the survey later. Use the survey link and pass code provided to return to the survey at a later time.">&nbsp;</a> *@
              @*<button type="button"  onclick="Save();" id ="Savebutton1" name="Savebutton" value="save" data-role="button" data-theme="save1" data-inline="true" data-iconpos="notext"></button>*@
                     @*onclick="Save();"*@
-                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Save & Close</button>
+                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Finalize</button>
              </div>
 
                @if (Model.CurrentPage == Model.NumberOfPages)
