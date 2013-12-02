@@ -29,13 +29,15 @@
 <script>
 
 
+
     $(function () {
                 $("button[class*='metro-tile']").click(function (e) {
                     e.preventDefault();
                     $("button[class*='metro-tile']").removeClass('metro-set');
                     $(this).addClass('metro-set');
                     $("#right").show();
-                    var serviceURL = '/Home/ReadResponseInfo';
+                   // var serviceURL = '/Home/ReadResponseInfo';
+                    var serviceURL ='@Url.Action("ReadResponseInfo","Home")';
                     //var submodel = null;
 //                    $.each(@Model, function (key, value) {
 ////                    if (value.FormId == this.id) {
