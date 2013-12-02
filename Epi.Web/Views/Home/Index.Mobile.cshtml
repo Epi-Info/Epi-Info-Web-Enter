@@ -13,21 +13,12 @@
             $("button[class*='metro-tile']").removeClass('metro-set');
             $(this).addClass('metro-set');
             $("#right").show();
-
+            alert('hi');
             var serviceURL = '/Home/ReadResponseInfo';
-            //var submodel = null;
-            //                    $.each(@Model, function (key, value) {
-            ////                    if (value.FormId == this.id) {
-            ////                    submodel = value;
-            ////                    }
-            //                        alert(value);
-            //                    }
-            //                    for (var i = 0; i < @Model.Count(); i++) {
-            //                    //alert(@Model);
-            //                    }
+         
             $.ajax({
                 type: "POST",
-                url: serviceURL + '?formid=' + this.id + '&name=' + this.name,
+                url: serviceURL + '?formid=' + this.id ,
                 //data: param = this.id,
                 contentType: "application/html; charset=utf-8",
                 dataType: "html",
@@ -75,7 +66,7 @@
             $("button:visible").triggerHandler('click');
         });
 
-        //$("button:visible").triggerHandler('click');
+        $("button:visible").triggerHandler('click');
 
     });
 
