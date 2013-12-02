@@ -129,8 +129,8 @@ body
  
  .ui-btn-up-metro-tile, #left .ui-btn-hover-metro-tile
  {
-	background-color: #D8512B;
-	border-color: #DC6241;
+	/*background-color: #D8512B;
+	border-color: #DC6241;*/
 	min-width: 232px;
 	width: 85%;
 	min-height: 30px;
@@ -145,7 +145,7 @@ body
 	transition: 0.1s all;
 	vertical-align:middle;
 	cursor:pointer;
-	margin-bottom:5px;
+	margin-bottom:-20px;
 	text-align: left;
 	vertical-align: top;
 }
