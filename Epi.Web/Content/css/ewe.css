@@ -412,10 +412,10 @@ button.default:hover, button.default:active
 button.exitsurvey
  {
     /*background: #2878ec;*/
-    width: 80px;
+    width: 50px;
     padding: 3px 2px;
     font-size: 9pt;
-     height: 26px;
+     height: 30px;
  }
  
  button.submits
@@ -471,6 +471,7 @@ button.save
 button.paging
 {
     padding: 4px 4px 1px 4px;
+    background: #fff;
 }
 
 button.paging img
@@ -529,6 +530,9 @@ button.paging img
 	margin-bottom:5px;
 	text-align: left;
 	vertical-align: top;
+	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-weight:lighter;
+    font-size: 18px;
 }
 
 .metro-tile h3 
@@ -572,7 +576,7 @@ button.paging img
 }
 
 
-button.metro-tile:hover {
+.metro-tile:hover {
 	-webkit-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-moz-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-ms-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
@@ -581,7 +585,7 @@ button.metro-tile:hover {
 	border-style:solid; 
 }
 
-button.metro-set:hover { 
+.metro-set:hover { 
     -webkit-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-moz-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-ms-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
@@ -765,6 +769,23 @@ button.metro-set:hover {
         padding: 4px 6px 4px 30px;
         }
         
+        button.dialogbtn
+ {
+ border: 1px solid #1f3b53 !important;
+
+ font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+ font-size: 10pt !important;
+ font-weight:bold !important;
+ padding: 3px 5px 3px 5px !important;
+ color:#fff !important;
+ height:30px;
+ width: 100px !important;
+ border: 1px solid rgba(0,0,0,0.5) !important;
+ background: #2878ec !important; 
+/* background: rgba(92,83,172,0.9) !important; */
+ 
+ }
+        
     #confirm {display:none;}
 
 /* Overlay */
@@ -788,7 +809,7 @@ button.metro-set:hover {
  font: 9pt;
  float: left;
  margin-top: 0px;
- width:75%;
+ width:72%;
  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
  color: #244640;
  
