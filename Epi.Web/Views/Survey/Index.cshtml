@@ -163,7 +163,7 @@
 	            modal: true,
 	            buttons:[{
 	                
-	                   "text":'Exit Survey',
+	                   "text":'Yes',
                        "click":  function () { var signoutUrl = '@Url.Action("SignOut","Post")';
 	                        var homePageUrl = '@Url.Action("Index","Home")' + '/' + '@Model.SurveyInfo.SurveyId';  
 	                        SignOutAndRedirect(signoutUrl, homePageUrl);
@@ -171,7 +171,7 @@
 	                    "class": 'dialogbtn'
 	                    
 	                },{
-	                "text":'Stay on this page',
+	                "text":'No',
                     "click":  function () {$(this).dialog('close');},
                     "class": 'dialogbtn'
 	                
@@ -403,7 +403,8 @@ function ReplaceString(string){
         </div>
         <div id="exit">
             @*<button class="default exitsurvey" type="submit" id="close">Save & Close</button>*@
-            <button class="default exitsurvey" id="close" type="submit"  name="Submitbutton" value="Submit"> Save & Close</button>
+            <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit"> Finalize Record</button> &nbsp; &nbsp;
+            <button class="default exitsurvey" id="close" type="submit"  name="Submitbutton" value="Submit"> Close</button>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -453,7 +454,7 @@ function ReplaceString(string){
 
 			    <div id="savediv" align="center">
 			        @*<button class="default save"  type="button" id ="Savebutton" onclick="Save();" name="Savebutton" value="save"> Save & Close</button>*@
-                    <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit"> Save & Close</button>
+                    <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit"> Finalize Record</button>
 			    </div>
 				 
 			  
@@ -544,7 +545,7 @@ function ReplaceString(string){
              </div>
 		   
             <div id="exitdialog" title="Save & Close Record" >
-               <p style="font-size:1.20em; font-weight:600;">Are you sure you want to save and close the record? </p>
+               <p style="font-size:1.20em; font-weight:600;">Any unsaved changes to this record will be lost.<br /> <br />Are you sure you want to close this record? </p>
                 <!--<p style="font-size:1.20em; font-weight:300;">Any unsaved changes will be lost!<br /><br /></p>
               <p style="text-align:center;">
                    <button  id="exitBtn" type="button" class="login" style="width:140px; height:30px;" onclick="">Exit Survey</button>&nbsp;

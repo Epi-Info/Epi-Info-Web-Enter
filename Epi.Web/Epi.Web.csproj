@@ -282,6 +282,7 @@
     <Content Include="Content\images\black_arrow2.png" />
     <Content Include="Content\images\button_check.png" />
     <Content Include="Content\images\cdclogo.png" />
+    <Content Include="Content\images\Close.png" />
     <Content Include="Content\images\collectlegend.png" />
     <Content Include="Content\images\delset.png" />
     <Content Include="Content\images\designlegend.png" />
