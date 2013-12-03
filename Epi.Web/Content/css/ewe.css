@@ -463,7 +463,7 @@ button.save
     background-repeat: repeat-x;
     background-repeat:no-repeat;
     padding: 4px 6px 4px 25px;
-    width:140px;
+    width:90px;
     height: 31px;
      font-size: 10pt;
 }
@@ -809,7 +809,7 @@ button.paging img
  font: 9pt;
  float: left;
  margin-top: 0px;
- width:72%;
+ width:79%;
  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
  color: #244640;
  
@@ -890,4 +890,20 @@ margin-top: 100px;
 .MvcDynamicForm
 {
     position:relative;
+}
+
+.draft
+{
+   background-image:url('../images/DRAFT.png');
+    background-repeat:no-repeat;
+    background-position: center top;
+    background-size: 100%;
+    background-origin:content-box;
+    background-repeat:repeat-y;
+   
+}
+ 
+ .final
+{
+     background-image: none !important;
 }
