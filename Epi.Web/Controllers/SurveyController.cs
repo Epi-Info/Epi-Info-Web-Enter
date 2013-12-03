@@ -390,7 +390,8 @@ namespace Epi.Web.MVC.Controllers
                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
                                 FormsAuthentication.SignOut();
                                 
-                                return RedirectToAction("Index", "Final", new { surveyId = surveyInfoModel.SurveyId });
+                                //return RedirectToAction("Index", "Final", new { surveyId = surveyInfoModel.SurveyId });
+                                return RedirectToAction("Index", "Home" );
                             }
                             else
                             {
