@@ -46,15 +46,26 @@
 //                    for (var i = 0; i < @Model.Count(); i++) {
 //                    //alert(@Model);
 //                    }
-                    $.ajax({
-                        type: "POST",
-                        url: serviceURL + '?formid=' + $(this).attr('data-FormId'),
-                        //data: param = this.id,
-                        contentType: "application/html; charset=utf-8",
-                        dataType: "html",
-                        success: successFunc,
-                        error: errorFunc
-                    });
+//                    $.ajax({
+//                        type: "POST",
+//                        url: serviceURL + '?formid=' + $(this).attr('data-FormId'),
+//                        //data: param = this.id,
+//                        contentType: "application/html; charset=utf-8",
+//                        dataType: "html",
+//                        success: successFunc,
+//                        error: errorFunc
+                    //                    });
+
+                                var model = @Html.Raw(Json.Encode(Model));
+
+
+                                $.ajax({
+                                    url: '@Url.Action("ReadResponseInfo","Home")'+ '?formid=' + $(this).attr('data-FormId'),
+                                    type: 'POST',
+                                    contentType: 'application/json; charset=utf-8',
+                                    data: JSON.stringify(model),
+                                    success: successFunc
+                                });
 
                     function successFunc(data, status) {
                         $('#right').html(data);
@@ -87,14 +98,15 @@
 
 //        });
 
-        $("#dropdown-1").change(function () {
+                $("#dropdown-1").change(function () {
 
-            FilterRecords(this);
-            $("#right").hide();
-            $("button[class*='metro-tile']").removeClass('metro-set');
-            $("button:visible").triggerHandler('click');
-        });
+                    FilterRecords(this);
+                    $("#right").hide();
+                    $("button[class*='metro-tile']").removeClass('metro-set');
+                    $("button:visible").triggerHandler('click');
+                });
 
+          
         $("button:visible").triggerHandler('click');
 
     });
@@ -155,7 +167,7 @@
                 @Html.Partial("ListForms", Model)
             </div>
             <div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
-                @*  @Html.Partial("ListResponses", this)*@
+               @* @Html.Partial("ListResponses", Model)*@
             </div>
             @*   <div class="metro-tile metro-design metro-staging">
 						<h3>Form Designer Form in Staging</h3>
