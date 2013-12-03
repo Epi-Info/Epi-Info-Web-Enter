@@ -7,13 +7,15 @@
 </div> 
 
 <div id="content" style="margin-bottom:200px;">
+@Html.ActionLink("< Return to Forms List", "Index")
 <div class="section group" id="main">
+
 <div id="right" class="col span_1_of_3" style="background: white; padding:10px;">
     <div id="formtitle">
 	    <h2 class="surveyTitle">@Model.FormInfoModel.FormId</h2>
     </div>
 
-    @Html.ActionLink("<< Back", "Index")
+    
 
 
    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
