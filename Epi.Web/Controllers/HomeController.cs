@@ -207,21 +207,22 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ReadResponseInfo(string formid) 
+ 
+        public ActionResult ReadResponseInfo(List<FormInfoModel> ModelList, string formid) 
         {
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
             //This is where we shall make call to the web service for the form and list of responses.
 
             var model = new FormResponseInfoModel();
-            model.FormInfoModel.FormId = formid;
-            //model.FormInfoModel.FormName = name;
+            FormInfoModel NewModel = ModelList.Single(x => x.FormId == formid);
+            model.FormInfoModel = NewModel;
+           
 
             if (IsMobileDevice == false)
             {
-                return PartialView("ListResponses", model);
-                //var stringView = RenderRazorViewToString("ListResponses", model);
-                //return Json(stringView);
+            return PartialView("ListResponses", model);
+                
             }
             else
             {
