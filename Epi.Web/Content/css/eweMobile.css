@@ -8,14 +8,15 @@ html, body
 body 
  {
  /*  background-image:url('../images/bgMainDropShadowGradient.png');*/
+ background: #fff !important;
  }
 
 #container
  {
     position:relative;
-    background-color: #fff;
+    background-color: #fff !important;
     color: #333;
-    border: 1px solid #1f3b53;
+    border: 1px solid #abafbc;
     line-height: 130%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-width: 380px;
@@ -24,7 +25,7 @@ body
  #header
  {
     padding: 0.5em;
-    border-bottom: 1px solid #222222;
+    border-bottom: 1px solid #abafbc;
     background: #222222 url('../images/header_bg.png') repeat; 
  }
  
@@ -100,32 +101,7 @@ body
    border-bottom: 3px solid #2878EC;  
  }
  
-#exit
- {
-    /*float: right;
-    position:relative;
-    vertical-align:middle;*/
- }
- 
- a.exitsurvey
- {
-    cursor: pointer;
-    border: 1px solid #1f3b53;
-    background: #5c53ac;
-    margin-top:4px;
-    width: 80px;
-    padding: 0.525em 8px;
-    font-size: 9pt;
-    height: 26px;
-    color: #fff !important;
-    vertical-align:text-bottom;
-    text-decoration: none;
-    text-shadow:none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
-    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
-    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
-    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
- }
+
  
  .ui-btn-up-metro-tile, #left .ui-btn-hover-metro-tile
  {
@@ -170,7 +146,13 @@ body
 -webkit-margin-end: 0px;
 }
 
-#left .ui-btn-inner {border: none !important; padding: 0px !important;}
+#left .ui-btn-inner 
+{
+    border: none !important; padding: 0px !important; 
+     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important;
+    font-weight:lighter !important;
+    font-size: 18px !important;
+}
 .metro-staging {
 	background: url('../images/staging.png'), url('../images/next1.png'); 
 	background-position: 8px 8px, right center;
@@ -342,22 +324,59 @@ a.next
     vertical-align:middle;
  }
  
+ #exit
+ {
+    /*float: right;
+    position:relative;
+    vertical-align:middle;*/
+ }
+ 
+ a.exitsurvey
+ {
+    cursor: pointer;
+    border: 1px solid #1f3b53;
+    background: #5c53ac;
+    /*margin-top:4px;*/
+    width: 80px;
+    padding: 0.525em 8px;
+    font-size: 9pt;
+    height: 26px;
+    color: #fff !important;
+    vertical-align:middle;
+    text-decoration: none;
+    text-shadow:none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+ }
+ 
  .ui-btn-up-submit2, .ui-btn-hover-submit2
  {
     cursor: pointer;
     border: 1px solid #1f3b53;
     background: #5c53ac;
     color:#fff !important;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
-    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
-    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
-    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(0,0,0,0.3);
-    margin: -6px 0 0 0 !important;
-    padding:0 0 0 5px !important;
+     padding:0 0 0 5px !important;
     vertical-align:middle;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+    -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+ /*margin: -6px 0 0 0 !important;*/
+    margin: 0px !important;
+    text-shadow:none !important;
+    font-weight: bold;
  }
  
- #exit .ui-btn-inner {font-size:11pt; padding: 3px 4px !important;}
+ #exit .ui-btn-inner {font-size:9pt !important; padding: 3px 4px !important;}
+ 
+ .ui-btn-hover-submit2, .ui-btn-active-submit2,  a.exitsurvey:hover,  a.exitsurvey:active, #exit .ui-focus, a.next:active, a.next:hover, a.prev:active, a.prev:hover, #nav .ui-focus, .ui-btn-hover-submit1, .ui-btn-active-submit1, .ui-btn-hover-submit2, .ui-btn-active-submit2
+ {
+     background-color: #ffc000 !important; 
+     -webkit-tap-highlight-color:rgba(0,0,0,0.5);
+ }
+ 
  .section 
  {
 	clear: both;
