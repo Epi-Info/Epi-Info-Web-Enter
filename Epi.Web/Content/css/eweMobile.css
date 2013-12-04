@@ -603,15 +603,15 @@ button.paging img
     display:block;
 } 
 
-#create {float:none;}
-#status {float:none;}
-#mode {float:none;}  
+#create {float:left; margin-right:20px;}
+#status {float:left; margin-right:20px;}
+#mode {float:left;}  
 
 
 #left div.divcontents {margin:10px;}
 #recordstable {max-height:100%; }
     
-#rightlegend {display:none; visibility:hidden;}
+#rightlegend {/*display:none; visibility:hidden;*/}
 button.savesettings
 {
     background-image: url('../images/saveset.png');
