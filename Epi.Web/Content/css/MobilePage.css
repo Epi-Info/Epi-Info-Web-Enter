@@ -70,6 +70,10 @@ img { border: none;}
     margin: 0 0.2em;
 }
 
+.pages a.nextprev:hover, .pages a.nextprev:active {
+    background-color: #ffc000 !important; 
+    -webkit-tap-highlight-color:rgba(0,0,0,0.5);
+}
 .pages span.nextprev {
     color: #666;
      padding: 0.2em 0.2em;
