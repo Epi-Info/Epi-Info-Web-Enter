@@ -809,7 +809,7 @@ button.paging img
  font: 9pt;
  float: left;
  margin-top: 0px;
- width:79%;
+ width:78%;
  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
  color: #244640;
  
@@ -906,4 +906,24 @@ margin-top: 100px;
  .final
 {
      background-image: none !important;
+}
+ .errormsg
+{
+    border: 1px solid #e6482d; 
+    background: #fbe1dd; 
+    margin-bottom: 10px; 
+    margin:0.5em; 
+    padding: 10px;
+    font-size: 9pt;
+    text-shadow:none !important;
+}
+
+.errormsg img {float:left;}
+
+.message
+{
+    float:left;
+    width: 86%;
+    vertical-align: top;
+    text-shadow:none !important;
 }
