@@ -402,7 +402,7 @@ $(document).delegate('#close', 'click', function () {
                     },
 
 
-            'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Any unsaved changes to this record will be lost.<br /> <br />Are you sure you want to close this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important;'>Yes</a>        <a class='login'  style='width:50px; padding:8px 15px !important;'rel='close'   id='simpleclose'>No</a></div></p>"
+            'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to close this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important;'>Yes</a>        <a class='login'  style='width:50px; padding:8px 15px !important;'rel='close'   id='simpleclose'>No</a></div></p>"
         })
 
  });
@@ -452,6 +452,9 @@ function ReplaceString(string){
 </div>  
 
 <div id="content" class="recordcontentdiv" style="margin:20px auto 0;">
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = @Model.IsDraftModeStyleClass.ToString() }))
+	
+{  
  <div id="formdisplay" style="">
 <div id="infobox">
         <div id="pages" class="pages">
@@ -505,7 +508,12 @@ function ReplaceString(string){
             
       
       </div>
-	  
+	     <div id="exit" align="right" style="vertical-align:bottom; margin-top: 6px;">
+        @*<button  class="MobileExitSurvey"    type="submit" id="close">Exit Survey</button>*@
+        <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Finalize</button>
+       <a id="close" class="exitsurvey"><img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" /> </a>
+       @* <a id="close" class="exitsurvey" onclick="Submit();"  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", SurveyId = Model.SurveyInfo.SurveyId })">Exit</a>*@
+    </div>
     
     <div style="clear: both;">
     </div>
@@ -531,15 +539,8 @@ function ReplaceString(string){
     </div>
      } 
      		 
-		@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = @Model.IsDraftModeStyleClass.ToString() }))
-	
-        {  
-           <div id="exit" align="right" style="vertical-align:bottom; margin-top: 6px;">
-        @*<button  class="MobileExitSurvey"    type="submit" id="close">Exit Survey</button>*@
-        <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Finalize</button>
-       <a id="close" class="exitsurvey"><img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" /> </a>
-       @* <a id="close" class="exitsurvey" onclick="Submit();"  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", SurveyId = Model.SurveyInfo.SurveyId })">Exit</a>*@
-    </div>
+		
+          
               
              @Html.AntiForgeryToken() 
         
@@ -595,10 +596,11 @@ function ReplaceString(string){
                </div>
       </div>    
 
-}
+
 
  </div>
-</div>
+}<!--EndForm-->
+</div><!--End Conten tDiv-->
 @* </div>*@ @*<div id="dialog" title="Your Survey has been saved." data-role="popup">
                    <p>Please copy and save the <span style="font-weight:bold;">Survey Link</span> and <span style="font-weight:bold;">Pass Code</span> in order to return to the survey at a later time.</p>
                 <p><span style="font-weight:bold;">Survey Link:</span><br /><textarea id="url" cols="65"  style="  height:30px;  white-space:pre; background:#d6e7f5; border:1px solid #aecfea; padding:4px; margin-top:4px;" readonly="readonly"></textarea></p>
