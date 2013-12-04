@@ -2,7 +2,7 @@
 @media screen and (min-width: 599px) /*and (max-width: 1025px) */
 {
     #container { width:90%; margin:0 auto; font-size: max(11px, 0.9em); max-width: 1024px;}
-    #myform { width:99%;}
+    #myform { width:97%;}
     .MvcDynamicMobileForm { padding-left: 1.5em;}
 
     /*LogIn Page*/
