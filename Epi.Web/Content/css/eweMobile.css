@@ -64,7 +64,7 @@ body
  
  #pageHeader
  {
-    padding: 0.5em;
+    padding: 0.5em 1em 0.5em 0.5em;
     font-size: 10pt;
     background: #F1F1F4 url(../images/secondary_bar.png) repeat-x;
     background-size: 100% 100%;
@@ -208,7 +208,7 @@ button.metro-set:hover {
  {
     display:block; 
     position:relative;  
-    padding: 0.2em 1em;
+    padding: 0.2em 1.5em 0.2em 1em;
     clear:both;
  }
 
