@@ -508,10 +508,10 @@ function ReplaceString(string){
             
       
       </div>
-	     <div id="exit" align="right" style="vertical-align:bottom; margin-top: 6px;">
+	     <div id="exit" align="right" style="vertical-align:middle;">
         @*<button  class="MobileExitSurvey"    type="submit" id="close">Exit Survey</button>*@
         <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Finalize</button>
-       <a id="close" class="exitsurvey"><img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" /> </a>
+       <a id="close" class="exitsurvey">Close @*<img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" />*@ </a>
        @* <a id="close" class="exitsurvey" onclick="Submit();"  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", SurveyId = Model.SurveyInfo.SurveyId })">Exit</a>*@
     </div>
     

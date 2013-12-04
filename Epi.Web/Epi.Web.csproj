@@ -293,6 +293,7 @@
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error1.png" />
     <Content Include="Content\images\error2.png" />
+    <Content Include="Content\images\footer_bar.png" />
     <Content Include="Content\images\go.png" />
     <Content Include="Content\images\header_bg.png" />
     <Content Include="Content\images\header_bg2.png" />
