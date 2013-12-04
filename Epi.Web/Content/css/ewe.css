@@ -15,7 +15,7 @@ body
     position:relative;
     background-color: #fff;
     color: #333;
-    border: 1px solid #1f3b53;
+    border: 1px solid #abafbc;
     line-height: 130%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-width:1120px;
@@ -24,7 +24,7 @@ body
 #header
  {
     padding: 0.5em;
-    border-bottom: 1px solid #222222;
+    border-bottom: 1px solid #abafbc;
     background: #4d75a4;/* url('../images/header_bg.png') repeat;*/
      background-image: linear-gradient(to bottom, #4e75a5, #4d75a4);
     -webkit-box-shadow: 0 -1px 0 rgba(77, 117, 164, 0.8) inset;
@@ -299,6 +299,7 @@ div.recordcontentdiv
     -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
     border-top: 1px solid #abafbc;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
  }
 
 #footleft
