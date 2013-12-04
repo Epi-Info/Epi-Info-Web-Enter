@@ -107,17 +107,18 @@ namespace Epi.Web.MVC.Controllers
             
                 bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
-                if (surveyid != null && AddNewFormId == null)
-                {
-                    //
-                    FormResponseInfoModel model = new FormResponseInfoModel();
-                    model.FormInfoModel.FormId = surveyid;
-                    return View("ListResponses", model);
-                }
 
                 if (IsMobileDevice == false)
                 {
                     IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(surveyid))
+                    {
+                        //return RedirectToAction(new { Controller = "FormResponse", Action = "Index", surveyid = surveyid });
+                        return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "FormResponse", new { surveyid = surveyid  });
+                    }
                 }
 
                 FormsAuthentication.SetAuthCookie("BeginSurvey", false);
@@ -205,6 +206,11 @@ namespace Epi.Web.MVC.Controllers
             //    //return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
             //}
         }
+
+        //[HttpPost]
+        //public ActionResult Index(List<FormInfoModel> model) {
+        //    return View("ListResponses", model);
+        //}
 
         [HttpPost]
  

@@ -154,6 +154,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Constants\Constant.cs" />
     <Compile Include="Controllers\FinalController.cs" />
+    <Compile Include="Controllers\FormResponseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PostController.cs" />
@@ -507,7 +508,7 @@
     <Content Include="Views\Home\ListForms.cshtml" />
     <Content Include="Views\Home\ListResponses.cshtml" />
     <Content Include="Views\Home\ListForms.Mobile.cshtml" />
-    <Content Include="Views\Home\ListResponses.Mobile.cshtml" />
+    <Content Include="Views\FormResponse\Index.Mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
