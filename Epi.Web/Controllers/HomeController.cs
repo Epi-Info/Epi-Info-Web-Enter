@@ -112,7 +112,8 @@ namespace Epi.Web.MVC.Controllers
                 {
                     IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
                 }
-                else
+
+               if (IsMobileDevice == true)
                 {
                     if (!string.IsNullOrEmpty(surveyid))
                     {
