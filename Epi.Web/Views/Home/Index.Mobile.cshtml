@@ -86,8 +86,26 @@
             <div id="left" class="col span_1_of_3">
                @Html.Partial("ListForms", Model)
 	        </div>
-	      
+	        
 	  </div> 
+      <div id="rightlegend" style="clear:both;font-size: 9pt; vertical-align: baseline; margin-top: 22px;">
+                <div id="Div1" style="display: block; margin-right: 30px; margin-top: 5px;">
+                    <img alt="" src="~/Content/images/designlegend.png" align="middle" style="width: 16px;
+                        vertical-align: middle;" />
+                    My Forms</div>
+                <div id="Div2" style="display: block; margin-right: 30px; margin-top: 5px;">
+                    <img alt="" src="~/Content/images/collectlegend.png" align="middle" style="width: 16px;
+                        vertical-align: middle;" />
+                    Forms Assigned to Me</div>
+                <div id="Div4" style="display: block; margin-right: 30px; margin-top: 5px;">
+                    <img alt="" src="~/Content/images/prodlegend.png" align="middle" style="width: 16px;
+                        vertical-align: middle;" />
+                    Production</div>
+                <div id="Div3" style="display: block; margin-top: 5px;">
+                    <img alt="" src="~/Content/images/staginglegend.png" align="middle" style="width: 16px;
+                        vertical-align: middle;" />
+                    Staging</div>
+      </div>
       }
      @*@if (Model.ClosingDate >= DateTime.Now && Model.StartDate <= DateTime.Now)
       {
