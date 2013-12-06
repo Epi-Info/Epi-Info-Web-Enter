@@ -587,7 +587,7 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
 
                 SurveyAnswerCriteria criteria = pRequest.Criteria;
-                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId));
+                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId, pRequest.Criteria.PageNumber));
                       
                     
 
