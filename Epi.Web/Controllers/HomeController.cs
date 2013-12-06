@@ -113,14 +113,14 @@ namespace Epi.Web.MVC.Controllers
                     IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
                 }
 
-               if (IsMobileDevice == true)
-                {
-                    if (!string.IsNullOrEmpty(surveyid))
-                    {
-                        //return RedirectToAction(new { Controller = "FormResponse", Action = "Index", surveyid = surveyid });
-                        return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "FormResponse", new { surveyid = surveyid  });
-                    }
-                }
+               //if (IsMobileDevice == true)
+               // {
+               //     if (!string.IsNullOrEmpty(surveyid))
+               //     {
+               //         //return RedirectToAction(new { Controller = "FormResponse", Action = "Index", surveyid = surveyid });
+               //         return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "FormResponse", new { surveyid = surveyid  });
+               //     }
+               // }
 
                 FormsAuthentication.SetAuthCookie("BeginSurvey", false);
 
