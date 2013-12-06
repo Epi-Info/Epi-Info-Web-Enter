@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Epi.Web.Common.BusinessObject;
+using System.Configuration;
 
 namespace Epi.Web.BLL
 {
@@ -21,9 +22,12 @@ namespace Epi.Web.BLL
             return result;
         }
 
-        public List<SurveyResponseBO> GetFormResponseListById(string FormId )
+        public List<SurveyResponseBO> GetFormResponseListById(string FormId ,int PageNumber)
             {
-            List<SurveyResponseBO> result = this.SurveyResponseDao.GetFormResponseByFormId(FormId);
+
+            int PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]); 
+            List<SurveyResponseBO> result = this.SurveyResponseDao.GetFormResponseByFormId(FormId, PageNumber,PageSize);
+
             return result;
             }
         //Validate User
