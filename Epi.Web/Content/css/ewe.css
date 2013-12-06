@@ -460,11 +460,11 @@ button.save
 {
     background-image: url('../images/saveset.png');
     background-position:10px center;
-    background-size: 18px;
+    background-size: 16px;
     background-repeat: repeat-x;
     background-repeat:no-repeat;
     padding: 4px 6px 4px 25px;
-    width:90px;
+    width:75px;
     height: 31px;
      font-size: 10pt;
 }
@@ -546,14 +546,14 @@ button.paging img
 }
 
 .metro-staging {
-	background: url('../images/staging.png');
+	background: url('../images/staging1.png');
 	background-position: 8px 8px;
 	background-repeat:no-repeat;
 	background-size: 28px;
 }
 
 .metro-prod {
-	background: url('../images/prod.png');
+	background: url('../images/prod1.png');
 	background-position: 8px 8px;
 	background-repeat:no-repeat;
 	background-size: 28px;
@@ -770,7 +770,7 @@ button.paging img
         padding: 4px 6px 4px 30px;
         }
         
-        button.dialogbtn
+ button.dialogbtn
  {
  border: 1px solid #1f3b53 !important;
 
@@ -780,7 +780,7 @@ button.paging img
  padding: 3px 5px 3px 5px !important;
  color:#fff !important;
  height:30px;
- width: 100px !important;
+ width: 140px !important;
  border: 1px solid rgba(0,0,0,0.5) !important;
  background: #2878ec !important; 
 /* background: rgba(92,83,172,0.9) !important; */
