@@ -588,8 +588,9 @@ namespace Epi.Web.WCF.SurveyService
 
                 SurveyAnswerCriteria criteria = pRequest.Criteria;
                 result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId, pRequest.Criteria.PageNumber));
-                      
-                    
+                //Query The number of records
+
+                result.NumberOfPages= Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId);
 
                 return result;
                 }

@@ -86,5 +86,6 @@ namespace Epi.Web.Interfaces.DataInterfaces
          UserAuthenticationResponseBO GetAuthenticationResponse(UserAuthenticationRequestBO passcodeBO);
 
          List<SurveyResponseBO> GetFormResponseByFormId(string FormId,int PageNumber, int PageSize);
+         int GetFormResponseCount(string FormId);
     }
 }
