@@ -80,7 +80,7 @@
      <div style="clear:both;"></div>
 
     
-      @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "form" }))
+      @using (Html.BeginForm("Index", "FormResponse", FormMethod.Get, new { id = "form" }))
       {
       <div class="section group" id="main">
             <div id="left" class="col span_1_of_3">
