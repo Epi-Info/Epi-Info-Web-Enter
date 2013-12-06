@@ -43,6 +43,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormsInfo", ReplyAction="http://tempuri.org/IEWEDataService/GetFormsInfoResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormsInfoCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Common.Message.FormsInfoResponse GetFormsInfo(Epi.Web.Common.Message.FormsInfoRequest pRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormResponseInfo", ReplyAction="http://tempuri.org/IEWEDataService/GetFormResponseInfoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormResponseInfoCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.FormResponseInfoResponse GetFormResponseInfo(Epi.Web.Common.Message.FormResponseInfoRequest pRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormResponseList", ReplyAction="http://tempuri.org/IEWEDataService/GetFormResponseListResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormResponseListCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.SurveyAnswerResponse GetFormResponseList(Epi.Web.Common.Message.SurveyAnswerRequest pRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -98,6 +106,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Common.Message.FormsInfoResponse GetFormsInfo(Epi.Web.Common.Message.FormsInfoRequest pRequest) {
             return base.Channel.GetFormsInfo(pRequest);
+        }
+        
+        public Epi.Web.Common.Message.FormResponseInfoResponse GetFormResponseInfo(Epi.Web.Common.Message.FormResponseInfoRequest pRequest) {
+            return base.Channel.GetFormResponseInfo(pRequest);
+        }
+        
+        public Epi.Web.Common.Message.SurveyAnswerResponse GetFormResponseList(Epi.Web.Common.Message.SurveyAnswerRequest pRequest) {
+            return base.Channel.GetFormResponseList(pRequest);
         }
     }
 }
