@@ -21,6 +21,11 @@ namespace Epi.Web.BLL
             return result;
         }
 
+        public List<SurveyResponseBO> GetFormResponseListById(string FormId )
+            {
+            List<SurveyResponseBO> result = this.SurveyResponseDao.GetFormResponseByFormId(FormId);
+            return result;
+            }
         //Validate User
         public bool ValidateUser(UserAuthenticationRequestBO PassCodeBoObj)
         {

@@ -99,4 +99,32 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetFormResponseInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q15:FormResponseInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormResponseInfoResult" nillable="true" type="q16:FormResponseInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q17:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormResponseListResult" nillable="true" type="q18:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

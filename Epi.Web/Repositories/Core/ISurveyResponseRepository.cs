@@ -17,5 +17,6 @@ namespace Epi.Web.MVC.Repositories.Core
         UserAuthenticationResponse ValidateUser(UserAuthenticationRequest pRequest);
         UserAuthenticationResponse UpdatePassCode(UserAuthenticationRequest PassCodeDTO);
         UserAuthenticationResponse GetAuthenticationResponse(UserAuthenticationRequest pRequest);
+        SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest);
     }
 }

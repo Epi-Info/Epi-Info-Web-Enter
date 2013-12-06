@@ -211,7 +211,7 @@
   <xs:element name="FormsInfoRequest" nillable="true" type="tns:FormsInfoRequest" />
   <xs:complexType name="FormsInfoResponse">
     <xs:sequence>
-      <xs:element minOccurs="0" name="SurveyInfoList" nillable="true" type="tns:ArrayOfFormInfoDTO" />
+      <xs:element minOccurs="0" name="FormInfoList" nillable="true" type="tns:ArrayOfFormInfoDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormsInfoResponse" nillable="true" type="tns:FormsInfoResponse" />
@@ -227,10 +227,41 @@
       <xs:element minOccurs="0" name="FormName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FormNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsDraftMode" type="xs:boolean" />
-      <xs:element minOccurs="0" name="OrganizationKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsOwner" type="xs:boolean" />
+      <xs:element minOccurs="0" name="OrganizationId" type="xs:int" />
       <xs:element minOccurs="0" name="OrganizationName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserId" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormInfoDTO" nillable="true" type="tns:FormInfoDTO" />
+  <xs:complexType name="FormResponseInfoRequest">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="FormResponseInfoRequest" nillable="true" type="tns:FormResponseInfoRequest" />
+  <xs:complexType name="FormResponseInfoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FormResponseInfoList" nillable="true" type="tns:ArrayOfFormResponseInfoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FormResponseInfoResponse" nillable="true" type="tns:FormResponseInfoResponse" />
+  <xs:complexType name="ArrayOfFormResponseInfoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FormResponseInfoDTO" nillable="true" type="tns:FormResponseInfoDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFormResponseInfoDTO" nillable="true" type="tns:ArrayOfFormResponseInfoDTO" />
+  <xs:complexType name="FormResponseInfoDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DateCompleted" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateCreated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateUpdated" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IsDraftMode" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ResponseId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" type="xs:int" />
+      <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserPublishKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="XML" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="FormResponseInfoDTO" nillable="true" type="tns:FormResponseInfoDTO" />
 </xs:schema>

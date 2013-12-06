@@ -72,6 +72,24 @@
   <wsdl:message name="IEWEDataService_GetFormsInfo_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q7="http://www.yourcompany.com/types/" name="detail" element="q7:CustomFaultException" />
   </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetFormResponseInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFormResponseInfo" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetFormResponseInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFormResponseInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetFormResponseInfo_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://www.yourcompany.com/types/" name="detail" element="q8:CustomFaultException" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetFormResponseList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFormResponseList" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetFormResponseList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFormResponseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetFormResponseList_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://www.yourcompany.com/types/" name="detail" element="q9:CustomFaultException" />
+  </wsdl:message>
   <wsdl:portType name="IEWEDataService">
     <wsdl:operation name="GetSurveyInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyInfo" message="tns:IEWEDataService_GetSurveyInfo_InputMessage" />
@@ -107,6 +125,16 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetFormsInfo" message="tns:IEWEDataService_GetFormsInfo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetFormsInfoResponse" message="tns:IEWEDataService_GetFormsInfo_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetFormsInfoCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetFormsInfo_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormResponseInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseInfo" message="tns:IEWEDataService_GetFormResponseInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseInfoResponse" message="tns:IEWEDataService_GetFormResponseInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseInfoCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetFormResponseInfo_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFormResponseList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseList" message="tns:IEWEDataService_GetFormResponseList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseListResponse" message="tns:IEWEDataService_GetFormResponseList_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseListCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetFormResponseList_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEWEDataService" type="tns:IEWEDataService">
@@ -185,6 +213,30 @@
     </wsdl:operation>
     <wsdl:operation name="GetFormsInfo">
       <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetFormsInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormResponseInfo">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetFormResponseInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetFormResponseList">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetFormResponseList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
