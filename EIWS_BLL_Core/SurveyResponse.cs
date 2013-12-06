@@ -30,6 +30,16 @@ namespace Epi.Web.BLL
 
             return result;
             }
+        public int GetNumberOfPages(string FormId)
+            {
+            int PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]); 
+            int result = this.SurveyResponseDao.GetFormResponseCount(FormId );
+            if (PageSize >0)
+                {
+                result = (result + PageSize - 1) / PageSize;
+                }
+            return result;
+            }
         //Validate User
         public bool ValidateUser(UserAuthenticationRequestBO PassCodeBoObj)
         {

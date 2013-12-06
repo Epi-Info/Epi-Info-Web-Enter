@@ -431,6 +431,34 @@ namespace Epi.Web.EF
             return result;
             }
 
+        public int GetFormResponseCount(string FormId) 
+            {
+            int ResponseCount = 0;
+            try
+                {
+
+                Guid Id = new Guid(FormId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id);
+                    ResponseCount = SurveyResponseList.Count();
+
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+
+            return ResponseCount;
+            
+         
+            }
        
     }
 
