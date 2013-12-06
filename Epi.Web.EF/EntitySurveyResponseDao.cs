@@ -59,6 +59,8 @@ namespace Epi.Web.EF
                     result.RemoveRange(0, PageSize);
                 }
 
+             
+
                 if (PageNumber * PageSize < result.Count)
                 {
                     result.RemoveRange(PageNumber * PageSize, result.Count - PageNumber * PageSize);
@@ -389,7 +391,7 @@ namespace Epi.Web.EF
         }
 
 
-        public List<SurveyResponseBO> GetFormResponseByFormId(string FormId)
+        public List<SurveyResponseBO> GetFormResponseByFormId(string FormId, int PageNumber, int PageSize)
             {
 
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
@@ -403,6 +405,9 @@ namespace Epi.Web.EF
                         {
                          
                         IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id);
+
+                        SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
+                                                
 
                         foreach (SurveyResponse Response in SurveyResponseList)
                             {
@@ -420,20 +425,7 @@ namespace Epi.Web.EF
                 throw (ex);
                 }
 
-            //if (PageNumber > 0 && PageSize > 0)
-            //    {
-            //    result.Sort(CompareByDateCreated);
-            //    // remove the items to skip
-            //    if (PageNumber * PageSize - PageSize > 0)
-            //        {
-            //        result.RemoveRange(0, PageSize);
-            //        }
-
-            //    if (PageNumber * PageSize < result.Count)
-            //        {
-            //        result.RemoveRange(PageNumber * PageSize, result.Count - PageNumber * PageSize);
-            //        }
-            //    }
+          
 
 
             return result;

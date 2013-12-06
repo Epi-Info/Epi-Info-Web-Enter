@@ -225,7 +225,7 @@ namespace Epi.Web.MVC.Controllers
             FormInfoModel NewModel = ModelList.Single(x => x.FormId == formid);
             model.FormInfoModel = NewModel;
 
-            SurveyAnswerResponse SurveyAnswerResponse =GetFormResponseList(formid);
+            SurveyAnswerResponse SurveyAnswerResponse =GetFormResponseList(formid,2);
 
             if (IsMobileDevice == false)
             {
@@ -405,11 +405,12 @@ namespace Epi.Web.MVC.Controllers
         }
 
 
-        public SurveyAnswerResponse GetFormResponseList(string SurveyId)
+        public SurveyAnswerResponse GetFormResponseList(string SurveyId,int PageNumber)
             {
             
             SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
+            FormResponseReq.Criteria.PageNumber = PageNumber;
             SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
             return FormResponseList;
