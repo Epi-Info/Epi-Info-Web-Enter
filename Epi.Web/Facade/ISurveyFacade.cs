@@ -22,5 +22,7 @@ namespace Epi.Web.MVC.Facade
         UserAuthenticationResponse GetAuthenticationResponse(string responseId);
         ISurveyAnswerRepository GetSurveyAnswerRepository();
 
+        SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest FormResponseReq);
+
     }
 }

@@ -13,6 +13,7 @@ using Epi.Web.Common.BusinessObject;
 using Epi.Web.Common.Exception;
 using System.Collections;
 using Epi.Web.Interfaces.DataInterface;
+using System.Configuration;
 namespace Epi.Web.WCF.SurveyService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Multiple)]
@@ -569,7 +570,42 @@ namespace Epi.Web.WCF.SurveyService
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pRequest"></param>
+        /// <returns></returns>
+        public SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest)
+            {
+            try
+                {
+                SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
+                
+
+                Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+                Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+
+                SurveyAnswerCriteria criteria = pRequest.Criteria;
+                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId));
+                      
+                    
+
+                return result;
+                }
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
+            }
 
       
     }
+
+
 }

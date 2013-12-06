@@ -388,8 +388,56 @@ namespace Epi.Web.EF
             return x.DateCreated.CompareTo(y.DateCreated);
         }
 
-    
 
+        public List<SurveyResponseBO> GetFormResponseByFormId(string FormId)
+            {
+
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+            try
+                {
+
+                Guid Id = new Guid(FormId);
+
+                    using (var Context = DataObjectFactory.CreateContext())
+                        {
+                         
+                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id);
+
+                        foreach (SurveyResponse Response in SurveyResponseList)
+                            {
+
+                            result.Add(Mapper.Map(Response));
+                            
+                            }
+              
+
+                        }
+                    
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+            //if (PageNumber > 0 && PageSize > 0)
+            //    {
+            //    result.Sort(CompareByDateCreated);
+            //    // remove the items to skip
+            //    if (PageNumber * PageSize - PageSize > 0)
+            //        {
+            //        result.RemoveRange(0, PageSize);
+            //        }
+
+            //    if (PageNumber * PageSize < result.Count)
+            //        {
+            //        result.RemoveRange(PageNumber * PageSize, result.Count - PageNumber * PageSize);
+            //        }
+            //    }
+
+
+            return result;
+            }
 
        
     }

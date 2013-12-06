@@ -84,5 +84,7 @@ namespace Epi.Web.Interfaces.DataInterfaces
 
          void UpdatePassCode(UserAuthenticationRequestBO passcodeBO);
          UserAuthenticationResponseBO GetAuthenticationResponse(UserAuthenticationRequestBO passcodeBO);
+
+         List<SurveyResponseBO> GetFormResponseByFormId(string FormId);
     }
 }

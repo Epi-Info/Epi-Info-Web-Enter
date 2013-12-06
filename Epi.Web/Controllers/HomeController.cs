@@ -224,7 +224,8 @@ namespace Epi.Web.MVC.Controllers
             var model = new FormResponseInfoModel();
             FormInfoModel NewModel = ModelList.Single(x => x.FormId == formid);
             model.FormInfoModel = NewModel;
-           
+
+            SurveyAnswerResponse SurveyAnswerResponse =GetFormResponseList(formid);
 
             if (IsMobileDevice == false)
             {
@@ -398,36 +399,20 @@ namespace Epi.Web.MVC.Controllers
             //define sorting criteria here.
             List<FormInfoModel> listOfFormsInfoModel = _isurveyFacade.GetFormsInfoModelList(formReq);
 
-            //List<FormInfoModel> listOfFormsInfoModel = new List<FormInfoModel>();
-            //listOfFormsInfoModel.Add(new FormInfoModel()
-            //{
-            //    FormId = "38153e3f-5a64-4232-ae6c-8b39cd6b28da",
-            //    FormName = "NDHHS Form",
-            //    FormNumber = "1",
-            //    IsDraftMode = false,
-            //    OrganizationKey = new Guid(),
-            //    OrganizationName = "NDHHS Org",
-            //    UserId = new Guid("38153e3f-5a64-4232-ae6c-8b39cd6b28da"),
-            //    CssClassName = "metro-tile metro-collect metro-prod"
-            //}
-
-            //);
-
-            //listOfFormsInfoModel.Add(new FormInfoModel()
-            //{
-            //    FormId = "11243e3f-2264-4232-ae6c-8b39cd6b28da",
-            //    FormName = "Epi Form",
-            //    FormNumber = "2",
-            //    IsDraftMode = true,
-            //    OrganizationKey = new Guid(),
-            //    OrganizationName = "Epi Org",
-            //    UserId = new Guid("38153e3f-5a64-4232-ae6c-8b39cd6b28da"),
-            //    CssClassName = "metro-tile metro-design metro-staging"
-            //}
-
-            //);
+           
             
             return listOfFormsInfoModel;
         }
+
+
+        public SurveyAnswerResponse GetFormResponseList(string SurveyId)
+            {
+            
+            SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
+            FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
+            SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
+
+            return FormResponseList;
+            }
     }
 }

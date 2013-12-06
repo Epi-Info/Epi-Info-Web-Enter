@@ -429,6 +429,7 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\PIE.htc" />
     <Content Include="Scripts\_references.js" />
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormResponseInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />

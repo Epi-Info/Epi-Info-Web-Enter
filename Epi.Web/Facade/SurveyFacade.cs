@@ -187,5 +187,14 @@ namespace Epi.Web.MVC.Facade
 
             return listOfForms;
         }
+
+        public SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest FormResponseReq)
+            {
+
+            SurveyAnswerResponse FormResponseList = _iSurveyAnswerRepository.GetFormResponseList(FormResponseReq);
+
+            return FormResponseList;
+            }
+
     }
 }

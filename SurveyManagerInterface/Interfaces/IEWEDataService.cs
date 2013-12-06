@@ -45,6 +45,10 @@ namespace Epi.Web.WCF.SurveyService
         [FaultContract(typeof(CustomFaultException))]
 
         FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest);
     }
 
 }
