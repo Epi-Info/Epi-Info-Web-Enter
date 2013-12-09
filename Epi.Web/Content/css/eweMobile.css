@@ -761,7 +761,7 @@ a.backlink
 }
  }
  
-a.login, #exitdialog a.login.ui-link
+#exitbtns .ui-link, a.login
  {
  cursor: pointer !important;
  border: 1px solid #1f3b53 !important;
