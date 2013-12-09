@@ -4,19 +4,24 @@ html, body
  { 
     margin:0; padding:0; 
  } 
+ 
+ .ui-page { height:100% !important;}
 
 body 
  {
  /*  background-image:url('../images/bgMainDropShadowGradient.png');*/
  background: #fff !important;
+ min-height:100%;
  }
 
 #container
  {
     position:relative;
+    min-height:100%;
+    padding-bottom:50px;
     background-color: #fff !important;
     color: #333;
-    border: 1px solid #abafbc;
+    /*border: 1px solid #abafbc;*/
     line-height: 130%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
    /* min-width: 380px;*/
