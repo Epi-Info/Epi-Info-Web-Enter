@@ -43,7 +43,12 @@
     
  
     <script type="text/javascript">
-
+        $(document).ready(function () {
+            var footer_height = $("#footer").height();
+            $("#container").css({
+                'padding-bottom': footer_height + 5
+            });
+        });
        //debugger;
 
        $(document).ready(function () {
@@ -103,8 +108,9 @@
             @RenderSection("featured", false)
             @RenderBody()		
         </div>
-        @Html.Partial("FooterPartial")
-    </div>
+        
+    </div><!--Container Div-->
+    @Html.Partial("FooterPartial")
 </div>
 <input type="hidden" name="IsMobile" id="IsMobile"/>
 </body>
