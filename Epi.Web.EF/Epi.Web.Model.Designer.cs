@@ -24,6 +24,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_lk_SurveyType", "lk_SurveyType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.lk_SurveyType), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Organization), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyMetaDataUser", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
 
 #endregion
 
@@ -174,18 +175,18 @@ namespace Epi.Web.EF
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SurveyMetaDataUser> SurveyMetaDataUsers
+        public ObjectSet<sysdiagram> sysdiagrams
         {
             get
             {
-                if ((_SurveyMetaDataUsers == null))
+                if ((_sysdiagrams == null))
                 {
-                    _SurveyMetaDataUsers = base.CreateObjectSet<SurveyMetaDataUser>("SurveyMetaDataUsers");
+                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
                 }
-                return _SurveyMetaDataUsers;
+                return _sysdiagrams;
             }
         }
-        private ObjectSet<SurveyMetaDataUser> _SurveyMetaDataUsers;
+        private ObjectSet<sysdiagram> _sysdiagrams;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -202,22 +203,6 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<User> _Users;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<sysdiagram> sysdiagrams
-        {
-            get
-            {
-                if ((_sysdiagrams == null))
-                {
-                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
-                }
-                return _sysdiagrams;
-            }
-        }
-        private ObjectSet<sysdiagram> _sysdiagrams;
 
         #endregion
 
@@ -272,11 +257,11 @@ namespace Epi.Web.EF
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SurveyMetaDataUsers EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
-        public void AddToSurveyMetaDataUsers(SurveyMetaDataUser surveyMetaDataUser)
+        public void AddTosysdiagrams(sysdiagram sysdiagram)
         {
-            base.AddObject("SurveyMetaDataUsers", surveyMetaDataUser);
+            base.AddObject("sysdiagrams", sysdiagram);
         }
     
         /// <summary>
@@ -285,14 +270,6 @@ namespace Epi.Web.EF
         public void AddToUsers(User user)
         {
             base.AddObject("Users", user);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the sysdiagrams EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddTosysdiagrams(sysdiagram sysdiagram)
-        {
-            base.AddObject("sysdiagrams", sysdiagram);
         }
 
         #endregion
@@ -945,32 +922,32 @@ namespace Epi.Web.EF
         /// Create a new SurveyMetaData object.
         /// </summary>
         /// <param name="surveyId">Initial value of the SurveyId property.</param>
+        /// <param name="ownerId">Initial value of the OwnerId property.</param>
         /// <param name="surveyTypeId">Initial value of the SurveyTypeId property.</param>
         /// <param name="closingDate">Initial value of the ClosingDate property.</param>
         /// <param name="surveyName">Initial value of the SurveyName property.</param>
         /// <param name="templateXML">Initial value of the TemplateXML property.</param>
+        /// <param name="userPublishKey">Initial value of the UserPublishKey property.</param>
         /// <param name="templateXMLSize">Initial value of the TemplateXMLSize property.</param>
         /// <param name="dateCreated">Initial value of the DateCreated property.</param>
         /// <param name="organizationId">Initial value of the OrganizationId property.</param>
         /// <param name="isDraftMode">Initial value of the IsDraftMode property.</param>
         /// <param name="startDate">Initial value of the StartDate property.</param>
-        /// <param name="userPublishKey">Initial value of the UserPublishKey property.</param>
-        /// <param name="ownerId">Initial value of the OwnerId property.</param>
-        public static SurveyMetaData CreateSurveyMetaData(global::System.Guid surveyId, global::System.Int32 surveyTypeId, global::System.DateTime closingDate, global::System.String surveyName, global::System.String templateXML, global::System.Int64 templateXMLSize, global::System.DateTime dateCreated, global::System.Int32 organizationId, global::System.Boolean isDraftMode, global::System.DateTime startDate, global::System.Guid userPublishKey, global::System.Int32 ownerId)
+        public static SurveyMetaData CreateSurveyMetaData(global::System.Guid surveyId, global::System.Int32 ownerId, global::System.Int32 surveyTypeId, global::System.DateTime closingDate, global::System.String surveyName, global::System.String templateXML, global::System.Guid userPublishKey, global::System.Int64 templateXMLSize, global::System.DateTime dateCreated, global::System.Int32 organizationId, global::System.Boolean isDraftMode, global::System.DateTime startDate)
         {
             SurveyMetaData surveyMetaData = new SurveyMetaData();
             surveyMetaData.SurveyId = surveyId;
+            surveyMetaData.OwnerId = ownerId;
             surveyMetaData.SurveyTypeId = surveyTypeId;
             surveyMetaData.ClosingDate = closingDate;
             surveyMetaData.SurveyName = surveyName;
             surveyMetaData.TemplateXML = templateXML;
+            surveyMetaData.UserPublishKey = userPublishKey;
             surveyMetaData.TemplateXMLSize = templateXMLSize;
             surveyMetaData.DateCreated = dateCreated;
             surveyMetaData.OrganizationId = organizationId;
             surveyMetaData.IsDraftMode = isDraftMode;
             surveyMetaData.StartDate = startDate;
-            surveyMetaData.UserPublishKey = userPublishKey;
-            surveyMetaData.OwnerId = ownerId;
             return surveyMetaData;
         }
 
@@ -1004,6 +981,30 @@ namespace Epi.Web.EF
         private global::System.Guid _SurveyId;
         partial void OnSurveyIdChanging(global::System.Guid value);
         partial void OnSurveyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OwnerId
+        {
+            get
+            {
+                return _OwnerId;
+            }
+            set
+            {
+                OnOwnerIdChanging(value);
+                ReportPropertyChanging("OwnerId");
+                _OwnerId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OwnerId");
+                OnOwnerIdChanged();
+            }
+        }
+        private global::System.Int32 _OwnerId;
+        partial void OnOwnerIdChanging(global::System.Int32 value);
+        partial void OnOwnerIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1226,6 +1227,30 @@ namespace Epi.Web.EF
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Guid UserPublishKey
+        {
+            get
+            {
+                return _UserPublishKey;
+            }
+            set
+            {
+                OnUserPublishKeyChanging(value);
+                ReportPropertyChanging("UserPublishKey");
+                _UserPublishKey = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserPublishKey");
+                OnUserPublishKeyChanged();
+            }
+        }
+        private global::System.Guid _UserPublishKey;
+        partial void OnUserPublishKeyChanging(global::System.Guid value);
+        partial void OnUserPublishKeyChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Int64 TemplateXMLSize
         {
             get
@@ -1340,54 +1365,6 @@ namespace Epi.Web.EF
         private global::System.DateTime _StartDate;
         partial void OnStartDateChanging(global::System.DateTime value);
         partial void OnStartDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid UserPublishKey
-        {
-            get
-            {
-                return _UserPublishKey;
-            }
-            set
-            {
-                OnUserPublishKeyChanging(value);
-                ReportPropertyChanging("UserPublishKey");
-                _UserPublishKey = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("UserPublishKey");
-                OnUserPublishKeyChanged();
-            }
-        }
-        private global::System.Guid _UserPublishKey;
-        partial void OnUserPublishKeyChanging(global::System.Guid value);
-        partial void OnUserPublishKeyChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 OwnerId
-        {
-            get
-            {
-                return _OwnerId;
-            }
-            set
-            {
-                OnOwnerIdChanging(value);
-                ReportPropertyChanging("OwnerId");
-                _OwnerId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("OwnerId");
-                OnOwnerIdChanged();
-            }
-        }
-        private global::System.Int32 _OwnerId;
-        partial void OnOwnerIdChanging(global::System.Int32 value);
-        partial void OnOwnerIdChanged();
 
         #endregion
 
@@ -1491,95 +1468,31 @@ namespace Epi.Web.EF
                 }
             }
         }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="SurveyMetaDataUser")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class SurveyMetaDataUser : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new SurveyMetaDataUser object.
-        /// </summary>
-        /// <param name="userId">Initial value of the UserId property.</param>
-        /// <param name="formId">Initial value of the FormId property.</param>
-        public static SurveyMetaDataUser CreateSurveyMetaDataUser(global::System.Int32 userId, global::System.Guid formId)
-        {
-            SurveyMetaDataUser surveyMetaDataUser = new SurveyMetaDataUser();
-            surveyMetaDataUser.UserId = userId;
-            surveyMetaDataUser.FormId = formId;
-            return surveyMetaDataUser;
-        }
-
-        #endregion
-
-        #region Primitive Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        public global::System.Int32 UserId
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "SurveyMetaDataUser", "User")]
+        public EntityCollection<User> Users
         {
             get
             {
-                return _UserId;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("OSELS_EWEModel.SurveyMetaDataUser", "User");
             }
             set
             {
-                if (_UserId != value)
+                if ((value != null))
                 {
-                    OnUserIdChanging(value);
-                    ReportPropertyChanging("UserId");
-                    _UserId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("UserId");
-                    OnUserIdChanged();
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("OSELS_EWEModel.SurveyMetaDataUser", "User", value);
                 }
             }
         }
-        private global::System.Int32 _UserId;
-        partial void OnUserIdChanging(global::System.Int32 value);
-        partial void OnUserIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid FormId
-        {
-            get
-            {
-                return _FormId;
-            }
-            set
-            {
-                if (_FormId != value)
-                {
-                    OnFormIdChanging(value);
-                    ReportPropertyChanging("FormId");
-                    _FormId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("FormId");
-                    OnFormIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _FormId;
-        partial void OnFormIdChanging(global::System.Guid value);
-        partial void OnFormIdChanged();
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2341,6 +2254,32 @@ namespace Epi.Web.EF
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "SurveyMetaDataUser", "SurveyMetaData")]
+        public EntityCollection<SurveyMetaData> SurveyMetaDatas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SurveyMetaData>("OSELS_EWEModel.SurveyMetaDataUser", "SurveyMetaData");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyMetaData>("OSELS_EWEModel.SurveyMetaDataUser", "SurveyMetaData", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
 
     #endregion
