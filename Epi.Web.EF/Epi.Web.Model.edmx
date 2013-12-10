@@ -295,7 +295,7 @@
           <NavigationProperty Name="Organization" Relationship="OSELS_EWEModel.FK_SurveyMetaData_Organization" FromRole="SurveyMetaData" ToRole="Organization" />
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" FromRole="SurveyMetaData" ToRole="SurveyResponse" />
           <Property Type="Guid" Name="UserPublishKey" Nullable="false" />
-          <Property Type="Int16" Name="OwnerId" Nullable="false" />
+          <Property Type="Int32" Name="OwnerId" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
