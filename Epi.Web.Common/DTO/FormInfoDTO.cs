@@ -12,7 +12,7 @@ namespace Epi.Web.Common.DTO
         private string _FormId;
         private string _FormNumber;
         private string _FormName;
-        private Guid _UserId;
+        private int _UserId;
         private string _OrganizationName;
         private int _OrganizationId;
         private bool _IsDraftMode;
@@ -57,7 +57,7 @@ namespace Epi.Web.Common.DTO
             }
 
         [DataMember]
-        public Guid UserId
+        public int UserId
             {
             get { return _UserId; }
             set { _UserId = value; }
