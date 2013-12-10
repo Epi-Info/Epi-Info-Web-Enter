@@ -393,7 +393,7 @@ namespace Epi.Web.MVC.Controllers
         public List<FormInfoModel> GetFormsInfoList(Guid UserId)
         {
             FormsInfoRequest formReq = new FormsInfoRequest();
-            formReq.Criteria.UserId = new Guid("38153e3f-5a64-4232-ae6c-8b39cd6b28da");
+            formReq.Criteria.UserId = 2;//Hard coded user for now.
            // formReq.Criteria.UserId = UserId;
             //define filter criteria here.
             //define sorting criteria here.

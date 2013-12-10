@@ -163,7 +163,7 @@ namespace Epi.Web.MVC.Repositories
 
                 //SurveyInfoResponse GetSurveyInfo(SurveyInfoRequest pRequest)
                 //throw new NotImplementedException();
-                fRequest.Criteria.UserId = new Guid();
+                fRequest.Criteria.UserId = 2;//Hard coded user for now
                 FormsInfoResponse result;
                 result = (FormsInfoResponse)_iDataService.GetFormsInfo(fRequest);
                 return result;
