@@ -7,13 +7,14 @@ namespace Epi.Web.MVC.Models
 {
     public class FormResponseInfoModel
     {
-        public List<ResponseInfoModel> ResponseInfoModels { get; set; }
-        public FormInfoModel FormInfoModel { get; set; }
-
+        public FormInfoModel FormInfoModel;
+        public List<ResponseModel> ResponsesList;
+        public List<string> ColumnNames;
         public FormResponseInfoModel()
         {
-            ResponseInfoModels = new List<ResponseInfoModel>();
             FormInfoModel = new FormInfoModel();
+            ResponsesList = new List<ResponseModel>();
+            ColumnNames = new List<string>();
         }
     }
 }

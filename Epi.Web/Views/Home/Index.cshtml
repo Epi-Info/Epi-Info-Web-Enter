@@ -61,9 +61,9 @@
 
                                 $.ajax({
                                     url: '@Url.Action("ReadResponseInfo","Home")'+ '?formid=' + $(this).attr('data-FormId'),
-                                    type: 'POST',
+                                    type: 'GET',
                                     contentType: 'application/json; charset=utf-8',
-                                    data: JSON.stringify(model),
+                                    //data: JSON.stringify(model),
                                     success: successFunc
                                 });
 
