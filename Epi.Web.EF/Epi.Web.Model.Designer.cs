@@ -956,7 +956,7 @@ namespace Epi.Web.EF
         /// <param name="startDate">Initial value of the StartDate property.</param>
         /// <param name="userPublishKey">Initial value of the UserPublishKey property.</param>
         /// <param name="ownerId">Initial value of the OwnerId property.</param>
-        public static SurveyMetaData CreateSurveyMetaData(global::System.Guid surveyId, global::System.Int32 surveyTypeId, global::System.DateTime closingDate, global::System.String surveyName, global::System.String templateXML, global::System.Int64 templateXMLSize, global::System.DateTime dateCreated, global::System.Int32 organizationId, global::System.Boolean isDraftMode, global::System.DateTime startDate, global::System.Guid userPublishKey, global::System.Int16 ownerId)
+        public static SurveyMetaData CreateSurveyMetaData(global::System.Guid surveyId, global::System.Int32 surveyTypeId, global::System.DateTime closingDate, global::System.String surveyName, global::System.String templateXML, global::System.Int64 templateXMLSize, global::System.DateTime dateCreated, global::System.Int32 organizationId, global::System.Boolean isDraftMode, global::System.DateTime startDate, global::System.Guid userPublishKey, global::System.Int32 ownerId)
         {
             SurveyMetaData surveyMetaData = new SurveyMetaData();
             surveyMetaData.SurveyId = surveyId;
@@ -1370,7 +1370,7 @@ namespace Epi.Web.EF
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int16 OwnerId
+        public global::System.Int32 OwnerId
         {
             get
             {
@@ -1385,8 +1385,8 @@ namespace Epi.Web.EF
                 OnOwnerIdChanged();
             }
         }
-        private global::System.Int16 _OwnerId;
-        partial void OnOwnerIdChanging(global::System.Int16 value);
+        private global::System.Int32 _OwnerId;
+        partial void OnOwnerIdChanging(global::System.Int32 value);
         partial void OnOwnerIdChanged();
 
         #endregion
