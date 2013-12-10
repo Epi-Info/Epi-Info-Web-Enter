@@ -11,7 +11,7 @@ namespace Epi.Web.Common.Criteria
         public Guid OrganizationKey { get; set; }
 
         [DataMember]
-        public Guid UserId { get; set; } 
+        public int UserId { get; set; } 
 
         [DataMember]
         public DateTime DateCreatedMin { get; set; }

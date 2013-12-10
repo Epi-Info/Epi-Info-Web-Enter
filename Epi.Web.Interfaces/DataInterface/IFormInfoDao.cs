@@ -8,11 +8,11 @@ namespace Epi.Web.Interfaces.DataInterface
     {
     public interface IFormInfoDao
         {
-         List<FormInfoBO> GetFormInfo(Guid UserId);
+         List<FormInfoBO> GetFormInfo(int UserId);
 
          List<FormInfoBO> GetAssignedFormsInfo(List<Guid> FormIds);
 
-         List<Guid> GetAssignedFormsId(Guid UserId);
+         List<Guid> GetAssignedFormsId(int UserId);
               
 
 

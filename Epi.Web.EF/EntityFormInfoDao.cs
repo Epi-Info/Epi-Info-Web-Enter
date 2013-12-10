@@ -11,14 +11,14 @@ namespace Epi.Web.EF
     {
     public class EntityFormInfoDao: IFormInfoDao
         {
-        public List<FormInfoBO> GetFormInfo(Guid UserId) {
+        public List<FormInfoBO> GetFormInfo(int UserId) {
         List<FormInfoBO> FormList = new List<FormInfoBO>();
         FormInfoBO FormInfoBO;
      
             try
                 {
 
-                Guid Id = UserId;
+                int Id = UserId;
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
@@ -78,14 +78,14 @@ namespace Epi.Web.EF
 
             return FormList;
             }
-        public List<Guid> GetAssignedFormsId(Guid UserId) 
+        public List<Guid> GetAssignedFormsId(int UserId) 
             {
             List<Guid> FormId = new List<Guid>();
 
              try
                 {
 
-                Guid Id = UserId;
+                int Id = UserId;
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
