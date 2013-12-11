@@ -182,6 +182,7 @@ namespace Epi.Web.EF
                 TemplateXMLSize = (long)entity.ResponseXMLSize,
                  DateCreated = entity.DateCreated,
                  IsDraftMode = entity.IsDraftMode ,
+                IsLocked = entity.IsLocked,
             };
         }
 

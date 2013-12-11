@@ -24,6 +24,7 @@ namespace Epi.Web.Common.BusinessObject
         public long TemplateXMLSize { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsDraftMode { get; set; }
+        public bool IsLocked { get; set; }
         
        
     }

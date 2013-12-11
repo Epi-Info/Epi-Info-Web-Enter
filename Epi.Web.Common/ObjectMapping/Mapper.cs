@@ -149,7 +149,8 @@ namespace Epi.Web.Common.ObjectMapping
                 DateCompleted = pBO.DateCompleted,
                 DateCreated = pBO.DateCreated, 
                 Status = pBO.Status,
-                IsDraftMode = pBO.IsDraftMode
+                IsDraftMode = pBO.IsDraftMode,
+                IsLocked = pBO.IsLocked
             };
         }
         public static List<SurveyAnswerDTO> ToDataTransferObject(List<SurveyResponseBO> pSurveyResposneList)
