@@ -29,7 +29,9 @@ namespace Epi.Web.MVC.Models
                 OrganizationId = FormInfoDTO.OrganizationId,
                 OrganizationName = FormInfoDTO.OrganizationName,
                 UserId = FormInfoDTO.UserId,
-                IsOwner = FormInfoDTO.IsOwner
+                IsOwner = FormInfoDTO.IsOwner,
+                OwnerFName =FormInfoDTO.OwnerFName,
+                OwnerLName = FormInfoDTO.OwnerLName
             };
         }
 

@@ -16,6 +16,8 @@ namespace Epi.Web.Common.BusinessObject
         private int _Organizationid;
         private bool _IsDraftMode;
         private bool _IsOwner;
+        private string _OwnerLName;
+        private string _OwnerFName;
         [DataMember]
         public string FormId
             {
@@ -65,6 +67,19 @@ namespace Epi.Web.Common.BusinessObject
             {
             get { return _IsOwner; }
             set { _IsOwner = value; }
+            }
+     
+        [DataMember]
+        public string OwnerLName
+            {
+            get { return _OwnerLName; }
+            set { _OwnerLName = value; }
+            }
+        [DataMember]
+        public string OwnerFName
+            {
+            get { return _OwnerFName; }
+            set { _OwnerFName = value; }
             }
         }
     }

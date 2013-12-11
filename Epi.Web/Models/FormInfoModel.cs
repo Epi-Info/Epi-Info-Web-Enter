@@ -15,7 +15,8 @@ namespace Epi.Web.MVC.Models
         private int _OrganizationId;
         private bool _IsDraftMode;
         private bool _IsOwner;
-
+        private string _OwnerLName;
+        private string _OwnerFName;
         public string FormId
         {
             get { return _FormId; }
@@ -53,9 +54,21 @@ namespace Epi.Web.MVC.Models
             set { _IsOwner = value; }
         }
         public int UserId
-        {
+            {
             get { return _UserId; }
             set { _UserId = value; }
-        }
+            }
+       public string OwnerLName
+           {
+           get { return _OwnerLName; }
+           set { _OwnerLName = value; }
+           }
+        
+       public string OwnerFName
+           {
+           get { return _OwnerFName; }
+           set { _OwnerFName = value; }
+           }
+
     }
 }
