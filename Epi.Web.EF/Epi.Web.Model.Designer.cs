@@ -1515,7 +1515,8 @@ namespace Epi.Web.EF
         /// <param name="responseXML">Initial value of the ResponseXML property.</param>
         /// <param name="dateCreated">Initial value of the DateCreated property.</param>
         /// <param name="isDraftMode">Initial value of the IsDraftMode property.</param>
-        public static SurveyResponse CreateSurveyResponse(global::System.Guid responseId, global::System.Guid surveyId, global::System.DateTime dateUpdated, global::System.Int32 statusId, global::System.String responseXML, global::System.DateTime dateCreated, global::System.Boolean isDraftMode)
+        /// <param name="isLocked">Initial value of the IsLocked property.</param>
+        public static SurveyResponse CreateSurveyResponse(global::System.Guid responseId, global::System.Guid surveyId, global::System.DateTime dateUpdated, global::System.Int32 statusId, global::System.String responseXML, global::System.DateTime dateCreated, global::System.Boolean isDraftMode, global::System.Boolean isLocked)
         {
             SurveyResponse surveyResponse = new SurveyResponse();
             surveyResponse.ResponseId = responseId;
@@ -1525,6 +1526,7 @@ namespace Epi.Web.EF
             surveyResponse.ResponseXML = responseXML;
             surveyResponse.DateCreated = dateCreated;
             surveyResponse.IsDraftMode = isDraftMode;
+            surveyResponse.IsLocked = isLocked;
             return surveyResponse;
         }
 
@@ -1774,6 +1776,30 @@ namespace Epi.Web.EF
         private global::System.Boolean _IsDraftMode;
         partial void OnIsDraftModeChanging(global::System.Boolean value);
         partial void OnIsDraftModeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsLocked
+        {
+            get
+            {
+                return _IsLocked;
+            }
+            set
+            {
+                OnIsLockedChanging(value);
+                ReportPropertyChanging("IsLocked");
+                _IsLocked = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsLocked");
+                OnIsLockedChanged();
+            }
+        }
+        private global::System.Boolean _IsLocked;
+        partial void OnIsLockedChanging(global::System.Boolean value);
+        partial void OnIsLockedChanged();
 
         #endregion
 
