@@ -122,6 +122,7 @@
           <Property Name="ResponseXMLSize" Type="bigint" />
           <Property Name="DateCreated" Type="datetime2" Nullable="false" />
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -380,6 +381,7 @@
           <Property Name="IsDraftMode" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="lk_Status" Relationship="OSELS_EWEModel.FK_SurveyResponse_lk_Status" FromRole="SurveyResponse" ToRole="lk_Status" />
           <NavigationProperty Name="SurveyMetaData" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" FromRole="SurveyResponse" ToRole="SurveyMetaData" />
+          <Property Type="Boolean" Name="IsLocked" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -539,6 +541,7 @@
           <EntitySetMapping Name="SurveyResponses">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponse">
               <MappingFragment StoreEntitySet="SurveyResponse">
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
                 <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
                 <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
@@ -605,7 +608,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Epi.Web.Model" ZoomLevel="64">
+      <Diagram Name="Epi.Web.Model" ZoomLevel="83">
         <EntityTypeShape EntityType="OSELS_EWEModel.Admin" Width="1.5" PointX="1.5" PointY="9" Height="2.1725878906249996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="6" PointY="0.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="3.75" PointY="2.75" Height="1.5956835937499996" IsExpanded="true" />
