@@ -22,24 +22,29 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
-                       var items =   Context.SurveyMetaDatas.Where(x => x.OwnerId == Id).ToList();
+                    
 
 
-
-                        //var items = from FormInfo in Context.SurveyMetaDatas
-                        //            join UserInfo in Context.Users
-                        //            on FormInfo.OwnerId equals UserInfo.UserID
-                        //            into temp
-                        //            from UserInfo in temp.DefaultIfEmpty()
-                        //            select new { FormInfo, UserInfo };
+                       var items = from FormInfo in Context.SurveyMetaDatas
+                                   join UserInfo in Context.Users
+                                   on FormInfo.OwnerId equals UserInfo.UserID
+                                   into temp
+                                   from UserInfo in temp.DefaultIfEmpty()
+                                   select new { FormInfo, UserInfo };
 
 
                         foreach (var item in items)
                             {
-                       //  FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo);
-                            FormInfoBO = Mapper.MapToFormInfoBO(item);
-
-                            FormInfoBO.IsOwner = true;
+                        FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo);
+                           
+                            if(item.UserInfo.UserID == Id)
+                                {
+                                    FormInfoBO.IsOwner = true;
+                                }
+                            else
+                                {
+                                   FormInfoBO.IsOwner = false;
+                                }
                             FormList.Add(FormInfoBO);
                             
                             }
