@@ -51,6 +51,8 @@ namespace Epi.Web.Common.ObjectMapping
                 IsDraftMode = BO.IsDraftMode,
                 UserId = BO.UserId,
                 IsOwner = BO.IsOwner,
+                OwnerFName =BO.OwnerFName,
+                OwnerLName = BO.OwnerLName
 
             };
             }
