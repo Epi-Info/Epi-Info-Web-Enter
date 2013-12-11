@@ -24,17 +24,6 @@ namespace Epi.Web.BLL
             //Owner Forms
             List<FormInfoBO> result = this.FormInfoDao.GetFormInfo(UserId);
 
-            //Assigned Forms 
-            List<Guid> AssignedFormId = new List<Guid>();
-            AssignedFormId = this.FormInfoDao.GetAssignedFormsId(UserId);
-
-
-            List<FormInfoBO> AssignedForm = this.FormInfoDao.GetAssignedFormsInfo(AssignedFormId);
-
-            foreach (var form in AssignedForm)
-                {
-                result.Add(form);
-                }
            
 
             return result;
