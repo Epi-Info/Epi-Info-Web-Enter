@@ -67,7 +67,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="entity">A SurveyMetaData entity to be transformed.</param>
         /// <returns>A FormInfoBO business object.</returns>
-        internal static FormInfoBO MapToFormInfoBO(SurveyMetaData entity)
+        internal static FormInfoBO MapToFormInfoBO(SurveyMetaData entity,User UserEntity )
             {
             FormInfoBO result = new FormInfoBO();
 
@@ -78,6 +78,8 @@ namespace Epi.Web.EF
             result.OrganizationId = entity.OrganizationId;
             result.IsDraftMode = entity.IsDraftMode;
             result.UserId = entity.OwnerId;
+            result.OwnerFName = UserEntity.FirstName;
+            result.OwnerLName = UserEntity.LastName;
              return result;
             }
 
