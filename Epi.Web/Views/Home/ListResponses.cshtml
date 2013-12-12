@@ -39,8 +39,7 @@
 @{
     WebGrid webGrid = new WebGrid(rowsPerPage: 20,
         canSort: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
-    // webGrid.Pager(WebGridPagerModes.NextPrevious);
-    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: 200);
+    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: Model.ResponsesList.Count); //Model.SurveyAnswerResponse.pageSize * Model.ResponsesList.Count TBD
 }
 <div id="recordscontent">
     <!--style="display:inline-block;"-->
@@ -60,18 +59,24 @@
     <div style="clear: both; margin-bottom: 10px;">
     </div>
     <div id="recordstable">
-    @if(Model.ResponsesList.Count > 0){
-         @webGrid.GetHtml(
-                   columns: webGrid.Columns(
-                   webGrid.Column("Column1", Model.ColumnNames[0]),
-                   webGrid.Column("Column2", Model.ColumnNames[1]),
-                   webGrid.Column("Column3", Model.ColumnNames[2]),
-                   webGrid.Column("Column4", Model.ColumnNames[3]),
-                   webGrid.Column("Column5", Model.ColumnNames[4]),
-                             webGrid.Column(format: (item) => Html.ActionLink("Edit", "Edit", new { id = item.Column0 }), style: "column"),
-                    webGrid.Column(format: (item) => Html.ActionLink("Delete", "Delete", new { id = item.Column0 }), style: "column")
-                              )
-                             );
-                             }
+        @{
+            if (Model.ResponsesList.Count > 0)
+            {
+
+        
+        
+            @webGrid.GetHtml(
+                webGrid.Columns(
+                                 webGrid.Column("Column1", Model.Columns[0].Value),
+                                 webGrid.Column("Column2", Model.Columns[1].Value),
+                                 webGrid.Column("Column3", Model.Columns[2].Value),
+                                 webGrid.Column("Column4", Model.Columns[3].Value),
+                                 webGrid.Column("Column5", Model.Columns[4].Value),
+                                 webGrid.Column(format:
+                                          (item) => (item.IsLocked == false) ? Html.ActionLink("Edit", "Edit", new { id = item.Column0 }) : Html.Raw("Edit"), style: "column"),
+                          webGrid.Column(format: (item) => (item.IsLocked == false) ? Html.ActionLink("Delete", "Delete", new { id = item.Column0 }) : Html.Raw("Delete") , style: "column")
+                               )
+                                  );
+            } }
     </div>
 </div>
