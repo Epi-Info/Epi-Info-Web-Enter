@@ -13,5 +13,7 @@ namespace Epi.Web.MVC.Models
         public string Column3 { get; set; }
         public string Column4 { get; set; }
         public string Column5 { get; set; }
+
+        public bool IsLocked { get; set; }
     }
 }

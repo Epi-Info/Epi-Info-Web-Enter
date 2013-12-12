@@ -195,28 +195,28 @@ namespace Epi.Web.MVC.Utility
             return iSurveyInfoRepository.GetSurveyInfo(surveyInfoRequest).SurveyInfoList[0];
         }
 
-        public static XDocument MergeXml(XDocument SavedXml, XDocument CurrentPageResponseXml, int Pagenumber)
-        {
+        //public static XDocument MergeXml(XDocument SavedXml, XDocument CurrentPageResponseXml, int Pagenumber)
+        //{
 
-            XDocument xdoc = XDocument.Parse(SavedXml.ToString());
-            XElement oldXElement = xdoc.XPathSelectElement("SurveyResponse/Page[@PageNumber = '" + Pagenumber.ToString() + "']");
+        //    XDocument xdoc = XDocument.Parse(SavedXml.ToString());
+        //    XElement oldXElement = xdoc.XPathSelectElement("SurveyResponse/Page[@PageNumber = '" + Pagenumber.ToString() + "']");
  
 
-            if (oldXElement == null)
-            {
-                SavedXml.Root.Add(CurrentPageResponseXml.Elements());
-                return SavedXml;
-            }
+        //    if (oldXElement == null)
+        //    {
+        //        SavedXml.Root.Add(CurrentPageResponseXml.Elements());
+        //        return SavedXml;
+        //    }
 
-            else 
-            {
-                oldXElement.Remove();
-                xdoc.Root.Add(CurrentPageResponseXml.Elements());
-                return xdoc;
-            }
+        //    else 
+        //    {
+        //        oldXElement.Remove();
+        //        xdoc.Root.Add(CurrentPageResponseXml.Elements());
+        //        return xdoc;
+        //    }
             
         
-        }
+        //}
 
 
         /// <summary>
@@ -387,6 +387,134 @@ namespace Epi.Web.MVC.Utility
                 return false;
             }
         
+        }
+
+        public static string CreateResponseDocument(XDocument pMetaData, string pXML, string RequiredList)
+        {
+            XDocument XmlResponse = new XDocument();
+            IEnumerable<XElement> PageFields = null;
+            int NumberOfPages = GetNumberOfPages(pMetaData);
+            for (int i = 0; NumberOfPages > i - 1; i++)
+            {
+                var _FieldsTypeIDs = from _FieldTypeID in
+                                         pMetaData.Descendants("Field")
+                                     where _FieldTypeID.Attribute("Position").Value == (i - 1).ToString()
+                                     select _FieldTypeID;
+
+                PageFields = _FieldsTypeIDs;
+
+                XDocument CurrentPageXml = ToXDocument(CreateResponseXml("", false, i, "", PageFields, RequiredList));
+
+                if (i == 0)
+                {
+                    XmlResponse = ToXDocument(CreateResponseXml("", true, i, "", PageFields, RequiredList));
+                }
+                else
+                {
+                    XmlResponse = MergeXml(XmlResponse, CurrentPageXml, i);
+                }
+            }
+
+            return XmlResponse.ToString();
+        }
+
+        private static int GetNumberOfPages(XDocument Xml)
+        {
+            var _FieldsTypeIDs = from _FieldTypeID in
+                                     Xml.Descendants("View")
+                                 select _FieldTypeID;
+
+            return _FieldsTypeIDs.Elements().Count();
+        }
+
+        public static XmlDocument CreateResponseXml(string SurveyId, bool AddRoot, int CurrentPage, string Pageid, IEnumerable<XElement> PageFields, string RequiredList)
+        {
+            XmlDocument xml = new XmlDocument();
+            XmlElement root = xml.CreateElement("SurveyResponse");
+
+            if (CurrentPage == 0)
+            {
+                root.SetAttribute("SurveyId", SurveyId);
+                root.SetAttribute("LastPageVisited", "1");
+                root.SetAttribute("HiddenFieldsList", "");
+                root.SetAttribute("HighlightedFieldsList", "");
+                root.SetAttribute("DisabledFieldsList", "");
+                root.SetAttribute("RequiredFieldsList", "");
+
+                xml.AppendChild(root);
+            }
+
+            XmlElement PageRoot = xml.CreateElement("Page");
+            if (CurrentPage != 0)
+            {
+                PageRoot.SetAttribute("PageNumber", CurrentPage.ToString());
+                PageRoot.SetAttribute("PageId", Pageid);//Added PageId Attribute to the page node
+                xml.AppendChild(PageRoot);
+            }
+
+            foreach (var Field in PageFields)
+            {
+                XmlElement child = xml.CreateElement(Epi.Web.MVC.Constants.Constant.RESPONSE_DETAILS);
+                child.SetAttribute("QuestionName", Field.Attribute("Name").Value);
+                child.InnerText = Field.Value;
+                PageRoot.AppendChild(child);
+                //Start Adding required controls to the list
+                SetRequiredList(Field, RequiredList);
+            }
+
+            return xml;
+        }
+
+        public static XDocument ToXDocument(XmlDocument xmlDocument)
+        {
+            using (var nodeReader = new XmlNodeReader(xmlDocument))
+            {
+                nodeReader.MoveToContent();
+                return XDocument.Load(nodeReader);
+            }
+        }
+
+        public static XDocument MergeXml(XDocument SavedXml, XDocument CurrentPageResponseXml, int Pagenumber)
+        {
+            XDocument xdoc = XDocument.Parse(SavedXml.ToString());
+            XElement oldXElement = xdoc.XPathSelectElement("SurveyResponse/Page[@PageNumber = '" + Pagenumber.ToString() + "']");
+
+            if (oldXElement == null)
+            {
+                SavedXml.Root.Add(CurrentPageResponseXml.Elements());
+                return SavedXml;
+            }
+
+            else
+            {
+                oldXElement.Remove();
+                xdoc.Root.Add(CurrentPageResponseXml.Elements());
+                return xdoc;
+            }
+        }
+
+        public static void SetRequiredList(XElement _Fields, string RequiredList)
+        {
+            bool isRequired = false;
+            string value = _Fields.Attribute("IsRequired").Value;
+
+            if (bool.TryParse(value, out isRequired))
+            {
+                if (isRequired)
+                {
+                    if (!RequiredList.Contains(_Fields.Attribute("Name").Value))
+                    {
+                        if (RequiredList != "")
+                        {
+                            RequiredList = RequiredList + "," + _Fields.Attribute("Name").Value.ToLower();
+                        }
+                        else
+                        {
+                            RequiredList = _Fields.Attribute("Name").Value.ToLower();
+                        }
+                    }
+                }
+            }
         }
 
     }
