@@ -435,6 +435,7 @@
     <Content Include="Scripts\PIE.htc" />
     <Content Include="Scripts\_references.js" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormResponseInfoResponse.datasource" />
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormSettingResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />
@@ -454,6 +455,9 @@
     <None Include="Service References\DataServiceClient\EWEDataService.disco" />
     <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
     <None Include="Service References\DataServiceClient\configuration.svcinfo" />
+    <None Include="Service References\DataServiceClient\EWEDataService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\DataServiceClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

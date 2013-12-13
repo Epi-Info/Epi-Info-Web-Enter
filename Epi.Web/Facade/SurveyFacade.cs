@@ -195,6 +195,12 @@ namespace Epi.Web.MVC.Facade
 
             return FormResponseList;
             }
+        public FormSettingResponse GetResponseColumnNameList(FormSettingRequest pRequest)
+        {
+             FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.GetResponseColumnNameList(pRequest);
 
+        return FormSettingResponse;
+            
+         }
     }
 }

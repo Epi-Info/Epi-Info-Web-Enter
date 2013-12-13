@@ -25,6 +25,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Organization), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyMetaDataUser", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "ResponseDisplaySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.ResponseDisplaySetting), true)]
 
 #endregion
 
@@ -203,6 +204,22 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<User> _Users;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ResponseDisplaySetting> ResponseDisplaySettings
+        {
+            get
+            {
+                if ((_ResponseDisplaySettings == null))
+                {
+                    _ResponseDisplaySettings = base.CreateObjectSet<ResponseDisplaySetting>("ResponseDisplaySettings");
+                }
+                return _ResponseDisplaySettings;
+            }
+        }
+        private ObjectSet<ResponseDisplaySetting> _ResponseDisplaySettings;
 
         #endregion
 
@@ -270,6 +287,14 @@ namespace Epi.Web.EF
         public void AddToUsers(User user)
         {
             base.AddObject("Users", user);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ResponseDisplaySettings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToResponseDisplaySettings(ResponseDisplaySetting responseDisplaySetting)
+        {
+            base.AddObject("ResponseDisplaySettings", responseDisplaySetting);
         }
 
         #endregion
@@ -911,6 +936,160 @@ namespace Epi.Web.EF
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="ResponseDisplaySetting")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ResponseDisplaySetting : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ResponseDisplaySetting object.
+        /// </summary>
+        /// <param name="formId">Initial value of the FormId property.</param>
+        /// <param name="columnName">Initial value of the ColumnName property.</param>
+        /// <param name="sortOrder">Initial value of the SortOrder property.</param>
+        public static ResponseDisplaySetting CreateResponseDisplaySetting(global::System.Guid formId, global::System.String columnName, global::System.Int32 sortOrder)
+        {
+            ResponseDisplaySetting responseDisplaySetting = new ResponseDisplaySetting();
+            responseDisplaySetting.FormId = formId;
+            responseDisplaySetting.ColumnName = columnName;
+            responseDisplaySetting.SortOrder = sortOrder;
+            return responseDisplaySetting;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid FormId
+        {
+            get
+            {
+                return _FormId;
+            }
+            set
+            {
+                if (_FormId != value)
+                {
+                    OnFormIdChanging(value);
+                    ReportPropertyChanging("FormId");
+                    _FormId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("FormId");
+                    OnFormIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _FormId;
+        partial void OnFormIdChanging(global::System.Guid value);
+        partial void OnFormIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ColumnName
+        {
+            get
+            {
+                return _ColumnName;
+            }
+            set
+            {
+                if (_ColumnName != value)
+                {
+                    OnColumnNameChanging(value);
+                    ReportPropertyChanging("ColumnName");
+                    _ColumnName = StructuralObject.SetValidValue(value, false);
+                    ReportPropertyChanged("ColumnName");
+                    OnColumnNameChanged();
+                }
+            }
+        }
+        private global::System.String _ColumnName;
+        partial void OnColumnNameChanging(global::System.String value);
+        partial void OnColumnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SortOrder
+        {
+            get
+            {
+                return _SortOrder;
+            }
+            set
+            {
+                OnSortOrderChanging(value);
+                ReportPropertyChanging("SortOrder");
+                _SortOrder = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SortOrder");
+                OnSortOrderChanged();
+            }
+        }
+        private global::System.Int32 _SortOrder;
+        partial void OnSortOrderChanging(global::System.Int32 value);
+        partial void OnSortOrderChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData")]
+        public SurveyMetaData SurveyMetaData
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SurveyMetaData> SurveyMetaDataReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="SurveyMetaData")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1487,6 +1666,28 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("OSELS_EWEModel.SurveyMetaDataUser", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_ResponseGridcolumns_SurveyMetaData", "ResponseDisplaySetting")]
+        public EntityCollection<ResponseDisplaySetting> ResponseDisplaySettings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResponseDisplaySetting>("OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData", "ResponseDisplaySetting");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResponseDisplaySetting>("OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData", "ResponseDisplaySetting", value);
                 }
             }
         }

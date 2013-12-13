@@ -605,6 +605,36 @@ namespace Epi.Web.WCF.SurveyService
                 }
             }
 
+
+        public FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest) 
+            {
+
+
+            FormSettingResponse Response = new FormSettingResponse();
+            try{
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            
+            Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
+
+            Epi.Web.BLL.FormSetting Implementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+
+
+            Response.FormSetting =  Mapper.ToDataTransferObject(Implementation.GetResponseColumnNames(pRequest.FormSetting.FormId.ToString()));
+                return Response;
+
+
+              }
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
+
+            }
       
     }
 

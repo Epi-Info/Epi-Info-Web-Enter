@@ -16,6 +16,7 @@ namespace Epi.Web.MVC.Facade
         
         SurveyInfoModel GetSurveyInfoModel(string surveyId);
         List<FormInfoModel> GetFormsInfoModelList(FormsInfoRequest formReq);
+
         SurveyAnswerResponse GetSurveyAnswerResponse(string responseId);
         UserAuthenticationResponse ValidateUser(string responseId, string passcode);
         void UpdatePassCode(string responseId, string passcode);
@@ -23,6 +24,6 @@ namespace Epi.Web.MVC.Facade
         ISurveyAnswerRepository GetSurveyAnswerRepository();
 
         SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest FormResponseReq);
-
+        FormSettingResponse GetResponseColumnNameList(FormSettingRequest FormSettingRequest);
     }
 }

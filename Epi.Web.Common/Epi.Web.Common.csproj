@@ -51,6 +51,7 @@
     <Compile Include="BusinessObject\AdminBO.cs" />
     <Compile Include="BusinessObject\BusinessObject.cs" />
     <Compile Include="BusinessObject\FormInfoBO.cs" />
+    <Compile Include="BusinessObject\FormSettingBO.cs" />
     <Compile Include="BusinessObject\OrganizationBO.cs" />
     <Compile Include="BusinessObject\PageInfoBO.cs" />
     <Compile Include="BusinessObject\UserAuthenticationRequestBO.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="DTO\AdminDTO.cs" />
     <Compile Include="DTO\FormInfoDTO.cs" />
     <Compile Include="DTO\FormResponseInfoDTO.cs" />
+    <Compile Include="DTO\FormSettingDTO.cs" />
     <Compile Include="DTO\OrganizationDTO.cs" />
     <Compile Include="DTO\PageInfoDTO.cs" />
     <Compile Include="DTO\PassCodeDTO.cs" />
@@ -91,6 +93,8 @@
     <Compile Include="Message\Base\ResponseBase.cs" />
     <Compile Include="Message\FormResponseInfoRequest.cs" />
     <Compile Include="Message\FormResponseInfoResponse.cs" />
+    <Compile Include="Message\FormSettingRequest.cs" />
+    <Compile Include="Message\FormSettingResponse.cs" />
     <Compile Include="Message\FormsInfoRequest.cs" />
     <Compile Include="Message\FormsInfoResponse.cs" />
     <Compile Include="Message\OrganizationRequest.cs" />
