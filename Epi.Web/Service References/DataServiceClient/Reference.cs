@@ -51,6 +51,11 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormResponseList", ReplyAction="http://tempuri.org/IEWEDataService/GetFormResponseListResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormResponseListCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Common.Message.SurveyAnswerResponse GetFormResponseList(Epi.Web.Common.Message.SurveyAnswerRequest pRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetResponseColumnNames", ReplyAction="http://tempuri.org/IEWEDataService/GetResponseColumnNamesResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetResponseColumnNamesCustomFaultExceptionFaul" +
+            "t", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.FormSettingResponse GetResponseColumnNames(Epi.Web.Common.Message.FormSettingRequest pRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -114,6 +119,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Common.Message.SurveyAnswerResponse GetFormResponseList(Epi.Web.Common.Message.SurveyAnswerRequest pRequest) {
             return base.Channel.GetFormResponseList(pRequest);
+        }
+        
+        public Epi.Web.Common.Message.FormSettingResponse GetResponseColumnNames(Epi.Web.Common.Message.FormSettingRequest pRequest) {
+            return base.Channel.GetResponseColumnNames(pRequest);
         }
     }
 }

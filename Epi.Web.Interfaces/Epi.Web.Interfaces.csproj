@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="DataInterface\IAdminDao.cs" />
     <Compile Include="DataInterface\IFormInfoDao.cs" />
+    <Compile Include="DataInterface\IFormSettingDao.cs" />
     <Compile Include="DataInterface\IOrganizationDao.cs" />
     <Compile Include="DataInterface\ISurveyResponseDao.cs" />
     <Compile Include="DataInterface\ISurveyInfoDao.cs" />

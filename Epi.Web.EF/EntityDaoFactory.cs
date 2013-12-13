@@ -36,5 +36,11 @@ namespace Epi.Web.EF
             get{return new EntityOrganizationDao();}
         
         }
+
+        public IFormSettingDao FormSettingDao
+            {
+            get { return new EntityFormSettingDao(); }
+
+            }
     }
 }

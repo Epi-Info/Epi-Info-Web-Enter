@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="EntityAdminDao.cs" />
     <Compile Include="EntityFormInfoDao.cs" />
+    <Compile Include="EntityFormSettingDao.cs" />
     <Compile Include="EntityOrganizationDao.cs" />
     <Compile Include="EntitySurveyResponseDao.cs" />
     <Compile Include="DataObjectFactory.cs" />

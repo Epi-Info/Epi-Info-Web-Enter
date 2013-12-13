@@ -10,7 +10,7 @@
           <xs:element minOccurs="0" name="DateCreatedMin" type="xs:dateTime" />
           <xs:element minOccurs="0" name="FormName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="OrganizationKey" type="ser:guid" />
-          <xs:element minOccurs="0" name="UserId" type="ser:guid" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

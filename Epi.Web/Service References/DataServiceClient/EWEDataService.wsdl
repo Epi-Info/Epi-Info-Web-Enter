@@ -7,6 +7,7 @@
       <xsd:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
       <xsd:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" />
+      <xsd:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEWEDataService_GetSurveyInfo_InputMessage">
@@ -90,6 +91,15 @@
   <wsdl:message name="IEWEDataService_GetFormResponseList_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q9="http://www.yourcompany.com/types/" name="detail" element="q9:CustomFaultException" />
   </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetResponseColumnNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetResponseColumnNames" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetResponseColumnNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetResponseColumnNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetResponseColumnNames_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://www.yourcompany.com/types/" name="detail" element="q10:CustomFaultException" />
+  </wsdl:message>
   <wsdl:portType name="IEWEDataService">
     <wsdl:operation name="GetSurveyInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyInfo" message="tns:IEWEDataService_GetSurveyInfo_InputMessage" />
@@ -135,6 +145,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseList" message="tns:IEWEDataService_GetFormResponseList_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseListResponse" message="tns:IEWEDataService_GetFormResponseList_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseListCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetFormResponseList_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResponseColumnNames">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetResponseColumnNames" message="tns:IEWEDataService_GetResponseColumnNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetResponseColumnNamesResponse" message="tns:IEWEDataService_GetResponseColumnNames_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetResponseColumnNamesCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetResponseColumnNames_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEWEDataService" type="tns:IEWEDataService">
@@ -237,6 +252,18 @@
     </wsdl:operation>
     <wsdl:operation name="GetFormResponseList">
       <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetFormResponseList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetResponseColumnNames">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetResponseColumnNames" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

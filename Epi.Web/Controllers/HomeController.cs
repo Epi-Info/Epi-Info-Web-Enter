@@ -24,8 +24,8 @@ namespace Epi.Web.MVC.Controllers
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
-        List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
-
+       List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
+       
         /// <summary>
         /// injecting surveyFacade to the constructor 
         /// </summary>
@@ -235,7 +235,7 @@ namespace Epi.Web.MVC.Controllers
             NewModel.FormId = NewSModel.SurveyId;
             NewModel.FormName = NewSModel.SurveyName;
             NewModel.IsDraftMode = NewSModel.IsDraftMode;
-
+           // NewModel.OwnerFName = NewSModel.
             model.FormInfoModel = NewModel;
 
 
@@ -451,28 +451,34 @@ namespace Epi.Web.MVC.Controllers
         public List<ResponseModel> GetFormResponseList(string SurveyId, int PageNumber)
         {
             SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
+            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
             FormResponseReq.Criteria.PageNumber = PageNumber;
             SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
+            //Response column Names
+            FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
+            FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
 
-            Columns.Add(new KeyValuePair<int, string>(6, "CaseID"));
-            Columns.Add(new KeyValuePair<int, string>(2, "DateofInterview"));
-            Columns.Add(new KeyValuePair<int, string>(3, "FirstName"));
-            Columns.Add(new KeyValuePair<int, string>(1, "LastName"));
-            Columns.Add(new KeyValuePair<int, string>(5, "Sex"));
+            Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
 
-            Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
+            //Columns.Add(new KeyValuePair<int, string>(6, "CaseID"));
+            //Columns.Add(new KeyValuePair<int, string>(2, "DateofInterview"));
+            //Columns.Add(new KeyValuePair<int, string>(3, "FirstName"));
+            //Columns.Add(new KeyValuePair<int, string>(1, "LastName"));
+            //Columns.Add(new KeyValuePair<int, string>(5, "Sex"));
+
+            //Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
 
             Columns.Sort(Compare);
 
             List<ResponseModel> ResponseList = new List<ResponseModel>();
 
             foreach (var item in FormResponseList.SurveyResponseList)
-            {
+                {
                 ResponseList.Add(ConvertXMLToModel(item, Columns));
-                
-            }
+
+                }
 
             return ResponseList;
         }
