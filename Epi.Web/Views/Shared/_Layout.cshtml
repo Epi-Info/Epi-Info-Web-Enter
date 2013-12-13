@@ -40,12 +40,12 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tools.min.js")"></script>
 
    <script type="text/javascript">
-       $(document).ready(function () {
-           var footer_height = $("#footer").height();
-           $("#container").css({
-               'padding-bottom': footer_height+5
-           });
-       });
+//       $(document).ready(function () {
+//           var footer_height = $("#footer").height();
+//           $("#container").css({
+//               'padding-bottom': footer_height+5
+//           });
+//       });
        //debugger;
 
        $(document).ready(function () {
@@ -121,8 +121,9 @@
     <div id="maincontent">  
         @RenderBody()
     </div>
-    @Html.Partial("FooterPartial")
+    
 </div>   
+@Html.Partial("FooterPartial")
 </body>
 </html>
  

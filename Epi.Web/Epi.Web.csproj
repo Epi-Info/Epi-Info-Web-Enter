@@ -319,14 +319,18 @@
     <Content Include="Content\images\prev1.png" />
     <Content Include="Content\images\prev_d.png" />
     <Content Include="Content\images\prod.png" />
+    <Content Include="Content\images\prod1.png" />
     <Content Include="Content\images\prodlegend.png" />
+    <Content Include="Content\images\prodlegend1.png" />
     <Content Include="Content\images\save.png" />
     <Content Include="Content\images\saveset.png" />
     <Content Include="Content\images\secondary_bar.png" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\sign_warning.png" />
     <Content Include="Content\images\staging.png" />
+    <Content Include="Content\images\staging1.png" />
     <Content Include="Content\images\staginglegend.png" />
+    <Content Include="Content\images\staginglegend1.png" />
     <Content Include="Content\images\submit.png" />
     <Content Include="Content\images\toc.png" />
     <Content Include="Content\images\video.png" />
@@ -412,6 +416,7 @@
     <Content Include="Scripts\jquery.numeric.js" />
     <Content Include="Scripts\jquery.PreventEnter.js" />
     <Content Include="Scripts\jquery.simpledialog.0.1.min.js" />
+    <Content Include="Scripts\jquery.stickytableheaders.js" />
     <Content Include="Scripts\jquery.tools.min.js" />
     <Content Include="Scripts\jquery.ui.all.css" />
     <Content Include="Scripts\jquery.ui.core.js" />

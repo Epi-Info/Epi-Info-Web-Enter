@@ -1,5 +1,7 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
 
+
+
 <div id="pageHeader">
   	<div id="pageTitle"><h2>My Forms</h2></div>
    	<div id="userwelcome">Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
@@ -19,7 +21,7 @@
     WebGrid webGrid = new WebGrid(rowsPerPage: 20,
         canSort: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
     // webGrid.Pager(WebGridPagerModes.NextPrevious);
-    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: 200);
+    webGrid.Bind(Model.ResponsesList, autoSortAndPage: true, rowCount: 200);
 }
     
 
@@ -80,17 +82,27 @@
                  <div id="recordstable">
     @if(Model.ResponsesList.Count > 0){
         @webGrid.GetHtml(
+                       htmlAttributes: new { id = "mytable01" },
+                            tableStyle: "second",
                    columns: webGrid.Columns(
+                         webGrid.Column(header: "",
+                                style: "text-align-left",
+                                    format: (item) => new
+                                         HtmlString(Html.ActionLink("Edit", "Edit", new { ID = item.Column0 }).ToString() + " &nbsp;&nbsp; " +
+                                                     Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
+                                                )
+                         ),
                    webGrid.Column("Column1", Model.ColumnNames[0]),
                    webGrid.Column("Column2", Model.ColumnNames[1]),
                    webGrid.Column("Column3", Model.ColumnNames[2]),
                    webGrid.Column("Column4", Model.ColumnNames[3]),
-                   webGrid.Column("Column5", Model.ColumnNames[4]),
-                             webGrid.Column(format: (item) => Html.ActionLink("Edit", "Edit", new { id = item.Column0 }), style: "column"),
-                    webGrid.Column(format: (item) => Html.ActionLink("Delete", "Delete", new { id = item.Column0 }), style: "column")
+                   webGrid.Column("Column5", Model.ColumnNames[4])
+                   
                               )
+                              
                              );
                              }
+                             
     </div>
             </div>
     
@@ -99,3 +111,22 @@
 </div>
 </div>
 </div>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script type="text/javascript">//<![CDATA[
+    $(window).load(function () {
+        //var trainingInstanceIds = [1, 2, 3, 4, 5, 6];
+        var trainingInstanceIds = new Array();
+        trainingInstanceIds[0] = "Action";
+        trainingInstanceIds[1] = "CaseID";
+        trainingInstanceIds[2] = "DateofInterview";
+        trainingInstanceIds[3] = "FirstName";
+        trainingInstanceIds[4] = "LastName";
+        trainingInstanceIds[5] = "Sex";
+
+        $('.second td').attr('title', function (index, attr) {
+            return trainingInstanceIds[$(this).index()];
+        });
+    });//]]>  
+
+</script>
+   
