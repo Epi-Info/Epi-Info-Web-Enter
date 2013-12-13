@@ -21,6 +21,7 @@
     <MetadataSource Address="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="EWEDataService5.xsd" MetadataType="Schema" ID="b034bbae-4d89-4e0a-99e7-9547378d7a07" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd5" />
     <MetadataFile FileName="EWEDataService.xsd" MetadataType="Schema" ID="ebc88d17-cd12-46cd-a8b0-4c3b27592258" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd1" />
     <MetadataFile FileName="EWEDataService.disco" MetadataType="Disco" ID="04bc0c57-a0af-4fd5-973b-f66d74d610e7" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?disco" />
     <MetadataFile FileName="EWEDataService1.xsd" MetadataType="Schema" ID="8a0d83cd-8486-4958-9054-6c9090144944" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd0" />

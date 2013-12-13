@@ -127,4 +127,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetResponseColumnNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q19:FormSettingRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetResponseColumnNamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://www.yourcompany.com/types/" minOccurs="0" name="GetResponseColumnNamesResult" nillable="true" type="q20:FormSettingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

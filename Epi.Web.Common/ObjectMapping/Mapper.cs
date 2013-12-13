@@ -264,5 +264,17 @@ namespace Epi.Web.Common.ObjectMapping
             
             }
 
+        public static FormSettingDTO ToDataTransferObject(FormSettingBO pBO)
+            {
+            return new FormSettingDTO
+            {
+                ColumnNameList = pBO.ColumnNameList,
+                 FormId = pBO.FormId
+               
+
+            };
+            }
+
+
     }
 }
