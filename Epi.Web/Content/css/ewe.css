@@ -287,8 +287,8 @@ div.recordcontentdiv
 }
  #footer
  {
-    position:absolute;
-    bottom:0px;
+    /*position:absolute;
+    bottom:0px;*/
     width: 100%;
     padding: .5em 0;
     color: #333;
@@ -337,7 +337,7 @@ div.recordcontentdiv
      margin: 0 0 .5em 0;
  }
 
-button.default
+button.default, #recordstable a
 {
     margin: 0 auto; 
     cursor: pointer; 
@@ -347,6 +347,14 @@ button.default
     background: #5c53ac;
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
+ #recordstable a 
+ {
+    width: 80px;
+    height: 35px;
+    padding: 3px 4px ;
+    text-decoration: none;
+ }
 
 button.default:hover, button.default:active
  {

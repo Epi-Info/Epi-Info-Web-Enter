@@ -786,9 +786,31 @@ a.backlink
 	This query will take effect for any screen smaller than 760px
 	and also iPads specifically.
 	*/
-	@media 
+	/*@media 
 	only screen and (max-width: 760px),
-	(min-device-width: 768px) and (max-device-width: 1024px)  {
+	(min-device-width: 768px) and (max-device-width: 1024px)  {*/
+	    #recordstable table { 
+		/*width: 100%; */
+		border-spacing: 1px !important;
+		border-collapse: collapse; 
+		/*border: 1px solid #2878ec; */
+	}
+	/* Zebra striping */
+	#recordstable tr:nth-of-type(even) { 
+		background: #e0ebfc; 
+	}
+	#recordstable th { 
+		background: white;
+		color:#2878ec;  
+		font-size:12pt;
+		font-weight: lighter; 
+		border-bottom: 3px solid #2878ec !important;
+	}
+	#recordstable td, #recordstable th { 
+		padding: 6px; 
+		/*border-bottom: 1px solid #2878ec; */
+		text-align: left; 
+	}
 	
 		/* Force table to not be like tables anymore */
 		table, thead, tbody, th, td, tr { 
@@ -796,23 +818,24 @@ a.backlink
 		}
 		
 		/* Hide table headers (but not display: none;, for accessibility) */
-		thead tr { 
+		#recordstable thead tr { 
 			position: absolute;
 			top: -9999px;
 			left: -9999px;
 		}
 		
-		tr { border: 1px solid #ccc; }
+		#recordstable tr { border: 1px solid #ccc; }
 		
-		td { 
+		#recordstable td { 
 			/* Behave  like a "row" */
 			border: none;
 			border-bottom: 1px solid #eee; 
 			position: relative;
 			padding-left: 50%; 
+			 height: 30px;
 		}
 		
-		td:before { 
+		#recordstable td:before { 
 			/* Now like a table header */
 			position: absolute;
 			/* Top/left values mimic padding */
@@ -826,16 +849,35 @@ a.backlink
 		/*
 		Label the data
 		*/
-		td:nth-of-type(1):before { content: "Actions"; }
-		td:nth-of-type(2):before { content: "Record"; }
-		td:nth-of-type(3):before { content: "Id"; }
-		td:nth-of-type(4):before { content: "State"; }
-		td:nth-of-type(5):before { content: "Ill"; }
-		td:nth-of-type(6):before { content: "City"; }
-		td:nth-of-type(7):before { content: "Date of Birth"; }
-		td:nth-of-type(8):before { content: "Last Saved"; }
-	}
-	
+		#recordstable td:before { content: " "attr(title)" "; }
+		
+		/*#recordstable td:nth-of-type(1):before { content: " "attr(data-label)" "; }
+		#recordstable td:nth-of-type(2):before { content: "Record"; }
+		#recordstable td:nth-of-type(3):before { content: "Id"; }
+		#recordstable td:nth-of-type(4):before { content: "State"; }
+		#recordstable td:nth-of-type(5):before { content: "Ill"; }
+		#recordstable td:nth-of-type(6):before { content: "City"; }
+		#recordstable td:nth-of-type(7):before { content: "Date of Birth"; }
+		#recordstable td:nth-of-type(8):before { content: "Last Saved"; }*/
+	/*}*/
+	#recordstable a
+{
+    margin: 0 auto; 
+    cursor: pointer; 
+    vertical-align:middle;
+    color:#fff;
+    border: 1px solid #1f3b53;
+    background: #5c53ac;
+    font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+ #recordstable a 
+ {
+    width: 80px;
+    height: 35px;
+    padding: 3px 4px ;
+    text-decoration: none;
+ }
 	/* Smartphones (portrait and landscape) ----------- */
 	@media only screen
 	and (min-device-width : 320px)
@@ -853,3 +895,42 @@ a.backlink
 		}
 	}
 	
+@media all and (max-width: 640px){
+	.table,
+	.row,
+	.column,
+	.column:before{
+		display:block;	/* Converts a table, table row, table column and table column:before into a block element */
+	}
+	.table,
+	.row .column:last-child{
+		border-bottom:none;
+	}
+	.table-head{
+		position:absolute;	/* Hides table head but not using display none */
+		top:-1000em;
+		left:-1000em;
+	}
+	.row{
+		border:1px solid #eeeeee;
+		border-top:2px solid #dddddd;
+		border-bottom:2px solid #dddddd;
+		margin:20px 0;
+	}
+	.row .column:nth-child(1){ /* first column of the row */
+		border-left:none;
+	}
+	.row .column:last-child{ /* last column of the row */
+		border-right:none;
+	}
+	.row:last-child .column,
+	.column{ /* Column in the last row and column */
+		border-bottom:1px solid #eeeeee;
+	}
+	.column:before{ /* prints the value of data-label attribute before the column data */
+		
+		padding-right:20px;
+		
+		content:" "attr(data-label)" //";	/* call the attribute value of data-label and adds a string // */
+	}
+}

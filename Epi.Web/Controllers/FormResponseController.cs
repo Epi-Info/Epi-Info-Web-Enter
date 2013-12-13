@@ -54,11 +54,11 @@ namespace Epi.Web.MVC.Controllers
             model.FormInfoModel = NewModel;
 
             List<string> columnNames = new List<string>();
-            columnNames.Add("White");
-            columnNames.Add("UnknownOther");
-            columnNames.Add("Multiracial");
-            columnNames.Add("Asian");
-            columnNames.Add("Headache");
+            columnNames.Add("CaseID");
+            columnNames.Add("DateofInterview");
+            columnNames.Add("FirstName");
+            columnNames.Add("LastName");
+            columnNames.Add("Sex");
 
 
             List<ResponseModel> ResponseList = GetFormResponseList(surveyid, 1, columnNames);
