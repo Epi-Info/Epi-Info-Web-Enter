@@ -846,8 +846,12 @@ a.backlink
 			white-space: nowrap;
 		}
 		
-		.mobileheader{display:inline;}
-		.mobilevalue{display:block;}
+		.mobileheader{display:inline-block; width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;}
+		.mobilevalue{display:inline; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
+		.mobilewrap{ display:block; padding:8px; border: 1px solid #eee;}
+		#recordstable li:nth-of-type(even) { background: #e0ebfc; }
+		#recordstable ul { margin:0; padding:0}
+		#recordstable li { margin:0; padding:0; list-style:none;}
 		/*
 		Label the data
 		*/
