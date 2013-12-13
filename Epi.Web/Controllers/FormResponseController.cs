@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Diagnostics;
 using Epi.Web.Common.Message;
 using Epi.Web.MVC.Utility;
+using Epi.Web.Common.DTO;
 
 namespace Epi.Web.MVC.Controllers
 {
@@ -27,7 +28,7 @@ namespace Epi.Web.MVC.Controllers
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
-
+        List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
         public FormResponseController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
@@ -37,7 +38,7 @@ namespace Epi.Web.MVC.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(string surveyid)
+        public ActionResult Index(string surveyid, int pagenumber = 1)
         {
 
             var model = new FormResponseInfoModel();
@@ -53,18 +54,17 @@ namespace Epi.Web.MVC.Controllers
 
             model.FormInfoModel = NewModel;
 
-            List<string> columnNames = new List<string>();
-            columnNames.Add("CaseID");
-            columnNames.Add("DateofInterview");
-            columnNames.Add("FirstName");
-            columnNames.Add("LastName");
-            columnNames.Add("Sex");
+            //List<string> columnNames = new List<string>();
+            //columnNames.Add("White");
+            //columnNames.Add("UnknownOther");
+            //columnNames.Add("Multiracial");
+            //columnNames.Add("Asian");
+            //columnNames.Add("Headache");
 
 
-            List<ResponseModel> ResponseList = GetFormResponseList(surveyid, 1, columnNames);
+            List<ResponseModel> ResponseList = GetFormResponseList(surveyid, pagenumber);
 
-
-            model.ColumnNames = columnNames;
+            model.Columns = Columns;
             model.ResponsesList = ResponseList;
 
 
@@ -77,7 +77,7 @@ namespace Epi.Web.MVC.Controllers
             return View("Index", model);
         }
 
-        public List<ResponseModel> GetFormResponseList(string SurveyId, int PageNumber, List<string> columnNames)
+        public List<ResponseModel> GetFormResponseList(string SurveyId, int PageNumber)
         {
 
             SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
@@ -85,41 +85,62 @@ namespace Epi.Web.MVC.Controllers
             FormResponseReq.Criteria.PageNumber = PageNumber;
             SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
+
+            Columns.Add(new KeyValuePair<int, string>(6, "CaseID"));
+            Columns.Add(new KeyValuePair<int, string>(2, "DateofInterview"));
+            Columns.Add(new KeyValuePair<int, string>(3, "FirstName"));
+            Columns.Add(new KeyValuePair<int, string>(1, "LastName"));
+            Columns.Add(new KeyValuePair<int, string>(5, "Sex"));
+
+            Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
+
+            Columns.Sort(Compare);
+
             List<ResponseModel> ResponseList = new List<ResponseModel>();
 
             foreach (var item in FormResponseList.SurveyResponseList)
             {
-                ResponseList.Add(ConvertXMLToModel(item.ResponseId, item.XML, columnNames));
+                ResponseList.Add(ConvertXMLToModel(item, Columns));
+
             }
 
             return ResponseList;
         }
 
-        private ResponseModel ConvertXMLToModel(string ResponseId, string XML, List<string> columnNames)
+
+        private int Compare(KeyValuePair<int, string> a, KeyValuePair<int, string> b)
+        {
+            return a.Key.CompareTo(b.Key);
+        }
+
+        private ResponseModel ConvertXMLToModel(SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
         {
             ResponseModel ResponseModel = new Models.ResponseModel();
 
-            ResponseModel.Column0 = ResponseId;
 
-            var document = XDocument.Parse(XML);
 
-            var nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == columnNames[0].ToString());
+            ResponseModel.Column0 = item.ResponseId;
+            ResponseModel.IsLocked = item.IsLocked;
+
+            var document = XDocument.Parse(item.XML);
+
+            var nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
 
             ResponseModel.Column1 = nodes.First().Value;
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == columnNames[1].ToString());
+            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
 
             ResponseModel.Column2 = nodes.First().Value;
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == columnNames[2].ToString());
+            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
 
             ResponseModel.Column3 = nodes.First().Value;
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == columnNames[3].ToString());
+            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
 
             ResponseModel.Column4 = nodes.First().Value;
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == columnNames[4].ToString());
+            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
 
             ResponseModel.Column5 = nodes.First().Value;
 
