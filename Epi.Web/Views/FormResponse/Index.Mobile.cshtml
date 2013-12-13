@@ -1,7 +1,4 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
-
-
-
 <div id="pageHeader">
   	<div id="pageTitle"><h2>My Forms</h2></div>
    	<div id="userwelcome">Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
@@ -39,31 +36,32 @@
                     <span>Created by:</span> <span class="boldlabel">John Doe</span></div>
           @*      <div id="status">
                     <span>Status:</span> <span class="boldlabel">Active</span></div>*@
-               @{
-                           if (@Model.FormInfoModel.IsDraftMode)
-                               {
-                                <div id="mode">
-                                    <span>Mode:</span> <span class="boldlabel">Staging</span></div>
-                           }else{
+                    @{
+                if (@Model.FormInfoModel.IsDraftMode)
+                {
+                        <div id="mode">
+                            <span>Mode:</span> <span class="boldlabel">Staging</span></div>
+                }
+                else
+                {
                                
-                              <div id="mode">
-                                    <span>Mode:</span> <span class="boldlabel">Production</span></div> 
+                        <div id="mode">
+                            <span>Mode:</span> <span class="boldlabel">Production</span></div> 
                                
                                
-                               }
-                        }
-                <div style="clear: both;">
+                }
+                    }
+                    <div style="clear: both;">
+                    </div>
                 </div>
-            </div>
-            <div id="recordscontent">
-                <!--style="display:inline-block;"-->
-                <div id="addnew">
-                    <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
-                        Add New Record
-                    </button>
-                    
-                </div>
-                <!--<div id="paging" class="pages" style="margin-top: 11px; min-width: 184px !important;">
+                <div id="recordscontent">
+                    <!--style="display:inline-block;"-->
+                    <div id="addnew">
+                        <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
+                            Add New Record
+                        </button>
+                    </div>
+                    <!--<div id="paging" class="pages" style="margin-top: 11px; min-width: 184px !important;">
                    @* <button class="default paging">
                         <img alt="Previous" src="~/Content/images/prev1.png" align="middle" /></button>
                     &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
@@ -77,11 +75,12 @@
                     &nbsp;&nbsp;&nbsp;
                     </a> 
                 </div>-->
-                <div style="clear: both; margin-bottom: 10px;">
-                </div>
-                 <div id="recordstable">
-    @if(Model.ResponsesList.Count > 0){
-        @webGrid.GetHtml(
+                    <div style="clear: both; margin-bottom: 10px;">
+                    </div>
+                    <div id="recordstable">
+                        @if (Model.ResponsesList.Count > 0)
+                        {
+        @*@webGrid.GetHtml(
                        htmlAttributes: new { id = "mytable01" },
                             tableStyle: "second",
                    columns: webGrid.Columns(
@@ -92,41 +91,69 @@
                                                      Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
                                                 )
                          ),
+                   webGrid.Column("Column1", Model.Columns[0].Value),
+                                            webGrid.Column("Column2", Model.Columns[1].Value),
+                                            webGrid.Column("Column3", Model.Columns[2].Value),
+                                            webGrid.Column("Column4", Model.Columns[3].Value),
+                                            webGrid.Column("Column5", Model.Columns[4].Value)
+                   
+                              )
+                              
+                             );*@
+ @*@webGrid.GetHtml(
+                   columns: webGrid.Columns(
                    webGrid.Column("Column1", Model.ColumnNames[0]),
                    webGrid.Column("Column2", Model.ColumnNames[1]),
                    webGrid.Column("Column3", Model.ColumnNames[2]),
                    webGrid.Column("Column4", Model.ColumnNames[3]),
-                   webGrid.Column("Column5", Model.ColumnNames[4])
-                   
+                   webGrid.Column("Column5", Model.ColumnNames[4]),
+                             webGrid.Column(format: (item) => Html.ActionLink("Edit", "Edit", new { id = item.Column0 }), style: "column"),
+                    webGrid.Column(format: (item) => Html.ActionLink("Delete", "Delete", new { id = item.Column0 }), style: "column")
                               )
-                              
-                             );
-                             }
-                             
+                             );*@
+        
+                            //foreach (var item in Model.ResponsesList)
+                            for (int i = 0; i < Model.ResponsesList.Count(); i++)
+                            {
+                            @Html.Raw("<div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div>");
+                            @Html.Raw("<div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div>");
+                            @Html.Raw("<div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div>");
+                            @Html.Raw("<div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + @Html.ActionLink("Edit", "Edit", new { id = Model.ResponsesList[i].Column0 }) + " " + @Html.ActionLink("Delete", "Delete", new { id = Model.ResponsesList[i].Column0 }) + " " + "</div>");
+                            }
+                            <BR />
+                            <BR />
+                            <BR />
+                            for (int i = 0; i < 7; i++)
+                            {
+                            @Html.Raw(" " + @Html.ActionLink(i.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = i }) + " ");
+                            }
+                        }
+                    </div>
+                </div>
+    
+    
+            }
+        </div>
     </div>
-            </div>
-    
-    
-   }
-</div>
-</div>
 </div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
 <script type="text/javascript">//<![CDATA[
-    $(window).load(function () {
-        //var trainingInstanceIds = [1, 2, 3, 4, 5, 6];
-        var trainingInstanceIds = new Array();
-        trainingInstanceIds[0] = "Action";
-        trainingInstanceIds[1] = "CaseID";
-        trainingInstanceIds[2] = "DateofInterview";
-        trainingInstanceIds[3] = "FirstName";
-        trainingInstanceIds[4] = "LastName";
-        trainingInstanceIds[5] = "Sex";
-
-        $('.second td').attr('title', function (index, attr) {
-            return trainingInstanceIds[$(this).index()];
-        });
-    });//]]>  
+//    $(window).load(function () {
+//        //var trainingInstanceIds = [1, 2, 3, 4, 5, 6];
+////        var trainingInstanceIds = new Array();
+////        trainingInstanceIds[0] = "Action";
+////        trainingInstanceIds[1] = "CaseID";
+////        trainingInstanceIds[2] = "DateofInterview";
+////        trainingInstanceIds[3] = "FirstName";
+////        trainingInstanceIds[4] = "LastName";
+////        trainingInstanceIds[5] = "Sex";
+// alert(@Model.ColumList);
+//        var trainingInstanceIds = @Model.ColumList;
+//       
+//        $('.second td').attr('title', function (index, attr) {
+//            return trainingInstanceIds[$(this).index()];
+//        });
+//    });//]]>  
 
 </script>
    
