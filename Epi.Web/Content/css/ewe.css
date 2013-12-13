@@ -705,6 +705,7 @@ button.paging img
 		/*width: 100%; */
 		border-spacing: 1px !important;
 		border-collapse: collapse; 
+		min-width: 780px;
 		/*border: 1px solid #2878ec; */
 	}
 	/* Zebra striping */
@@ -724,6 +725,8 @@ button.paging img
 		text-align: left; 
 	}
 	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
+	
+	#recordstable td:empty:before {content: " -- "; }
 	
 	#formsettings label, #formsettings select { font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; display:inline-block; height: 28px;}
 	#formsettings input { font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; display:inline-block; height: 28px;}
