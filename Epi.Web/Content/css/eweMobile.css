@@ -846,6 +846,8 @@ a.backlink
 			white-space: nowrap;
 		}
 		
+		.mobileheader{display:inline;}
+		.mobilevalue{display:block;}
 		/*
 		Label the data
 		*/

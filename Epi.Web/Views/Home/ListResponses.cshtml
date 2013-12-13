@@ -59,9 +59,14 @@
     <div style="clear: both; margin-bottom: 10px;">
     </div>
     <div id="recordstable">
-    @if(Model.ResponsesList.Count > 0){
-         @webGrid.GetHtml(
-                   columns: webGrid.Columns(
+        @{
+            if (Model.ResponsesList.Count > 0)
+            {
+
+        
+        
+            @webGrid.GetHtml(
+            columns: webGrid.Columns(
                    webGrid.Column(header: "",
                            style: "text-align-left",
                                format: (item) => new
@@ -69,14 +74,14 @@
                                                 Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
                                            )
                     ),
-                   webGrid.Column("Column1", Model.ColumnNames[0]),
-                   webGrid.Column("Column2", Model.ColumnNames[1]),
-                   webGrid.Column("Column3", Model.ColumnNames[2]),
-                   webGrid.Column("Column4", Model.ColumnNames[3]),
-                   webGrid.Column("Column5", Model.ColumnNames[4])
-                              )
-                              
-                             );
-                             }
+                                 webGrid.Column("Column1", Model.Columns[0].Value),
+                                 webGrid.Column("Column2", Model.Columns[1].Value),
+                                 webGrid.Column("Column3", Model.Columns[2].Value),
+                                 webGrid.Column("Column4", Model.Columns[3].Value),
+                                 webGrid.Column("Column5", Model.Columns[4].Value)
+                               )
+                                  );
+                                   
+            } }
     </div>
 </div>
