@@ -591,7 +591,7 @@ namespace Epi.Web.WCF.SurveyService
                 //Query The number of records
 
                 result.NumberOfPages= Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId);
-
+                result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
                 return result;
                 }
             catch (Exception ex)

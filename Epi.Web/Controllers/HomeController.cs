@@ -25,7 +25,7 @@ namespace Epi.Web.MVC.Controllers
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
-
+        private int NumberOfResposes;
         /// <summary>
         /// injecting surveyFacade to the constructor 
         /// </summary>
@@ -242,7 +242,7 @@ namespace Epi.Web.MVC.Controllers
 
             model.ResponsesList = ResponseList;
             model.Columns = Columns;
-
+            model.NumberOfResposes = this.NumberOfResposes;
             if (IsMobileDevice == false)
             {
                 return PartialView("ListResponses", model);
@@ -453,7 +453,7 @@ namespace Epi.Web.MVC.Controllers
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
             FormResponseReq.Criteria.PageNumber = PageNumber;
             SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
-
+            this.NumberOfResposes = FormResponseList.NumberOfResponses;
             FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
 

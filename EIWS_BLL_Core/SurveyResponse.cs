@@ -153,5 +153,13 @@ namespace Epi.Web.BLL
             result = Epi.Web.BLL.Common.GetSurveySize(SurveyResponseBOList, BandwidthUsageFactor, ResponseMaxSize);
             return result;
         }
+        public int GetNumberOfResponses(string FormId)
+            {
+           
+            int result = this.SurveyResponseDao.GetFormResponseCount(FormId);
+            
+            return result;
+            }
+
     }
 }
