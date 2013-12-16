@@ -7,11 +7,7 @@ namespace Epi.Web.MVC.Models
 {
     public class FormResponseInfoModel
     {
-        public FormInfoModel FormInfoModel;
-        public List<ResponseModel> ResponsesList;
-        public List<string> ColumnNames;
-        public List<KeyValuePair<int, string>> Columns;
-
+        
 
         public FormResponseInfoModel()
         {
@@ -20,6 +16,11 @@ namespace Epi.Web.MVC.Models
             ColumnNames = new List<string>();
             Columns = new List<KeyValuePair<int, string>>();
         }
+        public FormInfoModel FormInfoModel;
+        public List<ResponseModel> ResponsesList;
+        public List<string> ColumnNames;
+        public List<KeyValuePair<int, string>> Columns;
+        public int NumberOfResposes;
     }
 
 }

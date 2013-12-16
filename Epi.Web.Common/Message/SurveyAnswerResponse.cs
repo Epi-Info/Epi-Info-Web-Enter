@@ -41,5 +41,9 @@ namespace Epi.Web.Common.Message
         [DataMember]
         public int PageSize { get; set; }
 
+        [DataMember]
+        public int NumberOfResponses { get; set; }
+
+
     }
 }
