@@ -24,8 +24,10 @@ namespace Epi.Web.MVC.Controllers
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
+        private int NumberOfPages = -1;
+        private int PageSize = -1;
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
-        private int NumberOfResposes;
+
         /// <summary>
         /// injecting surveyFacade to the constructor 
         /// </summary>
@@ -219,7 +221,7 @@ namespace Epi.Web.MVC.Controllers
 
         [HttpGet]
 
-        public ActionResult ReadResponseInfo(string formid, string page = "1")//List<FormInfoModel> ModelList, string formid)
+        public ActionResult ReadResponseInfo(string formid, int page = 1)//List<FormInfoModel> ModelList, string formid)
         {
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
@@ -233,16 +235,17 @@ namespace Epi.Web.MVC.Controllers
             NewModel.FormId = NewSModel.SurveyId;
             NewModel.FormName = NewSModel.SurveyName;
             NewModel.IsDraftMode = NewSModel.IsDraftMode;
-
+            model.PageSize = PageSize;
+            model.NumberOfRecords = 23;
             model.FormInfoModel = NewModel;
 
 
-            List<ResponseModel> ResponseList = GetFormResponseList(formid, 1);
+            List<ResponseModel> ResponseList = GetFormResponseList(formid, page);
 
-
+            model.NumberOfPages = NumberOfPages;
             model.ResponsesList = ResponseList;
             model.Columns = Columns;
-            model.NumberOfResposes = this.NumberOfResposes;
+            
             if (IsMobileDevice == false)
             {
                 return PartialView("ListResponses", model);
@@ -470,10 +473,12 @@ namespace Epi.Web.MVC.Controllers
 
             List<ResponseModel> ResponseList = new List<ResponseModel>();
 
+            NumberOfPages = FormResponseList.NumberOfPages;
+            PageSize = FormResponseList.PageSize;
+
             foreach (var item in FormResponseList.SurveyResponseList)
             {
                 ResponseList.Add(ConvertXMLToModel(item, Columns));
-                
             }
 
             return ResponseList;
@@ -489,7 +494,7 @@ namespace Epi.Web.MVC.Controllers
             ResponseModel ResponseModel = new Models.ResponseModel();
 
 
-
+            //
             ResponseModel.Column0 = item.ResponseId;
             ResponseModel.IsLocked = item.IsLocked;
 
