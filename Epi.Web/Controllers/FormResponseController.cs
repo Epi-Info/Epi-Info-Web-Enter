@@ -29,6 +29,7 @@ namespace Epi.Web.MVC.Controllers
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
+        private int NumberOfPages = -1;
         public FormResponseController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
@@ -53,7 +54,6 @@ namespace Epi.Web.MVC.Controllers
             NewModel.IsDraftMode = NewSModel.IsDraftMode;
 
             model.FormInfoModel = NewModel;
-
             //List<string> columnNames = new List<string>();
             //columnNames.Add("White");
             //columnNames.Add("UnknownOther");
@@ -67,7 +67,12 @@ namespace Epi.Web.MVC.Controllers
             model.Columns = Columns;
             model.ResponsesList = ResponseList;
 
+            model.NumberOfPages = NumberOfPages;
 
+            model.CurrentPage = pagenumber;
+
+            model.NumberOfRecords = 23;
+            
 
 
             //SurveyInfoModel survey = GetSurveyInfo(surveyid);
@@ -95,6 +100,8 @@ namespace Epi.Web.MVC.Controllers
             Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
 
             Columns.Sort(Compare);
+
+            NumberOfPages =  FormResponseList.NumberOfPages;
 
             List<ResponseModel> ResponseList = new List<ResponseModel>();
 
