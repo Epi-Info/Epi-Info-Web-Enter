@@ -12,9 +12,9 @@ namespace Epi.Web.MVC.Models
         //public List<string> ColumnNames;
         public List<KeyValuePair<int, string>> Columns;
         public int NumberOfPages;
-        public int NumberOfRecords;
         public int CurrentPage;
         public int PageSize;
+        public int NumberOfResponses;
 
         public FormResponseInfoModel()
         {
@@ -23,7 +23,6 @@ namespace Epi.Web.MVC.Models
             //ColumnNames = new List<string>();
             Columns = new List<KeyValuePair<int, string>>();
         }
-        public int NumberOfResposes;
     }
 
 }
