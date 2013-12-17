@@ -15,5 +15,7 @@ namespace Epi.Web.MVC.Models
         public string Column5 { get; set; }
 
         public bool IsLocked { get; set; }
+
+        public int PageSize { get; set; }
     }
 }

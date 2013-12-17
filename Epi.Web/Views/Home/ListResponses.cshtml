@@ -14,8 +14,7 @@
     @*<div id="create">
                     <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.UserId</span></div>*@
     <div id="create">
-        <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.FormId @Model.FormInfoModel.OwnerLName </span></div>
-        
+        <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerFName @Model.FormInfoModel.OwnerLName </span></div>
     @*<div id="status">
                     <span>Status:</span> <span class="boldlabel">Active</span></div>
 *@
@@ -42,7 +41,7 @@
 @{
     WebGrid webGrid = new WebGrid(rowsPerPage: 20,
         canSort: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
-    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: Model.ResponsesList.Count); //Model.SurveyAnswerResponse.pageSize * Model.ResponsesList.Count TBD
+    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: Model.NumberOfRecords); //Model.SurveyAnswerResponse.pageSize * Model.ResponsesList.Count TBD
 }
 <div id="recordscontent">
     <!--style="display:inline-block;"-->
