@@ -30,6 +30,7 @@ namespace Epi.Web.MVC.Controllers
         private string RequiredList = "";
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
         private int NumberOfPages = -1;
+        private int NumberOfResponses = -1;
         public FormResponseController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
@@ -71,7 +72,7 @@ namespace Epi.Web.MVC.Controllers
 
             model.CurrentPage = pagenumber;
 
-            model.NumberOfRecords = 23;
+            model.NumberOfResponses = NumberOfResponses;
             
 
 
@@ -102,6 +103,7 @@ namespace Epi.Web.MVC.Controllers
             Columns.Sort(Compare);
 
             NumberOfPages =  FormResponseList.NumberOfPages;
+            NumberOfResponses = FormResponseList.NumberOfResponses;
 
             List<ResponseModel> ResponseList = new List<ResponseModel>();
 

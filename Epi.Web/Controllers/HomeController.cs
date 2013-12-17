@@ -26,6 +26,7 @@ namespace Epi.Web.MVC.Controllers
         private string RequiredList = "";
         private int NumberOfPages = -1;
         private int PageSize = -1;
+        private int NumberOfResponses = -1;
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
 
         /// <summary>
@@ -236,14 +237,14 @@ namespace Epi.Web.MVC.Controllers
             NewModel.FormName = NewSModel.SurveyName;
             NewModel.IsDraftMode = NewSModel.IsDraftMode;
             model.PageSize = PageSize;
-            model.NumberOfRecords = 23;
             model.FormInfoModel = NewModel;
-
 
             List<ResponseModel> ResponseList = GetFormResponseList(formid, page);
 
             model.NumberOfPages = NumberOfPages;
             model.ResponsesList = ResponseList;
+
+            model.NumberOfResponses = NumberOfResponses;
             model.Columns = Columns;
             
             if (IsMobileDevice == false)
@@ -456,7 +457,7 @@ namespace Epi.Web.MVC.Controllers
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
             FormResponseReq.Criteria.PageNumber = PageNumber;
             SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
-            this.NumberOfResposes = FormResponseList.NumberOfResponses;
+            NumberOfResponses = FormResponseList.NumberOfResponses;
             FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
 

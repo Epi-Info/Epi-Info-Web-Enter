@@ -34,14 +34,14 @@
         }
     }
     <div id="NumberOfRecords">
-                    <span>Number of Records:</span> <span class="boldlabel">@Model.NumberOfResposes</span></div>
+                    <span>Number of Records:</span> <span class="boldlabel">@Model.NumberOfResponses</span></div>
     <div style="clear: both;">
     </div>
 </div>
 @{
     WebGrid webGrid = new WebGrid(rowsPerPage: 20,
         canSort: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
-    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: Model.NumberOfRecords); //Model.SurveyAnswerResponse.pageSize * Model.ResponsesList.Count TBD
+    webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: Model.NumberOfResponses); //Model.SurveyAnswerResponse.pageSize * Model.ResponsesList.Count TBD
 }
 <div id="recordscontent">
     <!--style="display:inline-block;"-->
