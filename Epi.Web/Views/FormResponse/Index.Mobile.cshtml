@@ -20,7 +20,7 @@
                 WebGrid webGrid = new WebGrid(rowsPerPage: 20,
                     canSort: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
                 // webGrid.Pager(WebGridPagerModes.NextPrevious);
-                webGrid.Bind(Model.ResponsesList, autoSortAndPage: true, rowCount: Model.NumberOfRecords);
+                webGrid.Bind(Model.ResponsesList, autoSortAndPage: true, rowCount: Model.NumberOfResponses);
             }
             @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
             { 
