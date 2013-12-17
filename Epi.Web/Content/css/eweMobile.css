@@ -613,9 +613,9 @@ button.paging img
     display:block;
 } 
 
-#create {float:left; margin-right:20px;}
+#create {float:none; margin-right:20px;}
 #status {float:left; margin-right:20px;}
-#mode {float:left;}  
+#mode {float:none;}  
 
 
 #left div.divcontents {margin:5px;}
@@ -857,7 +857,7 @@ a.backlink
 		Label the data
 		*/
 		#recordstable td:before { content: " "attr(title)" "; }
-		
+		#recordstable {max-width:720px;}
 		
 		/*#recordstable td:nth-of-type(1):before { content: " "attr(data-label)" "; }
 		#recordstable td:nth-of-type(2):before { content: "Record"; }
@@ -868,7 +868,7 @@ a.backlink
 		#recordstable td:nth-of-type(7):before { content: "Date of Birth"; }
 		#recordstable td:nth-of-type(8):before { content: "Last Saved"; }*/
 	/*}*/
-	#recordstable a
+	#recordstable a, #recordstable span
 {
     margin: 0 auto; 
     cursor: pointer; 
@@ -876,16 +876,22 @@ a.backlink
     color:#fff;
     border: 1px solid #1f3b53;
     background: #5c53ac;
+    
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
- #recordstable a 
+#recordstable span {background: #ff9326;}
+
+ #recordstable a, #recordstable span 
  {
     width: 80px;
     height: 35px;
     padding: 3px 4px ;
     text-decoration: none;
  }
+ 
+ #pager {float:right; margin-top: 10px;}
+ #pager:after {clear:both;}
 	/* Smartphones (portrait and landscape) ----------- */
 	@media only screen
 	and (min-device-width : 320px)
