@@ -1,0 +1,94 @@
+﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
+
+
+                            @if (Model.CurrentPage != 1)
+                            {
+                            @Html.Raw(" " + @Html.ActionLink(
+                                                            "<", 
+                                                            "Index",
+                                                            new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 1 },
+                                                            new { name= "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage  - 1 })  + " ");
+                            }
+
+                                
+                                
+                            @if (Model.NumberOfPages < 5)
+                            {
+                                for (int page = 1; page <= Model.NumberOfPages; page++)
+                                {
+                                    if (Model.CurrentPage == page)
+                                    {
+                            @Html.Raw("<span>" + page + "</span>");
+                                    }
+                                    else
+                                    {
+                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = page },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = page }) + " ");
+                                    }
+                                }
+                            }
+                            else
+                                if (Model.CurrentPage <= 5)
+                                {
+
+
+                                    for (int page = 1; page <= 5; page++)
+                                    {
+                                        if (Model.CurrentPage == page)
+                                        {
+                            @Html.Raw("<span>" + page + "</span>");
+                                        }
+                                        else
+                                        {
+                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = page },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = page }) + " ");
+                                        }
+
+
+                                    }
+                                }
+                                else
+                                    if (Model.CurrentPage > 5 && Model.NumberOfPages > Model.CurrentPage + 5)
+                                    {
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 2).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 2 },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 2 }) + " "); 
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 1).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage - 1) },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 1 }) + " ");
+                            @Html.Raw(" " + Model.CurrentPage + " ");
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage + 1).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage + 1) },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage + 2).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage + 2) },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 2 }) + " ");
+                                    }
+
+                                    else
+                                    {
+                                        for (int page = Model.NumberOfPages - 5; page <= Model.NumberOfPages; page++)
+                                        {
+                                            if (Model.CurrentPage == page)
+                                            {
+                            @Html.Raw("<span>" + page + "</span>");
+                                            }
+                                            else
+                                            {
+                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = page },
+
+                                                                       new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = page }) + " ");
+                                            }
+                                        }
+
+
+
+                                    }
+
+                            @if (Model.CurrentPage != Model.NumberOfPages)
+                            {
+                            @Html.Raw(" " + @Html.ActionLink(">", "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage + 1 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
+                            }
+ 
