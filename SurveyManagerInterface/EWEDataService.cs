@@ -587,10 +587,10 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
 
                 SurveyAnswerCriteria criteria = pRequest.Criteria;
-                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId, pRequest.Criteria.PageNumber));
+                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId, pRequest.Criteria.PageNumber, pRequest.Criteria.IsMobile));
                 //Query The number of records
 
-                result.NumberOfPages= Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId);
+                result.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
                 result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
 
               //Get form info 

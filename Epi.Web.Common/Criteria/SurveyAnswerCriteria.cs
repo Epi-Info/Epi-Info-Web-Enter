@@ -77,5 +77,8 @@ namespace Epi.Web.Common.Criteria
 
        [DataMember]
        public Guid OrganizationKey { get; set; }
+
+       [DataMember]
+       public bool IsMobile { get; set; }
     }
 }
