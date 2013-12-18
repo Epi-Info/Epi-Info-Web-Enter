@@ -66,6 +66,7 @@
                                     //data: JSON.stringify(model),
                                     success: successFunc
                                 });
+                                $.ajaxSetup({ cache: false });
 
                     function successFunc(data, status) {
                         $('#right').html(data);
