@@ -592,6 +592,12 @@ namespace Epi.Web.WCF.SurveyService
 
                 result.NumberOfPages= Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId);
                 result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
+
+              //Get form info 
+                Epi.Web.Interfaces.DataInterface.IFormInfoDao surveyInfoDao = new EF.EntityFormInfoDao();
+                Epi.Web.BLL.FormInfo ImplementationFormInfo = new Epi.Web.BLL.FormInfo(surveyInfoDao);
+                result.FormInfo = Mapper.ToFormInfoDTO(ImplementationFormInfo.GetFormInfoByFormId(pRequest.Criteria.SurveyId));
+
                 return result;
                 }
             catch (Exception ex)

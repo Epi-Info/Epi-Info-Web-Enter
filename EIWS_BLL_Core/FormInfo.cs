@@ -28,5 +28,14 @@ namespace Epi.Web.BLL
 
             return result;
             }
+        public FormInfoBO GetFormInfoByFormId(string FormId)
+            {
+            //Owner Forms
+            FormInfoBO result = this.FormInfoDao.GetFormByFormId(FormId);
+
+
+
+            return result;
+            }
         }
     }
