@@ -462,13 +462,6 @@ namespace Epi.Web.MVC.Controllers
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
 
             Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
-            Columns.Add(new KeyValuePair<int, string>(6, "CaseID"));
-            Columns.Add(new KeyValuePair<int, string>(2, "DateofInterview"));
-            Columns.Add(new KeyValuePair<int, string>(3, "FirstName"));
-            Columns.Add(new KeyValuePair<int, string>(1, "LastName"));
-            Columns.Add(new KeyValuePair<int, string>(5, "Sex"));
-
-            Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
 
             Columns.Sort(Compare);
 
