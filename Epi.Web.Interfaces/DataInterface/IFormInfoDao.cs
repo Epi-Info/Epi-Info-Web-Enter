@@ -9,7 +9,7 @@ namespace Epi.Web.Interfaces.DataInterface
     public interface IFormInfoDao
         {
          List<FormInfoBO> GetFormInfo(int UserId);
-
+         FormInfoBO GetFormByFormId(string FormId);
       
 
 

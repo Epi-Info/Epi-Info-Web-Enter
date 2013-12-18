@@ -44,6 +44,7 @@ namespace Epi.Web.Common.Message
         [DataMember]
         public int NumberOfResponses { get; set; }
 
-
+        [DataMember]
+        public FormInfoDTO FormInfo;
     }
 }
