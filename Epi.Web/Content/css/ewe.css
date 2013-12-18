@@ -495,7 +495,29 @@ button.paging img
  {
     float:right;
     text-align: right;
-    font: 10pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;;
+    vertical-align:middle;
+    padding-right: 20px;
+ }
+ 
+ #paging a, #paging span
+{
+    margin: 0 auto; 
+    cursor: pointer; 
+    vertical-align:middle;
+    color:#fff;
+    border: 1px solid #1f3b53;
+    background: #5c53ac;
+    font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#paging span {background: #ff9326;}
+
+ #paging a, #paging span 
+ {
+    width: 80px;
+    height: 35px;
+    padding: 3px 4px ;
+    text-decoration: none;
  }
  
  .boldlabel
@@ -699,7 +721,7 @@ button.paging img
         overflow:auto;
         /*max-height:510px;*/
         margin-bottom:10px;
-        max-width: 780px;
+       /* max-width: 800px;*/
 	}
 	#recordstable table { 
 		/*width: 100%; */

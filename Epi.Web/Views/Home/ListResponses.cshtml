@@ -34,7 +34,7 @@
         }
     }
     <div id="NumberOfRecords" style="float:right">
-                    <span>TotalRecords:</span> <span class="boldlabel" style="font-size:12pt;">@Model.NumberOfResponses</span></div>
+                    <span>Total Records:</span> <span class="boldlabel" style="font-size:14pt;">@Model.NumberOfResponses</span></div>
     <div style="clear: both;">
     </div>
 </div>
@@ -58,29 +58,43 @@
                         <img alt="Next" src="~/Content/images/next.png" align="middle" /></button>
                         
                 </div>-->
+                <div id="paging">
+                
+                
+                @{
+                    
+                        if (Model.NumberOfPages > 1)
+                        {
+                            <div id='pager'>
+                            @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
+                            </div>  
+                        }
+
+
+                    }
+                </div>
     <div style="clear: both; margin-bottom: 10px;">
     </div>
     <div id="recordstable">
         @{
             if (Model.ResponsesList.Count > 0)
             {
-                if (Model.NumberOfPages > 1)
+               @* if (Model.NumberOfPages > 1)
                 {
                     <div id='pager'>
                             @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
                             </div>  
-                }
+                }*@
               
         
         
             @webGrid.GetHtml(
             columns: webGrid.Columns(
                    webGrid.Column(header: "",
-                           style: "text-align-left",
-                               format: (item) => new
+                                    format: (item) => new
                                     HtmlString(Html.ActionLink("Edit", "Edit", new { ID = item.Column0 }).ToString() + " &nbsp;&nbsp; " +
-                                                Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
-                                           )
+                                    Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
+                                  )
                     ),
                                  webGrid.Column("Column1", Model.Columns[0].Value),
                                  webGrid.Column("Column2", Model.Columns[1].Value),
@@ -89,14 +103,24 @@
                                  webGrid.Column("Column5", Model.Columns[4].Value)
                                )
                                   );
-                
-                if (Model.NumberOfPages > 1)
-                {
-                    <div id='pager2'>
-                            @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
-                            </div>  
-                }
+
+                                  
                                    
             } }
     </div>
+     <div id="paging">
+                
+                
+                @{
+                    
+                        if (Model.NumberOfPages > 1)
+                        {
+                            <div id='pager2'>
+                            @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
+                            </div>  
+                        }
+
+
+                    }
+                </div>
 </div>
