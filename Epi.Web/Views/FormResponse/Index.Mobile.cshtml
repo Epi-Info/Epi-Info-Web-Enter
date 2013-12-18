@@ -24,12 +24,7 @@
             }
             @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
             { 
-                <div id="editsettings">
-                    <button id="btneditsettings" type="button" data-theme="defsettings">
-                        Settings</button>
-                </div>
-                <div style="clear: both">
-                </div>
+                <div style="max-width:720px;">
                 <div id="infobox1">
                     <div id="create">
                         <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerLName @Model.FormInfoModel.OwnerFName</span></div>
@@ -47,8 +42,8 @@
                         <div id="mode">
                             <span>Mode:</span> <span class="boldlabel">Production</span></div> 
                         
-                         <div id="NumberOfRecords" style="display:block;padding-top:10px;"> 
-                    <span>TotalRecords:</span> <span class="boldlabel" style="font-size:12pt;">@Model.NumberOfResponses</span></div>
+                         <div id="NumberOfRecords" style="display:block;"> 
+                    <span>Total Records:</span> <span class="boldlabel" style="font-size:12pt;">@Model.NumberOfResponses</span></div>
                                
                                
                 }
@@ -56,13 +51,22 @@
                     <div style="clear: both;">
                     </div>
                 </div>
-                <div id="recordscontent">
-                    <!--style="display:inline-block;"-->
-                    <div id="addnew">
+                <div id="editsettings">
+                    <button id="btneditsettings" type="button" data-theme="defsettings">
+                        Settings</button>
+                </div>
+                <div id="addnew">
                         <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
                             Add New Record
                         </button>
                     </div>
+                </div>
+                <div style="clear: both">
+                </div>
+                
+                <div id="recordscontent">
+                    <!--style="display:inline-block;"-->
+                    
 
                     <!--<div id="paging" class="pages" style="margin-top: 11px; min-width: 184px !important;">
                    @* <button class="default paging">
