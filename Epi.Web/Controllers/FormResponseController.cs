@@ -45,77 +45,86 @@ namespace Epi.Web.MVC.Controllers
 
             var model = new FormResponseInfoModel();
 
-            //FormInfoModel NewModel = ModelList.Single(x => x.FormId == formid);
+            model = GetFormResponseInfoModel(surveyid, pagenumber);
 
-            SurveyInfoModel NewSModel = GetSurveyInfo(surveyid);
-            FormInfoModel NewModel = model.FormInfoModel;
-
-            NewModel.FormId = NewSModel.SurveyId;
-            NewModel.FormName = NewSModel.SurveyName;
-            NewModel.IsDraftMode = NewSModel.IsDraftMode;
-
-            model.FormInfoModel = NewModel;
-            //List<string> columnNames = new List<string>();
-            //columnNames.Add("White");
-            //columnNames.Add("UnknownOther");
-            //columnNames.Add("Multiracial");
-            //columnNames.Add("Asian");
-            //columnNames.Add("Headache");
-
-
-            List<ResponseModel> ResponseList = GetFormResponseList(surveyid, pagenumber);
-
-            model.Columns = Columns;
-            model.ResponsesList = ResponseList;
-
-            model.NumberOfPages = NumberOfPages;
-
-            model.CurrentPage = pagenumber;
-
-            model.NumberOfResponses = NumberOfResponses;
-            
-
-
-            //SurveyInfoModel survey = GetSurveyInfo(surveyid);
-            //FormResponseInfoModel model = new FormResponseInfoModel();
-            //model.FormInfoModel.FormId = survey.SurveyId;
-            //model.FormInfoModel.FormName = survey.SurveyName;
             return View("Index", model);
         }
 
-        public List<ResponseModel> GetFormResponseList(string SurveyId, int PageNumber)
+        //public List<ResponseModel> GetFormResponseList(string SurveyId, int PageNumber)
+        //{
+
+        //    SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
+        //    FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
+        //    FormResponseReq.Criteria.PageNumber = PageNumber;
+        //    SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
+
+
+        //    Columns.Add(new KeyValuePair<int, string>(6, "CaseID"));
+        //    Columns.Add(new KeyValuePair<int, string>(2, "DateofInterview"));
+        //    Columns.Add(new KeyValuePair<int, string>(3, "FirstName"));
+        //    Columns.Add(new KeyValuePair<int, string>(1, "LastName"));
+        //    Columns.Add(new KeyValuePair<int, string>(5, "Sex"));
+
+        //    Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
+
+        //    Columns.Sort(Compare);
+
+        //    NumberOfPages =  FormResponseList.NumberOfPages;
+        //    NumberOfResponses = FormResponseList.NumberOfResponses;
+
+        //    List<ResponseModel> ResponseList = new List<ResponseModel>();
+
+        //    foreach (var item in FormResponseList.SurveyResponseList)
+        //    {
+        //        ResponseList.Add(ConvertXMLToModel(item, Columns));
+
+        //    }
+
+        //    return ResponseList;
+        //}
+
+
+        public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
         {
 
+            FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
             SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
+            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+
+            //Populating the request
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
             FormResponseReq.Criteria.PageNumber = PageNumber;
-            SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
+            FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
 
-
-            Columns.Add(new KeyValuePair<int, string>(6, "CaseID"));
-            Columns.Add(new KeyValuePair<int, string>(2, "DateofInterview"));
-            Columns.Add(new KeyValuePair<int, string>(3, "FirstName"));
-            Columns.Add(new KeyValuePair<int, string>(1, "LastName"));
-            Columns.Add(new KeyValuePair<int, string>(5, "Sex"));
-
-            Columns.Add(new KeyValuePair<int, string>(10, "IsLocked"));
-
+            //Getting Column Name  List
+            FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
+            Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
             Columns.Sort(Compare);
 
-            NumberOfPages =  FormResponseList.NumberOfPages;
-            NumberOfResponses = FormResponseList.NumberOfResponses;
+            // Setting  Column Name  List
+            FormResponseInfoModel.Columns = Columns;
 
+            //Getting Resposes
+            SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
+
+            //Setting Resposes List
             List<ResponseModel> ResponseList = new List<ResponseModel>();
-
             foreach (var item in FormResponseList.SurveyResponseList)
             {
                 ResponseList.Add(ConvertXMLToModel(item, Columns));
-
             }
 
-            return ResponseList;
-        }
+            FormResponseInfoModel.ResponsesList = ResponseList;
+            //Setting Form Info 
+            FormResponseInfoModel.FormInfoModel = Mapper.ToFormInfoModel(FormResponseList.FormInfo);
+            //Setting Additional Data
 
+            FormResponseInfoModel.NumberOfPages = FormResponseList.NumberOfPages;
+            FormResponseInfoModel.PageSize = FormResponseList.PageSize;
+            FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
+            FormResponseInfoModel.CurrentPage = PageNumber;
+            return FormResponseInfoModel;
+        }
 
         private int Compare(KeyValuePair<int, string> a, KeyValuePair<int, string> b)
         {

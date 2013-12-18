@@ -525,6 +525,7 @@
     <Content Include="Views\Home\ListResponses.cshtml" />
     <Content Include="Views\Home\ListForms.Mobile.cshtml" />
     <Content Include="Views\FormResponse\Index.Mobile.cshtml" />
+    <Content Include="Views\Shared\PagerPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -40,7 +40,7 @@
 </div>
 @{
     WebGrid webGrid = new WebGrid(rowsPerPage: 20,
-        canSort: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
+        canSort: false, canPage: false, ajaxUpdateContainerId: "recordstable"); // Model.SurveyAnswerResponse.pageSize
     webGrid.Bind(Model.ResponsesList, autoSortAndPage: false, rowCount: Model.NumberOfResponses); //Model.SurveyAnswerResponse.pageSize * Model.ResponsesList.Count TBD
 }
 <div id="recordscontent">
@@ -64,7 +64,13 @@
         @{
             if (Model.ResponsesList.Count > 0)
             {
-
+                if (Model.NumberOfPages > 1)
+                {
+                    <div id='pager'>
+                            @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
+                            </div>  
+                }
+              
         
         
             @webGrid.GetHtml(
@@ -83,6 +89,13 @@
                                  webGrid.Column("Column5", Model.Columns[4].Value)
                                )
                                   );
+                
+                if (Model.NumberOfPages > 1)
+                {
+                    <div id='pager2'>
+                            @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
+                            </div>  
+                }
                                    
             } }
     </div>
