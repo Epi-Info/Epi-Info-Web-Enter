@@ -94,6 +94,7 @@ namespace Epi.Web.MVC.Controllers
             //Populating the request
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
             FormResponseReq.Criteria.PageNumber = PageNumber;
+            FormResponseReq.Criteria.IsMobile = true;
             FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
 
             //Getting Column Name  List

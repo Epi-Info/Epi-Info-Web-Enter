@@ -22,17 +22,31 @@ namespace Epi.Web.BLL
             return result;
         }
 
-        public List<SurveyResponseBO> GetFormResponseListById(string FormId ,int PageNumber)
+        public List<SurveyResponseBO> GetFormResponseListById(string FormId ,int PageNumber,bool IsMobile)
             {
-
-            int PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]); 
+            int PageSize;
+            if (IsMobile)
+                {
+                   PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE_Mobile"]); 
+                }
+            else{
+                   PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]); 
+                }
             List<SurveyResponseBO> result = this.SurveyResponseDao.GetFormResponseByFormId(FormId, PageNumber,PageSize);
 
             return result;
             }
-        public int GetNumberOfPages(string FormId)
+        public int GetNumberOfPages(string FormId ,bool IsMobile)
             {
-            int PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]); 
+            int PageSize;
+            if (IsMobile)
+                {
+                PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE_Mobile"]);
+                }
+            else
+                {
+                PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]);
+                }
             int result = this.SurveyResponseDao.GetFormResponseCount(FormId );
             if (PageSize >0)
                 {
