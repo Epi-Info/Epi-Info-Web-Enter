@@ -289,7 +289,7 @@ div.recordcontentdiv
  {
     /*position:absolute;
     bottom:0px;*/
-    width: 100%;
+   /* width: 100%;*/
     padding: .5em 0;
     color: #333;
     background-color: #f4fce8;
@@ -297,10 +297,10 @@ div.recordcontentdiv
     vertical-align:middle;
    /* background: #F1F1F4 url(../images/footer_bar.png) repeat-x;*/
     background-image: linear-gradient(to bottom, #e6e7ed, #fbfbfc );
-    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+   /* -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
     -moz-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
-    border-top: 1px solid #abafbc;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;*/
+    border: 1px solid #abafbc;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
  }
 
