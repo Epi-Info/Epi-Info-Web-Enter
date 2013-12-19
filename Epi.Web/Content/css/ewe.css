@@ -223,7 +223,7 @@ div.recordcontentdiv
   #left 
     {
         height:100%;
-        max-height:650px;
+        /*max-height:650px;*/
         overflow:auto;
         background: #dfdeda;
         padding:10px;

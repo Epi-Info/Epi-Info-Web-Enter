@@ -94,6 +94,16 @@
 
     
 </script>
+<script>
+    $(document).ajaxStop(function () {
+
+        var leftHeight = $("#left").height();
+        var rightHeight = $("#right").height();
+        if (leftHeight > rightHeight) { $("#right").height(leftHeight) }
+        else { $("#left").height(rightHeight) };
+    });
+
+</script>
 
 <div id="pageHeader">
     <div id="pageTitle">
