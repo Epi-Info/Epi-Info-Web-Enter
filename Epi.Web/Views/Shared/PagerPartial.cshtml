@@ -1,7 +1,6 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
 
-
-                            @if (Model.CurrentPage != 1)
+                            @if (Model.CurrentPage != 1)// this section builds the previous link
                             {
                             @Html.Raw(" " + @Html.ActionLink(
                                                             "<", 
@@ -10,9 +9,10 @@
                                                             new { name= "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage  - 1 })  + " ");
                             }
 
+  @{ var NumberOfPagesDisplayedOnPage = 5;// Number of pages should be displayed of the page, last page however shows  6 pages    
+  }                      
                                 
-                                
-                            @if (Model.NumberOfPages < 5)
+                            @if (Model.NumberOfPages < NumberOfPagesDisplayedOnPage)//This section builds the links if number of pages are less than 5.
                             {
                                 for (int page = 1; page <= Model.NumberOfPages; page++)
                                 {
@@ -28,12 +28,12 @@
                                     }
                                 }
                             }
-                            else
-                                if (Model.CurrentPage < 5)
+                            else //if they are greator than 5
+                                if (Model.CurrentPage < NumberOfPagesDisplayedOnPage) // this section builds the links for first 5 pages.
                                 {
 
 
-                                    for (int page = 1; page < 5; page++)
+                                    for (int page = 1; page < NumberOfPagesDisplayedOnPage; page++)
                                     {
                                         if (Model.CurrentPage == page)
                                         {
@@ -49,8 +49,8 @@
 
                                     }
                                 }
-                                else
-                                    if (Model.CurrentPage >= 5 && Model.NumberOfPages > Model.CurrentPage + 5)
+                                else //this section builds the middle section of number of pages;
+                                    if (Model.CurrentPage >= NumberOfPagesDisplayedOnPage && Model.NumberOfPages > Model.CurrentPage + NumberOfPagesDisplayedOnPage)
                                     {
                             @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 2).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 2 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 2 }) + " "); 
                             @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 1).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage - 1) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 1 }) + " ");
@@ -60,8 +60,8 @@
                                     }
 
                                     else
-                                    {
-                                        for (int page = Model.NumberOfPages - 5; page <= Model.NumberOfPages; page++)
+                                    {// this section builds the links for for last 5 pages.
+                                        for (int page = Model.NumberOfPages - NumberOfPagesDisplayedOnPage; page <= Model.NumberOfPages; page++)
                                         {
                                             if (Model.CurrentPage == page)
                                             {
@@ -79,7 +79,7 @@
 
                                     }
 
-                            @if (Model.CurrentPage != Model.NumberOfPages)
+                            @if (Model.CurrentPage != Model.NumberOfPages)//this section builds the link for next page.
                             {
                             @Html.Raw(" " + @Html.ActionLink(">", "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage + 1 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
                             }
