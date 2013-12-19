@@ -25,7 +25,18 @@
             @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
             { 
                 <div style="max-width:720px;">
-                <div id="infobox1">
+               
+                <div id="editsettings">
+                    <button id="btneditsettings" type="button" data-theme="defsettings">
+                        Settings</button>
+                </div>
+                <div id="addnew">
+                        <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
+                            Add New Record
+                        </button>
+                    </div>
+                     <div style="clear: both;"></div>
+                     <div id="infobox1">
                     <div id="create">
                         <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerLName @Model.FormInfoModel.OwnerFName</span></div>
                     @*      <div id="status">
@@ -43,7 +54,7 @@
                             <span>Mode:</span> <span class="boldlabel">Production</span></div> 
                         
                          <div id="NumberOfRecords" style="display:block;"> 
-                    <span>Total Records:</span> <span class="boldlabel" style="font-size:12pt;">@Model.NumberOfResponses</span></div>
+                    <span>Total Records:</span> <span class="boldlabel" style="font-size:14pt;">@Model.NumberOfResponses</span></div>
                                
                                
                 }
@@ -51,15 +62,6 @@
                     <div style="clear: both;">
                     </div>
                 </div>
-                <div id="editsettings">
-                    <button id="btneditsettings" type="button" data-theme="defsettings">
-                        Settings</button>
-                </div>
-                <div id="addnew">
-                        <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
-                            Add New Record
-                        </button>
-                    </div>
                 </div>
                 <div style="clear: both">
                 </div>
