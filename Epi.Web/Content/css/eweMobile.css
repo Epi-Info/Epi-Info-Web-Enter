@@ -859,3 +859,15 @@ a.backlink
 		
 	}
 	
+@media only screen 
+and (min-width : 310px) 
+and (max-width : 368px) { /* STYLES GO HERE */
+                                 
+.span_1_of_3 { min-width: 210px !important; width:95% !important;}
+.ui-btn-up-metro-tile, #left .ui-btn-hover-metro-tile {min-width: 100px;width: 80%;}
+#content {margin: 25px 10px 10px 10px;}
+#addnew {float: left;}
+#footleft {width:48%;}
+#footleft div{display:block !important;}
+#formdisplay {min-width: 280px;}
+}
