@@ -391,7 +391,7 @@ namespace Epi.Web.MVC.Controllers
                                 FormsAuthentication.SignOut();
                                 
                                 //return RedirectToAction("Index", "Final", new { surveyId = surveyInfoModel.SurveyId });
-                                return RedirectToAction("Index", "Home" );
+                                return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
                             }
                             else
                             {
