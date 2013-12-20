@@ -97,36 +97,32 @@
         // e.preventDefault();
 
         //$(this).addClass('metro-set');
+        var ActionUrl = "";
         var Url = window.location.pathname;
-        var UrlData = Url.split('/');
-        var FieldId = "#" + UrlData[2]
+        var ResultUrl = "";
+        if (Url.indexOf("/") != -1)
+            ResultUrl = Url.substring(Url.lastIndexOf("/") + 1);
+        else
+            ResultUrl = Url;
 
-        if (UrlData[2] != null) {
+
+        var FieldId = "#" + ResultUrl
+        //alert(ResultUrl);
+        if (ResultUrl.toUpperCase() != "HOME") {
+
             $("button[class*='metro-tile']").removeClass('metro-set');
             $(FieldId).addClass('metro-set');
-
-        }
-
-
-        $("#right").show();
-
-
-        var ActionUrl = "";
-        if (UrlData[2] != null) {
-
-            ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid= " + UrlData[2];
+            ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid= " + ResultUrl;
             ReadResponse(ActionUrl);
         }
         else {
 
             $("button:visible").triggerHandler('click');
 
-            ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid= " + "";
-
-
-
         }
-       
+
+        $("#right").show();
+
 
 
     });
