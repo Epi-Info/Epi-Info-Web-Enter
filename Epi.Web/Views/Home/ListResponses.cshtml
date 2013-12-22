@@ -81,7 +81,7 @@
             if (Model.NumberOfPages > 1)
             {
             <div id='pager'>
-                @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
+                @Html.Partial("PagerPartial", Model)
             </div>  
             }
 
@@ -130,7 +130,8 @@
             if (Model.NumberOfPages > 1)
             {
             <div id='pager2'>
-                @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
+                @*@Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
+                @Html.Partial("PagerPartial", Model)
             </div>  
             }
 
