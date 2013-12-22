@@ -58,8 +58,8 @@ namespace Epi.Web.MVC
             routes.MapRoute
             (
                 null, // Route name
-                "FormResponse/{surveyid}", // URL with parameters
-                new { controller = "FormResponse", action = "Index", surveyid = UrlParameter.Optional }
+                "FormResponse/{formid}", // URL with parameters
+                new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional }
             ); // Parameter defaults
 
 
