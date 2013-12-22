@@ -5,7 +5,7 @@
                             @Html.Raw(" " + @Html.ActionLink(
                                                             "<", 
                                                             "Index",
-                                                            new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 1 },
+                                                                     new { formid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 1 },
                                                             new { name= "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage  - 1 })  + " ");
                             }
 
@@ -22,7 +22,7 @@
                                     }
                                     else
                                     {
-                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = page },
+                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = page },
 
                                                                        new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = page }) + " ");
                                     }
@@ -41,7 +41,7 @@
                                         }
                                         else
                                         {
-                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = page },
+                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = page },
 
                                                                        new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = page }) + " ");
                                         }
@@ -52,11 +52,11 @@
                                 else //this section builds the middle section of number of pages;
                                     if (Model.CurrentPage >= NumberOfPagesDisplayedOnPage && Model.NumberOfPages > Model.CurrentPage + NumberOfPagesDisplayedOnPage)
                                     {
-                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 2).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 2 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 2 }) + " "); 
-                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 1).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage - 1) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 1 }) + " ");
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 2).ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage - 2 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 2 }) + " "); 
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage - 1).ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage - 1) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage - 1 }) + " ");
                             @Html.Raw("<span>" + Model.CurrentPage + "</span>");
-                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage + 1).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage + 1) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
-                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage + 2).ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage + 2) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 2 }) + " ");
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage + 1).ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage + 1) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
+                            @Html.Raw(" " + @Html.ActionLink((Model.CurrentPage + 2).ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = (Model.CurrentPage + 2) }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 2 }) + " ");
                                     }
 
                                     else
@@ -69,7 +69,7 @@
                                             }
                                             else
                                             {
-                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = page },
+                            @Html.Raw(" " + @Html.ActionLink(page.ToString(), "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = page },
 
                                                                        new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = page }) + " ");
                                             }
@@ -81,6 +81,6 @@
 
                             @if (Model.CurrentPage != Model.NumberOfPages)//this section builds the link for next page.
                             {
-                            @Html.Raw(" " + @Html.ActionLink(">", "Index", new { surveyid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage + 1 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
+                            @Html.Raw(" " + @Html.ActionLink(">", "Index", new { formid = Model.FormInfoModel.FormId, pagenumber = Model.CurrentPage + 1 }, new { name = "link", data_formid = Model.FormInfoModel.FormId, data_pagenumber = Model.CurrentPage + 1 }) + " ");
                             }
  
