@@ -40,12 +40,12 @@ namespace Epi.Web.MVC.Controllers
 
 
         [HttpGet]
-        public ActionResult Index(string surveyid, int pagenumber = 1)
+        public ActionResult Index(string formid, int pagenumber = 1)
         {
 
             var model = new FormResponseInfoModel();
 
-            model = GetFormResponseInfoModel(surveyid, pagenumber);
+            model = GetFormResponseInfoModel(formid, pagenumber);
 
             return View("Index", model);
         }

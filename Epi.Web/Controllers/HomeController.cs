@@ -481,38 +481,38 @@ namespace Epi.Web.MVC.Controllers
                     SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
                     FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
 
-                    //Populating the request
-                    FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
-                    FormResponseReq.Criteria.PageNumber = PageNumber;
-                    FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
+            //Populating the request
+            FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
+            FormResponseReq.Criteria.PageNumber = PageNumber;
+            FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
 
-                    //Getting Column Name  List
-                    FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
-                    Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
-                    Columns.Sort(Compare);
+            //Getting Column Name  List
+            FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
+            Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
+            Columns.Sort(Compare);
 
-                    // Setting  Column Name  List
-                     FormResponseInfoModel.Columns = Columns;
+            // Setting  Column Name  List
+             FormResponseInfoModel.Columns = Columns;
 
-                    //Getting Resposes
-                    SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
+            //Getting Resposes
+            SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
-                    //Setting Resposes List
-                    List<ResponseModel> ResponseList = new List<ResponseModel>();
-                     foreach (var item in FormResponseList.SurveyResponseList)
-                        {
-                        ResponseList.Add(ConvertXMLToModel(item, Columns));
-                        }
+            //Setting Resposes List
+            List<ResponseModel> ResponseList = new List<ResponseModel>();
+             foreach (var item in FormResponseList.SurveyResponseList)
+                {
+                ResponseList.Add(ConvertXMLToModel(item, Columns));
+                }
            
-                     FormResponseInfoModel.ResponsesList = ResponseList;
-                     //Setting Form Info 
-                     FormResponseInfoModel.FormInfoModel = Mapper.ToFormInfoModel(FormResponseList.FormInfo);
-                    //Setting Additional Data
+             FormResponseInfoModel.ResponsesList = ResponseList;
+             //Setting Form Info 
+             FormResponseInfoModel.FormInfoModel = Mapper.ToFormInfoModel(FormResponseList.FormInfo);
+            //Setting Additional Data
 
-                    FormResponseInfoModel.NumberOfPages = FormResponseList.NumberOfPages;
-                    FormResponseInfoModel.PageSize = FormResponseList.PageSize;
-                    FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
-                    FormResponseInfoModel.CurrentPage = PageNumber;
+             FormResponseInfoModel.NumberOfPages =  FormResponseList.NumberOfPages;
+             FormResponseInfoModel.PageSize = FormResponseList.PageSize;
+            FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
+            FormResponseInfoModel.CurrentPage = PageNumber;
                  }
             return FormResponseInfoModel;
             }
