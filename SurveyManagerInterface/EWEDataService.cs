@@ -641,6 +641,37 @@ namespace Epi.Web.WCF.SurveyService
                 }
 
             }
+
+
+        public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest pRequest) {
+
+        try
+            {
+            SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
+
+
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+            Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+            foreach(var response in pRequest.SurveyAnswerList)
+                {
+                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response));
+                }
+            
+            return result;
+            }
+        catch (Exception ex)
+            {
+            CustomFaultException customFaultException = new CustomFaultException();
+            customFaultException.CustomMessage = ex.Message;
+            customFaultException.Source = ex.Source;
+            customFaultException.StackTrace = ex.StackTrace;
+            customFaultException.HelpLink = ex.HelpLink;
+            throw new FaultException<CustomFaultException>(customFaultException);
+            }
+            
+            
+            }
       
     }
 
