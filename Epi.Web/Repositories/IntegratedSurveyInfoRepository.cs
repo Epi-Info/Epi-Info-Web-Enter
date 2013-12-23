@@ -163,5 +163,11 @@ namespace Epi.Web.MVC.Repositories
                 FormsInfoResponse result = (FormsInfoResponse)_iDataService.GetFormsInfo(pRequestId);
                 return result;
             }
+
+
+            public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest)
+            {
+                return _iDataService.DeleteResponse(SARequest);
+            }
     }
 }

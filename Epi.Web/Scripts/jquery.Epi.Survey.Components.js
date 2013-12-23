@@ -50,7 +50,17 @@ function NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl,passCode,E
             'json'
         );
 
-}
+        }
+
+        function AjaxCallToActionMethod(url, method, sucessFunc) {
+            $.ajax({
+                url: url,
+                type: method,
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model)
+                sucess: successFunc
+            });
+        }
 
 function SignOutAndRedirect(signoutUrl,homePageUrl) {
     //post to the login/SignOut action method and signout after that redirect to home page
