@@ -20,9 +20,10 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Reflection;
 using System.Diagnostics;
+using Epi.Web.Common.Message;
 namespace Epi.Web.MVC.Controllers
 {
-        [Authorize]
+       //[Authorize]
     public class SurveyController : Controller
     {
 
@@ -711,6 +712,19 @@ namespace Epi.Web.MVC.Controllers
               form.AssignList = this.Request.Form["AssignList"].ToString();
 
               return form;
-          } 
+          }
+
+          [HttpGet]
+
+          public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
+          {
+              SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
+              //SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+
+              _isurveyFacade.DeleteResponse(SARequest);
+
+              return View("Index");
+
+          }
     }
 }
