@@ -379,8 +379,31 @@ namespace Epi.Web.EF
         public void DeleteSurveyResponse(SurveyResponseBO SurveyResponse)
         {
 
-           //Delete Survey
-       
+           
+        try
+            {
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+                if (!string.IsNullOrEmpty(SurveyResponse.ResponseId))
+                    {
+                    Guid Id = new Guid(SurveyResponse.ResponseId);
+                     
+                     SurveyResponse  Response = Context.SurveyResponses.First(x => x.ResponseId == Id);
+
+                    Context.SurveyResponses.DeleteObject(Response);
+                    Context.SaveChanges();
+                    }
+
+
+                }
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+
+
+
        }
 
 
