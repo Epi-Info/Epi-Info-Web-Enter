@@ -721,7 +721,7 @@ namespace Epi.Web.MVC.Controllers
               SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
               //SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
 
-              _isurveyFacade.DeleteResponse(SARequest);
+            //  _isurveyFacade.DeleteResponse(SARequest);
 
               return View("Index");
 

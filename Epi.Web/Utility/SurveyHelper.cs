@@ -139,18 +139,18 @@ namespace Epi.Web.MVC.Utility
  
              
             ////Update survey response Status
-            if (IsSubmited)
-            {
+            //if (IsSubmited)
+            //{
 
-                surveyAnswerRequest.SurveyAnswerList[0].Status = 3;
-                surveyAnswerRequest.SurveyAnswerList[0].DateCompleted = DateTime.Now;
-                Xdoc.Root.Attribute("LastPageVisited").Remove();
-                Xdoc.Root.Attribute("HiddenFieldsList").Remove();
-                Xdoc.Root.Attribute("HighlightedFieldsList").Remove();
-                Xdoc.Root.Attribute("DisabledFieldsList").Remove();
-                Xdoc.Root.Attribute("RequiredFieldsList").Remove(); 
-                RemovePageNumAtt(Xdoc);
-            }
+            //    surveyAnswerRequest.SurveyAnswerList[0].Status = 3;
+            //    surveyAnswerRequest.SurveyAnswerList[0].DateCompleted = DateTime.Now;
+            //    Xdoc.Root.Attribute("LastPageVisited").Remove();
+            //    Xdoc.Root.Attribute("HiddenFieldsList").Remove();
+            //    Xdoc.Root.Attribute("HighlightedFieldsList").Remove();
+            //    Xdoc.Root.Attribute("DisabledFieldsList").Remove();
+            //    Xdoc.Root.Attribute("RequiredFieldsList").Remove(); 
+            //    RemovePageNumAtt(Xdoc);
+            //}
             if (IsSaved)
             {
                 surveyAnswerRequest.SurveyAnswerList[0].Status = 2;
