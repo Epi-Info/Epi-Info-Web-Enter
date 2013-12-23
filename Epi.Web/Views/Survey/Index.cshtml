@@ -161,21 +161,47 @@
 	            height: 190,
 	            width: 420,
 	            modal: true,
-	            buttons:[{
-	                
-	                   "text":'Yes',
-                       "click":  function () { var signoutUrl = '@Url.Action("SignOut", "Post")';
-	                        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';  
-	                        SignOutAndRedirect(signoutUrl, homePageUrl);
-	                        $(this).dialog("close");},
-	                    "class": 'dialogbtn'
-	                    
-	                },{
-	                "text":'No',
-                    "click":  function () {$(this).dialog('close');},
-                    "class": 'dialogbtn'
-	                
-	                  }]
+	            buttons: [{
+
+	                "text": 'Yes',
+	                "click": function () {
+	                    var signoutUrl = '@Url.Action("Delete", "Survey")'; // +'/' + '@Model.ResponseId';
+	                    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
+	                    $.ajax({
+	                        url: signoutUrl,
+	                        type: 'GET',
+	                        contentType: 'application/json; charset=utf-8',
+	                        //data: JSON.stringify(model)
+	                        sucess: successFunc
+	                    });
+                        //AjaxCallToActionMethod(signoutUrl, 'GET', successFunc):
+	                    function successFunc(data, status) {
+	                       // $(this).dialog("close");
+	                    }
+	                    //SignOutAndRedirect(signoutUrl, homePageUrl);
+
+
+	                },
+	                "class": 'dialogbtn'
+
+	            }, {
+	                "text": 'No',
+	                "click": function () {
+	                    var homePageUrl = '@Url.Action("Index", "Survey")' + '/' + '@Model.SurveyInfo.SurveyId';
+	                    $.ajax({
+	                        url: homePageUrl,
+	                        type: 'POST',
+	                        contentType: 'application/json; charset=utf-8',
+	                        //data: JSON.stringify(model)
+	                        sucess: successFunc
+	                    });
+	                    function successFunc(data, status) {
+	                        $(this).dialog("close");
+	                    }
+	                },
+	                "class": 'dialogbtn'
+
+	            }]
 
 	        });
 	    });

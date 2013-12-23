@@ -21,6 +21,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Diagnostics;
 using Epi.Web.Common.Message;
+using Epi.Web.Common.DTO;
 namespace Epi.Web.MVC.Controllers
 {
        //[Authorize]
@@ -716,14 +717,12 @@ namespace Epi.Web.MVC.Controllers
 
           [HttpGet]
 
-          public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
+          public void Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
           {
               SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
-              //SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+              SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
 
-            //  _isurveyFacade.DeleteResponse(SARequest);
-
-              return View("Index");
+              SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
           }
     }
