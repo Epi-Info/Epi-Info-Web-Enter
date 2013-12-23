@@ -52,7 +52,11 @@ namespace Epi.Web.WCF.SurveyService
 
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
-        FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest); 
+        FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest pRequest); 
     }
 
 }
