@@ -169,5 +169,11 @@ namespace Epi.Web.MVC.Repositories
                 return result;
 
             }
+
+
+            public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest)
+            {
+              return _iDataService.DeleteResponse(SARequest);
+            }
     }
 }

@@ -7,6 +7,7 @@ using Epi.Web.MVC.Models;
 using Epi.Web.MVC.Facade;
 using System.Collections.Generic;
 using Epi.Web.Common.Criteria;
+using Epi.Web.Common.DTO;
 namespace Epi.Web.MVC.Facade
 {
     public class SurveyFacade : ISurveyFacade
@@ -169,7 +170,7 @@ namespace Epi.Web.MVC.Facade
             //_surveyInfoRequest.Criteria.OrganizationKey = organizationKey;
             //FormsInfoRequest formReq = new FormsInfoRequest();
 
-           
+
 
             FormsInfoResponse formInfoResponse = _iSurveyInfoRepository.GetFormsInfoList(formReq);
 
@@ -189,18 +190,24 @@ namespace Epi.Web.MVC.Facade
         }
 
         public SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest FormResponseReq)
-            {
+        {
 
             SurveyAnswerResponse FormResponseList = _iSurveyAnswerRepository.GetFormResponseList(FormResponseReq);
 
             return FormResponseList;
-            }
+        }
         public FormSettingResponse GetResponseColumnNameList(FormSettingRequest pRequest)
         {
-             FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.GetResponseColumnNameList(pRequest);
+            FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.GetResponseColumnNameList(pRequest);
 
-        return FormSettingResponse;
-            
-         }
+            return FormSettingResponse;
+
+        }
+
+
+        public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest)
+        {
+           return _iSurveyInfoRepository.DeleteResponse(SARequest);
+        }
     }
 }
