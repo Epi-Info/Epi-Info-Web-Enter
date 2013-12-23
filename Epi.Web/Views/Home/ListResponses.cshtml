@@ -107,7 +107,7 @@
             columns: webGrid.Columns(
                    webGrid.Column(header: "",
                                     format: (item) => new
-                                    HtmlString(Html.ActionLink("Edit", "Edit", new { ID = item.Column0 }).ToString() + " &nbsp;&nbsp; " +
+                                             HtmlString(Html.ActionLink("Edit", "index", "survey", new { responseId = item.Column0 }, null).ToString() + " &nbsp;&nbsp; " +
                                     Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
                                   )
                     ),
