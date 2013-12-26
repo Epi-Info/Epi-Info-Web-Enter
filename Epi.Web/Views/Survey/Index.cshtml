@@ -165,20 +165,30 @@
 
 	                "text": 'Yes',
 	                "click": function () {
-	                    var signoutUrl = '@Url.Action("Delete", "Survey")'; // +'/' + '@Model.ResponseId';
+	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
 	                    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
 	                    $.ajax({
 	                        url: signoutUrl,
-	                        type: 'GET',
-	                        contentType: 'application/json; charset=utf-8',
-	                        //data: JSON.stringify(model)
-	                        sucess: successFunc
+	                        type: 'POST',
+	                        contentType: 'application/json',
+	                        data: "{}",
+	                        dataType: "json",
+	                        sucess: function () {
+	                            alert('sss');
+	                        },
+	                        error: function () {
+	                            alert('dd');
+	                        }
 	                    });
-                        //AjaxCallToActionMethod(signoutUrl, 'GET', successFunc):
-	                    function successFunc(data, status) {
-	                       // $(this).dialog("close");
+	                    function successFunc(data) {
+	                        alert('sucess');
+	                        // $(this).dialog("close");
 	                    }
-	                    //SignOutAndRedirect(signoutUrl, homePageUrl);
+	                    function errorFunc(data, status) {
+	                        alert('failed');
+	                    }
+
+	                    window.location.href = homePageUrl;
 
 
 	                },
@@ -187,17 +197,8 @@
 	            }, {
 	                "text": 'No',
 	                "click": function () {
-	                    var homePageUrl = '@Url.Action("Index", "Survey")' + '/' + '@Model.SurveyInfo.SurveyId';
-	                    $.ajax({
-	                        url: homePageUrl,
-	                        type: 'POST',
-	                        contentType: 'application/json; charset=utf-8',
-	                        //data: JSON.stringify(model)
-	                        sucess: successFunc
-	                    });
-	                    function successFunc(data, status) {
-	                        $(this).dialog("close");
-	                    }
+	                    $(this).dialog("close");
+	                    $("#myform").submit();
 	                },
 	                "class": 'dialogbtn'
 
@@ -438,6 +439,7 @@ function ReplaceString(string){
         <div style="clear:both;"></div>
     </div>
     <div id="successContent"></div>
+
     @if (!string.IsNullOrEmpty(Model.GetErrorSummary()))
         { 
         <div class="errormsg">
@@ -503,6 +505,7 @@ function ReplaceString(string){
 		   
 	
  </div>	 @*End formdisplay Div *@  
+
     }@*End Form *@
 </div>@*End content Div *@
 
