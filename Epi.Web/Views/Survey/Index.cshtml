@@ -170,21 +170,19 @@
 	                    $.ajax({
 	                        url: signoutUrl,
 	                        type: 'POST',
-	                        contentType: 'application/json',
-	                        data: "{}",
+	                        contentType: 'application/json; charset=utf-8',
+	                        //data: "{}",
 	                        dataType: "json",
-	                        sucess: function () {
-	                            alert('sss');
-	                        },
-	                        error: function () {
-	                            alert('dd');
-	                        }
+	                        //cache: false,
+	                        async: false,
+	                        success: successFunc,
+	                        error: errorFunc
 	                    });
 	                    function successFunc(data) {
-	                        alert('sucess');
-	                        // $(this).dialog("close");
+	                        $(this).dialog("close");
+	                        window.location.href = homePageUrl;
 	                    }
-	                    function errorFunc(data, status) {
+	                    function errorFunc(data) {
 	                        alert('failed');
 	                    }
 

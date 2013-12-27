@@ -41,7 +41,8 @@
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
                 //data: JSON.stringify(model),
-                success: successFunc
+                success: successFunc,
+                error: errorFunc
             });
             $.ajaxSetup({ cache: false });
 
