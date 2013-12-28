@@ -159,9 +159,6 @@
             }
         });
 
-        
-
-
         /*Open the modal popup on link click*/
         $('#copy').click(function () {
             $("#dialog").dialog("open");
@@ -393,19 +390,20 @@ $(document).delegate('#close', 'click', function () {
         'forceInput': false,
         'useModal': true,
         'buttons': {
-                'OK': {
-                    click: function () {
-                        $('#dialogoutput').text('OK');
-                    }
+            'OK': {
+                click: function () {
+                    $('#dialogoutput').text('OK');
+                    alert(test);
                 }
+            }
 
-                    },
+        },
 
 
-            'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to close this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose'>No</a></div></p>"
-        })
+        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to close this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
+    })
 
- });
+});
      
 
 function CloseDialog() {
@@ -416,11 +414,22 @@ function CloseDialog() {
 }
 /*Exit the survey */
  function ExitSurvey() {
+      var signoutUrl = '@Url.Action("Delete", "Survey")';
+      var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.SurveyInfo.SurveyId';
+     $.ajax({
+         url: signoutUrl,
+         type: 'POST',
+         contentType: 'application/json; charset=utf-8',
+         dataType: "json",
+         async: false,
+         success: function () { window.location.href = homePageUrl; },
+         error: errorFunc
+     });
+    
+}
 
-    var signoutUrl = '@Url.Action("SignOut","Post")';
-    var homePageUrl = '@Url.Action("Index","Home")' + '/' + '@Model.SurveyInfo.SurveyId';
-
-    SignOutAndRedirect(signoutUrl, homePageUrl);
+function errorFunc(data) {
+    alert('failed');
 }
 
 
@@ -601,6 +610,9 @@ function ReplaceString(string){
  </div>
 }<!--EndForm-->
 </div><!--End Conten tDiv-->
+
+
+
 @* </div>*@ @*<div id="dialog" title="Your Survey has been saved." data-role="popup">
                    <p>Please copy and save the <span style="font-weight:bold;">Survey Link</span> and <span style="font-weight:bold;">Pass Code</span> in order to return to the survey at a later time.</p>
                 <p><span style="font-weight:bold;">Survey Link:</span><br /><textarea id="url" cols="65"  style="  height:30px;  white-space:pre; background:#d6e7f5; border:1px solid #aecfea; padding:4px; margin-top:4px;" readonly="readonly"></textarea></p>
