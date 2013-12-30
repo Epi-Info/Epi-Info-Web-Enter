@@ -35,7 +35,7 @@
             $("button[class*='metro-tile']").removeClass('metro-set');
             $(this).addClass('metro-set');
             $("#right").show();
-          //  alert('1');
+            //  alert('1');
             $.ajax({
                 url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-FormId'),
                 type: 'GET',
@@ -56,10 +56,9 @@
 
         });
 
-        $(document).on("click", "a[name='link']", function (e) {
+        $(document).on("click", "a[name='lnkPager']", function (e) {
             e.preventDefault();
 
-        //    alert('2');
             $.ajax({
                 url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-formid') + "&page=" + $(this).attr('data-pagenumber'),
                 type: 'GET',
@@ -89,7 +88,7 @@
         });
 
 
-      //  $("button:visible").triggerHandler('click');
+        //  $("button:visible").triggerHandler('click');
 
     });
 
