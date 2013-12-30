@@ -17,6 +17,7 @@ using System.Diagnostics;
 using Epi.Web.Common.Message;
 using Epi.Web.MVC.Utility;
 using Epi.Web.Common.DTO;
+using System.Web.Configuration;
 namespace Epi.Web.MVC.Controllers
 {
     public class HomeController : Controller
@@ -455,7 +456,7 @@ namespace Epi.Web.MVC.Controllers
             ResponseModel ResponseModel = new Models.ResponseModel();
 
 
-            //
+            
             ResponseModel.Column0 = item.ResponseId;
             ResponseModel.IsLocked = item.IsLocked;
 
@@ -523,11 +524,16 @@ namespace Epi.Web.MVC.Controllers
                 //Setting Additional Data
 
                 FormResponseInfoModel.NumberOfPages = FormResponseList.NumberOfPages;
-                FormResponseInfoModel.PageSize = FormResponseList.PageSize;
+                FormResponseInfoModel.PageSize = ReadPageSize();
                 FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
                 FormResponseInfoModel.CurrentPage = PageNumber;
             }
             return FormResponseInfoModel;
+        }
+
+        private int ReadPageSize() 
+        {
+            return Convert.ToInt16(WebConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"].ToString());
         }
     }
 }
