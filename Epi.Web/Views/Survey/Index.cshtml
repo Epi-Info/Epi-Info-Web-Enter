@@ -195,6 +195,10 @@
 	                "text": 'No',
 	                "click": function () {
 	                    $(this).dialog("close");
+	                    var input = $("<input>")
+                       .attr("type", "hidden")
+                       .attr("name", "Close").val("Close");
+	                    $('#myform').append($(input));
 	                    $("#myform").submit();
 	                },
 	                "class": 'dialogbtn'
@@ -313,7 +317,7 @@
 	    });
 
 	    /*Exit the survey */
-	    $("#close").click(function (e) {
+	    $("#Close").click(function (e) {
 	        e.preventDefault();
 	        $("#exitdialog").dialog("open");
 	      /*  if (!$("#exitdialog").dialog("open")) {
@@ -431,7 +435,7 @@ function ReplaceString(string){
         <div id="exit">
             @*<button class="default exitsurvey" type="submit" id="close">Save & Close</button>*@
             <button class="default save" id ="Savebutton1" type="submit"  name="Submitbutton" value="Submit"> Save</button> &nbsp; &nbsp;
-            <button class="default exitsurvey" id="close" type="submit"  name="Submitbutton" value="Submit"> Close</button>
+            <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit"> Close</button>
         </div>
         <div style="clear:both;"></div>
     </div>

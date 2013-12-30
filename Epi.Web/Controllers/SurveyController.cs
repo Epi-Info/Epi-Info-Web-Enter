@@ -142,7 +142,7 @@ namespace Epi.Web.MVC.Controllers
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [ValidateAntiForgeryToken]
         //public ActionResult Index(SurveyInfoModel surveyInfoModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, int PageNumber = 1)
-        public ActionResult Index(SurveyAnswerModel surveyAnswerModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, int PageNumber = 0)
+        public ActionResult Index(SurveyAnswerModel surveyAnswerModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, string Close, int PageNumber = 0)
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
@@ -336,7 +336,7 @@ namespace Epi.Web.MVC.Controllers
 
                         else if (form.Validate(form.RequiredFieldsList))
                         {
-                            if (!string.IsNullOrEmpty(Submitbutton))
+                            if (!string.IsNullOrEmpty(Submitbutton) || !string.IsNullOrEmpty(Close))
                             {
 
 
