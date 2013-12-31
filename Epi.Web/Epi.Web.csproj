@@ -416,7 +416,6 @@
     <Content Include="Scripts\jquery.numeric.js" />
     <Content Include="Scripts\jquery.PreventEnter.js" />
     <Content Include="Scripts\jquery.simpledialog.0.1.min.js" />
-    <Content Include="Scripts\jquery.stickytableheaders.js" />
     <Content Include="Scripts\jquery.tools.min.js" />
     <Content Include="Scripts\jquery.ui.all.css" />
     <Content Include="Scripts\jquery.ui.core.js" />
