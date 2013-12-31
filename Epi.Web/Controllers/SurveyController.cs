@@ -55,7 +55,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
 
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
-        public ActionResult Index(string responseId, int PageNumber = 0)
+        public ActionResult Index(string responseId, int PageNumber = 1)
         {
             try
             {
@@ -180,14 +180,14 @@ namespace Epi.Web.MVC.Controllers
 
                         string url = "";
                         if (this.Request.UrlReferrer == null)
-                        {
+                            {
                             url = this.Request.Url.ToString();
-                        }
+                            }
                         else
-                        {
+                            {
                             url = this.Request.UrlReferrer.ToString();
-                        }
-
+                            }
+                      //  url = this.Request.Url.ToString();
                         int LastIndex = url.LastIndexOf("/");
                         string StringNumber = null;
                         if (url.Length - LastIndex + 1 <= url.Length)
@@ -232,21 +232,22 @@ namespace Epi.Web.MVC.Controllers
                             //get the survey form
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice);
                             form.ClearAllErrors();
-                            if (ReffererPageNum == 0)
-                            {
-                                int index = 1;
-                                if (StringNumber.Contains("?RequestId="))
-                                {
-                                    index = StringNumber.IndexOf("?");
-                                }
+                            //if (ReffererPageNum == 0)
+                            //{
+                            //    int index = 1;
+                            //    if (StringNumber.Contains("?RequestId="))
+                            //    {
+                            //        index = StringNumber.IndexOf("?");
+                            //    }
 
-                                ReffererPageNum = int.Parse(StringNumber.Substring(0, index));
+                            //    ReffererPageNum = int.Parse(StringNumber.Substring(0, index));
 
-                            }
-                            if (ReffererPageNum == CurrentPageNum)
-                            {
-                                UpdateModel(form);
-                            }
+                            //}
+                            //if (ReffererPageNum == CurrentPageNum)
+                            //{
+                            //    UpdateModel(form);
+                            //}
+                            UpdateModel(form);
                         }
                         //PassCode start
                         if (IsMobileDevice)
