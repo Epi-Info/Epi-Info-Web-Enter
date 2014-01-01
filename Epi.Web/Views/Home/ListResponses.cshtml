@@ -1,4 +1,7 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
+
+
+
 <div id="formtitle">
     <h2 class="surveyTitle">@Model.FormInfoModel.FormName
     </h2>
@@ -99,6 +102,7 @@
                     <div id='pager'>
                             @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
                             </div>  
+                            onclick ='EditRecord(this);'
                 }*@
               
         
@@ -107,8 +111,8 @@
             columns: webGrid.Columns(
                    webGrid.Column(header: "",
                                     format: (item) => new
-                                             HtmlString(Html.ActionLink("Edit", "index", "survey", new { responseId = item.Column0 }, null).ToString() + " &nbsp;&nbsp; " +
-                                    Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
+                                                                                               HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Edit</button> &nbsp;&nbsp; " +
+                                         Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
                                   )
                     ),
                                  webGrid.Column("Column1", Model.Columns[0].Value),
@@ -132,6 +136,7 @@
             <div id='pager2'>
                 @*@Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
                 @Html.Partial("PagerPartial", Model)
+                
             </div>  
             }
 

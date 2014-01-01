@@ -25,7 +25,8 @@ namespace Epi.Web.Common.BusinessObject
         public DateTime DateCreated { get; set; }
         public bool IsDraftMode { get; set; }
         public bool IsLocked { get; set; }
-        
+        public string ParentRecordId { get; set; }
+        public int UserId { get; set; }
        
     }
 }

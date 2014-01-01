@@ -14,6 +14,7 @@
           <EntitySet Name="SurveyMetaData" EntityType="OSELS_EWEModel.Store.SurveyMetaData" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyMetaDataUser" EntityType="OSELS_EWEModel.Store.SurveyMetaDataUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyResponse" EntityType="OSELS_EWEModel.Store.SurveyResponse" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SurveyResponseUser" EntityType="OSELS_EWEModel.Store.SurveyResponseUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="OSELS_EWEModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="OSELS_EWEModel.Store.User" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Admin_Organization" Association="OSELS_EWEModel.Store.FK_Admin_Organization">
@@ -47,6 +48,14 @@
           <AssociationSet Name="FK_SurveyResponse_SurveyMetaData" Association="OSELS_EWEModel.Store.FK_SurveyResponse_SurveyMetaData">
             <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponseUser_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponseUser_SurveyResponse">
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End Role="SurveyResponseUser" EntitySet="SurveyResponseUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponseUser_User" Association="OSELS_EWEModel.Store.FK_SurveyResponseUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SurveyResponseUser" EntitySet="SurveyResponseUser" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Admin">
@@ -137,6 +146,15 @@
           <Property Name="DateCreated" Type="datetime2" Nullable="false" />
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
           <Property Name="IsLocked" Type="bit" Nullable="false" />
+          <Property Name="ParentRecordId" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="SurveyResponseUser">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ResponseId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ResponseId" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -257,6 +275,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyResponseUser_SurveyResponse">
+          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="1" />
+          <End Role="SurveyResponseUser" Type="OSELS_EWEModel.Store.SurveyResponseUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyResponse">
+              <PropertyRef Name="ResponseId" />
+            </Principal>
+            <Dependent Role="SurveyResponseUser">
+              <PropertyRef Name="ResponseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyResponseUser_User">
+          <End Role="User" Type="OSELS_EWEModel.Store.User" Multiplicity="1" />
+          <End Role="SurveyResponseUser" Type="OSELS_EWEModel.Store.SurveyResponseUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SurveyResponseUser">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -329,6 +371,10 @@
           <AssociationSet Name="FK_ResponseGridcolumns_SurveyMetaData" Association="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData">
             <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
             <End Role="ResponseDisplaySetting" EntitySet="ResponseDisplaySettings" />
+          </AssociationSet>
+          <AssociationSet Name="SurveyResponseUser" Association="OSELS_EWEModel.SurveyResponseUser">
+            <End Role="SurveyResponse" EntitySet="SurveyResponses" />
+            <End Role="User" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Admin">
@@ -414,6 +460,8 @@
           <NavigationProperty Name="lk_Status" Relationship="OSELS_EWEModel.FK_SurveyResponse_lk_Status" FromRole="SurveyResponse" ToRole="lk_Status" />
           <NavigationProperty Name="SurveyMetaData" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" FromRole="SurveyResponse" ToRole="SurveyMetaData" />
           <Property Type="Boolean" Name="IsLocked" Nullable="false" />
+          <Property Type="Guid" Name="ParentRecordId" />
+          <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="SurveyResponse" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -438,6 +486,7 @@
           <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="SurveyMetaDatas" Relationship="OSELS_EWEModel.SurveyMetaDataUser" FromRole="User" ToRole="SurveyMetaData" />
+          <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="User" ToRole="SurveyResponse" />
         </EntityType>
         <Association Name="FK_Admin_Organization">
           <End Role="Organization" Type="OSELS_EWEModel.Organization" Multiplicity="1" />
@@ -525,6 +574,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="SurveyResponseUser">
+          <End Type="OSELS_EWEModel.SurveyResponse" Role="SurveyResponse" Multiplicity="*" />
+          <End Type="OSELS_EWEModel.User" Role="User" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -595,6 +648,7 @@
           <EntitySetMapping Name="SurveyResponses">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponse">
               <MappingFragment StoreEntitySet="SurveyResponse">
+                <ScalarProperty Name="ParentRecordId" ColumnName="ParentRecordId" />
                 <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
                 <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
@@ -651,6 +705,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="SurveyResponseUser" TypeName="OSELS_EWEModel.SurveyResponseUser" StoreEntitySet="SurveyResponseUser">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="SurveyResponse">
+              <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -673,20 +735,20 @@
     <Diagrams>
       <Diagram Name="Epi.Web.Model" ZoomLevel="83">
         <EntityTypeShape EntityType="OSELS_EWEModel.Admin" Width="1.5" PointX="1.5" PointY="9" Height="2.1725878906249996" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="10.375" PointY="4.625" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="10.75" PointY="5.125" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="3.75" PointY="2.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.Organization" Width="1.5" PointX="0.75" PointY="5.375" Height="2.3648893229166656" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaData" Width="1.5" PointX="6" PointY="4" Height="5.0571093750000022" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="8.25" PointY="4.875" Height="3.3263964843749996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.sysdiagram" Width="1.5" PointX="0.75" PointY="1.125" Height="1.9802864583333317" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.User" Width="1.5" PointX="8.25" PointY="9.25" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.User" Width="1.5" PointX="6.875" PointY="10.125" Height="2.9417936197916656" IsExpanded="true" />
         <AssociationConnector Association="OSELS_EWEModel.FK_Admin_Organization" ManuallyRouted="false">
           <ConnectorPoint PointX="1.875" PointY="7.7398893229166656" />
           <ConnectorPoint PointX="1.875" PointY="9" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_lk_Status" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.375" PointY="5.547841796875" />
-          <ConnectorPoint PointX="9.75" PointY="5.547841796875" />
+          <ConnectorPoint PointX="10.75" PointY="5.922841796875" />
+          <ConnectorPoint PointX="9.75" PointY="5.922841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_lk_SurveyType" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="4.172841796875" />
@@ -697,18 +759,22 @@
           <ConnectorPoint PointX="6" PointY="6.5574446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="7.12106019791667" />
-          <ConnectorPoint PointX="8.25" PointY="7.12106019791667" />
+          <ConnectorPoint PointX="7.5" PointY="6.826650390625" />
+          <ConnectorPoint PointX="8.25" PointY="6.826650390625" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.SurveyMetaDataUser" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.75" PointY="9.2494108072916656" />
-          <ConnectorPoint PointX="6.75" PointY="10.62474609375" />
-          <ConnectorPoint PointX="8.25" PointY="10.62474609375" />
+          <ConnectorPoint PointX="7.1875" PointY="9.2494108072916656" />
+          <ConnectorPoint PointX="7.1875" PointY="10.125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.ResponseDisplaySetting" Width="1.5" PointX="6" PointY="1.125" Height="1.7879850260416674" />
         <AssociationConnector Association="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData" >
           <ConnectorPoint PointX="6.75" PointY="4" />
           <ConnectorPoint PointX="6.75" PointY="2.9129850260416674" />
+        </AssociationConnector>
+        <AssociationConnector Association="OSELS_EWEModel.SurveyResponseUser" >
+          <ConnectorPoint PointX="9.0625004999999987" PointY="8.77830078125" />
+          <ConnectorPoint PointX="9.0625004999999987" PointY="11.595896809895834" />
+          <ConnectorPoint PointX="8.375" PointY="11.595896809895834" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
