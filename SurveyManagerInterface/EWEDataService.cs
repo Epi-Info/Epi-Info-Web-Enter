@@ -25,7 +25,7 @@ namespace Epi.Web.WCF.SurveyService
         //private ShoppingCart _shoppingCart;
         private string _userName;
 
-
+         
         /// <summary>
         /// 
         /// </summary>
@@ -242,25 +242,38 @@ namespace Epi.Web.WCF.SurveyService
                 string sort = criteria.SortExpression;
 
                 //if (request.LoadOptions.Contains("SurveyInfos"))
-                //{
+                //    {
                 //    IEnumerable<SurveyInfoDTO> SurveyInfos;
                 //    if (!criteria.IncludeOrderStatistics)
-                //    {
+                //        {
                 //        SurveyInfos = Implementation.GetSurveyInfos(sort);
-                //    }
+                //        }
                 //    else
-                //    {
+                //        {
                 //        SurveyInfos = Implementation.GetSurveyInfosWithOrderStatistics(sort);
-                //    }
+                //        }
 
                 //    response.SurveyInfos = SurveyInfos.Select(c => Mapper.ToDataTransferObject(c)).ToList();
-                //}
+                //    }
 
                 //if (pRequest.LoadOptions.Contains("SurveyInfo"))
-                //{
-                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
-                //}
+                    //{
+                       //result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
+                    //}
 
+
+                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
+
+                //SurveyResponseBO Request = new SurveyResponseBO();
+
+                //foreach (var item in pRequest.Criteria.SurveyAnswerIdList)
+                //    {
+                //    Request.ResponseId = item;
+                //    Request.UserId = criteria.UserId;
+
+                //    result.SurveyResponseList.Add(Mapper.ToDataTransferObject(Implementation.GetSurveyResponseByUserId(Request)));
+                //    }
+                
                 return result;
             }
             catch (Exception ex)
@@ -298,8 +311,8 @@ namespace Epi.Web.WCF.SurveyService
                 }
 
                 // Transform SurveyResponse data transfer object to SurveyResponse business object
-                SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList)[0];
-
+                SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList,request.Criteria.UserId)[0];
+                SurveyResponse.UserId = request.Criteria.UserId;
                 // Validate SurveyResponse business rules
 
                 if (request.Action != "Delete")
@@ -655,7 +668,7 @@ namespace Epi.Web.WCF.SurveyService
             Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
             foreach(var response in pRequest.SurveyAnswerList)
                 {
-                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response));
+                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
                 }
             
             return result;

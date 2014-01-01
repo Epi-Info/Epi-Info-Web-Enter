@@ -175,5 +175,49 @@ namespace Epi.Web.BLL
             return result;
             }
 
+        public SurveyResponseBO GetSurveyResponseByUserId(SurveyResponseBO request)
+            {
+           
+          //  SurveyResponseBO result = new SurveyResponseBO() ;//= this.SurveyResponseDao.GetSurveyResponse(pId, UserPublishKey);
+             
+
+            //Read parent recored 
+            List<string> ResponseIdList = new List<string>();
+         //   request.ResponseId
+           // List<SurveyResponseBO> ParentResponse = this.SurveyResponseDao.GetSurveyResponse(ResponseIdList, request.UserPublishKey);
+
+            SurveyResponseBO ParentResponse = this.SurveyResponseDao.GetFormResponseByResponseId(request.ResponseId);
+
+
+            //check if pending record edit 
+
+
+
+
+
+            //set values for RecordParentId and DateCreated 
+            SurveyResponseBO ChildResponse = new SurveyResponseBO();
+
+            ChildResponse = ParentResponse; //Create a copy of the parent record
+
+            ChildResponse.ParentRecordId = request.ResponseId;
+            ChildResponse.ResponseId = Guid.NewGuid().ToString();
+            ChildResponse.DateCreated = DateTime.Now;
+            ChildResponse.UserId = request.UserId;
+            //Insert child Response 
+            try
+                {
+                this.InsertSurveyResponse(ChildResponse);
+                }
+            catch (Exception ex)
+                {
+                   throw ex;
+                }
+            //Insert ResponseUser
+
+            return ChildResponse;
+            }
+       
+
     }
 }

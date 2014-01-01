@@ -26,6 +26,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyMetaDataUser", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "ResponseDisplaySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.ResponseDisplaySetting), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyResponseUser", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
 
 #endregion
 
@@ -2001,6 +2002,30 @@ namespace Epi.Web.EF
         private global::System.Boolean _IsLocked;
         partial void OnIsLockedChanging(global::System.Boolean value);
         partial void OnIsLockedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentRecordId
+        {
+            get
+            {
+                return _ParentRecordId;
+            }
+            set
+            {
+                OnParentRecordIdChanging(value);
+                ReportPropertyChanging("ParentRecordId");
+                _ParentRecordId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentRecordId");
+                OnParentRecordIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentRecordId;
+        partial void OnParentRecordIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentRecordIdChanged();
 
         #endregion
 
@@ -2079,6 +2104,28 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData", "SurveyMetaData", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "SurveyResponseUser", "User")]
+        public EntityCollection<User> Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("OSELS_EWEModel.SurveyResponseUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("OSELS_EWEModel.SurveyResponseUser", "User", value);
                 }
             }
         }
@@ -2501,6 +2548,28 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyMetaData>("OSELS_EWEModel.SurveyMetaDataUser", "SurveyMetaData", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "SurveyResponseUser", "SurveyResponse")]
+        public EntityCollection<SurveyResponse> SurveyResponses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SurveyResponse>("OSELS_EWEModel.SurveyResponseUser", "SurveyResponse");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyResponse>("OSELS_EWEModel.SurveyResponseUser", "SurveyResponse", value);
                 }
             }
         }
