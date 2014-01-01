@@ -963,3 +963,13 @@ margin-top: 100px;
     vertical-align: top;
     text-shadow:none !important;
 }
+
+button.edit {
+   
+    background-repeat: no-repeat;
+    background-size: 18px auto;
+    background-position: 8px center;
+    width: 55px;
+    height: 30px;
+    padding: 4px 6px 4px 4px;
+}

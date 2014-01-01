@@ -123,6 +123,7 @@ namespace Epi.Web.MVC.Controllers
                                 form.PassCode = AuthenticationResponse.PassCode;
                             }
                         }
+                        form.StatusId = surveyAnswerDTO.Status;
                         //passCode end
                         return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
                 }
@@ -389,7 +390,8 @@ namespace Epi.Web.MVC.Controllers
 
                                 //////////////////////UpDate Survey Mode//////////////////////////
                                 SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
-                                IsSubmited = true;//survey has been submited this will change the survey status to 3 - Completed
+                                //IsSubmited = true;//survey has been submited this will change the survey status to 3 - Completed
+                                IsSaved = true;
                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
                                 FormsAuthentication.SignOut();
 
@@ -724,11 +726,14 @@ namespace Epi.Web.MVC.Controllers
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
-
+            SARequest.Criteria.UserId = 2;
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
             //return RedirectToAction("Index", "Home");
         }
+
+
+       
     }
 }

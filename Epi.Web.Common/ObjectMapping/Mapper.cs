@@ -152,7 +152,8 @@ namespace Epi.Web.Common.ObjectMapping
                 DateCreated = pBO.DateCreated, 
                 Status = pBO.Status,
                 IsDraftMode = pBO.IsDraftMode,
-                IsLocked = pBO.IsLocked
+                IsLocked = pBO.IsLocked,
+                ParentRecordId =pBO.ParentRecordId
             };
         }
         public static List<SurveyAnswerDTO> ToDataTransferObject(List<SurveyResponseBO> pSurveyResposneList)
@@ -171,7 +172,7 @@ namespace Epi.Web.Common.ObjectMapping
         /// </summary>
         /// <param name="SurveyInfo">A SurveyResponseDTO business object.</param>
         /// /// <returns>A SurveyResponseBO.</returns>
-        public static SurveyResponseBO ToBusinessObject(SurveyAnswerDTO pDTO)
+        public static SurveyResponseBO ToBusinessObject(SurveyAnswerDTO pDTO,int UserId = 0)
         {
             return new SurveyResponseBO
             {
@@ -182,12 +183,14 @@ namespace Epi.Web.Common.ObjectMapping
                 DateCompleted = pDTO.DateCompleted,
                 DateCreated = pDTO.DateCreated,
                 Status = pDTO.Status,
-                IsDraftMode = pDTO.IsDraftMode
+                IsDraftMode = pDTO.IsDraftMode,
+                UserId = UserId,
+                ParentRecordId=pDTO.ParentRecordId
                 
             };
         }
 
-        public static List<SurveyResponseBO> ToBusinessObject(List<SurveyAnswerDTO> pSurveyAnswerList)
+        public static List<SurveyResponseBO> ToBusinessObject(List<SurveyAnswerDTO> pSurveyAnswerList, int UserId)
         {
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
             foreach (SurveyAnswerDTO surveyAnswer in pSurveyAnswerList)

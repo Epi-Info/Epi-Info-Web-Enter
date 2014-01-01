@@ -30,7 +30,7 @@ namespace Epi.Web.Common.DTO
         public bool IsDraftMode { get; set; }
          [DataMember]
         public bool IsLocked { get; set; }
-        
-       
+        [DataMember]
+         public string ParentRecordId { get; set; }
     }
 }

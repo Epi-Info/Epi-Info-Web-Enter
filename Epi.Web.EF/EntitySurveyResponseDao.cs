@@ -266,6 +266,9 @@ namespace Epi.Web.EF
             using (var Context = DataObjectFactory.CreateContext() ) 
             {
                 SurveyResponse SurveyResponseEntity = Mapper.ToEF(SurveyResponse);
+                //SurveyResponseEntity.Users.Add(new User { UserID = 2 });
+                User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+                SurveyResponseEntity.Users.Add(User);
                 Context.AddToSurveyResponses(SurveyResponseEntity);
                
                 Context.SaveChanges();
@@ -277,6 +280,7 @@ namespace Epi.Web.EF
             }
              
         }
+       
 
         /// <summary>
         /// Updates a SurveyResponse.
@@ -301,7 +305,7 @@ namespace Epi.Web.EF
                 DataRow.ResponseXML = SurveyResponse.XML;
                 //DataRow.DateCompleted = DateTime.Now;
                 DataRow.DateCompleted = SurveyResponse.DateCompleted;
-             //   DataRow.StatusId = SurveyResponse.Status;
+                DataRow.StatusId = SurveyResponse.Status;
                 DataRow.DateUpdated = DateTime.Now;
              //   DataRow.ResponsePasscode = SurveyResponse.ResponsePassCode;
                 DataRow.IsDraftMode = SurveyResponse.IsDraftMode;
@@ -387,10 +391,13 @@ namespace Epi.Web.EF
                 if (!string.IsNullOrEmpty(SurveyResponse.ResponseId))
                     {
                     Guid Id = new Guid(SurveyResponse.ResponseId);
-                     
-                     SurveyResponse  Response = Context.SurveyResponses.First(x => x.ResponseId == Id);
+                    User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+
+                    SurveyResponse  Response = Context.SurveyResponses.First(x => x.ResponseId == Id );
+                    Response.Users.Remove(User);
 
                     Context.SurveyResponses.DeleteObject(Response);
+                     
                     Context.SaveChanges();
                     }
 
@@ -427,7 +434,7 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                         {
                          
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id).OrderByDescending(x => x.DateCreated);
+                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id &&  string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true).OrderByDescending(x => x.DateCreated);
 
                         SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
                                                 
@@ -465,7 +472,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id);
+                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true);
                     ResponseCount = SurveyResponseList.Count();
 
                     }
@@ -481,6 +488,42 @@ namespace Epi.Web.EF
             return ResponseCount;
             
          
+            }
+
+
+
+        public SurveyResponseBO GetFormResponseByResponseId(string ResponseId)
+            {
+
+            SurveyResponseBO result = new SurveyResponseBO();
+
+            try
+                {
+
+                Guid Id = new Guid(ResponseId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+               
+                    SurveyResponse Response = Context.SurveyResponses.ToList().Where(x => x.ResponseId == Id).First();
+                    result  = (Mapper.Map(Response));
+
+                   
+
+
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+
+
+            return result;
             }
        
     }

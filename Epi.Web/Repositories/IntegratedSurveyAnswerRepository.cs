@@ -289,5 +289,33 @@ namespace Epi.Web.MVC.Repositories
             {
                 throw new NotImplementedException();
             }
+           public SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest) {
+
+           try
+               {
+               SurveyAnswerResponse result = _iDataService.SetSurveyAnswer(SurveyAnswerRequest);
+               return result;
+               }
+           catch (FaultException<CustomFaultException> cfe)
+               {
+               throw cfe;
+               }
+           catch (FaultException fe)
+               {
+               throw fe;
+               }
+           catch (CommunicationException ce)
+               {
+               throw ce;
+               }
+           catch (TimeoutException te)
+               {
+               throw te;
+               }
+           catch (Exception ex)
+               {
+               throw ex;
+               }
+                }
     }
 }

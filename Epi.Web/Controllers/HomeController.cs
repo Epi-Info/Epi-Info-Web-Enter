@@ -109,9 +109,14 @@ namespace Epi.Web.MVC.Controllers
         /// <param name="surveyModel"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Index(string surveyid, string AddNewFormId)
+        public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
-
+        if (!string.IsNullOrEmpty(EditForm))
+                {
+                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
+                return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1 });
+            }
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
 
@@ -137,7 +142,7 @@ namespace Epi.Web.MVC.Controllers
 
             // create the first survey response
             // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString());
+            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), 2);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -215,6 +220,25 @@ namespace Epi.Web.MVC.Controllers
             //    //return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
             //}
         }
+
+        private string GetChildRecordId(SurveyAnswerDTO surveyAnswerDTO)
+            {
+            SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+            SurveyAnswerResponse SurveyAnswerResponse = new SurveyAnswerResponse();
+            string ChildId = Guid.NewGuid().ToString();
+            surveyAnswerDTO.ParentRecordId = surveyAnswerDTO.ResponseId;
+            surveyAnswerDTO.ResponseId = ChildId;
+            SurveyAnswerRequest.SurveyAnswerList.Add(surveyAnswerDTO);
+            string result = ChildId;
+
+            //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
+            SurveyAnswerRequest.Criteria.UserId = 2;
+            SurveyAnswerRequest.RequestId = ChildId;
+            SurveyAnswerRequest.Action = "Create";
+            SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
+
+            return result;
+            }
 
         //[HttpPost]
         //public ActionResult Index(List<FormInfoModel> model) {
@@ -535,5 +559,24 @@ namespace Epi.Web.MVC.Controllers
         {
             return Convert.ToInt16(WebConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"].ToString());
         }
+
+    //  [HttpPost]
+
+    //    public ActionResult Edit(string ResId)
+    //    {
+    ////    Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResId);
+
+    //    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResId, PageNumber = 1 });
+    //    }
+      private Epi.Web.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
+          {
+          Epi.Web.Common.DTO.SurveyAnswerDTO result = null;
+
+          //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
+          result = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+
+          return result;
+
+          }
     }
 }

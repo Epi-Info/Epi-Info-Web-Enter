@@ -19,5 +19,7 @@ namespace Epi.Web.MVC.Repositories.Core
         UserAuthenticationResponse GetAuthenticationResponse(UserAuthenticationRequest pRequest);
         SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest);
         FormSettingResponse GetResponseColumnNameList(FormSettingRequest pRequest);
+
+        SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest);
     }
 }
