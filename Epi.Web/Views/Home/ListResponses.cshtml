@@ -41,9 +41,16 @@
     }
     <div id="NumberOfRecords" style="float: right">
         <div>
-        @*<span >Showing</span>*@
+        @{
+            if (Model.NumberOfPages == 0)
+            {
+                <span class="boldlabel" style="font-size: 14pt;">0 Records </span>
+            }
+            else
+            {
+                 @*<span >Showing</span>*@
         <span class="boldlabel" style="font-size: 14pt;">    @(
-            Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
+ Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
             -
             @if (Model.CurrentPage * Model.PageSize < Model.NumberOfResponses)
             {
@@ -54,6 +61,9 @@
                 @Model.NumberOfResponses
             }</span>
            <span> of </span><span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses </span>
+            }
+        }
+       
     </div>
        @* <span>Total Records:</span> <span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses</span>*@</div>
     <div style="clear: both;">
