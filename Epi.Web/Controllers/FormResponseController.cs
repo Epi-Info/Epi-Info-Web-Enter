@@ -49,6 +49,7 @@ namespace Epi.Web.MVC.Controllers
 
             return View("Index", model);
         }
+        
 
         //public List<ResponseModel> GetFormResponseList(string SurveyId, int PageNumber)
         //{
@@ -168,9 +169,14 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(string surveyid, string AddNewFormId)
+        public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
-
+        if (!string.IsNullOrEmpty(EditForm))
+            {
+            Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+            string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
+            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1 });
+            }
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
 
@@ -400,7 +406,33 @@ namespace Epi.Web.MVC.Controllers
             SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(SurveyId);
             return surveyInfoModel;
         }
+        private string GetChildRecordId(SurveyAnswerDTO surveyAnswerDTO)
+            {
+            SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+            SurveyAnswerResponse SurveyAnswerResponse = new SurveyAnswerResponse();
+            string ChildId = Guid.NewGuid().ToString();
+            surveyAnswerDTO.ParentRecordId = surveyAnswerDTO.ResponseId;
+            surveyAnswerDTO.ResponseId = ChildId;
+            SurveyAnswerRequest.SurveyAnswerList.Add(surveyAnswerDTO);
+            string result = ChildId;
 
+            //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
+            SurveyAnswerRequest.Criteria.UserId = 2;
+            SurveyAnswerRequest.RequestId = ChildId;
+            SurveyAnswerRequest.Action = "Create";
+            SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
 
+            return result;
+            }
+        private Epi.Web.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
+            {
+            Epi.Web.Common.DTO.SurveyAnswerDTO result = null;
+
+            //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
+            result = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+
+            return result;
+
+            }
     }
 }
