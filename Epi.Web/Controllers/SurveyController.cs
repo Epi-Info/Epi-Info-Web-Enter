@@ -405,8 +405,15 @@ namespace Epi.Web.MVC.Controllers
                                     }
                                 else
                                     {
+                                    if (!IsMobileDevice)
+                                        {
+                                             return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
+                                        }
+                                    else{
+                                    return RedirectToAction("Index", "FormResponse", new { formid = surveyInfoModel.SurveyId });
+                                        
+                                        }
 
-                                    return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
                                     }
                                
                             }
