@@ -321,7 +321,9 @@
 	    /*Exit the survey */
 	    $("#Close").click(function (e) {
 	        e.preventDefault();
-	        $("#exitdialog").dialog("open");
+        /// alert('@Model.StatusId')
+	       $("#exitdialog").dialog("open");
+         
 	      /*  if (!$("#exitdialog").dialog("open")) {
 	            var signoutUrl = '@Url.Action("SignOut", "Post")';
 	            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId'; //'http://wwwn.cdc.gov/epiinfo/';
@@ -437,7 +439,18 @@ function ReplaceString(string){
         <div id="exit">
             @*<button class="default exitsurvey" type="submit" id="close">Save & Close</button>*@
             <button class="default save" id ="Savebutton1" type="submit"  name="Submitbutton" value="Submit" style="width:126px;">Save & Close</button> &nbsp; &nbsp;
-            <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Delete</button>
+           
+           
+            
+
+             @if (@Model.StatusId == 1)
+                { 
+               <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Delete</button>
+                }
+            else { 
+                
+                  <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Cancel</button>
+            }
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -581,7 +594,15 @@ function ReplaceString(string){
              </div>
 		   
             <div id="exitdialog" title="Delete Record" >
+
+            @if (@Model.StatusId == 1)
+                { 
                <p style="font-size:1.20em; font-weight:600;">Are you sure you want to delete this record? </p>
+                }
+            else { 
+                
+                 <p style="font-size:1.20em; font-weight:600;">Are you sure you want to cancel these changes? </p>
+               }
                 <!--<p style="font-size:1.20em; font-weight:300;">Any unsaved changes will be lost!<br /><br /></p>
               <p style="text-align:center;">
                    <button  id="exitBtn" type="button" class="login" style="width:140px; height:30px;" onclick="">Exit Survey</button>&nbsp;
