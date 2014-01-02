@@ -435,8 +435,8 @@ function ReplaceString(string){
         </div>
         <div id="exit">
             @*<button class="default exitsurvey" type="submit" id="close">Save & Close</button>*@
-            <button class="default save" id ="Savebutton1" type="submit"  name="Submitbutton" value="Submit"> Save</button> &nbsp; &nbsp;
-            <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit"> Close</button>
+            <button class="default save" id ="Savebutton1" type="submit"  name="Submitbutton" value="Submit" style="width:126px;">Save & Close</button> &nbsp; &nbsp;
+            <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Exit</button>
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -486,7 +486,8 @@ function ReplaceString(string){
 
 			    <div id="savediv" align="center">
 			        @*<button class="default save"  type="button" id ="Savebutton" onclick="Save();" name="Savebutton" value="save"> Save & Close</button>*@
-                    <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit"> Save</button>
+                    <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit"  style="margin-right:20px;">Save</button>
+                    <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit" style="width:126px;">Save & Close</button>
 			    </div>
 				 
 			  
@@ -578,8 +579,8 @@ function ReplaceString(string){
 	            <p>Do you want to continue your session?</p>
              </div>
 		   
-            <div id="exitdialog" title="Close Record" >
-               <p style="font-size:1.20em; font-weight:600;">@*Any unsaved changes to this record will be lost.<br /> <br />*@Are you sure you want to close this record? </p>
+            <div id="exitdialog" title="Exit Record" >
+               <p style="font-size:1.20em; font-weight:600;">Any unsaved changes will be lost.<br /> <br />Are you sure you want to exit? </p>
                 <!--<p style="font-size:1.20em; font-weight:300;">Any unsaved changes will be lost!<br /><br /></p>
               <p style="text-align:center;">
                    <button  id="exitBtn" type="button" class="login" style="width:140px; height:30px;" onclick="">Exit Survey</button>&nbsp;
