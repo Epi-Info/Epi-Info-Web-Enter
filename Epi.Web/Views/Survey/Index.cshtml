@@ -41,7 +41,7 @@
 		//set the action path of the current form so when it is submitted by clicking the save button it posts to the path 
 		$("#myform")[0].action = window.location.href;
 		//detach the validation engine as we don't want to validate data on save button click
-		$('#myform').validationEngine('detach');
+	//	$('#myform').validationEngine('detach');
 		//posting the form
 		$('#myform').submit();
 		// return false;
@@ -153,7 +153,7 @@
 	    });
 
 	    $(function () {
-        //alert('@Model.StatusId');
+        
 	        $("#exitdialog").dialog({
 	            autoOpen: false,
 	            show: "blind",
@@ -195,10 +195,11 @@
 	            }, {
 	                "text": 'No',
 	                "click": function () {
+	                    //alert('@Model.StatusId');
 	                    $(this).dialog("close");
 	                    var input = $("<input>")
                        .attr("type", "hidden")
-                       .attr("name", "Close").val("Close");
+                       .attr("name", "CloseButton").val("CloseButton");
 	                    $('#myform').append($(input));
 	                    $("#myform").submit();
 	                },
@@ -256,7 +257,7 @@
 
 	        if ('@Model.StatusId' == '1') { //if clicking the save button for the first time
 	            $('#successContent').show();
-	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Your survey has been saved.<button id="copy" type="button" name="copy" class="copylink">Get Survey Link & Pass Code</button></div>')
+	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Your survey has been saved.</div>')
 
 
 
@@ -269,7 +270,7 @@
 
 
 	            $('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
-	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Your survey has been saved.<button id="copy" type="button" name="copy" class="copylink">Get Survey Link & Pass Code</button></div>')
+	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Your survey has been saved.</div>')
 	        }
 	        return true;
 	    }
@@ -486,7 +487,7 @@ function ReplaceString(string){
 
 			    <div id="savediv" align="center">
 			        @*<button class="default save"  type="button" id ="Savebutton" onclick="Save();" name="Savebutton" value="save"> Save & Close</button>*@
-                    <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit"  style="margin-right:20px;">Save</button>
+                    <button class="default save" id ="Savebutton" type="submit" onclick="Save();"  name="Savebutton" value="Submit"  style="margin-right:20px;">Save</button>
                     <button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit" style="width:126px;">Save & Close</button>
 			    </div>
 				 
