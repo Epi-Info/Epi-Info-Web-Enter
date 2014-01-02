@@ -400,7 +400,7 @@ $(document).delegate('#close', 'click', function () {
         },
 
 
-        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Survey\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to close this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
+        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Any unsaved changes will be lost.<br /> <br />Are you sure you want to exit?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
     })
 
 });
@@ -519,8 +519,8 @@ function ReplaceString(string){
       </div>
 	     <div id="exit" align="right" style="vertical-align:middle;">
         @*<button  class="MobileExitSurvey"    type="submit" id="close">Exit Survey</button>*@
-        <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" > Save&nbsp; </button>
-       <a id="close" class="exitsurvey">Close @*<img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" />*@ </a>
+        <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" > Save & Close </button>
+       <a id="close" class="exitsurvey">Exit @*<img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" />*@ </a>
        @* <a id="close" class="exitsurvey" onclick="Submit();"  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", SurveyId = Model.SurveyInfo.SurveyId })">Exit</a>*@
     </div>
     
@@ -573,7 +573,7 @@ function ReplaceString(string){
             
              <div id="nav">
                     <div id="pagesbottom">
-            <div id="prev" align="left">&nbsp;
+                            <div id="prev" align="left">&nbsp;
              @if (Model.CurrentPage != 1)
              {  
               <a  onclick="Submit();" style="" href="@Url.RouteUrl(null, new { controller = "Survey", action = "Index", responseid = Model.ResponseId, PageNumber = Model.CurrentPage - 1 })"  class="prev" title="Previous Page">&nbsp;</a> 
@@ -581,27 +581,35 @@ function ReplaceString(string){
              }
              </div>
 	 		 
-             <div id="savediv" align="center">
-             @*<a  onclick="Save();" style="" class="save" title="Click this button to finish the survey later. Use the survey link and pass code provided to return to the survey at a later time.">&nbsp;</a> *@
-             @*<button type="button"  onclick="Save();" id ="Savebutton1" name="Savebutton" value="save" data-role="button" data-theme="save1" data-inline="true" data-iconpos="notext"></button>*@
-                    @*onclick="Save();"*@
-                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Save</button>
-             </div>
+                            <div id="savediv" align="center">
+                             @*<a  onclick="Save();" style="" class="save" title="Click this button to finish the survey later. Use the survey link and pass code provided to return to the survey at a later time.">&nbsp;</a> *@
+                             @*<button type="button"  onclick="Save();" id ="Savebutton1" name="Savebutton" value="save" data-role="button" data-theme="save1" data-inline="true" data-iconpos="notext"></button>*@
+                                    @*onclick="Save();"*@
+                                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton1" value="Submit">Save</button>
+                   
+                             </div>
 
-               @if (Model.CurrentPage == Model.NumberOfPages)
-               {  
-               <!--<div id="next" align="right" style="margin-top:-8px !important;" > 
-               @*<a  name="Submitbutton" onclick="Submit();" class="submits" >Submit</a>*@
-              <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Submit</button>
-              </div>-->
-               }
-               else
-               {
-                    <div id="next" align="right">
-                    <a onclick="Submit();"  style="" href="@Url.RouteUrl(null, new { controller = "Survey", action = "Index", responseid = Model.ResponseId, PageNumber = Model.CurrentPage + 1 })" class="next" title="Next Page">&nbsp;</a> 
-                    @*<button class="next"  name="ContinueButton" id="ContinueButton" onclick="Continue();" type="button" >Continue &nbsp; </button>*@
-                    </div>
-               }
+                           @if (Model.CurrentPage == Model.NumberOfPages)
+                           {  
+                           <!--<div id="next" align="right" style="margin-top:-8px !important;" > 
+                           @*<a  name="Submitbutton" onclick="Submit();" class="submits" >Submit</a>*@
+                          <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit" >Submit</button>
+                          </div>-->
+                           }
+                           else
+                           {
+                                            <div id="next" align="right">
+                            <a onclick="Submit();"  style="" href="@Url.RouteUrl(null, new { controller = "Survey", action = "Index", responseid = Model.ResponseId, PageNumber = Model.CurrentPage + 1 })" class="next" title="Next Page">&nbsp;</a> 
+                            @*<button class="next"  name="ContinueButton" id="ContinueButton" onclick="Continue();" type="button" >Continue &nbsp; </button>*@
+                            </div>
+                           }
+                           <div style="clear:both"></div>
+                            
+               </div>
+               <div style="height:40px;">
+                            <div id="savediv" align="center" style="margin: 20px auto 0  35%; text-align:center;">               
+                                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit">Save & Close</button>
+                             </div>         
                </div>
       </div>    
 
