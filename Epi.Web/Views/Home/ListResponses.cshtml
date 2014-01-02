@@ -20,21 +20,7 @@
         <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerFName @Model.FormInfoModel.OwnerLName
         </span>
     </div>
-    <div>
-        <span>Showing 
-            @(
-            Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
-            -
-            @if (Model.CurrentPage * Model.PageSize < Model.NumberOfResponses)
-            {
-                @(Model.CurrentPage * Model.PageSize)
-            }
-            else
-            {
-                @Model.NumberOfResponses
-            }
-            of @Model.NumberOfResponses </span>
-    </div>
+    
     @*<div id="status">
                     <span>Status:</span> <span class="boldlabel">Active</span></div>
 *@
@@ -54,7 +40,22 @@
         }
     }
     <div id="NumberOfRecords" style="float: right">
-        <span>Total Records:</span> <span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses</span></div>
+        <div>
+        @*<span >Showing</span>*@
+        <span class="boldlabel" style="font-size: 14pt;">    @(
+            Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
+            -
+            @if (Model.CurrentPage * Model.PageSize < Model.NumberOfResponses)
+            {
+                @(Model.CurrentPage * Model.PageSize)
+            }
+            else
+            {
+                @Model.NumberOfResponses
+            }</span>
+           <span> of </span><span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses </span>
+    </div>
+       @* <span>Total Records:</span> <span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses</span>*@</div>
     <div style="clear: both;">
     </div>
 </div>
@@ -126,6 +127,12 @@
 
 
             //} 
+        }
+        @{
+            if (Model.NumberOfPages == 0)
+            {
+                <div class="zerorec">No records have been created.</div>
+            }
         }
     </div>
     <div id="paging">

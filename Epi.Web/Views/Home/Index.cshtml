@@ -179,7 +179,16 @@
 //    }
     
 </script>
+<script>
+    $(document).ajaxStop(function () {
 
+        var leftHeight = $("#left").height();
+        var rightHeight = $("#right").height();
+        if (leftHeight > rightHeight) { $("#right").height(leftHeight) }
+        else { $("#left").height(rightHeight) };
+    });
+
+</script>
 <div id="pageHeader">
     <div id="pageTitle">
         <h2>
@@ -190,7 +199,7 @@
     <div style="clear: both;">
     </div>
 </div>
-<div id="content" style="margin-bottom: 200px; padding-left: 10px; min-height: 375px;">
+<div id="content" style="@*margin-bottom: 200px;*@ padding-left: 10px; min-height: 375px;">
     <div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
         <span class="css3-metro-dropdown">
             <select id="dropdown-1">

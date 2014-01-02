@@ -13,7 +13,7 @@ body
 #container
  {
    height:100%;
-   padding-bottom:50px;
+  /* padding-bottom:50px;*/
     position:relative;
     background-color: #fff;
     color: #333;
@@ -21,6 +21,7 @@ body
     line-height: 130%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-width:1120px;
+    min-height:773px;
  }
  
 #header
@@ -226,9 +227,12 @@ div.recordcontentdiv
         /*max-height:650px;*/
         overflow:auto;
         background: #dfdeda;
-        padding:10px;
+        padding: 10px 0px 10px 10px;/*10px;*/
         border: 1px solid #c2c2c2;
         display: table-cell;
+        background-image: url(../images/leftbk2.png);
+        background-repeat:repeat-y;
+        min-height: 550px;
     }
     
      .left1 
@@ -249,7 +253,7 @@ div.recordcontentdiv
         -moz-column-gap:40px; /* Firefox */
         -webkit-column-gap:40px; /* Safari and Chrome */
         column-gap:40px;
-	
+	    
     }
     
     #right 
@@ -261,6 +265,7 @@ div.recordcontentdiv
         padding:10px;
         border: 1px solid #c2c2c2;
         display: table-cell;
+        min-height: 550px;
     }
     
 #left::-webkit-scrollbar, #right::-webkit-scrollbar,#recordstable::-webkit-scrollbar, #formusers::-webkit-scrollbar, #formcolumns::-webkit-scrollbar {
@@ -496,7 +501,7 @@ button.paging img
     float:right;
     text-align: right;
     vertical-align:middle;
-    padding-right: 20px;
+    /*padding-right: 20px;*/
  }
  
  #paging a, #paging span
@@ -747,6 +752,9 @@ button.paging img
 		text-align: left; 
 	}
 	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
+	#recordstable th:nth-of-type(1) { width:130px; min-width:130px; }
+	
+	div.zerorec {margin: 10px 0 0 150px; font-weight:bold; color: 3f3f3f;}
 	
 	#recordstable td:empty:before {content: " -- "; }
 	#recordstable tfoot tr td:before {vertical-align: middle;}
@@ -845,7 +853,7 @@ button.paging img
  font: 9pt;
  float: left;
  margin-top: 0px;
- width:78%;
+ width:74%;
  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
  color: #244640;
  
