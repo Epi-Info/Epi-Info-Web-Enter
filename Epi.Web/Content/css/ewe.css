@@ -972,6 +972,19 @@ margin-top: 100px;
     text-shadow:none !important;
 }
 
+.success
+ {
+ border: 1px solid #4d8000; 
+ background: #e6ffbf; 
+/* margin-bottom: 100px; 
+ margin-left: 0.5em; 
+ margin-right: 0.5em; */
+ margin: 1em;
+ padding: 10px;
+ font-size: 10pt;
+ font-weight: bold;
+ }
+
 button.edit {
    
     background-repeat: no-repeat;
