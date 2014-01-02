@@ -396,7 +396,19 @@ namespace Epi.Web.MVC.Controllers
                                 FormsAuthentication.SignOut();
 
                                 //return RedirectToAction("Index", "Final", new { surveyId = surveyInfoModel.SurveyId });
+                                //return RedirectToAction("Index", "Survey", new { responseId = responseId, PageNumber = PageNumber });
+
+                                if (!string.IsNullOrEmpty(CloseButton))
+
+                                   {
                                 return RedirectToAction("Index", "Survey", new { responseId = responseId, PageNumber = PageNumber });
+                                    }
+                                else
+                                    {
+
+                                    return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
+                                    }
+                               
                             }
                             else
                             {
