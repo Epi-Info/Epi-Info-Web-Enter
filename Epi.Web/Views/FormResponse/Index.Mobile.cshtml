@@ -99,7 +99,8 @@
                             for (int i = 0; i < Model.ResponsesList.Count(); i++)
                             {
                             @Html.Raw("<li class='mobilerow'>");
-                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + @Html.ActionLink("Edit", "index", "survey", new { responseId = Model.ResponsesList[i].Column0 }, null).ToString() + " &nbsp;&nbsp; " + @Html.ActionLink("Delete", "Delete", new { id = Model.ResponsesList[i].Column0 }) + " " + "</div></div>");
+                           <!-- @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + @Html.ActionLink("Edit", "index", "survey", new { responseId = Model.ResponsesList[i].Column0 }, null).ToString() + " &nbsp;&nbsp; " + @Html.ActionLink("Delete", "Delete", new { id = Model.ResponsesList[i].Column0 }) + " " + "</div></div>");-->
+                              @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Edit</button> &nbsp;&nbsp; " + " " + "</div></div>");
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div></div>");
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div></div>");
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div></div>");
