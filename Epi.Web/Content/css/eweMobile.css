@@ -294,6 +294,8 @@ div.MvcFieldWrapper
 
  }
  
+ #savediv .ui-btn-inner {font-size: 9pt;}
+ 
  a.prev
 {
     background-image: url('../images/prev1.png');
@@ -833,11 +835,33 @@ a.backlink
 
  #recordstable a, #recordstable span 
  {
-    width: 80px;
-    height: 35px;
+   /*width: 80px;*/
+    /*height: 35px;*/
     padding: 3px 4px ;
     text-decoration: none;
  }
+ /*For Edit & Delete buttons*/
+ .mobilevalue span
+{
+    margin: 0 auto; 
+    cursor: pointer; 
+    vertical-align:middle;
+    color:#fff;
+    border: none !important;
+    background: none !important;
+    font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.mobilevalue span {background: none !important;}
+
+ .mobilevalue span
+ {
+   /* width: 60px !important;*/
+    height: 27px !important;
+    padding: 3px 7px 3px 4px !important;
+    text-decoration: none;
+ }
+ /**/
  
  #pager {float:right; margin-top: 10px;}
  #pager:after {clear:both;}
