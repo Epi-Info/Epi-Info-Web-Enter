@@ -46,13 +46,19 @@ namespace Epi.Web.MVC
                "Home/ReadResponseInfo", // URL with parameters
                new { controller = "Home", action = "ReadResponseInfo", formid = UrlParameter.Optional }
            ); // Parameter defaults
-
             routes.MapRoute
                (
                    null, // Route name
                    "Home/Edit", // URL with parameters
                    new { controller = "Home", action = "Edit", ResId = UrlParameter.Optional }
                ); 
+
+            routes.MapRoute
+            (
+                null, // Route name
+                "Home/Delete/{ResponseId}", // URL with parameters
+                new { controller = "Home", action = "Delete", ResponseId = UrlParameter.Optional }
+            );
 
             routes.MapRoute
             (
@@ -67,16 +73,12 @@ namespace Epi.Web.MVC
                 "Home/Index/{surveyid}/{AddNewFormId}", // URL with parameters
                 new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, AddNewFormId = UrlParameter.Optional }
             ); // Parameter defaults
-
-
             routes.MapRoute
           (
               null, // Route name
               "Home/Index/{surveyid}/{EditForm}", // URL with parameters
               new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, EditForm = UrlParameter.Optional }
           ); // Parameter defaults
-
-
 
             routes.MapRoute
             (
@@ -118,7 +120,7 @@ namespace Epi.Web.MVC
                    new { controller = "Survey", action = "Delete", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
                );
 
-          
+           
 
             routes.MapRoute
                 (
@@ -127,7 +129,6 @@ namespace Epi.Web.MVC
                     new { controller = "Survey", action = "Index", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
                 ); // Parameter defaults
 
-            
 
 
             routes.MapRoute
