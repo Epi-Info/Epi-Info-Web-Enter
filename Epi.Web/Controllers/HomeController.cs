@@ -239,7 +239,6 @@ namespace Epi.Web.MVC.Controllers
 
             return result;
             }
-
         //[HttpPost]
         //public ActionResult Index(List<FormInfoModel> model) {
         //    return View("ListResponses", model);
@@ -266,14 +265,16 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpPost]
 
-        public void Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
+        public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
 
-            _isurveyFacade.DeleteResponse(SARequest);
+            SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
+
+            return Json(string.Empty);
 
 
         }
@@ -557,7 +558,7 @@ namespace Epi.Web.MVC.Controllers
 
         private int ReadPageSize() 
         {
-            return Convert.ToInt16(WebConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"].ToString());
+            return Convert.ToInt16(WebConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"].ToString()); 
         }
 
     //  [HttpPost]

@@ -1,4 +1,34 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+
+    $(document).on("click", "button[name='DeleteButton']", function (e) {
+        e.preventDefault();
+        //alert(22);
+        $(this).simpledialog({
+            'mode': 'blank',
+            'prompt': false,
+            'forceInput': false,
+            'useModal': true,
+            'buttons': {
+                'OK': {
+                    click: function () {
+                        $('#dialogoutput').text('OK');
+                        alert(test);
+                    }
+                }
+
+            },
+
+
+            'fullHTML': "<div id=\"exitdialog\" title=\"Delete Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to delete this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
+        })
+
+        //});
+    });
+</script>
+
 <div id="pageHeader">
     <div id="pageTitle">
         <h2>
@@ -100,7 +130,7 @@
                             {
                             @Html.Raw("<li class='mobilerow'>");
                            <!-- @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + @Html.ActionLink("Edit", "index", "survey", new { responseId = Model.ResponsesList[i].Column0 }, null).ToString() + " &nbsp;&nbsp; " + @Html.ActionLink("Delete", "Delete", new { id = Model.ResponsesList[i].Column0 }) + " " + "</div></div>");-->
-                              @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Edit</button> &nbsp;&nbsp; " + " " + "</div></div>");
+                              @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Edit</button> &nbsp;&nbsp; " + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='DeleteButton'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Delete</button> &nbsp;&nbsp; " + " " + "</div></div>");
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div></div>");
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div></div>");
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div></div>");

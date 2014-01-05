@@ -1,7 +1,4 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
-
-
-
 <div id="formtitle">
     <h2 class="surveyTitle">@Model.FormInfoModel.FormName
     </h2>
@@ -50,7 +47,7 @@
             {
                  @*<span >Showing</span>*@
         <span class="boldlabel" style="font-size: 14pt;">    @(
- Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
+            Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
             -
             @if (Model.CurrentPage * Model.PageSize < Model.NumberOfResponses)
             {
@@ -122,8 +119,9 @@
             columns: webGrid.Columns(
                    webGrid.Column(header: "",
                                     format: (item) => new
-                                                                                               HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Edit</button> &nbsp;&nbsp; " +
-                                         Html.ActionLink("Delete", "Delete", new { ID = item.Column0 }).ToString()
+                                                                                               HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Edit</button> " +
+                                             //Html.ActionLink("Delete", "Delete", "Home", new { ResponseId = item.Column0 }, new {@id=item.Column0, @class = "deletebtn" }).ToString()
+                                             "<button name='DeleteButton' type='submit'  class='default delete'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
                                   )
                     ),
                                  webGrid.Column("Column1", Model.Columns[0].Value),
@@ -138,6 +136,8 @@
 
             //} 
         }
+        @Html.Hidden("hidFormId", @Model.FormInfoModel.FormId)
+        @Html.Hidden("hidPageNumber", @Model.CurrentPage)
         @{
             if (Model.NumberOfPages == 0)
             {
@@ -153,7 +153,6 @@
             <div id='pager2'>
                 @*@Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
                 @Html.Partial("PagerPartial", Model)
-                
             </div>  
             }
 
