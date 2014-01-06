@@ -119,9 +119,9 @@
             columns: webGrid.Columns(
                    webGrid.Column(header: "",
                                     format: (item) => new
-                                                                                               HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Edit</button> " +
+                                                                                               HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
                                              //Html.ActionLink("Delete", "Delete", "Home", new { ResponseId = item.Column0 }, new {@id=item.Column0, @class = "deletebtn" }).ToString()
-                                             "<button name='DeleteButton' type='submit'  class='default delete'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
+                                             "<button name='DeleteButton' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
                                   )
                     ),
                                  webGrid.Column("Column1", Model.Columns[0].Value),
