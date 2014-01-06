@@ -159,13 +159,30 @@
 	            show: "blind",
 	            hide: "blind",
 	            resizable: false,
-	            height: 190,
+	            height: 150,
 	            width: 420,
 	            modal: true,
 	            buttons: [{
 
-	                "text": 'Yes',
+	                "text": 'Save',
 	                "click": function () {
+	                    //alert('@Model.StatusId');
+	                    $(this).dialog("close");
+	                    var input = $("<input>")
+                       .attr("type", "hidden")
+                       .attr("name", "CloseButton").val("CloseButton");
+	                    $('#myform').append($(input));
+	                    $("#myform").submit();
+
+
+	                },
+	                "class": 'dialogbtn'
+
+	            }, {
+	                "text": 'Dont Save',
+	                "click": function () {
+	                   
+
 	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
 	                    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
 	                    $.ajax({
@@ -187,21 +204,15 @@
 	                        alert('failed');
 	                    }
 
-
-
 	                },
 	                "class": 'dialogbtn'
 
 	            }, {
-	                "text": 'No',
+	                "text": 'Cancel',
 	                "click": function () {
 	                    //alert('@Model.StatusId');
 	                    $(this).dialog("close");
-	                    var input = $("<input>")
-                       .attr("type", "hidden")
-                       .attr("name", "CloseButton").val("CloseButton");
-	                    $('#myform').append($(input));
-	                    $("#myform").submit();
+	                    
 	                },
 	                "class": 'dialogbtn'
 
@@ -439,18 +450,7 @@ function ReplaceString(string){
         <div id="exit">
             @*<button class="default exitsurvey" type="submit" id="close">Save & Close</button>*@
             <button class="default save" id ="Savebutton1" type="submit"  name="Submitbutton" value="Submit" style="width:126px;">Save & Close</button> &nbsp; &nbsp;
-           
-           
-            
-
-             @if (@Model.StatusId == 1)
-                { 
-               <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Delete</button>
-                }
-            else { 
-                
-                  <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Cancel</button>
-            }
+            <button class="default exitsurvey" id="Close" type="submit"  name="Submitbutton" value="Submit">Exit</button>  
         </div>
         <div style="clear:both;"></div>
     </div>
@@ -593,15 +593,15 @@ function ReplaceString(string){
 	            <p>Do you want to continue your session?</p>
              </div>
 		   
-            <div id="exitdialog" title="Delete Record" >
+            <div id="exitdialog" title="Exit Record" >
 
             @if (@Model.StatusId == 1)
                 { 
-               <p style="font-size:1.20em; font-weight:600;">Are you sure you want to delete this record? </p>
+               <p style="font-size:1.20em; font-weight:600;">Do you want to save the record before exiting?</p>
                 }
             else { 
                 
-                 <p style="font-size:1.20em; font-weight:600;">Are you sure you want to cancel these changes? </p>
+                 <p style="font-size:1.20em; font-weight:600;">Do you want to update the record before exiting?</p>
                }
                 <!--<p style="font-size:1.20em; font-weight:300;">Any unsaved changes will be lost!<br /><br /></p>
               <p style="text-align:center;">

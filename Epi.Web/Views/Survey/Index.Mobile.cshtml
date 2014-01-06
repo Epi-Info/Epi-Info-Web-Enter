@@ -400,7 +400,7 @@ $(document).delegate('#close', 'click', function () {
         },
 
 
-        'fullHTML': "<div id=\"exitdialog\" title=\"Delete Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to delete this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
+        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to save the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">Don't Save</a> <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">Cancel</a></div></p>"
     })
 
 });
@@ -423,7 +423,7 @@ $(document).delegate('#close1', 'click', function () {
         },
 
 
-        'fullHTML': "<div id=\"exitdialog\" title=\"Delete Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to cancel these changes?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
+        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to update the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">Don't Save</a> <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">Cancel</a></div></p>"
     })
 
 });  
@@ -547,11 +547,11 @@ function ReplaceString(string){
        
      @if (@Model.StatusId == 1)
             {
-               <a id="close" class="exitsurvey">Delete</a>
+               <a id="close" class="exitsurvey">Exit</a>
             }
         else
             {
-             <a id="close1" class="exitsurvey">Cancel</a>
+             <a id="close1" class="exitsurvey">Exit</a>
 
             }
     </div>
