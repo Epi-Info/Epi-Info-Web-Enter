@@ -617,8 +617,8 @@ function ReplaceString(string){
                              @*<a  onclick="Save();" style="" class="save" title="Click this button to finish the survey later. Use the survey link and pass code provided to return to the survey at a later time.">&nbsp;</a> *@
                              @*<button type="button"  onclick="Save();" id ="Savebutton1" name="Savebutton" value="save" data-role="button" data-theme="save1" data-inline="true" data-iconpos="notext"></button>*@
                                     @*onclick="Save();"*@
-                                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton1" value="Submit">Save</button>
-                   
+                                    <button data-role="button" data-theme="submit1" data-iconpos="notext" type="submit"  name="Submitbutton1" value="Submit"><img src="~/Content/images/saveset.png" alt="Save"/>Save</button>
+                                    <button data-role="button" data-theme="submit12" data-inline="true" type="submit"  name="Submitbutton" value="Submit">Save & Close</button>
                              </div>
 
                            @if (Model.CurrentPage == Model.NumberOfPages)
@@ -640,7 +640,7 @@ function ReplaceString(string){
                </div>
                <div style="height:40px;">
                             <div id="savediv" align="center" style="margin: 20px auto 0  35%; text-align:center;">               
-                                    <button data-role="button" data-theme="submit1" data-inline="true" type="submit"  name="Submitbutton" value="Submit">Save & Close</button>
+                                    
                              </div>         
                </div>
       </div>    

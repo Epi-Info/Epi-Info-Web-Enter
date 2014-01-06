@@ -259,14 +259,14 @@ div.MvcFieldWrapper
 #prev
  {
  float: left;
- width: 35%;
+ width: 30%;
  vertical-align:middle;
  }
 
 #savediv
  {
  float: left;
- width: 15%;
+ /*width: 20%;*/
  margin: 0 auto;
  vertical-align:middle;
  margin-top: -8px;
@@ -275,11 +275,11 @@ div.MvcFieldWrapper
 #next
  {
  float: right;
- width: 38%;
+ width: 20%;
  vertical-align:middle;
  }
  
- a.prev, a.next, a.save, .ui-btn-up-submit1
+ a.prev, a.next, a.save, .ui-btn-up-submit1, .ui-btn-up-submit12
  {
     cursor: pointer;
     border: 1px solid #1f3b53;
@@ -294,7 +294,12 @@ div.MvcFieldWrapper
 
  }
  
- #savediv .ui-btn-inner {font-size: 9pt;}
+ .ui-btn-up-submit1 {background-image: url('../images/saveset.png'); background-repeat:no-repeat; background-size: 18px 18px; background-position:center center; height:41px; width: 35px; display: inline-block;}
+ .ui-btn-up-submit12 {height:41px; width: 80px; display:inline-block;}
+ 
+ #savediv .ui-btn-inner {font-size: 9pt; padding: .8em 5px;}
+ 
+
  
  a.prev
 {
@@ -318,7 +323,7 @@ a.next
     vertical-align:middle;
 }
 
-.ui-btn-up-submit1, .ui-btn-hover-submit1
+.ui-btn-up-submit1, .ui-btn-hover-submit1, .ui-btn-up-submit12, .ui-btn-hover-submit12
  {
     -moz-border-radius: 0px;
     -webkit-border-radius: 0px;
