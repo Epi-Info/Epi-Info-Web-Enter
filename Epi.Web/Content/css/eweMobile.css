@@ -728,6 +728,17 @@ div.ui-datebox-controls .ui-body-e {border: 1px solid #1f3b53;}
     text-shadow:none !important;
 }
 
+#attention
+ {
+ border: 1px solid #ffca0a; 
+ background: #fff5c1; 
+ margin-bottom: 10px; 
+ margin-left: 0.5em; 
+ margin-right: 0.5em; 
+ padding: 10px;
+ font-size: 10pt;
+ font-weight: bold;
+ }
 a.login:hover
  {
  cursor: pointer;
