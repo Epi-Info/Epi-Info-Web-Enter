@@ -111,6 +111,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
+        int UserId = 2;
         if (!string.IsNullOrEmpty(EditForm))
                 {
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
@@ -192,7 +193,7 @@ namespace Epi.Web.MVC.Controllers
                     ContextDetailList = Epi.Web.MVC.Utility.SurveyHelper.GetContextDetailList(FunctionObject_B);
                     form = Epi.Web.MVC.Utility.SurveyHelper.UpdateControlsValuesFromContext(form, ContextDetailList);
 
-                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0);
+                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0, UserId);
                 }
                 catch (Exception ex)
                 {
@@ -204,7 +205,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);//, RequiredList);
                 form.RequiredFieldsList = RequiredList;
-                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0);
+                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, UserId);
             }
 
             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
@@ -228,12 +229,14 @@ namespace Epi.Web.MVC.Controllers
             string ChildId = Guid.NewGuid().ToString();
             surveyAnswerDTO.ParentRecordId = surveyAnswerDTO.ResponseId;
             surveyAnswerDTO.ResponseId = ChildId;
+            surveyAnswerDTO.Status = 1;
             SurveyAnswerRequest.SurveyAnswerList.Add(surveyAnswerDTO);
             string result = ChildId;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             SurveyAnswerRequest.Criteria.UserId = 2;
             SurveyAnswerRequest.RequestId = ChildId;
+            
             SurveyAnswerRequest.Action = "Create";
             SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
 
