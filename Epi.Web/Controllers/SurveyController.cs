@@ -102,7 +102,7 @@ namespace Epi.Web.MVC.Controllers
                             form.Validate(form.RequiredFieldsList);
                         }
                         surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
-                        this.SetCurrentPage(surveyAnswerDTO, PageNumber);
+                      //  this.SetCurrentPage(surveyAnswerDTO, PageNumber);
                         //PassCode start
                         if (IsMobileDevice)
                         {
@@ -147,6 +147,7 @@ namespace Epi.Web.MVC.Controllers
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
+            int UserId = 2;
             string responseId = surveyAnswerModel.ResponseId;
             bool IsMobileDevice = false;
             IsMobileDevice = this.Request.Browser.IsMobileDevice;
@@ -277,7 +278,7 @@ namespace Epi.Web.MVC.Controllers
 
                         form = SetLists(form);
 
-                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
+                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
 
 
@@ -294,7 +295,8 @@ namespace Epi.Web.MVC.Controllers
 
                             form = SetLists(form);
 
-                            IsSaved = form.IsSaved = true;
+                          //  IsSaved = form.IsSaved = true;
+                            form.IsSaved = true;
                             form.StatusId = SurveyAnswer.Status;
 
                             // Pass Code Logic  start 
@@ -315,7 +317,7 @@ namespace Epi.Web.MVC.Controllers
                                 form.PassCode = AuthenticationResponse.PassCode;
                             }
                             // Pass Code Logic  end 
-                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
+                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
                             TempData["Width"] = form.Width + 5;
                             return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
@@ -328,7 +330,7 @@ namespace Epi.Web.MVC.Controllers
 
                             form = SetLists(form);
 
-                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
+                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
                             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
@@ -373,7 +375,7 @@ namespace Epi.Web.MVC.Controllers
                                         TempData["isredirect"] = "true";
                                         TempData["Width"] = form.Width + 5;
                                         //  return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
-                                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, i);
+                                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, i, UserId);
                                         return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = responseId, PageNumber = i.ToString() });
                                     }
 
@@ -392,7 +394,7 @@ namespace Epi.Web.MVC.Controllers
                                 SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
                                 //IsSubmited = true;//survey has been submited this will change the survey status to 3 - Completed
                                 IsSaved = true;
-                                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
+                                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
                                 FormsAuthentication.SignOut();
 
                                 //return RedirectToAction("Index", "Final", new { surveyId = surveyInfoModel.SurveyId });
@@ -401,7 +403,8 @@ namespace Epi.Web.MVC.Controllers
                                 if (!string.IsNullOrEmpty(CloseButton))
 
                                    {
-                                return RedirectToAction("Index", "Survey", new { responseId = responseId, PageNumber = PageNumber });
+                               // return RedirectToAction("Index", "Survey", new { responseId = responseId, PageNumber = PageNumber });
+                                   return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
                                     }
                                 else
                                     {
@@ -426,7 +429,7 @@ namespace Epi.Web.MVC.Controllers
 
                                 form = SetLists(form);
 
-                                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber);
+                                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
                                 SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
                                 form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
@@ -619,7 +622,7 @@ namespace Epi.Web.MVC.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult UpdateResponseXml(string NameList, string Value, string responseId)
         {
-
+        int UserId = 2;
             try
             {
                 if (!string.IsNullOrEmpty(NameList))
@@ -648,7 +651,7 @@ namespace Epi.Web.MVC.Controllers
 
                             formRs = Epi.Web.MVC.Utility.SurveyHelper.UpdateControlsValues(formRs, Name, Value);
 
-                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, formRs, SurveyAnswer, false, false, i);
+                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, formRs, SurveyAnswer, false, false, i, UserId);
 
                         }
                     }
@@ -666,6 +669,7 @@ namespace Epi.Web.MVC.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult SaveSurvey(string Key, int Value, string responseId)
         {
+        int UserId = 2;
             try
             {
                 bool IsMobileDevice = false;
@@ -689,7 +693,7 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, false, IsSaved, PageNumber);
+                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, false, IsSaved, PageNumber, UserId);
 
                 return Json(true);
             }

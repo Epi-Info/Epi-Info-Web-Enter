@@ -124,7 +124,28 @@ namespace Epi.Web.BLL
         public SurveyResponseBO UpdateSurveyResponse(SurveyResponseBO pValue)
         {
             SurveyResponseBO result = pValue;
-            this.SurveyResponseDao.UpdateSurveyResponse(pValue);
+            //Check if this respose has prent
+           string ParentId = SurveyResponseDao.GetResponseParentId(pValue.ResponseId);
+           if (!string.IsNullOrEmpty(ParentId) && pValue.Status == 2)
+                   {
+                     //read the child 
+
+                   SurveyResponseBO Child = this.SurveyResponseDao.GetSingleResponse(pValue.ResponseId);
+                   // read the parent
+                   SurveyResponseBO Parent = this.SurveyResponseDao.GetSingleResponse(ParentId);
+                   //copy and update
+                   Parent.XML = Child.XML;
+                  this.SurveyResponseDao.UpdateSurveyResponse(Parent);
+                  result = Parent;
+                   // Set  child recod UserId
+                  Child.UserId = pValue.UserId;
+                   // delete the child
+                   this.DeleteSurveyResponse(Child);
+                  
+                   }
+               else{
+                      this.SurveyResponseDao.UpdateSurveyResponse(pValue);
+                   }
             return result;
         }
 
@@ -175,48 +196,7 @@ namespace Epi.Web.BLL
             return result;
             }
 
-        public SurveyResponseBO GetSurveyResponseByUserId(SurveyResponseBO request)
-            {
-           
-          //  SurveyResponseBO result = new SurveyResponseBO() ;//= this.SurveyResponseDao.GetSurveyResponse(pId, UserPublishKey);
-             
-
-            //Read parent recored 
-            List<string> ResponseIdList = new List<string>();
-         //   request.ResponseId
-           // List<SurveyResponseBO> ParentResponse = this.SurveyResponseDao.GetSurveyResponse(ResponseIdList, request.UserPublishKey);
-
-            SurveyResponseBO ParentResponse = this.SurveyResponseDao.GetFormResponseByResponseId(request.ResponseId);
-
-
-            //check if pending record edit 
-
-
-
-
-
-            //set values for RecordParentId and DateCreated 
-            SurveyResponseBO ChildResponse = new SurveyResponseBO();
-
-            ChildResponse = ParentResponse; //Create a copy of the parent record
-
-            ChildResponse.ParentRecordId = request.ResponseId;
-            ChildResponse.ResponseId = Guid.NewGuid().ToString();
-            ChildResponse.DateCreated = DateTime.Now;
-            ChildResponse.UserId = request.UserId;
-            //Insert child Response 
-            try
-                {
-                this.InsertSurveyResponse(ChildResponse);
-                }
-            catch (Exception ex)
-                {
-                   throw ex;
-                }
-            //Insert ResponseUser
-
-            return ChildResponse;
-            }
+        
        
 
     }

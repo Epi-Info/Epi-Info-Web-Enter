@@ -185,6 +185,7 @@ namespace Epi.Web.EF
                  DateCreated = entity.DateCreated,
                  IsDraftMode = entity.IsDraftMode ,
                 IsLocked = entity.IsLocked,
+                ParentRecordId =  entity.ParentRecordId.ToString(),
             };
         }
 
