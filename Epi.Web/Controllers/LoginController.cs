@@ -32,15 +32,15 @@ namespace Epi.Web.MVC.Controllers
        [HttpGet]
         public ActionResult Index(string responseId, string ReturnUrl)
         {
-        string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        ViewBag.Version = version;
+        //string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        //ViewBag.Version = version;
                
-           //get the responseId
-            responseId = GetResponseId(ReturnUrl);
-            //get the surveyId
-             string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
-             //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
-             ViewBag.SurveyId = SurveyId;
+        //   //get the responseId
+        //    responseId = GetResponseId(ReturnUrl);
+        //    //get the surveyId
+        //     string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
+        //     //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
+        //     ViewBag.SurveyId = SurveyId;
             return View("Index");
         }
        [HttpPost]
