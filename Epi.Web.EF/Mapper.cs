@@ -247,8 +247,8 @@ namespace Epi.Web.EF
                 DateUpdated = pBO.DateUpdated,
                 DateCompleted = pBO.DateCompleted,
                 DateCreated = pBO.DateCreated,
-                IsDraftMode = pBO.IsDraftMode
-
+                IsDraftMode = pBO.IsDraftMode,
+                ParentRecordId = new Guid(pBO.ParentRecordId)
             };
         }
         internal static UserAuthenticationResponseBO ToAuthenticationResponseBO(UserAuthenticationRequestBO AuthenticationRequestBO)
