@@ -48,7 +48,7 @@ namespace Epi.Web.MVC.Utility
         public static void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel,MvcDynamicForms.Form form, SurveyAnswerRequest surveyAnswerRequest,
                                                              SurveyResponseXML surveyResponseXML,
                                                             ISurveyAnswerRepository iSurveyAnswerRepository,
-                                                             SurveyAnswerResponse surveyAnswerResponse, string responseId, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved,int  PageNumber)
+                                                             SurveyAnswerResponse surveyAnswerResponse, string responseId, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved,int  PageNumber,int UserId)
         {
             // 1 Get the record for the current survey response
             // 2 update the current survey response
@@ -159,6 +159,7 @@ namespace Epi.Web.MVC.Utility
             surveyAnswerRequest.SurveyAnswerList[0].XML = Xdoc.ToString();
             /////Update Survey Mode ////////////////////
             surveyAnswerRequest.SurveyAnswerList[0].IsDraftMode = surveyAnswerDTO.IsDraftMode;
+            surveyAnswerRequest.Criteria.UserId = UserId;
             iSurveyAnswerRepository.SaveSurveyAnswer(surveyAnswerRequest);
           
         }

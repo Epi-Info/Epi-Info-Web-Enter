@@ -525,7 +525,74 @@ namespace Epi.Web.EF
 
             return result;
             }
-       
+
+        public string GetResponseParentId(string ResponseId)
+            {
+
+        SurveyResponseBO result = new SurveyResponseBO();
+
+        try
+            {
+
+            Guid Id = new Guid(ResponseId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+
+
+                SurveyResponse Response = Context.SurveyResponses.ToList().Where(x => x.ResponseId == Id).First();
+                result = (Mapper.Map(Response));
+
+               }
+
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+        if (!string.IsNullOrEmpty(result.ParentRecordId))
+                {
+                return result.ParentRecordId;
+                }
+            else{
+                return "";
+                }
+        
+            }
+
+        public SurveyResponseBO GetSingleResponse(string ResponseId)
+            {
+            SurveyResponseBO result = new SurveyResponseBO();
+
+            try
+                {
+
+                Guid Id = new Guid(ResponseId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+
+                    SurveyResponse Response = Context.SurveyResponses.ToList().Where(x => x.ResponseId == Id).First();
+                    result = (Mapper.Map(Response));
+
+
+
+
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+
+
+            return result;
+            
+            }
     }
 
     

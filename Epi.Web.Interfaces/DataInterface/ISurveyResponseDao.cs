@@ -87,5 +87,7 @@ namespace Epi.Web.Interfaces.DataInterfaces
 
          List<SurveyResponseBO> GetFormResponseByFormId(string FormId,int PageNumber, int PageSize);
          int GetFormResponseCount(string FormId);
+         string GetResponseParentId(string ResponseId);
+         SurveyResponseBO GetSingleResponse(string ResponseId);
     }
 }
