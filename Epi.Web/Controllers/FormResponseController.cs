@@ -175,6 +175,7 @@ namespace Epi.Web.MVC.Controllers
         if (!string.IsNullOrEmpty(EditForm))
             {
             Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+            surveyAnswerDTO.Status = 1;
             string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
             return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1 });
             }

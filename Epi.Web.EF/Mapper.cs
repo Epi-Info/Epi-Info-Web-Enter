@@ -172,21 +172,24 @@ namespace Epi.Web.EF
         /// <returns>A SurveyInfoBO business object.</returns>
         internal static SurveyResponseBO Map(SurveyResponse entity)
         {
+        SurveyResponseBO SurveyResponseBO = new SurveyResponseBO();
            
-            return new SurveyResponseBO
-            {
-                SurveyId = entity.SurveyId.ToString(),
-                ResponseId = entity.ResponseId.ToString(),
-                XML = entity.ResponseXML,
-                Status = entity.StatusId,
-                 DateUpdated = entity.DateUpdated,
-                DateCompleted = entity.DateCompleted,
-                TemplateXMLSize = (long)entity.ResponseXMLSize,
-                 DateCreated = entity.DateCreated,
-                 IsDraftMode = entity.IsDraftMode ,
-                IsLocked = entity.IsLocked,
-                ParentRecordId =  entity.ParentRecordId.ToString(),
-            };
+                SurveyResponseBO.SurveyId = entity.SurveyId.ToString();
+                SurveyResponseBO.ResponseId = entity.ResponseId.ToString();
+                SurveyResponseBO.XML = entity.ResponseXML;
+                SurveyResponseBO.Status = entity.StatusId;
+                SurveyResponseBO.DateUpdated = entity.DateUpdated;
+                SurveyResponseBO.DateCompleted = entity.DateCompleted;
+                SurveyResponseBO.TemplateXMLSize = (long)entity.ResponseXMLSize;
+                SurveyResponseBO.DateCreated = entity.DateCreated;
+                SurveyResponseBO.IsDraftMode = entity.IsDraftMode ;
+                SurveyResponseBO.IsLocked = entity.IsLocked;
+            if (entity.ParentRecordId != null)
+                {
+                        SurveyResponseBO.ParentRecordId = entity.ParentRecordId.ToString();
+                }
+            
+            return SurveyResponseBO;
         }
 
         internal static List<SurveyResponseBO> Map(List<SurveyResponse> entities)
