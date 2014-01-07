@@ -237,19 +237,24 @@ namespace Epi.Web.EF
         /// <returns>A SurveyMetaData entity.</returns>
         internal static SurveyResponse ToEF(SurveyResponseBO pBO)
         {
-            return new SurveyResponse
-            {
-                SurveyId = new Guid(pBO.SurveyId),
-                ResponseId = new Guid(pBO.ResponseId),
-                ResponseXML = pBO.XML,
-                StatusId = pBO.Status,
-                 ResponseXMLSize = pBO.TemplateXMLSize,
-                DateUpdated = pBO.DateUpdated,
-                DateCompleted = pBO.DateCompleted,
-                DateCreated = pBO.DateCreated,
-                IsDraftMode = pBO.IsDraftMode,
-                ParentRecordId = new Guid(pBO.ParentRecordId)
-            };
+
+                SurveyResponse SurveyResponse = new SurveyResponse();
+             
+                SurveyResponse.SurveyId = new Guid(pBO.SurveyId);
+                SurveyResponse.ResponseId = new Guid(pBO.ResponseId);
+                SurveyResponse.ResponseXML = pBO.XML;
+                SurveyResponse.StatusId = pBO.Status;
+                SurveyResponse.ResponseXMLSize = pBO.TemplateXMLSize;
+                SurveyResponse.DateUpdated = pBO.DateUpdated;
+                SurveyResponse.DateCompleted = pBO.DateCompleted;
+                SurveyResponse.DateCreated = pBO.DateCreated;
+                SurveyResponse.IsDraftMode = pBO.IsDraftMode;
+                
+                if (!string.IsNullOrEmpty(pBO.ParentRecordId))
+                {
+                SurveyResponse.ParentRecordId = new Guid(pBO.ParentRecordId);
+                }
+               return  SurveyResponse;
         }
         internal static UserAuthenticationResponseBO ToAuthenticationResponseBO(UserAuthenticationRequestBO AuthenticationRequestBO)
         {
