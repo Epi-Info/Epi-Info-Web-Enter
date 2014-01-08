@@ -1,11 +1,12 @@
 ﻿@model Epi.Web.MVC.Models.FormResponseInfoModel
 
 <script type="text/javascript">
-    //$(document).ready(function () {
 
-    $(document).on("click", "button[name='DeleteButton']", function (e) {
+    //Following code prevents the default behav of DeleteButton, sets the value of hidden field to the value of button click(ResponseId).
+//displays a dialog, on confirmation deletes the row through ajax call and refreshes the page.
+    $(document).delegate("button[name='DeleteButton']", 'click', function (e) {
         e.preventDefault();
-        //alert(22);
+        $("input[id=hidSelectedResponseId]").val($(this).val());
         $(this).simpledialog({
             'mode': 'blank',
             'prompt': false,
@@ -22,11 +23,37 @@
             },
 
 
-            'fullHTML': "<div id=\"exitdialog\" title=\"Delete Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to delete this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' onclick=\"Submit();\">No</a></div></p>"
+            'fullHTML': "<div id=\"exitdialog\" title=\"Delete Record\" ><p id='simpletext' style=\"font-size:1.20em; font-weight:400;\">Are you sure you want to delete this record?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a id='simpleyes' onclick ='ExitSurvey();'  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Yes</a>        <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' \">No</a></div></p>"
         })
 
-        //});
+
     });
+
+    
+
+        function ExitSurvey() {
+            var signoutUrl = '@Url.Action("Delete", "FormResponse")' + '?ResponseId=' + $("input[id=hidSelectedResponseId]").val();
+            $.ajax({
+                url: signoutUrl,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                dataType: "json",
+                async: false,
+                success: successFunc,
+                error: errorFunc
+                                    });
+
+
+        }
+
+        function successFunc() {
+            window.location.href = window.location.href; // homePageUrl;
+        }
+
+        function errorFunc(data) {
+            alert('failed');
+        }
+
 </script>
 
 <div id="pageHeader">
@@ -150,28 +177,9 @@
                           
                     </div>
                 </div>
-    
+    @Html.Hidden("hidSelectedResponseId");
     
             }
         </div>
     </div>
 </div>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script>
-<script type="text/javascript">//<![CDATA[
-    //    $(window).load(function () {
-    //        //var trainingInstanceIds = [1, 2, 3, 4, 5, 6];
-    ////        var trainingInstanceIds = new Array();
-    ////        trainingInstanceIds[0] = "Action";
-    ////        trainingInstanceIds[1] = "CaseID";
-    ////        trainingInstanceIds[2] = "DateofInterview";
-    ////        trainingInstanceIds[3] = "FirstName";
-    ////        trainingInstanceIds[4] = "LastName";
-    ////        trainingInstanceIds[5] = "Sex";
-    // alert();
-    //       
-    //        $('.second td').attr('title', function (index, attr) {
-    //            return trainingInstanceIds[$(this).index()];
-    //        });
-    //    });//]]>  
-
-</script>

@@ -59,7 +59,12 @@ namespace Epi.Web.MVC
                 "Home/Delete/{ResponseId}", // URL with parameters
                 new { controller = "Home", action = "Delete", ResponseId = UrlParameter.Optional }
             );
-
+            routes.MapRoute
+            (
+                null, // Route name
+                "FormResponse/Delete/{ResponseId}", // URL with parameters
+                new { controller = "FormResponse", action = "Delete", ResponseId = UrlParameter.Optional }
+            );
             routes.MapRoute
             (
                 null, // Route name
