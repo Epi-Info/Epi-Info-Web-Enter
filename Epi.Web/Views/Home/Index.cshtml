@@ -47,20 +47,21 @@
                         url: '@Url.Action("Delete","Home")' + '?ResponseId=' + $("#exitdialog").data('ResponseId'),
                         type: 'POST',
                         contentType: 'application/json; charset=utf-8',
-                        success: successFunc
+                        success: successFunc,
+                        error: errorFunc
                     });
 
                     $.ajaxSetup({ cache: false });
 
                     function successFunc(data, status) {
-                        alert('Row Deleted');
-
+                        $("#exitdialog").dialog("close");
                         ReadResponses($('#hidFormId').val(), $('#hidPageNumber').val());
                     }
 
                     function errorFunc() {
                         alert('error');
                     }
+                  
                 },
                 "class": 'dialogbtn'
 
@@ -78,7 +79,7 @@
 
         $(document).on("click", "button[name='DeleteButton']", function (e) {
             e.preventDefault();
-                        $("#exitdialog")
+            $("#exitdialog")
                         .data('ResponseId', $(this).attr("value"))
                         .dialog("open");
         });

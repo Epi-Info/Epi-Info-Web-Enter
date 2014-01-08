@@ -236,7 +236,6 @@ namespace Epi.Web.MVC.Controllers
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             SurveyAnswerRequest.Criteria.UserId = 2;
             SurveyAnswerRequest.RequestId = ChildId;
-            
             SurveyAnswerRequest.Action = "Create";
             SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
 
@@ -268,13 +267,19 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
+        /// <summary>
+        /// Following Action method takes ResponseId as a parameter and deletes the response.
+        /// For now it returns nothing as a confirmation of deletion, we may add some error/success
+        /// messages later. TBD
+        /// </summary>
+        /// <param name="ResponseId"></param>
+        /// <returns></returns>
         [HttpPost]
-
-        public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
+        public ActionResult Delete(string ResponseId)
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
-            SARequest.Criteria.UserId = 2;
+            SARequest.Criteria.UserId = 2; //TBD
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
@@ -282,31 +287,6 @@ namespace Epi.Web.MVC.Controllers
 
         }
 
-        //[HttpPost]
-        //public ActionResult ReadResponseInfo(List<FormInfoModel> ModelList, string formid, string pageNumber)
-        //{
-        //    return View("");
-        //}
-        //    bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
-
-        //    var model = new FormResponseInfoModel();
-
-        //    FormInfoModel NewModel = ModelList.Single(x => x.FormId == formid);
-        //    model.FormInfoModel = NewModel;
-
-        //    SurveyAnswerResponse SurveyAnswerResponse = GetFormResponseList(formid, 1);
-
-        //    model.SurveyAnswerResponse = SurveyAnswerResponse;
-
-        //    if (IsMobileDevice == false)
-        //    {
-        //        return PartialView("ListResponses", model);
-        //    }
-        //    else
-        //    {
-        //        return View("ListResponses", model);
-        //    }
-        //}
 
         private Epi.Web.Common.DTO.SurveyAnswerDTO GetCurrentSurveyAnswer()
         {
