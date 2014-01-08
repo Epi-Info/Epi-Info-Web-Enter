@@ -102,7 +102,7 @@ namespace Epi.Web.MVC.Controllers
                             form.Validate(form.RequiredFieldsList);
                         }
                         surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
-                      //  this.SetCurrentPage(surveyAnswerDTO, PageNumber);
+                         this.SetCurrentPage(surveyAnswerDTO, PageNumber);
                         //PassCode start
                         if (IsMobileDevice)
                         {
@@ -234,21 +234,21 @@ namespace Epi.Web.MVC.Controllers
                             //get the survey form
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice);
                             form.ClearAllErrors();
-                            //if (ReffererPageNum == 0)
-                            //{
-                            //    int index = 1;
-                            //    if (StringNumber.Contains("?RequestId="))
-                            //    {
-                            //        index = StringNumber.IndexOf("?");
-                            //    }
+                            if (ReffererPageNum == 0)
+                                {
+                                int index = 1;
+                                if (StringNumber.Contains("?RequestId="))
+                                    {
+                                    index = StringNumber.IndexOf("?");
+                                    }
 
-                            //    ReffererPageNum = int.Parse(StringNumber.Substring(0, index));
+                                ReffererPageNum = int.Parse(StringNumber.Substring(0, index));
 
-                            //}
-                            //if (ReffererPageNum == CurrentPageNum)
-                            //{
-                            //    UpdateModel(form);
-                            //}
+                                }
+                            if (ReffererPageNum == CurrentPageNum)
+                                {
+                                UpdateModel(form);
+                                }
                             UpdateModel(form);
                         }
                         //PassCode start
@@ -340,7 +340,7 @@ namespace Epi.Web.MVC.Controllers
 
                         else if (form.Validate(form.RequiredFieldsList))
                         {
-                            if (!string.IsNullOrEmpty(Submitbutton) || !string.IsNullOrEmpty(CloseButton))
+                        if (!string.IsNullOrEmpty(Submitbutton) || !string.IsNullOrEmpty(CloseButton) || (!string.IsNullOrEmpty(this.Request.Form["is_save_action_Mobile"]) && this.Request.Form["is_save_action_Mobile"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase)))
                             {
 
 
@@ -679,23 +679,28 @@ namespace Epi.Web.MVC.Controllers
 
                 Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
 
+               
+
                 //SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(SurveyAnswer.SurveyId);
                 SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
                 PreValidationResultEnum ValidationTest = PreValidateResponse(Mapper.ToSurveyAnswerModel(SurveyAnswer), surveyInfoModel);
                 var form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
 
                 form.StatusId = SurveyAnswer.Status;
-                var IsSaved = form.IsSaved = true;
+                var IsSaved = false;
+                form.IsSaved = true;
                 SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
                 form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()) == 0 ? 1 : GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice);
                 //Update the model
                 UpdateModel(form);
-
-
-
+                //Save the child form
                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, false, IsSaved, PageNumber, UserId);
-
+               // SetCurrentPage(SurveyAnswer, PageNumber);
+                //Save the parent form 
+                 IsSaved = form.IsSaved = true;
+                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, false, IsSaved, PageNumber, UserId);
                 return Json(true);
+                 
             }
             catch (Exception ex)
             {
@@ -756,7 +761,7 @@ namespace Epi.Web.MVC.Controllers
             //return RedirectToAction("Index", "Home");
         }
 
-
+      
        
     }
 }
