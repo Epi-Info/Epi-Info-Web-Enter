@@ -1,42 +1,63 @@
 ﻿@model Epi.Web.MVC.Models.PassCodeModel
 
 @{
-    ViewBag.Title = "Admin: Log In";
+    ViewBag.Title = "Epi Web Enter - Log In";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<div id="header"><h1>Epi Info Web Survey </h1></div>
+
+<div id="pageHeader">
+    <div id="pageTitle">
+        <h2>Log In</h2>
+    </div>
+    <div id="userwelcome"></div>
+    <div style="clear: both;"></div>
+</div>
 
 
 <div id="content" style="margin:1em;">
-
-<p style="text-align:left">Please enter the survey pass code provided along with the survey link to view your survey responses.</p>
-
-
-<div class="Logsin">
-  
-<div class="LogHead"><h2 style="font-size: 18px; padding-bottom:6px;">Enter Pass Code </h2></div>   
-<div class="logbody">  
-
-@using (Html.BeginForm())
-{
-     
-    @Html.ValidationSummary(true)
-    <p style="margin-bottom:2px; font-size:10pt; font-weight:bold;"><label for="Passcode">Pass Code:</label>
+    <p>@*Please enter your email and password.*@&nbsp;</p>
     
+    <div class="Logsin">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                <div id="welcome" >
+                    <h3>Welcome to Epi Info Web Enter!</h3>
+                    <p>The Epi Info Web Enter System is a data collection tool for public health professionals.  </p>
+                    <ul style="margin:-5px 5px 5px 20px; padding:0; line-height:1.5em;">
+                    <li style="margin:0px 0px 10px 0px;">Collect  data for variety of public health events.</li>
+                    <li>Manage the data on the web using your PC or mobile devices.</li>    
+                    </ul>
+                </div>
+                <div id="loginform" style="margin-bottom:2px; font-size:12pt; font-weight:bold;display: block;">
+                     <h3>Log In</h3>
+                     <label for="Email" style="display: block;" >Email:</label>
+                    @Html.PasswordFor(m => m.PassCode)
+                    <label for="Passcode" style="display: block;margin-top:10px;" >Password:</label>
+                    @Html.PasswordFor(m => m.PassCode)
+                    <p><button type="submit" value="Log in" class="default">Log In</button><br /><br />
+                    @Html.ActionLink("Forgot Password?", "ForgotPassword")</p>
+                </div>
+            } 
+       
+    </div>
     
-   @Html.PasswordFor(m => m.PassCode)
-    
- <button style="margin-left:10px; width:50px;" type="submit" value="Log in" class="login">Go</button></p>
-}
-</div> 
+    <div style="clear:both;"></div>
+    <div id="TOU">
+        <h2 class="h2header">Terms of service and conditions of use</h2>
+        <div class="termsofuse">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan egestas diam at tempus. Quisque mattis fringilla tortor, dapibus varius ligula aliquet non. Fusce a volutpat ligula. Mauris tincidunt imperdiet nibh sit amet volutpat. Curabitur vehicula faucibus odio, a pharetra quam semper et. Integer felis mi, dignissim in lectus vitae, sollicitudin vulputate mi. Quisque quis felis nunc. Mauris rhoncus tristique sapien vel rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pellentesque malesuada felis in faucibus. Quisque tristique cursus sodales. Phasellus feugiat felis pretium erat fringilla faucibus. In non nunc accumsan, lobortis mauris ac, porta neque. Proin auctor condimentum interdum. Quisque bibendum, metus id tristique tristique, libero sapien iaculis tellus, non mollis eros orci id magna. Donec blandit quam id consectetur elementum. Etiam velit ligula, lacinia a mattis vitae, facilisis et massa. Curabitur eu eros non urna porttitor ornare. Morbi vitae enim a neque viverra commodo eget vel nisl. Aliquam sagittis, justo vitae fringilla molestie, urna augue consectetur nisl, eget sagittis risus ipsum non enim.
+        </div>
+    </div>
+   @* <div id="forgotpwd" style="margin:10px 0 2px; font-size:12pt; font-weight:bold;display: block;">
+                     <h3>Forgot Password</h3>
+                     <p>Enter your registered email address to have the password sent to you.</p>
+                     <label for="Email" style="display: block;" >Email:</label>
+                    @Html.PasswordFor(m => m.PassCode)
+                    <p><button type="submit" value="Log in" class="default">Submit</button> &nbsp; <button type="submit" value="Log in" class="default">Cancel</button>
+                    
+    </div>*@
 </div>
 
-<p>&nbsp;</p><p>&nbsp;</p>
-<p style="text-align:left; margin-bottom:100px; position:relative; ">
-<span style="font-weight:bold">Note:</span> If you do not have a pass code, click the button to begin a new survey.
-  @* <a  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", surveyid = @ViewBag.SurveyId})" class="returnto" style="margin-left:30px;">Return to Survey Home</a>
-  *@
-</p>
-</div>
