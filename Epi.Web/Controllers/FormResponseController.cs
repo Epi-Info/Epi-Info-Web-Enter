@@ -436,5 +436,28 @@ namespace Epi.Web.MVC.Controllers
             return result;
 
             }
+
+
+        /// <summary>
+        /// Following Action method takes ResponseId as a parameter and deletes the response.
+        /// For now it returns nothing as a confirmation of deletion, we may add some error/success
+        /// messages later. TBD
+        /// </summary>
+        /// <param name="ResponseId"></param>
+        /// <returns></returns>
+
+        [HttpPost]
+        public ActionResult Delete(string ResponseId)
+        {
+            SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
+            SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+            SARequest.Criteria.UserId = 2; //TBD
+            SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
+
+            return Json(string.Empty);
+
+
+
+        }
     }
 }
