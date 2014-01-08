@@ -1,6 +1,6 @@
 ﻿@model MvcDynamicForms.Form
 @{
-    ViewBag.Title = "Survey";
+    ViewBag.Title = "Epi Web Enter - Form";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @*<script src="../../Scripts/jquery-1.5.1-vsdoc.js" type="text/javascript"></script>*@
@@ -268,7 +268,7 @@
 
 	        if ('@Model.StatusId' == '1') { //if clicking the save button for the first time
 	            $('#successContent').show();
-	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Page data has been saved.</div>')
+	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.CurrentPage have been saved.</div>')
 
 
 
@@ -281,7 +281,7 @@
 
 
 	            $('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
-	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Page data has been saved.</div>')
+	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/>  Responses for Page  @Model.CurrentPage have been saved.</div>')
 	        }
 	        return true;
 	    }
