@@ -55,13 +55,13 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
 
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
-        public ActionResult Index(string responseId, int PageNumber = 1)
+        public ActionResult Index(string responseId, int PageNumber = 1, string Edit="")
         {
             try
             {
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 ViewBag.Version = version;
-
+                ViewBag.Edit = Edit;
                 bool IsMobileDevice = false;
                 IsMobileDevice = this.Request.Browser.IsMobileDevice;
                 if (IsMobileDevice == false)
