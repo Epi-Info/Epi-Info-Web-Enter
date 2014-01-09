@@ -42,5 +42,10 @@ namespace Epi.Web.EF
             get { return new EntityFormSettingDao(); }
 
             }
+
+        public IUserDao UserDao
+        {
+            get { return new EntityUserDao(); }
+        }
     }
 }

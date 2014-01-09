@@ -1,4 +1,4 @@
-﻿@model Epi.Web.MVC.Models.PassCodeModel
+﻿@model Epi.Web.MVC.Models.UserLoginModel
 
 @{
     ViewBag.Title = "Epi Web Enter - Log In";
@@ -20,9 +20,10 @@
     <p>@*Please enter your email and password.*@&nbsp;</p>
     
     <div class="Logsin">
-            @using (Html.BeginForm())
-            {
-                @Html.ValidationSummary(true)
+@using (Html.BeginForm())
+{
+     
+    @Html.ValidationSummary(true)
                 <div id="welcome" >
                     <h3>Welcome to Epi Info Web Enter!</h3>
                     <p>The Epi Info Web Enter System is a data collection tool for public health professionals.  </p>
@@ -34,9 +35,14 @@
                 <div id="loginform" style="margin-bottom:2px; font-size:12pt; font-weight:bold;display: block;">
                      <h3>Log In</h3>
                      <label for="Email" style="display: block;" >Email:</label>
-                    @Html.PasswordFor(m => m.PassCode)
+   @Html.TextBoxFor(m => m.UserId)
+
                     <label for="Passcode" style="display: block;margin-top:10px;" >Password:</label>
-                    @Html.PasswordFor(m => m.PassCode)
+    
+    
+   @Html.PasswordFor(m => m.Password)
+    
+    
                     <p><button type="submit" value="Log in" class="default">Log In</button><br /><br />
                     @Html.ActionLink("Forgot Password?", "ForgotPassword")</p>
                 </div>
@@ -60,4 +66,3 @@
                     
     </div>*@
 </div>
-

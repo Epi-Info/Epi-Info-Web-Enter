@@ -26,6 +26,7 @@ namespace Epi.Web.Interfaces.DataInterfaces
         IOrganizationDao OrganizationDao { get; }
         IFormInfoDao FormInfoDao { get; }
         IFormSettingDao FormSettingDao { get; }
+        IUserDao UserDao { get; }
     }
 
 }
