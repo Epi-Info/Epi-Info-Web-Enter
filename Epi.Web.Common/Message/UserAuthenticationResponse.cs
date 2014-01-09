@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using Epi.Web.Common.MessageBase;
+using Epi.Web.Common.DTO;
 namespace Epi.Web.Common.Message
 {
     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
@@ -11,5 +12,8 @@ namespace Epi.Web.Common.Message
         public bool UserIsValid;
         [DataMember]
         public string PassCode;
+
+        [DataMember]
+        public UserDTO User;
     }
 }

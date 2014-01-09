@@ -56,7 +56,11 @@ namespace Epi.Web.WCF.SurveyService
 
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
-        SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest pRequest); 
+        SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest pRequest);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        UserAuthenticationResponse UserLogin(UserAuthenticationRequest pRequest); 
     }
 
 }

@@ -227,6 +227,22 @@ namespace Epi.Web.Common.ObjectMapping
             };
         }
 
+        public static UserBO ToUserBO(UserDTO User) 
+        {
+            return new UserBO
+            {
+                UserId = User.UserId,
+                UserName = User.UserName,
+                FirstName = User.FirstName,
+                LastName = User.LastName,
+                EmailAddress = User.EmailAddress,
+                PhoneNumber = User.PhoneNumber,
+                PasswordHash = User.PasswordHash,
+                ResetPassword = User.ResetPassword,
+                Role = User.Role
+            };
+        }
+
         public static UserAuthenticationResponse ToAuthenticationResponse(UserAuthenticationResponseBO AuthenticationRequestBO)
         {
 
@@ -279,5 +295,20 @@ namespace Epi.Web.Common.ObjectMapping
             }
 
 
+
+        public static UserDTO ToUserDTO(UserBO result)
+        {
+            return new UserDTO() {
+            UserId = result.UserId,
+            UserName = result.UserName,
+            FirstName = result.FirstName,
+            LastName = result.LastName,
+            PasswordHash = result.PasswordHash,
+            PhoneNumber = result.PhoneNumber,
+            ResetPassword = result.ResetPassword,
+            Role = result.Role,
+            EmailAddress = result.EmailAddress
+            };
+        }
     }
 }
