@@ -60,6 +60,7 @@
     <Compile Include="BusinessObject\SurveyRequestResultBO.cs" />
     <Compile Include="BusinessObject\SurveyResponseBO.cs" />
     <Compile Include="BusinessObject\UserAuthenticationResponseBO.cs" />
+    <Compile Include="BusinessObject\UserBO.cs" />
     <Compile Include="BusinessRule\BusinessRule.cs" />
     <Compile Include="BusinessRule\ValidateCompare.cs" />
     <Compile Include="BusinessRule\ValidateCreditcard.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="DTO\PageInfoDTO.cs" />
     <Compile Include="DTO\PassCodeDTO.cs" />
     <Compile Include="DTO\SurveyAnswerDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Email\Email.cs" />
     <Compile Include="Exception\CustomFaultException.cs" />
     <Compile Include="Message\Base\AcknowledgeType.cs" />

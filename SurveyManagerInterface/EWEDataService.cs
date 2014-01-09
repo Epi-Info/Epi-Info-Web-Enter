@@ -25,7 +25,7 @@ namespace Epi.Web.WCF.SurveyService
         //private ShoppingCart _shoppingCart;
         private string _userName;
 
-         
+
         /// <summary>
         /// 
         /// </summary>
@@ -96,33 +96,32 @@ namespace Epi.Web.WCF.SurveyService
         /// </summary>
         /// <param name="pRequest"></param>
         /// <returns></returns>
-        public FormsInfoResponse GetFormsInfo(FormsInfoRequest pRequest) 
-            
-            {
+        public FormsInfoResponse GetFormsInfo(FormsInfoRequest pRequest)
+        {
             FormsInfoResponse result = new FormsInfoResponse();
             Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
-             IFormInfoDao FormInfoDao = entityDaoFactory.FormInfoDao;
-             Epi.Web.BLL.FormInfo implementation = new Epi.Web.BLL.FormInfo(FormInfoDao);
-             try
-                 {
-                 List<FormInfoBO> FormInfoBOList = implementation.GetFormsInfo(pRequest.Criteria.UserId);
-                 //  result.SurveyInfoList = FormInfoBOList;
+            IFormInfoDao FormInfoDao = entityDaoFactory.FormInfoDao;
+            Epi.Web.BLL.FormInfo implementation = new Epi.Web.BLL.FormInfo(FormInfoDao);
+            try
+            {
+                List<FormInfoBO> FormInfoBOList = implementation.GetFormsInfo(pRequest.Criteria.UserId);
+                //  result.SurveyInfoList = FormInfoBOList;
 
-                 foreach (FormInfoBO item in FormInfoBOList)
-                     {
-                     result.FormInfoList.Add(Mapper.ToFormInfoDTO(item));
-                     }
-                
+                foreach (FormInfoBO item in FormInfoBOList)
+                {
+                    result.FormInfoList.Add(Mapper.ToFormInfoDTO(item));
+                }
 
-                 }
-             catch (Exception ex)
-                 {
 
-                 }
-             return result;
-            
-            
             }
+            catch (Exception ex)
+            {
+
+            }
+            return result;
+
+
+        }
 
 
         /// <summary>
@@ -257,9 +256,9 @@ namespace Epi.Web.WCF.SurveyService
                 //    }
 
                 //if (pRequest.LoadOptions.Contains("SurveyInfo"))
-                    //{
-                       //result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
-                    //}
+                //{
+                //result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
+                //}
 
 
                 result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
@@ -273,7 +272,7 @@ namespace Epi.Web.WCF.SurveyService
 
                 //    result.SurveyResponseList.Add(Mapper.ToDataTransferObject(Implementation.GetSurveyResponseByUserId(Request)));
                 //    }
-                
+
                 return result;
             }
             catch (Exception ex)
@@ -311,7 +310,7 @@ namespace Epi.Web.WCF.SurveyService
                 }
 
                 // Transform SurveyResponse data transfer object to SurveyResponse business object
-                SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList,request.Criteria.UserId)[0];
+                SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList, request.Criteria.UserId)[0];
                 SurveyResponse.UserId = request.Criteria.UserId;
                 // Validate SurveyResponse business rules
 
@@ -345,7 +344,7 @@ namespace Epi.Web.WCF.SurveyService
                     else if (request.Action.Equals("Delete", StringComparison.OrdinalIgnoreCase))
                     {
                         var criteria = request.Criteria as SurveyAnswerCriteria;
-                        var survey = Implementation.GetSurveyResponseById(new List<string> { SurveyResponse.SurveyId },SurveyResponse.UserPublishKey);
+                        var survey = Implementation.GetSurveyResponseById(new List<string> { SurveyResponse.SurveyId }, SurveyResponse.UserPublishKey);
 
                         foreach (SurveyResponseBO surveyResponse in survey)
                         {
@@ -413,7 +412,7 @@ namespace Epi.Web.WCF.SurveyService
             if (!ValidRequest(request, response, Validate.ClientTag | Validate.AccessToken))
                 return response;
 
-            if (! ValidateUser(request.UserName, request.Password))
+            if (!ValidateUser(request.UserName, request.Password))
             {
                 response.Acknowledge = AcknowledgeType.Failure;
                 response.Message = "Invalid username and/or password.";
@@ -435,24 +434,61 @@ namespace Epi.Web.WCF.SurveyService
 
             UserAuthenticationRequestBO PassCodeBO = Mapper.ToPassCodeBO(request);
             bool result = Implementation.ValidateUser(PassCodeBO);
- 
-          if (result)
-          {
 
-              response.Acknowledge = AcknowledgeType.Failure;
-              response.Message = "Invalid Pass Code.";
-              response.UserIsValid = true;
-              
-          }
-          else 
-          {
-              response.UserIsValid = false;
-          
-          }
-           
-             
-              return response;
+            if (result)
+            {
+
+                response.Acknowledge = AcknowledgeType.Failure;
+                response.Message = "Invalid Pass Code.";
+                response.UserIsValid = true;
+
+            }
+            else
+            {
+                response.UserIsValid = false;
+
+            }
+
+
+            return response;
         }
+
+        public UserAuthenticationResponse UserLogin(UserAuthenticationRequest request)
+        {
+            //UserDTO UserDTO = new UserDTO();
+            ////UserDTO.UserId = 1;
+            //UserDTO.UserName = "musman";
+            //UserDTO.PasswordHash = "eddd";
+
+            var response = new UserAuthenticationResponse();
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+            Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+
+            UserBO UserBO = Mapper.ToUserBO(request.User);
+
+            UserBO result = Implementation.GetUser(UserBO);
+
+            UserDTO UserDTO = Mapper.ToUserDTO(result);
+
+            if (result != null)
+            {
+
+                //response.Acknowledge = AcknowledgeType.Failure; TBD
+                //response.Message = "Invalid Pass Code.";
+                response.UserIsValid = true;
+
+            }
+            else
+            {
+                response.UserIsValid = false;
+
+            }
+
+
+            return response;
+        }
+
         public UserAuthenticationResponse GetAuthenticationResponse(UserAuthenticationRequest pRequest)
         {
             UserAuthenticationResponse response = new UserAuthenticationResponse();
@@ -465,16 +501,17 @@ namespace Epi.Web.WCF.SurveyService
 
             response = Mapper.ToAuthenticationResponse(Implementation.GetAuthenticationResponse(PassCodeBO));
 
- 
+
             return response;
-        
-        
-        
+
+
+
         }
 
-        public UserAuthenticationResponse SetPassCode(UserAuthenticationRequest request) { 
-        
-        
+        public UserAuthenticationResponse SetPassCode(UserAuthenticationRequest request)
+        {
+
+
             var response = new UserAuthenticationResponse();
             Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
             Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
@@ -485,9 +522,9 @@ namespace Epi.Web.WCF.SurveyService
 
 
             return response;
-        
-        
-        
+
+
+
         }
         /// <summary>
         /// Logout from application service.
@@ -557,12 +594,13 @@ namespace Epi.Web.WCF.SurveyService
             return result;
         }
 
-         public  FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest) {
+        public FormResponseInfoResponse GetFormResponseInfo(FormResponseInfoRequest pRequest)
+        {
 
-         FormResponseInfoResponse FormResponseInfoResponse = new FormResponseInfoResponse();
-         return FormResponseInfoResponse;
-            
-            }
+            FormResponseInfoResponse FormResponseInfoResponse = new FormResponseInfoResponse();
+            return FormResponseInfoResponse;
+
+        }
         /// <summary>
         /// Validation options enum. Used in validation of messages.
         /// </summary>
@@ -589,11 +627,11 @@ namespace Epi.Web.WCF.SurveyService
         /// <param name="pRequest"></param>
         /// <returns></returns>
         public SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest)
-            {
+        {
             try
-                {
+            {
                 SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
-                
+
 
                 Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
                 Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
@@ -606,86 +644,89 @@ namespace Epi.Web.WCF.SurveyService
                 result.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
                 result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
 
-              //Get form info 
+                //Get form info 
                 Epi.Web.Interfaces.DataInterface.IFormInfoDao surveyInfoDao = new EF.EntityFormInfoDao();
                 Epi.Web.BLL.FormInfo ImplementationFormInfo = new Epi.Web.BLL.FormInfo(surveyInfoDao);
                 result.FormInfo = Mapper.ToFormInfoDTO(ImplementationFormInfo.GetFormInfoByFormId(pRequest.Criteria.SurveyId));
 
                 return result;
-                }
+            }
             catch (Exception ex)
-                {
+            {
                 CustomFaultException customFaultException = new CustomFaultException();
                 customFaultException.CustomMessage = ex.Message;
                 customFaultException.Source = ex.Source;
                 customFaultException.StackTrace = ex.StackTrace;
                 customFaultException.HelpLink = ex.HelpLink;
                 throw new FaultException<CustomFaultException>(customFaultException);
-                }
             }
+        }
 
 
-        public FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest) 
-            {
+        public FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest)
+        {
 
 
             FormSettingResponse Response = new FormSettingResponse();
-            try{
-            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
-            
-            Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
+            try
+            {
+                Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
 
-            Epi.Web.BLL.FormSetting Implementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+                Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
+
+                Epi.Web.BLL.FormSetting Implementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
 
 
-            Response.FormSetting =  Mapper.ToDataTransferObject(Implementation.GetResponseColumnNames(pRequest.FormSetting.FormId.ToString()));
+                Response.FormSetting = Mapper.ToDataTransferObject(Implementation.GetResponseColumnNames(pRequest.FormSetting.FormId.ToString()));
                 return Response;
 
 
-              }
+            }
             catch (Exception ex)
-                {
+            {
                 CustomFaultException customFaultException = new CustomFaultException();
                 customFaultException.CustomMessage = ex.Message;
                 customFaultException.Source = ex.Source;
                 customFaultException.StackTrace = ex.StackTrace;
                 customFaultException.HelpLink = ex.HelpLink;
                 throw new FaultException<CustomFaultException>(customFaultException);
-                }
-
             }
 
+        }
 
-        public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest pRequest) {
 
-        try
+        public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest pRequest)
+        {
+
+            try
             {
-            SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
+                SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
 
 
-            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
-            Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
-            Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
-            foreach(var response in pRequest.SurveyAnswerList)
+                Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+                Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+                foreach (var response in pRequest.SurveyAnswerList)
                 {
-                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                    Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
                 }
-            
-            return result;
+                
+                return result;
+                //return null;
             }
-        catch (Exception ex)
+            catch (Exception ex)
             {
-            CustomFaultException customFaultException = new CustomFaultException();
-            customFaultException.CustomMessage = ex.Message;
-            customFaultException.Source = ex.Source;
-            customFaultException.StackTrace = ex.StackTrace;
-            customFaultException.HelpLink = ex.HelpLink;
-            throw new FaultException<CustomFaultException>(customFaultException);
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
             }
-            
-            
-            }
-      
+
+
+        }
+
     }
 
 

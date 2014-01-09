@@ -44,8 +44,8 @@ namespace Epi.Web.MVC.Controllers
             return View("Index");
         }
        [HttpPost]
-      
-       public ActionResult Index(PassCodeModel Model, string responseId, string ReturnUrl)
+
+       public ActionResult Index(UserLoginModel Model, string responseId, string ReturnUrl)
        {
 
           
@@ -91,21 +91,21 @@ namespace Epi.Web.MVC.Controllers
            ViewBag.SurveyId = SurveyId;
 
 
-           Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(responseId, Model.PassCode);
+          // Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(responseId, Model.PassCode);
 
-           if (result.UserIsValid)
-           {
-               FormsAuthentication.SetAuthCookie(Model.PassCode, false);
-              // return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = responseId });
+           //if (result.UserIsValid)
+           //{
+           //   // FormsAuthentication.SetAuthCookie(Model.PassCode, false);
+           //   // return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = responseId });
                
               
-               return Redirect(ReturnUrl);
-           }
-           else
-           {
-               ModelState.AddModelError("", "Pass code is incorrect.");
+           //    return Redirect(ReturnUrl);
+           //}
+           //else
+           //{
+           //    ModelState.AddModelError("", "Pass code is incorrect.");
                return View();
-           }
+           //}
        }
 
       
