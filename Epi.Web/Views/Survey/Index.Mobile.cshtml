@@ -571,13 +571,13 @@ function SaveForm() {
        @* <a id="close" class="exitsurvey">Delete @*<img src="../../Content/images/close.png" alt="Save & Close" style="border:none; width: 15px; vertical-align:middle; padding-bottom:3px;" /> </a>*@
        @* <a id="close" class="exitsurvey" onclick="Submit();"  href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", SurveyId = Model.SurveyInfo.SurveyId })">Exit</a>*@
        
-     @if (@Model.StatusId == 1)
-            {
-               <a id="close" class="exitsurvey">Exit</a>
+     @if (ViewBag.Edit == "Edit")
+            { 
+               <a id="close1" class="exitsurvey">Exit</a>
             }
         else
             {
-             <a id="close1" class="exitsurvey">Exit</a>
+               <a id="close" class="exitsurvey">Exit</a>
 
             }
     </div>
