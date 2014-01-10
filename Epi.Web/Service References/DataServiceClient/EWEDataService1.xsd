@@ -155,4 +155,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UserLogin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q23:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UserLoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://www.yourcompany.com/types/" minOccurs="0" name="UserLoginResult" nillable="true" type="q24:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
