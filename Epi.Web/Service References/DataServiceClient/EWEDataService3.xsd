@@ -145,6 +145,7 @@
           <xs:element minOccurs="0" name="StatusId" type="xs:int" />
           <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="SurveyAnswerIdList" nillable="true" type="q3:ArrayOfstring" />
           <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
           <xs:element minOccurs="0" name="UserPublishKey" type="ser:guid" />
         </xs:sequence>
       </xs:extension>
@@ -164,6 +165,7 @@
       <xs:element minOccurs="0" name="DateUpdated" type="xs:dateTime" />
       <xs:element minOccurs="0" name="IsDraftMode" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsLocked" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ParentRecordId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ResponseId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Status" type="xs:int" />
       <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
@@ -205,8 +207,16 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
+          <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="PassCode" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ResetPassword" type="xs:boolean" />
           <xs:element minOccurs="0" name="SurveyResponseId" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+          <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
