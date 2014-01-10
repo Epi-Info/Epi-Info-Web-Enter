@@ -17,13 +17,13 @@
 
 
 <div id="content" style="margin:1em;">
-    <p>@*Please enter your email and password.*@&nbsp;</p>
+    
     
     <div class="Logsin">
-@using (Html.BeginForm())
-{
+        @using (Html.BeginForm())
+        {
      
-    @Html.ValidationSummary(true)
+        @Html.ValidationSummary(true, "Please correct the errors and try again.")
                 <div id="welcome" >
                     <h3>Welcome to Epi Info Web Enter!</h3>
                     <p>The Epi Info Web Enter System is a data collection tool for public health professionals.  </p>
@@ -35,18 +35,13 @@
                 <div id="loginform" style="margin-bottom:2px; font-size:12pt; font-weight:bold;display: block;">
                      <h3>Log In</h3>
                      <label for="Email" style="display: block;" >Email:</label>
-   @Html.TextBoxFor(m => m.UserName)
-
+                     @Html.TextBoxFor(m => m.UserName)
                     <label for="Passcode" style="display: block;margin-top:10px;" >Password:</label>
-    
-    
-   @Html.PasswordFor(m => m.Password)
-    
-    
+                    @Html.PasswordFor(m => m.Password)
                     <p><button type="submit" value="Log in" class="default">Log In</button><br /><br />
                     @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")</p>
                 </div>
-            } 
+          } 
        
     </div>
     
@@ -57,12 +52,5 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan egestas diam at tempus. Quisque mattis fringilla tortor, dapibus varius ligula aliquet non. Fusce a volutpat ligula. Mauris tincidunt imperdiet nibh sit amet volutpat. Curabitur vehicula faucibus odio, a pharetra quam semper et. Integer felis mi, dignissim in lectus vitae, sollicitudin vulputate mi. Quisque quis felis nunc. Mauris rhoncus tristique sapien vel rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pellentesque malesuada felis in faucibus. Quisque tristique cursus sodales. Phasellus feugiat felis pretium erat fringilla faucibus. In non nunc accumsan, lobortis mauris ac, porta neque. Proin auctor condimentum interdum. Quisque bibendum, metus id tristique tristique, libero sapien iaculis tellus, non mollis eros orci id magna. Donec blandit quam id consectetur elementum. Etiam velit ligula, lacinia a mattis vitae, facilisis et massa. Curabitur eu eros non urna porttitor ornare. Morbi vitae enim a neque viverra commodo eget vel nisl. Aliquam sagittis, justo vitae fringilla molestie, urna augue consectetur nisl, eget sagittis risus ipsum non enim.
         </div>
     </div>
-   @* <div id="forgotpwd" style="margin:10px 0 2px; font-size:12pt; font-weight:bold;display: block;">
-                     <h3>Forgot Password</h3>
-                     <p>Enter your registered email address to have the password sent to you.</p>
-                     <label for="Email" style="display: block;" >Email:</label>
-                    @Html.PasswordFor(m => m.PassCode)
-                    <p><button type="submit" value="Log in" class="default">Submit</button> &nbsp; <button type="submit" value="Log in" class="default">Cancel</button>
-                    
-    </div>*@
+   
 </div>

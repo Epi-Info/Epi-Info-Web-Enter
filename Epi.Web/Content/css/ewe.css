@@ -1010,11 +1010,46 @@ button.edit {
  }
  
  
+ 
  /*Log In Page*/
-#loginform{float: left; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; margin: -10px 30px 30px 0; height: 270px;}
+#loginform{float: left; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; height: 270px;}
 #loginform input[type="password"], input[type="text"] {height:30px; width:260px; font-size:12pt;}
 #loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}
-#welcome {float: left; font-size: 12pt; display:inline-block; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; background:#e1eef4; margin: -10px 30px 0 0; height: 270px;}
+#welcome {float: left; font-size: 12pt; display:inline-block; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; background:#e1eef4; margin: 10px 30px 0 0; height: 270px;}
 #TOU{margin-top:20px;}
 .termsofuse {width:742px; padding:5px; /*height: 300px;*/ border:1px solid #4d74a4; font: 12px "Segoe UI"; line-height:1.8em; overflow:auto;}
 .h2header {font: 20px Segoe UI; color:#4d74a4; font-weight:400; margin-bottom: 5px;}
+.validation-summary-errors {
+    border: 1px solid #7b050f;
+    padding: 6px 6px 6px 8px;
+    background: url("../images/error.png") no-repeat 16px 8px;
+    background-color: #f3d9d9;
+     font-size: 10pt;
+     width:742px;
+}
+
+.validation-summary-errors ul{
+   color: #7b050f;
+   margin:0 48px;
+}
+
+.validation-summary-errors ul li{
+   font-size: 10pt;
+}
+
+
+.validation-summary-errors span{
+   color: #7b050f;
+   margin:0 48px;
+   font-weight: bold;
+   
+}
+
+.validation-summary-valid {
+   display: none;
+}
+
+/*Forgot Password*/
+#forgotpwd{width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; }
+#forgotpwd input[type="password"], input[type="text"] {width:95%; }
+#forgotpwd button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}
