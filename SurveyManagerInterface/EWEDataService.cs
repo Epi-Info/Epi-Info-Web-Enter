@@ -476,7 +476,7 @@ namespace Epi.Web.WCF.SurveyService
 
                 //response.Acknowledge = AcknowledgeType.Failure; TBD
                 //response.Message = "Invalid Pass Code.";
-                UserDTO UserDTO = Mapper.ToUserDTO(result);
+                response.User = Mapper.ToUserDTO(result);
                 response.UserIsValid = true;
 
             }
