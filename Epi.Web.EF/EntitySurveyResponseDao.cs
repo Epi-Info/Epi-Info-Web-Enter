@@ -434,7 +434,7 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                         {
                          
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id &&  string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true).OrderByDescending(x => x.DateCreated);
+                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id &&  string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true).OrderByDescending(x => x.DateUpdated);
 
                         SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
                                                 
