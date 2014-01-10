@@ -62,6 +62,26 @@ namespace Epi.Web.EF
 
             };
             }
+
+        /// <summary>
+        /// Maps the Entity User to BO
+        /// </summary>
+        /// <param name="Result"></param>
+        /// <param name="user"></param>
+        public static void MapToUserBO(UserBO Result, User user)
+        {
+            Result.UserId = user.UserID;
+            Result.UserName = user.UserName;
+            Result.EmailAddress = user.EmailAddress;
+            Result.FirstName = user.FirstName;
+            Result.LastName = user.LastName;
+            Result.PhoneNumber = user.PhoneNumber;
+            Result.ResetPassword = user.ResetPassword;
+            //Result.Role = user.role
+        }
+
+
+
         /// <summary>
         /// Maps SurveyMetaData entity to FormInfoBO business object.
         /// </summary>

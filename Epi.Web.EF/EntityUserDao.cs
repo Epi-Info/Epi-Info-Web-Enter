@@ -19,19 +19,14 @@ namespace Epi.Web.EF
 
             foreach (var user in UserQuery)
             {
-                Result.UserId = user.UserID;
-                Result.UserName = user.UserName;
-                Result.EmailAddress = user.EmailAddress;
-                Result.FirstName = user.FirstName;
-                Result.LastName = user.LastName;
-                Result.PhoneNumber = user.PhoneNumber;
-                Result.ResetPassword = user.ResetPassword;
-                //Result.Role = user.role
+                Mapper.MapToUserBO(Result, user);
                 return Result;
             }
 
             return null;
         }
+
+
 
         public void UpdateUser(UserBO User)
         {
