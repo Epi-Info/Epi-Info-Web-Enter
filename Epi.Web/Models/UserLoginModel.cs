@@ -9,7 +9,7 @@ namespace Epi.Web.MVC.Models
     public class UserLoginModel
     {
         [Required]
-        public string UserId { get; set; }
+        public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
     }

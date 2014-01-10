@@ -469,13 +469,14 @@ namespace Epi.Web.WCF.SurveyService
 
             UserBO result = Implementation.GetUser(UserBO);
 
-            UserDTO UserDTO = Mapper.ToUserDTO(result);
+            
 
             if (result != null)
             {
 
                 //response.Acknowledge = AcknowledgeType.Failure; TBD
                 //response.Message = "Invalid Pass Code.";
+                UserDTO UserDTO = Mapper.ToUserDTO(result);
                 response.UserIsValid = true;
 
             }
