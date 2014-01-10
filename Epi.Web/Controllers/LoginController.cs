@@ -51,61 +51,57 @@ namespace Epi.Web.MVC.Controllers
           
 
            //parse and get the responseId
-           responseId = GetResponseId(ReturnUrl);
+           //responseId = GetResponseId(ReturnUrl);
 
-           Common.DTO.SurveyAnswerDTO  R = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+           //Common.DTO.SurveyAnswerDTO  R = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
 
-           // Get Last Page visited else send to page 1 - Begin
+           //// Get Last Page visited else send to page 1 - Begin
 
-           XDocument Xdoc = XDocument.Parse(R.XML);
-           int PageNumber = 0;
-           if (Xdoc.Root.Attribute("LastPageVisited") != null)
-           {
-               if (!int.TryParse(Xdoc.Root.Attribute("LastPageVisited").Value, out PageNumber))
-               {
-                   PageNumber = 1;
-               }
-           }
-           else
-           {
-               PageNumber = 1;
-           }
-
-           if (ReturnUrl.EndsWith("/"))
-           {
-               ReturnUrl = ReturnUrl + PageNumber.ToString();
-           }
-           else
-           {
-               ReturnUrl = ReturnUrl + "/" + PageNumber.ToString();
-           }
-
-
-           // Get Last Page visited else send to page 1 - End
-
-
-
-           //get the surveyId
-           string SurveyId = R.SurveyId;
-           //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
-           ViewBag.SurveyId = SurveyId;
-
-
-          // Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(responseId, Model.PassCode);
-
-           //if (result.UserIsValid)
+           //XDocument Xdoc = XDocument.Parse(R.XML);
+           //int PageNumber = 0;
+           //if (Xdoc.Root.Attribute("LastPageVisited") != null)
            //{
-           //   // FormsAuthentication.SetAuthCookie(Model.PassCode, false);
-           //   // return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = responseId });
-               
-              
-           //    return Redirect(ReturnUrl);
+           //    if (!int.TryParse(Xdoc.Root.Attribute("LastPageVisited").Value, out PageNumber))
+           //    {
+           //        PageNumber = 1;
+           //    }
            //}
            //else
            //{
-           //    ModelState.AddModelError("", "Pass code is incorrect.");
-               return View();
+           //    PageNumber = 1;
            //}
+
+           if (ReturnUrl ==  null || !ReturnUrl.Contains("/"))
+           {
+               ReturnUrl = "/Home/Index";
+           }
+
+
+           //// Get Last Page visited else send to page 1 - End
+
+
+
+           ////get the surveyId
+           //string SurveyId = R.SurveyId;
+           ////put surveyId in viewbag so can be retrieved in Login/Index.cshtml
+           //ViewBag.SurveyId = SurveyId;
+
+
+           Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(Model.UserName, Model.Password);
+
+           if (result.UserIsValid)
+           {
+               // FormsAuthentication.SetAuthCookie(Model.PassCode, false);
+                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
+
+
+               //return Redirect(ReturnUrl);
+           }
+           else
+           {
+               ModelState.AddModelError("", "The email or password you entered is incorrect.");
+               return View();
+           }
        }
 
       

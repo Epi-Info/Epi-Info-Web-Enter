@@ -131,10 +131,15 @@ namespace Epi.Web.MVC.Facade
             return surveyAnswerResponse;
         }
 
-        public UserAuthenticationResponse ValidateUser(string responseId, string passcode)
+        public UserAuthenticationResponse ValidateUser(string userName, string password)
         {
-            _surveyAuthenticationRequest.PassCode = passcode;
-            _surveyAuthenticationRequest.SurveyResponseId = responseId;
+            //_surveyAuthenticationRequest.PassCode = passcode;
+            //_surveyAuthenticationRequest.SurveyResponseId = responseId;
+            UserDTO User = new UserDTO();
+            User.UserName = userName;
+            User.PasswordHash = password;
+            _surveyAuthenticationRequest.User = User;
+
             UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.ValidateUser(_surveyAuthenticationRequest);
             return AuthenticationResponse;
         }
