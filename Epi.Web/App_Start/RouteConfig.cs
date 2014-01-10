@@ -134,7 +134,12 @@ namespace Epi.Web.MVC
                     new { controller = "Survey", action = "Index", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
                 ); // Parameter defaults
 
-
+ routes.MapRoute
+             (
+                 null, // Route name
+                 "Login/ForgotPassword", // URL with parameters
+                 new { controller = "Login", action = "ForgotPassword" }
+             ); // Parameter defaults
 
             routes.MapRoute
               (
@@ -143,12 +148,7 @@ namespace Epi.Web.MVC
                   new { controller = "Login", action = "Index", responseid = UrlParameter.Optional }
               ); // Parameter defaults
 
-            routes.MapRoute
-             (
-                 null, // Route name
-                 "Login/ForgotPassword", // URL with parameters
-                 new { controller = "Login", action = "ForgotPassword" }
-             ); // Parameter defaults
+           
 
 
             routes.MapRoute
