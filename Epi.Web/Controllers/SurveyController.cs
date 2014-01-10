@@ -24,7 +24,7 @@ using Epi.Web.Common.Message;
 using Epi.Web.Common.DTO;
 namespace Epi.Web.MVC.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class SurveyController : Controller
     {
 
