@@ -20,7 +20,7 @@ using Epi.Web.Common.DTO;
 using System.Web.Configuration;
 namespace Epi.Web.MVC.Controllers
 {
-    //[Authorize]
+   [Authorize]
     public class HomeController : Controller
     {
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;

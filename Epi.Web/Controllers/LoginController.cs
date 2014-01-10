@@ -91,7 +91,7 @@ namespace Epi.Web.MVC.Controllers
 
            if (result.UserIsValid)
            {
-               // FormsAuthentication.SetAuthCookie(Model.PassCode, false);
+                FormsAuthentication.SetAuthCookie(Model.UserName, false);
                 return RedirectToRoute(new { Controller = "Home", Action = "Index" });
 
 
