@@ -801,7 +801,7 @@ a.backlink
  
  
  /*Log In Page*/
-#loginform{width: 80%; padding: 10px 30px 10px 20px; border:1px solid #4d74a4; margin: -10px 30px 30px 0; }
+#loginform{width: 80%; padding: 10px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; }
 #loginform input[type="password"], input[type="text"] {width:95%; }
 /*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
 #loginform .ui-btn-up-submit2, #loginform .ui-btn-hover-submit2{width: 95%;}
@@ -811,11 +811,41 @@ a.backlink
 .termsofuse { padding:5px; /*height: 300px;*/ border:1px solid #4d74a4; font: 12px "Segoe UI"; line-height:1.8em; overflow:auto;}
 .h2header {font: 20px Segoe UI; color:#4d74a4; font-weight:400; margin-bottom: 5px;}
 
+.validation-summary-errors {
+    border: 1px solid #7b050f;
+    padding: 6px 6px 6px 6px;
+    /*background: url("../images/error.png") no-repeat 16px 8px;*/
+    background-color: #f3d9d9;
+     font-size: 10pt;
+    
+}
+
+.validation-summary-errors ul{
+   color: #7b050f;
+  /* margin:0 48px;*/
+   margin:3px 0 0 5px;
+   padding: 0;
+}
+
+.validation-summary-errors ul li{
+   font-size: 10pt;
+   font-weight:bold;
+   list-style: none;
+}
+
+
+.validation-summary-errors span{
+   color: #7b050f;
+   
+   font-weight: bold;
+   
+}
+
 /*ForgotPassword*/
-#forgotpwd{width: 80%; padding: 10px 30px 10px 20px; border:1px solid #4d74a4; margin: -10px 30px 30px 0; }
+#forgotpwd{width: 80%; padding: 10px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; }
 #forgotpwd input[type="password"], input[type="text"] {width:95%; }
 /*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
-#forgotpwd .ui-btn-up-submit2, #loginform .ui-btn-hover-submit2{width: 80px;  display:inline-block;}
+#forgotpwd .ui-btn-up-submit2, #forgotpwd .ui-btn-hover-submit2{width: 80px;  display:inline-block;}
 #forgotpwd .ui-btn-inner {font-size:9pt; padding:3px 4px;}
 
 
