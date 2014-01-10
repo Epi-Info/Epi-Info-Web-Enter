@@ -1,4 +1,4 @@
-﻿@model Epi.Web.MVC.Models.PassCodeModel
+﻿@model Epi.Web.MVC.Models.UserLoginModel
 
 @{
     ViewBag.Title = "Epi Web Enter - Log In";
@@ -26,9 +26,9 @@
                 <div id="loginform" style="margin-bottom:2px; font-size:12pt; font-weight:bold;display: block;">
                      
                      <label for="Email" style="display: block;" >Email:</label>
-                    @Html.PasswordFor(m => m.PassCode)
+                    @Html.TextBoxFor(m => m.UserName)
                     <label for="Passcode" style="display: block;margin-top:10px;" >Password:</label>
-                    @Html.PasswordFor(m => m.PassCode)
+                    @Html.PasswordFor(m => m.Password)
                     <p><button data-theme="submit2" type="submit" value="Log in" class="default">Log In</button><br />
                     @Html.ActionLink("Forgot Password?", "ForgotPassword")</p>
                 </div>
