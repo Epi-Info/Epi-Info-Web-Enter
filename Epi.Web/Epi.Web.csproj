@@ -528,6 +528,7 @@
     <Content Include="Views\Home\ListForms.Mobile.cshtml" />
     <Content Include="Views\FormResponse\Index.Mobile.cshtml" />
     <Content Include="Views\Shared\PagerPartial.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
