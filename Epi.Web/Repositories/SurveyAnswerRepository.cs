@@ -151,7 +151,8 @@ namespace Epi.Web.MVC.Repositories
             try
             {
                
-                UserAuthenticationResponse result = _iDataService.PassCodeLogin(pRequest);
+                //UserAuthenticationResponse result = _iDataService.PassCodeLogin(pRequest);
+                UserAuthenticationResponse result = _iDataService.UserLogin(pRequest);
                 return result;
             }
             catch (FaultException<CustomFaultException> cfe)
