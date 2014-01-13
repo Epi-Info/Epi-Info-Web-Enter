@@ -4,24 +4,36 @@ using System.Linq;
 using System.Text;
 using Epi.Web.Interfaces.DataInterface;
 using Epi.Web.Common.BusinessObject;
+using Epi.Web.Common.Security;
+using System.Configuration;
 namespace Epi.Web.BLL
 {
-   public class User
+    public class User
     {
-       public IUserDao UserDao;
+        public IUserDao UserDao;
 
-       public User(IUserDao pUserDao) 
-       {
-           UserDao = pUserDao;
-       }
+        public User(IUserDao pUserDao)
+        {
+            UserDao = pUserDao;
+        }
 
-       public UserBO GetUser(UserBO User) 
-       {
-           UserBO UserResponseBO;
+        public UserBO GetUser(UserBO User)
+        {
+            UserBO UserResponseBO;
+            string KeyForUserPasswordSalt = ReadSalt();
+            PasswordHasher PasswordHasher = new Web.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+            string salt = PasswordHasher.CreateSalt(User.UserName);
 
-           UserResponseBO =  UserDao.GetUser(User);
+            User.PasswordHash = PasswordHasher.HashPassword(salt, User.PasswordHash);
 
-           return UserResponseBO;
-       }
+            UserResponseBO = UserDao.GetUser(User);
+
+            return UserResponseBO;
+        }
+
+        private string ReadSalt()
+        {
+            return ConfigurationManager.AppSettings["KeyForUserPasswordSalt"];
+        }
     }
 }
