@@ -504,7 +504,7 @@ function SaveForm() {
 
 <div id="pageHeader">
   	<div id="pageTitle"><h2>@Model.SurveyInfo.SurveyName</h2></div>
-   	<div id="userwelcome">Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
+   	<div id="userwelcome">Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
   	<div style="clear:both;"></div>
 </div>  
 
