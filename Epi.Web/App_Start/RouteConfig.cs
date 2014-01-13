@@ -144,8 +144,8 @@ namespace Epi.Web.MVC
             routes.MapRoute
               (
                   null, // Route name
-                  "Login/{responseid}", // URL with parameters
-                  new { controller = "Login", action = "Index", responseid = UrlParameter.Optional }
+                  "Login", // URL with parameters
+                  new { controller = "Login", action = "Index" }
               ); // Parameter defaults
 
            
