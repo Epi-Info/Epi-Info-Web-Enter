@@ -20,6 +20,7 @@ using Epi.Web.Common.DTO;
 
 namespace Epi.Web.MVC.Controllers
 {
+    [Authorize]
     public class FormResponseController : Controller
     {
         //
