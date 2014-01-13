@@ -123,6 +123,7 @@
     <Compile Include="Security\Cryptography.cs" />
     <Compile Include="Security\PasswordGenerator.cs" />
     <Compile Include="Email\EmailHandler.cs" />
+    <Compile Include="Security\PasswordHasher.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
