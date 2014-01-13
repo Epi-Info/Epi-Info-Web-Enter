@@ -2,8 +2,8 @@
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://www.yourcompany.com/types/" elementFormDefault="qualified" targetNamespace="http://www.yourcompany.com/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" />
-  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" />
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" />
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" />
   <xs:complexType name="SurveyInfoRequest">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
@@ -207,16 +207,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
-          <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="PassCode" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="ResetPassword" type="xs:boolean" />
           <xs:element minOccurs="0" name="SurveyResponseId" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="UserId" type="xs:int" />
-          <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="User" nillable="true" type="q4:UserDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -227,6 +220,7 @@
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="PassCode" nillable="true" type="xs:string" />
+          <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="User" nillable="true" type="q5:UserDTO" />
           <xs:element minOccurs="0" name="UserIsValid" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
@@ -235,7 +229,7 @@
   <xs:element name="UserAuthenticationResponse" nillable="true" type="tns:UserAuthenticationResponse" />
   <xs:complexType name="FormsInfoRequest">
     <xs:sequence>
-      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" minOccurs="0" name="Criteria" nillable="true" type="q4:FormInfoCriteria" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" minOccurs="0" name="Criteria" nillable="true" type="q6:FormInfoCriteria" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormsInfoRequest" nillable="true" type="tns:FormsInfoRequest" />
@@ -283,13 +277,13 @@
   <xs:element name="FormResponseInfoDTO" nillable="true" type="tns:FormResponseInfoDTO" />
   <xs:complexType name="FormSettingRequest">
     <xs:sequence>
-      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q5:FormSettingDTO" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q7:FormSettingDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormSettingRequest" nillable="true" type="tns:FormSettingRequest" />
   <xs:complexType name="FormSettingResponse">
     <xs:sequence>
-      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q6:FormSettingDTO" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q8:FormSettingDTO" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormSettingResponse" nillable="true" type="tns:FormSettingResponse" />

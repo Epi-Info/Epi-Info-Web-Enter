@@ -727,7 +727,31 @@ namespace Epi.Web.WCF.SurveyService
 
 
         }
+        public UserAuthenticationResponse GetUser(UserAuthenticationRequest request)
+            {
+           
+            var response = new UserAuthenticationResponse();
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+            Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
 
+            UserBO UserBO = Mapper.ToUserBO(request.User);
+
+            UserBO result = Implementation.GetUserByUserId(UserBO);
+
+
+
+            if (result != null)
+                {
+
+                
+                response.User = Mapper.ToUserDTO(result);
+                
+                }
+            
+
+            return response;
+            }
     }
 
 

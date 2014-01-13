@@ -30,7 +30,7 @@ namespace Epi.Web.MVC.Controllers
         private int PageSize = -1;
         private int NumberOfResponses = -1;
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
-
+     
         /// <summary>
         /// injecting surveyFacade to the constructor 
         /// </summary>
@@ -46,28 +46,26 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(string surveyid)
+        public ActionResult Index(string surveyid )
         {
-            //    return View();
-            //}
 
-            ///// <summary>
-            ///// Accept SurveyId as parameter, 
-            ///// 
-            ///// Get the SurveyInfoResponse by GetSurveyInfo call and convert it to a SurveyInfoModel object
-            ///// pump the SurveyInfoModel to the "SurveyIntroduction" view
-            ///// </summary>
-            ///// <param name="surveyid"></param>
-            ///// <returns></returns>
-            //[HttpGet]
-            //public ActionResult ListForms()
-            //{
-            Guid UserId = new Guid();
+        int UserId = GetDecryptUserId(Session["UserId"].ToString());
+       
+            
+            
+            Guid UserId1 = new Guid();
             try
             {
                 string SurveyMode = "";
                 //SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyid);
-                List<FormInfoModel> listOfformInfoModel = GetFormsInfoList(UserId);
+              //  List<FormInfoModel> listOfformInfoModel = GetFormsInfoList(UserId1);
+
+                FormModel FormModel = new Models.FormModel();
+                FormModel.FormList = GetFormsInfoList(UserId1);
+                Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetUserInfo(UserId);
+
+                FormModel.UserFirstName = result.User.FirstName;
+                FormModel.UserLastName = result.User.LastName;
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 
                 //if (surveyInfoModel.IntroductionText != null)
@@ -95,7 +93,7 @@ namespace Epi.Web.MVC.Controllers
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 ViewBag.Version = version;
 
-                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, listOfformInfoModel);
+                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, FormModel);
             }
             catch (Exception ex)
             {
@@ -112,7 +110,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
-        int UserId = 2;
+       
         if (!string.IsNullOrEmpty(EditForm))
                 {
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
@@ -194,7 +192,7 @@ namespace Epi.Web.MVC.Controllers
                     ContextDetailList = Epi.Web.MVC.Utility.SurveyHelper.GetContextDetailList(FunctionObject_B);
                     form = Epi.Web.MVC.Utility.SurveyHelper.UpdateControlsValuesFromContext(form, ContextDetailList);
 
-                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0, UserId);
+                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0,this.GetDecryptUserId(Session["UserId"].ToString()));
                 }
                 catch (Exception ex)
                 {
@@ -206,7 +204,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);//, RequiredList);
                 form.RequiredFieldsList = RequiredList;
-                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, UserId);
+                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, this.GetDecryptUserId(Session["UserId"].ToString()));
             }
 
             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
@@ -235,7 +233,8 @@ namespace Epi.Web.MVC.Controllers
             string result = ChildId;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
-            SurveyAnswerRequest.Criteria.UserId = 2;
+            string  Id = Session["UserId"].ToString();
+            SurveyAnswerRequest.Criteria.UserId =  GetDecryptUserId(Id);//_UserId;
             SurveyAnswerRequest.RequestId = ChildId;
             SurveyAnswerRequest.Action = "Create";
             SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
@@ -280,7 +279,9 @@ namespace Epi.Web.MVC.Controllers
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
-            SARequest.Criteria.UserId = 2; //TBD
+            string Id = Session["UserId"].ToString();
+            SARequest.Criteria.UserId = this.GetDecryptUserId(Id); 
+             
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
@@ -444,7 +445,8 @@ namespace Epi.Web.MVC.Controllers
         public List<FormInfoModel> GetFormsInfoList(Guid UserId)
         {
             FormsInfoRequest formReq = new FormsInfoRequest();
-            formReq.Criteria.UserId = 2;//Hard coded user for now.
+             
+            formReq.Criteria.UserId = this.GetDecryptUserId(Session["UserId"].ToString());//Hard coded user for now.
             // formReq.Criteria.UserId = UserId;
             //define filter criteria here.
             //define sorting criteria here.
@@ -562,6 +564,26 @@ namespace Epi.Web.MVC.Controllers
 
           return result;
 
+          }
+
+      private int GetDecryptUserId(string Id)
+          {
+
+              string DecryptedUserId = "";
+              try
+                  {
+                  DecryptedUserId = Epi.Web.Common.Security.Cryptography.Decrypt(Id);
+                  }
+              catch (Exception ex)
+                  {
+                  FormsAuthentication.SignOut();
+                  FormsAuthentication.RedirectToLoginPage();
+
+                  }
+              int UserId = -1;
+              int.TryParse(DecryptedUserId, out UserId);
+                 
+              return UserId;
           }
     }
 }
