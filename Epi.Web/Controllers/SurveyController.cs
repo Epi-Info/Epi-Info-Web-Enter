@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Diagnostics;
 using Epi.Web.Common.Message;
 using Epi.Web.Common.DTO;
+using Epi.Web.MVC.Utility;
 namespace Epi.Web.MVC.Controllers
 {
     [Authorize]
@@ -147,7 +148,7 @@ namespace Epi.Web.MVC.Controllers
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
-            int UserId = GetDecryptUserId(Session["UserId"].ToString());
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             string responseId = surveyAnswerModel.ResponseId;
             bool IsMobileDevice = false;
             IsMobileDevice = this.Request.Browser.IsMobileDevice;
@@ -622,7 +623,7 @@ namespace Epi.Web.MVC.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult UpdateResponseXml(string NameList, string Value, string responseId)
         {
-        int UserId = GetDecryptUserId(Session["UserId"].ToString());
+        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             try
             {
                 if (!string.IsNullOrEmpty(NameList))
@@ -669,7 +670,7 @@ namespace Epi.Web.MVC.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult SaveSurvey(string Key, int Value, string responseId)
         {
-        int UserId = GetDecryptUserId(Session["UserId"].ToString());
+        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             try
             {
                 bool IsMobileDevice = false;
@@ -754,32 +755,14 @@ namespace Epi.Web.MVC.Controllers
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
-            SARequest.Criteria.UserId = GetDecryptUserId(Session["UserId"].ToString());
+            SARequest.Criteria.UserId =  SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
             //return RedirectToAction("Index", "Home");
         }
 
-        private int GetDecryptUserId(string Id)
-            {
-
-            string DecryptedUserId = "";
-            try
-                {
-                DecryptedUserId = Epi.Web.Common.Security.Cryptography.Decrypt(Id);
-                }
-            catch (Exception ex)
-                {
-                FormsAuthentication.SignOut();
-                FormsAuthentication.RedirectToLoginPage();
-
-                }
-            int UserId = -1;
-            int.TryParse(DecryptedUserId, out UserId);
-
-            return UserId;
-            }
+        
        
     }
 }

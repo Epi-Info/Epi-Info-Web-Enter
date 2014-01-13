@@ -171,7 +171,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
-        int UserId = 2;
+        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()); 
         if (!string.IsNullOrEmpty(EditForm))
             {
             Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
@@ -419,7 +419,7 @@ namespace Epi.Web.MVC.Controllers
             string result = ChildId;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
-            SurveyAnswerRequest.Criteria.UserId = 2;
+            SurveyAnswerRequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()); ;
             SurveyAnswerRequest.RequestId = ChildId;
             SurveyAnswerRequest.Action = "Create";
             SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
@@ -451,7 +451,7 @@ namespace Epi.Web.MVC.Controllers
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
-            SARequest.Criteria.UserId = 2; //TBD
+            SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()); ; //TBD
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
