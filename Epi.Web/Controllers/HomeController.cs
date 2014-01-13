@@ -66,6 +66,9 @@ namespace Epi.Web.MVC.Controllers
 
                 FormModel.UserFirstName = result.User.FirstName;
                 FormModel.UserLastName = result.User.LastName;
+
+                Session["UserFirstName"] = result.User.FirstName;
+                Session["UserLastName"] = result.User.LastName;
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 
                 //if (surveyInfoModel.IntroductionText != null)
