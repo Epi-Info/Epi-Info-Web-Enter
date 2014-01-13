@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Epi.Web.MVC.Models.FormInfoModel>
+﻿@model Epi.Web.MVC.Models.FormModel
 @{
     ViewBag.Title = "Epi Web Enter - My Forms";// + " - "+ 
     // Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
@@ -26,11 +26,11 @@
 	  });
 
 </script>*@
-<script>
+<script type="text/jscript">
 
 
     $(function () {
-
+        
         $("#exitdialog").dialog({
             autoOpen: false,
             show: "blind",
@@ -44,6 +44,8 @@
                 "text": 'Yes',
                 "click": function () {
                     $.ajax({
+
+                        //    url: 'Home/Delete/'+ $("#exitdialog").data('ResponseId') + '/' + '@ViewBag.UserId',
                         url: '@Url.Action("Delete","Home")' + '?ResponseId=' + $("#exitdialog").data('ResponseId'),
                         type: 'POST',
                         contentType: 'application/json; charset=utf-8',
@@ -61,7 +63,7 @@
                     function errorFunc() {
                         alert('error');
                     }
-                  
+
                 },
                 "class": 'dialogbtn'
 
@@ -82,6 +84,7 @@
             $("#exitdialog")
                         .data('ResponseId', $(this).attr("value"))
                         .dialog("open");
+           
         });
 
 
@@ -91,7 +94,7 @@
             $("button[class*='metro-tile']").removeClass('metro-set');
             $(this).addClass('metro-set');
             $("#right").show();
-            //  alert('1');
+             //  alert('1');
             $.ajax({
                 url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-FormId'),
                 type: 'GET',
@@ -255,7 +258,7 @@
             My Forms</h2>
     </div>
     <div id="userwelcome">
-        Welcome <strong>John</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
+        Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
     <div style="clear: both;">
     </div>
 </div>
@@ -299,7 +302,7 @@
     
         <div class="section group" id="main">
             <div id="left" class="col span_1_of_3">
-                @Html.Partial("ListForms", Model)
+                @Html.Partial("ListForms", Model.FormList)
             </div>
             <div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
                @* @Html.Partial("ListResponses", Model)*@

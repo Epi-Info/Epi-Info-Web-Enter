@@ -222,5 +222,16 @@ namespace Epi.Web.MVC.Facade
         return SurveyAnswerResponse;
             
             }
+
+        public UserAuthenticationResponse GetUserInfo(int UserId)
+            {
+            UserDTO User = new UserDTO();
+            User.UserId = UserId;
+            _surveyAuthenticationRequest.User = User;
+
+            UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.GetUserInfo(_surveyAuthenticationRequest);
+            return AuthenticationResponse;
+
+            }
     }
 }

@@ -12,5 +12,6 @@ namespace Epi.Web.Interfaces.DataInterface
         void UpdateUser(UserBO User);
         void DeleteUser(UserBO User);
         void InsertUser(UserBO User);
+        UserBO GetUserByUserId(UserBO User);
     }
 }

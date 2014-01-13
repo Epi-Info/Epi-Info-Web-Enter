@@ -29,5 +29,6 @@ namespace Epi.Web.MVC.Facade
         SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest);
 
         SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest);
+        UserAuthenticationResponse GetUserInfo(int UserId);
     }
 }

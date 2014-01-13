@@ -35,5 +35,14 @@ namespace Epi.Web.BLL
         {
             return ConfigurationManager.AppSettings["KeyForUserPasswordSalt"];
         }
+        
+       public UserBO GetUserByUserId(UserBO User)
+           {
+           UserBO UserResponseBO;
+
+           UserResponseBO = UserDao.GetUserByUserId(User);
+
+           return UserResponseBO;
+           }
     }
 }

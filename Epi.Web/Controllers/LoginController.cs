@@ -96,9 +96,11 @@ namespace Epi.Web.MVC.Controllers
            if (result.UserIsValid)
            {
                 FormsAuthentication.SetAuthCookie(Model.UserName, false);
-                return RedirectToRoute(new { Controller = "Home", Action = "Index" });
-
-
+                
+                //return RedirectToRoute(new { Controller = "Home", Action = "Index"});
+                string UserId = Epi.Web.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
+                Session["UserId"] = UserId;
+                return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = ""});
                //return Redirect(ReturnUrl);
            }
            else
