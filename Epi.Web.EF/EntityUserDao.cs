@@ -42,6 +42,21 @@ namespace Epi.Web.EF
         {
             throw new NotImplementedException();
         }
+        public UserBO GetUserByUserId(UserBO User)
+            {
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from Users in Context.Users
+                            where Users.UserID == User.UserId
+                            select Users;
+            UserBO Result = new UserBO();
 
+            foreach (var user in UserQuery)
+                {
+                Mapper.MapToUserBO(Result, user);
+                return Result;
+                }
+
+            return null;
+            }
     }
 }

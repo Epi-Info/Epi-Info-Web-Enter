@@ -60,7 +60,10 @@ namespace Epi.Web.WCF.SurveyService
 
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
-        UserAuthenticationResponse UserLogin(UserAuthenticationRequest pRequest); 
+        UserAuthenticationResponse UserLogin(UserAuthenticationRequest pRequest);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        UserAuthenticationResponse GetUser(UserAuthenticationRequest request);
     }
 
 }
