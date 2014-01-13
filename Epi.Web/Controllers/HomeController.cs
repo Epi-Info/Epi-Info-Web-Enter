@@ -49,7 +49,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Index(string surveyid )
         {
 
-        int UserId = GetDecryptUserId(Session["UserId"].ToString());
+        int UserId =  SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
        
             
             
@@ -192,7 +192,7 @@ namespace Epi.Web.MVC.Controllers
                     ContextDetailList = Epi.Web.MVC.Utility.SurveyHelper.GetContextDetailList(FunctionObject_B);
                     form = Epi.Web.MVC.Utility.SurveyHelper.UpdateControlsValuesFromContext(form, ContextDetailList);
 
-                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0,this.GetDecryptUserId(Session["UserId"].ToString()));
+                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0,SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
                 }
                 catch (Exception ex)
                 {
@@ -204,7 +204,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);//, RequiredList);
                 form.RequiredFieldsList = RequiredList;
-                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, this.GetDecryptUserId(Session["UserId"].ToString()));
+                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
             }
 
             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
@@ -234,7 +234,7 @@ namespace Epi.Web.MVC.Controllers
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             string  Id = Session["UserId"].ToString();
-            SurveyAnswerRequest.Criteria.UserId =  GetDecryptUserId(Id);//_UserId;
+            SurveyAnswerRequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id);//_UserId;
             SurveyAnswerRequest.RequestId = ChildId;
             SurveyAnswerRequest.Action = "Create";
             SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
@@ -280,7 +280,7 @@ namespace Epi.Web.MVC.Controllers
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             string Id = Session["UserId"].ToString();
-            SARequest.Criteria.UserId = this.GetDecryptUserId(Id); 
+            SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id); 
              
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
@@ -445,8 +445,8 @@ namespace Epi.Web.MVC.Controllers
         public List<FormInfoModel> GetFormsInfoList(Guid UserId)
         {
             FormsInfoRequest formReq = new FormsInfoRequest();
-             
-            formReq.Criteria.UserId = this.GetDecryptUserId(Session["UserId"].ToString());//Hard coded user for now.
+
+            formReq.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());//Hard coded user for now.
             // formReq.Criteria.UserId = UserId;
             //define filter criteria here.
             //define sorting criteria here.
@@ -566,24 +566,6 @@ namespace Epi.Web.MVC.Controllers
 
           }
 
-      private int GetDecryptUserId(string Id)
-          {
-
-              string DecryptedUserId = "";
-              try
-                  {
-                  DecryptedUserId = Epi.Web.Common.Security.Cryptography.Decrypt(Id);
-                  }
-              catch (Exception ex)
-                  {
-                  FormsAuthentication.SignOut();
-                  FormsAuthentication.RedirectToLoginPage();
-
-                  }
-              int UserId = -1;
-              int.TryParse(DecryptedUserId, out UserId);
-                 
-              return UserId;
-          }
+     
     }
 }

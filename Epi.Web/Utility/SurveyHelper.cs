@@ -12,6 +12,7 @@ using System.Web;
 using System.Collections.Generic;
 using System.Xml.XPath;
 using System.Text.RegularExpressions;
+using System.Web.Security;
 namespace Epi.Web.MVC.Utility
 {
     public class SurveyHelper
@@ -518,6 +519,24 @@ namespace Epi.Web.MVC.Utility
                 }
             }
         }
+        public static int GetDecryptUserId(string Id)
+            {
 
+            string DecryptedUserId = "";
+            try
+                {
+                DecryptedUserId = Epi.Web.Common.Security.Cryptography.Decrypt(Id);
+                }
+            catch (Exception ex)
+                {
+                FormsAuthentication.SignOut();
+                FormsAuthentication.RedirectToLoginPage();
+
+                }
+            int UserId = -1;
+            int.TryParse(DecryptedUserId, out UserId);
+
+            return UserId;
+            }
     }
 }
