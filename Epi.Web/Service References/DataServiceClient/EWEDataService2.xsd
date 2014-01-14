@@ -1,27 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfstring">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
-  <xs:complexType name="ArrayOfKeyValueOfintstring">
-    <xs:annotation>
-      <xs:appinfo>
-        <IsDictionary xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsDictionary>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValueOfintstring">
-        <xs:complexType>
-          <xs:sequence>
-            <xs:element name="Key" type="xs:int" />
-            <xs:element name="Value" nillable="true" type="xs:string" />
-          </xs:sequence>
-        </xs:complexType>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfKeyValueOfintstring" nillable="true" type="tns:ArrayOfKeyValueOfintstring" />
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd2" namespace="http://www.yourcompany.com/types/" />
+  <xs:element name="GetSurveyInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q1:SurveyInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSurveyInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://www.yourcompany.com/types/" minOccurs="0" name="GetSurveyInfoResult" nillable="true" type="q2:SurveyInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSurveyAnswer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q3:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSurveyAnswerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://www.yourcompany.com/types/" minOccurs="0" name="GetSurveyAnswerResult" nillable="true" type="q4:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSurveyAnswer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q5:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSurveyAnswerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://www.yourcompany.com/types/" minOccurs="0" name="SetSurveyAnswerResult" nillable="true" type="q6:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PassCodeLogin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q7:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PassCodeLoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://www.yourcompany.com/types/" minOccurs="0" name="PassCodeLoginResult" nillable="true" type="q8:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPassCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q9:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetPassCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://www.yourcompany.com/types/" minOccurs="0" name="SetPassCodeResult" nillable="true" type="q10:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAuthenticationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q11:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAuthenticationResponseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://www.yourcompany.com/types/" minOccurs="0" name="GetAuthenticationResponseResult" nillable="true" type="q12:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormsInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q13:FormsInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormsInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormsInfoResult" nillable="true" type="q14:FormsInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q15:FormResponseInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormResponseInfoResult" nillable="true" type="q16:FormResponseInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q17:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormResponseListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormResponseListResult" nillable="true" type="q18:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetResponseColumnNames">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q19:FormSettingRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetResponseColumnNamesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://www.yourcompany.com/types/" minOccurs="0" name="GetResponseColumnNamesResult" nillable="true" type="q20:FormSettingResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q21:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteResponseResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://www.yourcompany.com/types/" minOccurs="0" name="DeleteResponseResult" nillable="true" type="q22:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UserLogin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q23:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UserLoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://www.yourcompany.com/types/" minOccurs="0" name="UserLoginResult" nillable="true" type="q24:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://www.yourcompany.com/types/" minOccurs="0" name="request" nillable="true" type="q25:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://www.yourcompany.com/types/" minOccurs="0" name="GetUserResult" nillable="true" type="q26:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
