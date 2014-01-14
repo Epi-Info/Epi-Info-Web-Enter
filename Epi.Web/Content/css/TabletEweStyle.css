@@ -3,7 +3,7 @@
 {
    /*Log In Page*/
     #loginform{float: left;width: 90%; padding: 10px 5px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; height: 260px;}
-    #loginform input[type="password"], input[type="text"] {width:260px; }
+    #loginform input[type="password"],  #loginform input[type="text"] {width:260px; }
     /*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
     #loginform .ui-btn-up-submit2, #loginform .ui-btn-hover-submit2{width: 254px;}
 
@@ -16,7 +16,7 @@
     
     /*ForgotPassword*/
 #forgotpwd{width: 90%; padding: 10px 5px 10px 20px; border:1px solid #4d74a4; margin: -10px 30px 30px 0; }
-#forgotpwd input[type="password"], input[type="text"] {width:95%; }
+#forgotpwd input[type="password"], #forgotpwd input[type="text"] {width:95%; }
 /*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
 #forgotpwd .ui-btn-up-submit2, #loginform .ui-btn-hover-submit2{width: 80px;  display:inline-block;}
 #forgotpwd .ui-btn-inner {font-size:9pt; padding:3px 4px;}
@@ -31,7 +31,7 @@
 {
     /*Log In Page*/
     #loginform{float: left;width: 310px; padding: 10px 5px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; height: 260px;}
-    #loginform input[type="password"], input[type="text"] {width:260px; }
+    #loginform input[type="password"], #loginform input[type="text"] {width:260px; }
     /*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
     #loginform .ui-btn-up-submit2, #loginform .ui-btn-hover-submit2 {width: 254px;}
     
@@ -41,8 +41,8 @@
    .validation-summary-errors { width:704px;}
     /*ForgotPassword*/
     #forgotpwd{width: 80%; padding: 10px 30px 10px 20px; border:1px solid #4d74a4; margin: -10px 30px 30px 0; }
-    #forgotpwd input[type="password"], input[type="text"] {width:95%; }
+    #forgotpwd input[type="password"],  #forgotpwd input[type="text"] {width:95%; }
     /*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
     #forgotpwd .ui-btn-up-submit2, #forgotpwd .ui-btn-hover-submit2{width: 120px;  display:inline-block;}
-
+    
 } 
