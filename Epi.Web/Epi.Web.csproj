@@ -29,7 +29,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <ExcludeApp_Data>false</ExcludeApp_Data>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -449,24 +450,9 @@
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource" />
-    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.FormsInfoResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.SurveyAnswerResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.SurveyInfoResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.UserAuthenticationResponse1.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\DataServiceClient\EWEDataService.disco" />
     <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
     <None Include="Service References\DataServiceClient\configuration.svcinfo" />
-    <None Include="Service References\DataServiceClient\EWEDataService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\DataServiceClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -509,6 +495,13 @@
     <Content Include="Views\Shared\OmniturePartial.cshtml" />
     <Content Include="Views\EIWST\View.Mobile.cshtml" />
     <Content Include="Views\Shared\FooterPartial.cshtml" />
+    <Content Include="Views\Home\ListForms.cshtml" />
+    <Content Include="Views\Home\ListResponses.cshtml" />
+    <Content Include="Views\Home\ListForms.Mobile.cshtml" />
+    <Content Include="Views\FormResponse\Index.Mobile.cshtml" />
+    <Content Include="Views\Shared\PagerPartial.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.mobile.cshtml" />
     <None Include="Service References\DataServiceClient\EWEDataService.wsdl" />
     <None Include="Service References\DataServiceClient\EWEDataService.xsd">
       <SubType>Designer</SubType>
@@ -525,13 +518,9 @@
     <None Include="Service References\DataServiceClient\EWEDataService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Home\ListForms.cshtml" />
-    <Content Include="Views\Home\ListResponses.cshtml" />
-    <Content Include="Views\Home\ListForms.Mobile.cshtml" />
-    <Content Include="Views\FormResponse\Index.Mobile.cshtml" />
-    <Content Include="Views\Shared\PagerPartial.cshtml" />
-    <Content Include="Views\Login\ForgotPassword.cshtml" />
-    <Content Include="Views\Login\ForgotPassword.mobile.cshtml" />
+    <None Include="Service References\DataServiceClient\EWEDataService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
