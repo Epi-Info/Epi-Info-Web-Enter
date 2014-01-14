@@ -27,7 +27,10 @@
  
 <div id="pageHeader">
   	<div id="pageTitle"><h2>My Forms</h2></div>
-   	<div id="userwelcome">Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
+   	<div id="userwelcome">Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
+  @*  <a href="#">Log Out</a>*@
+  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+    </div>
   	<div style="clear:both;"></div>
 </div> 
 
