@@ -191,7 +191,54 @@
 
         $("#right").show();
 
+        // setup the dialog
+        $("#TimeOutdialog").dialog({
+            autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 160,
+            closeOnEscape: false,
+            draggable: false,
+            resizable: false,
+            /* buttons: {
+            'Continue Session': function () {
+            $(this).dialog('close');
+            }
+            }*/
 
+            buttons: [{
+                "text": 'Continue Session',
+                "click": function () {
+                    $(this).dialog('close');
+                },
+                "class": 'dialogbtn'
+            }]
+
+
+        });
+        // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+        var $countdown = $("#dialog-countdown");
+
+        // start the idle timer plugin
+        $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
+            idleAfter: 900,
+            pollingInterval: 2,
+            keepAliveURL: 'keepalive.php',
+            serverResponseEquals: 'OK',
+            onTimeout: function () {
+                //window.location = "timeout.htm";
+                window.location = GetRedirectionUrl() + '/1';
+                //'~/Login/Index'; 
+
+
+            },
+            onIdle: function () {
+                $(this).dialog("open");
+            },
+            onCountdown: function (counter) {
+                $countdown.html(counter); // update the counter
+            }
+        });
 
     });
     function ReadResponse(ActionUrl) {
@@ -258,7 +305,10 @@
             My Forms</h2>
     </div>
     <div id="userwelcome">
-        Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;<a href="#">Log Out</a></div>
+        Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
+      @*  <a href="#">Log Out</a>*@
+      @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+        </div>
     <div style="clear: both;">
     </div>
 </div>
