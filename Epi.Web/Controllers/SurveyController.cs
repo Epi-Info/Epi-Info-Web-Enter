@@ -761,7 +761,15 @@ namespace Epi.Web.MVC.Controllers
             return Json(string.Empty);
             //return RedirectToAction("Index", "Home");
         }
+          [HttpGet]
+        public ActionResult LogOut()
+            {
 
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Login");
+
+
+            }
         
        
     }
