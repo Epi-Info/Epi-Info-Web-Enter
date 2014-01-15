@@ -42,6 +42,10 @@ namespace Epi.Web.MVC.Controllers
             //     string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
             //     //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
             //     ViewBag.SurveyId = SurveyId;
+            if (responseId.ToUpper() == "RESETPASSWORD")
+            {
+                return View("ResetPassword");
+            }
             return View("Index");
         }
         [HttpPost]
@@ -147,6 +151,12 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult ForgotPassword(UserLoginModel Model)
         {
             return View("ForgotPassword");
+        }
+
+        [HttpGet]
+        public ActionResult ResetPassword(UserLoginModel Model)
+        {
+            return View("ResetPassword");
         }
 
     }

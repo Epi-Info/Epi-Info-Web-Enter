@@ -524,6 +524,7 @@
     <None Include="Service References\DataServiceClient\EWEDataService5.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Views\Login\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
