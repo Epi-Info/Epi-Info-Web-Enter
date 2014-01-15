@@ -9,9 +9,9 @@ namespace Epi.Web.Interfaces.DataInterface
     public interface IUserDao
     {
         UserBO GetUser(UserBO User);
-        void UpdateUser(UserBO User);
-        void DeleteUser(UserBO User);
-        void InsertUser(UserBO User);
+        bool UpdateUser(UserBO User);
+        bool DeleteUser(UserBO User);
+        bool InsertUser(UserBO User);
         UserBO GetUserByUserId(UserBO User);
     }
 }

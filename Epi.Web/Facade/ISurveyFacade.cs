@@ -5,6 +5,7 @@ using Epi.Web.MVC.Constants;
 using Epi.Web.MVC.Utility;
 using Epi.Web.MVC.Models;
 using System.Collections.Generic;
+using Epi.Web.Common.DTO;
 namespace Epi.Web.MVC.Facade
 {
     public interface ISurveyFacade
@@ -30,5 +31,6 @@ namespace Epi.Web.MVC.Facade
 
         SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest);
         UserAuthenticationResponse GetUserInfo(int UserId);
+        bool UpdateUser(UserDTO User);
     }
 }

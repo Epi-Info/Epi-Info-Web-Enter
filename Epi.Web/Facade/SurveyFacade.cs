@@ -85,10 +85,10 @@ namespace Epi.Web.MVC.Facade
         /// </summary>
         /// <param name="SurveyId"></param>
         /// <returns></returns>
-        public Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId,int UserId)
+        public Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId)
         {
 
-        return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository, UserId);
+            return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository, UserId);
         }
 
 
@@ -212,19 +212,20 @@ namespace Epi.Web.MVC.Facade
 
         public SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest)
         {
-           return _iSurveyInfoRepository.DeleteResponse(SARequest);
+            return _iSurveyInfoRepository.DeleteResponse(SARequest);
         }
 
-        public SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest) {
+        public SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest)
+        {
 
-        SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.SetChildRecord(SurveyAnswerRequest);
+            SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.SetChildRecord(SurveyAnswerRequest);
 
-        return SurveyAnswerResponse;
-            
-            }
+            return SurveyAnswerResponse;
+
+        }
 
         public UserAuthenticationResponse GetUserInfo(int UserId)
-            {
+        {
             UserDTO User = new UserDTO();
             User.UserId = UserId;
             _surveyAuthenticationRequest.User = User;
@@ -232,6 +233,14 @@ namespace Epi.Web.MVC.Facade
             UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.GetUserInfo(_surveyAuthenticationRequest);
             return AuthenticationResponse;
 
-            }
+        }
+
+
+        public bool UpdateUser(UserDTO User)
+        {
+            UserAuthenticationRequest request = new UserAuthenticationRequest();
+            request.User = User;
+            return _iSurveyAnswerRepository.UpdateUser(request);
+        }
     }
 }
