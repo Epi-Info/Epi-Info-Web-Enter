@@ -269,7 +269,14 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
             }
         }
+        [HttpGet]
 
+        public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
+            {
+             
+                return PartialView("Settings");
+              
+            }
         /// <summary>
         /// Following Action method takes ResponseId as a parameter and deletes the response.
         /// For now it returns nothing as a confirmation of deletion, we may add some error/success
