@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Constants" />
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="UserDTO">
@@ -7,6 +8,7 @@
       <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Constants" minOccurs="0" name="Operation" type="q1:Constant.OperationMode" />
       <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ResetPassword" type="xs:boolean" />
@@ -18,7 +20,7 @@
   <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
   <xs:complexType name="FormSettingDTO">
     <xs:sequence>
-      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ColumnNameList" nillable="true" type="q1:ArrayOfKeyValueOfintstring" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ColumnNameList" nillable="true" type="q2:ArrayOfKeyValueOfintstring" />
       <xs:element minOccurs="0" name="FormId" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>
