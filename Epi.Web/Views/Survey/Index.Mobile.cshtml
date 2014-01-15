@@ -405,28 +405,28 @@ $(document).delegate('#close', 'click', function () {
 
 });
 
-$(document).delegate('#close1', 'click', function () {
+//$(document).delegate('#close1', 'click', function () {
 
-    $(this).simpledialog({
-        'mode': 'blank',
-        'prompt': false,
-        'forceInput': false,
-        'useModal': true,
-        'buttons': {
-            'OK': {
-                click: function () {
-                    $('#dialogoutput').text('OK');
-                    alert(test);
-                }
-            }
+//    $(this).simpledialog({
+//        'mode': 'blank',
+//        'prompt': false,
+//        'forceInput': false,
+//        'useModal': true,
+//        'buttons': {
+//            'OK': {
+//                click: function () {
+//                    $('#dialogoutput').text('OK');
+//                    alert(test);
+//                }
+//            }
 
-        },
+//        },
 
 
-        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to update the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a onclick=\"SaveForm();\"  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login' onclick ='ExitSurvey();'    style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'  id='simpleclose' >Don't Save</a> <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Cancel</a></div></p>"
-    })
+//        'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to update the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a onclick=\"SaveForm();\"  class='login'  style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login' onclick ='ExitSurvey();'    style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Don't Save</a> <a class='login'   style='width:50px; padding:8px 15px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Cancel</a></div></p>"
+//    })
 
-});  
+//});  
 
 function CloseDialog() {
 
@@ -441,15 +441,15 @@ function ExitSurvey() {
    
       var signoutUrl = '@Url.Action("Delete", "Survey")';
       var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.SurveyInfo.SurveyId';
+      //var homePageUrl = 'FormResponse/Index' + '/' + '@Model.SurveyInfo.SurveyId';
+      alert(homePageUrl);
       $.ajax({
           url: signoutUrl,
           type: 'POST',
           contentType: 'application/json; charset=utf-8',
           dataType: "json",
           async: false,
-          success: function () {
-              window.location.href = homePageUrl; 
-          },
+          success: function () { alert('success'); window.parent.location.href = homePageUrl; },
           error: errorFunc
       });
     

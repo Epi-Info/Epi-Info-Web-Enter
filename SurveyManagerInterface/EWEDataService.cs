@@ -490,6 +490,19 @@ namespace Epi.Web.WCF.SurveyService
             return response;
         }
 
+
+        public bool UpdateUser(UserAuthenticationRequest request) 
+        {
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+            Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+
+            UserBO UserBO = Mapper.ToUserBO(request.User);
+
+            return Implementation.UpdateUser(UserBO);
+
+        }
+
         public UserAuthenticationResponse GetAuthenticationResponse(UserAuthenticationRequest pRequest)
         {
             UserAuthenticationResponse response = new UserAuthenticationResponse();

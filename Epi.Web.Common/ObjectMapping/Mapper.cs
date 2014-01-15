@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Epi.Web.Common.BusinessObject;
 using Epi.Web.Common.DTO;
 using Epi.Web.Common.Message;
+using Epi.Web.Common.Constants;
 
 namespace Epi.Web.Common.ObjectMapping
 {
@@ -239,7 +240,8 @@ namespace Epi.Web.Common.ObjectMapping
                 PhoneNumber = User.PhoneNumber,
                 PasswordHash = User.PasswordHash,
                 ResetPassword = User.ResetPassword,
-                Role = User.Role
+                Role = User.Role,
+                Operation = (Constant.OperationMode)User.Operation
             };
         }
 
