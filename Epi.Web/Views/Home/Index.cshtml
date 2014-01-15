@@ -260,33 +260,30 @@
         function errorFunc() {
             alert('error');
         }
+
+    }
+
+    function GetSettings()
+     {
+         $.ajax({
+             url: 'Home/GetSettings',
+             type: 'GET',
+             contentType: 'application/json; charset=utf-8',
+             //data: JSON.stringify(model),
+             success: successFunc,
+             Error: errorFunc
+         });
+         $.ajaxSetup({ cache: false });
+
+         function successFunc(data, status) {
+             $('#right').html(data);
+         }
+
+         function errorFunc() {
+             alert('error');
+         }
     
     }
-//    function EditRecord(Element)
-//    {
-//       
-//           
-//            $.ajax({
-//                url: '@Url.Action("Edit","Home")' + '?ResId=' + Element.id,
-//                type: 'POST',
-//                contentType: 'application/json; charset=utf-8',
-//                //data: JSON.stringify(model),
-//                success: successFunc,
-//                error: errorFunc
-//            });
-//            $.ajaxSetup({ cache: false });
-
-//            function successFunc(data, status) {
-//               
-//            }
-
-//            function errorFunc() {
-//                alert('error');
-//            }
-
-//       
-//    
-//    }
     
 </script>
 <script>

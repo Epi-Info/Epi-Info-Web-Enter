@@ -47,6 +47,12 @@ namespace Epi.Web.MVC
                new { controller = "Home", action = "ReadResponseInfo", formid = UrlParameter.Optional }
            ); // Parameter defaults
             routes.MapRoute
+         (
+             null, // Route name
+             "Home/GetSettings", // URL with parameters
+             new { controller = "Home", action = "GetSettings", formid = UrlParameter.Optional }
+         ); // Parameter defaults
+            routes.MapRoute
                (
                    null, // Route name
                    "Home/Edit", // URL with parameters
