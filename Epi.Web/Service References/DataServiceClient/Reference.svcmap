@@ -29,6 +29,7 @@
     <MetadataFile FileName="EWEDataService4.xsd" MetadataType="Schema" ID="33affaf8-7867-462c-9d7a-78c7e62931fc" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd2" />
     <MetadataFile FileName="EWEDataService5.xsd" MetadataType="Schema" ID="a912eb62-7627-47e0-a741-6dd4b2bcfb1a" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd4" />
     <MetadataFile FileName="EWEDataService.wsdl" MetadataType="Wsdl" ID="7a1248fe-6589-44e4-b202-ed5b22bf1d27" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?wsdl" />
+    <MetadataFile FileName="EWEDataService6.xsd" MetadataType="Schema" ID="7baf3a17-7af4-4962-bbf1-4811fd483fdc" SourceId="1" SourceUrl="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd6" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

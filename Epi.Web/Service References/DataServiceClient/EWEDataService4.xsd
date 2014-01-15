@@ -3,7 +3,7 @@
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" />
-  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" />
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.Criteria" />
   <xs:complexType name="SurveyInfoRequest">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
