@@ -5,6 +5,7 @@ using System.Text;
 using Epi.Web.Interfaces.DataInterface;
 using Epi.Web.Common.BusinessObject;
 using Epi.Web.Common.Criteria;
+using Epi.Web.Common.Constants;
 namespace Epi.Web.EF
 {
     public class EntityUserDao : IUserDao
@@ -28,22 +29,37 @@ namespace Epi.Web.EF
 
 
 
-        public void UpdateUser(UserBO User)
+        public bool UpdateUser(UserBO User)
+        {
+            var Context = DataObjectFactory.CreateContext();
+            switch (User.Operation)
+            {
+                case Constant.OperationMode.UpdatePassword:
+                    var user = Context.Users.Single(a => a.UserName == User.UserName);
+                    user.PasswordHash = User.PasswordHash;
+                    Context.SaveChanges();
+                    return true;
+                case Constant.OperationMode.UpdateUserInfo:
+                    break;
+                case Constant.OperationMode.UpdateUser:
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+
+        public bool DeleteUser(UserBO User)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteUser(UserBO User)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InsertUser(UserBO User)
+        public bool InsertUser(UserBO User)
         {
             throw new NotImplementedException();
         }
         public UserBO GetUserByUserId(UserBO User)
-            {
+        {
             var Context = DataObjectFactory.CreateContext();
             var UserQuery = from Users in Context.Users
                             where Users.UserID == User.UserId
@@ -51,12 +67,12 @@ namespace Epi.Web.EF
             UserBO Result = new UserBO();
 
             foreach (var user in UserQuery)
-                {
+            {
                 Mapper.MapToUserBO(Result, user);
                 return Result;
-                }
+            }
 
             return null;
-            }
+        }
     }
 }

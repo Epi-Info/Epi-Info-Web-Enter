@@ -23,5 +23,7 @@ namespace Epi.Web.MVC.Repositories.Core
         SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest);
 
         UserAuthenticationResponse GetUserInfo(UserAuthenticationRequest _surveyAuthenticationRequest);
+
+        bool UpdateUser(UserAuthenticationRequest _request);
     }
 }

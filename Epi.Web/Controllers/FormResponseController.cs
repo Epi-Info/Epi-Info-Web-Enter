@@ -460,14 +460,5 @@ namespace Epi.Web.MVC.Controllers
 
 
         }
-          [HttpGet]
-        public ActionResult LogOut()
-            {
-
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Login");
-
-
-            }
     }
 }

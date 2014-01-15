@@ -78,7 +78,14 @@ namespace Epi.Web.Common.DTO
             get { return _Role; }
             set { _Role = value; }
         }
+        
+        private Epi.Web.Common.Constants.Constant.OperationMode updateMode;
 
+        public Epi.Web.Common.Constants.Constant.OperationMode Operation
+        {
+            get { return updateMode; }
+            set { updateMode = value; }
+        }
 
     }
 }
