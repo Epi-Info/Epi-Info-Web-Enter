@@ -183,6 +183,7 @@
     <Compile Include="Models\SurveyResponseModel.cs" />
     <Compile Include="Models\EIWSTModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
+    <Compile Include="Models\UserResetPasswordModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IntegratedSurveyAnswerRepository.cs" />
     <Compile Include="Repositories\IntegratedSurveyInfoRepository.cs" />

@@ -13,5 +13,7 @@ namespace Epi.Web.Interfaces.DataInterface
         bool DeleteUser(UserBO User);
         bool InsertUser(UserBO User);
         UserBO GetUserByUserId(UserBO User);
+        bool UpdateUserPassword(UserBO User);
+        bool UpdateUserInfo(UserBO User);
     }
 }

@@ -51,25 +51,43 @@ namespace Epi.Web.BLL
             switch (User.Operation)
             {
                 case Constant.OperationMode.UpdatePassword:
-                    PasswordGenerator passGen = new PasswordGenerator();
-                    string password = passGen.Generate();
+                    string password = string.Empty;
+
+                    if (User.ResetPassword)
+                    {
+                        password = User.PasswordHash;
+                        User.ResetPassword = false;
+                    }
+                    else
+                    {
+                        PasswordGenerator passGen = new PasswordGenerator();
+                        password = passGen.Generate();
+                        User.ResetPassword = true;
+                    }
+
 
                     string KeyForUserPasswordSalt = ReadSalt();
                     PasswordHasher PasswordHasher = new Web.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
                     string salt = PasswordHasher.CreateSalt(User.UserName);
 
                     User.PasswordHash = PasswordHasher.HashPassword(salt, password);
-                    
-                    bool success = UserDao.UpdateUser(User);
+                    bool success = UserDao.UpdateUserPassword(User);
+
                     if (success)
                     {
-                        SendEmail(User.UserName, password);
+                        if (User.ResetPassword)
+                        {
+                           SendEmail(User.UserName, password, "Your password is changed. Temporary Password is " + password); 
+                        }
+                        else
+                        {
+                            SendEmail(User.UserName, password, "Your password is changed. "); 
+                        }
+                        
                     }
                     return success;
 
                 case Constant.OperationMode.UpdateUserInfo:
-                    break;
-                case Constant.OperationMode.UpdateUser:
                     break;
                 default:
                     break;
@@ -77,11 +95,11 @@ namespace Epi.Web.BLL
             return false;
         }
 
-        private void SendEmail(string emailAddress, string password)
+        private void SendEmail(string emailAddress, string password, string body)
         {
 
             Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
-            Email.Body = "Your password has been updated. Please used temporary password" + password;
+            Email.Body = body; // "Your password has been updated. Please used temporary password" + password;
             Email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
             List<string> EmailList = new List<string>();
             EmailList.Add(emailAddress);
