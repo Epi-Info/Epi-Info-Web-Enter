@@ -10,8 +10,7 @@ namespace Epi.Web.Common.Constants
         public enum OperationMode
         {
             UpdatePassword = 1,
-            UpdateUserInfo = 2,
-            UpdateUser = 3
+            UpdateUserInfo = 2
         }
     }
 }
