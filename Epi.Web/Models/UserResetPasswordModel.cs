@@ -7,11 +7,14 @@ using System.Web.Mvc;
 
 namespace Epi.Web.MVC.Models
 {
-    public class UserLoginModel
+    public class UserResetPasswordModel
     {
         [Required]
         public string UserName { get; set; }
         [Required]
         public string Password { get; set; }
+
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
     }
 }

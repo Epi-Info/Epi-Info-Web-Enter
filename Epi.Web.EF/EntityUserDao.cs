@@ -31,22 +31,23 @@ namespace Epi.Web.EF
 
         public bool UpdateUser(UserBO User)
         {
-            var Context = DataObjectFactory.CreateContext();
-            switch (User.Operation)
-            {
-                case Constant.OperationMode.UpdatePassword:
-                    var user = Context.Users.Single(a => a.UserName == User.UserName);
-                    user.PasswordHash = User.PasswordHash;
-                    Context.SaveChanges();
-                    return true;
-                case Constant.OperationMode.UpdateUserInfo:
-                    break;
-                case Constant.OperationMode.UpdateUser:
-                    break;
-                default:
-                    break;
-            }
-            return false;
+            //var Context = DataObjectFactory.CreateContext();
+            //switch (User.Operation)
+            //{
+            //    case Constant.OperationMode.UpdatePassword:
+            //        var user = Context.Users.Single(a => a.UserName == User.UserName);
+            //        user.PasswordHash = User.PasswordHash;
+            //        Context.SaveChanges();
+            //        return true;
+            //    case Constant.OperationMode.UpdateUserInfo:
+            //        break;
+            //    case Constant.OperationMode.UpdateUser:
+            //        break;
+            //    default:
+            //        break;
+            //}
+            //return false;
+            throw new NotImplementedException();
         }
 
         public bool DeleteUser(UserBO User)
@@ -73,6 +74,31 @@ namespace Epi.Web.EF
             }
 
             return null;
+        }
+
+
+        public bool UpdateUserPassword(UserBO User)
+        {
+            try
+            {
+                var Context = DataObjectFactory.CreateContext();
+                var user = Context.Users.Single(a => a.UserName == User.UserName);
+                user.PasswordHash = User.PasswordHash;
+                user.ResetPassword = User.ResetPassword;
+                Context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool UpdateUserInfo(UserBO User)
+        {
+            throw new NotImplementedException();
         }
     }
 }

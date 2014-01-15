@@ -163,6 +163,13 @@ namespace Epi.Web.MVC
              ); // Parameter defaults
 
             routes.MapRoute
+            (
+                null, // Route name
+                "Login/ResetPassword", // URL with parameters
+                new { controller = "Login", action = "ResetPassword" }
+            ); // Parameter defaults
+
+            routes.MapRoute
               (
                   null, // Route name
                   "Login", // URL with parameters
