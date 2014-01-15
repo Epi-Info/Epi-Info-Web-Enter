@@ -525,6 +525,7 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Login\ResetPassword.mobile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
