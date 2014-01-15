@@ -1,5 +1,79 @@
 ﻿@model Epi.Web.MVC.Models.SettingsInfoModel
-<div id="editsettings">
-     
-        Settings
+<div id="formtitle">
+    <h2 class="surveyTitle">FormName</h2>
 </div>
+<div id="editsettings">
+    @*<button id="btneditsettings"  onclick="" class="default settings" type="button">Records</button>*@
+</div>
+<div style="clear: both"></div>
+<div id="infobox1">   
+    <div id="create"><span>Created by:</span> <span class="boldlabel">OwnerFName OwnerLName</span></div>
+    <div id="mode"><span>Mode:</span> <span class="boldlabel">Staging</span></div>
+    <div style="clear: both;"></div>
+</div>
+<div id="settingscontent">
+    <h3 class="surveyTitle" style="display:block;">Edit Form Settings</h3>
+    <div id="recordcolumns">
+        <h5 style="margin-bottom: 10px;">Select up to 5 columns to display when viewing the list of records.</h5>
+        <div id="columnselect">
+            <div id="available">
+                <label for="s">Available Columns:</label>
+                <br />
+                <select id="s" size="10" multiple="">
+                    <option value="c">Barbados</option>
+                    <option value="d">Belgium</option>
+                    <option value="e">Bhutan</option>
+                    <option value="f">China</option>
+                    <option value="g">Croatia</option>
+                    <option value="h">Denmark</option>
+                    <option value="i">France</option>
+                </select>
+            </div>
+            <div id="swapbtn">
+                <a href="#" onclick="listbox_moveacross('s', 'd')">&#x25BA;</a>
+                <br /><br />
+                <a href="#" onclick="listbox_moveacross('d', 's')">&#x25C4;</a>
+            </div>
+            <div id="selected">
+                <label for="s">Columns to Display: (Max 5)</label>
+                <br />
+                <select id="d" size="5" multiple="">
+           
+                </select>
+            </div>
+            <div id="updown">
+                <a href="#" onclick="listbox_move('d', 'up')">&#x25B2;</a> 
+                <br /><br />
+                <a href="#" onclick="listbox_move('d', 'down')">&#x25BC;</a>
+            </div>
+            <div style="clear:both;"></div>
+        </div>
+    
+    </div>
+    <div class="formbutton1" style="margin:20px 0px;">
+		<button class="default savesettings">Save Settings</button>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<button class="default cancelsettings">Cancel</button>
+	</div>
+    <div style="clear: both"></div>
+</div>
+<script type="text/javascript">
+    function listbox_move(listID, direction) {
+        var listbox = document.getElementById(listID); var selIndex = listbox.selectedIndex; if (-1 == selIndex) { alert("Please select an option to move."); return; }
+        var increment = -1; if (direction == 'up')
+            increment = -1; else
+            increment = 1; if ((selIndex + increment) < 0 || (selIndex + increment) > (listbox.options.length - 1)) { return; }
+        var selValue = listbox.options[selIndex].value; var selText = listbox.options[selIndex].text; listbox.options[selIndex].value = listbox.options[selIndex + increment].value
+        listbox.options[selIndex].text = listbox.options[selIndex + increment].text
+        listbox.options[selIndex + increment].value = selValue; listbox.options[selIndex + increment].text = selText; listbox.selectedIndex = selIndex + increment;
+    }
+    function listbox_moveacross(sourceID, destID) {
+        var src = document.getElementById(sourceID); var dest = document.getElementById(destID); for (var count = 0; count < src.options.length; count++) {
+            if (src.options[count].selected == true) {
+                var option = src.options[count]; var newOption = document.createElement("option"); newOption.value = option.value; newOption.text = option.text; newOption.selected = true; try { dest.add(newOption, null); src.remove(count, null); } catch (error) { dest.add(newOption); src.remove(count); }
+                count--;
+            }
+        }
+    }
+    function listbox_selectall(listID, isSelect) { var listbox = document.getElementById(listID); for (var count = 0; count < listbox.options.length; count++) { listbox.options[count].selected = isSelect; } }
+    </script>
