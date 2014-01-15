@@ -535,7 +535,7 @@ button.paging img
      min-width:761px;
      height:740px;
      overflow:auto;
-     padding:10px;
+     padding:10px 0;
  }
  h3.surveyTitle 
  {
@@ -1060,3 +1060,10 @@ button.edit {
 #resetpwd label {margin-top:15px;}
 
  
+/*Settings*/
+#columnselect {vertical-align:middle;}
+#available, #swapbtn, #selected, #updown {display:inline-block; float: left; margin: 0 20px 0 0; }
+#available select, #selected select { width:200px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
+#available label, #selected label {font-weight:600; font-size:9pt;}
+#swapbtn, #updown {margin-top:58px;}
+#swapbtn a, #updown a{ font-family: Arial; width:40px; cursor: pointer; color:#fff; border: 1px solid #1f3b53; background: #5c53ac; text-decoration: none; padding: 4px 6px 4px 4px; }
