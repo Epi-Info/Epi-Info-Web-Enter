@@ -12,7 +12,7 @@ namespace Epi.Web.Interfaces.DataInterface
     {
    public  interface IFormSettingDao
         {
-       FormSettingBO GetResponseColumnNames(string FormId);
-
+       FormSettingBO GetFormSettings(string FormId);
+     
         }
     }

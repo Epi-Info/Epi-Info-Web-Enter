@@ -15,9 +15,13 @@ namespace Epi.Web.Common.Message
           public FormSettingRequest()
                 {
                 this.FormSetting = new FormSettingDTO();
+                this.FormInfo = new FormInfoDTO();
                 }
          [DataMember]
             public FormSettingDTO FormSetting;
- 
+         [DataMember]
+         public FormInfoDTO FormInfo;
+         [DataMember]
+         public bool GetXml;
         }
     }

@@ -92,13 +92,13 @@
   <wsdl:message name="IEWEDataService_GetFormResponseList_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q9="http://www.yourcompany.com/types/" name="detail" element="q9:CustomFaultException" />
   </wsdl:message>
-  <wsdl:message name="IEWEDataService_GetResponseColumnNames_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetResponseColumnNames" />
+  <wsdl:message name="IEWEDataService_GetFormSettings_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFormSettings" />
   </wsdl:message>
-  <wsdl:message name="IEWEDataService_GetResponseColumnNames_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetResponseColumnNamesResponse" />
+  <wsdl:message name="IEWEDataService_GetFormSettings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFormSettingsResponse" />
   </wsdl:message>
-  <wsdl:message name="IEWEDataService_GetResponseColumnNames_CustomFaultExceptionFault_FaultMessage">
+  <wsdl:message name="IEWEDataService_GetFormSettings_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q10="http://www.yourcompany.com/types/" name="detail" element="q10:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_DeleteResponse_InputMessage">
@@ -183,10 +183,10 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseListResponse" message="tns:IEWEDataService_GetFormResponseList_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetFormResponseListCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetFormResponseList_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetResponseColumnNames">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetResponseColumnNames" message="tns:IEWEDataService_GetResponseColumnNames_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetResponseColumnNamesResponse" message="tns:IEWEDataService_GetResponseColumnNames_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetResponseColumnNamesCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetResponseColumnNames_CustomFaultExceptionFault_FaultMessage" />
+    <wsdl:operation name="GetFormSettings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetFormSettings" message="tns:IEWEDataService_GetFormSettings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetFormSettingsResponse" message="tns:IEWEDataService_GetFormSettings_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetFormSettingsCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetFormSettings_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="DeleteResponse">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/DeleteResponse" message="tns:IEWEDataService_DeleteResponse_InputMessage" />
@@ -319,8 +319,8 @@
         <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="GetResponseColumnNames">
-      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetResponseColumnNames" style="document" />
+    <wsdl:operation name="GetFormSettings">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetFormSettings" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

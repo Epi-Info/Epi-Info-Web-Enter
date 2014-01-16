@@ -20,8 +20,11 @@
   <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
   <xs:complexType name="FormSettingDTO">
     <xs:sequence>
-      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ColumnNameList" nillable="true" type="q2:ArrayOfKeyValueOfintstring" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AssignedUserList" nillable="true" type="q2:ArrayOfKeyValueOfintstring" />
+      <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ColumnNameList" nillable="true" type="q3:ArrayOfKeyValueOfintstring" />
+      <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FormControlNameList" nillable="true" type="q4:ArrayOfKeyValueOfintstring" />
       <xs:element minOccurs="0" name="FormId" type="ser:guid" />
+      <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UserList" nillable="true" type="q5:ArrayOfKeyValueOfintstring" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormSettingDTO" nillable="true" type="tns:FormSettingDTO" />

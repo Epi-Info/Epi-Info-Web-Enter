@@ -25,7 +25,7 @@ namespace Epi.Web.MVC.Facade
         ISurveyAnswerRepository GetSurveyAnswerRepository();
 
         SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest FormResponseReq);
-        FormSettingResponse GetResponseColumnNameList(FormSettingRequest FormSettingRequest);
+        FormSettingResponse GetFormSettings(FormSettingRequest FormSettingRequest);
 
         SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest);
 

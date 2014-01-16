@@ -201,9 +201,9 @@ namespace Epi.Web.MVC.Facade
 
             return FormResponseList;
         }
-        public FormSettingResponse GetResponseColumnNameList(FormSettingRequest pRequest)
+        public FormSettingResponse GetFormSettings(FormSettingRequest pRequest)
         {
-            FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.GetResponseColumnNameList(pRequest);
+            FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.GetFormSettings(pRequest);
 
             return FormSettingResponse;
 

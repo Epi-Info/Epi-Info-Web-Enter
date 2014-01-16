@@ -269,14 +269,7 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
             }
         }
-        [HttpGet]
-
-        public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
-            {
-             
-                return PartialView("Settings");
-              
-            }
+      
         /// <summary>
         /// Following Action method takes ResponseId as a parameter and deletes the response.
         /// For now it returns nothing as a confirmation of deletion, we may add some error/success
@@ -515,7 +508,7 @@ namespace Epi.Web.MVC.Controllers
 
         public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
         {
-
+        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
             if (!string.IsNullOrEmpty(SurveyId))
             {
@@ -523,12 +516,11 @@ namespace Epi.Web.MVC.Controllers
                 FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
 
                 //Populating the request
-                FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
-                FormResponseReq.Criteria.PageNumber = PageNumber;
-                FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
-
+                 
+                FormSettingReq.FormInfo.FormId = SurveyId;
+                FormSettingReq.FormInfo.UserId = UserId;
                 //Getting Column Name  List
-                FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
+                FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
                 Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
                 Columns.Sort(Compare);
 
@@ -536,6 +528,9 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.Columns = Columns;
 
                 //Getting Resposes
+                FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
+                FormResponseReq.Criteria.PageNumber = PageNumber;
+                FormResponseReq.Criteria.UserId = UserId;
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
                 //Setting Resposes List
@@ -591,5 +586,35 @@ namespace Epi.Web.MVC.Controllers
 
 
         }
+        [HttpGet]
+
+        public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
+            {
+            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+            FormSettingReq.GetXml = true;
+            FormSettingReq.FormInfo.FormId = new Guid(formid).ToString();
+            FormSettingReq.FormInfo.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            //Getting Column Name  List
+            FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
+            Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
+            Columns.Sort(Compare);
+
+            Dictionary<int, string> dictionary = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
+            SettingsInfoModel Model = new SettingsInfoModel();
+            Model.SelectedControlNameList = dictionary;
+
+            Columns = FormSettingResponse.FormSetting.FormControlNameList.ToList();
+            Columns.Sort(Compare);
+
+            Dictionary<int, string> dictionary1 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            Model.FormControlNameList = dictionary1;
+            Model.IsDraftMode = FormSettingResponse.FormInfo.IsDraftMode;
+            Model.FormOwnerFirstName = FormSettingResponse.FormInfo.OwnerFName;
+            Model.FormOwnerLastName = FormSettingResponse.FormInfo.OwnerLName;
+            Model.FormName = FormSettingResponse.FormInfo.FormName;
+            return PartialView("Settings",Model);
+
+            }
     }
 }
