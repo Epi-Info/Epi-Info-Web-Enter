@@ -108,26 +108,26 @@ namespace Epi.Web.BLL
         private bool SendEmail(Email email, Constant.EmailCombinationEnum Combination)
         {
 
-            Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
+         //   Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
 
             switch (Combination)
             {
                 case Constant.EmailCombinationEnum.ResetPassword:
-                    Email.Subject = "Your Visualization Dashboard Password";
-                    Email.Body = string.Format("You recently accessed our Forgot Password service for the Epi Info Web Enter. \n \n Your new temporary password is: {0} \n \n If you have not accessed password help, please contact the administrator. \n \n Please click the link below to launch the Visualization Dashboard and log in with your temporary password. You will then be asked to create a new password.", email.Password);
+                    email.Subject = "Your Web Enter Password";
+                    email.Body = string.Format("You recently accessed our Forgot Password service for the Epi Info Web Enter. \n \n Your new temporary password is: {0} \n \n If you have not accessed password help, please contact the administrator. \n \n Please click the link below to launch the log in page with your temporary password. You will then be asked to create a new password.", email.Password);
                     break;
                 case Constant.EmailCombinationEnum.PasswordChanged:
-                    Email.Subject = "Your Web Enter Password has been updated";
-                    Email.Body = " You recently updated your password for the Epi Info Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n Please click the link below to launch the Visualization Dashboard.";
+                    email.Subject = "Your Web Enter Password has been updated";
+                    email.Body = " You recently updated your password for the Epi Info Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n Please click the link below to launch the Login page.";
                     break;
                 default:
                     break;
             }
 
-            Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
-            Email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
+            email.Body = email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
+            email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
-            return Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
+            return Epi.Web.Common.Email.EmailHandler.SendMessage(email);
 
         }
     }
