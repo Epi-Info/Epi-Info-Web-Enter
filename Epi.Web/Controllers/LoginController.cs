@@ -12,6 +12,7 @@ using System.Web.Security;
 using System.Reflection;
 using System.Diagnostics;
 using Epi.Web.Common.Constants;
+using System.Linq;
 
 namespace Epi.Web.MVC.Controllers
 {
@@ -120,7 +121,7 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ForgotPassword(UserLoginModel Model, string Action, string ReturnUrl)
+        public ActionResult ForgotPassword(UserForgotPasswordModel Model, string Action, string ReturnUrl)
         {
             switch (Action.ToUpper())
             {
@@ -129,6 +130,20 @@ namespace Epi.Web.MVC.Controllers
                 default:
                     break;
             }
+
+            if (!ModelState.IsValid)
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                List<string> errorMessages = new List<string>();
+
+                string msg = ModelState.First().Value.Errors.First().ErrorMessage.ToString();
+
+                ModelState.AddModelError("", msg);
+
+
+                return View("ForgotPassword", Model);
+            }
+
             bool success = _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, Operation = Constant.OperationMode.UpdatePassword });
             if (success)
             {
