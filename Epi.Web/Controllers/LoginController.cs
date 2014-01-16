@@ -194,7 +194,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 UserResetPasswordModel model = new UserResetPasswordModel();
                 model.UserName = Model.UserName;
-                ModelState.AddModelError("", "Password dont match.");
+                ModelState.AddModelError("", "Passwords do not match. Please try again.");
                 return View("ResetPassword", Model);
             }
 
