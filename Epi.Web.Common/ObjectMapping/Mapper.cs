@@ -290,8 +290,10 @@ namespace Epi.Web.Common.ObjectMapping
             return new FormSettingDTO
             {
                 ColumnNameList = pBO.ColumnNameList,
-                 FormId = pBO.FormId
-               
+                FormControlNameList = pBO.FormControlNameList,
+                AssignedUserList = pBO.AssignedUserList,
+                UserList = pBO.UserList
+                  
 
             };
             }

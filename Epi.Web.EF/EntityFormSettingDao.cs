@@ -13,7 +13,7 @@ namespace Epi.Web.EF
     {
    public  class EntityFormSettingDao : IFormSettingDao
         {
-       public FormSettingBO GetResponseColumnNames(string FormId) 
+       public FormSettingBO GetFormSettings(string FormId) 
            
            {
 
@@ -46,5 +46,7 @@ namespace Epi.Web.EF
            
            
            }
+
+        
         }
     }

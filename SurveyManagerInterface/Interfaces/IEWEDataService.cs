@@ -52,7 +52,7 @@ namespace Epi.Web.WCF.SurveyService
 
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
-        FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest);
+        FormSettingResponse GetFormSettings(FormSettingRequest pRequest);
 
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]

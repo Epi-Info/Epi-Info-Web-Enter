@@ -11,7 +11,8 @@ namespace Epi.Web.EF
     {
     public class EntityFormInfoDao: IFormInfoDao
         {
-        public List<FormInfoBO> GetFormInfo(int UserId) {
+        public List<FormInfoBO> GetFormInfo(int UserId)
+            {
         List<FormInfoBO> FormList = new List<FormInfoBO>();
         FormInfoBO FormInfoBO;
      
@@ -35,7 +36,7 @@ namespace Epi.Web.EF
 
                         foreach (var item in items)
                             {
-                        FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo,item.UserInfo);
+                        FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo,item.UserInfo,false);
                            
                             if(item.UserInfo.UserID == Id)
                                 {
@@ -61,7 +62,8 @@ namespace Epi.Web.EF
         return FormList;
             }
 
-      public  FormInfoBO GetFormByFormId(string FormId) {
+        public FormInfoBO GetFormByFormId(string FormId, bool GetXml, int UserId)
+            {
 
        
       FormInfoBO FormInfoBO = new FormInfoBO();
@@ -87,9 +89,16 @@ namespace Epi.Web.EF
 
               foreach (var item in items)
                   {
-                  FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo, item.UserInfo);
+                  FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo, item.UserInfo,GetXml);
 
-                  
+                  if (item.UserInfo.UserID == UserId)
+                      {
+                      FormInfoBO.IsOwner = true;
+                      }
+                  else
+                      {
+                      FormInfoBO.IsOwner = false;
+                      }
 
                   }
               }

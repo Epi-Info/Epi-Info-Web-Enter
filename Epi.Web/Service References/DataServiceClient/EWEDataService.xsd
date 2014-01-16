@@ -17,13 +17,6 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="UpdateUser">
-        <xs:annotation>
-          <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:enumeration>
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="Constant.OperationMode" nillable="true" type="tns:Constant.OperationMode" />

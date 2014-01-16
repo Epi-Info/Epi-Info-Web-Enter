@@ -661,7 +661,7 @@ namespace Epi.Web.WCF.SurveyService
                 //Get form info 
                 Epi.Web.Interfaces.DataInterface.IFormInfoDao surveyInfoDao = new EF.EntityFormInfoDao();
                 Epi.Web.BLL.FormInfo ImplementationFormInfo = new Epi.Web.BLL.FormInfo(surveyInfoDao);
-                result.FormInfo = Mapper.ToFormInfoDTO(ImplementationFormInfo.GetFormInfoByFormId(pRequest.Criteria.SurveyId));
+                result.FormInfo = Mapper.ToFormInfoDTO(ImplementationFormInfo.GetFormInfoByFormId(pRequest.Criteria.SurveyId, false, pRequest.Criteria.UserId));
 
                 return result;
             }
@@ -677,7 +677,7 @@ namespace Epi.Web.WCF.SurveyService
         }
 
 
-        public FormSettingResponse GetResponseColumnNames(FormSettingRequest pRequest)
+        public FormSettingResponse GetFormSettings(FormSettingRequest pRequest)
         {
 
 
@@ -686,12 +686,19 @@ namespace Epi.Web.WCF.SurveyService
             {
                 Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
 
+
+                IFormInfoDao FormInfoDao = entityDaoFactory.FormInfoDao;
+                Epi.Web.BLL.FormInfo FormInfoImplementation = new Epi.Web.BLL.FormInfo(FormInfoDao);
+                FormInfoBO FormInfoBO = FormInfoImplementation.GetFormInfoByFormId(pRequest.FormInfo.FormId, pRequest.GetXml, pRequest.FormInfo.UserId);
+                Response.FormInfo = Mapper.ToFormInfoDTO(FormInfoBO);
+
+
                 Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
+                Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+                Response.FormSetting = Mapper.ToDataTransferObject(SettingsImplementation.GetFormSettings(pRequest.FormInfo.FormId.ToString(), FormInfoBO.Xml));
+                 
+                
 
-                Epi.Web.BLL.FormSetting Implementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
-
-
-                Response.FormSetting = Mapper.ToDataTransferObject(Implementation.GetResponseColumnNames(pRequest.FormSetting.FormId.ToString()));
                 return Response;
 
 

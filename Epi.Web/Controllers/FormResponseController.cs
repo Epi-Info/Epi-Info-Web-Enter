@@ -97,10 +97,10 @@ namespace Epi.Web.MVC.Controllers
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
             FormResponseReq.Criteria.PageNumber = PageNumber;
             FormResponseReq.Criteria.IsMobile = true;
-            FormSettingReq.FormSetting.FormId = new Guid(SurveyId);
+            FormSettingReq.FormInfo.FormId = new Guid(SurveyId).ToString();
 
             //Getting Column Name  List
-            FormSettingResponse FormSettingResponse = _isurveyFacade.GetResponseColumnNameList(FormSettingReq);
+            FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
             Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
             Columns.Sort(Compare);
 
