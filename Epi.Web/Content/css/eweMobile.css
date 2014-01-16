@@ -848,7 +848,13 @@ a.backlink
 #forgotpwd .ui-btn-up-submit2, #forgotpwd .ui-btn-hover-submit2{width: 80px;  display:inline-block;}
 #forgotpwd .ui-btn-inner {font-size:9pt; padding:3px 4px;}
 
-
+/*Reset Password*/
+#resetpwd{width: 80%; padding: 10px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; }
+#resetpwd input[type="password"], #resetpwd input[type="text"] {width:95%; }
+/*#loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}*/
+#resetpwd .ui-btn-up-submit2, #resetpwd .ui-btn-hover-submit2{width: 80px;  display:inline-block;}
+#resetpwd .ui-btn-inner {font-size:9pt; padding:3px 4px;}
+#pwdpolicy { font-size: 12pt; display:inline-block; width: 80%; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; background:#e1eef4; margin:10px 30px 0 0;}
 }/*End of media query phone*/
 
 /* 
