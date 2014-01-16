@@ -42,36 +42,13 @@ namespace Epi.Web.MVC.Controllers
             //     string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
             //     //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
             //     ViewBag.SurveyId = SurveyId;
-            if (responseId != null && responseId.ToUpper() == "RESETPASSWORD") //TBD
-            {
-                return View("ResetPassword");
-            }
+
             return View("Index");
         }
         [HttpPost]
 
         public ActionResult Index(UserLoginModel Model, string Action, string ReturnUrl)
         {
-
-
-            //switch (Action.ToUpper())
-            //{
-            //    //case "FORGOTPASSWORD":
-            //    //case "RESETPASSWORD":
-            //    //    //Code to update the password.
-            //    //    if (!ModelState.IsValid)
-            //    //    {
-            //    //        UserResetPasswordModel model = new UserResetPasswordModel();
-            //    //        model.UserName = Model.UserName;
-            //    //        return View("ResetPassword", Model);
-            //    //    }
-            //    //    _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
-            //    //    break;
-            //    case "CANCEL":
-            //        return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Login");
-            //    default:
-            //        break;
-            //}
 
             return ValidateUser(Model.UserName, Model.Password, ReturnUrl);
 
@@ -91,7 +68,7 @@ namespace Epi.Web.MVC.Controllers
             //    }
             //    else
             //    {
-                    
+
             //        FormsAuthentication.SetAuthCookie(Model.UserName, false);
             //        string UserId = Epi.Web.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
             //        Session["UserId"] = UserId;
@@ -129,7 +106,7 @@ namespace Epi.Web.MVC.Controllers
 
 
         [HttpGet]
-        public ActionResult ForgotPassword(UserLoginModel Model)
+        public ActionResult ForgotPassword()
         {
             return View("ForgotPassword");
         }
@@ -143,47 +120,34 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ForgotPassword(UserLoginModel Model, string Action, string ReturnUrl) 
+        public ActionResult ForgotPassword(UserLoginModel Model, string Action, string ReturnUrl)
         {
             switch (Action.ToUpper())
             {
-                //case "FORGOTPASSWORD":
-                //case "RESETPASSWORD":
-                //    //Code to update the password.
-                //    if (!ModelState.IsValid)
-                //    {
-                //        UserResetPasswordModel model = new UserResetPasswordModel();
-                //        model.UserName = Model.UserName;
-                //        return View("ResetPassword", Model);
-                //    }
-                //    _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
-                //    break;
                 case "CANCEL":
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Login");
                 default:
                     break;
             }
-            _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, Operation = Constant.OperationMode.UpdatePassword });
-            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Login");
+            bool success = _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, Operation = Constant.OperationMode.UpdatePassword });
+            if (success)
+            {
+                return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Login");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Error sending email.");
+                return View("ForgotPassword", Model);
+            }
+
         }
 
         [HttpPost]
         public ActionResult ResetPassword(UserResetPasswordModel Model, string Action, string ReturnUrl)
         {
-            
+
             switch (Action.ToUpper())
             {
-                //case "FORGOTPASSWORD":
-                //case "RESETPASSWORD":
-                //    //Code to update the password.
-                //    if (!ModelState.IsValid)
-                //    {
-                //        UserResetPasswordModel model = new UserResetPasswordModel();
-                //        model.UserName = Model.UserName;
-                //        return View("ResetPassword", Model);
-                //    }
-                //    _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
-                //    break;
                 case "CANCEL":
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Login");
                 default:
@@ -201,10 +165,10 @@ namespace Epi.Web.MVC.Controllers
             _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
 
             return ValidateUser(Model.UserName, Model.Password, ReturnUrl);
-           
+
         }
 
-        private ActionResult ValidateUser(string UserName, string Password, string ReturnUrl) 
+        private ActionResult ValidateUser(string UserName, string Password, string ReturnUrl)
         {
             if (ReturnUrl == null || !ReturnUrl.Contains("/"))
             {

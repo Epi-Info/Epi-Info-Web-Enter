@@ -442,14 +442,14 @@ function ExitSurvey() {
       var signoutUrl = '@Url.Action("Delete", "Survey")';
       var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.SurveyInfo.SurveyId';
       //var homePageUrl = 'FormResponse/Index' + '/' + '@Model.SurveyInfo.SurveyId';
-      alert(homePageUrl);
+      //alert(homePageUrl);
       $.ajax({
           url: signoutUrl,
           type: 'POST',
           contentType: 'application/json; charset=utf-8',
           dataType: "json",
           async: false,
-          success: function () { alert('success'); window.parent.location.href = homePageUrl; },
+          success: function () { window.parent.location.href = homePageUrl; },
           error: errorFunc
       });
     
