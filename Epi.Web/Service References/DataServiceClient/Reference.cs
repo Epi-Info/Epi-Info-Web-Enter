@@ -52,10 +52,9 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormResponseListCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Common.Message.SurveyAnswerResponse GetFormResponseList(Epi.Web.Common.Message.SurveyAnswerRequest pRequest);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetResponseColumnNames", ReplyAction="http://tempuri.org/IEWEDataService/GetResponseColumnNamesResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetResponseColumnNamesCustomFaultExceptionFaul" +
-            "t", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
-        Epi.Web.Common.Message.FormSettingResponse GetResponseColumnNames(Epi.Web.Common.Message.FormSettingRequest pRequest);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormSettings", ReplyAction="http://tempuri.org/IEWEDataService/GetFormSettingsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormSettingsCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.FormSettingResponse GetFormSettings(Epi.Web.Common.Message.FormSettingRequest pRequest);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/DeleteResponse", ReplyAction="http://tempuri.org/IEWEDataService/DeleteResponseResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/DeleteResponseCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
@@ -137,8 +136,8 @@ namespace Epi.Web.MVC.DataServiceClient {
             return base.Channel.GetFormResponseList(pRequest);
         }
         
-        public Epi.Web.Common.Message.FormSettingResponse GetResponseColumnNames(Epi.Web.Common.Message.FormSettingRequest pRequest) {
-            return base.Channel.GetResponseColumnNames(pRequest);
+        public Epi.Web.Common.Message.FormSettingResponse GetFormSettings(Epi.Web.Common.Message.FormSettingRequest pRequest) {
+            return base.Channel.GetFormSettings(pRequest);
         }
         
         public Epi.Web.Common.Message.SurveyAnswerResponse DeleteResponse(Epi.Web.Common.Message.SurveyAnswerRequest pRequest) {

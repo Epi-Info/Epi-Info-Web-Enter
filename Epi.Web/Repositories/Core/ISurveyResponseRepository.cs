@@ -18,7 +18,7 @@ namespace Epi.Web.MVC.Repositories.Core
         UserAuthenticationResponse UpdatePassCode(UserAuthenticationRequest PassCodeDTO);
         UserAuthenticationResponse GetAuthenticationResponse(UserAuthenticationRequest pRequest);
         SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest);
-        FormSettingResponse GetResponseColumnNameList(FormSettingRequest pRequest);
+        FormSettingResponse GetFormSettings(FormSettingRequest pRequest);
 
         SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest);
 

@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using Epi.Web.Common.BusinessObject;
 using Epi.Web.Common.Criteria;
-
+using System.Xml;
+using System.Xml.Linq;
 using Epi.Web.Interfaces.DataInterface;
 namespace Epi.Web.BLL
     {
@@ -21,15 +22,37 @@ namespace Epi.Web.BLL
         this.FormSettingDao = pFormSettingDao;
         }
 
-      public FormSettingBO GetResponseColumnNames(string FormId)
+      public FormSettingBO GetFormSettings(string FormId,string Xml)
             {
              
-          FormSettingBO result = this.FormSettingDao.GetResponseColumnNames(FormId);
-
-           
-
-            return result;
+                FormSettingBO result = this.FormSettingDao.GetFormSettings(FormId);
+                if (!string.IsNullOrEmpty(Xml))
+                    {
+                    result.FormControlNameList = GetFormColumnNames(Xml);
+                    }
+                return result;
             }
 
+      public Dictionary<int, string> GetFormColumnNames(string Xml)
+          {
+          Dictionary<int, string> List = new Dictionary<int, string>();
+
+          XDocument xdoc = XDocument.Parse(Xml);
+
+
+          var _FieldsTypeIDs = from _FieldTypeID in
+                                   xdoc.Descendants("Field")
+                                
+                               select _FieldTypeID;
+          int Count = 0;
+          foreach (var _FieldTypeID in _FieldsTypeIDs)
+              {
+              List.Add(Count, _FieldTypeID.Attribute("Name").Value.ToString());
+              Count++ ;
+              }
+          return List;
+
+          }
+  
         }
     }

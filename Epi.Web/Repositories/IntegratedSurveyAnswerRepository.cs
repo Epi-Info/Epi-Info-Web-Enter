@@ -89,12 +89,12 @@ namespace Epi.Web.MVC.Repositories
             }
 
          
-        public FormSettingResponse GetResponseColumnNameList(FormSettingRequest pRequest)
+        public FormSettingResponse GetFormSettings(FormSettingRequest pRequest)
             {
             try
                 {
 
-                FormSettingResponse result = _iDataService.GetResponseColumnNames(pRequest);
+                FormSettingResponse result = _iDataService.GetFormSettings(pRequest);
                 return result;
                 }
             catch (FaultException<CustomFaultException> cfe)

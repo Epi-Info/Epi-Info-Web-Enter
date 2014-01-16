@@ -4,10 +4,13 @@
     </h2>
     <!--<hr class="hr1" />-->
 </div>
-<div id="editsettings">
+
+@if (Model.FormInfoModel.IsOwner){
+    <div id="editsettings">
     <button id="btneditsettings"  onclick="GetSettings()" class="default settings" type="button">
         Settings</button>
-</div>
+     </div>
+    }
 <div style="clear: both">
 </div>
 <div id="infobox1">
