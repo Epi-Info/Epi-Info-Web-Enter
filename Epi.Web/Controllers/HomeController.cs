@@ -616,5 +616,36 @@ namespace Epi.Web.MVC.Controllers
             return PartialView("Settings",Model);
 
             }
+
+        [HttpGet]
+
+        public ActionResult SaveSettings(string formid)//List<FormInfoModel> ModelList, string formid)
+            {
+            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+            FormSettingReq.GetXml = true;
+            FormSettingReq.FormInfo.FormId = new Guid(formid).ToString();
+            FormSettingReq.FormInfo.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+
+            FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
+
+
+            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
+
+            var model = new FormResponseInfoModel();
+
+
+            model = GetFormResponseInfoModel(formid, 1);
+
+            if (IsMobileDevice == false)
+                {
+                return PartialView("ListResponses", model);
+                }
+            else
+                {
+                return View("ListResponses", model);
+                }
+
+            }
+
     }
 }

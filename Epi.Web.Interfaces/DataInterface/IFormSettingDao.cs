@@ -13,6 +13,6 @@ namespace Epi.Web.Interfaces.DataInterface
    public  interface IFormSettingDao
         {
        FormSettingBO GetFormSettings(string FormId);
-     
+       void SaveSettings(FormSettingBO FormSettingBO);
         }
     }

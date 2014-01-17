@@ -137,6 +137,15 @@
   <wsdl:message name="IEWEDataService_UpdateUser_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q14="http://www.yourcompany.com/types/" name="detail" element="q14:CustomFaultException" />
   </wsdl:message>
+  <wsdl:message name="IEWEDataService_SaveSettings_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveSettings" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SaveSettings_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveSettingsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SaveSettings_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://www.yourcompany.com/types/" name="detail" element="q15:CustomFaultException" />
+  </wsdl:message>
   <wsdl:portType name="IEWEDataService">
     <wsdl:operation name="GetSurveyInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyInfo" message="tns:IEWEDataService_GetSurveyInfo_InputMessage" />
@@ -207,6 +216,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/UpdateUser" message="tns:IEWEDataService_UpdateUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/UpdateUserResponse" message="tns:IEWEDataService_UpdateUser_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/UpdateUserCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_UpdateUser_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveSettings">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/SaveSettings" message="tns:IEWEDataService_SaveSettings_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/SaveSettingsResponse" message="tns:IEWEDataService_SaveSettings_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/SaveSettingsCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_SaveSettings_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEWEDataService" type="tns:IEWEDataService">
@@ -369,6 +383,18 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUser">
       <soap:operation soapAction="http://tempuri.org/IEWEDataService/UpdateUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SaveSettings">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/SaveSettings" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
