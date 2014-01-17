@@ -71,6 +71,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/UpdateUser", ReplyAction="http://tempuri.org/IEWEDataService/UpdateUserResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/UpdateUserCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         bool UpdateUser(Epi.Web.Common.Message.UserAuthenticationRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/SaveSettings", ReplyAction="http://tempuri.org/IEWEDataService/SaveSettingsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/SaveSettingsCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.FormSettingResponse SaveSettings(Epi.Web.Common.Message.FormSettingRequest FormSettingReq);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -154,6 +158,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public bool UpdateUser(Epi.Web.Common.Message.UserAuthenticationRequest request) {
             return base.Channel.UpdateUser(request);
+        }
+        
+        public Epi.Web.Common.Message.FormSettingResponse SaveSettings(Epi.Web.Common.Message.FormSettingRequest FormSettingReq) {
+            return base.Channel.SaveSettings(FormSettingReq);
         }
     }
 }

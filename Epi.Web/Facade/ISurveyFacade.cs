@@ -32,5 +32,7 @@ namespace Epi.Web.MVC.Facade
         SurveyAnswerResponse SetChildRecord(SurveyAnswerRequest SurveyAnswerRequest);
         UserAuthenticationResponse GetUserInfo(int UserId);
         bool UpdateUser(UserDTO User);
+
+        FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq);
     }
 }

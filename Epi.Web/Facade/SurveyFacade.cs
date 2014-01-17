@@ -242,5 +242,15 @@ namespace Epi.Web.MVC.Facade
             request.User = User;
             return _iSurveyAnswerRepository.UpdateUser(request);
         }
+
+        public FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq) {
+
+        FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.SaveSettings(FormSettingReq);
+
+        return FormSettingResponse;
+
+            
+            
+            }
     }
 }

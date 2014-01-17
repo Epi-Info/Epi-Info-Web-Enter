@@ -46,7 +46,39 @@ namespace Epi.Web.EF
            
            
            }
+       public void SaveSettings(FormSettingBO FormSettingBO) 
+           {
 
+           int OrganizationId = 0;
+           try
+               {
+               using (var Context = DataObjectFactory.CreateContext())
+                   {
+
+                   //retrieve OrganizationId based on OrganizationKey
+                   using (var ContextOrg = DataObjectFactory.CreateContext())
+                       {
+                   //    string OrgKey = Epi.Web.Common.Security.Cryptography.Encrypt(SurveyInfo.OrganizationKey.ToString());
+                   //    OrganizationId = ContextOrg.Organizations.FirstOrDefault(x => x.OrganizationKey == OrgKey).OrganizationId;
+                      }
+
+                   //SurveyInfo.TemplateXMLSize = RemoveWhitespace(SurveyInfo.XML).Length;
+                   //SurveyInfo.DateCreated = DateTime.Now;
+
+                   //var SurveyMetaDataEntity = Mapper.Map(SurveyInfo);
+                   //SurveyMetaDataEntity.OrganizationId = OrganizationId;
+                   //Context.AddToSurveyMetaDatas(SurveyMetaDataEntity);
+
+                   Context.SaveChanges();
+                   }
+               }
+           catch (Exception ex)
+               {
+               throw (ex);
+               }
+           
+           
+           }
         
         }
     }
