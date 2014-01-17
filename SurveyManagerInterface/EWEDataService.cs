@@ -772,6 +772,45 @@ namespace Epi.Web.WCF.SurveyService
 
             return response;
             }
+        public FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq)
+            {
+
+               FormSettingResponse Response = new FormSettingResponse();
+        try
+            {
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+
+
+            Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
+            Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+            string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting.ColumnNameList, FormSettingReq.FormSetting.AssignedUserList);
+            
+
+             
+            return Response;
+
+
+            }
+        catch (Exception ex)
+            {
+            CustomFaultException customFaultException = new CustomFaultException();
+            customFaultException.CustomMessage = ex.Message;
+            customFaultException.Source = ex.Source;
+            customFaultException.StackTrace = ex.StackTrace;
+            customFaultException.HelpLink = ex.HelpLink;
+            throw new FaultException<CustomFaultException>(customFaultException);
+            }
+            
+            
+            
+            }
+
+
+
+
+
+
+
     }
 
 

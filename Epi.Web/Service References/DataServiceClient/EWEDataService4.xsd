@@ -277,12 +277,15 @@
   <xs:element name="FormResponseInfoDTO" nillable="true" type="tns:FormResponseInfoDTO" />
   <xs:complexType name="FormSettingRequest">
     <xs:sequence>
+      <xs:element minOccurs="0" name="FormInfo" nillable="true" type="tns:FormInfoDTO" />
       <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q7:FormSettingDTO" />
+      <xs:element minOccurs="0" name="GetXml" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormSettingRequest" nillable="true" type="tns:FormSettingRequest" />
   <xs:complexType name="FormSettingResponse">
     <xs:sequence>
+      <xs:element minOccurs="0" name="FormInfo" nillable="true" type="tns:FormInfoDTO" />
       <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q8:FormSettingDTO" />
     </xs:sequence>
   </xs:complexType>

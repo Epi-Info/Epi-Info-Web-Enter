@@ -25,5 +25,7 @@ namespace Epi.Web.MVC.Repositories.Core
         UserAuthenticationResponse GetUserInfo(UserAuthenticationRequest _surveyAuthenticationRequest);
 
         bool UpdateUser(UserAuthenticationRequest _request);
+
+        FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq);
     }
 }
