@@ -609,6 +609,31 @@ namespace Epi.Web.MVC.Controllers
             Dictionary<int, string> dictionary1 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
             Model.FormControlNameList = dictionary1;
+
+
+
+
+            Columns = FormSettingResponse.FormSetting.AssignedUserList.ToList();
+            Columns.Sort(Compare);
+
+            Dictionary<int, string> dictionary2 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            Model.AssignedUserList = dictionary2;
+
+
+
+
+
+            Columns = FormSettingResponse.FormSetting.UserList.ToList();
+            Columns.Sort(Compare);
+
+            Dictionary<int, string> dictionary3 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            Model.UserList = dictionary3;
+
+
+
+
             Model.IsDraftMode = FormSettingResponse.FormInfo.IsDraftMode;
             Model.FormOwnerFirstName = FormSettingResponse.FormInfo.OwnerFName;
             Model.FormOwnerLastName = FormSettingResponse.FormInfo.OwnerLName;
@@ -617,17 +642,24 @@ namespace Epi.Web.MVC.Controllers
 
             }
 
-        [HttpGet]
-
-        public ActionResult SaveSettings(string formid)//List<FormInfoModel> ModelList, string formid)
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult SaveSettings(string formid)
             {
+
+            
             FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
             FormSettingReq.GetXml = true;
             FormSettingReq.FormInfo.FormId = new Guid(formid).ToString();
             FormSettingReq.FormInfo.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            FormSettingReq.FormSetting.ColumnNameList = GetDictionary(this.Request.Form["SelectedColumns"]);
+
+            FormSettingReq.FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
+            FormSettingReq.FormInfo.IsDraftMode =GetFormMode(this.Request.Form["Mode"]);
 
             FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
 
+           
 
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
@@ -645,6 +677,35 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
                 }
 
+            }
+
+        
+
+        public Dictionary<int, string> GetDictionary( string List) 
+            
+            { 
+             Dictionary<int, string> Dictionary = new Dictionary<int,string>();
+             if (!string.IsNullOrEmpty(List))
+                 {
+                 Dictionary = List.Split(',').ToList().Select((s, i) => new { s, i }).ToDictionary(x => x.i, x => x.s);
+                 }
+             return Dictionary;
+            }
+        public bool GetFormMode(string Mode)
+
+            {
+            bool IsDraftMode = false;
+            if(!string.IsNullOrEmpty(Mode))
+                {
+                int FormMode = int.Parse(Mode);
+                if (FormMode == 1)
+                    {
+                    IsDraftMode = true;
+                    } 
+                }
+            
+
+            return IsDraftMode;
             }
 
     }
