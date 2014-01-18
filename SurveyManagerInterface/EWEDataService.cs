@@ -783,7 +783,7 @@ namespace Epi.Web.WCF.SurveyService
 
             Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
             Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
-            string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting.ColumnNameList, FormSettingReq.FormSetting.AssignedUserList);
+            string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting.ColumnNameList, FormSettingReq.FormSetting.AssignedUserList, FormSettingReq.FormInfo.FormId);
             
 
              

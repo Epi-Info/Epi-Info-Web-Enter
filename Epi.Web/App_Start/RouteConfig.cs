@@ -52,6 +52,14 @@ namespace Epi.Web.MVC
              "Home/GetSettings", // URL with parameters
              new { controller = "Home", action = "GetSettings", formid = UrlParameter.Optional }
          ); // Parameter defaults
+
+             
+            routes.MapRoute
+      (
+          null, // Route name
+          "Home/SaveSettings", // URL with parameters
+          new { controller = "Home", action = "SaveSettings", formid = UrlParameter.Optional }
+      ); // Param
             routes.MapRoute
                (
                    null, // Route name
