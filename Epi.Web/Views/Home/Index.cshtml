@@ -128,7 +128,7 @@
 		});
 
 		function ReadResponses(formid, pagenumber) {
-			// alert('2');
+			 //alert('2');
 			$.ajax({
 				url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber,
 				type: 'GET',
@@ -243,8 +243,15 @@
 		});
 
 	});
-	function ReadResponse(ActionUrl) {
-   
+function ReadResponse(ActionUrl) {
+
+	    var Url = window.location.pathname;
+	    var Formid = "";
+	    if (Url.indexOf("/") != -1) 
+        {
+	        Formid = Url.substring(Url.lastIndexOf("/") + 1);
+	        SetSettingButtonValue(Formid);
+	    }
 		$.ajax({
 			url: ActionUrl,
 			type: 'GET',
