@@ -9,70 +9,130 @@
 <div id="infobox1">   
 	<div id="create"><span>Created by:</span> <span class="boldlabel">@Model.FormOwnerFirstName  @Model.FormOwnerLastName </span></div>
 	<div id="mode"><span>Mode:</span> @*<span class="boldlabel">Staging</span>*@
-	<select>
+	 
 	@if(!Model.IsDraftMode)
 		{
-		  <option value="0"  selected ="selected">Production</option>
-		  <option value="1">Draft</option>
+		   
+	  <span class="boldlabel">Production</span>
+	  
 		}
-		else
-		{
-		  <option value="0"  selected ="selected">Production</option>
-		  <option value="1" selected ="selected">Draft</option>
+ else
+	 {
+		<span class="boldlabel">Staging </span>
 		
-		}
-   </select> 
+	 }
+  
 	
 	</div>
 	<div style="clear: both;"></div>
 </div>
 <div id="settingscontent">
 	<h3 class="surveyTitle" style="margin: 0 0 .3em 0;">Form Settings</h3>
+	 <br> 
+
 	<div id="recordcolumns">
+	<div id="mode"><span>Mode:</span> @*<span class="boldlabel">Staging</span>*@
+	<select name="Mode">
+	@if (!Model.IsDraftMode)
+	 {
+		  <option value="0"  selected ="selected">Production</option>
+		  <option value="1">Staging</option>
+	 }
+ else
+	 {
+		  <option value="0"  selected ="selected">Production</option>
+		  <option value="1" selected ="selected">Staging</option>
+		
+	 }
+   </select> 
+	
+	</div>
+	<br> 
 		<p style="margin-bottom: 10px;">Select up to 5 columns to display when viewing the list of records.</p>
 		<div id="columnselect">
 			<div id="available">
 				<label for="s">Available Columns:</label>
 				<br />
-				<select id="s" size="10" multiple="">
+				<select id="s" size="10" multiple="multiple">
 			   
-					 @foreach(var item in Model.FormControlNameList){
-					<option value="@item.Key">@item.Value</option>
-					}
+					 @foreach (var item in Model.FormControlNameList)
+		  {
+					<option value="@item.Value">@item.Value</option>
+		  }
 				</select>
 			</div>
 			<div id="swapbtn">
-				<a href="#" onclick="listbox_moveacross('s', 'd')">&#x25BA;</a>
+				<a href="#" onclick="listbox_moveacross('s', 'SelectedColumns',true)">&#x25BA;</a>
 				<br /><br />
-				<a href="#" onclick="listbox_moveacross('d', 's')">&#x25C4;</a>
+				<a href="#" onclick="listbox_moveacross('SelectedColumns', 's',false)">&#x25C4;</a>
 			</div>
 			<div id="selected">
 				<label for="s">Columns to Display: (Max 5)</label>
 				<br />
-				<select id="d" size="5" multiple="">
-					 @foreach(var item in Model.SelectedControlNameList){
-					<option value="@item.Key">@item.Value</option>
+				<select id="SelectedColumns" size="5" multiple="multiple" name="SelectedColumns" >
+					 @foreach (var item in Model.SelectedControlNameList)
+		  {
+					<option value="@item.Value">@item.Value</option>
 					}
 				</select>
 			</div>
 			<div id="updown">
-				<a href="#" onclick="listbox_move('d', 'up')">&#x25B2;</a> 
+				<a href="#" onclick="listbox_move('SelectedColumns', 'up')">&#x25B2;</a> 
 				<br /><br />
-				<a href="#" onclick="listbox_move('d', 'down')">&#x25BC;</a>
+				<a href="#" onclick="listbox_move('SelectedColumns', 'down')">&#x25BC;</a>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
+	 <br> 
+		<p style="margin-bottom: 10px;">Assign users to your Form.</p>
+		<div id="UserSelect">
+			<div id="available1">
+				<label for="Assigned">Available Users:</label>
+				<br />
+				<select id="Assigned" size="10" multiple="multiple">
+			   
+					 @foreach (var item in Model.UserList)
+		  {
+					<option value="@item.Value">@item.Value</option>
+		  }
+				</select>
+			</div>
+			<div id="swapbtn">
+				<a href="#" onclick="listbox_moveacross('Assigned', 'SelectedUser',false)">&#x25BA;</a>
+				<br /><br />
+				<a href="#" onclick="listbox_moveacross('SelectedUser', 'Assigned',false)">&#x25C4;</a>
+			</div>
+			<div id="selected1">
+				<label for="Assigned">Assigned Users:</label>
+				<br />
+				<select id="SelectedUser" size="5" multiple="multiple" name="SelectedUser" >
+					 @foreach (var item in Model.AssignedUserList)
+				{
+					<option value="@item.Value">@item.Value</option>
+					}
+				</select>
+			</div>
+			<div id="updown">
+				<a href="#" onclick="listbox_move('SelectedUser', 'up')">&#x25B2;</a> 
+				<br /><br />
+				<a href="#" onclick="listbox_move('SelectedUser', 'down')">&#x25BC;</a>
+			</div>
+			<div style="clear:both;"></div>
+		</div>
+
+
 	
 	</div>
 	<div class="formbutton1" style="margin:20px 0px;">
-		<button class="default savesettings">Save Settings</button>
+		<button class="default savesettings" onclick="SaveSettings()" type="button">Save Settings</button>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<button class="default cancelsettings">Cancel</button>
+		<button class="default cancelsettings" onclick="CancelChange()" type="button">Cancel</button>
 	</div>
 	<div style="clear: both"></div>
 </div>
 <script type="text/javascript">
 	function listbox_move(listID, direction) {
+		 
 		var listbox = document.getElementById(listID); var selIndex = listbox.selectedIndex; 
 		if (-1 == selIndex) { alert("Please select an option to move."); return; }
 		var increment = -1; if (direction == 'up')
@@ -81,14 +141,54 @@
 		var selValue = listbox.options[selIndex].value; var selText = listbox.options[selIndex].text; listbox.options[selIndex].value = listbox.options[selIndex + increment].value
 		listbox.options[selIndex].text = listbox.options[selIndex + increment].text
 		listbox.options[selIndex + increment].value = selValue; listbox.options[selIndex + increment].text = selText; listbox.selectedIndex = selIndex + increment;
+		
 	}
-	function listbox_moveacross(sourceID, destID) {
-		var src = document.getElementById(sourceID); var dest = document.getElementById(destID); for (var count = 0; count < src.options.length; count++) {
-			if (src.options[count].selected == true) {
-				var option = src.options[count]; var newOption = document.createElement("option"); newOption.value = option.value; newOption.text = option.text; newOption.selected = true; try { dest.add(newOption, null); src.remove(count, null); } catch (error) { dest.add(newOption); src.remove(count); }
+	function listbox_moveacross(sourceID, destID, Selecting) {
+	  
+		var src = document.getElementById(sourceID);
+		var dest = document.getElementById(destID);
+		for (var count = 0; count < src.options.length; count++) 
+		{
+			if (src.options[count].selected == true) 
+			{
+				var option = src.options[count];
+				var newOption = document.createElement("option");
+				newOption.value = option.value;
+				 newOption.text = option.text;
+				newOption.selected = true;
+				try {
+
+					if (Selecting) {
+						if (dest.options.length < 5) {
+							dest.add(newOption, null);
+							src.remove(count, null);
+						}
+						else {
+							alert("You can only select up to 5 columns.");
+							return;
+						}
+					}
+					else
+					 {
+						 dest.add(newOption, null);
+						 src.remove(count, null);
+					
+					 }
+				} 
+				catch (error) 
+				{
+					dest.add(newOption); 
+					src.remove(count);
+				 }
 				count--;
 			}
-		}
+		} 
+		
 	}
-	function listbox_selectall(listID, isSelect) { var listbox = document.getElementById(listID); for (var count = 0; count < listbox.options.length; count++) { listbox.options[count].selected = isSelect; } }
+	function listbox_selectall(listID, isSelect) 
+	{
+		var listbox = document.getElementById(listID);
+		for (var count = 0; count < listbox.options.length; count++)
+		{ listbox.options[count].selected = isSelect; }
+	  }
 	</script>

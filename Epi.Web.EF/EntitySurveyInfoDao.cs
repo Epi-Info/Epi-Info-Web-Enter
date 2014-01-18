@@ -341,20 +341,9 @@ namespace Epi.Web.EF
                                 select response;
 
                     var DataRow = Query.Single();
-                    DataRow.SurveyName = SurveyInfo.SurveyName;
-                    DataRow.SurveyNumber = SurveyInfo.SurveyNumber;
-                    DataRow.TemplateXML = SurveyInfo.XML;
-                    DataRow.IntroductionText = SurveyInfo.IntroductionText;
-                    DataRow.ExitText = SurveyInfo.ExitText;
-                    DataRow.OrganizationName = SurveyInfo.OrganizationName;
-                    DataRow.DepartmentName = SurveyInfo.DepartmentName;
-                    DataRow.ClosingDate = SurveyInfo.ClosingDate;
-                    DataRow.SurveyTypeId = SurveyInfo.SurveyType;
-                    DataRow.UserPublishKey = SurveyInfo.UserPublishKey;
-                    DataRow.TemplateXMLSize = RemoveWhitespace(SurveyInfo.XML).Length;
-                    DataRow.IsDraftMode = SurveyInfo.IsDraftMode;
-                    DataRow.StartDate = SurveyInfo.StartDate;
-                   
+                    DataRow = Mapper.ToEF(SurveyInfo);
+
+                    
 
                     Context.SaveChanges();
                 }

@@ -285,7 +285,45 @@
 		 function errorFunc() {
 			 alert('error');
 		 }
-	
+
+}
+function SaveSettings() {
+	$('#SelectedColumns option').prop('selected', true);
+	$('#SelectedUser option').prop('selected', true);
+	var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+	var _form = $("#formsList").serialize();
+	//alert(form);
+	$.ajax({
+		url: ActionUrl,
+		type: 'POST',
+		//contentType: 'application/json; charset=utf-8',
+		data: _form,
+		dataType: "html",
+		
+		success: successFunc,
+		Error: errorFunc
+});
+
+
+
+ 
+	$.ajaxSetup({ cache: false });
+
+	function successFunc(data, status) {
+		$('#right').html(data);
+	}
+
+	function errorFunc() {
+		alert('error');
+	}
+
+}
+//CancelChange
+	function CancelChange() 
+	{
+	 
+		var ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+		ReadResponse(ActionUrl);
 	}
 	function SetSettingButtonValue(formid) 
 	{

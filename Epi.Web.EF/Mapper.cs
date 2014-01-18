@@ -295,5 +295,49 @@ namespace Epi.Web.EF
             };
         
         }
+
+        internal static ResponseDisplaySetting ToColumnName(KeyValuePair<int, string> ColumnList,Guid FormId)
+            {
+            return new ResponseDisplaySetting
+            {
+                SortOrder = ColumnList.Key+1,
+                ColumnName = ColumnList.Value,
+                FormId = FormId
+            };
+            }
+
+        internal static SurveyMetaData ToEF(SurveyInfoBO SurveyInfo)
+            {
+            SurveyMetaData DataRow = new SurveyMetaData();
+            DataRow.SurveyName = SurveyInfo.SurveyName;
+            DataRow.SurveyNumber = SurveyInfo.SurveyNumber;
+            DataRow.TemplateXML = SurveyInfo.XML;
+            DataRow.IntroductionText = SurveyInfo.IntroductionText;
+            DataRow.ExitText = SurveyInfo.ExitText;
+            DataRow.OrganizationName = SurveyInfo.OrganizationName;
+            DataRow.DepartmentName = SurveyInfo.DepartmentName;
+            DataRow.ClosingDate = SurveyInfo.ClosingDate;
+            DataRow.SurveyTypeId = SurveyInfo.SurveyType;
+            DataRow.UserPublishKey = SurveyInfo.UserPublishKey;
+            DataRow.TemplateXMLSize = RemoveWhitespace(SurveyInfo.XML).Length;
+            DataRow.IsDraftMode = SurveyInfo.IsDraftMode;
+            DataRow.StartDate = SurveyInfo.StartDate;
+            return DataRow;
+            }
+        private static string RemoveWhitespace(string xml)
+            {
+            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@">\s*<");
+            xml = regex.Replace(xml, "><");
+
+            return xml.Trim();
+            }
+
+        internal static SurveyMetaData ToEF(FormInfoBO FormInfoBO)
+            {
+           return new SurveyMetaData
+           {
+               IsDraftMode = FormInfoBO.IsDraftMode
+           } ;
+            }
     }
 }
