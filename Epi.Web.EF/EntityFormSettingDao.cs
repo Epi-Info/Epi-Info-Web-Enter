@@ -71,7 +71,7 @@ namespace Epi.Web.EF
 
                foreach (var user in UserQuery)
                    {
-                   if (!SelectedUsers.ContainsValue(user.UserName))
+                   if (!SelectedUsers.ContainsValue(user.UserName) && user.UserID != SelectedUserQuery.OwnerId)
                        {
                          AvailableUsers.Add(user.UserID, user.UserName);
                        }
