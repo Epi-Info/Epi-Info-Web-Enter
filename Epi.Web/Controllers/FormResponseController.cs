@@ -448,11 +448,11 @@ namespace Epi.Web.MVC.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public ActionResult Delete(string ResponseId)
+        public JsonResult Delete(string ResponseId)
         {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
-            SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()); ; //TBD
+            SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()); //TBD
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
