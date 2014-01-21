@@ -62,9 +62,11 @@
 				</select>
 			</div>
 			<div id="swapbtn">
-				<a href="#" onclick="listbox_moveacross('s', 'SelectedColumns',true)">&#x25BA;</a>
+				@*<a href="#" onclick="listbox_moveacross('s', 'SelectedColumns',true)">&#x25BA;</a>*@
+				<button id="button1" type="button" onclick="listbox_moveacross('s', 'SelectedColumns',true)">&#x25BA;</button>
 				<br /><br />
-				<a href="#" onclick="listbox_moveacross('SelectedColumns', 's',false)">&#x25C4;</a>
+				@*<a href="#" onclick="listbox_moveacross('SelectedColumns', 's',false)">&#x25C4;</a>*@
+				<button id="button2" type="button" onclick="listbox_moveacross('SelectedColumns', 's',false)">&#x25C4;</button>
 			</div>
 			<div id="selected">
 				<label for="s">Columns to Display: (Max 5)</label>
@@ -77,9 +79,11 @@
 				</select>
 			</div>
 			<div id="updown">
-				<a href="#" onclick="listbox_move('SelectedColumns', 'up')">&#x25B2;</a> 
+				@*<a href="#" onclick="listbox_move('SelectedColumns', 'up')">&#x25B2;</a> *@
+				  <button id="Up1" type="button" onclick="listbox_move('SelectedColumns', 'up')">&#x25B2;</button>
 				<br /><br />
-				<a href="#" onclick="listbox_move('SelectedColumns', 'down')">&#x25BC;</a>
+				@*<a href="#" onclick="listbox_move('SelectedColumns', 'down')">&#x25BC;</a>*@
+				<button id="down1" type="button" onclick="listbox_move('SelectedColumns', 'down')">&#x25BC;</button>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
@@ -98,9 +102,11 @@
 				</select>
 			</div>
 			<div id="swapbtn">
-				<a href="#" onclick="listbox_moveacross('Assigned', 'SelectedUser',false)">&#x25BA;</a>
+				@*<a href="#" onclick="listbox_moveacross('Assigned', 'SelectedUser',false)">&#x25BA;</a>*@
+				  <button id="button3" type="button" onclick="listbox_moveacross('Assigned', 'SelectedUser',false)">&#x25BA;</button>
 				<br /><br />
-				<a href="#" onclick="listbox_moveacross('SelectedUser', 'Assigned',false)">&#x25C4;</a>
+				@*<a href="#" onclick="listbox_moveacross('SelectedUser', 'Assigned',false)">&#x25C4;</a>*@
+				<button id="button4" type="button" onclick="listbox_moveacross('SelectedUser', 'Assigned',false)">&#x25C4;</button>
 			</div>
 			<div id="selected1">
 				<label for="Assigned">Assigned Users:</label>
@@ -113,9 +119,11 @@
 				</select>
 			</div>
 			<div id="updown">
-				<a href="#" onclick="listbox_move('SelectedUser', 'up')">&#x25B2;</a> 
+				@*<a href="#" onclick="listbox_move('SelectedUser', 'up')">&#x25B2;</a> *@
+				   <button id="Up2" type="button" onclick="listbox_move('SelectedUser', 'up')">&#x25B2;</button>
 				<br /><br />
-				<a href="#" onclick="listbox_move('SelectedUser', 'down')">&#x25BC;</a>
+				@*<a href="#" onclick="listbox_move('SelectedUser', 'down')">&#x25BC;</a>*@
+				<button id="down2" type="button" onclick="listbox_move('SelectedUser', 'down')">&#x25BC;</button>
 			</div>
 			<div style="clear:both;"></div>
 		</div>
