@@ -48,7 +48,7 @@ namespace Epi.Web.BLL
             int Count = 0;
             foreach (var _FieldTypeID in _FieldsTypeIDs)
                 {
-                if (!Selected.ContainsValue(_FieldTypeID.Attribute("Name").Value.ToString()))
+                if (!Selected.ContainsValue(_FieldTypeID.Attribute("Name").Value.ToString()) && _FieldTypeID.Attribute("FieldTypeId").Value !="2")
                     {
                     List.Add(Count, _FieldTypeID.Attribute("Name").Value.ToString());
                     Count++;
@@ -82,6 +82,8 @@ namespace Epi.Web.BLL
 
                 this.FormSettingDao.UpDateColumnNames(FormSettingBO, FormId);
                 this.FormSettingDao.UpDateFormMode(FormInfoBO);
+
+                //GetFormCurrentUsers
                 this.FormSettingDao.UpDateAssignedUserList(FormSettingBO, FormId);
                 Message = "Success";
                 }
