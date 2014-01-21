@@ -26,27 +26,53 @@ namespace Epi.Web.EF
                     
 
 
+                      
+
+
+                       IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Select(x => x);
+                       List<string> Assigned = new List<string>();
+                       User CurrentUser = Context.Users.Single(x => x.UserID == Id);
+                     
+                       foreach (var form in AllForms)
+                           {
+                           if (form.Users.Contains(CurrentUser))
+                               {
+                                  Assigned.Add(form.SurveyId.ToString());
+                               }
+                           
+                           }
+
+
                        var items = from FormInfo in Context.SurveyMetaDatas
                                    join UserInfo in Context.Users
                                    on FormInfo.OwnerId equals UserInfo.UserID
                                    into temp
                                    from UserInfo in temp.DefaultIfEmpty()
-                                   select new { FormInfo, UserInfo };
-
+                                   select new { FormInfo, UserInfo }; 
+                     
 
                         foreach (var item in items)
                             {
+                            
                         FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo,item.UserInfo,false);
                            
                             if(item.UserInfo.UserID == Id)
                                 {
                                     FormInfoBO.IsOwner = true;
+                                    FormList.Add(FormInfoBO);
+                                   
                                 }
                             else
                                 {
+                                if (Assigned.Contains(FormInfoBO.FormId))
+                                     {
                                    FormInfoBO.IsOwner = false;
+                                   FormList.Add(FormInfoBO);
+                                     }
+                                   
                                 }
-                            FormList.Add(FormInfoBO);
+
+                           // FormList.Add(FormInfoBO);
                             
                             }
                          }
@@ -66,52 +92,52 @@ namespace Epi.Web.EF
             {
 
        
-      FormInfoBO FormInfoBO = new FormInfoBO();
+                      FormInfoBO FormInfoBO = new FormInfoBO();
 
-      try
-          {
+                      try
+                          {
 
-          Guid Id = new Guid(FormId);
+                          Guid Id = new Guid(FormId);
 
-          using (var Context = DataObjectFactory.CreateContext())
-              {
-
-
-
-              var items = from FormInfo in Context.SurveyMetaDatas
-                          join UserInfo in Context.Users
-                          on FormInfo.OwnerId equals UserInfo.UserID
-                          into temp
-                          from UserInfo in temp.DefaultIfEmpty()
-                          where FormInfo.SurveyId == Id
-                          select new { FormInfo, UserInfo };
-
-
-              foreach (var item in items)
-                  {
-                  FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo, item.UserInfo,GetXml);
-
-                  if (item.UserInfo.UserID == UserId)
-                      {
-                      FormInfoBO.IsOwner = true;
-                      }
-                  else
-                      {
-                      FormInfoBO.IsOwner = false;
-                      }
-
-                  }
-              }
-          }
-      catch (Exception ex)
-          {
-          throw (ex);
-          }
+                          using (var Context = DataObjectFactory.CreateContext())
+                              {
 
 
 
+                              var items = from FormInfo in Context.SurveyMetaDatas
+                                          join UserInfo in Context.Users
+                                          on FormInfo.OwnerId equals UserInfo.UserID
+                                          into temp
+                                          from UserInfo in temp.DefaultIfEmpty()
+                                          where FormInfo.SurveyId == Id
+                                          select new { FormInfo, UserInfo };
 
-      return FormInfoBO;
+
+                              foreach (var item in items)
+                                  {
+                                  FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo, item.UserInfo,GetXml);
+
+                                  if (item.UserInfo.UserID == UserId)
+                                      {
+                                      FormInfoBO.IsOwner = true;
+                                      }
+                                  else
+                                      {
+                                      FormInfoBO.IsOwner = false;
+                                      }
+
+                                  }
+                              }
+                          }
+                      catch (Exception ex)
+                          {
+                          throw (ex);
+                          }
+
+
+
+
+                      return FormInfoBO;
             
             
             }
