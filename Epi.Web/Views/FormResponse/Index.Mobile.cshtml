@@ -36,7 +36,8 @@
 
 
     function ExitSurvey() {
-        
+
+             
             var signoutUrl = '@Url.Action("Delete", "FormResponse")' + '?ResponseId=' + $("input[id=hidSelectedResponseId]").val();
             $.ajax({
                 url: signoutUrl,
@@ -48,13 +49,15 @@
                 error: errorFunc
                                     });
 
-                                //    alert(2);
+                                
         }
 
         function successFunc() {
-            var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + getQueryStringValue()["formid"].toString();
+          //  alert(5);
+          //  var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + getQueryStringValue()["formid"].toString();
          //   alert(homePageUrl);
-            window.location.href = homePageUrl; // homePageUrl;
+            //window.location.href = homePageUrl; // homePageUrl;
+            window.location.href = window.location.href;
         }
 
         function errorFunc(data) {
@@ -104,8 +107,8 @@
                 <div style="max-width:720px;">
                
                 <div id="editsettings">
-                    <button id="btneditsettings" type="button" data-theme="defsettings">
-                        Settings</button>
+                    @*<button id="btneditsettings" type="button" data-theme="defsettings">
+                        Settings</button>*@
                 </div>
                 <div id="addnew">
                         <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
