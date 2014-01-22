@@ -745,22 +745,16 @@ button.paging img
 		font-size:12pt;
 		font-weight: lighter; 
 		border-bottom: 3px solid #2878ec !important;
-		/*Remove to have tables scroll horizontally;*/
-		max-width: 120px;
-        vertical-align: top;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+		
 	}
 	#recordstable td, #recordstable th { 
 		padding: 6px; 
 		/*border-bottom: 1px solid #2878ec; */
 		text-align: left; 
-		max-width: 120px;/*Remove to have tables scroll horizontally;*/
 		
 	}
-	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; max-width: 130px !important; /*Remove to have tables scroll horizontally;*/}
-	#recordstable th:nth-of-type(1) { width:130px; min-width:130px; max-width: 130px !important;/*Remove to have tables scroll horizontally;*/ }
+	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
+	#recordstable th:nth-of-type(1) { width:130px; min-width:130px; }
 	
 	div.zerorec {margin: 10px 0 0 150px; font-weight:bold; color: 3f3f3f;}
 	
