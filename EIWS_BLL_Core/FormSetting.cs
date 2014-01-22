@@ -7,6 +7,7 @@ using Epi.Web.Common.Criteria;
 using System.Xml;
 using System.Xml.Linq;
 using Epi.Web.Interfaces.DataInterface;
+using System.Configuration;
 namespace Epi.Web.BLL
     {
     public class FormSetting
@@ -14,13 +15,14 @@ namespace Epi.Web.BLL
 
 
         private IFormSettingDao FormSettingDao;
-       
 
-
-        public FormSetting(IFormSettingDao pFormSettingDao)
+        private IUserDao UserDao;
+        private IFormInfoDao FormInfoDao;
+        public FormSetting(IFormSettingDao pFormSettingDao, IUserDao pUserDao, IFormInfoDao pFormInfoDao)
             {
             this.FormSettingDao = pFormSettingDao;
-            
+            this.UserDao = pUserDao;
+            this.FormInfoDao = pFormInfoDao;
             }
 
         public FormSettingBO GetFormSettings(string FormId, string Xml)
@@ -82,9 +84,17 @@ namespace Epi.Web.BLL
 
                 this.FormSettingDao.UpDateColumnNames(FormSettingBO, FormId);
                 this.FormSettingDao.UpDateFormMode(FormInfoBO);
-
-                //GetFormCurrentUsers
                 this.FormSettingDao.UpDateAssignedUserList(FormSettingBO, FormId);
+
+               if(ConfigurationManager.AppSettings["SEND_EMAIL_TO_ASSIGNED_USERS"].ToUpper() =="TRUE")
+                   {
+                    SendEmail(AssignedUserList, FormId) ;
+
+                   }
+                  
+                
+
+
                 Message = "Success";
                 }
             catch (Exception Ex){
@@ -94,5 +104,34 @@ namespace Epi.Web.BLL
                 }
             return Message;
             }
+
+
+        private void SendEmail(Dictionary<int,String> AssignedUserList,string FormId) 
+            { 
+            
+             //GetFormCurrentUsersList
+                List<UserBO> FormCurrentUsersList = this.UserDao.GetUserByFormId(FormId);
+                FormInfoBO FormInfoBO = this.FormInfoDao.GetFormByFormId(FormId);
+                UserBO UserBO = this.UserDao.GetCurrentUser(FormInfoBO.UserId);
+                List<string> UsersEmail = new List<string>();
+                foreach (UserBO User in FormCurrentUsersList)
+                    {
+                    if (!AssignedUserList.ContainsValue(User.UserName))
+                        {
+                        /// send email to user
+                        UsersEmail.Add(User.EmailAddress);
+                        }
+
+                    }
+           if (UsersEmail.Count()>0)
+             {
+                Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
+                Email.Body = "The following form has been assigned to You:\n Title:" + FormInfoBO.FormName + " \n Form ID:" + FormInfoBO.FormId  + " \n \n \n  Thank you.";
+                Email.From = UserBO.EmailAddress;
+                Email.To = UsersEmail;
+                Email.Subject = "Form -" + FormInfoBO.FormName + "has been assigned to You";
+                Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
+             }
+           }
         }
     }

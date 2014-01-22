@@ -10,7 +10,7 @@ namespace Epi.Web.Interfaces.DataInterface
         {
          List<FormInfoBO> GetFormInfo(int UserId);
          FormInfoBO GetFormByFormId(string FormId, bool GetXml, int UserId);
-      
+         FormInfoBO GetFormByFormId(string FormId);
 
 
         }

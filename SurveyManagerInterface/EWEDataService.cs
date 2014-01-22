@@ -694,7 +694,9 @@ namespace Epi.Web.WCF.SurveyService
 
 
                 Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
-                Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+                Epi.Web.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+                Epi.Web.Interfaces.DataInterface.IFormInfoDao IFormInfoDao = entityDaoFactory.FormInfoDao;
+                Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao, IUserDao, IFormInfoDao);
                 Response.FormSetting = Mapper.ToDataTransferObject(SettingsImplementation.GetFormSettings(pRequest.FormInfo.FormId.ToString(), FormInfoBO.Xml));
                  
                 
@@ -782,7 +784,9 @@ namespace Epi.Web.WCF.SurveyService
 
 
             Epi.Web.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
-            Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+            Epi.Web.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+            Epi.Web.Interfaces.DataInterface.IFormInfoDao IFormInfoDao = entityDaoFactory.FormInfoDao;
+            Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao, IUserDao, IFormInfoDao);
             string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting.ColumnNameList, FormSettingReq.FormSetting.AssignedUserList, FormSettingReq.FormInfo.FormId);
             
 

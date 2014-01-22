@@ -646,12 +646,12 @@ namespace Epi.Web.MVC.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSettings(string formid)
             {
-
-            
+        
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
             FormSettingReq.GetXml = true;
             FormSettingReq.FormInfo.FormId = new Guid(formid).ToString();
-            FormSettingReq.FormInfo.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            FormSettingReq.FormInfo.UserId = UserId;
             FormSettingReq.FormSetting.ColumnNameList = GetDictionary(this.Request.Form["SelectedColumns"]);
 
             FormSettingReq.FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
@@ -659,7 +659,7 @@ namespace Epi.Web.MVC.Controllers
 
             FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
 
-           
+
 
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
@@ -671,11 +671,15 @@ namespace Epi.Web.MVC.Controllers
             if (IsMobileDevice == false)
                 {
                 return PartialView("ListResponses", model);
+
                 }
             else
                 {
                 return View("ListResponses", model);
                 }
+            
+
+         
 
             }
 
