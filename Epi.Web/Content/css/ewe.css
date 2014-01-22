@@ -750,6 +750,7 @@ button.paging img
 		padding: 6px; 
 		/*border-bottom: 1px solid #2878ec; */
 		text-align: left; 
+		
 	}
 	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
 	#recordstable th:nth-of-type(1) { width:130px; min-width:130px; }
@@ -1050,7 +1051,7 @@ button.edit {
 
 /*Forgot Password*/
 #forgotpwd{width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; }
-#forgotpwd input[type="text"] {height:30px; width:260px; font-size:12pt;}
+#forgotpwd input[type="email"] {height:30px; width:260px; font-size:12pt;}
 #forgotpwd button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}
 
 /*Reset Password*/
@@ -1062,15 +1063,17 @@ button.edit {
 
  
 /*Settings*/
-#columnselect {vertical-align:middle;}
+#columnselect {vertical-align:middle; margin-bottom: 22px;}
 #available, #swapbtn, #selected, #updown {display:inline-block; float: left; margin: 0 20px 0 0; }
 #available select, #selected select { width:200px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
-#available label, #selected label {font-weight:600; font-size:9pt;}
+#available label, #selected label {font-weight:bold; font-size:9pt;}
 #swapbtn, #updown {margin-top:58px;}
-#swapbtn a, #updown a{ font-family: Arial; width:40px; cursor: pointer; color:#fff; border: 1px solid #1f3b53; background: #5c53ac; text-decoration: none; padding: 4px 6px 4px 4px; }
+#swapbtn button, #updown button{ font-family: Arial; width:40px; cursor: pointer; color:#fff; border: 1px solid #1f3b53; background: #5c53ac; text-decoration: none; padding: 4px 6px 4px 4px; }
 
 
 #UserSelect {vertical-align:middle;}
 #available1, #swapbtn1, #selected1, #updown1 {display:inline-block; float: left; margin: 0 20px 0 0; }
 #available1 select, #selected1 select { width:200px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
-#available1 label, #selected1 label {font-weight:600; font-size:9pt;}
+#available1 label, #selected1 label {font-weight:bold; font-size:9pt;}
+
+#mode select{font-size: 12pt;height: 30px;width: 150px;}

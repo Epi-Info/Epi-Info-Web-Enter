@@ -514,10 +514,10 @@ function SaveForm() {
 </div>  
 
 <div id="content" class="recordcontentdiv" style="margin:20px auto 0;">
-@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = @Model.IsDraftModeStyleClass.ToString() }))
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = "" }))
 	
 {  
- <div id="formdisplay" style="">
+ <div id="formdisplay" class="@Model.IsDraftModeStyleClass.ToString()" style="">
 <div id="infobox">
         <div id="pages" class="pages">
 
