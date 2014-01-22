@@ -245,13 +245,13 @@
 	});
 function ReadResponse(ActionUrl) {
 
-	    var Url = window.location.pathname;
-	    var Formid = "";
-	    if (Url.indexOf("/") != -1) 
-        {
-	        Formid = Url.substring(Url.lastIndexOf("/") + 1);
-	        SetSettingButtonValue(Formid);
-	    }
+		var Url = window.location.pathname;
+		var Formid = "";
+		if (Url.indexOf("/") != -1) 
+		{
+			Formid = Url.substring(Url.lastIndexOf("/") + 1);
+			SetSettingButtonValue(Formid);
+		}
 		$.ajax({
 			url: ActionUrl,
 			type: 'GET',
@@ -317,7 +317,8 @@ function SaveSettings() {
 	$.ajaxSetup({ cache: false });
 
 	function successFunc(data, status) {
-		$('#right').html(data);
+	    $('#right').html(data);
+	    $('#btneditsettings').focus();
 	}
 
 	function errorFunc() {
