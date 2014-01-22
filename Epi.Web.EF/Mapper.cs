@@ -68,8 +68,9 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="Result"></param>
         /// <param name="user"></param>
-        public static void MapToUserBO(UserBO Result, User user)
+        public static UserBO MapToUserBO( User user)
         {
+             UserBO Result = new UserBO();
             Result.UserId = user.UserID;
             Result.UserName = user.UserName;
             Result.EmailAddress = user.EmailAddress;
@@ -78,6 +79,7 @@ namespace Epi.Web.EF
             Result.PhoneNumber = user.PhoneNumber;
             Result.ResetPassword = user.ResetPassword;
             //Result.Role = user.role
+            return Result;
         }
 
 

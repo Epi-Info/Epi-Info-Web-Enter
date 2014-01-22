@@ -20,7 +20,7 @@ namespace Epi.Web.EF
 
             foreach (var user in UserQuery)
             {
-                Mapper.MapToUserBO(Result, user);
+                Result = Mapper.MapToUserBO(user);
                 return Result;
             }
 
@@ -69,13 +69,27 @@ namespace Epi.Web.EF
 
             foreach (var user in UserQuery)
             {
-                Mapper.MapToUserBO(Result, user);
+                Result = Mapper.MapToUserBO(user);
                 return Result;
             }
 
             return null;
         }
+        public UserBO GetCurrentUser(int UserId)
+            {
+            UserBO Result = new UserBO();
+            using (var Context = DataObjectFactory.CreateContext())
+                {
 
+                Result = Mapper.MapToUserBO(Context.Users.Single(x => x.UserID == UserId));
+
+
+                }
+
+
+
+            return Result;
+            }
 
         public bool UpdateUserPassword(UserBO User)
         {
@@ -100,5 +114,25 @@ namespace Epi.Web.EF
         {
             throw new NotImplementedException();
         }
+
+        public List<UserBO> GetUserByFormId(string FormId)
+            {
+            Guid id = new Guid(FormId);
+            List<UserBO> UserList = new List<UserBO>();
+            UserBO UserBO = new UserBO();
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+                SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
+
+                IEnumerable<User> Users = SelectedUserQuery.Users;
+                foreach (User user in Users)
+                    {
+
+                    UserList.Add(Mapper.MapToUserBO(user));
+                    }
+                }
+            return UserList;
+
+            }
     }
 }

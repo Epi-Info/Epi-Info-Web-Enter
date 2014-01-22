@@ -141,7 +141,34 @@ namespace Epi.Web.EF
             
             
             }
-        
 
+        public FormInfoBO GetFormByFormId(string FormId)
+        {
+
+        FormInfoBO FormInfoBO = new FormInfoBO();
+
+        try
+            {
+
+            Guid Id = new Guid(FormId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+                 
+                SurveyMetaData SurveyMetaData = Context.SurveyMetaDatas.Single(x => x.SurveyId == Id);
+                FormInfoBO = Mapper.ToFormInfoBO(SurveyMetaData);
+                }
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+
+
+
+
+        return FormInfoBO;
+            
+            }
         }
     }
