@@ -306,7 +306,7 @@ namespace Epi.Web.MVC.Controllers
 
         private bool HasSymbol(string password)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(password, @"[" + ConfigurationManager.AppSettings["Symbols"] + "]");
+            return System.Text.RegularExpressions.Regex.IsMatch(password, @"[" + ConfigurationManager.AppSettings["Symbols"].Replace(" ", "") + "]");
         }
 
         private void ReadPasswordPolicy(UserResetPasswordModel Model) 
