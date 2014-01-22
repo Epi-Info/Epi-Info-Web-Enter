@@ -318,7 +318,8 @@ function SaveSettings() {
 
 	function successFunc(data, status) {
 	    $('#right').html(data);
-	    $('#btneditsettings').focus();
+	    $('#dropdown-1').focus();
+	    
 	}
 
 	function errorFunc() {
@@ -329,9 +330,10 @@ function SaveSettings() {
 //CancelChange
 	function CancelChange() 
 	{
-	 
+	   
 		var ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
 		ReadResponse(ActionUrl);
+		$('#dropdown-1').focus();
 	}
 	function SetSettingButtonValue(formid) 
 	{

@@ -81,14 +81,14 @@ namespace Epi.Web.BLL
             FormInfoBO.IsDraftMode = IsDraftMode;
             try
                 {
-
+                List<UserBO> FormCurrentUsersList = this.UserDao.GetUserByFormId(FormId);
                 this.FormSettingDao.UpDateColumnNames(FormSettingBO, FormId);
                 this.FormSettingDao.UpDateFormMode(FormInfoBO);
                 this.FormSettingDao.UpDateAssignedUserList(FormSettingBO, FormId);
 
-               if(ConfigurationManager.AppSettings["SEND_EMAIL_TO_ASSIGNED_USERS"].ToUpper() =="TRUE")
+                if (ConfigurationManager.AppSettings["SEND_EMAIL_TO_ASSIGNED_USERS"].ToUpper() == "TRUE" && AssignedUserList.Count()>0)
                    {
-                    SendEmail(AssignedUserList, FormId) ;
+                   SendEmail(AssignedUserList, FormId, FormCurrentUsersList);
 
                    }
                   
@@ -106,32 +106,63 @@ namespace Epi.Web.BLL
             }
 
 
-        private void SendEmail(Dictionary<int,String> AssignedUserList,string FormId) 
-            { 
-            
-             //GetFormCurrentUsersList
-                List<UserBO> FormCurrentUsersList = this.UserDao.GetUserByFormId(FormId);
+        private void SendEmail(Dictionary<int, String> AssignedUserList, string FormId, List<UserBO> FormCurrentUsersList) 
+            {
+
+            try { 
+                
                 FormInfoBO FormInfoBO = this.FormInfoDao.GetFormByFormId(FormId);
                 UserBO UserBO = this.UserDao.GetCurrentUser(FormInfoBO.UserId);
                 List<string> UsersEmail = new List<string>();
-                foreach (UserBO User in FormCurrentUsersList)
-                    {
-                    if (!AssignedUserList.ContainsValue(User.UserName))
-                        {
-                        /// send email to user
-                        UsersEmail.Add(User.EmailAddress);
-                        }
+                List<string> CurrentUsersEmail = new List<string>();
 
+                  foreach (UserBO User in FormCurrentUsersList)
+                       { 
+                            CurrentUsersEmail.Add(User.EmailAddress);
+                       }
+
+
+                       if (CurrentUsersEmail.Count() > 0)
+                            {
+                  
+                            foreach (var User in AssignedUserList)
+                                {
+                                if (!CurrentUsersEmail.Contains(User.Value))
+                                    {
+                                    
+                                       UsersEmail.Add(User.Value);
+                                    }
+
+                                }
+                            }
+                        else
+                            {
+                            foreach (var User in AssignedUserList)
+                                {
+                         
+                                    UsersEmail.Add(User.Value);
+                        
+                                }
+                            }
+                        if (UsersEmail.Count() > 0)
+                            {
+                          
+                            Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
+                            Email.Body = "The following form has been assigned to you in Epi Web Enter.\n\nTitle: " + FormInfoBO.FormName + " \n\nForm ID: " + FormInfoBO.FormId + " \n \n \nPlease click the link below to launch Epi Web Enter.";
+                            Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
+                            Email.From = UserBO.EmailAddress;
+                            Email.To = UsersEmail;
+                            Email.Subject = "Epi Web Enter - Form -" + FormInfoBO.FormName + "has been assigned to You";
+                            Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
+
+
+                            }
+                }
+                catch(Exception ex)
+                   {
+                    throw ex;
                     }
-           if (UsersEmail.Count()>0)
-             {
-                Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
-                Email.Body = "The following form has been assigned to You:\n Title:" + FormInfoBO.FormName + " \n Form ID:" + FormInfoBO.FormId  + " \n \n \n  Thank you.";
-                Email.From = UserBO.EmailAddress;
-                Email.To = UsersEmail;
-                Email.Subject = "Form -" + FormInfoBO.FormName + "has been assigned to You";
-                Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
              }
            }
         }
-    }
+    
