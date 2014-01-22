@@ -148,11 +148,11 @@ namespace Epi.Web.BLL
                             {
                           
                             Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
-                            Email.Body = "The following form has been assigned to you in Epi Web Enter.\n\nTitle: " + FormInfoBO.FormName + " \n\nForm ID: " + FormInfoBO.FormId + " \n \n \nPlease click the link below to launch Epi Web Enter.";
+                            Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has assigned the following form  to you in Epi Web Enter.\n\nTitle: " + FormInfoBO.FormName +" \n \n \nPlease click the link below to launch Epi Web Enter.";
                             Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
                             Email.From = UserBO.EmailAddress;
                             Email.To = UsersEmail;
-                            Email.Subject = "Epi Web Enter - Form -" + FormInfoBO.FormName + "has been assigned to You";
+                            Email.Subject = "An Epi Web Enter Form - " + FormInfoBO.FormName + " has been assigned to You";
                             Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
 
 
