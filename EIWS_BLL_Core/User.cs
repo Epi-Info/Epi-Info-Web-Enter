@@ -113,12 +113,12 @@ namespace Epi.Web.BLL
             switch (Combination)
             {
                 case Constant.EmailCombinationEnum.ResetPassword:
-                    email.Subject = "Your Web Enter Password";
-                    email.Body = string.Format("You recently accessed our Forgot Password service for the Epi Info Web Enter. \n \n Your new temporary password is: {0} \n \n If you have not accessed password help, please contact the administrator. \n \n Please click the link below to launch the log in page with your temporary password. You will then be asked to create a new password.", email.Password);
+                    email.Subject = "Your Epi Web Enter Password";
+                    email.Body = string.Format("You recently accessed our Forgot Password service for  Epi Web Enter. \n \n Your new temporary password is: {0} \n \n If you have not accessed password help, please contact the administrator. \n \n Please click the link below and log in with your temporary password. You will then be asked to create a new password.", email.Password);
                     break;
                 case Constant.EmailCombinationEnum.PasswordChanged:
-                    email.Subject = "Your Web Enter Password has been updated";
-                    email.Body = " You recently updated your password for the Epi Info Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n Please click the link below to launch the Login page.";
+                    email.Subject = "Your Epi Web Enter Password has been updated";
+                    email.Body = " You recently updated your password for Epi Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n Please click the link below to launch Epi Web Enter.";
                     break;
                 default:
                     break;
