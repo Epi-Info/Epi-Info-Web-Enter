@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Diagnostics;
 using Epi.Web.Common.Constants;
 using System.Linq;
+using System.Configuration;
 
 namespace Epi.Web.MVC.Controllers
 {
@@ -112,11 +113,9 @@ namespace Epi.Web.MVC.Controllers
             return View("ForgotPassword");
         }
 
-        [HttpGet]
-        public ActionResult ResetPassword(string UserName)
+        //[HttpGet]
+        public ActionResult ResetPassword(UserResetPasswordModel model)
         {
-            UserResetPasswordModel model = new UserResetPasswordModel();
-            model.UserName = UserName;
             return View("ResetPassword", model);
         }
 
@@ -176,6 +175,12 @@ namespace Epi.Web.MVC.Controllers
                 ModelState.AddModelError("", "Passwords do not match. Please try again.");
                 return View("ResetPassword", Model);
             }
+        
+            if (!ValidatePassword(Model))
+            {
+                ModelState.AddModelError("", "Password is not strong enough. Please try again.");
+                return View("ResetPassword", Model);
+            }
 
             _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
 
@@ -197,7 +202,12 @@ namespace Epi.Web.MVC.Controllers
             {
                 if (result.User.ResetPassword)
                 {
-                    return ResetPassword(UserName);
+                    UserResetPasswordModel  model = new UserResetPasswordModel();
+                    model.UserName = UserName;
+                    model.FirstName = result.User.FirstName;
+                    model.LastName = result.User.LastName;
+                    ReadPasswordPolicy(model);
+                    return ResetPassword(model);
                 }
                 else
                 {
@@ -215,5 +225,102 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
+        private bool ValidatePassword(UserResetPasswordModel Model) 
+        {
+            //int minLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMinimumLength"]);
+            //int maxLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMaximumLength"]);
+            //bool useSymbols = Convert.ToBoolean(ConfigurationManager.AppSettings["UseSymbols"]); //= false;
+            //bool useNumeric = Convert.ToBoolean(ConfigurationManager.AppSettings["UseNumbers"]); //= false;
+            //bool useLowerCase = Convert.ToBoolean(ConfigurationManager.AppSettings["UseLowerCase"]);
+            //bool useUpperCase = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUpperCase"]);
+            //bool useUserIdInPassword = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUserIdInPassword"]);
+            //bool useUserNameInPassword = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUserNameInPassword"]);
+            //int numberOfTypesRequiredInPassword = Convert.ToInt16(ConfigurationManager.AppSettings["NumberOfTypesRequiredInPassword"]);
+
+            ReadPasswordPolicy(Model);
+
+            int successCounter = 0;
+
+            if (Model.UseSymbols && HasSymbol(Model.Password))
+            {
+                successCounter++;
+            }
+
+            if (Model.UseUpperCase && HasUpperCase(Model.Password))
+            {
+                successCounter++;
+            }
+            if (Model.UseLowerCase && HasLowerCase(Model.Password))
+            {
+                successCounter++;
+            }
+            if (Model.UseNumeric && HasNumber(Model.Password))
+            {
+                successCounter++;
+            }
+
+            if (Model.UseUserIdInPassword)
+            {
+                if (Model.Password.ToString().Contains(Model.UserName.Split('@')[0].ToString()))
+                {
+                    successCounter = 0;
+                }
+
+            }
+
+            if (Model.UseUserNameInPassword)
+            {
+                if (Model.Password.ToString().Contains(Model.FirstName) || Model.Password.ToString().Contains(Model.LastName))
+                {
+                    successCounter = 0;
+                }
+            }
+
+            if (Model.Password.Length < Model.MinimumLength || Model.Password.Length > Model.MaximumLength)
+            {
+                return false;
+            }
+
+            if (Model.NumberOfTypesRequiredInPassword <= successCounter && successCounter != 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool HasNumber(string password)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(password, @"\d");
+        }
+
+        private bool HasUpperCase(string password)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(password, @"[A-Z]");
+        }
+
+        private bool HasLowerCase(string password)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(password, @"[a-z]");
+        }
+
+        private bool HasSymbol(string password)
+        {
+            return System.Text.RegularExpressions.Regex.IsMatch(password, @"[" + ConfigurationManager.AppSettings["Symbols"] + "]");
+        }
+
+        private void ReadPasswordPolicy(UserResetPasswordModel Model) 
+        {
+            Model.MinimumLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMinimumLength"]);
+            Model.MaximumLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMaximumLength"]);
+            Model.UseSymbols = Convert.ToBoolean(ConfigurationManager.AppSettings["UseSymbols"]); //= false;
+            Model.UseNumeric = Convert.ToBoolean(ConfigurationManager.AppSettings["UseNumbers"]); //= false;
+            Model.UseLowerCase = Convert.ToBoolean(ConfigurationManager.AppSettings["UseLowerCase"]);
+            Model.UseUpperCase = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUpperCase"]);
+            Model.UseUserIdInPassword = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUserIdInPassword"]);
+            Model.UseUserNameInPassword = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUserNameInPassword"]);
+            Model.NumberOfTypesRequiredInPassword = Convert.ToInt16(ConfigurationManager.AppSettings["NumberOfTypesRequiredInPassword"]);
+            Model.Symbols = ConfigurationManager.AppSettings["Symbols"];
+        }
     }
 }
