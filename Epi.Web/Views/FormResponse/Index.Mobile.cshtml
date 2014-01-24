@@ -106,17 +106,7 @@
             { 
                 <div style="max-width:720px;">
                
-                <div id="editsettings">
-                    @*<button id="btneditsettings" type="button" data-theme="defsettings">
-                        Settings</button>*@
-                </div>
-                <div id="addnew">
-                        <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
-                            Add New Record
-                        </button>
-                    </div>
-                     <div style="clear: both;"></div>
-                     <div id="infobox1">
+               <div id="infobox1">
                     <div id="create">
                         <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerFName @Model.FormInfoModel.OwnerLName </span></div>
                     @*      <div id="status">
@@ -141,31 +131,21 @@
                                
                 }
                     }
-                    <div style="clear: both;">
-                    </div>
+                    <div style="clear: both;"></div>
                 </div>
+                <div id="addnew">
+                        <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
+                            Add New Record
+                        </button>
+                    </div>
+                     <div style="clear: both;"></div>
+                     
                 </div>
                 <div style="clear: both">
                 </div>
                 
                 <div id="recordscontent">
-                    <!--style="display:inline-block;"-->
                     
-
-                    <!--<div id="paging" class="pages" style="margin-top: 11px; min-width: 184px !important;">
-                   @* <button class="default paging">
-                        <img alt="Previous" src="~/Content/images/prev1.png" align="middle" /></button>
-                    &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
-                    <button class="default paging">
-                        <img alt="Next" src="~/Content/images/next1.png" align="middle" /></button>*@
-                        <a  style="background-image: url('@Url.Content("~/Content/images/prev.png")'); background-repeat:no-repeat; background-position:center; width:30px;"   href="#"    class="nextprev" title="Previous Page">
-                    &nbsp;&nbsp;&nbsp;
-                    </a> 
-                     &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
-                      <a  style="background-image: url('@Url.Content("~/Content/images/next.png")'); background-repeat:no-repeat; background-position:center; width:30px;"   href="#"    class="nextprev" title="Previous Page">
-                    &nbsp;&nbsp;&nbsp;
-                    </a> 
-                </div>-->
                     <div style="clear: both; margin-bottom: 10px;">
                     </div>
                     <div id="recordstable">
@@ -181,13 +161,12 @@
                             for (int i = 0; i < Model.ResponsesList.Count(); i++)
                             {
                             @Html.Raw("<li class='mobilerow'>");
-                           <!-- @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + @Html.ActionLink("Edit", "index", "survey", new { responseId = Model.ResponsesList[i].Column0 }, null).ToString() + " &nbsp;&nbsp; " + @Html.ActionLink("Delete", "Delete", new { id = Model.ResponsesList[i].Column0 }) + " " + "</div></div>");-->
-                              @Html.Raw("<div class='mobilewrap'><div class='mobileheader'> Actions: </div>" + "<div  class='mobilevalue'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Open</button> &nbsp;" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='DeleteButton'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Delete</button>" + " " + "</div></div>");
-                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div></div>");
-                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div></div>");
-                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div></div>");
-                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[3].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column4 + "</div></div>");
-                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[4].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column5 + "</div></div>");
+                            @Html.Raw("<div class='mobilewrap'>" + "<div  class='mobilevalue' style='width:100%; text-align:right;'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Open</button> &nbsp;" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='DeleteButton'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Delete</button>" + " " + "</div><div style='clear: both;'></div></div>");
+                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div><div style='clear: both;'></div></div>");
+                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div><div style='clear: both;'></div></div>");
+                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div><div style='clear: both;'></div></div>");
+                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[3].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column4 + "</div><div style='clear: both;'></div></div>");
+                            @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[4].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column5 + "</div><div style='clear: both;'></div></div>");
                            
                             @Html.Raw("</li>");
                             }
