@@ -751,8 +751,24 @@ button.paging img
 		padding: 6px; 
 		/*border-bottom: 1px solid #2878ec; */
 		text-align: left; 
+		vertical-align:top;
+		max-width: 140px;
 		
 	}
+	
+	#recordstable td { 
+		word-break:break-all;
+		vertical-align: top;
+	}
+	
+	#recordstable th { 
+		vertical-align: top;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+		
+	}
+	
 	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
 	#recordstable th:nth-of-type(1) { width:130px; min-width:130px; }
 	
@@ -994,7 +1010,7 @@ button.edit {
     background-repeat: no-repeat;
     background-size: 18px auto;
     background-position: 8px center;
-    width: 55px;
+    width: 56px;
     height: 30px;
     padding: 4px 6px 4px 4px;
 }

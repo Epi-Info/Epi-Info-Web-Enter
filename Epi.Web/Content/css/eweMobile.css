@@ -585,10 +585,9 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
 
 #addnew
  {
-    float:right; margin-top: 8px;
+    float:left; margin-top: 8px;
  }
  
-
 #recordstable td button.default {font-size:10pt !important;}
 
 button.paging
@@ -878,8 +877,10 @@ a.backlink
 	white-space: nowrap;
 }
 		
-.mobileheader{display:inline-block; width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;}
-.mobilevalue{display:inline; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
+/*.mobileheader{display:inline-block; width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;}
+.mobilevalue{display:inline; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}*/
+.mobileheader{width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif; float: left; overflow: hidden; text-overflow: ellipsis;}
+.mobilevalue{font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; float: left; width:50%;}
 .mobilewrap{ display:block; padding:8px; border-top: 1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #ccc;}
 #recordstable li:nth-of-type(even) { background: #e0ebfc; }
 #recordstable ul { margin:0; padding:0}
@@ -966,5 +967,5 @@ and (max-width : 368px) { /* STYLES GO HERE */
 #footleft {width:48%;}
 #footleft div{display:block !important;}
 #formdisplay {min-width: 280px;}
-.mobileheader { width:auto !important; margin-right: 10px;}
+/*.mobileheader { width:auto !important; margin-right: 10px;}*/
 }
