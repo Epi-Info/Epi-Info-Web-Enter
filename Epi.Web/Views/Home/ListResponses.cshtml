@@ -115,8 +115,6 @@
                             </div>  
                             onclick ='EditRecord(this);'
                 }*@
-              
-        
         
             @webGrid.GetHtml(
             columns: webGrid.Columns(
@@ -127,11 +125,12 @@
                                              "<button name='DeleteButton' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
                                   )
                     ),
-                                 webGrid.Column("Column1", Model.Columns[0].Value),
-                                 webGrid.Column("Column2", Model.Columns[1].Value),
-                                 webGrid.Column("Column3", Model.Columns[2].Value),
-                                 webGrid.Column("Column4", Model.Columns[3].Value),
-                                 webGrid.Column("Column5", Model.Columns[4].Value)
+                    
+                    webGrid.Column("Column1", (Model.Columns.Count >= 1) ? Model.Columns[0].Value : ""),
+                                          webGrid.Column("Column2", (Model.Columns.Count >= 2) ? Model.Columns[1].Value : ""),
+                                          webGrid.Column("Column3", (Model.Columns.Count >= 3) ? Model.Columns[2].Value : ""),
+                                          webGrid.Column("Column4", (Model.Columns.Count >= 4) ? Model.Columns[3].Value : ""),
+                                          webGrid.Column("Column5", (Model.Columns.Count >= 5) ? Model.Columns[4].Value : "")
                                )
                                   );
 

@@ -269,7 +269,7 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
             }
         }
-      
+
         /// <summary>
         /// Following Action method takes ResponseId as a parameter and deletes the response.
         /// For now it returns nothing as a confirmation of deletion, we may add some error/success
@@ -477,24 +477,33 @@ namespace Epi.Web.MVC.Controllers
                 var document = XDocument.Parse(item.XML);
 
                 var nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
-
                 ResponseModel.Column1 = nodes.First().Value;
 
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+                if (Columns.Count >= 2)
+                {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+                    ResponseModel.Column2 = nodes.First().Value;
+                }
 
-                ResponseModel.Column2 = nodes.First().Value;
 
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+                if (Columns.Count >= 3)
+                {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+                    ResponseModel.Column3 = nodes.First().Value;
+                }
 
-                ResponseModel.Column3 = nodes.First().Value;
+                if (Columns.Count >= 4)
+                {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+                    ResponseModel.Column4 = nodes.First().Value;
+                }
 
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+                if (Columns.Count >= 5)
+                {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
+                    ResponseModel.Column5 = nodes.First().Value;
+                }
 
-                ResponseModel.Column4 = nodes.First().Value;
-
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
-
-                ResponseModel.Column5 = nodes.First().Value;
 
                 return ResponseModel;
 
@@ -508,7 +517,7 @@ namespace Epi.Web.MVC.Controllers
 
         public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
         {
-        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
             if (!string.IsNullOrEmpty(SurveyId))
             {
@@ -516,7 +525,7 @@ namespace Epi.Web.MVC.Controllers
                 FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
 
                 //Populating the request
-                 
+
                 FormSettingReq.FormInfo.FormId = SurveyId;
                 FormSettingReq.FormInfo.UserId = UserId;
                 //Getting Column Name  List
@@ -589,7 +598,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
 
         public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
-            {
+        {
             FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
             FormSettingReq.GetXml = true;
             FormSettingReq.FormInfo.FormId = new Guid(formid).ToString();
@@ -638,15 +647,15 @@ namespace Epi.Web.MVC.Controllers
             Model.FormOwnerFirstName = FormSettingResponse.FormInfo.OwnerFName;
             Model.FormOwnerLastName = FormSettingResponse.FormInfo.OwnerLName;
             Model.FormName = FormSettingResponse.FormInfo.FormName;
-            return PartialView("Settings",Model);
+            return PartialView("Settings", Model);
 
-            }
+        }
 
         [HttpPost]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSettings(string formid)
-            {
-        
+        {
+
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
             FormSettingReq.GetXml = true;
@@ -655,7 +664,7 @@ namespace Epi.Web.MVC.Controllers
             FormSettingReq.FormSetting.ColumnNameList = GetDictionary(this.Request.Form["SelectedColumns"]);
 
             FormSettingReq.FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
-            FormSettingReq.FormInfo.IsDraftMode =GetFormMode(this.Request.Form["Mode"]);
+            FormSettingReq.FormInfo.IsDraftMode = GetFormMode(this.Request.Form["Mode"]);
 
             FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
 
@@ -669,48 +678,46 @@ namespace Epi.Web.MVC.Controllers
             model = GetFormResponseInfoModel(formid, 1);
 
             if (IsMobileDevice == false)
-                {
+            {
                 return PartialView("ListResponses", model);
 
-                }
+            }
             else
-                {
-                return View("ListResponses", model);
-                }
-            
-
-         
-
-            }
-
-        
-
-        public Dictionary<int, string> GetDictionary( string List) 
-            
-            { 
-             Dictionary<int, string> Dictionary = new Dictionary<int,string>();
-             if (!string.IsNullOrEmpty(List))
-                 {
-                 Dictionary = List.Split(',').ToList().Select((s, i) => new { s, i }).ToDictionary(x => x.i, x => x.s);
-                 }
-             return Dictionary;
-            }
-        public bool GetFormMode(string Mode)
-
             {
+                return View("ListResponses", model);
+            }
+
+
+
+
+        }
+
+
+
+        public Dictionary<int, string> GetDictionary(string List)
+        {
+            Dictionary<int, string> Dictionary = new Dictionary<int, string>();
+            if (!string.IsNullOrEmpty(List))
+            {
+                Dictionary = List.Split(',').ToList().Select((s, i) => new { s, i }).ToDictionary(x => x.i, x => x.s);
+            }
+            return Dictionary;
+        }
+        public bool GetFormMode(string Mode)
+        {
             bool IsDraftMode = false;
-            if(!string.IsNullOrEmpty(Mode))
-                {
+            if (!string.IsNullOrEmpty(Mode))
+            {
                 int FormMode = int.Parse(Mode);
                 if (FormMode == 1)
-                    {
+                {
                     IsDraftMode = true;
-                    } 
                 }
-            
+            }
+
 
             return IsDraftMode;
-            }
+        }
 
     }
 }
