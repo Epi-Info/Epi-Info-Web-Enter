@@ -144,8 +144,10 @@ namespace Epi.Web.MVC.Controllers
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [ValidateAntiForgeryToken]
         //public ActionResult Index(SurveyInfoModel surveyInfoModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, int PageNumber = 1)
-        public ActionResult Index(SurveyAnswerModel surveyAnswerModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, string Close, string CloseButton, int PageNumber = 0)
+        public ActionResult Index(SurveyAnswerModel surveyAnswerModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, string Close, string CloseButton, int PageNumber = 0, string Form_Has_Changed="")
         {
+
+           //var Form_Has_Changed = this.Request.Form["Form_Has_Changed"].ToString();
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
@@ -158,7 +160,8 @@ namespace Epi.Web.MVC.Controllers
             }
             try
             {
-
+            string FormValuesHasChanged = Form_Has_Changed;
+           // bool.TryParse(this.Request.Form["Form_Has_Changed"], out FormValuesHasChanged);
                 Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
 
                 // SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(SurveyAnswer.SurveyId);
@@ -178,6 +181,7 @@ namespace Epi.Web.MVC.Controllers
                     case PreValidationResultEnum.Success:
                     default:
                         MvcDynamicForms.Form form;
+                        
                         int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
                         int ReffererPageNum;
 
@@ -204,6 +208,7 @@ namespace Epi.Web.MVC.Controllers
                             if (ReffererPageNum != CurrentPageNum)
                             {
                                 form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, ReffererPageNum, SurveyAnswer, IsMobileDevice);
+                                form.FormValuesHasChanged = FormValuesHasChanged;
                                 if (IsMobileDevice)
                                 {
                                     Epi.Web.MVC.Utility.MobileFormProvider.UpdateHiddenFields(ReffererPageNum, form, XDocument.Parse(surveyInfoModel.XML), XDocument.Parse(SurveyAnswer.XML), this.ControllerContext.RequestContext.HttpContext.Request.Form);
@@ -216,6 +221,7 @@ namespace Epi.Web.MVC.Controllers
                             else
                             {
                                 form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice);
+                                form.FormValuesHasChanged = FormValuesHasChanged;
                                 if (IsMobileDevice)
                                 {
                                     Epi.Web.MVC.Utility.MobileFormProvider.UpdateHiddenFields(CurrentPageNum, form, XDocument.Parse(surveyInfoModel.XML), XDocument.Parse(SurveyAnswer.XML), this.ControllerContext.RequestContext.HttpContext.Request.Form);
@@ -234,6 +240,7 @@ namespace Epi.Web.MVC.Controllers
                         {
                             //get the survey form
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice);
+                            form.FormValuesHasChanged = FormValuesHasChanged;
                             form.ClearAllErrors();
                             if (ReffererPageNum == 0)
                                 {
@@ -291,6 +298,7 @@ namespace Epi.Web.MVC.Controllers
                             SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
 
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()) == 0 ? 1 : GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice);
+                            form.FormValuesHasChanged = FormValuesHasChanged;
                             //Update the model
                             UpdateModel(form);
 
@@ -335,6 +343,7 @@ namespace Epi.Web.MVC.Controllers
 
                             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
+                            form.FormValuesHasChanged = FormValuesHasChanged;
                             TempData["Width"] = form.Width + 5;
                             return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
                         }
@@ -434,6 +443,7 @@ namespace Epi.Web.MVC.Controllers
 
                                 SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
                                 form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
+                                form.FormValuesHasChanged = FormValuesHasChanged;
                                 TempData["Width"] = form.Width + 5;
                                 //PassCode start
                                 if (IsMobileDevice)
