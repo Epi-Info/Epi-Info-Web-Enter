@@ -162,11 +162,24 @@
                             {
                             @Html.Raw("<li class='mobilerow'>");
                             @Html.Raw("<div class='mobilewrap'>" + "<div  class='mobilevalue' style='width:100%; text-align:right;'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Open</button> &nbsp;" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='DeleteButton'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Delete</button>" + " " + "</div><div style='clear: both;'></div></div>");
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div><div style='clear: both;'></div></div>");
+                                                                                                                                                                                                            if (Model.Columns.Count >= 2) { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div><div style='clear: both;'></div></div>");
+                                if (Model.Columns.Count >= 3)
+                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div><div style='clear: both;'></div></div>");
+                                }
+
+                                if (Model.Columns.Count >= 4)
+                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[3].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column4 + "</div><div style='clear: both;'></div></div>");
+                                }
+
+                                if (Model.Columns.Count >= 5)
+                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[4].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column5 + "</div><div style='clear: both;'></div></div>");
+                                }
                            
                             @Html.Raw("</li>");
                             }

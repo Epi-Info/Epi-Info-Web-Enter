@@ -149,21 +149,31 @@ namespace Epi.Web.MVC.Controllers
 
             ResponseModel.Column1 = nodes.First().Value;
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+            if (Columns.Count >= 2)
+            {
+                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+                ResponseModel.Column2 = nodes.First().Value;
+            }
 
-            ResponseModel.Column2 = nodes.First().Value;
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+            if (Columns.Count >= 3)
+            {
+                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+                ResponseModel.Column3 = nodes.First().Value;
+            }
 
-            ResponseModel.Column3 = nodes.First().Value;
+            if (Columns.Count >= 4)
+            {
+                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+                ResponseModel.Column4 = nodes.First().Value;
+            }
 
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+            if (Columns.Count >= 5)
+            {
+                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
+                ResponseModel.Column5 = nodes.First().Value;
+            }
 
-            ResponseModel.Column4 = nodes.First().Value;
-
-            nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
-
-            ResponseModel.Column5 = nodes.First().Value;
 
             return ResponseModel;
 
