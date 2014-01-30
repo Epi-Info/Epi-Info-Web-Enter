@@ -291,73 +291,90 @@
 			return true;
 		}
 
-	});
-
-	$(document).ready(function () {
-
-		$("#send").click(function () {
-
-			var emailAddress = $("#email").val();
-			var confirmemail = $("#confirmemail").val();
-			var redirectUrl = GetRedirectionUrl();
-			//var surveyName = $("#_surveyName").val();
-
-
-			var surveyName = '@Model.SurveyInfo.SurveyName';
-
-			surveyName = ReplaceString(surveyName);
+});
 
 
 
-			var passCode = $('#spPassCode').text();
-			var EmailSubject = $('#Subject').val();
-			EmailSubject = ReplaceString(EmailSubject);
-
-			//url to post for email to be sent
-			var postUrl = '@Url.Action("Notify", "Post")';
-			if (ValidateEmail(emailAddress) && ValidateEmail(confirmemail)) {
-				if ($.trim(emailAddress) == $.trim(confirmemail)) {
-					//Call notify function to send notification
-					NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl, passCode, EmailSubject);
-
-					//close the modal popup after processing
-					$("#dialog").dialog("close");
-				}
-				else {
-					alert("The email address did not match.");
-				}
-
-			}
-			else {
-				// $('#email').after('<span class="error">Enter a valid email address.</span>');
-				alert('Enter a valid email address!');
-			}
-		});
-
-		/*Exit the survey */
-		$("#Close").click(function (e) {
-			e.preventDefault();
-		/// alert('@Model.StatusId')
-		   $("#exitdialog").dialog("open");
-		 
-		  /*  if (!$("#exitdialog").dialog("open")) {
-				var signoutUrl = '@Url.Action("SignOut", "Post")';
-				var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId'; //'http://wwwn.cdc.gov/epiinfo/';
-				SignOutAndRedirect(signoutUrl, homePageUrl);
-			}*/
-		});
 
 
-		/*Open the modal popup on link click*/
-		$('#copy').click(function () {
-			$("#dialog").dialog("open");
-			$('#url').val(GetRedirectionUrl());
-			return false;
-		});
+$(document).ready(function () {
+
+  
+    $('#maincontent').live("click", function () {
+        CCE_HasFormValuesChanged();
+     
+    })
+
+    $("#send").click(function () {
+
+        var emailAddress = $("#email").val();
+        var confirmemail = $("#confirmemail").val();
+        var redirectUrl = GetRedirectionUrl();
+        //var surveyName = $("#_surveyName").val();
+
+
+        var surveyName = '@Model.SurveyInfo.SurveyName';
+
+        surveyName = ReplaceString(surveyName);
 
 
 
-	});
+        var passCode = $('#spPassCode').text();
+        var EmailSubject = $('#Subject').val();
+        EmailSubject = ReplaceString(EmailSubject);
+
+        //url to post for email to be sent
+        var postUrl = '@Url.Action("Notify", "Post")';
+        if (ValidateEmail(emailAddress) && ValidateEmail(confirmemail)) {
+            if ($.trim(emailAddress) == $.trim(confirmemail)) {
+                //Call notify function to send notification
+                NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl, passCode, EmailSubject);
+
+                //close the modal popup after processing
+                $("#dialog").dialog("close");
+            }
+            else {
+                alert("The email address did not match.");
+            }
+
+        }
+        else {
+            // $('#email').after('<span class="error">Enter a valid email address.</span>');
+            alert('Enter a valid email address!');
+        }
+    });
+
+    /*Exit the survey */
+    $("#Close").click(function (e) {
+        e.preventDefault();
+        /// alert('@Model.StatusId')
+        CCE_HasFormValuesChanged();
+        if ($('#FormHasChanged').val() == 'True') {
+            $("#exitdialog").dialog("open");
+        } else {
+
+            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
+            window.location.href = homePageUrl;
+
+        }
+        /*  if (!$("#exitdialog").dialog("open")) {
+        var signoutUrl = '@Url.Action("SignOut", "Post")';
+        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId'; //'http://wwwn.cdc.gov/epiinfo/';
+        SignOutAndRedirect(signoutUrl, homePageUrl);
+        }*/
+    });
+
+
+    /*Open the modal popup on link click*/
+    $('#copy').click(function () {
+        $("#dialog").dialog("open");
+        $('#url').val(GetRedirectionUrl());
+        return false;
+    });
+
+
+
+});
  
  
  function updateXml(NameList, pValue) {
@@ -496,7 +513,7 @@ function ReplaceString(string){
 		<input type="hidden"  id="AssignList"  name="AssignList" value="@Model.AssignList" />
 		<input type="hidden"  name="is_save_action" value="false" />
 		<input type="hidden"  name="is_goto_action" value="false" /> 
-			 
+	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.FormValuesHasChanged" /> 
 			 
 		<div id="nav">
 			<div id="prev" align="left">&nbsp;
@@ -621,7 +638,7 @@ function ReplaceString(string){
 			   </p> -->
 		   </div>
 
-
+            
 			 <div class="demo">
 		
 			  <div id="ErrordialogBox" title="Error">
