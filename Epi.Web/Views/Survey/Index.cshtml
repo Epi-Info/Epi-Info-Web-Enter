@@ -6,6 +6,11 @@
 @*<script src="../../Scripts/jquery-1.5.1-vsdoc.js" type="text/javascript"></script>*@
 
 <script type="text/javascript">
+  var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
+  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl'; }, redirectTimeout);
+</script>
+
+<script type="text/javascript">
  
 	//Check Code Logic start
 	 @Html.Raw(Model.FormJavaScript)
