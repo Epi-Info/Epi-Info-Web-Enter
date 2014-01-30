@@ -169,83 +169,82 @@
 
 
 	$(document).ready(function () {
-		// e.preventDefault();
+	    // e.preventDefault();
 
-		//$(this).addClass('metro-set');
-		var ActionUrl = "";
-		var Url = window.location.pathname;
-		var ResultUrl = "";
-		if (Url.indexOf("/") != -1)
-			ResultUrl = Url.substring(Url.lastIndexOf("/") + 1);
-		else
-			ResultUrl = Url;
+	    //$(this).addClass('metro-set');
+	    var ActionUrl = "";
+	    var Url = window.location.pathname;
+	    var ResultUrl = "";
+	    if (Url.indexOf("/") != -1)
+	        ResultUrl = Url.substring(Url.lastIndexOf("/") + 1);
+	    else
+	        ResultUrl = Url;
 
+	    var FieldId = "#" + ResultUrl
+	    //alert(ResultUrl);
+	    if (ResultUrl.toUpperCase() != "HOME" && ResultUrl.toUpperCase() != "INDEX") {
 
-		var FieldId = "#" + ResultUrl
-		//alert(ResultUrl);
-		if (ResultUrl.toUpperCase() != "HOME") {
+	        $("button[class*='metro-tile']").removeClass('metro-set');
+	        $(FieldId).addClass('metro-set');
+	        ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid= " + ResultUrl;
+	        ReadResponse(ActionUrl);
+	    }
+	    else {
 
-			$("button[class*='metro-tile']").removeClass('metro-set');
-			$(FieldId).addClass('metro-set');
-			ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid= " + ResultUrl;
-			ReadResponse(ActionUrl);
-		}
-		else {
+	        $("button:visible").triggerHandler('click');
 
-			$("button:visible").triggerHandler('click');
+	    }
 
-		}
+	    $("#right").show();
 
-		$("#right").show();
+	    // setup the dialog
+	    $("#TimeOutdialog").dialog({
+	        autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 160,
+	        closeOnEscape: false,
+	        draggable: false,
+	        resizable: false,
+	        /* buttons: {
+	        'Continue Session': function () {
+	        $(this).dialog('close');
+	        }
+	        }*/
 
-		// setup the dialog
-		$("#TimeOutdialog").dialog({
-			autoOpen: false,
-			modal: true,
-			width: 400,
-			height: 160,
-			closeOnEscape: false,
-			draggable: false,
-			resizable: false,
-			/* buttons: {
-			'Continue Session': function () {
-			$(this).dialog('close');
-			}
-			}*/
-
-			buttons: [{
-				"text": 'Continue Session',
-				"click": function () {
-					$(this).dialog('close');
-				},
-				"class": 'dialogbtn'
-			}]
-
-
-		});
-		// cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
-		var $countdown = $("#dialog-countdown");
-
-		// start the idle timer plugin
-		$.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
-			idleAfter: 900,
-			pollingInterval: 2,
-			keepAliveURL: 'keepalive.php',
-			serverResponseEquals: 'OK',
-			onTimeout: function () {
-				//window.location = "timeout.htm";
-				window.location = GetRedirectionUrl() + '/1';
-				//'~/Login/Index'; 
+	        buttons: [{
+	            "text": 'Continue Session',
+	            "click": function () {
+	                $(this).dialog('close');
+	            },
+	            "class": 'dialogbtn'
+	        }]
 
 
-			},
-			onIdle: function () {
-				$(this).dialog("open");
-			},
-			onCountdown: function (counter) {
-				$countdown.html(counter); // update the counter
-			}
-		});
+	    });
+	    // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+	    var $countdown = $("#dialog-countdown");
+
+	    // start the idle timer plugin
+	    $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
+	        idleAfter: 900,
+	        pollingInterval: 2,
+	        keepAliveURL: 'keepalive.php',
+	        serverResponseEquals: 'OK',
+	        onTimeout: function () {
+	            //window.location = "timeout.htm";
+	            window.location = GetRedirectionUrl() + '/1';
+	            //'~/Login/Index'; 
+
+
+	        },
+	        onIdle: function () {
+	            $(this).dialog("open");
+	        },
+	        onCountdown: function (counter) {
+	            $countdown.html(counter); // update the counter
+	        }
+	    });
 
 	});
 function ReadResponse(ActionUrl) {
