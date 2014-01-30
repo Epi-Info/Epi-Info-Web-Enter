@@ -180,6 +180,13 @@ namespace Epi.Web.MVC
             routes.MapRoute
               (
                   null, // Route name
+                  "Login/Index", // URL with parameters
+                  new { controller = "Login", action = "Index" }
+              ); // Parameter defaults
+
+            routes.MapRoute
+              (
+                  null, // Route name
                   "Login", // URL with parameters
                   new { controller = "Login", action = "Index" }
               ); // Parameter defaults
