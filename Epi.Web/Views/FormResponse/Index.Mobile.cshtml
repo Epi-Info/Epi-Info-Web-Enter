@@ -3,7 +3,10 @@
     ViewBag.Title = "Epi Web Enter - Form Details"; //+ " - " +
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
-
+<script type="text/javascript">
+  var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
+  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl'; }, redirectTimeout);
+</script>
 <script type="text/javascript">
 
     //Following code prevents the default behav of DeleteButton, sets the value of hidden field to the value of button click(ResponseId).
@@ -164,8 +167,9 @@
                             @Html.Raw("<div class='mobilewrap'>" + "<div  class='mobilevalue' style='width:100%; text-align:right;'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Open</button> &nbsp;" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='DeleteButton'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Delete</button>" + " " + "</div><div style='clear: both;'></div></div>");
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div><div style='clear: both;'></div></div>");
-                                                                                                                                                                                                            if (Model.Columns.Count >= 2) { 
+                                                                                                                                                                                                                                            if (Model.Columns.Count >= 2){ 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div><div style='clear: both;'></div></div>");
+                                                                                                                                                                                                                                            }
                                 if (Model.Columns.Count >= 3)
                                 { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div><div style='clear: both;'></div></div>");
