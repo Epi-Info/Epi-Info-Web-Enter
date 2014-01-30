@@ -25,7 +25,7 @@ namespace MvcDynamicForms
         public double Width { get; set; }
         public double Height { get; set; }
         public bool IsMobile { get; set; }
-
+        public string FormValuesHasChanged { get; set; }
         private string _IsDraftModeStyleClass = "";
 
         

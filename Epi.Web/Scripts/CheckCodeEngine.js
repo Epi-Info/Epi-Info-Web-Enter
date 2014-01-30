@@ -2332,5 +2332,70 @@ function CreateHiddenField(pFieldName, pFieldType)
     }
  
 }
+//Check the form values has changed 
+function CCE_HasFormValuesChanged() 
+{
+   // var count = Object.size(cce_Context.symbolTable);
+    var obj = cce_Context.symbolTable;
+    //for (var i = 0; i < count; i++)
+    var key;
+    for (key in obj)
+         {
+             var symbol = obj[key];
+             var symbol_name = key.toLowerCase();  //symbol.Name.toLowerCase();
+             var symbol_value;
+             symbol_value = symbol.Value;
+           
 
+            if (symbol.Source == "datasource")
+             {
+                var HasChanged = false;
+                if (eval(document.getElementById("mvcdynamicfield_" + symbol_name.toString()))) {
+                    var ControlName = '#mvcdynamicfield_' + symbol_name;
+                    var CurrentValue;
+
+
+                    if (symbol.Type == "checkbox") {
+                        var isChecked = $(ControlName).prop('checked');
+                        if (isChecked) {
+                         CurrentValue ="Yes";
+                        }
+                        else {
+                            CurrentValue = "No";
+                        }
+                        if (symbol_value.toString() == "true" || symbol_value.toString() == "yes") {
+                            symbol_value = "Yes";
+                        }
+                        if (symbol_value.toString() == "false" || symbol_value.toString() == "no") {
+                            symbol_value = "No";
+                        }
+                    }
+                    else 
+                    {
+
+                        CurrentValue = $(ControlName).val();
+                    }
+
+
+                    if (CurrentValue != symbol_value) 
+                       {
+                            HasChanged = true;
+                       
+                        }
+
+
+                        if (HasChanged)
+                         {
+                             $('#FormHasChanged').val('True');
+                              
+                        }
+                    }
+             }
+         
+        }// for loop
+    }
+ 
+
+          
+        
 cce_Context = new CCE_Context();
