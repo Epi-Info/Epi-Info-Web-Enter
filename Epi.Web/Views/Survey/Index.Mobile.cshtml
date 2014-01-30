@@ -9,6 +9,10 @@
 </style>
 
 <script type="text/javascript">
+  var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
+  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl'; }, redirectTimeout);
+</script>
+<script type="text/javascript">
  
     //Check Code Logic start
      @Html.Raw(Model.FormJavaScript)

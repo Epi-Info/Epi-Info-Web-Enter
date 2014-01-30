@@ -4,6 +4,11 @@
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
 
+<script type="text/javascript">
+  var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
+  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl'; }, redirectTimeout);
+</script>
+
 <script>
 
     $(function () {
