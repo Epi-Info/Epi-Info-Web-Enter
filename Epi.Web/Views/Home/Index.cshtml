@@ -27,10 +27,7 @@
 
 </script>*@
 
-<script type="text/javascript">
-  var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
-  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl'; }, redirectTimeout);
-</script>
+
 <script type="text/jscript">
 
 
@@ -313,9 +310,9 @@ function SaveSettings() {
 		                data: _form,
 		                dataType: "html",
 		
-		                success: successFunc,
-		                Error: errorFunc
-                });
+		success: successFunc,
+		Error: errorFunc
+});
 
 		        }
 		        else {
@@ -324,13 +321,13 @@ function SaveSettings() {
 		        }
 
  
-	                $.ajaxSetup({ cache: false });
+	$.ajaxSetup({ cache: false });
 
-	                function successFunc(data, status) {
-	                    $('#right').html(data);
-	                    $('#dropdown-1').focus();
+	function successFunc(data, status) {
+	    $('#right').html(data);
+	    $('#dropdown-1').focus();
 	    
-	                }
+	}
 
 	                function errorFunc() {
 		                alert('error');

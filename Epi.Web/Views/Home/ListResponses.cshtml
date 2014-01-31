@@ -162,3 +162,10 @@
         }
     </div>
 </div>
+         <script type="text/javascript">
+var formId =  document.getElementById('hidFormId').value; //$('#hidFormId').val();
+var pageId = $('#hidPageNumber').val();
+  var returnUrl = 'returnUrl=' + formId + '/' + pageId; 
+  var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
+  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl' + '?'+ returnUrl; }, redirectTimeout);
+</script>
