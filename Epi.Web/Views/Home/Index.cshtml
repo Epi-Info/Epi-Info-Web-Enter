@@ -299,37 +299,44 @@ function ReadResponse(ActionUrl) {
 
 }
 function SaveSettings() {
-	$('#SelectedColumns option').prop('selected', true);
-	$('#SelectedUser option').prop('selected', true);
-	var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
-	var _form = $("#formsList").serialize();
-	//alert(form);
-	$.ajax({
-		url: ActionUrl,
-		type: 'POST',
-		//contentType: 'application/json; charset=utf-8',
-		data: _form,
-		dataType: "html",
+   
+    if ($('select#SelectedColumns option').length>0) {
+	                $('#SelectedColumns option').prop('selected', true);
+	                $('#SelectedUser option').prop('selected', true);
+	                var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+	                var _form = $("#formsList").serialize();
+	                //alert(form);
+	                $.ajax({
+		                url: ActionUrl,
+		                type: 'POST',
+		                //contentType: 'application/json; charset=utf-8',
+		                data: _form,
+		                dataType: "html",
 		
-		success: successFunc,
-		Error: errorFunc
-});
+		                success: successFunc,
+		                Error: errorFunc
+                });
 
 
 
  
-	$.ajaxSetup({ cache: false });
+	                $.ajaxSetup({ cache: false });
 
-	function successFunc(data, status) {
-	    $('#right').html(data);
-	    $('#dropdown-1').focus();
+	                function successFunc(data, status) {
+	                    $('#right').html(data);
+	                    $('#dropdown-1').focus();
 	    
-	}
+	                }
 
-	function errorFunc() {
-		alert('error');
-	}
-
+	                function errorFunc() {
+		                alert('error');
+	                }
+    }
+ else
+     {
+         alert('User should select at least one column.');
+         $('select#SelectedColumns option').focus();
+    }
 }
 //CancelChange
 	function CancelChange() 
