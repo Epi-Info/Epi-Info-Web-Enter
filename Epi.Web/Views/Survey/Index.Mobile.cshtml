@@ -136,9 +136,18 @@
             CCE_HasFormValuesChanged();
 
         })
+        jQuery('a').click(function (event) {
+            CCE_HasFormValuesChanged();
+        });
 
+        $('input').change(function () {
 
+            CCE_HasFormValuesChanged();
+        });
+        $('textarea').change(function () {
 
+            CCE_HasFormValuesChanged();
+        });
         $("#send").click(function () {
 
             var emailAddress = $("#email").val();

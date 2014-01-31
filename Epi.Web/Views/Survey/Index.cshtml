@@ -299,12 +299,26 @@
 
 $(document).ready(function () {
 
-  
+
     $('#maincontent').live("click", function () {
         CCE_HasFormValuesChanged();
-     
+
     })
 
+
+    jQuery('a').click(function (event) {
+        CCE_HasFormValuesChanged();
+    });
+
+    $('input').change(function () {
+
+        CCE_HasFormValuesChanged();
+    });
+    $('textarea').change(function () {
+
+        CCE_HasFormValuesChanged();
+    });
+    
     $("#send").click(function () {
 
         var emailAddress = $("#email").val();
@@ -455,7 +469,7 @@ function ReplaceString(string){
 					 }
 				 else
 					 {  		
-					@Html.ActionLink(num.ToString(), "Index", "Survey", new { responseid = Model.ResponseId, PageNumber = num }, null)	
+					@Html.ActionLink(num.ToString(), "Index", "Survey", new { responseid = Model.ResponseId, PageNumber = num }, new { @class = "nextprev" })	
 					 }
 
 				 }
