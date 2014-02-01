@@ -190,9 +190,15 @@ namespace Epi.Web.MVC.Controllers
 
         private ActionResult ValidateUser(string UserName, string Password, string ReturnUrl)
         {
+            string formId = "", pageNumber;
             if (ReturnUrl == null || !ReturnUrl.Contains("/"))
             {
                 ReturnUrl = "/Home/Index";
+            }
+            else
+            {
+                formId = ReturnUrl.Substring(0, ReturnUrl.IndexOf('/'));
+                pageNumber = ReturnUrl.Substring(ReturnUrl.LastIndexOf('/')+1);
             }
 
 
@@ -215,7 +221,7 @@ namespace Epi.Web.MVC.Controllers
                     FormsAuthentication.SetAuthCookie(UserName, false);
                     string UserId = Epi.Web.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
                     Session["UserId"] = UserId;
-                    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
+                    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
                     //return Redirect(ReturnUrl);
                 }
             }

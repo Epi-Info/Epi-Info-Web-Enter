@@ -3,9 +3,12 @@
     ViewBag.Title = "Epi Web Enter - Form Details"; //+ " - " +
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
-<script type="text/javascript">
+        <script type="text/javascript">
+var formId =  document.getElementById('hidFormId').value; //$('#hidFormId').val();
+var pageId = $('#hidPageNumber').val();
+  var returnUrl = 'returnUrl=' + formId + '/' + pageId; 
   var redirectTimeout = @FormsAuthentication.Timeout.TotalMilliseconds
-  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl'; }, redirectTimeout);
+  var redirectTimeoutHandle = setTimeout(function() { window.location.href = '@FormsAuthentication.LoginUrl' + '?'+ returnUrl; }, redirectTimeout);
 </script>
 <script type="text/javascript">
 
