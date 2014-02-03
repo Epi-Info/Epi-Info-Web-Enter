@@ -113,7 +113,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
-
+        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             if (!string.IsNullOrEmpty(EditForm))
             {
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
@@ -145,7 +145,7 @@ namespace Epi.Web.MVC.Controllers
 
             // create the first survey response
             // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), 2);
+            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -250,7 +250,7 @@ namespace Epi.Web.MVC.Controllers
         //}
 
         [HttpGet]
-
+        [Authorize]
         public ActionResult ReadResponseInfo(string formid, int page = 1)//List<FormInfoModel> ModelList, string formid)
         {
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
