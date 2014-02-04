@@ -154,7 +154,8 @@ namespace Epi.Web.Common.ObjectMapping
                 Status = pBO.Status,
                 IsDraftMode = pBO.IsDraftMode,
                 IsLocked = pBO.IsLocked,
-                ParentRecordId =pBO.ParentRecordId
+                ParentRecordId =pBO.ParentRecordId,
+                UserEmail = pBO.UserEmail
             };
         }
         public static List<SurveyAnswerDTO> ToDataTransferObject(List<SurveyResponseBO> pSurveyResposneList)

@@ -469,39 +469,80 @@ namespace Epi.Web.MVC.Controllers
         {
             ResponseModel ResponseModel = new Models.ResponseModel();
 
+
+            var MetaDataColumns = Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
+            
             try
             {
                 ResponseModel.Column0 = item.ResponseId;
                 ResponseModel.IsLocked = item.IsLocked;
-
+                IEnumerable<XElement> nodes;
                 var document = XDocument.Parse(item.XML);
+                if (MetaDataColumns.Contains(Columns[0].Value.ToString()))
+                    {
 
-                var nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
-                ResponseModel.Column1 = nodes.First().Value;
-
+                    ResponseModel.Column1 = GetColumnValue(item, Columns[0].Value.ToString());
+                    }
+                else
+                    {
+                     nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
+                    ResponseModel.Column1 = nodes.First().Value;
+                    }
                 if (Columns.Count >= 2)
                 {
+                if (MetaDataColumns.Contains(Columns[1].Value.ToString()))
+                    {
+
+                    ResponseModel.Column2 = GetColumnValue(item,Columns[1].Value.ToString());
+                    }
+                else 
+                    {
                     nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
                     ResponseModel.Column2 = nodes.First().Value;
+                    }
                 }
 
 
                 if (Columns.Count >= 3)
                 {
+                if (MetaDataColumns.Contains(Columns[2].Value.ToString()))
+                    {
+
+                    ResponseModel.Column3 = GetColumnValue(item, Columns[2].Value.ToString());
+                    }
+                else
+                    {
                     nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
                     ResponseModel.Column3 = nodes.First().Value;
+                    }
                 }
 
                 if (Columns.Count >= 4)
                 {
+                if (MetaDataColumns.Contains(Columns[3].Value.ToString()))
+                    {
+
+                    ResponseModel.Column4 = GetColumnValue(item, Columns[3].Value.ToString());
+                    }
+                else
+                    {
                     nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
                     ResponseModel.Column4 = nodes.First().Value;
+                    }
                 }
 
                 if (Columns.Count >= 5)
                 {
+                if (MetaDataColumns.Contains(Columns[4].Value.ToString()))
+                    {
+
+                    ResponseModel.Column5 = GetColumnValue(item, Columns[4].Value.ToString());
+                    }
+                else
+                    {
                     nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
                     ResponseModel.Column5 = nodes.First().Value;
+                    }
                 }
 
 
@@ -514,6 +555,27 @@ namespace Epi.Web.MVC.Controllers
                 throw new Exception(Ex.Message);
             }
         }
+
+        private string GetColumnValue(SurveyAnswerDTO item, string columnName)
+            {
+            string ColumnValue ="";
+            switch (columnName)
+                {
+                case "_UserEmail":
+                    ColumnValue = item.UserEmail;
+                break;
+                case "_DateUpdated":
+                ColumnValue = item.DateUpdated.ToString();
+                break;
+                case "_DateCreated":
+                ColumnValue = item.DateCreated.ToString();
+                break;
+                case "_IsDraftMode":
+                ColumnValue = item.IsDraftMode.ToString();
+                break;
+                }
+            return ColumnValue;
+            }
 
         public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
         {
@@ -532,7 +594,7 @@ namespace Epi.Web.MVC.Controllers
                 FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
                 Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
                 Columns.Sort(Compare);
-
+               
                 // Setting  Column Name  List
                 FormResponseInfoModel.Columns = Columns;
 
@@ -606,14 +668,28 @@ namespace Epi.Web.MVC.Controllers
             //Getting Column Name  List
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
             Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
+ 
             Columns.Sort(Compare);
+             
 
             Dictionary<int, string> dictionary = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
             SettingsInfoModel Model = new SettingsInfoModel();
             Model.SelectedControlNameList = dictionary;
 
             Columns = FormSettingResponse.FormSetting.FormControlNameList.ToList();
+            // Get Additional Metadata columns 
+
+            var MetaDataColumns =Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
+
+            foreach (var item in MetaDataColumns)
+                {
+
+                Columns.Add(new KeyValuePair<int, string>(Columns.Count() + 1, item));
+
+                }
+
             Columns.Sort(Compare);
+             
 
             Dictionary<int, string> dictionary1 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
