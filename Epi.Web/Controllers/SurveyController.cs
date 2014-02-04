@@ -102,7 +102,12 @@ namespace Epi.Web.MVC.Controllers
                         {
                             form.Validate(form.RequiredFieldsList);
                         }
-                        surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
+                        //if (string.IsNullOrEmpty(Edit))
+                        //    {
+                        //    surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
+                           
+                        //    }
+
                          this.SetCurrentPage(surveyAnswerDTO, PageNumber);
                         //PassCode start
                         if (IsMobileDevice)
@@ -124,6 +129,13 @@ namespace Epi.Web.MVC.Controllers
                                 form.PassCode = AuthenticationResponse.PassCode;
                             }
                         }
+                        if (!string.IsNullOrEmpty(Edit))
+                            {
+                            if (surveyAnswerDTO.IsDraftMode)
+                                {
+                                form.IsDraftModeStyleClass = "draft";
+                                }
+                            }
                         form.StatusId = surveyAnswerDTO.Status;
                         //passCode end
                         return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
