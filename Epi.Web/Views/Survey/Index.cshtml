@@ -318,7 +318,7 @@ $(document).ready(function () {
 
         CCE_HasFormValuesChanged();
     });
-    
+
     $("#send").click(function () {
 
         var emailAddress = $("#email").val();
@@ -367,8 +367,10 @@ $(document).ready(function () {
             $("#exitdialog").dialog("open");
         } else {
 
-            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
-            window.location.href = homePageUrl;
+            //            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
+            //            window.location.href = homePageUrl;
+            DeleteRecord();
+           
 
         }
         /*  if (!$("#exitdialog").dialog("open")) {
@@ -389,8 +391,30 @@ $(document).ready(function () {
 
 
 });
- 
- 
+
+function DeleteRecord() {
+
+    var signoutUrl = '@Url.Action("Delete", "Survey")';
+    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
+    $.ajax({
+        url: signoutUrl,
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        //data: "{}",
+        dataType: "json",
+        //cache: false,
+        async: false,
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data) {
+        $(this).dialog("close");
+        window.location.href = homePageUrl;
+    }
+    function errorFunc(data) {
+        alert('failed');
+    }
+}
  function updateXml(NameList, pValue) {
  
    
