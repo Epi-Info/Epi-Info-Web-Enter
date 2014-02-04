@@ -44,5 +44,17 @@ namespace Epi.Web.MVC.Constants
         //public const string SURVEY_SUBMISSION_MESSAGE = "Thank you! Your survey has been submitted.";
         //public const string SURVEY_SUBMITED_MESSAGE = "This survey has been submitted.";
         //public const string SURVEY_CLOSED_MESSAGE = "This survey is currently closed. Please contact the author of this survey for further assistance.";
+       
+        public static List<string> MetaDaTaColumnNames()
+            { 
+          
+            List<string> columns = new List<string>();
+            columns.Add("_UserEmail");
+            columns.Add("_DateUpdated");
+            columns.Add("_DateCreated");
+            columns.Add("_IsDraftMode");
+            return columns;
+            
+            }
     }
 }

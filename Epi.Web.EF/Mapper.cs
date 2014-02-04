@@ -196,7 +196,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="entity">A SurveyMetaData entity to be transformed.</param>
         /// <returns>A SurveyInfoBO business object.</returns>
-        internal static SurveyResponseBO Map(SurveyResponse entity)
+        internal static SurveyResponseBO Map(SurveyResponse entity,User User = null)
         {
         SurveyResponseBO SurveyResponseBO = new SurveyResponseBO();
            
@@ -210,9 +210,14 @@ namespace Epi.Web.EF
                 SurveyResponseBO.DateCreated = entity.DateCreated;
                 SurveyResponseBO.IsDraftMode = entity.IsDraftMode ;
                 SurveyResponseBO.IsLocked = entity.IsLocked;
+
             if (entity.ParentRecordId != null)
                 {
                         SurveyResponseBO.ParentRecordId = entity.ParentRecordId.ToString();
+                }
+            if (User != null)
+                {
+                SurveyResponseBO.UserEmail = User.EmailAddress;
                 }
             
             return SurveyResponseBO;

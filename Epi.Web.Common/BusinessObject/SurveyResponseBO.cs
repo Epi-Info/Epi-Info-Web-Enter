@@ -27,6 +27,6 @@ namespace Epi.Web.Common.BusinessObject
         public bool IsLocked { get; set; }
         public string ParentRecordId { get; set; }
         public int UserId { get; set; }
-       
+        public string UserEmail { get; set; }
     }
 }
