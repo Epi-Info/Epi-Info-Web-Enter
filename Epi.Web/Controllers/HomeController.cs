@@ -561,16 +561,16 @@ namespace Epi.Web.MVC.Controllers
             string ColumnValue ="";
             switch (columnName)
                 {
-                case "_UserEmail":
+                case "UserEmail":
                     ColumnValue = item.UserEmail;
                 break;
-                case "_DateUpdated":
+                case "DateUpdated":
                 ColumnValue = item.DateUpdated.ToString();
                 break;
-                case "_DateCreated":
+                case "DateCreated":
                 ColumnValue = item.DateCreated.ToString();
                 break;
-                case "_IsDraftMode":
+                case "IsDraftMode":
                 ColumnValue = item.IsDraftMode.ToString();
                 break;
                 }
@@ -662,13 +662,15 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
         {
             FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+            List<KeyValuePair<int, string>> TempColumns = new List<KeyValuePair<int, string>>();
+            
             FormSettingReq.GetXml = true;
             FormSettingReq.FormInfo.FormId = new Guid(formid).ToString();
             FormSettingReq.FormInfo.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //Getting Column Name  List
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
             Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
- 
+            TempColumns = Columns;
             Columns.Sort(Compare);
              
 
@@ -680,11 +682,15 @@ namespace Epi.Web.MVC.Controllers
             // Get Additional Metadata columns 
 
             var MetaDataColumns =Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
-
+            Dictionary<int, string> Columndictionary = TempColumns.ToDictionary(pair => pair.Key, pair => pair.Value);
+           
             foreach (var item in MetaDataColumns)
                 {
 
-                Columns.Add(new KeyValuePair<int, string>(Columns.Count() + 1, item));
+                if (!Columndictionary.ContainsValue(item))
+                    {
+                    Columns.Add(new KeyValuePair<int, string>(Columns.Count() + 1, item));
+                    }
 
                 }
 
