@@ -136,49 +136,115 @@ namespace Epi.Web.MVC.Controllers
 
         private ResponseModel ConvertXMLToModel(SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
         {
-            ResponseModel ResponseModel = new Models.ResponseModel();
+        ResponseModel ResponseModel = new Models.ResponseModel();
 
 
+        var MetaDataColumns = Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
 
+        try
+            {
             ResponseModel.Column0 = item.ResponseId;
             ResponseModel.IsLocked = item.IsLocked;
-
+            IEnumerable<XElement> nodes;
             var document = XDocument.Parse(item.XML);
+            if (MetaDataColumns.Contains(Columns[0].Value.ToString()))
+                {
 
-            var nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
-
-            ResponseModel.Column1 = nodes.First().Value;
-
+                ResponseModel.Column1 = GetColumnValue(item, Columns[0].Value.ToString());
+                }
+            else
+                {
+                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
+                ResponseModel.Column1 = nodes.First().Value;
+                }
             if (Columns.Count >= 2)
-            {
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
-                ResponseModel.Column2 = nodes.First().Value;
-            }
+                {
+                if (MetaDataColumns.Contains(Columns[1].Value.ToString()))
+                    {
+
+                    ResponseModel.Column2 = GetColumnValue(item, Columns[1].Value.ToString());
+                    }
+                else
+                    {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+                    ResponseModel.Column2 = nodes.First().Value;
+                    }
+                }
 
 
             if (Columns.Count >= 3)
-            {
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
-                ResponseModel.Column3 = nodes.First().Value;
-            }
+                {
+                if (MetaDataColumns.Contains(Columns[2].Value.ToString()))
+                    {
+
+                    ResponseModel.Column3 = GetColumnValue(item, Columns[2].Value.ToString());
+                    }
+                else
+                    {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+                    ResponseModel.Column3 = nodes.First().Value;
+                    }
+                }
 
             if (Columns.Count >= 4)
-            {
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
-                ResponseModel.Column4 = nodes.First().Value;
-            }
+                {
+                if (MetaDataColumns.Contains(Columns[3].Value.ToString()))
+                    {
+
+                    ResponseModel.Column4 = GetColumnValue(item, Columns[3].Value.ToString());
+                    }
+                else
+                    {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+                    ResponseModel.Column4 = nodes.First().Value;
+                    }
+                }
 
             if (Columns.Count >= 5)
-            {
-                nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
-                ResponseModel.Column5 = nodes.First().Value;
-            }
+                {
+                if (MetaDataColumns.Contains(Columns[4].Value.ToString()))
+                    {
+
+                    ResponseModel.Column5 = GetColumnValue(item, Columns[4].Value.ToString());
+                    }
+                else
+                    {
+                    nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
+                    ResponseModel.Column5 = nodes.First().Value;
+                    }
+                }
 
 
             return ResponseModel;
 
-        }
+            }
+        catch (Exception Ex)
+            {
 
+            throw new Exception(Ex.Message);
+            }
+
+        }
+        private string GetColumnValue(SurveyAnswerDTO item, string columnName)
+            {
+            string ColumnValue = "";
+            switch (columnName)
+                {
+                case "UserEmail":
+                    ColumnValue = item.UserEmail;
+                    break;
+                case "DateUpdated":
+                    ColumnValue = item.DateUpdated.ToString();
+                    break;
+                case "DateCreated":
+                    ColumnValue = item.DateCreated.ToString();
+                    break;
+                case "IsDraftMode":
+                    ColumnValue = item.IsDraftMode.ToString();
+                    break;
+                }
+            return ColumnValue;
+            }
         [HttpPost]
         public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
