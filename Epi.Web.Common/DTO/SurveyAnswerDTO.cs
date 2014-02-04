@@ -32,5 +32,7 @@ namespace Epi.Web.Common.DTO
         public bool IsLocked { get; set; }
         [DataMember]
          public string ParentRecordId { get; set; }
+        [DataMember]
+        public string UserEmail { get; set; }
     }
 }
