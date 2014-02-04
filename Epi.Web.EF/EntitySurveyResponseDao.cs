@@ -442,7 +442,7 @@ namespace Epi.Web.EF
                         foreach (SurveyResponse Response in SurveyResponseList)
                             {
 
-                            result.Add(Mapper.Map(Response));
+                            result.Add(Mapper.Map(Response, Response.Users.First()));
                             
                             }
               
