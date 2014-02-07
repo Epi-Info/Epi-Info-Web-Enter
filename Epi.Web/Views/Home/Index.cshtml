@@ -324,9 +324,11 @@ function SaveSettings() {
 	$.ajaxSetup({ cache: false });
 
 	function successFunc(data, status) {
-	    $('#right').html(data);
-	    $('#dropdown-1').focus();
-	    
+//	    $('#right').html(data);
+//	    $('#dropdown-1').focus();
+	   // var homePageUrl = '@Url.Action("Index", "Home")' + '/' + $("#FORM_ID_HIDDEN").val();
+	    var homePageUrl = '/Home' + '/' + $("#FORM_ID_HIDDEN").val();
+	    window.location.href = homePageUrl;
 	}
 
 	                function errorFunc() {
