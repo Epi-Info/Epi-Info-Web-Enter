@@ -230,7 +230,8 @@
 	        serverResponseEquals: 'OK',
 	        onTimeout: function () {
 	            //window.location = "timeout.htm";
-	            window.location = GetRedirectionUrl() + '/1';
+	            window.location = '/Login'; 
+                //GetRedirectionUrl() + '/1';
 	            //'~/Login/Index'; 
 
 
@@ -437,6 +438,14 @@ function SaveSettings() {
 			 
 		   </div>
 </div>
+ <div id="TimeOutdialog" title="Your session is about to expire!">
+				<p>
+					<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>
+					You will be logged off in <span id="dialog-countdown" style="font-weight:bold"></span>
+				</p>
+
+				<p>Do you want to continue your session?</p>
+			 </div>
 <input id="FORM_ID_HIDDEN" type="hidden" />
 @*</div>  
   </div> *@ 
