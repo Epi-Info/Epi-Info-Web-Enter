@@ -5,7 +5,8 @@
     <!--<hr class="hr1" />-->
 </div>
 
-@if (Model.FormInfoModel.IsOwner){
+@if (Model.FormInfoModel.IsOwner)
+    {
     <div id="editsettings">
     <button id="btneditsettings"  onclick="GetSettings()" class="default settings" type="button">
         Settings</button>
@@ -26,42 +27,42 @@
 *@
     @{
         if (@Model.FormInfoModel.IsDraftMode)
-        {
+            {
         <div id="mode">
             <span>Mode:</span> <span class="boldlabel">Staging</span></div>
-        }
+            }
         else
-        {
+            {
                                
         <div id="mode">
             <span>Mode:</span> <span class="boldlabel">Production</span></div> 
                                
                                
-        }
+            }
     }
     <div id="NumberOfRecords" style="float: right">
         <div>
         @{
             if (Model.NumberOfPages == 0)
-            {
+                {
                 <span class="boldlabel" style="font-size: 14pt;">0 Records </span>
-            }
+                }
             else
-            {
+                {
                  @*<span >Showing</span>*@
         <span class="boldlabel" style="font-size: 14pt;">    @(
-            Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
+ Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
             -
             @if (Model.CurrentPage * Model.PageSize < Model.NumberOfResponses)
-            {
+                {
                 @(Model.CurrentPage * Model.PageSize)
-            }
+                }
             else
-            {
+                {
                 @Model.NumberOfResponses
-            }</span>
+                }</span>
            <span> of </span><span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses </span>
-            }
+                }
         }
        
     </div>
@@ -93,11 +94,11 @@
         @{
                     
             if (Model.NumberOfPages > 1)
-            {
+                {
             <div id='pager'>
                 @Html.Partial("PagerPartial", Model)
             </div>  
-            }
+                }
 
 
         }
@@ -106,57 +107,56 @@
     </div>
     <div id="recordstable">
         @{
-                //if (Model.ResponsesList.Count > 0)
-                //{
-@* if (Model.NumberOfPages > 1)
+       
+            var gridColumns = new List<WebGridColumn>();
+             
+            gridColumns.Add(webGrid.Column(header: "",
+             format: (item) => new HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
+            "<button name='DeleteButton' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
+                                                                                                   )));
+            if (Model.Columns.Count >= 1)
                 {
-                    <div id='pager'>
-                            @Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)
-                            </div>  
-                            onclick ='EditRecord(this);'
-                }*@
-        
-            @webGrid.GetHtml(
-            columns: webGrid.Columns(
-                   webGrid.Column(header: "",
-                                    format: (item) => new
-                                                                                               HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
-                                             //Html.ActionLink("Delete", "Delete", "Home", new { ResponseId = item.Column0 }, new {@id=item.Column0, @class = "deletebtn" }).ToString()
-                                             "<button name='DeleteButton' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
-                                  )
-                    ),
-                    
-                    webGrid.Column("Column1", (Model.Columns.Count >= 1) ? Model.Columns[0].Value : ""),
-                                          webGrid.Column("Column2", (Model.Columns.Count >= 2) ? Model.Columns[1].Value : ""),
-                                          webGrid.Column("Column3", (Model.Columns.Count >= 3) ? Model.Columns[2].Value : ""),
-                                          webGrid.Column("Column4", (Model.Columns.Count >= 4) ? Model.Columns[3].Value : ""),
-                                          webGrid.Column("Column5", (Model.Columns.Count >= 5) ? Model.Columns[4].Value : "")
-                               )
-                                  );
+                gridColumns.Add(webGrid.Column("Column1", (Model.Columns.Count >= 1) ? Model.Columns[0].Value : ""));
+                }
+            if (Model.Columns.Count >= 2)
+                {
+                gridColumns.Add(webGrid.Column("Column2", (Model.Columns.Count >= 2) ? Model.Columns[1].Value : ""));
+                }
+            if (Model.Columns.Count >= 3)
+                {
+                gridColumns.Add(webGrid.Column("Column3", (Model.Columns.Count >= 3) ? Model.Columns[2].Value : ""));
+                }
+           if (Model.Columns.Count >= 4)
+                {
+                gridColumns.Add(webGrid.Column("Column4", (Model.Columns.Count >= 4) ? Model.Columns[3].Value : ""));
+                }
+          if (Model.Columns.Count >= 5)
+                {
+                gridColumns.Add(webGrid.Column("Column5", (Model.Columns.Count >= 5) ? Model.Columns[4].Value : ""));
+                }
+        @webGrid.GetHtml(columns: gridColumns);
 
-
-
-            //} 
-        }
+               
+                }
         @Html.Hidden("hidFormId", @Model.FormInfoModel.FormId)
         @Html.Hidden("hidPageNumber", @Model.CurrentPage)
         @{
             if (Model.NumberOfPages == 0)
-            {
+                {
                 <div class="zerorec">No records have been created.</div>
-            }
+                }
         }
     </div>
     <div id="paging">
         @{
                     
             if (Model.NumberOfPages > 1)
-            {
+                {
             <div id='pager2'>
                 @*@Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
                 @Html.Partial("PagerPartial", Model)
             </div>  
-            }
+                }
 
 
         }
