@@ -265,7 +265,8 @@ function ReadResponse(ActionUrl) {
 		$.ajaxSetup({ cache: false });
 
 		function successFunc(data, status) {
-			$('#right').html(data);
+		    $('#right').html(data);
+		   
 		}
 
 		function errorFunc() {
@@ -288,7 +289,8 @@ function ReadResponse(ActionUrl) {
 		 $.ajaxSetup({ cache: false });
 
 		 function successFunc(data, status) {
-			 $('#right').html(data);
+		     $('#right').html(data);
+
 		 }
 
 		 function errorFunc() {
@@ -325,11 +327,20 @@ function SaveSettings() {
 	$.ajaxSetup({ cache: false });
 
 	function successFunc(data, status) {
-//	    $('#right').html(data);
-//	    $('#dropdown-1').focus();
-	   // var homePageUrl = '@Url.Action("Index", "Home")' + '/' + $("#FORM_ID_HIDDEN").val();
-	    var homePageUrl = '/Home' + '/' + $("#FORM_ID_HIDDEN").val();
-	    window.location.href = homePageUrl;
+	    $('#right').html(data);
+	    $('#dropdown-1').focus();
+	    var FormId = $("#FORM_ID_HIDDEN").val();
+	    var FormMode = $("#FORM_MODE_HIDDEN").val();
+
+        if(FormMode =="Production"){
+
+            $('#' + FormId).removeClass("metro-staging");
+            $('#' + FormId).addClass("metro-prod");
+        }
+	    if (FormMode =="Staging") {
+	        $('#' + FormId).removeClass("metro-prod")
+	        $('#' + FormId).addClass("metro-staging");
+            }
 	}
 
 	                function errorFunc() {
@@ -352,9 +363,15 @@ function SaveSettings() {
 	}
 	function SetSettingButtonValue(formid) 
 	{
-		$("#FORM_ID_HIDDEN").val(formid);
+	    $("#FORM_ID_HIDDEN").val(formid);
+	   
 	}
-	
+
+	function SetSettingMode() {
+	     
+	    $("#FORM_MODE_HIDDEN").val($('#FormMode').find(":selected").text());
+
+	}
 </script>
 <script>
 	$(document).ajaxStop(function () {
@@ -447,6 +464,8 @@ function SaveSettings() {
 				<p>Do you want to continue your session?</p>
 			 </div>
 <input id="FORM_ID_HIDDEN" type="hidden" />
+<input id="FORM_MODE_HIDDEN" type="hidden" />
+
 @*</div>  
   </div> *@ 
 		 
