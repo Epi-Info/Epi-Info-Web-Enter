@@ -33,7 +33,7 @@
 	<div id="recordcolumns">
 	<div id="mode">
        <p style="margin-bottom: 1px;"> <label style="font-weight:bold;font-size: 0.9em;">Mode:</label><br /> @*<span class="boldlabel">Staging</span>*@
-	    <select name="Mode">
+	    <select name="Mode" id="FormMode" onchange="SetSettingMode()">
 	@if (!Model.IsDraftMode)
 	 {
 		  <option value="0"  selected ="selected">Production</option>
