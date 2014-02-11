@@ -230,8 +230,10 @@
 	        serverResponseEquals: 'OK',
 	        onTimeout: function () {
 	            //window.location = "timeout.htm";
-	            window.location = '/Login'; 
-                //GetRedirectionUrl() + '/1';
+	            window.location = '@Url.Action("Index","Login")';
+	            //'/Login';
+
+	            //GetRedirectionUrl() + '/1';
 	            //'~/Login/Index'; 
 
 
