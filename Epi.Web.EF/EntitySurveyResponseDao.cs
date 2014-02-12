@@ -472,7 +472,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true);
+                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId>1);
                     ResponseCount = SurveyResponseList.Count();
 
                     }
