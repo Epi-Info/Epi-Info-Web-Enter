@@ -561,17 +561,26 @@ namespace Epi.Web.MVC.Controllers
             string ColumnValue ="";
             switch (columnName)
                 {
-                case "UserEmail":
+                case "_UserEmail":
                     ColumnValue = item.UserEmail;
                 break;
-                case "DateUpdated":
+                case "_DateUpdated":
                 ColumnValue = item.DateUpdated.ToString();
                 break;
-                case "DateCreated":
+                case "_DateCreated":
                 ColumnValue = item.DateCreated.ToString();
                 break;
                 case "IsDraftMode":
-                ColumnValue = item.IsDraftMode.ToString();
+                case "_Mode":
+                if (item.IsDraftMode.ToString().ToUpper() == "TRUE")
+                    {
+                    ColumnValue = "Staging";
+                    }
+                else 
+                    {
+                    ColumnValue = "Production";
+                    
+                    }
                 break;
                 }
             return ColumnValue;
