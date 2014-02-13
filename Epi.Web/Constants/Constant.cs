@@ -49,10 +49,11 @@ namespace Epi.Web.MVC.Constants
             { 
           
             List<string> columns = new List<string>();
-            columns.Add("UserEmail");
-            columns.Add("DateUpdated");
-            columns.Add("DateCreated");
-            columns.Add("IsDraftMode");
+            columns.Add("_UserEmail");
+            columns.Add("_DateUpdated");
+            columns.Add("_DateCreated");
+           // columns.Add("IsDraftMode");
+            columns.Add("_Mode");
             return columns;
             
             }
