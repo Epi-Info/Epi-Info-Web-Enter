@@ -55,7 +55,8 @@ namespace Epi.Web.EF
                             {
                             
                         FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo,item.UserInfo,false);
-                           
+                        if (string.IsNullOrEmpty(FormInfoBO.ParentId))
+                            {
                             if(item.UserInfo.UserID == Id)
                                 {
                                     FormInfoBO.IsOwner = true;
@@ -73,7 +74,7 @@ namespace Epi.Web.EF
                                 }
 
                            // FormList.Add(FormInfoBO);
-                            
+                               }
                             }
                          }
                 }

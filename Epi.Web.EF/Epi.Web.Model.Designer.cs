@@ -1545,6 +1545,30 @@ namespace Epi.Web.EF
         private global::System.DateTime _StartDate;
         partial void OnStartDateChanging(global::System.DateTime value);
         partial void OnStartDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> ParentId
+        {
+            get
+            {
+                return _ParentId;
+            }
+            set
+            {
+                OnParentIdChanging(value);
+                ReportPropertyChanging("ParentId");
+                _ParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentId");
+                OnParentIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _ParentId;
+        partial void OnParentIdChanging(Nullable<global::System.Guid> value);
+        partial void OnParentIdChanged();
 
         #endregion
 
@@ -2026,6 +2050,30 @@ namespace Epi.Web.EF
         private Nullable<global::System.Guid> _ParentRecordId;
         partial void OnParentRecordIdChanging(Nullable<global::System.Guid> value);
         partial void OnParentRecordIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> RelateParentId
+        {
+            get
+            {
+                return _RelateParentId;
+            }
+            set
+            {
+                OnRelateParentIdChanging(value);
+                ReportPropertyChanging("RelateParentId");
+                _RelateParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RelateParentId");
+                OnRelateParentIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _RelateParentId;
+        partial void OnRelateParentIdChanging(Nullable<global::System.Guid> value);
+        partial void OnRelateParentIdChanged();
 
         #endregion
 

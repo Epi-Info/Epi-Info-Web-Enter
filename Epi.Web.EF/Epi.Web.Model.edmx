@@ -122,6 +122,7 @@
           <Property Name="OrganizationId" Type="int" Nullable="false" />
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
           <Property Name="StartDate" Type="datetime2" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="SurveyMetaDataUser">
           <Key>
@@ -147,6 +148,7 @@
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
           <Property Name="IsLocked" Type="bit" Nullable="false" />
           <Property Name="ParentRecordId" Type="uniqueidentifier" />
+          <Property Name="RelateParentId" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="SurveyResponseUser">
           <Key>
@@ -442,6 +444,7 @@
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" FromRole="SurveyMetaData" ToRole="SurveyResponse" />
           <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyMetaDataUser" FromRole="SurveyMetaData" ToRole="User" />
           <NavigationProperty Name="ResponseDisplaySettings" Relationship="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData" FromRole="SurveyMetaData" ToRole="ResponseDisplaySetting" />
+          <Property Type="Guid" Name="ParentId" />
         </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
@@ -462,6 +465,7 @@
           <Property Type="Boolean" Name="IsLocked" Nullable="false" />
           <Property Type="Guid" Name="ParentRecordId" />
           <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="SurveyResponse" ToRole="User" />
+          <Property Type="Guid" Name="RelateParentId" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -625,6 +629,7 @@
           <EntitySetMapping Name="SurveyMetaDatas">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyMetaData">
               <MappingFragment StoreEntitySet="SurveyMetaData">
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
                 <ScalarProperty Name="SurveyNumber" ColumnName="SurveyNumber" />
@@ -648,6 +653,7 @@
           <EntitySetMapping Name="SurveyResponses">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponse">
               <MappingFragment StoreEntitySet="SurveyResponse">
+                <ScalarProperty Name="RelateParentId" ColumnName="RelateParentId" />
                 <ScalarProperty Name="ParentRecordId" ColumnName="ParentRecordId" />
                 <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
                 <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
