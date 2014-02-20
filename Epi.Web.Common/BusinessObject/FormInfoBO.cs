@@ -19,6 +19,7 @@ namespace Epi.Web.Common.BusinessObject
         private string _OwnerLName;
         private string _OwnerFName;
         private string _Xml;
+        private string _ParentId ;
         [DataMember]
         public string FormId
             {
@@ -82,10 +83,17 @@ namespace Epi.Web.Common.BusinessObject
             get { return _OwnerFName; }
             set { _OwnerFName = value; }
             }
+       [DataMember]
         public string Xml
             {
             get { return _Xml; }
             set { _Xml = value; }
             }
+       [DataMember]
+       public string ParentId
+           {
+           get { return _ParentId; }
+           set { _ParentId = value; }
+           }
         }
     }

@@ -110,6 +110,7 @@
     <Compile Include="Fields\MobileTimePicker.cs" />
     <Compile Include="Fields\NumericTextBox.cs" />
     <Compile Include="Fields\RadioList.cs" />
+    <Compile Include="Fields\RelateButton.cs" />
     <Compile Include="Fields\Select.cs" />
     <Compile Include="Fields\TextArea.cs" />
     <Compile Include="Fields\TextBox.cs" />
