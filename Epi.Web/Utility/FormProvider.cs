@@ -194,6 +194,7 @@ namespace Epi.Web.MVC.Utility
                                 form.AddFields(GetRadioList(_FieldTypeID, _Width, _Height, xdocResponse, _RadioListSelectedValue1, RadioListValues1, form));
                                
                                 break;
+                         
                             case "17"://DropDown LegalValues
 
                                 string DropDownValues1 = "";
@@ -223,6 +224,9 @@ namespace Epi.Web.MVC.Utility
                                 //                                             pName, pType, pSource
                                 //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "commentlegal", "datasource",Value)); 
 
+                                break;
+                            case "20"://RelateButton
+                                form.AddFields(GetRelateButton(_FieldTypeID, _Width, _Height, xdocResponse, form));
                                 break;
                             case "21"://GroupBox
                                 var _GroupBoxValue = GetControlValue(xdocResponse, _FieldTypeID.Attribute("UniqueId").Value);
@@ -705,6 +709,40 @@ namespace Epi.Web.MVC.Utility
             return TimePicker;
 
         }
+
+        private static RelateButton GetRelateButton(XElement _FieldTypeID, double _Width, double _Height, XDocument SurveyAnswer, Form form)
+            {
+
+ 
+            RelateButton RelateButton = new RelateButton();
+
+            RelateButton.Title = _FieldTypeID.Attribute("Name").Value;
+            RelateButton.Prompt = _FieldTypeID.Attribute("PromptText").Value;
+            RelateButton.DisplayOrder = int.Parse(_FieldTypeID.Attribute("TabIndex").Value);
+            RelateButton.RequiredMessage = "This field is required";
+            RelateButton.Key = _FieldTypeID.Attribute("Name").Value;
+          //  RelateButton.PromptTop = _Height * double.Parse(_FieldTypeID.Attribute("PromptTopPositionPercentage").Value);
+          //  RelateButton.PromptLeft = _Width * double.Parse(_FieldTypeID.Attribute("PromptLeftPositionPercentage").Value);
+            RelateButton.Top = _Height * double.Parse(_FieldTypeID.Attribute("ControlTopPositionPercentage").Value);
+            RelateButton.Left = _Width * double.Parse(_FieldTypeID.Attribute("ControlLeftPositionPercentage").Value);
+            //RelateButton.PromptWidth = _Width * double.Parse(_FieldTypeID.Attribute("ControlWidthPercentage").Value);
+            RelateButton.ControlWidth = _Width * double.Parse(_FieldTypeID.Attribute("ControlWidthPercentage").Value);
+            RelateButton.ControlHeight = _Height * double.Parse(_FieldTypeID.Attribute("ControlHeightPercentage").Value);
+            RelateButton.fontstyle = _FieldTypeID.Attribute("PromptFontStyle").Value;
+         //   RelateButton.fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value);
+            RelateButton.fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value;
+            //RelateButton.IsRequired = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList");
+           // RelateButton.Required = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList");
+            RelateButton.InputFieldfontstyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
+            RelateButton.InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
+            RelateButton.InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value;
+            RelateButton.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+            RelateButton.IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList");
+            RelateButton.IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList");
+            RelateButton.IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList");
+           
+            return RelateButton;
+            }
 
 
         private static Select GetDropDown(XElement _FieldTypeID, double _Width, double _Height, XDocument SurveyAnswer, string _ControlValue, string DropDownValues, int FieldTypeId, Form form)
