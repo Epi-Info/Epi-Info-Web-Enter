@@ -106,6 +106,7 @@ namespace Epi.Web.EF
                 {
                 result.Xml = entity.TemplateXML;
                 }
+            result.ParentId = entity.ParentId.ToString();
              return result;
             }
 
