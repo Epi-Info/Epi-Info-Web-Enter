@@ -71,6 +71,9 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        SurveyInfoResponse GetFormChildInfo(SurveyInfoRequest SurveyInfoRequest);
     }
 
 }

@@ -28,7 +28,7 @@ namespace Epi.Web.MVC.Utility
         /// <param name="iSurveyAnswerRepository"></param>
         public static Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyResponse(string surveyId, string responseId, SurveyAnswerRequest surveyAnswerRequest,
                                           Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
-                                          SurveyResponseXML surveyResponseXML, ISurveyAnswerRepository iSurveyAnswerRepository,int UserId)
+                                          SurveyResponseXML surveyResponseXML, ISurveyAnswerRepository iSurveyAnswerRepository,int UserId,bool IsChild = false)
         {
             bool AddRoot = false;
             surveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId.ToString());
@@ -40,7 +40,14 @@ namespace Epi.Web.MVC.Utility
             surveyAnswerDTO.XML = surveyResponseXML.CreateResponseXml(surveyId, AddRoot,0,"").InnerXml;
             surveyAnswerRequest.Criteria.UserId = UserId;
             surveyAnswerRequest.SurveyAnswerList.Add(surveyAnswerDTO);
-            surveyAnswerRequest.Action = Epi.Web.MVC.Constants.Constant.CREATE;  //"Create";
+            if (!IsChild)
+                {
+                surveyAnswerRequest.Action = Epi.Web.MVC.Constants.Constant.CREATE;   
+                }
+            else 
+                {
+                  surveyAnswerRequest.Action = Epi.Web.MVC.Constants.Constant.CREATECHILD;   
+                }
             iSurveyAnswerRepository.SaveSurveyAnswer(surveyAnswerRequest);
 
             return surveyAnswerDTO;

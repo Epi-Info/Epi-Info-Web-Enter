@@ -99,5 +99,15 @@ namespace Epi.Web.Interfaces.DataInterfaces
         /// </summary>
         /// <param name="SurveyInfo">SurveyInfo.</param>
          void DeleteSurveyInfo(SurveyInfoBO SurveyInfo);
+
+
+
+         /// <summary>
+         /// Deletes a SurveyInfo
+         /// </summary>
+         /// <param name="SurveyInfo">SurveyInfo.</param>
+         List<SurveyInfoBO> GetChildInfoByParentId(string ParentFormId , int ViewId);
+
+         SurveyInfoBO GetParentInfoByChildId(string ChildId);
     }
 }

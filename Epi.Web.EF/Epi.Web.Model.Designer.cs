@@ -1569,6 +1569,30 @@ namespace Epi.Web.EF
         private Nullable<global::System.Guid> _ParentId;
         partial void OnParentIdChanging(Nullable<global::System.Guid> value);
         partial void OnParentIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ViewId
+        {
+            get
+            {
+                return _ViewId;
+            }
+            set
+            {
+                OnViewIdChanging(value);
+                ReportPropertyChanging("ViewId");
+                _ViewId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ViewId");
+                OnViewIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ViewId;
+        partial void OnViewIdChanging(Nullable<global::System.Int32> value);
+        partial void OnViewIdChanged();
 
         #endregion
 

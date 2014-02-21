@@ -148,7 +148,12 @@ namespace Epi.Web.MVC
                    "Survey/Delete/{responseid}", // URL with parameters
                    new { controller = "Survey", action = "Delete", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
                );
-
+            routes.MapRoute
+               (
+                   null, // Route name
+                   "Survey/GetRelateChildId/{responseid}/{viewid}", // URL with parameters
+                   new { controller = "Survey", action = "GetRelateChildId", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional, viewid = UrlParameter.Optional }
+               );
             routes.MapRoute
              (
                  null, // Route name

@@ -40,8 +40,8 @@ namespace Epi.Web.EF
                     // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;
                     result.UserPublishKey = entity.UserPublishKey;
                     }
-                result.SurveyType = entity.SurveyTypeId; 
-            
+                result.SurveyType = entity.SurveyTypeId;
+                result.ParentId = entity.ParentId.ToString();
 
 
             return result;
@@ -285,7 +285,10 @@ namespace Epi.Web.EF
                 SurveyResponse.DateCompleted = pBO.DateCompleted;
                 SurveyResponse.DateCreated = pBO.DateCreated;
                 SurveyResponse.IsDraftMode = pBO.IsDraftMode;
-                
+                if (!string.IsNullOrEmpty(pBO.ParentId))
+                    {
+                    SurveyResponse.RelateParentId = new Guid(pBO.ParentId);
+                    }
                 if (!string.IsNullOrEmpty(pBO.ParentRecordId))
                 {
                 SurveyResponse.ParentRecordId = new Guid(pBO.ParentRecordId);
