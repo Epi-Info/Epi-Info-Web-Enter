@@ -123,6 +123,7 @@
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
           <Property Name="StartDate" Type="datetime2" Nullable="false" />
           <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="ViewId" Type="int" />
         </EntityType>
         <EntityType Name="SurveyMetaDataUser">
           <Key>
@@ -445,6 +446,7 @@
           <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyMetaDataUser" FromRole="SurveyMetaData" ToRole="User" />
           <NavigationProperty Name="ResponseDisplaySettings" Relationship="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData" FromRole="SurveyMetaData" ToRole="ResponseDisplaySetting" />
           <Property Type="Guid" Name="ParentId" />
+          <Property Type="Int32" Name="ViewId" />
         </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
@@ -629,6 +631,7 @@
           <EntitySetMapping Name="SurveyMetaDatas">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyMetaData">
               <MappingFragment StoreEntitySet="SurveyMetaData">
+                <ScalarProperty Name="ViewId" ColumnName="ViewId" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
                 <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
                 <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
@@ -744,7 +747,7 @@
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="10.75" PointY="5.125" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="3.75" PointY="2.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.Organization" Width="1.5" PointX="0.75" PointY="5.375" Height="2.3648893229166656" IsExpanded="true" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaData" Width="1.5" PointX="6" PointY="4" Height="5.0571093750000022" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaData" Width="1.5" PointX="6" PointY="4" Height="5.6340136718749978" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="8.25" PointY="4.875" Height="3.3263964843749996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.sysdiagram" Width="1.5" PointX="0.75" PointY="1.125" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.User" Width="1.5" PointX="6.875" PointY="10.125" Height="2.9417936197916656" IsExpanded="true" />
@@ -761,15 +764,15 @@
           <ConnectorPoint PointX="6" PointY="4.172841796875" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_Organization" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.5574446614583337" />
-          <ConnectorPoint PointX="6" PointY="6.5574446614583337" />
+          <ConnectorPoint PointX="2.25" PointY="6.5574446614583328" />
+          <ConnectorPoint PointX="6" PointY="6.5574446614583328" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="6.826650390625" />
-          <ConnectorPoint PointX="8.25" PointY="6.826650390625" />
+          <ConnectorPoint PointX="7.5" PointY="6.9228011067708328" />
+          <ConnectorPoint PointX="8.25" PointY="6.9228011067708328" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.SurveyMetaDataUser" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.1875" PointY="9.2494108072916656" />
+          <ConnectorPoint PointX="7.1875" PointY="9.6340136718749978" />
           <ConnectorPoint PointX="7.1875" PointY="10.125" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.ResponseDisplaySetting" Width="1.5" PointX="6" PointY="1.125" Height="1.7879850260416674" />

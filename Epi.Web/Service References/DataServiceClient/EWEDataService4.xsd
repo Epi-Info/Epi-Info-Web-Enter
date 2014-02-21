@@ -169,6 +169,7 @@
       <xs:element minOccurs="0" name="ResponseId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Status" type="xs:int" />
       <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserEmail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserPublishKey" type="ser:guid" />
       <xs:element minOccurs="0" name="XML" nillable="true" type="xs:string" />
     </xs:sequence>

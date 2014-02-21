@@ -17,5 +17,7 @@ namespace Epi.Web.MVC.Repositories.Core
         FormsInfoResponse GetFormsInfoList(FormsInfoRequest pRequestId);
 
         SurveyAnswerResponse DeleteResponse(SurveyAnswerRequest SARequest);
+
+        SurveyInfoResponse GetFormChildInfo(SurveyInfoRequest SurveyInfoRequest);
     }
 }

@@ -69,7 +69,14 @@ namespace Epi.Web.Interfaces.DataInterfaces
         /// </remarks>
         /// <param name="SurveyResponse">SurveyResponse.</param>
         void InsertSurveyResponse(SurveyResponseBO SurveyResponse);
-
+        /// <summary>
+        /// Inserts a new SurveyResponse. 
+        /// </summary>
+        /// <remarks>
+        /// Following insert, SurveyResponse object will contain the new identifier.
+        /// </remarks>
+        /// <param name="SurveyResponse">SurveyResponse.</param>
+        void InsertChildSurveyResponse(SurveyResponseBO SurveyResponse);
         /// <summary>
         /// Updates a SurveyResponse.
         /// </summary>

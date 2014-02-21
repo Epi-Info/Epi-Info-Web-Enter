@@ -280,8 +280,37 @@ namespace Epi.Web.EF
             }
              
         }
-       
 
+        /// <summary>
+        /// Inserts a new SurveyResponse. 
+        /// </summary>
+        /// <remarks>
+        /// Following insert, SurveyResponse object will contain the new identifier.
+        /// </remarks>  
+        /// <param name="SurveyResponse">SurveyResponse.</param>
+        public void InsertChildSurveyResponse(SurveyResponseBO SurveyResponse )
+            {
+
+
+
+            try
+                {
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+                    SurveyResponse SurveyResponseEntity = Mapper.ToEF(SurveyResponse);
+                    User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+                    SurveyResponseEntity.Users.Add(User);
+                    Context.AddToSurveyResponses(SurveyResponseEntity);
+
+                    Context.SaveChanges();
+                    }
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+            }
         /// <summary>
         /// Updates a SurveyResponse.
         /// </summary>

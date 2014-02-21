@@ -184,6 +184,24 @@ namespace Epi.Web.BLL
 
             return isValid;
         }
-     
+
+
+        public List<SurveyInfoBO> GetChildInfoByParentId(Dictionary<string ,int > ParentIdList)
+            {
+            List<SurveyInfoBO> result = new List<SurveyInfoBO>();
+            foreach (KeyValuePair<string, int> item in ParentIdList)
+                {
+                result = this.SurveyInfoDao.GetChildInfoByParentId(item.Key, item.Value);
+                }
+            return result;
+            }
+        public SurveyInfoBO GetParentInfoByChildId(string ChildId)
+            {
+            SurveyInfoBO result = new SurveyInfoBO();
+
+            result = this.SurveyInfoDao.GetParentInfoByChildId(ChildId);
+              
+            return result;
+            }
     }
 }

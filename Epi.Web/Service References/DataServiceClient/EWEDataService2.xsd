@@ -211,4 +211,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetFormChildInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://www.yourcompany.com/types/" minOccurs="0" name="SurveyInfoRequest" nillable="true" type="q30:SurveyInfoRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormChildInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormChildInfoResult" nillable="true" type="q31:SurveyInfoResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
