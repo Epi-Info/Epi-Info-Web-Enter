@@ -85,10 +85,10 @@ namespace Epi.Web.MVC.Facade
         /// </summary>
         /// <param name="SurveyId"></param>
         /// <returns></returns>
-        public Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId)
+        public Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId , bool IsChild = false)
         {
 
-            return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository, UserId);
+            return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository, UserId,IsChild);
         }
 
 
@@ -251,6 +251,13 @@ namespace Epi.Web.MVC.Facade
 
             
             
+            }
+
+        public SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest) 
+            {
+
+            SurveyInfoResponse SurveyInfoResponse = _iSurveyInfoRepository.GetFormChildInfo(SurveyInfoRequest);
+            return SurveyInfoResponse;
             }
     }
 }

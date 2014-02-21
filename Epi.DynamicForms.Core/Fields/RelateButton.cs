@@ -10,7 +10,7 @@ namespace MvcDynamicForms.Fields
     public class RelateButton : InputField
         {
         new private string _promptClass = "MvcDynamicCommandButtonPrompt";
-
+        public string RelatedViewId;
         public override string RenderHtml()
             {
             string name = "mvcdynamicfield_" + _key;
@@ -24,7 +24,7 @@ namespace MvcDynamicForms.Fields
             commandButtonTag.Attributes.Add("id", name);
             commandButtonTag.Attributes.Add("name", name);
             commandButtonTag.Attributes.Add("type", "button");
-
+            commandButtonTag.Attributes.Add("onclick", "NavigateToChild(" + RelatedViewId + ");");
             string IsHiddenStyle = "";
             string IsHighlightedStyle = "";
 

@@ -449,7 +449,36 @@ function ReplaceString(string){
 		 return true;
 	 });
 });
+
+function NavigateToChild(ViewId) 
+{
+    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.SurveyInfo.SurveyId' + '&ViewId=' + ViewId;
    
+     
+    $.ajax({
+        url: signoutUrl,
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        //data: "{}",
+        dataType: "json",
+        //cache: false,
+        async: false,
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data) {
+        //$(this).dialog("close");
+         
+       // var homePageUrl = '@Url.Action("Index", "Survey")' + '/' + '77645c73-2318-4bda-be9d-82e61ce86b04';
+        var homePageUrl = '/Survey' + '/' + data
+        window.location.href = homePageUrl;
+    }
+    function errorFunc(data) {
+        alert('failed');
+    }
+    
+}
+
 </script>
 
  <div id="pageHeader">

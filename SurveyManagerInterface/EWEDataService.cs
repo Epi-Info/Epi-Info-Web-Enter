@@ -336,6 +336,15 @@ namespace Epi.Web.WCF.SurveyService
                         Implementation.InsertSurveyResponse(SurveyResponse);
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
                     }
+                    else if (request.Action.Equals("CreateChild", StringComparison.OrdinalIgnoreCase))
+                        {
+                        Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
+                        Epi.Web.BLL.SurveyInfo Implementation1 = new Epi.Web.BLL.SurveyInfo(SurveyInfoDao);
+                        SurveyInfoBO SurveyInfoBO = Implementation1.GetParentInfoByChildId(SurveyResponse.SurveyId);
+
+                        Implementation.InsertChildSurveyResponse(SurveyResponse,SurveyInfoBO);
+                        response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
+                    }
                     else if (request.Action.Equals("Update", StringComparison.OrdinalIgnoreCase))
                     {
                         Implementation.UpdateSurveyResponse(SurveyResponse);
@@ -809,7 +818,36 @@ namespace Epi.Web.WCF.SurveyService
             
             }
 
+        public SurveyInfoResponse GetFormChildInfo(SurveyInfoRequest pRequest) 
+          {
+          try
+              {
+              SurveyInfoResponse result = new SurveyInfoResponse(pRequest.RequestId);
+              
 
+              Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+              Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+              Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
+              Dictionary<string, int> ParentIdList = new Dictionary<string, int>();
+              foreach (var item in pRequest.SurveyInfoList)
+                  {
+                  ParentIdList.Add(item.SurveyId,item.ViewId);
+                  }
+              result.SurveyInfoList = Mapper.ToDataTransferObject(implementation.GetChildInfoByParentId(ParentIdList));
+              
+
+              return result;
+              }
+          catch (Exception ex)
+              {
+              CustomFaultException customFaultException = new CustomFaultException();
+              customFaultException.CustomMessage = ex.Message;
+              customFaultException.Source = ex.Source;
+              customFaultException.StackTrace = ex.StackTrace;
+              customFaultException.HelpLink = ex.HelpLink;
+              throw new FaultException<CustomFaultException>(customFaultException);
+              }
+            }
 
 
 

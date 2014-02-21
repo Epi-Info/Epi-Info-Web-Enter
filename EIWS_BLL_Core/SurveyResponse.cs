@@ -119,7 +119,14 @@ namespace Epi.Web.BLL
             this.SurveyResponseDao.InsertSurveyResponse(pValue);
             return result;
         }
-
+        public SurveyResponseBO InsertChildSurveyResponse(SurveyResponseBO pValue,SurveyInfoBO ParentSurveyInfo)
+            {
+           
+            SurveyResponseBO result = pValue;
+            pValue.ParentId = ParentSurveyInfo.ParentId;
+            this.SurveyResponseDao.InsertChildSurveyResponse(pValue);
+            return result;
+            }
 
         public SurveyResponseBO UpdateSurveyResponse(SurveyResponseBO pValue)
         {

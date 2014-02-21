@@ -400,5 +400,47 @@ namespace Epi.Web.EF
 
             return xml.Trim();
         }
+
+        public List<SurveyInfoBO> GetChildInfoByParentId(string ParentFormId, int ViewId) 
+            {
+            List<SurveyInfoBO> result = new List<SurveyInfoBO>();
+            try
+                {
+
+                Guid Id = new Guid(ParentFormId);
+
+                    using (var Context = DataObjectFactory.CreateContext())
+                        {
+                        result.Add(Mapper.Map(Context.SurveyMetaDatas.FirstOrDefault(x => x.ParentId == Id && x.ViewId == ViewId)));
+                        }
+                    
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+            return result;
+            }
+
+        public SurveyInfoBO GetParentInfoByChildId(string ChildId)
+        {
+        SurveyInfoBO result = new SurveyInfoBO();
+        try
+            {
+
+            Guid Id = new Guid(ChildId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+                result = Mapper.Map(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id ));
+                }
+
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+        return result;
+        }
     }
 }
