@@ -29,5 +29,6 @@ namespace Epi.Web.Common.BusinessObject
         public int UserId { get; set; }
         public string UserEmail { get; set; }
         public string ParentId { get; set; }
+        public string RelateParentId { get; set; }
     }
 }

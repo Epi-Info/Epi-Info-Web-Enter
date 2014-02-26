@@ -34,5 +34,8 @@ namespace Epi.Web.Common.DTO
          public string ParentRecordId { get; set; }
         [DataMember]
         public string UserEmail { get; set; }
+         [DataMember]
+        public string RelateParentId { get; set; }
+        
     }
 }

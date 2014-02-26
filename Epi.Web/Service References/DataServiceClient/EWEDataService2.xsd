@@ -225,4 +225,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetFormsHierarchy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://www.yourcompany.com/types/" minOccurs="0" name="FormsHierarchyRequest" nillable="true" type="q32:FormsHierarchyRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetFormsHierarchyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://www.yourcompany.com/types/" minOccurs="0" name="GetFormsHierarchyResult" nillable="true" type="q33:FormsHierarchyResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

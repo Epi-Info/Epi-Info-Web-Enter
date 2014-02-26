@@ -10,7 +10,7 @@ using System.Text;
 using Epi.Web.Interfaces.DataInterfaces;
 using Epi.Web.Common.BusinessObject;
 using Epi.Web.Common.Criteria;
-
+using Epi.Web.Common.Extension;
 namespace Epi.Web.EF
 {
     /// <summary>
@@ -622,6 +622,40 @@ namespace Epi.Web.EF
             return result;
             
             }
+
+        public List<SurveyResponseBO> GetResponsesHierarchyIdsByRootId(string RootId)
+            {
+
+
+
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+            List<string> list = new List<string>();
+            try
+                {
+
+                Guid Id = new Guid(RootId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).Traverse(x => x.SurveyResponse1));
+
+
+
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+            return result;
+            
+            
+            
+            }
+
     }
 
     

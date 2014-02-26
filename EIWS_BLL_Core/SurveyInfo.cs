@@ -132,9 +132,6 @@ namespace Epi.Web.BLL
             this.SurveyInfoDao.InsertSurveyInfo(pValue);
             return result;
         }
-
-
-
         public SurveyInfoBO UpdateSurveyInfo(SurveyInfoBO pValue)
         {
             SurveyInfoBO result = pValue;
@@ -203,5 +200,24 @@ namespace Epi.Web.BLL
               
             return result;
             }
+        public List<FormsHierarchyBO> GetFormsHierarchyIdsByRootId(string RootId)
+            {
+            List<SurveyInfoBO> SurveyInfoBOList = new List<SurveyInfoBO>();
+            List<FormsHierarchyBO> result = new List<FormsHierarchyBO>();
+            
+            SurveyInfoBOList = this.SurveyInfoDao.GetFormsHierarchyIdsByRootId(RootId);
+            foreach(var item in SurveyInfoBOList)
+                {
+                FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
+                FormsHierarchyBO.ViewId = item.ViewId;
+                FormsHierarchyBO.FormId = item.SurveyId;
+                 
+                result.Add(FormsHierarchyBO);
+                }
+
+            return result;
+            
+            }
+
     }
 }

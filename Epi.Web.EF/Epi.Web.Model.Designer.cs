@@ -27,6 +27,8 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyMetaDataUser", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_ResponseGridcolumns_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "ResponseDisplaySetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.ResponseDisplaySetting), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyResponseUser", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyMetaData), "SurveyMetaData1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyResponse", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyResponse), "SurveyResponse1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 
 #endregion
 
@@ -1740,6 +1742,66 @@ namespace Epi.Web.EF
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData1")]
+        public EntityCollection<SurveyMetaData> SurveyMetaData1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData")]
+        public SurveyMetaData SurveyMetaData2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SurveyMetaData> SurveyMetaData2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -2198,6 +2260,66 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("OSELS_EWEModel.SurveyResponseUser", "User", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyResponse", "SurveyResponse1")]
+        public EntityCollection<SurveyResponse> SurveyResponse1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponse_SurveyResponse", "SurveyResponse1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponse_SurveyResponse", "SurveyResponse1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyResponse", "SurveyResponse")]
+        public SurveyResponse SurveyResponse2
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponse_SurveyResponse", "SurveyResponse").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponse_SurveyResponse", "SurveyResponse").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SurveyResponse> SurveyResponse2Reference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponse_SurveyResponse", "SurveyResponse");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponse_SurveyResponse", "SurveyResponse", value);
                 }
             }
         }

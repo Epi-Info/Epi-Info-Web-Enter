@@ -96,5 +96,7 @@ namespace Epi.Web.Interfaces.DataInterfaces
          int GetFormResponseCount(string FormId);
          string GetResponseParentId(string ResponseId);
          SurveyResponseBO GetSingleResponse(string ResponseId);
+
+         List<SurveyResponseBO> GetResponsesHierarchyIdsByRootId(string RootId);
     }
 }

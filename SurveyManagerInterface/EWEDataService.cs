@@ -342,7 +342,7 @@ namespace Epi.Web.WCF.SurveyService
                         Epi.Web.BLL.SurveyInfo Implementation1 = new Epi.Web.BLL.SurveyInfo(SurveyInfoDao);
                         SurveyInfoBO SurveyInfoBO = Implementation1.GetParentInfoByChildId(SurveyResponse.SurveyId);
 
-                        Implementation.InsertChildSurveyResponse(SurveyResponse,SurveyInfoBO);
+                        Implementation.InsertChildSurveyResponse(SurveyResponse, SurveyInfoBO, request.SurveyAnswerList[0].RelateParentId);
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
                     }
                     else if (request.Action.Equals("Update", StringComparison.OrdinalIgnoreCase))
@@ -850,7 +850,48 @@ namespace Epi.Web.WCF.SurveyService
             }
 
 
+        public FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest) 
+            {
 
+            FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
+            //1- Get All form  ID's
+              Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+              Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+              Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
+
+              List<FormsHierarchyBO> RelatedFormIDsList = implementation.GetFormsHierarchyIdsByRootId(FormsHierarchyRequest.SurveyInfo.FormId);
+
+             
+              
+            //2- Get all Responses ID's
+             
+              Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+              Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+
+            List<SurveyResponseBO> AllResponsesIDsList = Implementation.GetResponsesHierarchyIdsByRootId(FormsHierarchyRequest.SurveyResponseInfo.ResponseId);
+
+            //3 Combining the lists.
+
+            List<FormsHierarchyBO> FinalList = new List<FormsHierarchyBO>();
+          
+            foreach (var Item in RelatedFormIDsList)
+                {
+                FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO(); 
+                FormsHierarchyBO.FormId = Item.FormId;
+                FormsHierarchyBO.ViewId = Item.ViewId;
+                FormsHierarchyBO.ResponseIds = Mapper.Map( AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId));
+                FinalList.Add(FormsHierarchyBO);
+                }
+
+
+            FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(FinalList);
+
+              
+            return FormsHierarchyResponse;
+            
+            
+            
+            }
 
 
     }

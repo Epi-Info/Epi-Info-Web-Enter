@@ -7,6 +7,7 @@ using System.Collections.Generic;
 //using System.Linq.Dynamic;
 using Epi.Web.Interfaces.DataInterfaces;
 using Epi.Web.Common.BusinessObject;
+using Epi.Web.Common.Extension;
 
 namespace Epi.Web.EF
 {
@@ -442,5 +443,39 @@ namespace Epi.Web.EF
             }
         return result;
         }
+
+        public List<SurveyInfoBO> GetFormsHierarchyIdsByRootId(string RootId)
+        {
+
+      List<SurveyInfoBO> result = new List<SurveyInfoBO>();
+         
+            List<string> list = new List<string>();
+        try
+            {
+
+            Guid Id = new Guid(RootId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                result = Mapper.Map(Context.SurveyMetaDatas.Where(x => x.SurveyId == Id).Traverse(x => x.SurveyMetaData1));
+
+
+ 
+                }
+
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+        return result;
+
+        }
+
+
+
+       
+
     }
 }

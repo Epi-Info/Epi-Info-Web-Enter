@@ -449,6 +449,7 @@
     <Content Include="Scripts\_references.js" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormResponseInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormSettingResponse.datasource" />
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsHierarchyResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsInfoResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />

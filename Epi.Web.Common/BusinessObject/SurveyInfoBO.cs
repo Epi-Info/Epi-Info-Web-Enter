@@ -26,7 +26,7 @@ namespace Epi.Web.Common.BusinessObject
         private bool _IsDraftMode;
         private DateTime _StartDate;
         private string _ParentId;
-
+        private int _ViewId;
         public string StatusText
         { 
             get { return _StatusText; }
@@ -142,7 +142,12 @@ namespace Epi.Web.Common.BusinessObject
             set { _ParentId = value; }
             }
 
-
+        [DataMember]
+        public int ViewId
+            {
+            get { return _ViewId; }
+            set { _ViewId = value; }
+            }
 
     }
 }
