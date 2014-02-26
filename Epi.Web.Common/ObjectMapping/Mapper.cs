@@ -315,5 +315,31 @@ namespace Epi.Web.Common.ObjectMapping
             EmailAddress = result.EmailAddress
             };
         }
+
+        public static List<FormsHierarchyDTO> ToFormHierarchyDTO(List<FormsHierarchyBO> AllChildIDsList)
+            {
+            List<FormsHierarchyDTO> result = new List<FormsHierarchyDTO>();
+            foreach (FormsHierarchyBO Obj in AllChildIDsList)
+               {
+               FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
+               FormsHierarchyDTO.FormId = Obj.FormId;
+               FormsHierarchyDTO.ViewId = Obj.ViewId;
+               FormsHierarchyDTO.ResponseIds = Obj.ResponseIds;
+               result.Add(FormsHierarchyDTO);
+               }
+            return result;
+            }
+
+        public static List<string> Map(IEnumerable<SurveyResponseBO> iEnumerable)
+            {
+            List<string> responseIdsList = new List<string>();
+            foreach (SurveyResponseBO Obj in iEnumerable)
+                {
+                responseIdsList.Add(Obj.ResponseId);
+
+                }
+
+            return responseIdsList;
+            }
     }
 }

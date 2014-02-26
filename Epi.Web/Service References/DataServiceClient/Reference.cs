@@ -79,6 +79,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormChildInfo", ReplyAction="http://tempuri.org/IEWEDataService/GetFormChildInfoResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormChildInfoCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Common.Message.SurveyInfoResponse GetFormChildInfo(Epi.Web.Common.Message.SurveyInfoRequest SurveyInfoRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetFormsHierarchy", ReplyAction="http://tempuri.org/IEWEDataService/GetFormsHierarchyResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetFormsHierarchyCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.FormsHierarchyResponse GetFormsHierarchy(Epi.Web.Common.Message.FormsHierarchyRequest FormsHierarchyRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -170,6 +174,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Common.Message.SurveyInfoResponse GetFormChildInfo(Epi.Web.Common.Message.SurveyInfoRequest SurveyInfoRequest) {
             return base.Channel.GetFormChildInfo(SurveyInfoRequest);
+        }
+        
+        public Epi.Web.Common.Message.FormsHierarchyResponse GetFormsHierarchy(Epi.Web.Common.Message.FormsHierarchyRequest FormsHierarchyRequest) {
+            return base.Channel.GetFormsHierarchy(FormsHierarchyRequest);
         }
     }
 }

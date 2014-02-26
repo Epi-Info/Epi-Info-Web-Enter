@@ -41,6 +41,9 @@ namespace Epi.Web.MVC.Controllers
         /// <param name="iSurveyInfoRepository"></param>
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
+        private string RootFormId ="";
+        private string RootResponseId = "";
+        
         public SurveyController(ISurveyFacade isurveyFacade)
             {
             _isurveyFacade = isurveyFacade;
@@ -60,8 +63,17 @@ namespace Epi.Web.MVC.Controllers
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
         public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "")
             {
+               
+           
+          
+            if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
+                {
+            this.RootFormId = Session["RootFormId"].ToString();
+            this.RootResponseId = Session["RootResponseId"].ToString();
+                }
             try
                 {
+                List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 ViewBag.Version = version;
                 ViewBag.Edit = Edit;
@@ -165,6 +177,13 @@ namespace Epi.Web.MVC.Controllers
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+           
+         //   GetFormsHierarchy();
+            if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
+                {
+                this.RootFormId = Session["RootFormId"].ToString();
+                this.RootResponseId = Session["RootResponseId"].ToString();
+                }
             string responseId = surveyAnswerModel.ResponseId;
             bool IsMobileDevice = false;
             IsMobileDevice = this.Request.Browser.IsMobileDevice;
@@ -433,7 +452,15 @@ namespace Epi.Web.MVC.Controllers
                                     {
                                     if (!IsMobileDevice)
                                         {
-                                        return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
+                                        if (string.IsNullOrEmpty(this.RootFormId))
+                                            {
+                                                 return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
+                                            }
+                                        else
+                                            {
+                                             return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId });
+                                            
+                                            }
                                         }
                                     else
                                         {
@@ -518,6 +545,16 @@ namespace Epi.Web.MVC.Controllers
                 return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
                 }
 
+            }
+
+        private List<FormsHierarchyDTO> GetFormsHierarchy()
+            {
+            FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
+            FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
+            FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
+            FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
+            FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
+            return FormsHierarchyResponse.FormsHierarchy;
             }
 
 
@@ -796,8 +833,11 @@ namespace Epi.Web.MVC.Controllers
             }
 
         [HttpPost]
-        public ActionResult GetRelateChildId(string SurveyId, int ViewId)
+        public ActionResult GetRelateChildId(string SurveyId, int ViewId,string ResponseId)
             {
+            
+         
+
             //1-Get the child Id
              //SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest)
             SurveyInfoRequest SurveyInfoRequest = new Common.Message.SurveyInfoRequest();
@@ -809,13 +849,14 @@ namespace Epi.Web.MVC.Controllers
             SurveyInfoResponse = _isurveyFacade.GetChildFormInfo(SurveyInfoRequest);
 
             //2-Create a new response for the child 
-            string ResponseId = CreateResponse(SurveyInfoResponse.SurveyInfoList[0].SurveyId);
+            string ChildResponseId = CreateResponse(SurveyInfoResponse.SurveyInfoList[0].SurveyId,ResponseId);
+             
             //3-returen response id to client
-            return Json(ResponseId);
+            return Json(ChildResponseId);
 
             }
 
-        public string CreateResponse(string SurveyId)
+        public string CreateResponse(string SurveyId,string RelateResponseId)
             {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //if (!string.IsNullOrEmpty(EditForm))
@@ -837,7 +878,7 @@ namespace Epi.Web.MVC.Controllers
 
             // create the first survey response
             // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId,true);
+            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId, true, RelateResponseId);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 

@@ -42,8 +42,10 @@ namespace Epi.Web.EF
                     }
                 result.SurveyType = entity.SurveyTypeId;
                 result.ParentId = entity.ParentId.ToString();
-
-
+                if ( entity.ViewId != null)
+                    {
+                     result.ViewId = (int)entity.ViewId;
+                   }
             return result;
         }
 
@@ -216,6 +218,10 @@ namespace Epi.Web.EF
                 {
                         SurveyResponseBO.ParentRecordId = entity.ParentRecordId.ToString();
                 }
+            if (entity.RelateParentId != null)
+                {
+                SurveyResponseBO.RelateParentId = entity.RelateParentId.ToString();
+                }
             if (User != null)
                 {
                 SurveyResponseBO.UserEmail = User.EmailAddress;
@@ -285,9 +291,9 @@ namespace Epi.Web.EF
                 SurveyResponse.DateCompleted = pBO.DateCompleted;
                 SurveyResponse.DateCreated = pBO.DateCreated;
                 SurveyResponse.IsDraftMode = pBO.IsDraftMode;
-                if (!string.IsNullOrEmpty(pBO.ParentId))
+                if (!string.IsNullOrEmpty(pBO.RelateParentId))
                     {
-                    SurveyResponse.RelateParentId = new Guid(pBO.ParentId);
+                    SurveyResponse.RelateParentId = new Guid(pBO.RelateParentId);
                     }
                 if (!string.IsNullOrEmpty(pBO.ParentRecordId))
                 {
@@ -350,5 +356,33 @@ namespace Epi.Web.EF
                IsDraftMode = FormInfoBO.IsDraftMode
            } ;
             }
+
+
+
+        internal static List<SurveyInfoBO> Map(IEnumerable<SurveyMetaData> iEnumerable)
+            {
+            List<SurveyInfoBO> result = new List<SurveyInfoBO>();
+            foreach (SurveyMetaData Obj in iEnumerable)
+                {
+                result.Add(Map(Obj));
+                
+                }
+             return result;
+            }
+
+      
+
+
+        internal static List<SurveyResponseBO> Map(IEnumerable<SurveyResponse> entities)
+            {
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+            foreach (SurveyResponse surveyResponse in entities)
+                {
+                result.Add(Map(surveyResponse));
+                }
+
+            return result;
+            }
+
     }
 }

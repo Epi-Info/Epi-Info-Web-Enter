@@ -74,6 +74,12 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         SurveyInfoResponse GetFormChildInfo(SurveyInfoRequest SurveyInfoRequest);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest);
+
+
     }
 
 }

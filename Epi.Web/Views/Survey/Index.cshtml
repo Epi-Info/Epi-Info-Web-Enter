@@ -452,9 +452,12 @@ function ReplaceString(string){
 
 function NavigateToChild(ViewId) 
 {
-    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.SurveyInfo.SurveyId' + '&ViewId=' + ViewId;
-   
-     
+    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.ResponseId';
+
+//    $('#Parent_Form_Id').val('@Model.SurveyInfo.SurveyId');
+//    $('#Parent_Response_Id').val('@Model.ResponseId');
+
+//    alert( $('#Parent_Response_Id').val());
     $.ajax({
         url: signoutUrl,
         type: 'POST',
@@ -470,7 +473,7 @@ function NavigateToChild(ViewId)
         //$(this).dialog("close");
          
        // var homePageUrl = '@Url.Action("Index", "Survey")' + '/' + '77645c73-2318-4bda-be9d-82e61ce86b04';
-        var homePageUrl = '/Survey' + '/' + data
+        var homePageUrl = '/Survey' + '/' + data+'/1'
         window.location.href = homePageUrl;
     }
     function errorFunc(data) {
@@ -581,7 +584,10 @@ function NavigateToChild(ViewId)
 		<input type="hidden"  name="is_save_action" value="false" />
 		<input type="hidden"  name="is_goto_action" value="false" /> 
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.FormValuesHasChanged" /> 
-			 
+
+      @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" /> 
+	    <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" /> 
+			 *@
 		<div id="nav">
 			<div id="prev" align="left">&nbsp;
 					@if (Model.CurrentPage != 1)
