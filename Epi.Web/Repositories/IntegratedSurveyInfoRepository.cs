@@ -178,5 +178,13 @@ namespace Epi.Web.MVC.Repositories
                 return _iDataService.GetFormChildInfo(SurveyInfoRequest);
                 
                 }
+            public FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest)
+                {
+
+                return _iDataService.GetFormsHierarchy(FormsHierarchyRequest);
+
+
+
+                }
     }
 }

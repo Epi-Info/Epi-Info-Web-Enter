@@ -109,5 +109,9 @@ namespace Epi.Web.Interfaces.DataInterfaces
          List<SurveyInfoBO> GetChildInfoByParentId(string ParentFormId , int ViewId);
 
          SurveyInfoBO GetParentInfoByChildId(string ChildId);
+
+
+
+         List<SurveyInfoBO> GetFormsHierarchyIdsByRootId(string RootId);
     }
 }

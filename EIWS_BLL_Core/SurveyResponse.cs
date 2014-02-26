@@ -119,11 +119,12 @@ namespace Epi.Web.BLL
             this.SurveyResponseDao.InsertSurveyResponse(pValue);
             return result;
         }
-        public SurveyResponseBO InsertChildSurveyResponse(SurveyResponseBO pValue,SurveyInfoBO ParentSurveyInfo)
+        public SurveyResponseBO InsertChildSurveyResponse(SurveyResponseBO pValue,SurveyInfoBO ParentSurveyInfo,string RelateParentId)
             {
            
             SurveyResponseBO result = pValue;
             pValue.ParentId = ParentSurveyInfo.ParentId;
+            pValue.RelateParentId = RelateParentId;
             this.SurveyResponseDao.InsertChildSurveyResponse(pValue);
             return result;
             }
@@ -203,7 +204,16 @@ namespace Epi.Web.BLL
             return result;
             }
 
-        
+        public List<SurveyResponseBO> GetResponsesHierarchyIdsByRootId(string RootId)
+            {
+            List<SurveyResponseBO> SurveyResponseBO = new List<SurveyResponseBO>();
+             
+            SurveyResponseBO = this.SurveyResponseDao.GetResponsesHierarchyIdsByRootId(RootId);
+
+
+            return SurveyResponseBO;
+
+            }
        
 
     }

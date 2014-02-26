@@ -116,6 +116,8 @@ namespace Epi.Web.MVC.Controllers
         int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             if (!string.IsNullOrEmpty(EditForm))
             {
+                 Session["RootFormId"] = surveyid;
+                 Session["RootResponseId"] = EditForm;
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
@@ -145,6 +147,8 @@ namespace Epi.Web.MVC.Controllers
 
             // create the first survey response
             // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
+            Session["RootFormId"] = AddNewFormId;
+            Session["RootResponseId"] = ResponseID;
             Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
