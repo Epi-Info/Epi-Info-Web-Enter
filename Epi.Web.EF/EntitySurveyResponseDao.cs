@@ -411,25 +411,36 @@ namespace Epi.Web.EF
         /// <param name="SurveyResponse">SurveyResponse.</param>
         public void DeleteSurveyResponse(SurveyResponseBO SurveyResponse)
         {
+             
+         
 
+          
            
         try
             {
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+            Guid Id = new Guid(SurveyResponse.ResponseId);
+
             using (var Context = DataObjectFactory.CreateContext())
                 {
-                if (!string.IsNullOrEmpty(SurveyResponse.ResponseId))
+                result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x=>x.DateCreated).Traverse(x => x.SurveyResponse1));
+                foreach (var Obj in result)
                     {
-                    Guid Id = new Guid(SurveyResponse.ResponseId);
-                    User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
 
-                    SurveyResponse  Response = Context.SurveyResponses.First(x => x.ResponseId == Id );
-                    Response.Users.Remove(User);
+                    if (!string.IsNullOrEmpty(Obj.ResponseId))
+                        {
+                        Guid NewId = new Guid(Obj.ResponseId);
 
-                    Context.SurveyResponses.DeleteObject(Response);
+                        User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+
+                        SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == NewId);
+                        Response.Users.Remove(User);
+
+                        Context.SurveyResponses.DeleteObject(Response);
                      
-                    Context.SaveChanges();
+                        Context.SaveChanges();
+                        }
                     }
-
 
                 }
             }

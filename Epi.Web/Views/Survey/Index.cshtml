@@ -50,7 +50,7 @@
 		//posting the form
 		$('#myform').submit();
 		// return false;
-
+		 
 	}
 	/*Clicking the continue button*/
 
@@ -83,215 +83,216 @@
 
 
 	$(document).ready(function () {
-		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+	    // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
-		//$("#Savebutton").tooltip();
-
-
+	    //$("#Savebutton").tooltip();
 
 
-		$("#dialog").dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "blind",
-			resizable: false,
-			height: 420,
-			modal: true
-		});
-
-		$("#VideoDialog").dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "blind",
-			resizable: false,
-			height: 410,
-			width: 500,
-			modal: true
-		});
-		// setup the dialog
-		$("#TimeOutdialog").dialog({
-			autoOpen: false,
-			modal: true,
-			width: 400,
-			height: 160,
-			closeOnEscape: false,
-			draggable: false,
-			resizable: false,
-			/* buttons: {
-			'Continue Session': function () {
-			$(this).dialog('close');
-			}
-			}*/
-
-			buttons: [{
-				"text": 'Continue Session',
-				"click": function () {
-					$(this).dialog('close');
-				},
-				"class": 'dialogbtn'
-			}]
 
 
-		});
-		// cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
-		var $countdown = $("#dialog-countdown");
+	    $("#dialog").dialog({
+	        autoOpen: false,
+	        show: "blind",
+	        hide: "blind",
+	        resizable: false,
+	        height: 420,
+	        modal: true
+	    });
 
-		// start the idle timer plugin
-		$.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
-			idleAfter: 900,
-			pollingInterval: 2,
-			keepAliveURL: 'keepalive.php',
-			serverResponseEquals: 'OK',
-			onTimeout: function () {
-				//window.location = "timeout.htm";
-				window.location = GetRedirectionUrl() + '/1';
-				//'~/Login/Index'; 
+	    $("#VideoDialog").dialog({
+	        autoOpen: false,
+	        show: "blind",
+	        hide: "blind",
+	        resizable: false,
+	        height: 410,
+	        width: 500,
+	        modal: true
+	    });
+	    // setup the dialog
+	    $("#TimeOutdialog").dialog({
+	        autoOpen: false,
+	        modal: true,
+	        width: 400,
+	        height: 160,
+	        closeOnEscape: false,
+	        draggable: false,
+	        resizable: false,
+	        /* buttons: {
+	        'Continue Session': function () {
+	        $(this).dialog('close');
+	        }
+	        }*/
+
+	        buttons: [{
+	            "text": 'Continue Session',
+	            "click": function () {
+	                $(this).dialog('close');
+	            },
+	            "class": 'dialogbtn'
+	        }]
 
 
-			},
-			onIdle: function () {
-				$(this).dialog("open");
-			},
-			onCountdown: function (counter) {
-				$countdown.html(counter); // update the counter
-			}
-		});
+	    });
+	    // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+	    var $countdown = $("#dialog-countdown");
 
-		$(function () {
-		
-			$("#exitdialog").dialog({
-				autoOpen: false,
-				show: "blind",
-				hide: "blind",
-				resizable: false,
-				height: 150,
-				width: 420,
-				modal: true,
-				buttons: [{
+	    // start the idle timer plugin
+	    $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
+	        idleAfter: 900,
+	        pollingInterval: 2,
+	        keepAliveURL: 'keepalive.php',
+	        serverResponseEquals: 'OK',
+	        onTimeout: function () {
+	            //window.location = "timeout.htm";
+	            window.location = GetRedirectionUrl() + '/1';
+	            //'~/Login/Index'; 
 
-					"text": 'Save',
-					"click": function () {
-						//alert('@Model.StatusId');
-						$(this).dialog("close");
-						var input = $("<input>")
+
+	        },
+	        onIdle: function () {
+	            $(this).dialog("open");
+	        },
+	        onCountdown: function (counter) {
+	            $countdown.html(counter); // update the counter
+	        }
+	    });
+
+	    $(function () {
+
+	        $("#exitdialog").dialog({
+	            autoOpen: false,
+	            show: "blind",
+	            hide: "blind",
+	            resizable: false,
+	            height: 150,
+	            width: 420,
+	            modal: true,
+	            buttons: [{
+
+	                "text": 'Save',
+	                "click": function () {
+	                    //alert('@Model.StatusId');
+	                    $(this).dialog("close");
+	                    var input = $("<input>")
 					   .attr("type", "hidden")
 					   .attr("name", "CloseButton").val("CloseButton");
-						$('#myform').append($(input));
-						$("#myform").submit();
+	                    $('#myform').append($(input));
+	                    $("#myform").submit();
 
 
-					},
-					"class": 'dialogbtn'
+	                },
+	                "class": 'dialogbtn'
 
-				}, {
-					"text": 'Don\'t Save',
-					"click": function () {
-					   
-
-						var signoutUrl = '@Url.Action("Delete", "Survey")';
-						var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
-						$.ajax({
-							url: signoutUrl,
-							type: 'POST',
-							contentType: 'application/json; charset=utf-8',
-							//data: "{}",
-							dataType: "json",
-							//cache: false,
-							async: false,
-							success: successFunc,
-							error: errorFunc
-						});
-						function successFunc(data) {
-							$(this).dialog("close");
-							window.location.href = homePageUrl;
-						}
-						function errorFunc(data) {
-							alert('failed');
-						}
-
-					},
-					"class": 'dialogbtn'
-
-				}, {
-					"text": 'Cancel',
-					"click": function () {
-						//alert('@Model.StatusId');
-						$(this).dialog("close");
-						
-					},
-					"class": 'dialogbtn'
-
-				}]
-
-			});
-		});
-		$("#SimpleDialogBox").dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "blind",
-			resizable: false,
-			height: 140,
-			width: 300,
-			modal: true
-
-		});
+	            }, {
+	                "text": 'Don\'t Save',
+	                "click": function () {
 
 
-		$("#DialogBox").dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "blind",
-			resizable: false,
-			height: 135,
-			width: 400,
-			modal: true
+	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
+	                    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.SurveyInfo.SurveyId';
+	                    $.ajax({
+	                        url: signoutUrl,
+	                        type: 'POST',
+	                        contentType: 'application/json; charset=utf-8',
+	                        //data: "{}",
+	                        dataType: "json",
+	                        //cache: false,
+	                        async: false,
+	                        success: successFunc,
+	                        error: errorFunc
+	                    });
+	                    function successFunc(data) {
+	                        $(this).dialog("close");
+	                        window.location.href = homePageUrl;
+	                    }
+	                    function errorFunc(data) {
+	                        alert('failed');
+	                    }
 
-		});
+	                },
+	                "class": 'dialogbtn'
+
+	            }, {
+	                "text": 'Cancel',
+	                "click": function () {
+	                    //alert('@Model.StatusId');
+	                    $(this).dialog("close");
+
+	                },
+	                "class": 'dialogbtn'
+
+	            }]
+
+	        });
+	    });
+	    $("#SimpleDialogBox").dialog({
+	        autoOpen: false,
+	        show: "blind",
+	        hide: "blind",
+	        resizable: false,
+	        height: 140,
+	        width: 300,
+	        modal: true
+
+	    });
 
 
-		$("#ErrordialogBox").dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "blind",
-			resizable: false,
-			// height: 100,
-			width: 300,
-			modal: true
-		});
+	    $("#DialogBox").dialog({
+	        autoOpen: false,
+	        show: "blind",
+	        hide: "blind",
+	        resizable: false,
+	        height: 135,
+	        width: 400,
+	        modal: true
 
-		var responseUrl = GetRedirectionUrl();
-		$('#url').val(responseUrl);
-		var Subject = "Link for Survey: " + '@Model.SurveyInfo.SurveyName';
-		Subject = ReplaceString(Subject);
-		$('#Subject').val(Subject);
+	    });
 
 
-		var passcode = '@Model.PassCode';
-		$('#spPassCode').text(passcode);
+	    $("#ErrordialogBox").dialog({
+	        autoOpen: false,
+	        show: "blind",
+	        hide: "blind",
+	        resizable: false,
+	        // height: 100,
+	        width: 300,
+	        modal: true
+	    });
 
-		if ('@Model.IsSaved' == 'True') {
+	    var responseUrl = GetRedirectionUrl();
+	    $('#url').val(responseUrl);
+	    var Subject = "Link for Survey: " + '@Model.SurveyInfo.SurveyName';
+	    Subject = ReplaceString(Subject);
+	    $('#Subject').val(Subject);
 
-			if ('@Model.StatusId' == '1') { //if clicking the save button for the first time
-				$('#successContent').show();
-				$('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.CurrentPage have been saved.</div>')
 
+	    var passcode = '@Model.PassCode';
+	    $('#spPassCode').text(passcode);
 
+	    if ('@Model.IsSaved' == 'True' && '@HttpContext.Current.Session["RelateButtonWasClicked"]' != 'true') {
 
-				//call your jquery modal popup method
-			   // $("#dialog").dialog("open");
-
-			}
-			else {
+	        if ('@Model.StatusId' == '1') { //if clicking the save button for the first time
+	            $('#successContent').show();
+	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.CurrentPage have been saved.</div>')
 
 
 
-				$('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
-				$('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/>  Responses for Page  @Model.CurrentPage have been saved.</div>')
-			}
-			return true;
-		}
+	            //call your jquery modal popup method
+	            // $("#dialog").dialog("open");
 
-});
+	        }
+	        else {
+
+
+
+	            $('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
+	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/>  Responses for Page  @Model.CurrentPage have been saved.</div>')
+	        }
+	     
+	        return true;
+	    }
+
+	});
 
 
 
@@ -452,12 +453,12 @@ function ReplaceString(string){
 
 function NavigateToChild(ViewId) 
 {
-    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.ResponseId';
+  
+    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.ResponseId' + '&FormValuesHasChanged='+ $('#FormHasChanged').val();
 
-//    $('#Parent_Form_Id').val('@Model.SurveyInfo.SurveyId');
-//    $('#Parent_Response_Id').val('@Model.ResponseId');
+    Save();
 
-//    alert( $('#Parent_Response_Id').val());
+
     $.ajax({
         url: signoutUrl,
         type: 'POST',
@@ -584,6 +585,7 @@ function NavigateToChild(ViewId)
 		<input type="hidden"  name="is_save_action" value="false" />
 		<input type="hidden"  name="is_goto_action" value="false" /> 
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.FormValuesHasChanged" /> 
+        
 
       @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" /> 
 	    <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" /> 

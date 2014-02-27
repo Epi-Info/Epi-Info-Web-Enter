@@ -871,20 +871,8 @@ namespace Epi.Web.WCF.SurveyService
             List<SurveyResponseBO> AllResponsesIDsList = Implementation.GetResponsesHierarchyIdsByRootId(FormsHierarchyRequest.SurveyResponseInfo.ResponseId);
 
             //3 Combining the lists.
-
-            List<FormsHierarchyBO> FinalList = new List<FormsHierarchyBO>();
-          
-            foreach (var Item in RelatedFormIDsList)
-                {
-                FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO(); 
-                FormsHierarchyBO.FormId = Item.FormId;
-                FormsHierarchyBO.ViewId = Item.ViewId;
-                FormsHierarchyBO.ResponseIds = Mapper.Map( AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId));
-                FinalList.Add(FormsHierarchyBO);
-                }
-
-
-            FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(FinalList);
+             
+            FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(CombineLists(  RelatedFormIDsList,   AllResponsesIDsList));
 
               
             return FormsHierarchyResponse;
@@ -893,7 +881,22 @@ namespace Epi.Web.WCF.SurveyService
             
             }
 
+        private List<FormsHierarchyBO> CombineLists(List<FormsHierarchyBO> RelatedFormIDsList, List<SurveyResponseBO> AllResponsesIDsList)
+            {
 
+        List<FormsHierarchyBO> List = new List<FormsHierarchyBO>();
+
+        foreach (var Item in RelatedFormIDsList)
+            {
+            FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
+            FormsHierarchyBO.FormId = Item.FormId;
+            FormsHierarchyBO.ViewId = Item.ViewId;
+            FormsHierarchyBO.ResponseIds = Mapper.Map(AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId));
+            List.Add(FormsHierarchyBO);
+            }
+        return List;
+            
+            }
     }
 
 
