@@ -22,8 +22,10 @@ namespace MvcDynamicForms.Fields
             //commandButtonTag.Attributes.Add("text", Prompt);
             commandButtonTag.InnerHtml = Prompt;
             commandButtonTag.Attributes.Add("id", name);
-            commandButtonTag.Attributes.Add("name", name);
+            commandButtonTag.Attributes.Add("name", "Relate");
+            //commandButtonTag.Attributes.Add("name", name);
             commandButtonTag.Attributes.Add("type", "button");
+             
             commandButtonTag.Attributes.Add("onclick", "NavigateToChild(" + RelatedViewId + ");");
             string IsHiddenStyle = "";
             string IsHighlightedStyle = "";
