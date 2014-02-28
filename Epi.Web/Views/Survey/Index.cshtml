@@ -406,7 +406,7 @@ $(document).ready(function () {
 function DeleteRecord() {
 
     var signoutUrl = '@Url.Action("Delete", "Survey")';
-    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+  
     $.ajax({
         url: signoutUrl,
         type: 'POST',
@@ -420,6 +420,8 @@ function DeleteRecord() {
     });
     function successFunc(data) {
         $(this).dialog("close");
+        // var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
         window.location.href = homePageUrl;
     }
     function errorFunc(data) {
