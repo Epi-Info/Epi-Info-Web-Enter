@@ -135,5 +135,21 @@ namespace Epi.Web.MVC.Models
             };
         }
 
+
+        internal static List<RelateModel> ToRelateModel(List<Common.DTO.FormsHierarchyDTO> FormsHierarchy, string FormId)
+            {
+            List<RelateModel> List = new List<RelateModel>();
+           
+            // Common.DTO.FormsHierarchyDTO FormsHierarchyDTO = FormsHierarchy.Single(X => X.FormId == FormId);
+           foreach(var Obj in FormsHierarchy)
+               {
+               RelateModel RelateModel = new RelateModel();
+               RelateModel.FormId = Obj.FormId;
+               RelateModel.ViewId = Obj.ViewId;
+               RelateModel.ResponseIds = Obj.ResponseIds;
+             List.Add(RelateModel);
+               }
+           return List;
+            }
     }
 }

@@ -336,6 +336,15 @@ namespace Epi.Web.WCF.SurveyService
                         Implementation.InsertSurveyResponse(SurveyResponse);
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
                     }
+                    else if (request.Action.Equals("CreateMulti", StringComparison.OrdinalIgnoreCase))
+                    {
+                     
+                        Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+                        List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
+                        
+                       
+                        response.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.InsertSurveyResponse(SurveyResponseBOList,request.Criteria.UserId));
+                    }
                     else if (request.Action.Equals("CreateChild", StringComparison.OrdinalIgnoreCase))
                         {
                         Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
