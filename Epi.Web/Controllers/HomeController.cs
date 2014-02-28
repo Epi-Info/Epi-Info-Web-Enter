@@ -238,15 +238,15 @@ namespace Epi.Web.MVC.Controllers
             surveyAnswerDTO.ResponseId = ChildId;
             surveyAnswerDTO.Status = 1;
             SurveyAnswerRequest.SurveyAnswerList.Add(surveyAnswerDTO);
-            string result = ChildId;
+            string result ;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             string Id = Session["UserId"].ToString();
             SurveyAnswerRequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id);//_UserId;
             SurveyAnswerRequest.RequestId = ChildId;
-            SurveyAnswerRequest.Action = "Create";
+            SurveyAnswerRequest.Action = "CreateMulti";
             SurveyAnswerResponse = _isurveyFacade.SetChildRecord(SurveyAnswerRequest);
-
+            result = SurveyAnswerResponse.SurveyResponseList[0].ResponseId.ToString();
             return result;
         }
         //[HttpPost]

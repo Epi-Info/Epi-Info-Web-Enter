@@ -65,15 +65,16 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "" )
             {
 
-
+           
             if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
                 {
                 this.RootFormId = Session["RootFormId"].ToString();
                 this.RootResponseId = Session["RootResponseId"].ToString();
                 }
+            
             try
                 {
-                List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
+                
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 ViewBag.Version = version;
                 ViewBag.Edit = Edit;
@@ -85,7 +86,13 @@ namespace Epi.Web.MVC.Controllers
                     }
 
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(responseId);
+                if (!string.IsNullOrEmpty(Edit))
+                    {
 
+                    Session["RootResponseId"] = responseId;
+                    Session["RootFormId"] = surveyAnswerDTO.SurveyId;
+                    }
+                List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
                 // SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(surveyAnswerDTO.SurveyId);
                 SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyAnswerDTO.SurveyId);
                 PreValidationResultEnum ValidationTest = PreValidateResponse(Mapper.ToSurveyAnswerModel(surveyAnswerDTO), surveyInfoModel);
@@ -121,8 +128,9 @@ namespace Epi.Web.MVC.Controllers
                         //    surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
 
                         //    }
-
-                        this.SetCurrentPage(surveyAnswerDTO, PageNumber);
+                       if(string.IsNullOrEmpty(Edit)){
+                            this.SetCurrentPage(surveyAnswerDTO, PageNumber);
+                           }
                         //PassCode start
                         if (IsMobileDevice)
                             {
@@ -138,7 +146,10 @@ namespace Epi.Web.MVC.Controllers
                             }
 
                         //passCode end
-                        return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
+                        SurveyModel SurveyModel = new SurveyModel();
+                        SurveyModel.Form = form;
+                        SurveyModel.RelateModel =Mapper.ToRelateModel(FormsHierarchy,form.SurveyInfo.SurveyId);
+                        return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
                     }
                 }
 
@@ -170,6 +181,7 @@ namespace Epi.Web.MVC.Controllers
                 this.RootFormId = Session["RootFormId"].ToString();
                 this.RootResponseId = Session["RootResponseId"].ToString();
                 }
+            List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
             string responseId = surveyAnswerModel.ResponseId;
             bool IsMobileDevice = false;
             IsMobileDevice = this.Request.Browser.IsMobileDevice;
@@ -229,7 +241,10 @@ namespace Epi.Web.MVC.Controllers
                             form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
                             form = SetLists(form);
                             TempData["Width"] = form.Width + 5;
-                            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
+                            SurveyModel SurveyModel = new SurveyModel();
+                            SurveyModel.Form = form;
+                            SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
+                            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
 
                             }
                         else if (!string.IsNullOrEmpty(this.Request.Form["is_goto_action"]) && this.Request.Form["is_goto_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
@@ -245,7 +260,10 @@ namespace Epi.Web.MVC.Controllers
                             form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
                             form.FormValuesHasChanged = FormValuesHasChanged;
                             TempData["Width"] = form.Width + 5;
-                            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
+                            SurveyModel SurveyModel = new SurveyModel();
+                            SurveyModel.Form = form;
+                            SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
+                            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
                             }
 
                         else if (form.Validate(form.RequiredFieldsList))
@@ -311,7 +329,10 @@ namespace Epi.Web.MVC.Controllers
                                     }
                                 //passCode end
                                 form.StatusId = SurveyAnswer.Status;
-                                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
+                                SurveyModel SurveyModel = new SurveyModel();
+                                SurveyModel.Form = form;
+                                SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
+                                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
                                 }
 
                             }
@@ -331,7 +352,10 @@ namespace Epi.Web.MVC.Controllers
                             else
                                 {
                                 TempData["Width"] = form.Width + 5;
-                                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
+                                SurveyModel SurveyModel = new SurveyModel();
+                                SurveyModel.Form = form;
+                                SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
+                                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
                                 }
                             }
                         
@@ -353,9 +377,12 @@ namespace Epi.Web.MVC.Controllers
             {
             FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
             FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
-            FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
-            FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
-            FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
+            if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
+                {
+                FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
+                FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
+                FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
+                }
             return FormsHierarchyResponse.FormsHierarchy;
             }
 
@@ -386,6 +413,7 @@ namespace Epi.Web.MVC.Controllers
 
             Epi.Web.Common.Message.SurveyAnswerRequest sar = new Common.Message.SurveyAnswerRequest();
             sar.Action = "Update";
+            sar.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             sar.SurveyAnswerList.Add(surveyAnswerDTO);
 
             this._isurveyFacade.GetSurveyAnswerRepository().SaveSurveyAnswer(sar);
