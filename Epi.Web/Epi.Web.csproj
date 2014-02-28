@@ -176,10 +176,12 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Omniture.cs" />
     <Compile Include="Models\PassCodeModel.cs" />
+    <Compile Include="Models\RelateModel.cs" />
     <Compile Include="Models\ResponseInfoModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SettingsInfoModel.cs" />
     <Compile Include="Models\SurveyInfoModel.cs" />
+    <Compile Include="Models\SurveyModel.cs" />
     <Compile Include="Models\SurveyResponseModel.cs" />
     <Compile Include="Models\EIWSTModel.cs" />
     <Compile Include="Models\UserForgotPasswordModel.cs" />
@@ -531,6 +533,7 @@
     <Content Include="Views\Login\ResetPassword.cshtml" />
     <Content Include="Views\Login\ResetPassword.mobile.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Survey\ListResponses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -119,6 +119,26 @@ namespace Epi.Web.BLL
             this.SurveyResponseDao.InsertSurveyResponse(pValue);
             return result;
         }
+        public List<SurveyResponseBO> InsertSurveyResponse(List<SurveyResponseBO> pValue, int UserId)
+            {
+            Guid ParentResponseId = new Guid(pValue[0].ResponseId);
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+            foreach(SurveyResponseBO Obj in pValue)
+                {
+                Obj.ParentRecordId = Obj.ResponseId;
+                Guid Id = Guid.NewGuid();
+                
+                Obj.ResponseId = Id.ToString();
+               
+                Obj.RelateParentId = ParentResponseId.ToString();//
+                ParentResponseId = Id;
+                Obj.UserId = UserId;
+                Obj.DateCreated = DateTime.Now;
+                this.SurveyResponseDao.InsertSurveyResponse(Obj);
+                result.Add(Obj);
+                }
+            return result;
+            }
         public SurveyResponseBO InsertChildSurveyResponse(SurveyResponseBO pValue,SurveyInfoBO ParentSurveyInfo,string RelateParentId)
             {
            
