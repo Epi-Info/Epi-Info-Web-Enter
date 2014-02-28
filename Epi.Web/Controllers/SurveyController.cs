@@ -649,7 +649,7 @@ namespace Epi.Web.MVC.Controllers
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
-            return Json(string.Empty);
+            return Json(Session["RootFormId"]);//string.Empty
             //return RedirectToAction("Index", "Home");
             }
         [HttpGet]

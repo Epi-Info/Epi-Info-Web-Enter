@@ -133,6 +133,7 @@ namespace Epi.Web.BLL
                 Obj.RelateParentId = ParentResponseId.ToString();//
                 ParentResponseId = Id;
                 Obj.UserId = UserId;
+                Obj.Status = 1;
                 Obj.DateCreated = DateTime.Now;
                 this.SurveyResponseDao.InsertSurveyResponse(Obj);
                 result.Add(Obj);
