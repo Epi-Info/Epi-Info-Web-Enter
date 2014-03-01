@@ -15,6 +15,7 @@ namespace Epi.Web.MVC.Constants
 
         /*sql commands*/
         public const string UPDATE = "Update";
+        public const string UpdateMulti = "UpdateMulti";
         public const string CREATE = "Create";
         public const string CREATECHILD = "CreateChild";
         public const string SELECT = "Select";

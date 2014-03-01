@@ -77,7 +77,7 @@ namespace Epi.Web.MVC.Utility
                 }
                 surveyAnswerRequest.SurveyAnswerList[0].XML = surveyResponseXML.CreateResponseXml(surveyInfoModel.SurveyId, AddRoot, form.CurrentPage,form.PageId).InnerXml;
                 // 2 b. save the current survey response
-                surveyAnswerRequest.Action = Epi.Web.MVC.Constants.Constant.UPDATE;  //"Update";
+                surveyAnswerRequest.Action = Epi.Web.MVC.Constants.Constant.UpdateMulti;  //"Update";
                 //Append to Response Xml
 
                 XDocument CurrentPageResponseXml = XDocument.Parse(surveyAnswerRequest.SurveyAnswerList[0].XML);

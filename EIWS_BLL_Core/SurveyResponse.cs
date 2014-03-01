@@ -177,7 +177,37 @@ namespace Epi.Web.BLL
                    }
             return result;
         }
+        public List<SurveyResponseBO> UpdateSurveyResponse(List<SurveyResponseBO> pValue)
+            {
+            List<SurveyResponseBO> result = pValue;
+            //Check if this respose has prent
+            foreach (var Obj in pValue)
+                {
+                string ParentId = SurveyResponseDao.GetResponseParentId(Obj.ResponseId);
+                if (!string.IsNullOrEmpty(ParentId) && Obj.Status == 2)
+                {
+                //read the child 
 
+                SurveyResponseBO Child = this.SurveyResponseDao.GetSingleResponse(Obj.ResponseId);
+                // read the parent
+                SurveyResponseBO Parent = this.SurveyResponseDao.GetSingleResponse(ParentId);
+                //copy and update
+                Parent.XML = Child.XML;
+                this.SurveyResponseDao.UpdateSurveyResponse(Parent);
+                result.Add( Parent);
+                // Set  child recod UserId
+                Child.UserId = Obj.UserId;
+                // delete the child
+                this.DeleteSurveyResponse(Child);
+
+                }
+            else
+                {
+                this.SurveyResponseDao.UpdateSurveyResponse(Obj);
+                }
+                }
+            return result;
+            }
         public bool DeleteSurveyResponse(SurveyResponseBO pValue)
         {
             bool result = false;
