@@ -359,6 +359,18 @@ namespace Epi.Web.WCF.SurveyService
                         Implementation.UpdateSurveyResponse(SurveyResponse);
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
                     }
+                    else if (request.Action.Equals("UpdateMulti", StringComparison.OrdinalIgnoreCase))
+                    {
+                    Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+                    List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ResponseId);
+
+
+                    List<SurveyResponseBO> ResultList = Implementation.UpdateSurveyResponse(SurveyResponseBOList);
+                    foreach (var Obj in ResultList)
+                        {
+                        response.SurveyResponseList.Add(Mapper.ToDataTransferObject(Obj));
+                            }
+                    }
                     else if (request.Action.Equals("Delete", StringComparison.OrdinalIgnoreCase))
                     {
                         var criteria = request.Criteria as SurveyAnswerCriteria;
