@@ -27,5 +27,7 @@ namespace Epi.Web.MVC.Repositories.Core
         bool UpdateUser(UserAuthenticationRequest _request);
 
         FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq);
+
+        SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
     }
 }

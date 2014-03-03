@@ -311,6 +311,7 @@ namespace Epi.Web.WCF.SurveyService
 
                 // Transform SurveyResponse data transfer object to SurveyResponse business object
                 SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList, request.Criteria.UserId)[0];
+
                 SurveyResponse.UserId = request.Criteria.UserId;
                 // Validate SurveyResponse business rules
 
@@ -361,15 +362,19 @@ namespace Epi.Web.WCF.SurveyService
                     }
                     else if (request.Action.Equals("UpdateMulti", StringComparison.OrdinalIgnoreCase))
                     {
+                    Implementation.UpdateSurveyResponse(SurveyResponse);
+                    response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
+
                     Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
                     List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ResponseId);
 
 
-                    List<SurveyResponseBO> ResultList = Implementation.UpdateSurveyResponse(SurveyResponseBOList);
+                    List<SurveyResponseBO> ResultList = Implementation.UpdateSurveyResponse(SurveyResponseBOList, SurveyResponse.Status);
                     foreach (var Obj in ResultList)
                         {
+                         
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(Obj));
-                            }
+                        }
                     }
                     else if (request.Action.Equals("Delete", StringComparison.OrdinalIgnoreCase))
                     {
@@ -918,6 +923,18 @@ namespace Epi.Web.WCF.SurveyService
         return List;
             
             }
+
+        public SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest)
+        {
+        Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+        SurveyAnswerResponse SurveyAnswerResponse = new Common.Message.SurveyAnswerResponse();
+        Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+        Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+        List<SurveyResponseBO> SurveyResponseBOList = Implementation.GetResponsesHierarchyIdsByRootId(pRequest.SurveyAnswerList[0].ResponseId);
+
+
+        return SurveyAnswerResponse;
+        }
     }
 
 

@@ -453,6 +453,38 @@ namespace Epi.Web.EF
 
        }
 
+        public void DeleteSingleSurveyResponse(SurveyResponseBO SurveyResponse)
+            {
+
+
+            try
+                {
+                
+                Guid Id = new Guid(SurveyResponse.ResponseId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+                   
+                            User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+
+                            SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == Id);
+                            Response.Users.Remove(User);
+
+                            Context.SurveyResponses.DeleteObject(Response);
+
+                            Context.SaveChanges();
+                            
+                      }
+                    }
+                
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+
+            }
 
 
         private static int CompareByDateCreated(SurveyResponseBO x, SurveyResponseBO y)
@@ -473,8 +505,8 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
-                         
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id &&  string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId >1).OrderByDescending(x => x.DateUpdated);
+
+                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
 
                         SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
                                                 

@@ -412,5 +412,37 @@ namespace Epi.Web.MVC.Repositories
                     }
 
                 }
+
+
+            public SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest) {
+
+            try
+                {
+
+                SurveyAnswerResponse result = _iDataService.GetSurveyAnswerHierarchy(pRequest);
+                return result;
+                }
+            catch (FaultException<CustomFaultException> cfe)
+                {
+                throw cfe;
+                }
+            catch (FaultException fe)
+                {
+                throw fe;
+                }
+            catch (CommunicationException ce)
+                {
+                throw ce;
+                }
+            catch (TimeoutException te)
+                {
+                throw te;
+                }
+            catch (Exception ex)
+                {
+                throw ex;
+                }
+                
+                }
     }
 }
