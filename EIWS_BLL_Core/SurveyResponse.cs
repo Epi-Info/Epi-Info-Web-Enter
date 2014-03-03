@@ -169,7 +169,7 @@ namespace Epi.Web.BLL
                    // Set  child recod UserId
                   Child.UserId = pValue.UserId;
                    // delete the child
-                   this.DeleteSurveyResponse(Child);
+                  this.DeleteSingleSurveyResponse(Child);
                   
                    }
                else{
@@ -177,14 +177,14 @@ namespace Epi.Web.BLL
                    }
             return result;
         }
-        public List<SurveyResponseBO> UpdateSurveyResponse(List<SurveyResponseBO> pValue)
+        public List<SurveyResponseBO> UpdateSurveyResponse(List<SurveyResponseBO> pValue,int Status)
             {
             List<SurveyResponseBO> result = pValue;
             //Check if this respose has prent
             foreach (var Obj in pValue)
                 {
                 string ParentId = SurveyResponseDao.GetResponseParentId(Obj.ResponseId);
-                if (!string.IsNullOrEmpty(ParentId) && Obj.Status == 2)
+                if (!string.IsNullOrEmpty(ParentId) && Status == 2)
                 {
                 //read the child 
 
@@ -193,6 +193,7 @@ namespace Epi.Web.BLL
                 SurveyResponseBO Parent = this.SurveyResponseDao.GetSingleResponse(ParentId);
                 //copy and update
                 Parent.XML = Child.XML;
+                Parent.Status = Status;
                 this.SurveyResponseDao.UpdateSurveyResponse(Parent);
                 result.Add( Parent);
                 // Set  child recod UserId
@@ -203,6 +204,7 @@ namespace Epi.Web.BLL
                 }
             else
                 {
+                Obj.Status = Status;
                 this.SurveyResponseDao.UpdateSurveyResponse(Obj);
                 }
                 }
@@ -217,6 +219,15 @@ namespace Epi.Web.BLL
 
             return result;
         }
+        public bool DeleteSingleSurveyResponse(SurveyResponseBO pValue)
+            {
+            bool result = false;
+
+            this.SurveyResponseDao.DeleteSingleSurveyResponse(pValue);
+            result = true;
+
+            return result;
+            }
 
         public PageInfoBO GetResponseSurveySize(List<string> SurveyResponseIdList, string SurveyId, DateTime pClosingDate, int BandwidthUsageFactor, int pSurveyType = -1, int pPageNumber = -1, int pPageSize = -1, int pResponseMaxSize = -1)
         {

@@ -239,4 +239,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetSurveyAnswerHierarchy">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q34:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSurveyAnswerHierarchyResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://www.yourcompany.com/types/" minOccurs="0" name="GetSurveyAnswerHierarchyResult" nillable="true" type="q35:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
