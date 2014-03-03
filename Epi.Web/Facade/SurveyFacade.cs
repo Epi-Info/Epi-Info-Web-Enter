@@ -271,5 +271,11 @@ namespace Epi.Web.MVC.Facade
             return FormsHierarchyResponse;
             
             }
+        public SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest) {
+
+        SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.GetSurveyAnswerHierarchy(pRequest);
+
+        return SurveyAnswerResponse;
+            }
     }
 }

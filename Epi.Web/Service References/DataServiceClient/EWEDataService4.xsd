@@ -167,6 +167,7 @@
       <xs:element minOccurs="0" name="IsDraftMode" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsLocked" type="xs:boolean" />
       <xs:element minOccurs="0" name="ParentRecordId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RelateParentId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ResponseId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Status" type="xs:int" />
       <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
@@ -297,6 +298,7 @@
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="SurveyInfo" nillable="true" type="tns:FormInfoDTO" />
+          <xs:element minOccurs="0" name="SurveyResponseInfo" nillable="true" type="tns:FormResponseInfoDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -321,8 +323,8 @@
   <xs:complexType name="FormsHierarchyDTO">
     <xs:sequence>
       <xs:element minOccurs="0" name="FormId" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FormNumber" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsRoot" type="xs:boolean" />
+      <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ResponseIds" nillable="true" type="q9:ArrayOfstring" />
       <xs:element minOccurs="0" name="ViewId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

@@ -36,5 +36,6 @@ namespace Epi.Web.MVC.Facade
         FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq);
         SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest);
         FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest);
+        SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
     }
 }
