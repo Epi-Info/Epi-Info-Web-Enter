@@ -281,14 +281,15 @@ namespace Epi.Web.MVC.Controllers
                                     }
                                 //SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
                                 //SurveyAnswerResponse Object = _isurveyFacade.GetSurveyAnswerHierarchy(SurveyAnswerRequest);
-                                var List = ListSurveyAnswerDTO.OrderBy(x => x.ParentRecordId);
+                                var List = ListSurveyAnswerDTO;//.OrderBy(x => x.ParentRecordId);
                                 foreach (var Obj in List)
                                     {
                                // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(RootResponseId).SurveyResponseList[0];
                               //  SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(RootFormId);
                                     SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId).SurveyResponseList[0];
                                     SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(Obj.SurveyId);
-                                MvcDynamicForms.Form form2 = UpDateSurveyModel(surveyInfoModel2, IsMobileDevice, FormValuesHasChanged, SurveyAnswer2);
+                                MvcDynamicForms.Form form2 = UpDateSurveyModel(surveyInfoModel2, IsMobileDevice, FormValuesHasChanged, SurveyAnswer2,true);
+                               
                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel2, Obj.ResponseId, form2, SurveyAnswer2, IsSubmited, true, PageNumber, UserId);
                                     }
 
@@ -828,7 +829,7 @@ namespace Epi.Web.MVC.Controllers
             return form;
             }
 
-        private MvcDynamicForms.Form UpDateSurveyModel(SurveyInfoModel surveyInfoModel, bool IsMobileDevice, string FormValuesHasChanged, SurveyAnswerDTO SurveyAnswer)
+        private MvcDynamicForms.Form UpDateSurveyModel(SurveyInfoModel surveyInfoModel, bool IsMobileDevice, string FormValuesHasChanged, SurveyAnswerDTO SurveyAnswer, bool IsSaveAndClose = false )
             {
             MvcDynamicForms.Form form = new MvcDynamicForms.Form();
             int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
@@ -882,8 +883,10 @@ namespace Epi.Web.MVC.Controllers
                     }
 
 
-
-                UpdateModel(form);
+                if (!IsSaveAndClose)
+                    {
+                    UpdateModel(form);
+                    }
                 }
             else
                 {
