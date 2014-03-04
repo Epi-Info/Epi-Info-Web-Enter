@@ -10,7 +10,7 @@
         <div>
         @if(i==0){
                    <p><span style="font-weight:bold;">Parent Response Link:</span></p>
-                      @Html.ActionLink("    Parent Response", "Index", "Survey", new { responseid = Model.RelateModel[i].ResponseIds[i], PageNumber = 1 }, new { id = "RelateLink" })
+                      @Html.ActionLink("    Parent Response", "Index", "Survey", new { responseid = Model.RelateModel[i].ResponseIds[i], PageNumber = 1 }, new { Class = "RelateLink" })
                        <br />
                     
          }
@@ -24,7 +24,7 @@
                {
                num++;
            
-                @Html.ActionLink("   Response Number" + num, "Index", "Survey", new { responseid = Obj, PageNumber = 1 }, new { id = "RelateLink" })	
+                @Html.ActionLink("   Response Number" + num, "Index", "Survey", new { responseid = Obj, PageNumber = 1 }, new { Class = "RelateLink" })	
                            <br />
                         <br />
                         <br />
