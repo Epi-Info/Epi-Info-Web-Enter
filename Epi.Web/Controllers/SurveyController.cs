@@ -281,7 +281,7 @@ namespace Epi.Web.MVC.Controllers
                                     }
                                 //SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
                                 //SurveyAnswerResponse Object = _isurveyFacade.GetSurveyAnswerHierarchy(SurveyAnswerRequest);
-                                var List = ListSurveyAnswerDTO;//.OrderBy(x => x.ParentRecordId);
+                                var List = ListSurveyAnswerDTO.OrderByDescending(x=>x.DateCreated);//.OrderBy(x => x.ParentRecordId);
                                 foreach (var Obj in List)
                                     {
                                // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(RootResponseId).SurveyResponseList[0];
