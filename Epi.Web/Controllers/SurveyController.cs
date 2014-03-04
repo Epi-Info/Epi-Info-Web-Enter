@@ -62,7 +62,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
 
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
-        public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "" )
+        public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "", string FormValuesHasChanged ="")
             {
 
            
@@ -71,7 +71,7 @@ namespace Epi.Web.MVC.Controllers
                 this.RootFormId = Session["RootFormId"].ToString();
                 this.RootResponseId = Session["RootResponseId"].ToString();
                 }
-            
+          
             try
                 {
                 
@@ -144,7 +144,10 @@ namespace Epi.Web.MVC.Controllers
                                 form.IsDraftModeStyleClass = "draft";
                                 }
                             }
-
+                        if (Session["FormValuesHasChanged"] != null)
+                            {
+                            form.FormValuesHasChanged = Session["FormValuesHasChanged"].ToString();
+                            }
                         //passCode end
                         SurveyModel SurveyModel = new SurveyModel();
                         SurveyModel.Form = form;
@@ -175,6 +178,7 @@ namespace Epi.Web.MVC.Controllers
             ViewBag.Version = version;
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 
+            Session["FormValuesHasChanged"] = Form_Has_Changed;
             
             if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
                 {
@@ -290,7 +294,8 @@ namespace Epi.Web.MVC.Controllers
 
                                if (!string.IsNullOrEmpty(CloseButton))
                                    {
-                                   return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
+                                   
+                                   return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId });
                                    }
                                else
                                    {
@@ -652,7 +657,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
             {
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
-            SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+            SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
