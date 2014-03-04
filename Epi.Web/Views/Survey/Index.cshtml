@@ -34,7 +34,7 @@
 	 
 	/*Clicking the save button to save the survey*/
 	function Save() {
-
+	   
    
 		var DisabledFieldsList = $('#DisabledFieldsList').val();
 		 
@@ -199,7 +199,7 @@
 
 
 	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
-	                    var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+	                  //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
 	                    $.ajax({
 	                        url: signoutUrl,
 	                        type: 'POST',
@@ -213,6 +213,7 @@
 	                    });
 	                    function successFunc(data) {
 	                        $(this).dialog("close");
+	                        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
 	                        window.location.href = homePageUrl;
 	                    }
 	                    function errorFunc(data) {
@@ -313,7 +314,10 @@ $(document).ready(function () {
 
     $('#maincontent').live("click", function () {
         CCE_HasFormValuesChanged();
-
+    $('#RelateLink').click(function () {
+            //alert("Save");
+            Save();
+        });
     })
 
 
