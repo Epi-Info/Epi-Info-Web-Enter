@@ -12,6 +12,14 @@ namespace Epi.Web.MVC.Utility
     {
         private IEnumerable<XElement> PageFields;
         private string RequiredList = "";
+        
+        public string _RequiredList
+            {
+            get { return RequiredList; }
+            set { RequiredList = value; }
+            }
+
+
         public SurveyResponseXML(IEnumerable<XElement> _PageFields, string _RequiredList) 
             {
 
@@ -159,6 +167,22 @@ namespace Epi.Web.MVC.Utility
 
               return XmlResponse.ToString();
               }
+
+          //public IEnumerable<XElement> GetFormFields(int NumberOfPages, XDocument pMetaData)
+          //    {
+          //    IEnumerable<XElement> FieldList;
+          //    for (int i = 0; NumberOfPages > i - 1; i++)
+          //        {
+          //        var  List = from _FieldTypeID in
+          //                                              pMetaData.Descendants("Field")
+          //                                          where _FieldTypeID.Attribute("Position").Value == (i - 1).ToString()
+          //                                          select _FieldTypeID;
+                  
+          //        }
+          //    return FieldList;
+              
+          //    }
+
           public   XDocument ToXDocument(XmlDocument xmlDocument)
               {
               using (var nodeReader = new XmlNodeReader(xmlDocument))
