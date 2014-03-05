@@ -699,6 +699,41 @@ namespace Epi.Web.EF
             
             }
 
+        public SurveyResponseBO GetFormResponseByParentRecordId(string ParentRecordId)
+            {
+
+            SurveyResponseBO result = new SurveyResponseBO();
+
+            try
+                {
+
+                Guid Id = new Guid(ParentRecordId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+
+                    var Response = Context.SurveyResponses.ToList().Where(x => x.ParentRecordId == Id);
+                    if (Response.Count() > 0)
+                        {
+                          result = (Mapper.Map(Response.Single()));
+
+                        }
+
+
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+
+
+            return result;
+            }
     }
 
     
