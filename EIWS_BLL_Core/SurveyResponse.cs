@@ -276,7 +276,15 @@ namespace Epi.Web.BLL
             return SurveyResponseBO;
 
             }
-       
 
+
+
+        public SurveyResponseBO GetFormResponseByParentRecordId(string ParentRecordId)
+            {
+            SurveyResponseBO SurveyResponseBO = new SurveyResponseBO();
+
+            SurveyResponseBO = this.SurveyResponseDao.GetFormResponseByParentRecordId(ParentRecordId);
+            return SurveyResponseBO;
+            }
     }
 }
