@@ -64,14 +64,7 @@ namespace Epi.Web.MVC.Controllers
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
         public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "", string FormValuesHasChanged ="")
             {
-
-           
-            if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
-                {
-                this.RootFormId = Session["RootFormId"].ToString();
-                this.RootResponseId = Session["RootResponseId"].ToString();
-                }
-          
+            SetGlobalVariable();
             try
                 {
                 
@@ -148,6 +141,7 @@ namespace Epi.Web.MVC.Controllers
                             {
                             form.FormValuesHasChanged = Session["FormValuesHasChanged"].ToString();
                             }
+                        form.RequiredFieldsList = this.RequiredList;
                         //passCode end
                         SurveyModel SurveyModel = new SurveyModel();
                         SurveyModel.Form = form;
@@ -179,12 +173,9 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 
             Session["FormValuesHasChanged"] = Form_Has_Changed;
-            
-            if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
-                {
-                this.RootFormId = Session["RootFormId"].ToString();
-                this.RootResponseId = Session["RootResponseId"].ToString();
-                }
+
+            SetGlobalVariable();
+
             List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
             string responseId = surveyAnswerModel.ResponseId;
             bool IsMobileDevice = false;
@@ -760,7 +751,8 @@ namespace Epi.Web.MVC.Controllers
 
                     SurveyAnswer.XML = SurveyResponseXML.CreateResponseDocument(xdoc, SurveyAnswer.XML);
                     //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
-
+                    Session["RequiredList"] = SurveyResponseXML._RequiredList;
+                    this.RequiredList = SurveyResponseXML._RequiredList;
                     form.RequiredFieldsList = this.RequiredList;
                     FunctionObject_B.Context.HiddenFieldList = form.HiddenFieldsList;
                     FunctionObject_B.Context.HighlightedFieldList = form.HighlightedFieldsList;
@@ -790,8 +782,10 @@ namespace Epi.Web.MVC.Controllers
             else
                 {
                 SurveyAnswer.XML = SurveyResponseXML.CreateResponseDocument(xdoc, SurveyAnswer.XML);//, RequiredList);
+                this.RequiredList = SurveyResponseXML._RequiredList;
+                Session["RequiredList"] = SurveyResponseXML._RequiredList;
                 form.RequiredFieldsList = RequiredList;
-              //  _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
+              _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
                 }
 
             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
@@ -1006,7 +1000,26 @@ namespace Epi.Web.MVC.Controllers
         return form;  
             
             }
+        private void SetGlobalVariable()
+            {
 
+            if (Session["RootFormId"] != null  )
+                {
+                this.RootFormId = Session["RootFormId"].ToString();
+                
+                }
+            if (  Session["RootResponseId"] != null)
+                {
+                
+                this.RootResponseId = Session["RootResponseId"].ToString();
+                }
+            if (Session["RequiredList"] != null)
+                {
+                this.RequiredList = Session["RequiredList"].ToString();
+                }
+          
+            
+            }
         }
     }
 

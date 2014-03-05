@@ -182,7 +182,7 @@ namespace Epi.Web.MVC.Controllers
                 {
                 SurveyAnswer.XML = SurveyResponseXML.CreateResponseDocument(xdoc, SurveyAnswer.XML);
                     //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
-
+                   this.RequiredList = SurveyResponseXML._RequiredList;
                     form.RequiredFieldsList = this.RequiredList;
                     FunctionObject_B.Context.HiddenFieldList = form.HiddenFieldsList;
                     FunctionObject_B.Context.HighlightedFieldList = form.HighlightedFieldsList;
@@ -212,6 +212,7 @@ namespace Epi.Web.MVC.Controllers
             else
             {
             SurveyAnswer.XML = SurveyResponseXML.CreateResponseDocument(xdoc, SurveyAnswer.XML);//, RequiredList);
+                 this.RequiredList = SurveyResponseXML._RequiredList;
                 form.RequiredFieldsList = RequiredList;
                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
             }

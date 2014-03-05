@@ -2,7 +2,7 @@
 <div id="Main">
 @{
 
-    int num = 0;
+    
    // foreach (var Obj in Model.RelateModel)
     for (int i = 0; Model.RelateModel.Count() > i;i++ )
         {
@@ -20,16 +20,18 @@
               {
               <p><span style="font-weight:bold;">Relate Form Responses Links:</span></p>
               }
-               foreach (var Obj in Model.RelateModel[i].ResponseIds)
-               {
-               num++;
+             
+               <p>&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;">View Id: @Model.RelateModel[i].ViewId </span></p> 
+             int num = 1;
+              foreach (var Obj in Model.RelateModel[i].ResponseIds)
+                  {
+                
+                 
            
-                @Html.ActionLink("   Response Number" + num, "Index", "Survey", new { responseid = Obj, PageNumber = 1 }, new { Class = "RelateLink" })	
-                           <br />
-                        <br />
-                        <br />
-           
-               }
+               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:normal;">  @Html.ActionLink("Response Number" + num, "Index", "Survey", new { responseid = Obj, PageNumber = 1 }, new { Class = "RelateLink" })</span></p> 	
+                         
+                  num++;
+                  }
 
 
 
