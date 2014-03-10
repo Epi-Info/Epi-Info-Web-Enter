@@ -10,7 +10,7 @@ namespace Epi.Web.Common.BusinessObject
     public class FormsHierarchyBO
         {
         private string _FormId;
-        private List<string> _ResponseIds;
+        private List<SurveyResponseBO> _ResponseIds;
         private bool _IsRoot;
         private int _ViewId;
         [DataMember]
@@ -20,7 +20,7 @@ namespace Epi.Web.Common.BusinessObject
             set { _FormId = value; }
             }
         [DataMember]
-        public List<string> ResponseIds
+        public List<SurveyResponseBO> ResponseIds
             {
             get { return _ResponseIds; }
             set { _ResponseIds = value; }

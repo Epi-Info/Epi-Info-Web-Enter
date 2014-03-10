@@ -329,8 +329,10 @@ namespace Epi.Web.EF
 
                 var DataRow = Query.Single();
 
-              
-
+                if (!string.IsNullOrEmpty(SurveyResponse.RelateParentId))
+                    {
+                DataRow.RelateParentId = new Guid(SurveyResponse.RelateParentId);
+                    }
                 DataRow.ResponseXML = SurveyResponse.XML;
                 //DataRow.DateCompleted = DateTime.Now;
                 DataRow.DateCompleted = SurveyResponse.DateCompleted;

@@ -119,10 +119,15 @@ namespace Epi.Web.MVC.Controllers
                  Session["RootFormId"] = surveyid;
                  Session["RootResponseId"] = EditForm;
                  Session["FormValuesHasChanged"] = "";
+                 Session["IsEditMode"] = true;
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
+            else
+                {
+                Session["IsEditMode"] = false;
+                }
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
 

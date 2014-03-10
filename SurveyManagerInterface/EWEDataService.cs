@@ -929,7 +929,7 @@ namespace Epi.Web.WCF.SurveyService
             FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
             FormsHierarchyBO.FormId = Item.FormId;
             FormsHierarchyBO.ViewId = Item.ViewId;
-            FormsHierarchyBO.ResponseIds = Mapper.Map(AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId));
+            FormsHierarchyBO.ResponseIds = AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId).ToList();
             List.Add(FormsHierarchyBO);
             }
         return List;

@@ -8,36 +8,68 @@
         {
         
         <div>
-        @if(i==0){
+        
+
+        @if (i == 0)
+            {
+             <ul>
+            <li id="@i"  >
                    <p><span style="font-weight:bold;">Parent Response Link:</span></p>
-                      @Html.ActionLink("    Parent Response", "Index", "Survey", new { responseid = Model.RelateModel[i].ResponseIds[i], PageNumber = 1 }, new { Class = "RelateLink" })
+                      @Html.ActionLink("    Parent Response", "Index", "Survey", new { responseid = Model.RelateModel[i].ResponseIds[i].ResponseId, PageNumber = 1 }, new { Class = "RelateLink" })
                        <br />
-                    
-         }
-         else
-         {
-              if(i==1)
-              {
-              <p><span style="font-weight:bold;">Relate Form Responses Links:</span></p>
-              }
-             
-               <p>&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;">View Id: @Model.RelateModel[i].ViewId </span></p> 
-             int num = 1;
-              foreach (var Obj in Model.RelateModel[i].ResponseIds)
+                  </li>  
+                  </ul>
+            }
+        else
+            {
+            
+            
+              if (i == 1)
                   {
-                
-                 
-           
-               <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight:normal;">  @Html.ActionLink("Response Number" + num, "Index", "Survey", new { responseid = Obj, PageNumber = 1 }, new { Class = "RelateLink" })</span></p> 	
-                         
-                  num++;
+                   <ul>
+                    <li id='i'  > 
+                            <p><span style="font-weight:bold;">Relate Form Responses Links:</span></p>
+                    </li>
+                  </ul>
                   }
+             
+           
+              <ul>
+                    <li >
+                          <p><span style="font-weight:bold;">View Id: @Model.RelateModel[i].ViewId </span></p>  
+                           
+                   
+                   
+                    </li>
+                     
+
+                      
+             @{
+              
+              int num = 1;
+
+              foreach (var Obj in Model.RelateModel[i].ResponseIds)
+                  {     
+                           
+                             <ul>
+                                  <li>
+           
+                                           <p><span style="font-weight:normal;">  @Html.ActionLink("Response Number" + num, "Index", "Survey", new { responseid = Obj.ResponseId, PageNumber = 1 }, new { Class = "RelateLink" })</span></p> 	
+                                 </li>  
+                            </ul> 
+                        
+                  num++;
+                  } 
+                }
+                      
+                       
+            </ul>
+            
+          
+            }
 
 
-
-         }
-
-
+          
 
           </div>
         }

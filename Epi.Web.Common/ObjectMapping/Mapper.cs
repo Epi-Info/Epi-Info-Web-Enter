@@ -324,22 +324,32 @@ namespace Epi.Web.Common.ObjectMapping
                FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
                FormsHierarchyDTO.FormId = Obj.FormId;
                FormsHierarchyDTO.ViewId = Obj.ViewId;
-               FormsHierarchyDTO.ResponseIds = Obj.ResponseIds;
+               FormsHierarchyDTO.ResponseIds = ToSurveyAnswerDTO(Obj.ResponseIds);
                result.Add(FormsHierarchyDTO);
                }
             return result;
             }
 
-        public static List<string> Map(IEnumerable<SurveyResponseBO> iEnumerable)
+        private static List<SurveyAnswerDTO> ToSurveyAnswerDTO(List<SurveyResponseBO> list)
             {
-            List<string> responseIdsList = new List<string>();
-            foreach (SurveyResponseBO Obj in iEnumerable)
+            List<SurveyAnswerDTO> ModelList = new List<SurveyAnswerDTO>();
+            foreach (var Obj in list)
                 {
-                responseIdsList.Add(Obj.ResponseId);
-
+                SurveyAnswerDTO SurveyAnswerModel = new SurveyAnswerDTO();
+                SurveyAnswerModel.ResponseId = Obj.ResponseId;
+                SurveyAnswerModel.SurveyId = Obj.SurveyId;
+                SurveyAnswerModel.DateUpdated = Obj.DateUpdated;
+                SurveyAnswerModel.DateCompleted = Obj.DateCompleted;
+                SurveyAnswerModel.Status = Obj.Status;
+                SurveyAnswerModel.XML = Obj.XML;
+                SurveyAnswerModel.ParentRecordId = Obj.ParentRecordId;
+                SurveyAnswerModel.RelateParentId = Obj.RelateParentId;
+                ModelList.Add(SurveyAnswerModel);
                 }
-
-            return responseIdsList;
+            return ModelList;
             }
+
+    
+        
     }
 }
