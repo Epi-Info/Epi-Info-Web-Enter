@@ -8,7 +8,7 @@ namespace Epi.Web.MVC.Models
     public class RelateModel
         {
         private string _FormId;
-        private List<string> _ResponseIds;
+        private List<SurveyAnswerModel> _ResponseIds;
         private bool _IsRoot;
         private int _ViewId;
     
@@ -17,8 +17,8 @@ namespace Epi.Web.MVC.Models
             get { return _FormId; }
             set { _FormId = value; }
             }
-       
-        public List<string> ResponseIds
+
+        public List<SurveyAnswerModel> ResponseIds
             {
             get { return _ResponseIds; }
             set { _ResponseIds = value; }

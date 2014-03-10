@@ -43,6 +43,7 @@ namespace Epi.Web.MVC.Controllers
         private string RequiredList = "";
         private string RootFormId = "";
         private string RootResponseId = "";
+        private bool IsEditMode;
         private List<SurveyAnswerDTO> ListSurveyAnswerDTO = new List<SurveyAnswerDTO>();
         private int ReffererPageNum;
         public SurveyController(ISurveyFacade isurveyFacade)
@@ -224,7 +225,7 @@ namespace Epi.Web.MVC.Controllers
                         bool IsSaved = false;
 
                         form = SetLists(form);
-
+                      
                         _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
 
@@ -699,6 +700,7 @@ namespace Epi.Web.MVC.Controllers
         public string CreateResponse(string SurveyId, string RelateResponseId)
             {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
             //if (!string.IsNullOrEmpty(EditForm))
             //    {
             //    Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
@@ -718,7 +720,7 @@ namespace Epi.Web.MVC.Controllers
 
             // create the first survey response
             // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId, true, RelateResponseId);
+            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId, true, RelateResponseId,this.IsEditMode);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -938,9 +940,9 @@ namespace Epi.Web.MVC.Controllers
              // foreach (var FormObj in FormsHierarchy)
               for (int j = FormsHierarchy.Count() - 1; j >= 0; --j)
                   {
-                  foreach (var responseId in FormsHierarchy[j].ResponseIds)
+                  foreach (var Obj in FormsHierarchy[j].ResponseIds)
                           {
-                          SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+                          SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId).SurveyResponseList[0];
                           
                           SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
                           SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
@@ -955,9 +957,9 @@ namespace Epi.Web.MVC.Controllers
                                   TempData["isredirect"] = "true";
                                   TempData["Width"] = form.Width + 5;
                                   //  return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, form);
-                                  _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, i, UserId);
+                                  _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, Obj.ResponseId, form, SurveyAnswer, IsSubmited, IsSaved, i, UserId);
 
-                                  result = new KeyValuePair<string, int>(responseId, i);
+                                  result = new KeyValuePair<string, int>(Obj.ResponseId, i);
                                   goto Exit;
                                   }
                               //else
@@ -1017,7 +1019,8 @@ namespace Epi.Web.MVC.Controllers
                 {
                 this.RequiredList = Session["RequiredList"].ToString();
                 }
-          
+           
+                bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
             
             }
         }

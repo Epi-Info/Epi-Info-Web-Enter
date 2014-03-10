@@ -10,7 +10,7 @@ namespace Epi.Web.Common.DTO
     public class FormsHierarchyDTO
         {
         private string _FormId;
-        private  List<string> _ResponseIds;
+        private List<SurveyAnswerDTO> _ResponseIds;
         private bool _IsRoot;
         private int _ViewId;
         [DataMember]
@@ -20,7 +20,7 @@ namespace Epi.Web.Common.DTO
             set { _FormId = value; }
             }
         [DataMember]
-        public List<string> ResponseIds
+        public List<SurveyAnswerDTO> ResponseIds
             {
             get { return _ResponseIds; }
             set { _ResponseIds = value; }

@@ -146,10 +146,31 @@ namespace Epi.Web.MVC.Models
                RelateModel RelateModel = new RelateModel();
                RelateModel.FormId = Obj.FormId;
                RelateModel.ViewId = Obj.ViewId;
-               RelateModel.ResponseIds = Obj.ResponseIds;
+               RelateModel.ResponseIds = Mapper.ToSurveyAnswerModel(Obj.ResponseIds);
              List.Add(RelateModel);
                }
            return List;
             }
+
+        internal static List<SurveyAnswerModel> ToSurveyAnswerModel(List<Common.DTO.SurveyAnswerDTO> list)
+            {
+            List<SurveyAnswerModel> ModelList = new List<SurveyAnswerModel>();
+            foreach(var Obj in list)
+                {
+             SurveyAnswerModel SurveyAnswerModel = new Models.SurveyAnswerModel();
+                SurveyAnswerModel.ResponseId = Obj.ResponseId;
+                SurveyAnswerModel.SurveyId = Obj.SurveyId;
+                SurveyAnswerModel.DateUpdated = Obj.DateUpdated;
+                SurveyAnswerModel.DateCompleted = Obj.DateCompleted;
+                SurveyAnswerModel.Status = Obj.Status;
+                SurveyAnswerModel.XML = Obj.XML;
+                SurveyAnswerModel.ParentRecordId = Obj.ParentRecordId;
+                SurveyAnswerModel.RelateParentId = Obj.RelateParentId;
+                ModelList.Add(SurveyAnswerModel);
+              }
+            return ModelList;
+            }
+
+     
     }
 }
