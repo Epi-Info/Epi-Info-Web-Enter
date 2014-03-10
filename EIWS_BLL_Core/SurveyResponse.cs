@@ -123,8 +123,11 @@ namespace Epi.Web.BLL
             {
             Guid ParentResponseId = new Guid(pValue[0].ResponseId);
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+            var temp = pValue.GroupBy(x=>x.RelateParentId);
             foreach(SurveyResponseBO Obj in pValue)
                 {
+                
                 Obj.ParentRecordId = Obj.ResponseId;
                 Guid Id = Guid.NewGuid();
                 
@@ -137,6 +140,7 @@ namespace Epi.Web.BLL
                 Obj.DateCreated = DateTime.Now;
                 this.SurveyResponseDao.InsertSurveyResponse(Obj);
                 result.Add(Obj);
+                
                 }
             return result;
             }
@@ -166,6 +170,14 @@ namespace Epi.Web.BLL
                    Parent.XML = Child.XML;
                   this.SurveyResponseDao.UpdateSurveyResponse(Parent);
                   result = Parent;
+                   //Check if this child has a related form (subchild)
+                  List<SurveyResponseBO> Children = this.GetResponsesHierarchyIdsByRootId(Child.ResponseId);
+                  if (Children.Count()>1)
+                      {
+                      SurveyResponseBO NewChild = Children[1];
+                      NewChild.RelateParentId = Parent.ResponseId;
+                      this.SurveyResponseDao.UpdateSurveyResponse(NewChild);
+                    }
                    // Set  child recod UserId
                   Child.UserId = pValue.UserId;
                    // delete the child
@@ -173,6 +185,7 @@ namespace Epi.Web.BLL
                   
                    }
                else{
+                 //Check if the record existes.If it does update otherwise insert new 
                       this.SurveyResponseDao.UpdateSurveyResponse(pValue);
                    }
             return result;

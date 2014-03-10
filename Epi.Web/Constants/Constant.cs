@@ -19,7 +19,8 @@ namespace Epi.Web.MVC.Constants
         public const string CREATE = "Create";
         public const string CREATECHILD = "CreateChild";
         public const string SELECT = "Select";
-        
+        public const string CREATECHILDINEDITMODE = "CreateChildInEditMode";
+
         public const string SURVEY_ID = "SurveyId";
         public const string QUESTION_ID = "QuestionId";
         public const string RESPONSE_ID = "ResponseId";
