@@ -1023,6 +1023,7 @@ namespace Epi.Web.MVC.Controllers
                 bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
             
             }
+        //private MvcDynamicForms.Form. 
         }
     }
 

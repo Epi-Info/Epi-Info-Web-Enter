@@ -489,9 +489,9 @@ function NavigateToChild(ViewId)
     });
     function successFunc(data) {
         //$(this).dialog("close");
-         
-       // var homePageUrl = '@Url.Action("Index", "Survey")' + '/' + '77645c73-2318-4bda-be9d-82e61ce86b04';
-        var homePageUrl = '/Survey' + '/' + data+'/1'
+
+      
+        var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "", PageNumber = "" })' + '/' + data + '/1'
         window.location.href = homePageUrl;
     }
     function errorFunc(data) {
