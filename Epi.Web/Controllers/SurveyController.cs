@@ -668,7 +668,7 @@ namespace Epi.Web.MVC.Controllers
             }
 
         [HttpPost]
-        public ActionResult GetRelateChildId(string SurveyId, int ViewId, string ResponseId, string FormValuesHasChanged)
+        public JsonResult GetRelateChildId(string SurveyId, int ViewId, string ResponseId, string FormValuesHasChanged)
             {
              
            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
