@@ -470,9 +470,9 @@ function OpenRelateNavigationDialog() {
 }
 function NavigateToChild(ViewId) 
 {
-  
-    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged='+ $('#FormHasChanged').val();
 
+    var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val();
+    
     Save();
 
 
@@ -490,8 +490,10 @@ function NavigateToChild(ViewId)
     function successFunc(data) {
         //$(this).dialog("close");
 
-      
-        var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "", PageNumber = "" })' + '/' + data + '/1'
+        var tem = 'responseId =' + data;
+        var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+        homePageUrl =  homePageUrl.replace("RId", data.toString());
+       
         window.location.href = homePageUrl;
     }
     function errorFunc(data) {
