@@ -114,11 +114,12 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
         {
         int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+        Session["FormValuesHasChanged"] = "";
             if (!string.IsNullOrEmpty(EditForm))
             {
                  Session["RootFormId"] = surveyid;
                  Session["RootResponseId"] = EditForm;
-                 Session["FormValuesHasChanged"] = "";
+                 
                  Session["IsEditMode"] = true;
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
