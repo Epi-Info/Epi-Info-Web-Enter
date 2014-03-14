@@ -324,7 +324,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="FormId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsRoot" type="xs:boolean" />
-      <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ResponseIds" nillable="true" type="q9:ArrayOfstring" />
+      <xs:element minOccurs="0" name="ResponseIds" nillable="true" type="tns:ArrayOfSurveyAnswerDTO" />
       <xs:element minOccurs="0" name="ViewId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
