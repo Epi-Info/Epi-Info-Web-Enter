@@ -29,5 +29,6 @@ namespace Epi.Web.MVC.Repositories.Core
         FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq);
 
         SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
+        SurveyAnswerResponse GetSurveyAnswerAncestor(SurveyAnswerRequest pRequest);
     }
 }

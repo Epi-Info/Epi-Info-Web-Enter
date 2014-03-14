@@ -736,6 +736,38 @@ namespace Epi.Web.EF
 
             return result;
             }
+
+        public List<SurveyResponseBO> GetAncestorResponseIdsByChildId(string ChildId)
+            {
+
+          List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+            List<string> list = new List<string>();
+            try
+                {
+
+                Guid Id = new Guid(ChildId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).Traverse(x => Context.SurveyResponses.Where(y => x.RelateParentId == y.ResponseId)));
+
+
+
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+            return result;
+
+
+
+            }
+
     }
 
     

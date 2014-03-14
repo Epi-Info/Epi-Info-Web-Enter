@@ -88,6 +88,11 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetSurveyAnswerHierarchyCustomFaultExceptionFa" +
             "ult", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Common.Message.SurveyAnswerResponse GetSurveyAnswerHierarchy(Epi.Web.Common.Message.SurveyAnswerRequest pRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetAncestorResponseIdsByChildId", ReplyAction="http://tempuri.org/IEWEDataService/GetAncestorResponseIdsByChildIdResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetAncestorResponseIdsByChildIdCustomFaultExce" +
+            "ptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Common.Message.SurveyAnswerResponse GetAncestorResponseIdsByChildId(Epi.Web.Common.Message.SurveyAnswerRequest pRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -187,6 +192,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Common.Message.SurveyAnswerResponse GetSurveyAnswerHierarchy(Epi.Web.Common.Message.SurveyAnswerRequest pRequest) {
             return base.Channel.GetSurveyAnswerHierarchy(pRequest);
+        }
+        
+        public Epi.Web.Common.Message.SurveyAnswerResponse GetAncestorResponseIdsByChildId(Epi.Web.Common.Message.SurveyAnswerRequest pRequest) {
+            return base.Channel.GetAncestorResponseIdsByChildId(pRequest);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Epi.Web.MVC.Facade
     public interface ISurveyFacade
     {
 
-        MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice);
+        MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice, List<SurveyAnswerDTO> _SurveyAnswerDTOList = null);
         Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId="",bool IsEditMode = false);
         void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel, string responseId, MvcDynamicForms.Form form, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved, int PageNumber,int UserId);
         
@@ -37,5 +37,7 @@ namespace Epi.Web.MVC.Facade
         SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest);
         FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest);
         SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
+    
+        SurveyAnswerResponse GetAncestorResponses(SurveyAnswerRequest pRequest);
     }
 }
