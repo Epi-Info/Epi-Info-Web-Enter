@@ -66,6 +66,12 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "", string FormValuesHasChanged ="")
             {
             SetGlobalVariable();
+
+            //For child to read Data from parent
+            SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+            SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId);
+            SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
+
             try
                 {
                 
@@ -110,7 +116,14 @@ namespace Epi.Web.MVC.Controllers
                         return View("IsSubmitedError");
                     case PreValidationResultEnum.Success:
                     default:
-                        var form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, PageNumber, surveyAnswerDTO, IsMobileDevice);
+
+                        
+                       
+
+
+                        var form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, PageNumber, surveyAnswerDTO, IsMobileDevice, SurveyAnswerResponseList.SurveyResponseList);
+                        //var form = _isurveyFacade.GetSurveyFormData1(surveyAnswerDTO.SurveyId, responseId, PageNumber,temp.SurveyResponseList, IsMobileDevice);
+                        ////////////////Assign data to a child
                         TempData["Width"] = form.Width + 5;
                         // if redirect then perform server validation before displaying
                         if (TempData.ContainsKey("isredirect") && !string.IsNullOrWhiteSpace(TempData["isredirect"].ToString()))
@@ -174,6 +187,12 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 
             Session["FormValuesHasChanged"] = Form_Has_Changed;
+
+            //For child to read Data from parent
+            SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+            SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(surveyAnswerModel.ResponseId);
+            SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
+
 
             SetGlobalVariable();
 
@@ -253,7 +272,7 @@ namespace Epi.Web.MVC.Controllers
                             _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
                             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
-                            form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
+                            form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice, SurveyAnswerResponseList.SurveyResponseList);
                             form.FormValuesHasChanged = FormValuesHasChanged;
                             TempData["Width"] = form.Width + 5;
                             SurveyModel SurveyModel = new SurveyModel();
@@ -324,7 +343,7 @@ namespace Epi.Web.MVC.Controllers
                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
                                 SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
-                                form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice);
+                                form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice, SurveyAnswerResponseList.SurveyResponseList);
                                 form.FormValuesHasChanged = FormValuesHasChanged;
                                 TempData["Width"] = form.Width + 5;
                                 //PassCode start

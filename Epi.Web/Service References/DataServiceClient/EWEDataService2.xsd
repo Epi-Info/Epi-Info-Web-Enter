@@ -253,4 +253,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetAncestorResponseIdsByChildId">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q36="http://www.yourcompany.com/types/" minOccurs="0" name="pRequest" nillable="true" type="q36:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAncestorResponseIdsByChildIdResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://www.yourcompany.com/types/" minOccurs="0" name="GetAncestorResponseIdsByChildIdResult" nillable="true" type="q37:SurveyAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

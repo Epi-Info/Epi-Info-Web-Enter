@@ -81,6 +81,9 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        SurveyAnswerResponse GetAncestorResponseIdsByChildId(SurveyAnswerRequest pRequest);
     }
 
 }

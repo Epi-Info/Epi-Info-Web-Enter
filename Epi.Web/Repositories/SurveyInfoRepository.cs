@@ -187,5 +187,10 @@ namespace Epi.Web.MVC.Repositories
                       return _iDataService.GetFormsHierarchy(FormsHierarchyRequest);
  
                 }
+            public SurveyAnswerResponse GetResponseAncestor(SurveyAnswerRequest SARequest)
+                {
+
+                return _iDataService.GetAncestorResponseIdsByChildId(SARequest);
+                }
     }
 }
