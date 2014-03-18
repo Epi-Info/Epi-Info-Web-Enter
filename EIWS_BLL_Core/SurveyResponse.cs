@@ -310,5 +310,16 @@ namespace Epi.Web.BLL
             return SurveyResponseBO;
 
             }
+
+        public List<SurveyResponseBO> GetResponsesHierarchyIdsByResponseId(string ResponseId, string SurveyId)
+            {
+            List<SurveyResponseBO> SurveyResponseBO = new List<SurveyResponseBO>();
+
+            SurveyResponseBO = this.SurveyResponseDao.GetResponsesHierarchyIdsBySurveyId(ResponseId, SurveyId);
+
+
+            return SurveyResponseBO;
+
+            }
     }
 }

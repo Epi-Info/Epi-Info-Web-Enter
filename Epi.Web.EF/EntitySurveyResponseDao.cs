@@ -768,6 +768,35 @@ namespace Epi.Web.EF
 
             }
 
+        public List<SurveyResponseBO> GetResponsesHierarchyIdsBySurveyId(string ResponseId, string SurveyId) 
+            {
+        List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+           
+          
+            try
+                {
+
+                Guid RId = new Guid(ResponseId);
+              //  Guid SId = new Guid(SurveyId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId)).OrderBy(x=>x.DateCreated).ToList();
+
+                    }
+                
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+            return result;
+            
+            }
+
     }
 
     

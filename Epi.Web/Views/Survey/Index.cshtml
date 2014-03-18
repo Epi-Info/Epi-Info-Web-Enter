@@ -43,16 +43,28 @@
 		CCE_ProcessEnableAllControls(DisabledFieldsList) ;
 		}
 		//set the is_save_action hidden variable value to true to indicate that save button has been clicked
-		$("#myform")[0].is_save_action.value = 'true';
+       $("#myform")[0].is_save_action.value = 'true';
 		//set the action path of the current form so when it is submitted by clicking the save button it posts to the path 
-		$("#myform")[0].action = window.location.href;
+       $("#myform")[0].action = window.location.href;
 		//detach the validation engine as we don't want to validate data on save button click
 	//	$('#myform').validationEngine('detach');
 		//posting the form
-		$('#myform').submit();
-		// return false;
+        
+       $('#myform').submit();
 		 
-	}
+        
+}
+
+function showResponse() {
+ 
+ 
+ alert("Good");
+ }
+ function showRequest() {
+
+
+     alert("Bad");
+ }
 	/*Clicking the continue button*/
 
 	function Continue() {
@@ -199,7 +211,7 @@
 
 
 	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
-	                  //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+	                    //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
 	                    $.ajax({
 	                        url: signoutUrl,
 	                        type: 'POST',
@@ -280,13 +292,24 @@
 	    var passcode = '@Model.Form.PassCode';
 	    $('#spPassCode').text(passcode);
 
-	    if ('@Model.Form.IsSaved' == 'True' && '@HttpContext.Current.Session["RelateButtonWasClicked"]' != 'true') {
+
+	    if ('@Model.Form.IsSaved' == 'True') {
 
 	        if ('@Model.Form.StatusId' == '1') { //if clicking the save button for the first time
 	            $('#successContent').show();
 	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
+	            if ($('#RelateButtonWasClicked').val() != "") {
+	                if ('@Model.FormResponseInfoModel' != "") {
+	                    
+	                    OpenRelateNavigationDialog();
+	                }
+	                else {
+	                    
+	                    AddChild($('#RelateButtonWasClicked').val());
 
-
+	                }
+	                $('#RelateButtonWasClicked').val("");
+	            }
 
 	            //call your jquery modal popup method
 	            // $("#dialog").dialog("open");
@@ -299,7 +322,7 @@
 	            $('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
 	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/>  Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
 	        }
-	     
+
 	        return true;
 	    }
 
@@ -471,11 +494,17 @@ function OpenRelateNavigationDialog() {
 function NavigateToChild(ViewId) 
 {
 
+    $('#RelateButtonWasClicked').val(ViewId);
+    Save();
+  
+   //OpenRelateNavigationDialog();
+   //AddChild(ViewId);
+    
+}
+function AddChild(ViewId)
+{
     var signoutUrl = '@Url.Action("GetRelateChildId", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val();
     
-    Save();
-
-
     $.ajax({
         url: signoutUrl,
         type: 'POST',
@@ -489,25 +518,53 @@ function NavigateToChild(ViewId)
     });
     function successFunc(data) {
         //$(this).dialog("close");
-
+      
         var tem = 'responseId =' + data;
         var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
-        homePageUrl =  homePageUrl.replace("RId", data.toString());
-       
+        homePageUrl = homePageUrl.replace("RId", data.toString());
+
         window.location.href = homePageUrl;
     }
     function errorFunc(data) {
         alert('failed');
     }
-    
-}
 
+
+}
+function GoHome()
+ {
+
+     var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+     var Id = '@HttpContext.Current.Session["RootResponseId"]';
+     homePageUrl = homePageUrl.replace("RId",Id.toString());
+
+     window.location.href = homePageUrl;
+
+ }
+ function OpenForm(ResponseId) {
+      var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+     var Id = ResponseId;
+     homePageUrl = homePageUrl.replace("RId", Id.toString());
+
+     window.location.href = homePageUrl;
+ }
+ $(document).on("click", "button[name='EditForm']", function (e) {
+     //e.preventDefault();
+
+     var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+     var Id = $(this).attr("value");
+     homePageUrl = homePageUrl.replace("RId", Id.toString());
+
+     window.location.href = homePageUrl;
+
+ });
 </script>
 
  <div id="pageHeader">
 	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
   
-	<div id="userwelcome"><button class="exitsurvey default"   id ="RalateNavigation" type="button" onclick="OpenRelateNavigationDialog()" name="RalateNavigation" style="width:150px;">Relate Navigation</button>&nbsp;&nbsp;&nbsp;&nbsp;
+	<div id="userwelcome">
+   <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px;">Home</button>&nbsp;&nbsp;&nbsp;&nbsp;
     Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	@*<a href="#">Log Out</a>*@
 	 @Html.ActionLink("Log Out", "LogOut", "Survey", null, null)	
@@ -606,7 +663,8 @@ function NavigateToChild(ViewId)
 		<input type="hidden"  name="is_save_action" value="false" />
 		<input type="hidden"  name="is_goto_action" value="false" /> 
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
-        
+        <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
+       
 
       @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" /> 
 	    <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" /> 
@@ -745,6 +803,8 @@ function NavigateToChild(ViewId)
 			 </div>
 			  
 			
-            <div id="RelateNavigation" title="Relate Navigation.">
+            <div id="RelateNavigation" title="Relate Navigation." style"width:500px;hight:500px">
+            @if(Model.FormResponseInfoModel != null){
 				@Html.Partial("ListResponses", Model)
+                }
 			 </div>
