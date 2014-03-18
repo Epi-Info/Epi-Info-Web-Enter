@@ -9,6 +9,7 @@ namespace Epi.Web.MVC.Models
         {
         private Form _Form;
         private List<RelateModel> _RelateModel;
+        private FormResponseInfoModel _FormResponseInfoModel;
         public Form Form
             {
             get { return _Form; }
@@ -19,6 +20,10 @@ namespace Epi.Web.MVC.Models
             get { return _RelateModel; }
             set { _RelateModel = value; }
             }
-
+        public FormResponseInfoModel FormResponseInfoModel
+            {
+            get { return _FormResponseInfoModel; }
+            set { _FormResponseInfoModel = value; }
+            }
         }
     }
