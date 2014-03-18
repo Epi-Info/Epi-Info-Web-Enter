@@ -270,6 +270,126 @@ namespace Epi.Web.MVC.Utility
                   }
               }
 
+          public Epi.Web.MVC.Models.ResponseModel ConvertXMLToModel(Epi.Web.Common.DTO.SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
+              {
+              Epi.Web.MVC.Models.ResponseModel ResponseModel = new Models.ResponseModel();
+
+
+              var MetaDataColumns = Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
+
+              try
+                  {
+                  ResponseModel.Column0 = item.ResponseId;
+                  ResponseModel.IsLocked = item.IsLocked;
+                  IEnumerable<XElement> nodes;
+                  var document = XDocument.Parse(item.XML);
+                  if (MetaDataColumns.Contains(Columns[0].Value.ToString()))
+                      {
+
+                      ResponseModel.Column1 = GetColumnValue(item, Columns[0].Value.ToString());
+                      }
+                  else
+                      {
+                      nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
+                      ResponseModel.Column1 = nodes.First().Value;
+                      }
+                  if (Columns.Count >= 2)
+                      {
+                      if (MetaDataColumns.Contains(Columns[1].Value.ToString()))
+                          {
+
+                          ResponseModel.Column2 = GetColumnValue(item, Columns[1].Value.ToString());
+                          }
+                      else
+                          {
+                          nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+                          ResponseModel.Column2 = nodes.First().Value;
+                          }
+                      }
+
+
+                  if (Columns.Count >= 3)
+                      {
+                      if (MetaDataColumns.Contains(Columns[2].Value.ToString()))
+                          {
+
+                          ResponseModel.Column3 = GetColumnValue(item, Columns[2].Value.ToString());
+                          }
+                      else
+                          {
+                          nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+                          ResponseModel.Column3 = nodes.First().Value;
+                          }
+                      }
+
+                  if (Columns.Count >= 4)
+                      {
+                      if (MetaDataColumns.Contains(Columns[3].Value.ToString()))
+                          {
+
+                          ResponseModel.Column4 = GetColumnValue(item, Columns[3].Value.ToString());
+                          }
+                      else
+                          {
+                          nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+                          ResponseModel.Column4 = nodes.First().Value;
+                          }
+                      }
+
+                  if (Columns.Count >= 5)
+                      {
+                      if (MetaDataColumns.Contains(Columns[4].Value.ToString()))
+                          {
+
+                          ResponseModel.Column5 = GetColumnValue(item, Columns[4].Value.ToString());
+                          }
+                      else
+                          {
+                          nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
+                          ResponseModel.Column5 = nodes.First().Value;
+                          }
+                      }
+
+
+                  return ResponseModel;
+
+                  }
+              catch (Exception Ex)
+                  {
+
+                  throw new Exception(Ex.Message);
+                  }
+              }
+          private string GetColumnValue(Epi.Web.Common.DTO.SurveyAnswerDTO item, string columnName)
+              {
+              string ColumnValue = "";
+              switch (columnName)
+                  {
+                  case "_UserEmail":
+                      ColumnValue = item.UserEmail;
+                      break;
+                  case "_DateUpdated":
+                      ColumnValue = item.DateUpdated.ToString();
+                      break;
+                  case "_DateCreated":
+                      ColumnValue = item.DateCreated.ToString();
+                      break;
+                  case "IsDraftMode":
+                  case "_Mode":
+                      if (item.IsDraftMode.ToString().ToUpper() == "TRUE")
+                          {
+                          ColumnValue = "Staging";
+                          }
+                      else
+                          {
+                          ColumnValue = "Production";
+
+                          }
+                      break;
+                  }
+              return ColumnValue;
+              }
+
 
     }
 }
