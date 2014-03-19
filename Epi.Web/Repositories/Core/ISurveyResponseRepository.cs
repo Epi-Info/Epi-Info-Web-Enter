@@ -30,5 +30,7 @@ namespace Epi.Web.MVC.Repositories.Core
 
         SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
         SurveyAnswerResponse GetSurveyAnswerAncestor(SurveyAnswerRequest pRequest);
+
+        SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq);
     }
 }

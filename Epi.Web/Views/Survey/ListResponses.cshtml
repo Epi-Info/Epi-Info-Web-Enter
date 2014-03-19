@@ -112,7 +112,7 @@
              
             gridColumns.Add(webGrid.Column(header: "",
              format: (item) => new HtmlString("<button name='EditForm'  type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
-            "<button name='DeleteButton' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
+            "<button name='DeleteButton' type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
                                                                                                    )));
             if (Model.FormResponseInfoModel.Columns.Count >= 1)
                 {
