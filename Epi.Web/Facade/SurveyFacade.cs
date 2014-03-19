@@ -301,5 +301,15 @@ namespace Epi.Web.MVC.Facade
             return SurveyAnswerResponse;
             
             }
+        public SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq) 
+            {
+
+            SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.GetResponsesByRelatedFormId(FormResponseReq);
+
+            return SurveyAnswerResponse;
+            
+            
+            
+            }
     }
 }

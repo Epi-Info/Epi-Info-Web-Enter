@@ -311,11 +311,11 @@ namespace Epi.Web.BLL
 
             }
 
-        public List<SurveyResponseBO> GetResponsesHierarchyIdsByResponseId(string ResponseId, string SurveyId)
+        public List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, string SurveyId)
             {
             List<SurveyResponseBO> SurveyResponseBO = new List<SurveyResponseBO>();
 
-            SurveyResponseBO = this.SurveyResponseDao.GetResponsesHierarchyIdsBySurveyId(ResponseId, SurveyId);
+            SurveyResponseBO = this.SurveyResponseDao.GetResponsesByRelatedFormId(ResponseId, SurveyId);
 
 
             return SurveyResponseBO;

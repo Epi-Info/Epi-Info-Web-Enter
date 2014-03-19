@@ -300,12 +300,19 @@ function showResponse() {
 	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
 	            if ($('#RelateButtonWasClicked').val() != "") {
 	                if ('@Model.FormResponseInfoModel' != "") {
-	                    
+
 	                    OpenRelateNavigationDialog();
 	                }
-	                else {
-	                    
-	                    AddChild($('#RelateButtonWasClicked').val());
+	                else 
+                    {
+	                    var NumberOfRecords = '@Model.FormResponseInfoModel';
+	                   if ($('#RelateButtonWasClicked').val() != ""){
+
+	                        AddChild($('#RelateButtonWasClicked').val());
+	                    } else {
+
+	                        CloseRelateNavigationDialog();
+	                    }
 
 	                }
 	                $('#RelateButtonWasClicked').val("");
@@ -491,14 +498,18 @@ function ReplaceString(string){
 function OpenRelateNavigationDialog() {
     $("#RelateNavigation").dialog("open");
 }
-function NavigateToChild(ViewId) 
-{
+function CloseRelateNavigationDialog() {
 
+    $("#RelateNavigation").dialog("close");
+}
+function NavigateToChild(ViewId) {
+
+    $('#RelateButtonWasClicked_Temp').val(ViewId)
+   
     $('#RelateButtonWasClicked').val(ViewId);
     Save();
-  
-   //OpenRelateNavigationDialog();
-   //AddChild(ViewId);
+   
+    
     
 }
 function AddChild(ViewId)
@@ -537,7 +548,7 @@ function GoHome()
      var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
      var Id = '@HttpContext.Current.Session["RootResponseId"]';
      homePageUrl = homePageUrl.replace("RId",Id.toString());
-
+     Save();
      window.location.href = homePageUrl;
 
  }
@@ -558,13 +569,46 @@ function GoHome()
      window.location.href = homePageUrl;
 
  });
+ $(document).on("click", "button[name='DeleteButton']", function (e) {
+     //e.preventDefault();
+
+     var signoutUrl = '@Url.Action("DeleteBranch", "Survey", new { ResponseId = "RId" })';
+     var Id = $(this).attr("value");
+     signoutUrl = signoutUrl.replace("RId", Id.toString());
+
+
+
+     $.ajax({
+         url: signoutUrl,
+         type: 'POST',
+         contentType: 'application/json; charset=utf-8',
+         //data: "{}",
+         dataType: "json",
+         //cache: false,
+         async: false,
+         success: successFunc,
+         error: errorFunc
+     });
+     function successFunc(data) {
+         var BValue = $('#RelateButtonWasClicked_Temp').val();
+         $('#RelateButtonWasClicked').val(BValue)
+         $('#RelateButtonWasClicked_Temp').val("");
+        
+         Save();
+      
+     }
+     function errorFunc(data) {
+         alert('failed');
+     }
+
+ });
 </script>
 
  <div id="pageHeader">
 	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
   
 	<div id="userwelcome">
-   <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px;">Home</button>&nbsp;&nbsp;&nbsp;&nbsp;
+   <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px;">Main Record</button>&nbsp;&nbsp;&nbsp;&nbsp;
     Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	@*<a href="#">Log Out</a>*@
 	 @Html.ActionLink("Log Out", "LogOut", "Survey", null, null)	
@@ -664,8 +708,8 @@ function GoHome()
 		<input type="hidden"  name="is_goto_action" value="false" /> 
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
         <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
-       
-
+        <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
+         
       @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" /> 
 	    <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" /> 
 			 *@

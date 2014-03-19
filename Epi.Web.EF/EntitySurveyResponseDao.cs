@@ -768,7 +768,7 @@ namespace Epi.Web.EF
 
             }
 
-        public List<SurveyResponseBO> GetResponsesHierarchyIdsBySurveyId(string ResponseId, string SurveyId) 
+        public List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, string SurveyId) 
             {
         List<SurveyResponseBO> result = new List<SurveyResponseBO>();
            
