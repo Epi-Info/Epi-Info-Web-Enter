@@ -191,7 +191,7 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 
             Session["FormValuesHasChanged"] = Form_Has_Changed;
-
+            
             //For child to read Data from parent
             SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
             SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(surveyAnswerModel.ResponseId);
@@ -266,8 +266,12 @@ namespace Epi.Web.MVC.Controllers
                             
                             int.TryParse(this.Request.Form["Requested_View_Id"].ToString(),out RequestedViewId);
                             var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == RequestedViewId);
-                            if (RelateSurveyId.ResponseIds.Count()>0)
+                           
+                                int ResponseCount = GetResponseCount(FormsHierarchy,RequestedViewId,responseId);
+
+                                if (ResponseCount > 0)
                                 {
+                               
                                SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseId); 
                                 }
                             return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
@@ -410,6 +414,29 @@ namespace Epi.Web.MVC.Controllers
                 return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
                 }
 
+            }
+
+        private int GetResponseCount(List<FormsHierarchyDTO> FormsHierarchy, int RequestedViewId, string responseId)
+            {
+            int ResponseCount = 0;
+            var  ViewResponses = FormsHierarchy.Where(x => x.ViewId == RequestedViewId);
+
+           foreach(var item in ViewResponses )
+               
+               {
+               if (item.ResponseIds.Count>0)
+                   {
+                    var list = item.ResponseIds.Any(x => x.RelateParentId == responseId);
+                    if (list == true)
+                        {
+
+                        ResponseCount++;
+                        break;
+                        }
+                   }
+               }
+
+            return ResponseCount;
             }
 
         private List<FormsHierarchyDTO> GetFormsHierarchy()
@@ -683,8 +710,22 @@ namespace Epi.Web.MVC.Controllers
 
         public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
             {
+            
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
+            SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
+
+            return Json(Session["RootFormId"]);//string.Empty
+            //return RedirectToAction("Index", "Home");
+            }
+        [HttpPost]
+
+        public ActionResult DeleteBranch(string ResponseId)//List<FormInfoModel> ModelList, string formid)
+            {
+            
+            SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
+            SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
@@ -1086,8 +1127,7 @@ namespace Epi.Web.MVC.Controllers
                  
                 FormResponseReq.Criteria.PageNumber = 1;
                 FormResponseReq.Criteria.UserId = UserId;
-                //SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
-                SurveyAnswerResponse FormResponseList = _isurveyFacade.GetSurveyAnswerHierarchy(FormResponseReq);
+                SurveyAnswerResponse FormResponseList = _isurveyFacade.GetResponsesByRelatedFormId(FormResponseReq);
                 //Setting Resposes List
                 List<ResponseModel> ResponseList = new List<ResponseModel>();
                 foreach (var item in FormResponseList.SurveyResponseList)

@@ -102,6 +102,6 @@ namespace Epi.Web.Interfaces.DataInterfaces
          SurveyResponseBO GetFormResponseByParentRecordId(string ResponseId);
          List<SurveyResponseBO> GetAncestorResponseIdsByChildId(string ChildId);
 
-         List<SurveyResponseBO> GetResponsesHierarchyIdsBySurveyId(string ResponseId, string SurveyId);
+         List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, string SurveyId);
     }
 }

@@ -941,10 +941,7 @@ namespace Epi.Web.WCF.SurveyService
         SurveyAnswerResponse SurveyAnswerResponse = new Common.Message.SurveyAnswerResponse();
         Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = entityDaoFactory.SurveyResponseDao;
         Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
-        //List<SurveyResponseBO> SurveyResponseBOList = Implementation.GetResponsesHierarchyIdsByRootId(pRequest.SurveyAnswerList[0].ResponseId);
-
-        List<SurveyResponseBO> SurveyResponseBOList = Implementation.GetResponsesHierarchyIdsByResponseId(pRequest.Criteria.SurveyAnswerIdList[0], pRequest.Criteria.SurveyId);
-
+        List<SurveyResponseBO> SurveyResponseBOList = Implementation.GetResponsesHierarchyIdsByRootId(pRequest.SurveyAnswerList[0].ResponseId);
         SurveyAnswerResponse.SurveyResponseList = Mapper.ToDataTransferObject(SurveyResponseBOList);
 
         return SurveyAnswerResponse;
@@ -963,7 +960,19 @@ namespace Epi.Web.WCF.SurveyService
             return SurveyAnswerResponse;
 
             }
+        public SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest pRequest)
+            {
+            Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            SurveyAnswerResponse SurveyAnswerResponse = new Common.Message.SurveyAnswerResponse();
+            Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+            Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+            
+            List<SurveyResponseBO> SurveyResponseBOList = Implementation.GetResponsesByRelatedFormId(pRequest.Criteria.SurveyAnswerIdList[0], pRequest.Criteria.SurveyId);
 
+            SurveyAnswerResponse.SurveyResponseList = Mapper.ToDataTransferObject(SurveyResponseBOList);
+
+            return SurveyAnswerResponse;
+            }
 
     }
 

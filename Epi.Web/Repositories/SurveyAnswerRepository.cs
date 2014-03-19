@@ -477,5 +477,38 @@ namespace Epi.Web.MVC.Repositories
                     }
                 }
 
+            public SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq)
+                {
+
+                try
+                    {
+
+                    SurveyAnswerResponse result = _iDataService.GetResponsesByRelatedFormId(FormResponseReq);
+                    return result;
+                    }
+                catch (FaultException<CustomFaultException> cfe)
+                    {
+                    throw cfe;
+                    }
+                catch (FaultException fe)
+                    {
+                    throw fe;
+                    }
+                catch (CommunicationException ce)
+                    {
+                    throw ce;
+                    }
+                catch (TimeoutException te)
+                    {
+                    throw te;
+                    }
+                catch (Exception ex)
+                    {
+                    throw ex;
+
+                    }
+
+                }
+
     }
 }
