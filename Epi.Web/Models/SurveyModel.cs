@@ -10,6 +10,7 @@ namespace Epi.Web.MVC.Models
         private Form _Form;
         private List<RelateModel> _RelateModel;
         private FormResponseInfoModel _FormResponseInfoModel;
+        private int _RequestedViewId;
         public Form Form
             {
             get { return _Form; }
@@ -24,6 +25,11 @@ namespace Epi.Web.MVC.Models
             {
             get { return _FormResponseInfoModel; }
             set { _FormResponseInfoModel = value; }
+            }
+        public int RequestedViewId
+            {
+            get { return _RequestedViewId; }
+            set { _RequestedViewId = value; }
             }
         }
     }
