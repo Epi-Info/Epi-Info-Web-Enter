@@ -158,9 +158,28 @@ namespace Epi.Web.MVC
             routes.MapRoute
                (
                    null, // Route name
-                   "Survey/GetRelateChildId", // URL with parameters
-                   new { controller = "Survey", action = "GetRelateChildId"}
+                   "Survey/AddChild", // URL with parameters
+                   new { controller = "Survey", action = "AddChild" }
                );
+          
+            routes.MapRoute
+              (
+                  null, // Route name
+                  "Survey/HasResponse", // URL with parameters
+                  new { controller = "Survey", action = "HasResponse" }
+              );
+            routes.MapRoute
+             (
+                 null, // Route name
+                 "Survey/UpDateGrid", // URL with parameters
+                 new { controller = "Survey", action = "UpDateGrid" }
+             );
+            routes.MapRoute
+            (
+                null, // Route name
+                "Survey/ReadResponseInfo", // URL with parameters
+                new { controller = "Survey", action = "ReadResponseInfo" }
+            );
             routes.MapRoute
              (
                  null, // Route name
