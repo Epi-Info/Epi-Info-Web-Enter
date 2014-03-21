@@ -26,11 +26,12 @@ namespace Epi.Web.MVC.Utility
         /// <param name="surveyAnswerDTO"></param>
         /// <param name="surveyResponseXML"></param>
         /// <param name="iSurveyAnswerRepository"></param>
-        public static Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyResponse(string surveyId, string responseId, SurveyAnswerRequest surveyAnswerRequest,
+        public static Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyResponse(string surveyId, string responseId, SurveyAnswerRequest surveyAnswerRequest1,
                                           Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
                                           SurveyResponseXML surveyResponseXML, ISurveyAnswerRepository iSurveyAnswerRepository,int UserId,bool IsChild = false,string RelateResponseId="",bool IsEditMode = false)
         {
             bool AddRoot = false;
+            SurveyAnswerRequest surveyAnswerRequest = new SurveyAnswerRequest();
             surveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId.ToString());
             surveyAnswerDTO.ResponseId = responseId.ToString();
             //surveyAnswerDTO.DateCompleted = DateTime.Now;
