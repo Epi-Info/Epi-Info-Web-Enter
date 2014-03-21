@@ -282,7 +282,7 @@ namespace Epi.Web.MVC.Controllers
                             var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == RequestedViewId);
                            
                             int ViewId = int.Parse(Requested_View_Id);
-                            string ChildResponseId = AddNewChild(RelateSurveyId.FormId, ViewId, responseId, FormValuesHasChanged, "1");
+                            string ChildResponseId = AddNewChild(surveyInfoModel.SurveyId, ViewId, responseId, FormValuesHasChanged, "1");
                             return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = ChildResponseId, PageNumber = 1 });
 
                             }
@@ -851,6 +851,7 @@ namespace Epi.Web.MVC.Controllers
 
             // create the first survey response
             // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
+           
             Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId, true, RelateResponseId,this.IsEditMode);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
