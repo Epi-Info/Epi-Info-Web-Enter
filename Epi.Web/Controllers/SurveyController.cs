@@ -756,9 +756,22 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public JsonResult AddChild( string SurveyId, int ViewId, string ResponseId, string FormValuesHasChanged, string CurrentPage)
             {
-          
-           
-            string ChildResponseId = AddNewChild(SurveyId, ViewId, ResponseId, FormValuesHasChanged, CurrentPage);
+
+            //1-Get the child Id
+             
+            SurveyInfoRequest SurveyInfoRequest = new Common.Message.SurveyInfoRequest();
+            SurveyInfoResponse SurveyInfoResponse = new Common.Message.SurveyInfoResponse();
+            SurveyInfoDTO SurveyInfoDTO = new Common.DTO.SurveyInfoDTO();
+            SurveyInfoDTO.SurveyId = SurveyId;
+            SurveyInfoDTO.ViewId = ViewId;
+            SurveyInfoRequest.SurveyInfoList.Add(SurveyInfoDTO);
+            SurveyInfoResponse = _isurveyFacade.GetChildFormInfo(SurveyInfoRequest);
+
+
+
+            //3-Create a new response for the child 
+            //string ChildResponseId = CreateResponse(SurveyInfoResponse.SurveyInfoList[0].SurveyId, ResponseId);
+            string ChildResponseId = AddNewChild(SurveyInfoResponse.SurveyInfoList[0].SurveyId, ViewId, ResponseId, FormValuesHasChanged, CurrentPage);
            
             return Json(ChildResponseId);
 
@@ -772,20 +785,7 @@ namespace Epi.Web.MVC.Controllers
                 IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
                 }
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
-            //1-Get the child Id
-            //SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest)
-            SurveyInfoRequest SurveyInfoRequest = new Common.Message.SurveyInfoRequest();
-            SurveyInfoResponse SurveyInfoResponse = new Common.Message.SurveyInfoResponse();
-            SurveyInfoDTO SurveyInfoDTO = new Common.DTO.SurveyInfoDTO();
-            SurveyInfoDTO.SurveyId = SurveyId;
-            SurveyInfoDTO.ViewId = ViewId;
-            SurveyInfoRequest.SurveyInfoList.Add(SurveyInfoDTO);
-            //SurveyInfoResponse = _isurveyFacade.GetChildFormInfo(SurveyInfoRequest);
             
-
-
-            //3-Create a new response for the child 
-            //string ChildResponseId = CreateResponse(SurveyInfoResponse.SurveyInfoList[0].SurveyId, ResponseId);
             string ChildResponseId = CreateResponse(SurveyId, ResponseId);
 
             //Session["RelateButtonWasClicked"] = "true";
