@@ -282,7 +282,8 @@ namespace Epi.Web.MVC.Controllers
                             var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == RequestedViewId);
                            
                             int ViewId = int.Parse(Requested_View_Id);
-                            string ChildResponseId = AddNewChild(surveyInfoModel.SurveyId, ViewId, responseId, FormValuesHasChanged, "1");
+                            
+                            string ChildResponseId = AddNewChild(RelateSurveyId.FormId, ViewId, responseId, FormValuesHasChanged, "1");
                             return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = ChildResponseId, PageNumber = 1 });
 
                             }
