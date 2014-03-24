@@ -103,5 +103,6 @@ namespace Epi.Web.Interfaces.DataInterfaces
          List<SurveyResponseBO> GetAncestorResponseIdsByChildId(string ChildId);
 
          List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, string SurveyId);
+         void DeleteSurveyResponseInEditMode(SurveyResponseBO SurveyResponse);
     }
 }

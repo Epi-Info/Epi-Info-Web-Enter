@@ -413,9 +413,9 @@ namespace Epi.Web.EF
         /// <param name="SurveyResponse">SurveyResponse.</param>
         public void DeleteSurveyResponse(SurveyResponseBO SurveyResponse)
         {
-             
-         
 
+
+       
           
            
         try
@@ -428,7 +428,7 @@ namespace Epi.Web.EF
                 result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x=>x.DateCreated).Traverse(x => x.SurveyResponse1));
                 foreach (var Obj in result)
                     {
-
+                 
                     if (!string.IsNullOrEmpty(Obj.ResponseId))
                         {
                         Guid NewId = new Guid(Obj.ResponseId);
@@ -442,7 +442,10 @@ namespace Epi.Web.EF
                      
                         Context.SaveChanges();
                         }
+
+                  
                     }
+
 
                 }
             }
@@ -454,6 +457,73 @@ namespace Epi.Web.EF
 
 
        }
+
+        public void DeleteSurveyResponseInEditMode(SurveyResponseBO SurveyResponse)
+            {
+
+
+            string parentRecordId;
+
+
+            try
+                {
+                List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+                Guid Id = new Guid(SurveyResponse.ResponseId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1));
+                    foreach (var Obj in result)
+                        {
+                        parentRecordId = "";
+                        if (!string.IsNullOrEmpty(Obj.ParentRecordId))
+                            {
+
+                            parentRecordId = Obj.ParentRecordId;
+                            }
+                        if (!string.IsNullOrEmpty(Obj.ResponseId))
+                            {
+                            Guid NewId = new Guid(Obj.ResponseId);
+
+                            User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+
+                            SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == NewId);
+                            Response.Users.Remove(User);
+
+                            Context.SurveyResponses.DeleteObject(Response);
+
+                            Context.SaveChanges();
+                            }
+
+                        if (!string.IsNullOrEmpty(parentRecordId))
+                            {
+                            Guid pId = new Guid(parentRecordId);
+                            User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+
+                            SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == pId);
+                            Response.Users.Remove(User);
+
+                            Context.SurveyResponses.DeleteObject(Response);
+
+                            Context.SaveChanges();
+
+
+                            }
+                        }
+
+
+                    }
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+
+            }
+
+
 
         public void DeleteSingleSurveyResponse(SurveyResponseBO SurveyResponse)
             {
