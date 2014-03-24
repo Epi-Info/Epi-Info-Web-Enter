@@ -266,6 +266,21 @@ namespace Epi.Web.MVC.Controllers
                             return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
 
                             }
+                        else if (!string.IsNullOrEmpty(this.Request.Form["Go_Home"]) && this.Request.Form["Go_Home"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                            {
+
+
+                            form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
+                            form = SetLists(form);
+                            TempData["Width"] = form.Width + 5;
+                            SurveyModel SurveyModel = new SurveyModel();
+                            SurveyModel.Form = form;
+                            SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
+
+
+                            return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = RootResponseId });
+
+                            }
                         else if (!string.IsNullOrEmpty(this.Request.Form["Get_Child_action"]) && this.Request.Form["Get_Child_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                             {
                             int RequestedViewId;
