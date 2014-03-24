@@ -574,14 +574,19 @@ function AddChild(ViewId)
 }
 function GoHome()
  {
+     
 
-     var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
-     var Id = '@HttpContext.Current.Session["RootResponseId"]';
-     homePageUrl = homePageUrl.replace("RId",Id.toString());
-     Save();
-     window.location.href = homePageUrl;
+     $("#myform")[0].Go_Home.value = 'true';
+
+     $("#myform")[0].action = window.location.href;
+
+
+     $('#myform').submit();
 
  }
+
+ 
+
  function OpenForm(ResponseId) {
       var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
      var Id = ResponseId;
@@ -761,6 +766,7 @@ function GoHome()
 		<input type="hidden"  name="is_save_action" value="false" />
 		<input type="hidden"  name="is_goto_action" value="false" />
         <input type="hidden"  name="Get_Child_action" value="false" />
+        <input type="hidden"  name="Go_Home" value="false" />
          
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
         <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
