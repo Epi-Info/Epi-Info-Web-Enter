@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Epi.Web.Common.BusinessObject
 {
-    public class SurveyResponseBO
+    public class SurveyResponseBO :ICloneable
     {
 
         public SurveyResponseBO()
@@ -30,5 +30,12 @@ namespace Epi.Web.Common.BusinessObject
         public string UserEmail { get; set; }
         public string ParentId { get; set; }
         public string RelateParentId { get; set; }
+
+        public object Clone() 
+            {
+
+              return this.MemberwiseClone();
+            
+            }
     }
 }
