@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Epi.Web.Common.BusinessObject;
 using System.Configuration;
-
+using Epi.Web.Common.Extension;
 namespace Epi.Web.BLL
 {
     public class SurveyResponse
@@ -119,31 +119,63 @@ namespace Epi.Web.BLL
             this.SurveyResponseDao.InsertSurveyResponse(pValue);
             return result;
         }
-        public List<SurveyResponseBO> InsertSurveyResponse(List<SurveyResponseBO> pValue, int UserId)
+        public List<SurveyResponseBO> InsertSurveyResponse( List<SurveyResponseBO> pValue, int UserId)
             {
-            Guid ParentResponseId = new Guid(pValue[0].ResponseId);
-            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
-            var temp = pValue.GroupBy(x=>x.RelateParentId);
+           Guid ParentResponseId = new Guid(pValue[0].ResponseId);
+           List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+           var MainList = pValue.Select(i => i.Clone()).ToList();
+           List<string> IsertedRedord = new List<string>();
+            string TempResponseId = "";
             foreach(SurveyResponseBO Obj in pValue)
                 {
-                
-                Obj.ParentRecordId = Obj.ResponseId;
-                Guid Id = Guid.NewGuid();
-                
-                Obj.ResponseId = Id.ToString();
-             
-                Obj.RelateParentId = ParentResponseId.ToString();//
-                ParentResponseId = Id;
-                Obj.UserId = UserId;
-                Obj.Status = 1;
-                Obj.DateCreated = DateTime.Now;
-                this.SurveyResponseDao.InsertSurveyResponse(Obj);
-                result.Add(Obj);
-                
+                 TempResponseId = Obj.ResponseId;
+                 Obj.ParentRecordId = Obj.ResponseId;
+                 Guid Id = Guid.NewGuid();
+                 Obj.ResponseId = Id.ToString();
+                 string CommonRelateId = "";
+                 Obj.RelateParentId = ParentResponseId.ToString();
+                 ParentResponseId = Id;
+                 Obj.UserId = UserId;
+                 Obj.Status = 1;
+                 Obj.DateCreated = DateTime.Now;
+                 if (!IsertedRedord.Contains(TempResponseId))
+                     {
+                     this.SurveyResponseDao.InsertSurveyResponse(Obj);
+                     CommonRelateId = Obj.ResponseId;
+                     IsertedRedord.Add(TempResponseId);
+                     result.Add(Obj);
+                     }
+
+
+                 foreach (SurveyResponseBO ChildObj in MainList)
+                    {
+                    if (ChildObj.RelateParentId == Obj.ParentRecordId)
+                        {
+                    Guid ChildId = Guid.NewGuid();
+                    TempResponseId = ChildObj.ResponseId;
+                    ChildObj.ParentRecordId = ChildObj.ResponseId;
+                    ChildObj.ResponseId = ChildId.ToString();
+                    ChildObj.RelateParentId = CommonRelateId;  
+                    ParentResponseId = ChildId;
+                    ChildObj.UserId = UserId;
+                    ChildObj.Status = 1;
+                    ChildObj.DateCreated = DateTime.Now;
+                    if (!IsertedRedord.Contains(TempResponseId))
+                        {
+                        this.SurveyResponseDao.InsertSurveyResponse(ChildObj);
+                        IsertedRedord.Add(TempResponseId);
+                        result.Add(ChildObj);
+                        }
+                    }
+                 
+                    }
                 }
             return result;
             }
+
+      
+ 
         public SurveyResponseBO InsertChildSurveyResponse(SurveyResponseBO pValue,SurveyInfoBO ParentSurveyInfo,string RelateParentId)
             {
            
