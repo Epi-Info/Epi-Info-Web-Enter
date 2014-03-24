@@ -778,7 +778,15 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
                 foreach (var response in pRequest.SurveyAnswerList)
                 {
-                    Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                if (pRequest.Criteria.IsEditMode)
+                        {
+                        Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                        }
+                    else
+                        {
+                          Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                        }
+                  
                 }
                 
                 return result;

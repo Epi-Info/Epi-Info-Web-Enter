@@ -82,5 +82,7 @@ namespace Epi.Web.Common.Criteria
        public bool IsMobile { get; set; }
        [DataMember]
        public int UserId { get; set; }
+       [DataMember]
+       public bool IsEditMode { get; set; }
     }
 }

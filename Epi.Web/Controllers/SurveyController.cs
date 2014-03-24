@@ -734,10 +734,11 @@ namespace Epi.Web.MVC.Controllers
 
         public ActionResult DeleteBranch(string ResponseId)//List<FormInfoModel> ModelList, string formid)
             {
-            
+            bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            SARequest.Criteria.IsEditMode = this.IsEditMode;
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(Session["RootFormId"]);//string.Empty

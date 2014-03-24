@@ -264,6 +264,15 @@ namespace Epi.Web.BLL
 
             return result;
         }
+        public bool DeleteSurveyResponseInEditMode(SurveyResponseBO pValue)
+            {
+            bool result = false;
+
+            this.SurveyResponseDao.DeleteSurveyResponseInEditMode(pValue);
+            result = true;
+
+            return result;
+            }
         public bool DeleteSingleSurveyResponse(SurveyResponseBO pValue)
             {
             bool result = false;
