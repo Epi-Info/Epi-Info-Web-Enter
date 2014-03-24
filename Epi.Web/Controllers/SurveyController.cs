@@ -266,7 +266,7 @@ namespace Epi.Web.MVC.Controllers
                             return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
 
                             }
-                        else if (!string.IsNullOrEmpty(this.Request.Form["Go_Home"]) && this.Request.Form["Go_Home"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                        else if (!string.IsNullOrEmpty(this.Request.Form["Go_Home_action"]) && this.Request.Form["Go_Home_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                             {
 
 
@@ -278,7 +278,7 @@ namespace Epi.Web.MVC.Controllers
                             SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
 
 
-                            return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = RootResponseId });
+                            return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = RootResponseId, PageNumber = 1 });
 
                             }
                         else if (!string.IsNullOrEmpty(this.Request.Form["Get_Child_action"]) && this.Request.Form["Get_Child_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
