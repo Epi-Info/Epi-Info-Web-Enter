@@ -46,10 +46,10 @@
             
             if (Model.FormResponseInfoModel.NumberOfResponses == 1)
                 {
-             <span class="boldlabel" style="font-size: 14pt;">@Model.FormResponseInfoModel.NumberOfResponses - Record </span>
+             <span class="boldlabel" style="font-size: 1em;">@Model.FormResponseInfoModel.NumberOfResponses Record </span>
                 }
             else { 
-                 <span class="boldlabel" style="font-size: 14pt;">@Model.FormResponseInfoModel.NumberOfResponses - Records </span>
+                 <span class="boldlabel" style="font-size: 1em;">@Model.FormResponseInfoModel.NumberOfResponses Records </span>
                 }
            @* if (Model.FormResponseInfoModel.NumberOfPages == 0)
                 {
@@ -86,7 +86,7 @@
 <div id="recordscontent">
     <!--style="display:inline-block;"-->
     <div id="addnew">
-        <button  type="submit"  onclick="AddChild(@HttpContext.Current.Session["RequestedViewId"]);" name="AddNewFormId" class="default record" >
+        <button  type="submit"  onclick="AddChild(@HttpContext.Current.Session["RequestedViewId"]);" name="AddNewFormId" class="default record" style="width:150px !important;" >
             Add New Record
         </button>
     </div>
