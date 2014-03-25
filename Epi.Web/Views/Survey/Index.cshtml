@@ -136,7 +136,7 @@ function showResponse() {
 	        hide: "blind",
 	        resizable: false,
 	        height: 410,
-	        width: 500,
+	        width: 'auto',
 	        modal: true
 	    });
 	    // setup the dialog
@@ -676,8 +676,7 @@ function GoHome()
 	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
   
 <div id="userwelcome">
-    <button class="exitsurvey default"   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" style="width:150px;">Parent Record</button>&nbsp;&nbsp;&nbsp;&nbsp;
-   <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px;">Main Record</button>&nbsp;&nbsp;&nbsp;&nbsp;
+    
     Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	@*<a href="#">Log Out</a>*@
 	 @Html.ActionLink("Log Out", "LogOut", "Survey", null, null)	
@@ -687,10 +686,18 @@ function GoHome()
 	
 
 <div id="content" class="recordcontentdiv" style="margin:0px auto;">
+
+
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = "" }))
 	{  
  <div id="formdisplay" class="@Model.Form.IsDraftModeStyleClass.ToString()" style="">
-	<div id="infobox">
+	<div id="relatenav" style="padding-bottom:10px;">
+            <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px; float:left;">Main Record</button>
+            <button class="exitsurvey default"   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" style="width:150px; float:right;">Parent Record</button>
+            
+        </div>
+    <div id="infobox">
+        
 		<div id="pages" class="pages">
 			@if (Model.Form.NumberOfPages > 0)
 			 {
@@ -920,7 +927,7 @@ function GoHome()
 			 </div>
 			  
 			
-            <div id="RelateNavigation" title="Relate Navigation." style"width:500px;hight:500px">
+            <div id="RelateNavigation" title="View Related Records" >
         @*  @if(Model.FormResponseInfoModel != null){
 				@Html.Partial("ListResponses", Model)
                 }*@
