@@ -1,7 +1,7 @@
 ﻿@model Epi.Web.MVC.Models.SurveyModel  
  <div id="formtitle">
-  @*  <h2 class="surveyTitle">@Model.Form.SurveyInfo.SurveyName
-    </h2>*@
+   <h2 class="surveyTitle">@Model.Form.SurveyInfo.SurveyName
+    </h2>
     <!--<hr class="hr1" />-->
 </div>
 
@@ -43,14 +43,22 @@
     <div id="NumberOfRecords" style="float: right">
         <div>
         @{
-            if (Model.FormResponseInfoModel.NumberOfPages == 0)
+            
+            if (Model.FormResponseInfoModel.NumberOfResponses == 1)
+                {
+             <span class="boldlabel" style="font-size: 14pt;">@Model.FormResponseInfoModel.NumberOfResponses - Record </span>
+                }
+            else { 
+                 <span class="boldlabel" style="font-size: 14pt;">@Model.FormResponseInfoModel.NumberOfResponses - Records </span>
+                }
+           @* if (Model.FormResponseInfoModel.NumberOfPages == 0)
                 {
                 <span class="boldlabel" style="font-size: 14pt;">0 Records </span>
                 }
             else
-                {
+                {*@
                  @*<span >Showing</span>*@
-        <span class="boldlabel" style="font-size: 14pt;">    @(
+        @*<span class="boldlabel" style="font-size: 14pt;">    @(
  Model.FormResponseInfoModel.CurrentPage * Model.FormResponseInfoModel.PageSize - (Model.FormResponseInfoModel.PageSize - 1))
             -
             @if (Model.FormResponseInfoModel.CurrentPage * Model.FormResponseInfoModel.PageSize < Model.FormResponseInfoModel.NumberOfResponses)
@@ -62,8 +70,8 @@
                 @Model.FormResponseInfoModel.NumberOfResponses
                 }</span>
            <span> of </span><span class="boldlabel" style="font-size: 14pt;">@Model.FormResponseInfoModel.NumberOfResponses </span>
+                }*@
                 }
-        }
        
     </div>
        @* <span>Total Records:</span> <span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses</span>*@</div>
@@ -109,7 +117,7 @@
         @{
        
             var gridColumns = new List<WebGridColumn>();
-             
+
             gridColumns.Add(webGrid.Column(header: "",
              format: (item) => new HtmlString("<button name='EditForm'  type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
             "<button name='DeleteButton' type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"

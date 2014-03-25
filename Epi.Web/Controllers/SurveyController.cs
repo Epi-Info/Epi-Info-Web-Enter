@@ -1238,7 +1238,8 @@ namespace Epi.Web.MVC.Controllers
                  
                 FormResponseReq.Criteria.PageNumber = 1;
                 FormResponseReq.Criteria.UserId = UserId;
-                SurveyAnswerResponse FormResponseList = _isurveyFacade.GetResponsesByRelatedFormId(FormResponseReq);
+                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetResponsesByRelatedFormId(FormResponseReq);
+               
                 //Setting Resposes List
                 List<ResponseModel> ResponseList = new List<ResponseModel>();
                 foreach (var item in FormResponseList.SurveyResponseList)
@@ -1271,11 +1272,14 @@ namespace Epi.Web.MVC.Controllers
 
        
         [HttpGet]
-       
-        public ActionResult ReadResponseInfo(string SurveyId, int ViewId, string ResponseId)//List<FormInfoModel> ModelList, string formid)
+
+        public ActionResult ReadResponseInfo(string SurveyId, int ViewId, string ResponseId, string CurrentPage)//List<FormInfoModel> ModelList, string formid)
             {
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            int PageNumber = int.Parse(CurrentPage);
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
+            
           //  var model = new FormResponseInfoModel();
             List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
             int RequestedViewId;
@@ -1291,10 +1295,24 @@ namespace Epi.Web.MVC.Controllers
             SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, SurveyId);
             SurveyModel.RequestedViewId = RequestedViewId;
 
+
             var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == ViewId);
+
+            SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
+            
+
             SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, ResponseId);
+            SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
         
 
+
+
+
+            Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
+            var form = _isurveyFacade.GetSurveyFormData(RelateSurveyId.ResponseIds[0].SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
+            SurveyModel.Form = form;
+
+            
           //  model = GetFormResponseInfoModel(formid, page);
 
             if (IsMobileDevice == false)
