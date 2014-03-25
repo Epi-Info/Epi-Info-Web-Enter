@@ -585,7 +585,16 @@ function GoHome()
 
  }
 
+ function GoOneLevelUp() {
+
+     $("#myform")[0].Go_One_Level_Up_action.value = 'true';
+
+     $("#myform")[0].action = window.location.href;
+
+
+     $('#myform').submit();
  
+ }
 
  function OpenForm(ResponseId) {
       var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
@@ -666,7 +675,8 @@ function GoHome()
  <div id="pageHeader">
 	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
   
-	<div id="userwelcome">
+<div id="userwelcome">
+    <button class="exitsurvey default"   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" style="width:150px;">Parent Record</button>&nbsp;&nbsp;&nbsp;&nbsp;
    <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px;">Main Record</button>&nbsp;&nbsp;&nbsp;&nbsp;
     Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	@*<a href="#">Log Out</a>*@
@@ -767,7 +777,8 @@ function GoHome()
 		<input type="hidden"  name="is_goto_action" value="false" />
         <input type="hidden"  name="Get_Child_action" value="false" />
         <input type="hidden"  name="Go_Home_action" value="false" />
-         
+    
+          <input type="hidden"  name="Go_One_Level_Up_action" value="false" />
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
         <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
         <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
