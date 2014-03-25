@@ -101,6 +101,15 @@ body
     white-space:normal;
     text-align:right;
  }
+ 
+ #relatenav 
+ {
+     padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #C4C4C4;
+    background: #E5E5E5;
+    height: 30px;
+ }
 
 #infobox
  {
@@ -756,6 +765,10 @@ button.paging img
 		
 	}
 	
+	#RelateNavigation #recordstable td, #recordstable th {width:130px;  max-width: 130px; font-size:1em; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important}
+	#RelateNavigation #NumberOfRecords div span.boldlabel { font-size:1em !important;}
+	#RelateNavigation #addnew {margin-top: -30px;}
+	
 	#recordstable td { 
 		word-break:break-all;
 		vertical-align: top;
@@ -1010,7 +1023,7 @@ button.edit {
     background-repeat: no-repeat;
     background-size: 18px auto;
     background-position: 8px center;
-    width: 56px;
+    width: 58px;
     height: 30px;
     padding: 4px 6px 4px 4px;
 }
