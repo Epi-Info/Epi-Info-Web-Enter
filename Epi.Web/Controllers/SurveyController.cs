@@ -281,6 +281,43 @@ namespace Epi.Web.MVC.Controllers
                             return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = RootResponseId, PageNumber = 1 });
 
                             }
+                        else if (!string.IsNullOrEmpty(this.Request.Form["Go_One_Level_Up_action"]) && this.Request.Form["Go_One_Level_Up_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                            {
+
+                            string RelateParentId = "";
+                            form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
+                            form = SetLists(form);
+                            TempData["Width"] = form.Width + 5;
+                            SurveyModel SurveyModel = new SurveyModel();
+                            SurveyModel.Form = form;
+                            SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
+
+                            var CurentRecordParent = FormsHierarchy.Single(x=>x.FormId ==surveyInfoModel.SurveyId );
+                            foreach (var item in CurentRecordParent.ResponseIds)
+                                {
+                                if (item.ResponseId == responseId && !string.IsNullOrEmpty(item.RelateParentId))
+                                    {
+
+                                    RelateParentId = item.RelateParentId;
+                                    break;
+                                    }
+                                 
+                                
+                                }
+
+                            if (!string.IsNullOrEmpty(RelateParentId))
+                                {
+
+                                return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid =  RelateParentId, PageNumber = 1 });
+
+                                }
+                            else
+                                {
+                                return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = RootResponseId, PageNumber = 1 });
+                                }
+                            
+
+                            }
                         else if (!string.IsNullOrEmpty(this.Request.Form["Get_Child_action"]) && this.Request.Form["Get_Child_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                             {
                             int RequestedViewId;
