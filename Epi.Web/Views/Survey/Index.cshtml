@@ -694,8 +694,8 @@ function GoHome()
  @if (@Model.Form.SurveyInfo.SurveyId != @Session["RootFormId"].ToString())
      {
 	<div id="relatenav" style="padding-bottom:10px;">
-            <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px; float:left;">Main Record</button>
-            <button class="exitsurvey default"   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" style="width:150px; float:right;">Parent Record</button>
+            <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px; font-size:10pt; float:left; background: #00B050;"><img src="../../Content/images/root.png" style="width:16px; vertical-align: text-top;"/> Main Record</button>
+            <button class="exitsurvey default"   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" style="width:150px; font-size:10pt; float:right; background: #00B050;"><img src="../../Content/images/uplevel.png" style="width:16px;  vertical-align: text-top;"/> Back</button>
             
         </div>
      }
