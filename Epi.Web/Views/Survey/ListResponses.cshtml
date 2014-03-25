@@ -1,6 +1,6 @@
 ﻿@model Epi.Web.MVC.Models.SurveyModel  
  <div id="formtitle">
-   <h2 class="surveyTitle">@Model.Form.SurveyInfo.SurveyName
+   <h2 class="surveyTitle" style="margin: 0 0 .2em 0;">@Model.Form.SurveyInfo.SurveyName
     </h2>
     <!--<hr class="hr1" />-->
 </div>
@@ -14,7 +14,7 @@
     }*@
 <div style="clear: both">
 </div>
-<div id="infobox1">
+<div id="infobox1" style="margin: 20px 0 10px 0;">
     @*<div id="create">
                     <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.UserId</span></div>*@
 @*    <div id="create">
@@ -98,19 +98,7 @@
                         <img alt="Next" src="~/Content/images/next.png" align="middle" /></button>
                         
                 </div>-->
-    <div id="paging">
-        @{
-                    
-            if (Model.FormResponseInfoModel.NumberOfPages > 1)
-                {
-            <div id='pager'>
-                @Html.Partial("PagerPartial", Model)
-            </div>  
-                }
-
-
-        }
-    </div>
+   
     <div style="clear: both; margin-bottom: 10px;">
     </div>
     <div id="recordstable">

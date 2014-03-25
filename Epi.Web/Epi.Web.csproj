@@ -239,6 +239,7 @@
     <Content Include="Content\css\images\footer_bar.png" />
     <Content Include="Content\css\images\prod1.png" />
     <Content Include="Content\css\images\prodlegend1.png" />
+    <Content Include="Content\css\images\root.png" />
     <Content Include="Content\css\images\staging1.png" />
     <Content Include="Content\css\images\staginglegend1.png" />
     <Content Include="Content\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -254,6 +255,7 @@
     <Content Include="Content\css\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\css\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\css\images\uplevel.png" />
     <Content Include="Content\css\jqm-datebox.css" />
     <Content Include="Content\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\css\jquery.mobile.datebox-1.0.1.css" />
