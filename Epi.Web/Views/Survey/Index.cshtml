@@ -691,11 +691,14 @@ function GoHome()
 @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform", @class = "" }))
 	{  
  <div id="formdisplay" class="@Model.Form.IsDraftModeStyleClass.ToString()" style="">
+ @if (@Model.Form.SurveyInfo.SurveyId != @Session["RootFormId"].ToString())
+     {
 	<div id="relatenav" style="padding-bottom:10px;">
             <button class="exitsurvey default"   id ="Home" type="button" onclick="GoHome()" name="Home" style="width:150px; float:left;">Main Record</button>
             <button class="exitsurvey default"   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" style="width:150px; float:right;">Parent Record</button>
             
         </div>
+     }
     <div id="infobox">
         
 		<div id="pages" class="pages">
