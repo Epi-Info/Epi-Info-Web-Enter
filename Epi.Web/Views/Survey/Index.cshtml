@@ -616,30 +616,32 @@ function GoHome()
  });
  $(document).on("click", "button[name='DeleteButton']", function (e) {
      //e.preventDefault();
+     if (confirm('This Action will permanently delete this record.'))
+      {
+         var signoutUrl = '@Url.Action("DeleteBranch", "Survey", new { ResponseId = "RId" })';
+         var Id = $(this).attr("value");
+         signoutUrl = signoutUrl.replace("RId", Id.toString());
 
-     var signoutUrl = '@Url.Action("DeleteBranch", "Survey", new { ResponseId = "RId" })';
-     var Id = $(this).attr("value");
-     signoutUrl = signoutUrl.replace("RId", Id.toString());
 
 
-
-     $.ajax({
-         url: signoutUrl,
-         type: 'POST',
-         contentType: 'application/json; charset=utf-8',
-         //data: "{}",
-         dataType: "json",
-         //cache: false,
-         async: false,
-         success: successFunc,
-         error: errorFunc
-     });
+         $.ajax({
+             url: signoutUrl,
+             type: 'POST',
+             contentType: 'application/json; charset=utf-8',
+             //data: "{}",
+             dataType: "json",
+             //cache: false,
+             async: false,
+             success: successFunc,
+             error: errorFunc
+         });
+     }
      function successFunc(data) {
          var BValue = $('#RelateButtonWasClicked_Temp').val();
          $('#RelateButtonWasClicked').val(BValue)
          $('#RelateButtonWasClicked_Temp').val("");
          Save();
-     
+
      }
      function errorFunc(data) {
          alert('failed');
