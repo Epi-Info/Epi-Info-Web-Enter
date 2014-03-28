@@ -223,6 +223,22 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<ResponseDisplaySetting> _ResponseDisplaySettings;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ResponseXml> ResponseXmls
+        {
+            get
+            {
+                if ((_ResponseXmls == null))
+                {
+                    _ResponseXmls = base.CreateObjectSet<ResponseXml>("ResponseXmls");
+                }
+                return _ResponseXmls;
+            }
+        }
+        private ObjectSet<ResponseXml> _ResponseXmls;
 
         #endregion
 
@@ -298,6 +314,14 @@ namespace Epi.Web.EF
         public void AddToResponseDisplaySettings(ResponseDisplaySetting responseDisplaySetting)
         {
             base.AddObject("ResponseDisplaySettings", responseDisplaySetting);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ResponseXmls EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToResponseXmls(ResponseXml responseXml)
+        {
+            base.AddObject("ResponseXmls", responseXml);
         }
 
         #endregion
@@ -1088,6 +1112,137 @@ namespace Epi.Web.EF
 
         #endregion
 
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="ResponseXml")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ResponseXml : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ResponseXml object.
+        /// </summary>
+        /// <param name="responseId">Initial value of the ResponseId property.</param>
+        /// <param name="xml">Initial value of the Xml property.</param>
+        public static ResponseXml CreateResponseXml(global::System.Guid responseId, global::System.String xml)
+        {
+            ResponseXml responseXml = new ResponseXml();
+            responseXml.ResponseId = responseId;
+            responseXml.Xml = xml;
+            return responseXml;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ResponseId
+        {
+            get
+            {
+                return _ResponseId;
+            }
+            set
+            {
+                if (_ResponseId != value)
+                {
+                    OnResponseIdChanging(value);
+                    ReportPropertyChanging("ResponseId");
+                    _ResponseId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ResponseId");
+                    OnResponseIdChanged();
+                }
+            }
+        }
+        private global::System.Guid _ResponseId;
+        partial void OnResponseIdChanging(global::System.Guid value);
+        partial void OnResponseIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Xml
+        {
+            get
+            {
+                return _Xml;
+            }
+            set
+            {
+                OnXmlChanging(value);
+                ReportPropertyChanging("Xml");
+                _Xml = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Xml");
+                OnXmlChanged();
+            }
+        }
+        private global::System.String _Xml;
+        partial void OnXmlChanging(global::System.String value);
+        partial void OnXmlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                OnUserIdChanging(value);
+                ReportPropertyChanging("UserId");
+                _UserId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserId");
+                OnUserIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _UserId;
+        partial void OnUserIdChanging(Nullable<global::System.Int32> value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsNewRecord
+        {
+            get
+            {
+                return _IsNewRecord;
+            }
+            set
+            {
+                OnIsNewRecordChanging(value);
+                ReportPropertyChanging("IsNewRecord");
+                _IsNewRecord = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsNewRecord");
+                OnIsNewRecordChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsNewRecord;
+        partial void OnIsNewRecordChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsNewRecordChanged();
+
+        #endregion
+
+    
     }
     
     /// <summary>

@@ -541,10 +541,11 @@ function ReadResponse(ViewId) {
 
 }
 
-function AddChild(ViewId)
-{
+function AddChild(ViewId) {
+
+    $('#FormHasChanged').val('True') ;
     var signoutUrl = '@Url.Action("AddChild", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
-  
+   
     $.ajax({
         url: signoutUrl,
         type: 'POST',
@@ -563,7 +564,7 @@ function AddChild(ViewId)
         var tem = 'responseId =' + data;
         var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
         homePageUrl = homePageUrl.replace("RId", data.toString());
-
+        
         window.location.href = homePageUrl;
     }
     function errorFunc(data) {

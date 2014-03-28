@@ -41,5 +41,8 @@ namespace Epi.Web.MVC.Facade
         SurveyAnswerResponse GetAncestorResponses(SurveyAnswerRequest pRequest);
 
         SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq);
+
+
+        void DeleteResponseXml(SurveyAnswerRequest FormResponseReq);
     }
 }

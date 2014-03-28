@@ -119,59 +119,21 @@ namespace Epi.Web.BLL
             this.SurveyResponseDao.InsertSurveyResponse(pValue);
             return result;
         }
-        public List<SurveyResponseBO> InsertSurveyResponse( List<SurveyResponseBO> pValue, int UserId)
+        public List<SurveyResponseBO> InsertSurveyResponse( List<SurveyResponseBO> pValue, int UserId,bool IsNewRecord = false)
             {
 
-           Guid ParentResponseId = new Guid(pValue[0].ResponseId);
-           List<SurveyResponseBO> result = new List<SurveyResponseBO>();
-           var MainList = pValue.Select(i => i.Clone()).ToList();
-           List<string> IsertedRedord = new List<string>();
-            string TempResponseId = "";
-            foreach(SurveyResponseBO Obj in pValue)
-                {
-                 TempResponseId = Obj.ResponseId;
-                 Obj.ParentRecordId = Obj.ResponseId;
-                 Guid Id = Guid.NewGuid();
-                 Obj.ResponseId = Id.ToString();
-                 string CommonRelateId = "";
-                 Obj.RelateParentId = ParentResponseId.ToString();
-                 ParentResponseId = Id;
-                 Obj.UserId = UserId;
-                 Obj.Status = 1;
-                 Obj.DateCreated = DateTime.Now;
-                 if (!IsertedRedord.Contains(TempResponseId))
-                     {
-                     this.SurveyResponseDao.InsertSurveyResponse(Obj);
-                     CommonRelateId = Obj.ResponseId;
-                     IsertedRedord.Add(TempResponseId);
-                     result.Add(Obj);
-                     }
-
-
-                 foreach (SurveyResponseBO ChildObj in MainList)
-                    {
-                    if (ChildObj.RelateParentId == Obj.ParentRecordId)
-                        {
-                    Guid ChildId = Guid.NewGuid();
-                    TempResponseId = ChildObj.ResponseId;
-                    ChildObj.ParentRecordId = ChildObj.ResponseId;
-                    ChildObj.ResponseId = ChildId.ToString();
-                    ChildObj.RelateParentId = CommonRelateId;  
-                    ParentResponseId = ChildId;
-                    ChildObj.UserId = UserId;
-                    ChildObj.Status = 1;
-                    ChildObj.DateCreated = DateTime.Now;
-                    if (!IsertedRedord.Contains(TempResponseId))
-                        {
-                        this.SurveyResponseDao.InsertSurveyResponse(ChildObj);
-                        IsertedRedord.Add(TempResponseId);
-                        result.Add(ChildObj);
-                        }
-                    }
+          foreach (var item in  pValue )
+              {
+              ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
+              ResponseXmlBO.User = UserId;
+              ResponseXmlBO.ResponseId = item.ResponseId;
+              ResponseXmlBO.Xml = item.XML;
+              ResponseXmlBO.IsNewRecord = IsNewRecord;
+              this.SurveyResponseDao.InsertResponseXml(ResponseXmlBO);
+              
+              }
                  
-                    }
-                }
-            return result;
+            return pValue;
             }
 
       
@@ -219,6 +181,11 @@ namespace Epi.Web.BLL
                else{
                  //Check if the record existes.If it does update otherwise insert new 
                       this.SurveyResponseDao.UpdateSurveyResponse(pValue);
+
+                      SurveyResponseBO SurveyResponseBO = SurveyResponseDao.GetResponseXml(pValue.ResponseId);
+                    
+
+
                    }
             return result;
         }
@@ -267,8 +234,30 @@ namespace Epi.Web.BLL
         public bool DeleteSurveyResponseInEditMode(SurveyResponseBO pValue)
             {
             bool result = false;
+            List<SurveyResponseBO> Children = this.GetResponsesHierarchyIdsByRootId(pValue.ResponseId);
 
-            this.SurveyResponseDao.DeleteSurveyResponseInEditMode(pValue);
+            foreach (var child in Children)
+                {
+                //Get the original copy of the xml
+                SurveyResponseBO  ResponseXml =  this.SurveyResponseDao.GetResponseXml(child.ResponseId);
+                if (!ResponseXml.IsNewRecord)
+                    {
+                    child.XML = ResponseXml.XML;
+                    this.SurveyResponseDao.UpdateSurveyResponse(child);
+                    }
+                else {
+                child.UserId = pValue.UserId;
+                this.SurveyResponseDao.DeleteSurveyResponse(child);
+                    
+                    }
+                // delete record from ResponseXml Table
+
+                ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
+                ResponseXmlBO.ResponseId = child.ResponseId;
+                this.SurveyResponseDao.DeleteResponseXml(ResponseXmlBO);
+
+                }
+
             result = true;
 
             return result;
@@ -361,6 +350,21 @@ namespace Epi.Web.BLL
 
             return SurveyResponseBO;
 
+            }
+
+        public  SurveyResponseBO  GetResponseXml(string ResponseId)
+            {
+             SurveyResponseBO  SurveyResponseBO = new  SurveyResponseBO();
+
+            SurveyResponseBO = this.SurveyResponseDao.GetResponseXml(ResponseId);
+
+            return SurveyResponseBO;
+            }
+
+        public void DeleteResponseXml(ResponseXmlBO ResponseXmlBO)
+            {
+
+            this.SurveyResponseDao.DeleteResponseXml(ResponseXmlBO);
             }
     }
 }

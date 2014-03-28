@@ -11,6 +11,7 @@
           <EntitySet Name="lk_SurveyType" EntityType="OSELS_EWEModel.Store.lk_SurveyType" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Organization" EntityType="OSELS_EWEModel.Store.Organization" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ResponseDisplaySettings" EntityType="OSELS_EWEModel.Store.ResponseDisplaySettings" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ResponseXml" EntityType="OSELS_EWEModel.Store.ResponseXml" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyMetaData" EntityType="OSELS_EWEModel.Store.SurveyMetaData" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyMetaDataUser" EntityType="OSELS_EWEModel.Store.SurveyMetaDataUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyResponse" EntityType="OSELS_EWEModel.Store.SurveyResponse" store:Type="Tables" Schema="dbo" />
@@ -108,6 +109,15 @@
           <Property Name="FormId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ColumnName" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResponseXml">
+          <Key>
+            <PropertyRef Name="ResponseId" />
+          </Key>
+          <Property Name="ResponseId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Xml" Type="xml" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="IsNewRecord" Type="bit" />
         </EntityType>
         <EntityType Name="SurveyMetaData">
           <Key>
@@ -419,6 +429,7 @@
             <End Role="SurveyResponse" EntitySet="SurveyResponses" />
             <End Role="SurveyResponse1" EntitySet="SurveyResponses" />
           </AssociationSet>
+          <EntitySet Name="ResponseXmls" EntityType="OSELS_EWEModel.ResponseXml" />
         </EntityContainer>
         <EntityType Name="Admin">
           <Key>
@@ -652,6 +663,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ResponseXml">
+          <Key>
+            <PropertyRef Name="ResponseId" />
+          </Key>
+          <Property Type="Guid" Name="ResponseId" Nullable="false" />
+          <Property Type="String" Name="Xml" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="UserId" />
+          <Property Type="Boolean" Name="IsNewRecord" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -790,6 +810,16 @@
               <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="ResponseXmls">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.ResponseXml">
+              <MappingFragment StoreEntitySet="ResponseXml">
+                <ScalarProperty Name="IsNewRecord" ColumnName="IsNewRecord" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Xml" ColumnName="Xml" />
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -865,6 +895,7 @@
           <ConnectorPoint PointX="9.2284615384615378" PointY="4.625" />
           <ConnectorPoint PointX="9.2284615384615378" PointY="4.875" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="OSELS_EWEModel.ResponseXml" Width="1.5" PointX="8.375" PointY="0.75" Height="1.4033821614583317" />
       </Diagram>
     </Diagrams>
   </Designer>

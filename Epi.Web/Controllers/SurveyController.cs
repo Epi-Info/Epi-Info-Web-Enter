@@ -371,7 +371,10 @@ namespace Epi.Web.MVC.Controllers
                                     }
                                 //SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
                                 //SurveyAnswerResponse Object = _isurveyFacade.GetSurveyAnswerHierarchy(SurveyAnswerRequest);
+                                SurveyAnswerRequest SurveyAnswerRequest1 = new SurveyAnswerRequest();
+                                SurveyAnswerRequest1.Action = "DeleteResponseXml";
                                 var List = ListSurveyAnswerDTO.OrderByDescending(x=>x.DateCreated);//.OrderBy(x => x.ParentRecordId);
+
                                 foreach (var Obj in List)
                                     {
                                // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(RootResponseId).SurveyResponseList[0];
@@ -382,6 +385,12 @@ namespace Epi.Web.MVC.Controllers
                                 MvcDynamicForms.Form form2 = UpDateSurveyModel(surveyInfoModel2, IsMobileDevice, FormValuesHasChanged, SurveyAnswer2,true);
                                
                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel2, Obj.ResponseId, form2, SurveyAnswer2, IsSubmited, true, PageNumber, UserId);
+
+                                SurveyAnswerRequest1.SurveyAnswerList.Add(SurveyAnswer2);
+                              
+                                    }
+                                if(this.IsEditMode){
+                                _isurveyFacade.DeleteResponseXml(SurveyAnswerRequest1);
                                     }
 
                                if (!string.IsNullOrEmpty(CloseButton))
@@ -773,10 +782,12 @@ namespace Epi.Web.MVC.Controllers
 
         public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
             {
-            
+            bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
+
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            SARequest.Criteria.IsEditMode = this.IsEditMode;
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(Session["RootFormId"]);//string.Empty
