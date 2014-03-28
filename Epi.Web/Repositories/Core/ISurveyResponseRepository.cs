@@ -32,5 +32,7 @@ namespace Epi.Web.MVC.Repositories.Core
         SurveyAnswerResponse GetSurveyAnswerAncestor(SurveyAnswerRequest pRequest);
 
         SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq);
+
+        SurveyAnswerResponse DeleteResponseXml(SurveyAnswerRequest FormResponseReq);
     }
 }

@@ -30,7 +30,7 @@ namespace Epi.Web.Common.BusinessObject
         public string UserEmail { get; set; }
         public string ParentId { get; set; }
         public string RelateParentId { get; set; }
-
+        public bool IsNewRecord { get; set; }
         public object Clone() 
             {
 

@@ -310,6 +310,7 @@ namespace Epi.Web.WCF.SurveyService
                 }
 
                 // Transform SurveyResponse data transfer object to SurveyResponse business object
+
                 SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList, request.Criteria.UserId)[0];
 
                 SurveyResponse.UserId = request.Criteria.UserId;
@@ -343,19 +344,22 @@ namespace Epi.Web.WCF.SurveyService
                         Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
                         List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
                         //check if any orphan records exists 
-                        foreach (var item in SurveyResponseBOList.Where(x=>x.Status==2 ))
+                        foreach (var item in SurveyResponseBOList)
                             {
 
-                            SurveyResponseBO SurveyResponseBO = Implementation.GetFormResponseByParentRecordId(item.ResponseId);
+                            SurveyResponseBO SurveyResponseBO = Implementation.GetResponseXml(item.ResponseId);
                             if (! string.IsNullOrEmpty(SurveyResponseBO.ResponseId))
                                 {
                                SurveyResponseBO.UserId= request.Criteria.UserId;
-                                   Implementation.DeleteSurveyResponse(SurveyResponseBO);
-                                goto  Exit;
+                               ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
+                               ResponseXmlBO.ResponseId = SurveyResponseBO.ResponseId;
+                               Implementation.DeleteResponseXml(ResponseXmlBO);
+                                
                                 }
                             }
-                    Exit:
+                 
                         SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
+
                         response.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.InsertSurveyResponse(SurveyResponseBOList,request.Criteria.UserId));
                     }
                     else if (request.Action.Equals("CreateChild", StringComparison.OrdinalIgnoreCase))
@@ -366,9 +370,14 @@ namespace Epi.Web.WCF.SurveyService
 
                         Implementation.InsertChildSurveyResponse(SurveyResponse, SurveyInfoBO, request.SurveyAnswerList[0].RelateParentId);
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
+
+                        List<SurveyResponseBO> List = new List<SurveyResponseBO>();
+                        List.Add(SurveyResponse);
+                        Implementation.InsertSurveyResponse(List, request.Criteria.UserId,true);
+
                     }
                     else if (request.Action.Equals("Update", StringComparison.OrdinalIgnoreCase))
-                    {
+                    { 
                         Implementation.UpdateSurveyResponse(SurveyResponse);
                         response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
                     }
@@ -410,6 +419,24 @@ namespace Epi.Web.WCF.SurveyService
                             }
                         }
                     }
+                    else if (request.Action.Equals("DeleteResponseXml", StringComparison.OrdinalIgnoreCase))
+                        {
+
+                        foreach (var item  in request.SurveyAnswerList)
+                            {
+                            try
+                                {
+                                ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
+                                ResponseXmlBO.ResponseId = item.ResponseId;
+                                Implementation.DeleteResponseXml(ResponseXmlBO);
+                                    
+                                }
+                            catch
+                                {
+                                
+                                }
+                            }
+                        }
                 }
 
                 return response;
