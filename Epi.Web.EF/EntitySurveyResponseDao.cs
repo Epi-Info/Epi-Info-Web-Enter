@@ -867,6 +867,90 @@ namespace Epi.Web.EF
             
             }
 
+
+        public SurveyResponseBO GetResponseXml(string ResponseId) {
+
+
+        SurveyResponseBO result = new SurveyResponseBO();
+
+        try
+            {
+
+            Guid Id = new Guid(ResponseId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+
+
+                var Response = Context.ResponseXmls.Where(x => x.ResponseId == Id);
+                if (Response.Count() > 0)
+                    {
+                    result = (Mapper.Map(Response.Single()));
+
+                    }
+
+                }
+
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+
+
+
+
+        return result;
+            
+            }
+
+
+        public void DeleteResponseXml(ResponseXmlBO ResponseXmlBO)
+            {
+
+
+            Guid Id = new Guid(ResponseXmlBO.ResponseId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                ResponseXml Response = Context.ResponseXmls.First(x => x.ResponseId == Id);
+                
+
+                Context.ResponseXmls.DeleteObject(Response);
+
+                Context.SaveChanges();
+
+                }
+            
+            }
+
+
+
+
+        public void InsertResponseXml(ResponseXmlBO ResponseXmlBO)
+        {
+
+        try
+            {
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+                ResponseXml ResponseXml = Mapper.ToEF(ResponseXmlBO);
+
+
+                Context.AddToResponseXmls(ResponseXml);
+                
+                Context.SaveChanges();
+                }
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+            
+            
+         }
+
     }
 
     

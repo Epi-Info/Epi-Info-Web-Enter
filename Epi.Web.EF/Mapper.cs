@@ -384,5 +384,25 @@ namespace Epi.Web.EF
             return result;
             }
 
+
+        internal static  SurveyResponseBO  Map(ResponseXml ResponseXml)
+            {
+            SurveyResponseBO SurveyResponseBO = new SurveyResponseBO();
+            SurveyResponseBO.ResponseId = ResponseXml.ResponseId.ToString();
+            SurveyResponseBO.XML = ResponseXml.Xml;
+            SurveyResponseBO.UserId = (int) ResponseXml.UserId;
+            SurveyResponseBO.IsNewRecord = (bool)ResponseXml.IsNewRecord;
+            return SurveyResponseBO;
+            }
+
+        internal static ResponseXml ToEF(ResponseXmlBO ResponseXmlBO)
+            {
+            ResponseXml ResponseXml = new ResponseXml();
+            ResponseXml.ResponseId =  new Guid(ResponseXmlBO.ResponseId);
+            ResponseXml.Xml = ResponseXmlBO.Xml;
+            ResponseXml.UserId = ResponseXmlBO.User;
+            ResponseXml.IsNewRecord = ResponseXmlBO.IsNewRecord;
+            return ResponseXml;
+            }
     }
 }

@@ -311,5 +311,13 @@ namespace Epi.Web.MVC.Facade
             
             
             }
+
+        public void DeleteResponseXml(SurveyAnswerRequest FormResponseReq) 
+            {
+
+            _iSurveyAnswerRepository.DeleteResponseXml(FormResponseReq);
+            
+            
+            }
     }
 }
