@@ -44,6 +44,12 @@ namespace Epi.Web.MVC.Controllers
         //string responseid,string SurveyId, int ViewId, string CurrentPage
         public ActionResult Index(string formid, int Pagenumber = 1, int ViewId=0, string responseid="")
         {
+        if (ViewId == 0) {
+
+
+        Session["RootFormId"] = formid;
+            
+            }
         if (ViewId == 0 && string.IsNullOrEmpty(responseid))
             {
             var model = new FormResponseInfoModel();
@@ -96,8 +102,128 @@ namespace Epi.Web.MVC.Controllers
             
             }
         }
-        
 
+        [HttpPost]
+        public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
+            {
+            if (!string.IsNullOrEmpty(EditForm))
+                {
+                //Session["RootFormId"] = surveyid;
+                Session["RootResponseId"] = EditForm;
+
+                Session["IsEditMode"] = true;
+                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
+                return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
+                }
+            else
+                {
+                Session["IsEditMode"] = false;
+                }
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            if (!string.IsNullOrEmpty(EditForm))
+                {
+                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                surveyAnswerDTO.Status = 1;
+                string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
+                return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
+                }
+            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
+
+
+            if (IsMobileDevice == false)
+                {
+                IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
+                }
+
+            FormsAuthentication.SetAuthCookie("BeginSurvey", false);
+
+            //create the responseid
+            Guid ResponseID = Guid.NewGuid();
+            TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] = ResponseID.ToString();
+
+            // create the first survey response
+            // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
+            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), 2);
+            SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
+
+            // set the survey answer to be production or test 
+            SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
+            XDocument xdoc = XDocument.Parse(surveyInfoModel.XML);
+
+            MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice);
+
+            var _FieldsTypeIDs = from _FieldTypeID in
+                                     xdoc.Descendants("Field")
+                                 select _FieldTypeID;
+
+            TempData["Width"] = form.Width + 100;
+
+            XDocument xdocResponse = XDocument.Parse(SurveyAnswer.XML);
+
+            XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
+            string checkcode = ViewElement.Attribute("CheckCode").Value.ToString();
+
+            form.FormCheckCodeObj = form.GetCheckCodeObj(xdoc, xdocResponse, checkcode);
+
+            ///////////////////////////// Execute - Record Before - start//////////////////////
+            Dictionary<string, string> ContextDetailList = new Dictionary<string, string>();
+            EnterRule FunctionObject_B = (EnterRule)form.FormCheckCodeObj.GetCommand("level=record&event=before&identifier=");
+            if (FunctionObject_B != null && !FunctionObject_B.IsNull())
+                {
+                try
+                    {
+                    SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);
+                    //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
+
+                    form.RequiredFieldsList = this.RequiredList;
+                    FunctionObject_B.Context.HiddenFieldList = form.HiddenFieldsList;
+                    FunctionObject_B.Context.HighlightedFieldList = form.HighlightedFieldsList;
+                    FunctionObject_B.Context.DisabledFieldList = form.DisabledFieldsList;
+                    FunctionObject_B.Context.RequiredFieldList = form.RequiredFieldsList;
+
+                    FunctionObject_B.Execute();
+
+                    // field list
+                    form.HiddenFieldsList = FunctionObject_B.Context.HiddenFieldList;
+                    form.HighlightedFieldsList = FunctionObject_B.Context.HighlightedFieldList;
+                    form.DisabledFieldsList = FunctionObject_B.Context.DisabledFieldList;
+                    form.RequiredFieldsList = FunctionObject_B.Context.RequiredFieldList;
+
+
+                    ContextDetailList = Epi.Web.MVC.Utility.SurveyHelper.GetContextDetailList(FunctionObject_B);
+                    form = Epi.Web.MVC.Utility.SurveyHelper.UpdateControlsValuesFromContext(form, ContextDetailList);
+
+                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0, UserId);
+                    }
+                catch (Exception ex)
+                    {
+                    // do nothing so that processing
+                    // can continue
+                    }
+                }
+            else
+                {
+                SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);
+                //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
+                form.RequiredFieldsList = RequiredList;
+                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, UserId);
+                }
+
+            SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
+
+            ///////////////////////////// Execute - Record Before - End//////////////////////
+            //string page;
+            // return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });
+            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResponseID, PageNumber = 1 });
+            //}
+            //catch (Exception ex)
+            //{
+            //    //Epi.Web.Utility.ExceptionMessage.SendLogMessage(ex, this.HttpContext);
+            //    //return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
+            //}
+
+            }
          
 
         public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
@@ -259,127 +385,7 @@ namespace Epi.Web.MVC.Controllers
                 }
             return ColumnValue;
             }
-        [HttpPost]
-        public ActionResult Index(string surveyid, string AddNewFormId, string EditForm)
-        {
-        if (!string.IsNullOrEmpty(EditForm))
-            {
-            Session["RootFormId"] = surveyid;
-            Session["RootResponseId"] = EditForm;
-
-            Session["IsEditMode"] = true;
-            Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
-            string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
-            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
-            }
-        else
-            {
-            Session["IsEditMode"] = false;
-            }
-        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()); 
-        if (!string.IsNullOrEmpty(EditForm))
-            {
-            Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
-            surveyAnswerDTO.Status = 1;
-            string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
-            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1,Edit ="Edit" });
-            }
-            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
-
-
-            if (IsMobileDevice == false)
-            {
-                IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
-            }
-
-            FormsAuthentication.SetAuthCookie("BeginSurvey", false);
-
-            //create the responseid
-            Guid ResponseID = Guid.NewGuid();
-            TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] = ResponseID.ToString();
-
-            // create the first survey response
-            // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(),2);
-            SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
-
-            // set the survey answer to be production or test 
-            SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
-            XDocument xdoc = XDocument.Parse(surveyInfoModel.XML);
-
-            MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice);
-
-            var _FieldsTypeIDs = from _FieldTypeID in
-                                     xdoc.Descendants("Field")
-                                 select _FieldTypeID;
-
-            TempData["Width"] = form.Width + 100;
-
-            XDocument xdocResponse = XDocument.Parse(SurveyAnswer.XML);
-
-            XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
-            string checkcode = ViewElement.Attribute("CheckCode").Value.ToString();
-
-            form.FormCheckCodeObj = form.GetCheckCodeObj(xdoc, xdocResponse, checkcode);
-
-            ///////////////////////////// Execute - Record Before - start//////////////////////
-            Dictionary<string, string> ContextDetailList = new Dictionary<string, string>();
-            EnterRule FunctionObject_B = (EnterRule)form.FormCheckCodeObj.GetCommand("level=record&event=before&identifier=");
-            if (FunctionObject_B != null && !FunctionObject_B.IsNull())
-            {
-                try
-                {
-                    SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);
-                    //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
-
-                    form.RequiredFieldsList = this.RequiredList;
-                    FunctionObject_B.Context.HiddenFieldList = form.HiddenFieldsList;
-                    FunctionObject_B.Context.HighlightedFieldList = form.HighlightedFieldsList;
-                    FunctionObject_B.Context.DisabledFieldList = form.DisabledFieldsList;
-                    FunctionObject_B.Context.RequiredFieldList = form.RequiredFieldsList;
-
-                    FunctionObject_B.Execute();
-
-                    // field list
-                    form.HiddenFieldsList = FunctionObject_B.Context.HiddenFieldList;
-                    form.HighlightedFieldsList = FunctionObject_B.Context.HighlightedFieldList;
-                    form.DisabledFieldsList = FunctionObject_B.Context.DisabledFieldList;
-                    form.RequiredFieldsList = FunctionObject_B.Context.RequiredFieldList;
-
-
-                    ContextDetailList = Epi.Web.MVC.Utility.SurveyHelper.GetContextDetailList(FunctionObject_B);
-                    form = Epi.Web.MVC.Utility.SurveyHelper.UpdateControlsValuesFromContext(form, ContextDetailList);
-
-                    _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, ResponseID.ToString(), form, SurveyAnswer, false, false, 0, UserId);
-                }
-                catch (Exception ex)
-                {
-                    // do nothing so that processing
-                    // can continue
-                }
-            }
-            else
-            {
-                SurveyAnswer.XML = CreateResponseDocument(xdoc, SurveyAnswer.XML);
-                //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
-                form.RequiredFieldsList = RequiredList;
-                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, UserId);
-            }
-
-            SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
-
-            ///////////////////////////// Execute - Record Before - End//////////////////////
-            //string page;
-            // return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });
-            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResponseID, PageNumber = 1 });
-            //}
-            //catch (Exception ex)
-            //{
-            //    //Epi.Web.Utility.ExceptionMessage.SendLogMessage(ex, this.HttpContext);
-            //    //return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
-            //}
-
-        }
+        
 
         private string CreateResponseDocument(XDocument pMetaData, string pXML)
         {

@@ -87,7 +87,9 @@ namespace Epi.Web.MVC.Facade
             MvcDynamicForms.Form form = null;
 
             if (IsMobileDevice)
-            {
+                {
+                Epi.Web.MVC.Utility.MobileFormProvider.SurveyInfoList = List;
+                Epi.Web.MVC.Utility.MobileFormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
                 form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
             }
             else
