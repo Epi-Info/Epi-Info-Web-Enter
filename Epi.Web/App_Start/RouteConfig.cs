@@ -44,7 +44,7 @@ namespace Epi.Web.MVC
            (
                null, // Route name
                "Home/ReadResponseInfo", // URL with parameters
-               new { controller = "Home", action = "ReadResponseInfo", formid = UrlParameter.Optional }
+               new { controller = "Home", action = "ReadResponseInfo"}
            ); // Parameter defaults
             routes.MapRoute
          (
@@ -108,7 +108,14 @@ namespace Epi.Web.MVC
                 null, // Route name
                 "FormResponse/LogOut", // URL with parameters
                 new { controller = "FormResponse", action = "LogOut", ResId = UrlParameter.Optional }
-            ); 
+            );
+            routes.MapRoute
+           (
+               null, // Route name
+               "FormResponse/ReadResponseInfo", // URL with parameters
+               new { controller = "FormResponse", action = "ReadResponseInfo", ResId = UrlParameter.Optional }
+           ); 
+
             routes.MapRoute
             (
                 null, // Route name
@@ -193,7 +200,8 @@ namespace Epi.Web.MVC
                     "Survey/{responseid}/{PageNumber}", // URL with parameters
                     new { controller = "Survey", action = "Index", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
                 ); // Parameter defaults
-          
+            
+           
             routes.MapRoute
              (
                  null, // Route name
