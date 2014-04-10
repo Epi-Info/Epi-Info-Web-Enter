@@ -92,7 +92,10 @@ namespace Epi.Web.MVC.Controllers
                     {
 
                     Session["RootResponseId"] = responseId;
-                    Session["RootFormId"] = surveyAnswerDTO.SurveyId;
+                    if (IsMobileDevice == false)
+                        {
+                          Session["RootFormId"] = surveyAnswerDTO.SurveyId;
+                        }
                     }
                 List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
                 // SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(surveyAnswerDTO.SurveyId);
