@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Epi Web Enter - Form";
 }
 
@@ -632,7 +633,7 @@ function CloseDialog() {
 function ExitSurvey() {
    
       var signoutUrl = '@Url.Action("Delete", "Survey")';
-      var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+      //var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
       //var homePageUrl = 'FormResponse/Index' + '/' + '@Model.Form.SurveyInfo.SurveyId';
       //alert(homePageUrl);
       $.ajax({
@@ -641,10 +642,14 @@ function ExitSurvey() {
           contentType: 'application/json; charset=utf-8',
           dataType: "json",
           async: false,
-          success: function () { window.parent.location.href = homePageUrl; },
+          success: successFunc,
           error: errorFunc
       });
-    
+      function successFunc(data) {
+         
+          var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + data;
+          window.location.href = homePageUrl;
+      }
 }
 
 function errorFunc(data) {
@@ -810,7 +815,7 @@ function SaveForm() {
              @Html.AntiForgeryToken() 
         
             
-         @Html.Raw(Model.Form.RenderHtml(true))
+             @Html.Raw(Model.Form.RenderHtml(true))
             
            
              
@@ -819,30 +824,29 @@ function SaveForm() {
             <input type="hidden"  id="HighlightedFieldsList"  name="HighlightedFieldsList" value="@Model.Form.HighlightedFieldsList" />
             <input type="hidden"  id="DisabledFieldsList"  name="DisabledFieldsList" value="@Model.Form.DisabledFieldsList" />
             <input type="hidden"  id="RequiredFieldsList"  name="RequiredFieldsList" value="@Model.Form.RequiredFieldsList" />
-             <input type="hidden"  id="AssignList"  name="AssignList" value="@Model.Form.AssignList" />
+            <input type="hidden"  id="AssignList"  name="AssignList" value="@Model.Form.AssignList" />
    	        <input type="hidden"  name="is_save_action" value="false" />
             <input type="hidden"  name="is_save_action_Mobile" value="false" />
             <input type="hidden"  name="is_goto_action" value="false" /> 
-               <input type="hidden"  name="Get_Child_action" value="false" />
-                 <input type="hidden"  name="Read_Response_action" value="false" />
-               
-        <input type="hidden"  name="Go_Home_action" value="false" />
-    
-          <input type="hidden"  name="Go_One_Level_Up_action" value="false" />
-	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
-        <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
-        <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
-
+            <input type="hidden"  name="Get_Child_action" value="false" />
+            <input type="hidden"  name="Read_Response_action" value="false" />
+            <input type="hidden"  name="Go_Home_action" value="false" />
+            <input type="hidden"  name="Go_One_Level_Up_action" value="false" />
+	        <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
+            <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
             <input type="hidden"  name="HiddenStatusId" id="HiddenStatusId" value="false" />
             <input type="hidden"  name="HiddenIsSaved" id="HiddenIsSaved" value="false" /> 
-               <input type="hidden"  name="HiddensuccessContent" id="HiddensuccessContent" value="false" /> 
+            <input type="hidden"  name="HiddensuccessContent" id="HiddensuccessContent" value="false" /> 
             <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
+
+
              <div id="nav">
                     <div id="pagesbottom">
                             <div id="prev" align="left">&nbsp;
+                   
              @if (Model.Form.CurrentPage != 1)
                  {  
-              <a  onclick="Submit();" style="" href="@Url.RouteUrl(null, new { controller = "Survey", action = "Index", responseid = Model.Form.ResponseId, PageNumber = Model.CurrentPage - 1 })"  class="prev" title="Previous Page">&nbsp;</a> 
+              <a  onclick="Submit();" style="" href="@Url.RouteUrl(null, new { controller = "Survey", action = "Index", responseid = Model.Form.ResponseId, PageNumber = Model.Form.CurrentPage - 1 })"  class="prev" title="Previous Page">&nbsp;</a> 
              @* <button class="prev" id="PreviousButton" value="PreviousButton" onclick="Previous();"  name="PreviousButton"  type="button" > &nbsp; Previous</button>*@
                  }
              </div>
