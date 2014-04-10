@@ -339,6 +339,18 @@ namespace Epi.Web.MVC.Controllers
                             return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = ChildResponseId, PageNumber = 1 });
 
                             }
+                        //Read_Response_action
+                        else if (!string.IsNullOrEmpty(this.Request.Form["Read_Response_action"]) && this.Request.Form["Read_Response_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                            {
+                           
+                            int RequestedViewId = int.Parse(this.Request.Form["Requested_View_Id"]);
+                           // return RedirectToRoute(new { Controller = "RelatedResponse", Action = "Index", SurveyId = form.SurveyInfo.SurveyId, ViewId = RequestedViewId, ResponseId = responseId, CurrentPage = 1 });
+                           
+                            return RedirectToRoute(new { Controller = "FormResponse", Action = "Index", formid = form.SurveyInfo.SurveyId, ViewId = RequestedViewId, responseid = responseId, Pagenumber = 1 });
+
+                            }
+                        
+                        
                         else if (!string.IsNullOrEmpty(this.Request.Form["is_goto_action"]) && this.Request.Form["is_goto_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                             {
                             //This is a Navigation to a url
@@ -1286,10 +1298,12 @@ namespace Epi.Web.MVC.Controllers
 
         public ActionResult ReadResponseInfo(string SurveyId, int ViewId, string ResponseId, string CurrentPage)//List<FormInfoModel> ModelList, string formid)
             {
+           
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             int PageNumber = int.Parse(CurrentPage);
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
-
+           if (IsMobileDevice == false)
+                { 
             
           //  var model = new FormResponseInfoModel();
             List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
@@ -1326,13 +1340,14 @@ namespace Epi.Web.MVC.Controllers
             
           //  model = GetFormResponseInfoModel(formid, page);
 
-            if (IsMobileDevice == false)
-                {
+            
                 return PartialView("ListResponses", SurveyModel);
                 }
             else
                 {
-                return View("ListResponses", SurveyModel);
+                //return View("ListResponses", SurveyModel); string formid, int pagenumber = 1
+                return RedirectToAction("Index", "RelatedResponse", new { SurveyId = SurveyId, ViewId = ViewId, ResponseId = ResponseId, CurrentPage = CurrentPage });
+                //return RedirectToAction("FormResponse");
                 }
             }
         

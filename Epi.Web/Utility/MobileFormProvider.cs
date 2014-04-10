@@ -14,6 +14,10 @@ namespace Epi.Web.MVC.Utility
 {
     public class MobileFormProvider
     {
+
+        public static List<Epi.Web.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
+        public static List<Epi.Web.Common.DTO.SurveyInfoDTO> SurveyInfoList;
+        
         public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Common.DTO.SurveyAnswerDTO _SurveyAnswer)
         {
             string SurveyAnswer;
@@ -91,9 +95,16 @@ namespace Epi.Web.MVC.Utility
                 form.DisabledFieldsList = xdocResponse.Root.Attribute("DisabledFieldsList").Value;
                 form.RequiredFieldsList = xdocResponse.Root.Attribute("RequiredFieldsList").Value;
                 // Adding Required fileds from MetaData to the list
-                
-                form.FormCheckCodeObj = form.GetCheckCodeObj(xdoc, xdocResponse, checkcode);
 
+                if (SurveyAnswerList != null)
+                    {
+
+                    form.FormCheckCodeObj = form.GetRelateCheckCodeObj(GetRelateFormObj(), checkcode);
+                    }
+                else
+                    {
+                    form.FormCheckCodeObj = form.GetCheckCodeObj(xdoc, xdocResponse, checkcode);
+                    }
 
                 form.FormCheckCodeObj.GetVariableJavaScript(VariableDefinitions);
                 form.FormCheckCodeObj.GetSubroutineJavaScript(VariableDefinitions);
@@ -234,6 +245,10 @@ namespace Epi.Web.MVC.Utility
                                 //                                             pName, pType, pSource
                                 //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "commentlegal", "datasource",Value)); 
 
+                                break;
+                                
+                            case "20"://RelateButton
+                                form.AddFields(GetRelateButton(_FieldTypeID, _Width, _Height, xdocResponse, form));
                                 break;
                             case "21"://GroupBox
                                 //var _GroupBoxValue = GetControlValue(SurveyAnswer, _FieldTypeID.Attribute("UniqueId").Value);
@@ -724,6 +739,34 @@ namespace Epi.Web.MVC.Utility
             return MobileTimePicker;
 
         }
+        private static MobileRelateButton GetRelateButton(XElement _FieldTypeID, double _Width, double _Height, XDocument SurveyAnswer, Form form)
+            {
+
+
+            MobileRelateButton RelateButton = new MobileRelateButton();
+
+            RelateButton.Title = _FieldTypeID.Attribute("Name").Value;
+            RelateButton.Prompt = _FieldTypeID.Attribute("PromptText").Value;
+            RelateButton.DisplayOrder = int.Parse(_FieldTypeID.Attribute("TabIndex").Value);
+            RelateButton.RequiredMessage = "This field is required";
+            RelateButton.Key = _FieldTypeID.Attribute("Name").Value;
+            RelateButton.Top = _Height * double.Parse(_FieldTypeID.Attribute("ControlTopPositionPercentage").Value);
+            RelateButton.Left = _Width * double.Parse(_FieldTypeID.Attribute("ControlLeftPositionPercentage").Value);
+            RelateButton.ControlWidth = _Width * double.Parse(_FieldTypeID.Attribute("ControlWidthPercentage").Value);
+            RelateButton.ControlHeight = _Height * double.Parse(_FieldTypeID.Attribute("ControlHeightPercentage").Value);
+            RelateButton.fontstyle = _FieldTypeID.Attribute("PromptFontStyle").Value;
+            RelateButton.fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value;
+            RelateButton.InputFieldfontstyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
+            RelateButton.InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
+            RelateButton.InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value;
+            RelateButton.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+            RelateButton.IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList");
+            RelateButton.IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList");
+            RelateButton.IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList");
+            RelateButton.RelatedViewId = _FieldTypeID.Attribute("RelatedViewId").Value;
+            return RelateButton;
+            }
+
 
 
         private static MobileSelect GetDropDown(XElement _FieldTypeID, double _Width, double _Height, XDocument SurveyAnswer, string _ControlValue, string DropDownValues, int FieldTypeId, Form form)
@@ -1190,5 +1233,41 @@ namespace Epi.Web.MVC.Utility
             }
 
         }
-    }
+
+        public Epi.Core.EnterInterpreter.Rule_Context GetRelateCheckCodeObj(List<Epi.Web.Common.Helper.RelatedFormsObj> Obj, string FormCheckCode)
+            {
+            Epi.Core.EnterInterpreter.EpiInterpreterParser EIP = new Epi.Core.EnterInterpreter.EpiInterpreterParser(Epi.Core.EnterInterpreter.EpiInterpreterParser.GetEnterCompiledGrammarTable());
+            Epi.Core.EnterInterpreter.Rule_Context result = (Epi.Core.EnterInterpreter.Rule_Context)EIP.Context;
+            foreach (var item in Obj)
+                {
+                result.LoadTemplate(item.MetaData, item.Response);
+                }
+            EIP.Execute(FormCheckCode);
+
+            return result;
+            }
+        private static List<Epi.Web.Common.Helper.RelatedFormsObj> GetRelateFormObj()
+            {
+
+            List<Epi.Web.Common.Helper.RelatedFormsObj> List = new List<Common.Helper.RelatedFormsObj>();
+
+
+            for (int i = 0; SurveyAnswerList.Count() > i; i++)
+                {
+
+
+                Epi.Web.Common.Helper.RelatedFormsObj RelatedFormsObj = new Epi.Web.Common.Helper.RelatedFormsObj();
+                XDocument xdocResponse1 = XDocument.Parse(SurveyAnswerList[i].XML);
+                XDocument xdoc1 = XDocument.Parse(SurveyInfoList[i].XML.ToString());
+                RelatedFormsObj.MetaData = xdoc1;
+                RelatedFormsObj.Response = xdocResponse1;
+
+
+                List.Add(RelatedFormsObj);
+                }
+
+            return List;
+            }
+
+        }
 }

@@ -67,7 +67,7 @@ var pageId = $('#hidPageNumber').val();
         }
 
         function errorFunc(data) {
-            alert('failed');
+            alert('failed to delete');
         }
         function getQueryStringValue() {
             var QueryString = [], hash;
@@ -113,8 +113,13 @@ var pageId = $('#hidPageNumber').val();
                 <div style="max-width:720px;">
                
                <div id="infobox1">
+                      @if (!string.IsNullOrEmpty(@Model.FormInfoModel.OwnerFName) && !string.IsNullOrEmpty(@Model.FormInfoModel.OwnerLName))
+                          { 
                     <div id="create">
-                        <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerFName @Model.FormInfoModel.OwnerLName </span></div>
+                   
+                        <span>Created by:</span> <span class="boldlabel">@Model.FormInfoModel.OwnerFName @Model.FormInfoModel.OwnerLName </span>
+                        </div>
+                          }
                     @*      <div id="status">
                     <span>Status:</span> <span class="boldlabel">Active</span></div>*@
                     @{
