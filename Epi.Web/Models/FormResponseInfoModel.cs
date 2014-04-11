@@ -15,7 +15,7 @@ namespace Epi.Web.MVC.Models
         public int CurrentPage;
         public int PageSize;
         public int NumberOfResponses;
-
+        public int ViewId;
         public FormResponseInfoModel()
         {
             FormInfoModel = new FormInfoModel();
