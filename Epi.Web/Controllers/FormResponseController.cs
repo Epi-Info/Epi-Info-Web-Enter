@@ -44,11 +44,11 @@ namespace Epi.Web.MVC.Controllers
         //string responseid,string SurveyId, int ViewId, string CurrentPage
         public ActionResult Index(string formid, int Pagenumber = 1, int ViewId=0, string responseid="")
         {
-        if (Session["RootFormId"] == null)
-            {
+        if (ViewId == 0) {
 
-                  Session["RootFormId"] = formid;
-        
+
+                Session["RootFormId"] = formid;
+                Session.Remove("RootResponseId");
             }
         if (ViewId == 0  )
             {
@@ -122,6 +122,7 @@ namespace Epi.Web.MVC.Controllers
             else
                 {
                 Session["IsEditMode"] = false;
+               
                 }
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             if (!string.IsNullOrEmpty(EditForm))
@@ -143,6 +144,10 @@ namespace Epi.Web.MVC.Controllers
 
             //create the responseid
             Guid ResponseID = Guid.NewGuid();
+            if (Session["RootResponseId"] == null)
+                {
+                Session["RootResponseId"] = ResponseID;
+                }
             TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] = ResponseID.ToString();
 
             // create the first survey response
