@@ -429,7 +429,7 @@ namespace Epi.Web.MVC.Controllers
                                        }
                                    else
                                        {
-                                       return RedirectToAction("Index", "FormResponse", new { formid = surveyInfoModel.SurveyId });
+                                       return RedirectToAction("Index", "FormResponse", new { formid = this.RootFormId });
 
                                        }
 
