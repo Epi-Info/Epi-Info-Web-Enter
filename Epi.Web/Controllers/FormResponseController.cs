@@ -44,21 +44,22 @@ namespace Epi.Web.MVC.Controllers
         //string responseid,string SurveyId, int ViewId, string CurrentPage
         public ActionResult Index(string formid, int Pagenumber = 1, int ViewId=0, string responseid="")
         {
-        if (ViewId == 0) {
+        if (Session["RootFormId"] == null)
+            {
 
-
-        Session["RootFormId"] = formid;
-            
+                  Session["RootFormId"] = formid;
+        
             }
-        if (ViewId == 0 && string.IsNullOrEmpty(responseid))
+        if (ViewId == 0  )
             {
             var model = new FormResponseInfoModel();
-
+            model.ViewId = ViewId;
             model = GetFormResponseInfoModel(formid, Pagenumber);
 
             return View("Index", model);
             }
-        else {
+        else 
+            {
 
         int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
          
@@ -69,7 +70,7 @@ namespace Epi.Web.MVC.Controllers
         List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
         int RequestedViewId;
         RequestedViewId = ViewId;
-
+        
         Session["RequestedViewId"] = RequestedViewId;
         SurveyModel SurveyModel = new SurveyModel();
 
@@ -97,7 +98,7 @@ namespace Epi.Web.MVC.Controllers
 
         SurveyModel.FormResponseInfoModel.FormInfoModel.FormName = form.SurveyInfo.SurveyName;
         SurveyModel.FormResponseInfoModel.FormInfoModel.FormId = form.SurveyInfo.SurveyId;
-
+        SurveyModel.FormResponseInfoModel.ViewId = ViewId;
         return View("Index", SurveyModel.FormResponseInfoModel);
             
             }
@@ -109,8 +110,10 @@ namespace Epi.Web.MVC.Controllers
             if (!string.IsNullOrEmpty(EditForm))
                 {
                 //Session["RootFormId"] = surveyid;
-                Session["RootResponseId"] = EditForm;
-
+                if (Session["RootResponseId"] == null)
+                    {
+                         Session["RootResponseId"] = EditForm;
+                    }
                 Session["IsEditMode"] = true;
                 Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);

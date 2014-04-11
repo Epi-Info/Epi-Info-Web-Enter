@@ -91,7 +91,7 @@ namespace Epi.Web.MVC.Controllers
                 if (!string.IsNullOrEmpty(Edit))
                     {
 
-                    Session["RootResponseId"] = responseId;
+                    //Session["RootResponseId"] = responseId;
                     if (IsMobileDevice == false)
                         {
                           Session["RootFormId"] = surveyAnswerDTO.SurveyId;

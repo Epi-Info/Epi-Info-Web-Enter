@@ -96,7 +96,9 @@ var pageId = $('#hidPageNumber').val();
     </div>
 </div>
 <div id="content" style="margin-bottom: 200px;">
+    @if(Model.ViewId == 0 ){
     @Html.ActionLink("Return to Forms List", "Index", "Home", new object { }, new { @class = "backlink" })
+    }
     <div class="section group" id="main">
         <div id="right" class="col span_1_of_3" style="background: white; padding: 10px;">
             <div id="formtitle">

@@ -720,7 +720,6 @@ function SaveForm() {
         <div id="pages" class="pages">
 
 
-
          @if (Model.Form.NumberOfPages > 0)
           {
               int num = 0;
@@ -768,6 +767,16 @@ function SaveForm() {
             
       
       </div>
+      
+        @if (@Model.Form.SurveyInfo.SurveyId != @Session["RootFormId"].ToString())
+     {
+	<div id="relatenav" style="padding-bottom:10px;">
+            @* <button class=""   id ="Home" type="button" onclick="GoHome()" name="Home"  >  Main Record</button>
+            <button class=""   id ="LevelUp" type="button" onclick="GoOneLevelUp()" name="Home" > Back</button>*@
+              <a class="exitsurvey" onclick="GoHome();"   title="Main Record">Main Record</a>  
+               <a  class="exitsurvey" onclick="GoOneLevelUp();"   title="Back">Back</a>  
+        </div>
+     }
 	     <div id="exit" align="right" style="vertical-align:middle;">
         @*<button  class="MobileExitSurvey"    type="submit" id="close">Exit Survey</button>*@
         <button data-role="button" data-theme="submit2" data-inline="true" type="submit"  name="Submitbutton" value="Submit" > Save & Close </button>

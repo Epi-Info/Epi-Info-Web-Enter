@@ -211,7 +211,10 @@ namespace Epi.Web.BLL
                 FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
                 FormsHierarchyBO.ViewId = item.ViewId;
                 FormsHierarchyBO.FormId = item.SurveyId;
-                 
+                if (item.SurveyId == RootId)
+                    {
+                    FormsHierarchyBO.IsRoot = true;
+                     }
                 result.Add(FormsHierarchyBO);
                 }
 
