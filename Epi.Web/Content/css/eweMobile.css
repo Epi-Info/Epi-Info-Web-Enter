@@ -385,6 +385,15 @@ a.next
     /*font-weight: bold;*/
  }
  
+  #relatenav 
+ {
+     padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #C4C4C4;
+    background: #E5E5E5;
+    height: 25px;
+ }
+ 
  #exit .ui-btn-inner {font-size:9pt !important; padding: 3px 4px !important;}
  
  .ui-btn-hover-submit2, .ui-btn-active-submit2,  a.exitsurvey:hover,  a.exitsurvey:active, #exit .ui-focus, a.next:active, a.next:hover, a.prev:active, a.prev:hover, #nav .ui-focus, .ui-btn-hover-submit1, .ui-btn-active-submit1, .ui-btn-hover-submit2, .ui-btn-active-submit2
@@ -777,6 +786,26 @@ a.backlink
  {
     background-color: #ffc000 !important; 
     -webkit-tap-highlight-color:rgba(0,0,0,0.5);
+}
+
+.ui-btn-up-backrecord, .ui-btn-hover-backrecord
+{
+    cursor: pointer; 
+    vertical-align:middle;
+     border: 1px solid #1f3b53 !important;
+ background: #bbb;
+ background-image:url('../images/backform.png');
+ background-repeat: no-repeat;
+ background-position:15px center;
+ background-size: 16px;
+ padding: 5px 5px 5px -5px;
+ color:#3f3f3f !important;
+    width: 160px;
+    height: 30px;
+    
+    text-align:left;
+    text-shadow:none !important;
+
 }
  }
  

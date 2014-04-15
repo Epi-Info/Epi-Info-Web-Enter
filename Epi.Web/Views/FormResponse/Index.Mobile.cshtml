@@ -105,7 +105,17 @@ var pageId = $('#hidPageNumber').val();
         {
     @Html.ActionLink("Return to Forms List", "Index", "Home", new object { }, new { @class = "backlink" })
         }
+         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
+                { 
     <div class="section group" id="main">
+    @if(Model.ViewId != 0){
+                       @*  <a  class="exitsurvey" onclick="GoOneLevelUp();"   title="Back">Cancel</a>*@
+                              <div id="addnew">
+                        <button  type="submit"  name="Cancel"  value="@Model.CurrentPage" data-theme="backrecord" >
+                           Return to Form
+                        </button>
+                    </div>
+                         }   
         <div id="right" class="col span_1_of_3" style="background: white; padding: 10px;">
             <div id="formtitle">
                 <h2 class="surveyTitle">@Model.FormInfoModel.FormName</h2>
@@ -116,8 +126,8 @@ var pageId = $('#hidPageNumber').val();
                 // webGrid.Pager(WebGridPagerModes.NextPrevious);
                 webGrid.Bind(Model.ResponsesList, autoSortAndPage: true, rowCount: Model.NumberOfResponses);
             }
-            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
-                { 
+           @* @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
+                { *@
                 <div style="max-width:720px;">
                
                <div id="infobox1">
@@ -145,14 +155,7 @@ var pageId = $('#hidPageNumber').val();
                             <span>Mode:</span> <span class="boldlabel">Production</span></div> 
                         
                          <div id="NumberOfRecords" style="display:block;">
-                         @if(Model.ViewId != 0){
-                       @*  <a  class="exitsurvey" onclick="GoOneLevelUp();"   title="Back">Cancel</a>*@
-                              <div id="addnew">
-                        <button  type="submit"  name="Cancel"  value="@Model.CurrentPage" data-theme="defrecord" >
-                            Cancel
-                        </button>
-                    </div>
-                         }   
+                         
                     <span>Total Records:</span> <span class="boldlabel" style="font-size:14pt;">@Model.NumberOfResponses</span></div>
                                
                                
@@ -227,7 +230,9 @@ var pageId = $('#hidPageNumber').val();
                
     @Html.Hidden("hidSelectedResponseId");
     
-            }
+            @*}*@
         </div>
+      
     </div>
+                }
 </div>

@@ -616,7 +616,7 @@ function GoHome()
  });
  $(document).on("click", "button[name='DeleteButton']", function (e) {
      //e.preventDefault();
-     if (confirm('This Action will permanently delete this record.'))
+     if (confirm('Are you sure you want to delete this record and all associated child records?'))
       {
          var signoutUrl = '@Url.Action("DeleteBranch", "Survey", new { ResponseId = "RId" })';
          var Id = $(this).attr("value");
