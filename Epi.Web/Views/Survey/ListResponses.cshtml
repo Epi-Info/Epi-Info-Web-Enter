@@ -86,7 +86,7 @@
 <div id="recordscontent">
     <!--style="display:inline-block;"-->
     <div id="addnew">
-        <button  type="submit"  onclick="AddChild(@HttpContext.Current.Session["RequestedViewId"]);" name="AddNewFormId" class="default record" style="width:150px !important;" >
+        <button  type="submit"  onclick="AddChild(@HttpContext.Current.Session["RequestedViewId"]);" name="AddNewFormId" class="default record" style="width:160px !important; font-size: 1.15em;" >
             Add New Record
         </button>
     </div>
@@ -107,8 +107,8 @@
             var gridColumns = new List<WebGridColumn>();
 
             gridColumns.Add(webGrid.Column(header: "",
-             format: (item) => new HtmlString("<button name='EditForm'  type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
-            "<button name='DeleteButton' type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
+             format: (item) => new HtmlString("<button name='EditForm'  type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "' style='height:24px; padding:0;'>Open</button> " +
+            "<button name='DeleteButton' type='button'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "' style='height:24px; padding:0;'> Delete</button>"
                                                                                                    )));
             if (Model.FormResponseInfoModel.Columns.Count >= 1)
                 {
