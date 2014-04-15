@@ -43,8 +43,8 @@ var pageId = $('#hidPageNumber').val();
 
     function ExitSurvey() {
 
-             
-            var signoutUrl = '@Url.Action("Delete", "FormResponse")' + '?ResponseId=' + $("input[id=hidSelectedResponseId]").val();
+
+        var signoutUrl = '@Url.Action("Delete", "FormResponse")' + '?ResponseId=' + $("input[id=hidSelectedResponseId]").val() + '&surveyid=' + '@Model.FormInfoModel.FormId';
             $.ajax({
                 url: signoutUrl,
                 type: 'POST',
@@ -57,13 +57,18 @@ var pageId = $('#hidPageNumber').val();
 
                                 
         }
+       
+        function successFunc(data) {
+           
+            //var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + getQueryStringValue()["formid"].toString();
+            //var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+            //homePageUrl = homePageUrl.replace("RId", data.toString());
+            //window.location.href = window.location.href;
 
-        function successFunc() {
-          //  alert(5);
-          //  var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + getQueryStringValue()["formid"].toString();
-         //   alert(homePageUrl);
-            //window.location.href = homePageUrl; // homePageUrl;
-            window.location.href = window.location.href;
+           var homePageUrl = '@Url.Action("Index", "FormResponse", new { ViewId = @Model.ViewId })'  ;
+          
+            window.location.href = homePageUrl;
+        
         }
 
         function errorFunc(data) {
@@ -96,9 +101,10 @@ var pageId = $('#hidPageNumber').val();
     </div>
 </div>
 <div id="content" style="margin-bottom: 200px;">
-    @if(Model.ViewId == 0 ){
+    @if (Model.ViewId == 0)
+        {
     @Html.ActionLink("Return to Forms List", "Index", "Home", new object { }, new { @class = "backlink" })
-    }
+        }
     <div class="section group" id="main">
         <div id="right" class="col span_1_of_3" style="background: white; padding: 10px;">
             <div id="formtitle">
@@ -111,7 +117,7 @@ var pageId = $('#hidPageNumber').val();
                 webGrid.Bind(Model.ResponsesList, autoSortAndPage: true, rowCount: Model.NumberOfResponses);
             }
             @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
-            { 
+                { 
                 <div style="max-width:720px;">
                
                <div id="infobox1">
@@ -125,24 +131,32 @@ var pageId = $('#hidPageNumber').val();
                     @*      <div id="status">
                     <span>Status:</span> <span class="boldlabel">Active</span></div>*@
                     @{
-                if (@Model.FormInfoModel.IsDraftMode)
-                {
+                      if (@Model.FormInfoModel.IsDraftMode)
+                          {
                         <div id="mode">
                             <span>Mode:</span> <span class="boldlabel">Staging</span></div>
                          <div id="NumberOfRecords" style="display:block;"> 
                     <span>Total Records:</span> <span class="boldlabel" style="font-size:14pt;">@Model.NumberOfResponses</span></div>
-                }
-                else
-                {
+                          }
+                      else
+                          {
                                
                         <div id="mode">
                             <span>Mode:</span> <span class="boldlabel">Production</span></div> 
                         
-                         <div id="NumberOfRecords" style="display:block;"> 
+                         <div id="NumberOfRecords" style="display:block;">
+                         @if(Model.ViewId != 0){
+                       @*  <a  class="exitsurvey" onclick="GoOneLevelUp();"   title="Back">Cancel</a>*@
+                              <div id="addnew">
+                        <button  type="submit"  name="Cancel"  value="@Model.CurrentPage" data-theme="defrecord" >
+                            Cancel
+                        </button>
+                    </div>
+                         }   
                     <span>Total Records:</span> <span class="boldlabel" style="font-size:14pt;">@Model.NumberOfResponses</span></div>
                                
                                
-                }
+                          }
                     }
                     <div style="clear: both;"></div>
                 </div>
@@ -163,7 +177,7 @@ var pageId = $('#hidPageNumber').val();
                     </div>
                     <div id="recordstable">
                         @if (Model.ResponsesList.Count > 0)
-                        {
+                            {
                             <div id='pager1'>
                             @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
                             @Html.Partial("PagerPartial", Model)
@@ -172,31 +186,32 @@ var pageId = $('#hidPageNumber').val();
         
                             @Html.Raw("<ul>")
                             for (int i = 0; i < Model.ResponsesList.Count(); i++)
-                            {
+                                {
                             @Html.Raw("<li class='mobilerow'>");
                             @Html.Raw("<div class='mobilewrap'>" + "<div  class='mobilevalue' style='width:100%; text-align:right;'>" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='EditForm'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Open</button> &nbsp;" + "<button data-role='button' data-theme='submit2' data-inline='true' type='submit' name='DeleteButton'  id='" + Model.ResponsesList[i].Column0 + "'value='" + Model.ResponsesList[i].Column0 + "'>Delete</button>" + " " + "</div><div style='clear: both;'></div></div>");
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[0].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column1 + "</div><div style='clear: both;'></div></div>");
-                                                                                                                                                                                                                                            if (Model.Columns.Count >= 2){ 
+                                                                                                                                                                                                                                            if (Model.Columns.Count >= 2)
+                                                                                                                                                                                                                                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[1].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column2 + "</div><div style='clear: both;'></div></div>");
-                                                                                                                                                                                                                                            }
-                                if (Model.Columns.Count >= 3)
-                                { 
+                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                            if (Model.Columns.Count >= 3)
+                                                                                                                                                                                                                                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[2].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column3 + "</div><div style='clear: both;'></div></div>");
-                                }
+                                                                                                                                                                                                                                                }
 
-                                if (Model.Columns.Count >= 4)
-                                { 
+                                                                                                                                                                                                                                            if (Model.Columns.Count >= 4)
+                                                                                                                                                                                                                                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[3].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column4 + "</div><div style='clear: both;'></div></div>");
-                                }
+                                                                                                                                                                                                                                                }
 
-                                if (Model.Columns.Count >= 5)
-                                { 
+                                                                                                                                                                                                                                            if (Model.Columns.Count >= 5)
+                                                                                                                                                                                                                                                { 
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[4].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column5 + "</div><div style='clear: both;'></div></div>");
-                                }
+                                                                                                                                                                                                                                                }
                            
                             @Html.Raw("</li>");
-                            }
+                                }
                             @Html.Raw("</ul>")
 
                             
@@ -204,10 +219,12 @@ var pageId = $('#hidPageNumber').val();
                             @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
                             @Html.Partial("PagerPartial", Model)
                             </div>
-                        }
+                            }
                           
                     </div>
                 </div>
+                <input type="hidden"  id="ParentResponseId"  name="Parent_Response_Id" value="@Model.ParentResponseId" /> 
+               
     @Html.Hidden("hidSelectedResponseId");
     
             }
