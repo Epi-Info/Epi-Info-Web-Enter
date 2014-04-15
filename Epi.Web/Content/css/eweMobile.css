@@ -586,7 +586,7 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
     background-size: 18px;
     width: 180px;
     height: 35px;
-    border: none !important; /*padding: 0px !important;*/
+   /* border: none !important; padding: 0px !important;*/
     text-align:left;
 }
 
@@ -908,7 +908,7 @@ a.backlink
 		
 /*.mobileheader{display:inline-block; width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;}
 .mobilevalue{display:inline; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}*/
-.mobileheader{width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif; float: left; overflow: hidden; text-overflow: ellipsis;}
+.mobileheader{width:45%; font-weight: 600; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; float: left; overflow: hidden; text-overflow: ellipsis;}
 .mobilevalue{font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; float: left; width:50%;}
 .mobilewrap{ display:block; padding:8px; border-top: 1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #ccc;}
 #recordstable li:nth-of-type(even) { background: #e0ebfc; }

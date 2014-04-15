@@ -213,7 +213,7 @@ var pageId = $('#hidPageNumber').val();
                             @Html.Raw("<div class='mobilewrap'><div class='mobileheader'>" + Model.Columns[4].Value + ":</div> <div class='mobilevalue'>" + Model.ResponsesList[i].Column5 + "</div><div style='clear: both;'></div></div>");
                                                                                                                                                                                                                                                 }
                            
-                            @Html.Raw("</li>");
+                            @Html.Raw("</li>")
                                 }
                             @Html.Raw("</ul>")
 
@@ -228,7 +228,7 @@ var pageId = $('#hidPageNumber').val();
                 </div>
                 <input type="hidden"  id="ParentResponseId"  name="Parent_Response_Id" value="@Model.ParentResponseId" /> 
                
-    @Html.Hidden("hidSelectedResponseId");
+    @Html.Hidden("hidSelectedResponseId")
     
             @*}*@
         </div>
