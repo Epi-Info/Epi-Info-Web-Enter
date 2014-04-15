@@ -765,7 +765,7 @@ button.paging img
 		
 	}
 	
-	#RelateNavigation #recordstable td, #recordstable th {width:130px;  max-width: 130px; font-size:1em; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important}
+	#RelateNavigation #recordstable td, #recordstable th {width:120px;  max-width: 130px; font-size:1.15em; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important}
 	#RelateNavigation #NumberOfRecords div span.boldlabel { font-size:1em !important;}
 	#RelateNavigation #addnew {margin-top: -30px;}
 	
@@ -784,6 +784,8 @@ text-overflow: ellipsis;
 	
 	#recordstable td:nth-of-type(1) { width:130px; min-width:130px; }
 	#recordstable th:nth-of-type(1) { width:130px; min-width:130px; }
+	
+	#relatenavNavigation #recordstable th:nth-of-type(1), #RelateNavigation #recordstable td:nth-of-type(1) { width:90px !important; min-width:90px !important; }
 	
 	div.zerorec {margin: 10px 0 0 150px; font-weight:bold; color: 3f3f3f;}
 	

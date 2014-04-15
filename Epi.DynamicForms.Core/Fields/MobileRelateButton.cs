@@ -28,7 +28,7 @@ namespace MvcDynamicForms.Fields
             commandButtonTag.Attributes.Add("data-role", "button");
             commandButtonTag.Attributes.Add("data-inline", "true");
             commandButtonTag.Attributes.Add("type", "button");
-          //  commandButtonTag.Attributes.Add("data-theme", "submit2");
+            commandButtonTag.Attributes.Add("data-theme", "submit2");
 
            commandButtonTag.Attributes.Add("onclick", "NavigateToChild(" + RelatedViewId + "); ");
        
