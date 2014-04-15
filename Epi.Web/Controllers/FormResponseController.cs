@@ -55,7 +55,7 @@ namespace Epi.Web.MVC.Controllers
             {
             var model = new FormResponseInfoModel();
             model.ViewId = ViewId;
-            model = GetFormResponseInfoModel(formid, Pagenumber);
+            model = GetSurveyResponseInfoModel(formid, Pagenumber);
 
             return View("Index", model);
             }
@@ -263,7 +263,7 @@ namespace Epi.Web.MVC.Controllers
             }
          
 
-        public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
+        public FormResponseInfoModel GetSurveyResponseInfoModel(string SurveyId, int PageNumber)
         {
 
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
@@ -681,6 +681,7 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseReq.Criteria.PageNumber = 1;
                 FormResponseReq.Criteria.UserId = UserId;
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetResponsesByRelatedFormId(FormResponseReq);
+                
 
                 //Setting Resposes List
                 List<ResponseModel> ResponseList = new List<ResponseModel>();
