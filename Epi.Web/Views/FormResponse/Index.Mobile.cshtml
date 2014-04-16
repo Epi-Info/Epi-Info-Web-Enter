@@ -182,11 +182,13 @@ var pageId = $('#hidPageNumber').val();
                     <div id="recordstable">
                         @if (Model.ResponsesList.Count > 0)
                             {
-                            <div id='pager1'>
-                            @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
-                            @Html.Partial("PagerPartial", Model)
-                            </div>
-
+                            if (Model.ViewId == 0)
+                                {
+                                    <div id='pager1'>
+                                    @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
+                                    @Html.Partial("PagerPartial", Model)
+                                    </div>
+                                }
         
                             @Html.Raw("<ul>")
                             for (int i = 0; i < Model.ResponsesList.Count(); i++)
@@ -218,11 +220,13 @@ var pageId = $('#hidPageNumber').val();
                                 }
                             @Html.Raw("</ul>")
 
-                            
-                            <div id='pager2'>
-                            @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
-                            @Html.Partial("PagerPartial", Model)
-                            </div>
+                              if (Model.ViewId == 0)
+                                  {
+                                    <div id='pager2'>
+                                    @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
+                                    @Html.Partial("PagerPartial", Model)
+                                    </div>
+                                  }
                             }
                           
                     </div>
