@@ -32,6 +32,7 @@ namespace Epi.Web.MVC.Controllers
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
         private int NumberOfPages = -1;
         private int NumberOfResponses = -1;
+        private bool IsEditMode;
         public FormResponseController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
@@ -615,11 +616,12 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Delete(string ResponseId,string surveyid)
             {
+            bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             string Id = Session["UserId"].ToString();
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id);
-
+            SARequest.Criteria.IsEditMode = this.IsEditMode;
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(surveyid);
