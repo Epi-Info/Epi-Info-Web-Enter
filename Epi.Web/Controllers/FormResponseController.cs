@@ -707,6 +707,16 @@ namespace Epi.Web.MVC.Controllers
             {
             return Convert.ToInt16(WebConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"].ToString());
             }
+
+        [HttpGet]
+        public ActionResult LogOut()
+            {
+
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Login");
+
+
+            }
       
     }
 }
