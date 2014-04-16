@@ -89,7 +89,7 @@ namespace Epi.Web.MVC.Controllers
             {
         SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseid);
         SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
-
+        SurveyModel.FormResponseInfoModel.ParentResponseId = responseid;
             }
 
         if (RelateSurveyId.ResponseIds.Count() > 0)
@@ -101,7 +101,9 @@ namespace Epi.Web.MVC.Controllers
             if (string.IsNullOrEmpty(responseid))
                 {
                 SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, RelateSurveyId.ResponseIds[0].RelateParentId);
+                SurveyModel.FormResponseInfoModel.ParentResponseId = RelateSurveyId.ResponseIds[0].RelateParentId;
                 }
+           
             SurveyModel.FormResponseInfoModel.FormInfoModel.FormName = form.SurveyInfo.SurveyName;
             SurveyModel.FormResponseInfoModel.FormInfoModel.FormId = form.SurveyInfo.SurveyId;
             SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
@@ -117,7 +119,7 @@ namespace Epi.Web.MVC.Controllers
 
             }
         SurveyModel.FormResponseInfoModel.ViewId = ViewId;
-        SurveyModel.FormResponseInfoModel.ParentResponseId = responseid;
+       
         return View("Index", SurveyModel.FormResponseInfoModel);
             
             }
@@ -680,6 +682,7 @@ namespace Epi.Web.MVC.Controllers
 
                 FormResponseReq.Criteria.PageNumber = 1;
                 FormResponseReq.Criteria.UserId = UserId;
+                FormResponseReq.Criteria.IsMobile = true;
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetResponsesByRelatedFormId(FormResponseReq);
                 
 
@@ -697,7 +700,7 @@ namespace Epi.Web.MVC.Controllers
 
                 FormResponseInfoModel.NumberOfPages = FormResponseList.NumberOfPages;
                 FormResponseInfoModel.PageSize = ReadPageSize();
-                FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
+                FormResponseInfoModel.NumberOfResponses = FormResponseList.SurveyResponseList.Count();//FormResponseList.NumberOfResponses;
                 FormResponseInfoModel.CurrentPage = 1;
                 }
             return FormResponseInfoModel;
