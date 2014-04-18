@@ -52,6 +52,16 @@
         $('#myform').submit();
 
     }
+    function DoNotSave() {
+
+
+        $("#myform")[0].Do_Not_Save_action.value = 'true';
+
+        $("#myform")[0].action = window.location.href;
+
+
+        $('#myform').submit();
+    }
     function Continue() {
         //debugger;
         var presentUrl;
@@ -171,7 +181,7 @@
     }
 
     function AddChild(ViewId) {
-
+        
         $('#FormHasChanged').val('True');
         var signoutUrl = '@Url.Action("AddChild", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
@@ -632,24 +642,27 @@ function CloseDialog() {
 /*Exit the survey */
 function ExitSurvey() {
    
-      var signoutUrl = '@Url.Action("Delete", "Survey")';
-      //var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
-      //var homePageUrl = 'FormResponse/Index' + '/' + '@Model.Form.SurveyInfo.SurveyId';
-      //alert(homePageUrl);
-      $.ajax({
-          url: signoutUrl,
-          type: 'POST',
-          contentType: 'application/json; charset=utf-8',
-          dataType: "json",
-          async: false,
-          success: successFunc,
-          error: errorFunc
-      });
-      function successFunc(data) {
-         
-          var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + data;
-          window.location.href = homePageUrl;
-      }
+//      var signoutUrl = '@Url.Action("Delete", "Survey")';
+//      //var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+//      //var homePageUrl = 'FormResponse/Index' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+//      //alert(homePageUrl);
+//      $.ajax({
+//          url: signoutUrl,
+//          type: 'POST',
+//          contentType: 'application/json; charset=utf-8',
+//          dataType: "json",
+//          async: false,
+//          success: successFunc,
+//          error: errorFunc
+//      });
+//      function successFunc(data) {
+//           
+//         // var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + data;
+//          // window.location.href = homePageUrl;
+//           
+    //      }
+
+    DoNotSave();
 }
 
 function errorFunc(data) {
@@ -844,6 +857,7 @@ function SaveForm() {
             <input type="hidden"  name="Read_Response_action" value="false" />
             <input type="hidden"  name="Go_Home_action" value="false" />
             <input type="hidden"  name="Go_One_Level_Up_action" value="false" />
+            <input type="hidden"  name="Do_Not_Save_action" value="false" />
 	        <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
             <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
             <input type="hidden"  name="HiddenStatusId" id="HiddenStatusId" value="false" />

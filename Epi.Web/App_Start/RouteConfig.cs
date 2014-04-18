@@ -85,6 +85,12 @@ namespace Epi.Web.MVC
                 new { controller = "FormResponse", action = "Delete", ResponseId = UrlParameter.Optional }
             );
             routes.MapRoute
+           (
+               null, // Route name
+               "FormResponse/DeleteBranch/{ResponseId}", // URL with parameters
+               new { controller = "FormResponse", action = "DeleteBranch", ResponseId = UrlParameter.Optional }
+           );
+            routes.MapRoute
             (
                 null, // Route name
                 "Home/{surveyid}", // URL with parameters
@@ -119,8 +125,8 @@ namespace Epi.Web.MVC
             routes.MapRoute
             (
                 null, // Route name
-                "FormResponse/{formid}", // URL with parameters
-                new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional }
+                "FormResponse/{formid}/{responseid}", // URL with parameters
+                new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional, responseid = UrlParameter.Optional }
             ); // Parameter defaults
 
             
