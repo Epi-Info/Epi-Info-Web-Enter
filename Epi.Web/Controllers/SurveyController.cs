@@ -352,7 +352,21 @@ namespace Epi.Web.MVC.Controllers
                             return RedirectToRoute(new { Controller = "FormResponse", Action = "Index", formid = form.SurveyInfo.SurveyId, ViewId = RequestedViewId, responseid = responseId, Pagenumber = 1 });
 
                             }
-                        
+
+                        else if (!string.IsNullOrEmpty(this.Request.Form["Do_Not_Save_action"]) && this.Request.Form["Do_Not_Save_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
+                            {
+
+                           
+                            bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
+
+                            SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
+                            SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
+                            SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+                            SARequest.Criteria.IsEditMode = this.IsEditMode;
+                            SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
+                            return RedirectToRoute(new { Controller = "FormResponse", Action = "Index", formid = Session["RootFormId"].ToString(),  ViewId = 0 });
+
+                            }
                         
                         else if (!string.IsNullOrEmpty(this.Request.Form["is_goto_action"]) && this.Request.Form["is_goto_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                             {
