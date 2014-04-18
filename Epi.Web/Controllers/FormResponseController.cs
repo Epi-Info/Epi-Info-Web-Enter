@@ -54,6 +54,7 @@ namespace Epi.Web.MVC.Controllers
 
                 Session["RootFormId"] = formid;
                 Session.Remove("RootResponseId");
+                Session.Remove("FormValuesHasChanged");
                 Session["IsEditMode"] = false;
             }
         if (ViewId == 0  )
