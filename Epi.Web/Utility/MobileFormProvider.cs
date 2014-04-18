@@ -934,7 +934,11 @@ namespace Epi.Web.MVC.Utility
         public static string GetPageId(XDocument xdoc, int PageNumber)
         {
            // XDocument xdoc = XDocument.Parse(Xml);
-
+        if (PageNumber== 0)
+            {
+            PageNumber = 1; 
+                
+             }
             XElement XElement = xdoc.XPathSelectElement("Template/Project/View/Page[@Position = '" + (PageNumber - 1).ToString() + "']");
 
 
@@ -945,6 +949,12 @@ namespace Epi.Web.MVC.Utility
         public static string GetPageName(XDocument xdoc, int PageNumber)
         {
             //XDocument xdoc = XDocument.Parse(Xml);
+
+        if (PageNumber == 0)
+            {
+            PageNumber = 1;
+
+            }
 
             XElement XElement = xdoc.XPathSelectElement("Template/Project/View/Page[@Position = '" + (PageNumber - 1).ToString() + "']");
 

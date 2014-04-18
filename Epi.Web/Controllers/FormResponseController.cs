@@ -43,14 +43,18 @@ namespace Epi.Web.MVC.Controllers
 
         [HttpGet]
         //string responseid,string SurveyId, int ViewId, string CurrentPage
-        public ActionResult Index(string formid, int Pagenumber = 1, int ViewId = 0, string responseid = "" )
+        // View =0 Root form
+        public ActionResult Index(string formid,string responseid , int Pagenumber = 1, int ViewId = 0)
         {
-      
+
+        List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
+
         if (ViewId == 0) {
 
 
                 Session["RootFormId"] = formid;
                 Session.Remove("RootResponseId");
+                Session["IsEditMode"] = false;
             }
         if (ViewId == 0  )
             {
@@ -69,7 +73,7 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-        List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
+        
         int RequestedViewId;
         RequestedViewId = ViewId;
         
@@ -90,6 +94,7 @@ namespace Epi.Web.MVC.Controllers
             {
         SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseid);
         SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
+      
         SurveyModel.FormResponseInfoModel.ParentResponseId = responseid;
             }
 
@@ -103,6 +108,7 @@ namespace Epi.Web.MVC.Controllers
                 {
                 SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, RelateSurveyId.ResponseIds[0].RelateParentId);
                 SurveyModel.FormResponseInfoModel.ParentResponseId = RelateSurveyId.ResponseIds[0].RelateParentId;
+               
                 }
            
             SurveyModel.FormResponseInfoModel.FormInfoModel.FormName = form.SurveyInfo.SurveyName;
@@ -116,6 +122,7 @@ namespace Epi.Web.MVC.Controllers
              FormResponseInfoModel  ResponseInfoModel =new FormResponseInfoModel();
              ResponseInfoModel.FormInfoModel.FormName = form1.SurveyName.ToString();
              ResponseInfoModel.FormInfoModel.FormId = form1.SurveyId.ToString();
+             ResponseInfoModel.ParentResponseId = responseid;
              SurveyModel.FormResponseInfoModel = ResponseInfoModel;
 
             }
@@ -616,12 +623,12 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Delete(string ResponseId,string surveyid)
             {
-            bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
+            
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             string Id = Session["UserId"].ToString();
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id);
-            SARequest.Criteria.IsEditMode = this.IsEditMode;
+            
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(surveyid);
@@ -639,7 +646,7 @@ namespace Epi.Web.MVC.Controllers
             SARequest.Criteria.IsEditMode = false;
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
-            return Json(Session["RootFormId"]);//string.Empty
+            return Json(string.Empty);//string.Empty
             //return RedirectToAction("Index", "Home");
             }
         private List<FormsHierarchyDTO> GetFormsHierarchy()
