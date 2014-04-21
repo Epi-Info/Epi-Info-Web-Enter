@@ -120,15 +120,20 @@ namespace Epi.Web.MVC
                null, // Route name
                "FormResponse/ReadResponseInfo", // URL with parameters
                new { controller = "FormResponse", action = "ReadResponseInfo", ResId = UrlParameter.Optional }
-           ); 
-
+           );
+           
             routes.MapRoute
             (
                 null, // Route name
                 "FormResponse/{formid}/{responseid}", // URL with parameters
                 new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional, responseid = UrlParameter.Optional }
             ); // Parameter defaults
-
+            routes.MapRoute
+                      (
+                          null, // Route name
+                          "FormResponse/{formid}", // URL with parameters
+                          new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional }
+                      ); // Parameter defaults
             
             routes.MapRoute
          (
