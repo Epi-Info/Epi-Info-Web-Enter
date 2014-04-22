@@ -415,6 +415,7 @@
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.bgiframe-2.1.2.js" />
     <Content Include="Scripts\jquery.Epi.Survey.Components.js" />
+    <Content Include="Scripts\jquery.form.js" />
     <Content Include="Scripts\jquery.idletimeout.js" />
     <Content Include="Scripts\jquery.idletimer.js" />
     <Content Include="Scripts\jquery.js" />
