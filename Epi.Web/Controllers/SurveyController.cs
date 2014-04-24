@@ -398,26 +398,40 @@ namespace Epi.Web.MVC.Controllers
                                     {
                                     return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = ValidateValues.Key, PageNumber = ValidateValues.Value.ToString() });
                                     }
+                             
                                 //SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
                                 //SurveyAnswerResponse Object = _isurveyFacade.GetSurveyAnswerHierarchy(SurveyAnswerRequest);
                                 SurveyAnswerRequest SurveyAnswerRequest1 = new SurveyAnswerRequest();
                                 SurveyAnswerRequest1.Action = "DeleteResponseXml";
                                 var List = ListSurveyAnswerDTO.OrderByDescending(x=>x.DateCreated);//.OrderBy(x => x.ParentRecordId);
-
-                                foreach (var Obj in List)
-                                    {
-                               // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(RootResponseId).SurveyResponseList[0];
-                              //  SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(RootFormId);
-                                    SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId).SurveyResponseList[0];
-                                    SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(Obj.SurveyId);
-                                   
-                                MvcDynamicForms.Form form2 = UpDateSurveyModel(surveyInfoModel2, IsMobileDevice, FormValuesHasChanged, SurveyAnswer2,true);
-                               
-                                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel2, Obj.ResponseId, form2, SurveyAnswer2, IsSubmited, true, PageNumber, UserId);
-
-                                SurveyAnswerRequest1.SurveyAnswerList.Add(SurveyAnswer2);
                               
-                                    }
+                                   
+                                    foreach (var Obj in List)
+                                        {
+                                        // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(RootResponseId).SurveyResponseList[0];
+                                        //  SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(RootFormId);
+
+
+
+                                        SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId).SurveyResponseList[0];
+                                        SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(Obj.SurveyId);
+
+                                        MvcDynamicForms.Form form2 = UpDateSurveyModel(surveyInfoModel2, IsMobileDevice, FormValuesHasChanged, SurveyAnswer2, true);
+                                        if (!IsMobileDevice)
+                                            {
+                                            _isurveyFacade.UpdateSurveyResponse(surveyInfoModel2, Obj.ResponseId, form2, SurveyAnswer2, IsSubmited, true, PageNumber, UserId);
+                                            }
+                                        else {
+                                            if (!IsEditMode)
+                                                {
+                                                _isurveyFacade.UpdateSurveyResponse(surveyInfoModel2, Obj.ResponseId, form2, SurveyAnswer2, IsSubmited, true, PageNumber, UserId);
+                                                }
+                                            
+                                            }
+                                        SurveyAnswerRequest1.SurveyAnswerList.Add(SurveyAnswer2);
+
+                                        }
+                                     
                                 if(this.IsEditMode){
                                 _isurveyFacade.DeleteResponseXml(SurveyAnswerRequest1);
                                     }
