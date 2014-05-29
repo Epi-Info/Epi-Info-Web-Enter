@@ -847,12 +847,12 @@ namespace Epi.Web.EF
                 {
 
                 Guid RId = new Guid(ResponseId);
-              //  Guid SId = new Guid(SurveyId);
+                Guid SId = new Guid(SurveyId);
 
                 using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId)).OrderBy(x=>x.DateCreated).ToList();
+                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId )).OrderBy(x=>x.DateCreated).ToList();
 
                     }
                 
