@@ -1088,7 +1088,10 @@ namespace Epi.Web.MVC.Controllers
                 StringNumber = url.Substring(LastIndex, url.Length - LastIndex);
                 StringNumber = StringNumber.Trim('/');
                 }
-
+            if (IsSaveAndClose)
+                {
+                StringNumber = "1";
+                }
             if (int.TryParse(StringNumber, out ReffererPageNum))
                 {
                 if (ReffererPageNum != CurrentPageNum)
@@ -1186,7 +1189,7 @@ namespace Epi.Web.MVC.Controllers
                           
                           SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
                           SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
-                          form = UpDateSurveyModel(surveyInfoModel, IsMobileDevice, FormValuesHasChanged, SurveyAnswer);
+                          form = UpDateSurveyModel(surveyInfoModel, IsMobileDevice, FormValuesHasChanged, SurveyAnswer,true);
 
                           for (int i = 1; i < form.NumberOfPages + 1; i++)
                               {
