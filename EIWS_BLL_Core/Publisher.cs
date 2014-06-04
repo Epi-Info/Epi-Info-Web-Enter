@@ -359,7 +359,7 @@ namespace Epi.Web.BLL
             SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
             SurveyInfoBO.ViewId = ViewId;
             SurveyInfoBO.ParentId = ParentId;
-            SurveyInfoBO.OwnerId = 2; //HardCode
+            SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ; //HardCode
             SurveyRequestResultBO = Publish(SurveyInfoBO);
             ParentId = SurveyRequestResultBO.URL.Split('/').Last();
             }

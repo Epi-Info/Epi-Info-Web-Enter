@@ -88,6 +88,7 @@ namespace Epi.Web.SurveyManager.Client
             }
             Guid gOrganizationkey = new Guid(strOrganizationKey);
             Request.SurveyInfo.OrganizationKey = gOrganizationkey;
+            Request.SurveyInfo.OwnerId = 2;//HardCode
             try
             {
                 Epi.Web.Common.Message.PublishResponse Result = client.PublishSurvey(Request);
