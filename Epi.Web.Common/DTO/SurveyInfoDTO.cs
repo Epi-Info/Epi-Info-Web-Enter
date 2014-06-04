@@ -25,7 +25,7 @@ namespace Epi.Web.Common.DTO
         private bool _IsDraftMode;
         private DateTime _StartDate;
         private int _ViewId;
-
+        private int _OwnerId;
         [DataMember]
         public string SurveyId
         {
@@ -136,6 +136,12 @@ namespace Epi.Web.Common.DTO
             {
             get { return _ViewId; }
             set { _ViewId = value; }
+            }
+        [DataMember]
+        public int OwnerId
+            {
+            get { return _OwnerId; }
+            set { _OwnerId = value; }
             }
 
     }
