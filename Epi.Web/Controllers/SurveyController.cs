@@ -1187,11 +1187,11 @@ namespace Epi.Web.MVC.Controllers
                                   result = new KeyValuePair<string, int>(Obj.ResponseId, i);
                                   goto Exit;
                                   }
-                              //else
-                              //    {
+                              else
+                                 {
                               //    //ExecuteRecordAfterCheckCode(form, surveyInfoModel, SurveyAnswer, responseId, i, UserId);
-                                  
-                              //    }
+                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, Obj.ResponseId, form, SurveyAnswer, IsSubmited, true, i, UserId);
+                                 }
                               // create my list of objects 
                               
                               }
