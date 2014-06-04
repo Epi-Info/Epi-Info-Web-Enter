@@ -408,5 +408,15 @@ namespace Epi.Web.EF
             ResponseXml.IsNewRecord = ResponseXmlBO.IsNewRecord;
             return ResponseXml;
             }
+
+        internal static ResponseDisplaySetting Map(string FormId, int i, string Column)
+            {
+            ResponseDisplaySetting ResponseDisplaySetting = new ResponseDisplaySetting();
+            ResponseDisplaySetting.FormId = new Guid(FormId);
+            ResponseDisplaySetting.ColumnName = Column;
+            ResponseDisplaySetting.SortOrder = i;
+            return ResponseDisplaySetting;
+            
+            }
     }
 }

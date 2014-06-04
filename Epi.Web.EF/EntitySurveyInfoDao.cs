@@ -479,8 +479,48 @@ namespace Epi.Web.EF
         }
 
 
+   public void InsertFormdefaultSettings(string FormId)
+       {
+      
+       try
+           {
+           List<string> ColumnNames = new List<string>();
+           ColumnNames = MetaDaTaColumnNames();
+           int i = 1;
+           foreach (string Column in ColumnNames)
+               {
+              
+               using (var Context = DataObjectFactory.CreateContext())
+                   {
 
-   
+                   ResponseDisplaySetting SettingEntity = Mapper.Map(FormId, i, Column);
+
+                   Context.AddToResponseDisplaySettings(SettingEntity);
+
+                   Context.SaveChanges();
+                   
+                   }
+               i++;
+               }
+           }
+       catch (Exception ex)
+           {
+           throw (ex);
+           }
+       }
+
+   private static List<string> MetaDaTaColumnNames()
+       {
+
+       List<string> columns = new List<string>();
+       columns.Add("_UserEmail");
+       columns.Add("_DateUpdated");
+       columns.Add("_DateCreated");
+       // columns.Add("IsDraftMode");
+       columns.Add("_Mode");
+       return columns;
+
+       }
    
 
     }
