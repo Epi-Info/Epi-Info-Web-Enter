@@ -207,9 +207,11 @@ namespace Epi.Web.BLL
                                 BO.OwnerId = pRequestMessage.OwnerId;
                                 //Insert Survey MetaData
                                 this.SurveyInfoDao.InsertSurveyInfo(BO);
-                                //Set Survey Owner
+                                
 
                                 // Set Survey Settings
+                                this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString());
+                                
                                 result.URL = GetURL(pRequestMessage, SurveyId);
                                 result.IsPulished = true;
                                 }

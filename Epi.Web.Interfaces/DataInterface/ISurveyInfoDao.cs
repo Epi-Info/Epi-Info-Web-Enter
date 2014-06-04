@@ -113,5 +113,6 @@ namespace Epi.Web.Interfaces.DataInterfaces
 
 
          List<SurveyInfoBO> GetFormsHierarchyIdsByRootId(string RootId);
+         void InsertFormdefaultSettings(string FormId);
     }
 }
