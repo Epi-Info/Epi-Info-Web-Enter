@@ -130,28 +130,32 @@ namespace Epi.Web.EF
         /// <returns>A SurveyMetaData entity.</returns>
         internal static SurveyMetaData Map(SurveyInfoBO businessobject)
         {
-            return new SurveyMetaData
-            {
-                SurveyId = new Guid(businessobject.SurveyId),
-                SurveyName = businessobject.SurveyName,
-                SurveyNumber = businessobject.SurveyNumber,
-                TemplateXML = businessobject.XML,
-                IntroductionText = businessobject.IntroductionText,
-                ExitText = businessobject.ExitText,
-                OrganizationName = businessobject.OrganizationName,
-                DepartmentName = businessobject.DepartmentName,
-                ClosingDate = businessobject.ClosingDate ,
-                UserPublishKey=businessobject.UserPublishKey,
-                SurveyTypeId = businessobject.SurveyType,
-                TemplateXMLSize = businessobject.TemplateXMLSize,
-                DateCreated = businessobject.DateCreated,
-                IsDraftMode = businessobject.IsDraftMode,
-                StartDate = businessobject.StartDate,
-               
+        SurveyMetaData SurveyMetaData = new SurveyMetaData();
+
+                SurveyMetaData.SurveyId = new Guid(businessobject.SurveyId);
+                SurveyMetaData.SurveyName = businessobject.SurveyName;
+                SurveyMetaData.SurveyNumber = businessobject.SurveyNumber;
+                SurveyMetaData.TemplateXML = businessobject.XML;
+                SurveyMetaData.IntroductionText = businessobject.IntroductionText;
+                SurveyMetaData.ExitText = businessobject.ExitText;
+                SurveyMetaData.OrganizationName = businessobject.OrganizationName;
+                SurveyMetaData.DepartmentName = businessobject.DepartmentName;
+                SurveyMetaData.ClosingDate = businessobject.ClosingDate ;
+                SurveyMetaData.UserPublishKey=businessobject.UserPublishKey;
+                SurveyMetaData.SurveyTypeId = businessobject.SurveyType;
+                SurveyMetaData.TemplateXMLSize = businessobject.TemplateXMLSize;
+                SurveyMetaData.DateCreated = businessobject.DateCreated;
+                SurveyMetaData.IsDraftMode = businessobject.IsDraftMode;
+                SurveyMetaData.StartDate = businessobject.StartDate;
+                SurveyMetaData.OwnerId = businessobject.OwnerId ;
+                SurveyMetaData.ViewId = businessobject.ViewId;
+               if(!string.IsNullOrEmpty(businessobject.ParentId))
+                   {
+                   SurveyMetaData.ParentId = new Guid(businessobject.ParentId);
+                    }
                
                 
-
-            };
+ return SurveyMetaData;
         }
 
 

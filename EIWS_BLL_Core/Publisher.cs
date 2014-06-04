@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
-using System.Xml;
+using System.Xml.XPath;
 using Epi.Web.Common.BusinessObject;
-
+using System.Xml;
+using System.Xml.Linq;
 namespace Epi.Web.BLL
 {
    /// <summary>
@@ -36,167 +37,39 @@ namespace Epi.Web.BLL
         }
         public SurveyRequestResultBO PublishSurvey(SurveyInfoBO  pRequestMessage)
         {
+        SurveyRequestResultBO result = new SurveyRequestResultBO();
 
-            SurveyRequestResultBO result = new SurveyRequestResultBO();
-
-            var SurveyId = Guid.NewGuid();
-
-            if (pRequestMessage != null)
+        if (IsRelatedForm(pRequestMessage.XML))
             {
-
-                //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))
-                if (ValidateOrganizationKey(pRequestMessage.OrganizationKey))
-                {
-
-                                        if (ValidateSurveyFields(pRequestMessage))
-                                        {
-                                            try
-                                            {
-
-                                                Epi.Web.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Common.BusinessObject.SurveyInfoBO();
-
-                                                BO.SurveyId = SurveyId.ToString();
-                                                BO.ClosingDate = pRequestMessage.ClosingDate;
-
-                                                BO.IntroductionText = pRequestMessage.IntroductionText;
-                                                BO.ExitText = pRequestMessage.ExitText;
-                                                BO.DepartmentName = pRequestMessage.DepartmentName;
-                                                BO.OrganizationName = pRequestMessage.OrganizationName;
-
-                                                BO.SurveyNumber = pRequestMessage.SurveyNumber;
-
-                                                BO.XML = pRequestMessage.XML;
-
-                                                BO.SurveyName = pRequestMessage.SurveyName;
-
-                                                BO.SurveyType = pRequestMessage.SurveyType;
-                                                BO.UserPublishKey = pRequestMessage.UserPublishKey;
-                                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                                                BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
-                                                BO.IsDraftMode = pRequestMessage.IsDraftMode;
-                                                BO.StartDate = pRequestMessage.StartDate;
-                                                
-
-                                                this.SurveyInfoDao.InsertSurveyInfo(BO);
-                                                result.URL = GetURL(pRequestMessage, SurveyId);
-                                                result.IsPulished = true;
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                System.Console.Write(ex.ToString());
-                                                //Entities.ObjectStateManager.GetObjectStateEntry(SurveyMetaData).Delete();
-                                                result.URL = "";
-                                                result.IsPulished = false;
-                                                result.StatusText = "An Error has occurred while publishing your survey.";
-                                            }
-
-
-
-
-                                        }
-                                        else
-                                        {
-
-                                            result.URL = "";
-                                            result.IsPulished = false;
-                                            result.StatusText = "One or more survey required fields are missing values.";
-                                        }
-
-                }
-                else {
-
-                    result.URL = "";
-                    result.IsPulished = false;
-                    result.StatusText = "Organization Key is invalid.";
-                
-                }
+            result = PublishRelatedFormSurvey(pRequestMessage);
+            }
+        else
+            {
+            result = Publish(pRequestMessage);
+                 
             }
             return result;
         }
+
+       
 
 
         public SurveyRequestResultBO RePublishSurvey(SurveyInfoBO pRequestMessage)
         {
 
             SurveyRequestResultBO result = new SurveyRequestResultBO();
-
-            var SurveyId = new Guid(pRequestMessage.SurveyId);
-
-            if (pRequestMessage != null)
-            {
-
-                //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))
-                if (ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+            if (IsRelatedForm(pRequestMessage.XML))
                 {
-
-                    if (ValidateSurveyFields(pRequestMessage))
-                    {
-                        try
-                        {
-
-                            Epi.Web.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Common.BusinessObject.SurveyInfoBO();
-
-                            BO.SurveyId = SurveyId.ToString();
-                            BO.ClosingDate = pRequestMessage.ClosingDate;
-
-                            BO.IntroductionText = pRequestMessage.IntroductionText;
-                            BO.ExitText = pRequestMessage.ExitText;
-                            BO.DepartmentName = pRequestMessage.DepartmentName;
-                            BO.OrganizationName = pRequestMessage.OrganizationName;
-
-                            BO.SurveyNumber = pRequestMessage.SurveyNumber;
-
-                            BO.XML = pRequestMessage.XML;
-
-                            BO.SurveyName = pRequestMessage.SurveyName;
-
-                            BO.SurveyType = pRequestMessage.SurveyType;
-                            BO.UserPublishKey = pRequestMessage.UserPublishKey;
-                            BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                            BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                            BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
-                            BO.IsDraftMode = pRequestMessage.IsDraftMode;
-                            BO.StartDate = pRequestMessage.StartDate;
-                           
-
-                            this.SurveyInfoDao.UpdateSurveyInfo(BO);
-                            result.URL = GetURL(pRequestMessage, SurveyId);
-                            result.IsPulished = true;
-                        }
-                        catch (Exception ex)
-                        {
-                            System.Console.Write(ex.ToString());
-                            //Entities.ObjectStateManager.GetObjectStateEntry(SurveyMetaData).Delete();
-                            result.URL = "";
-                            result.IsPulished = false;
-                            result.StatusText = "An Error has occurred while publishing your survey.";
-                        }
-
-
-
-
-                    }
-                    else
-                    {
-
-                        result.URL = "";
-                        result.IsPulished = false;
-                        result.StatusText = "One or more survey required fields are missing values.";
-                    }
-
+                result = RePublishRelatedFormSurvey(pRequestMessage);
                 }
-                else
+            else
                 {
-
-                    result.URL = "";
-                    result.IsPulished = false;
-                    result.StatusText = "Organization Key is invalid.";
-
+                result = RePublish(pRequestMessage);
                 }
-            }
             return result;
         }
+
+     
 
         private static bool ValidateSurveyFields(SurveyInfoBO pRequestMessage)
         {
@@ -268,6 +141,249 @@ namespace Epi.Web.BLL
             URL.Append(SurveyId.ToString());
             return URL.ToString();
         }
+
+        private bool IsRelatedForm(string Xml) 
+            {
+
+            bool IsRelatedForm = false;
+            XDocument xdoc = XDocument.Parse(Xml);
+
+
+            int NumberOfViews = xdoc.Descendants("View").Count();
+            if (NumberOfViews > 1)
+                {
+                IsRelatedForm = true;
+                
+                }
+
+             return IsRelatedForm;
+            
+            }
+
+        private SurveyRequestResultBO Publish(SurveyInfoBO pRequestMessage)
+            {
+            SurveyRequestResultBO result = new SurveyRequestResultBO();
+
+           
+                var SurveyId = Guid.NewGuid();
+
+                if (pRequestMessage != null)
+                    {
+
+                    //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+                    if (ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+                        {
+
+                        if (ValidateSurveyFields(pRequestMessage))
+                            {
+                            try
+                                {
+
+                                Epi.Web.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Common.BusinessObject.SurveyInfoBO();
+
+                                BO.SurveyId = SurveyId.ToString();
+                                BO.ClosingDate = pRequestMessage.ClosingDate;
+
+                                BO.IntroductionText = pRequestMessage.IntroductionText;
+                                BO.ExitText = pRequestMessage.ExitText;
+                                BO.DepartmentName = pRequestMessage.DepartmentName;
+                                BO.OrganizationName = pRequestMessage.OrganizationName;
+
+                                BO.SurveyNumber = pRequestMessage.SurveyNumber;
+
+                                BO.XML = pRequestMessage.XML;
+
+                                BO.SurveyName = pRequestMessage.SurveyName;
+
+                                BO.SurveyType = pRequestMessage.SurveyType;
+                                BO.UserPublishKey = pRequestMessage.UserPublishKey;
+                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
+                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
+                                BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
+                                BO.IsDraftMode = pRequestMessage.IsDraftMode;
+                                BO.StartDate = pRequestMessage.StartDate;
+                                BO.ViewId = pRequestMessage.ViewId;
+                                BO.ParentId = pRequestMessage.ParentId;
+                                BO.OwnerId = pRequestMessage.OwnerId;
+                                //Insert Survey MetaData
+                                this.SurveyInfoDao.InsertSurveyInfo(BO);
+                                //Set Survey Owner
+
+                                // Set Survey Settings
+                                result.URL = GetURL(pRequestMessage, SurveyId);
+                                result.IsPulished = true;
+                                }
+                            catch (Exception ex)
+                                {
+                                System.Console.Write(ex.ToString());
+                                //Entities.ObjectStateManager.GetObjectStateEntry(SurveyMetaData).Delete();
+                                result.URL = "";
+                                result.IsPulished = false;
+                                result.StatusText = "An Error has occurred while publishing your survey.";
+                                }
+
+
+
+
+                            }
+                        else
+                            {
+
+                            result.URL = "";
+                            result.IsPulished = false;
+                            result.StatusText = "One or more survey required fields are missing values.";
+                            }
+
+                        }
+                    else
+                        {
+
+                        result.URL = "";
+                        result.IsPulished = false;
+                        result.StatusText = "Organization Key is invalid.";
+
+                        }
+                    }
+               
+            return result;
+            }
+        private SurveyRequestResultBO RePublish(SurveyInfoBO pRequestMessage)
+            {
+
+            SurveyRequestResultBO result = new SurveyRequestResultBO();
+            
+                var SurveyId = new Guid(pRequestMessage.SurveyId);
+
+                if (pRequestMessage != null)
+                    {
+
+                    //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+                    if (ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+                        {
+
+                        if (ValidateSurveyFields(pRequestMessage))
+                            {
+                            try
+                                {
+
+                                Epi.Web.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Common.BusinessObject.SurveyInfoBO();
+
+                                BO.SurveyId = SurveyId.ToString();
+                                BO.ClosingDate = pRequestMessage.ClosingDate;
+
+                                BO.IntroductionText = pRequestMessage.IntroductionText;
+                                BO.ExitText = pRequestMessage.ExitText;
+                                BO.DepartmentName = pRequestMessage.DepartmentName;
+                                BO.OrganizationName = pRequestMessage.OrganizationName;
+
+                                BO.SurveyNumber = pRequestMessage.SurveyNumber;
+
+                                BO.XML = pRequestMessage.XML;
+
+                                BO.SurveyName = pRequestMessage.SurveyName;
+
+                                BO.SurveyType = pRequestMessage.SurveyType;
+                                BO.UserPublishKey = pRequestMessage.UserPublishKey;
+                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
+                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
+                                BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
+                                BO.IsDraftMode = pRequestMessage.IsDraftMode;
+                                BO.StartDate = pRequestMessage.StartDate;
+
+
+                                this.SurveyInfoDao.UpdateSurveyInfo(BO);
+                                result.URL = GetURL(pRequestMessage, SurveyId);
+                                result.IsPulished = true;
+                                }
+                            catch (Exception ex)
+                                {
+                                System.Console.Write(ex.ToString());
+                                //Entities.ObjectStateManager.GetObjectStateEntry(SurveyMetaData).Delete();
+                                result.URL = "";
+                                result.IsPulished = false;
+                                result.StatusText = "An Error has occurred while publishing your survey.";
+                                }
+
+
+
+
+                            }
+                        else
+                            {
+
+                            result.URL = "";
+                            result.IsPulished = false;
+                            result.StatusText = "One or more survey required fields are missing values.";
+                            }
+
+                        }
+                    else
+                        {
+
+                        result.URL = "";
+                        result.IsPulished = false;
+                        result.StatusText = "Organization Key is invalid.";
+
+                        }
+                    }
+                
+            return result;
+            }
+        private SurveyRequestResultBO RePublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
+            {
+            throw new NotImplementedException();
+            }
+        private SurveyRequestResultBO PublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
+            {
+
+            SurveyRequestResultBO SurveyRequestResultBO = new Web.Common.BusinessObject.SurveyRequestResultBO();
+            string ParentId = "";
+            // 1- breck down the xml to n views
+            List<string> XmlList = new List<string>();
+            XmlList = XmlChunking(pRequestMessage.XML);  
+
+            // 2- call publish() with each of the views
+            foreach (string Xml in XmlList)
+            {
+            XDocument xdoc = XDocument.Parse(Xml);
+            SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
+            XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
+            
+            int ViewId;
+            int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out ViewId);
+
+            SurveyInfoBO = pRequestMessage;
+            SurveyInfoBO.XML = Xml;
+            SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
+            SurveyInfoBO.ViewId = ViewId;
+            SurveyInfoBO.ParentId = ParentId;
+            SurveyInfoBO.OwnerId = 2; //HardCode
+            SurveyRequestResultBO = Publish(SurveyInfoBO);
+            ParentId = SurveyRequestResultBO.URL.Split('/').Last();
+            }
+
+            return SurveyRequestResultBO;
+            }
+
+        private List<string> XmlChunking(string Xml)
+            {
+            List<string> XmlList = new List<string>();
+            XDocument xdoc = XDocument.Parse(Xml);
+            XDocument xdoc1 = XDocument.Parse(Xml);
+           
+            xdoc.Descendants("View").Remove();
+
+            foreach (XElement Xelement in xdoc1.Descendants("Project").Elements("View"))
+                {
+
+                //xdoc.Element("Project").Add(Xelement);
+                xdoc.Root.Element("Project").Add(Xelement);
+                XmlList.Add(xdoc.ToString());
+                xdoc.Descendants("View").Remove();
+                }
+
+            return XmlList;
+            }
         #endregion
         
         
