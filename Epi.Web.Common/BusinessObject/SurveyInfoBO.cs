@@ -27,6 +27,7 @@ namespace Epi.Web.Common.BusinessObject
         private DateTime _StartDate;
         private string _ParentId;
         private int _ViewId;
+        private int _OwnerId;
         public string StatusText
         { 
             get { return _StatusText; }
@@ -148,6 +149,11 @@ namespace Epi.Web.Common.BusinessObject
             get { return _ViewId; }
             set { _ViewId = value; }
             }
-
+        [DataMember]
+        public int OwnerId
+            {
+            get { return _OwnerId; }
+            set { _OwnerId = value; }
+            }
     }
 }

@@ -311,7 +311,12 @@ namespace Epi.Web.EF
                    SurveyInfo.TemplateXMLSize = RemoveWhitespace(SurveyInfo.XML).Length;
                    SurveyInfo.DateCreated = DateTime.Now;
 
+                   
+
                    var SurveyMetaDataEntity = Mapper.Map(SurveyInfo);
+                   User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyInfo.OwnerId);
+                   SurveyMetaDataEntity.Users.Add(User);
+
                    SurveyMetaDataEntity.OrganizationId = OrganizationId;
                    Context.AddToSurveyMetaDatas(SurveyMetaDataEntity);
 
@@ -475,7 +480,8 @@ namespace Epi.Web.EF
 
 
 
-       
+   
+   
 
     }
 }
