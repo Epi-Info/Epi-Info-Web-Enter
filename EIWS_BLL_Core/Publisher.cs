@@ -334,7 +334,51 @@ namespace Epi.Web.BLL
             }
         private SurveyRequestResultBO RePublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
             {
-            throw new NotImplementedException();
+            SurveyRequestResultBO SurveyRequestResultBO = new Web.Common.BusinessObject.SurveyRequestResultBO();
+            Dictionary<int, int> ViewIds = new Dictionary<int, int>();
+            Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
+            string ParentId = "";
+
+            // 1- breck down the xml to n views
+            List<string> XmlList = new List<string>();
+            XmlList = XmlChunking(pRequestMessage.XML);
+
+            // 2- call publish() with each of the views
+            foreach (string Xml in XmlList)
+                {
+                XDocument xdoc = XDocument.Parse(Xml);
+                SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
+                XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
+                int ViewId;
+                int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out ViewId);
+
+                GetRelateViewIds(ViewElement, ViewId);
+
+                SurveyInfoBO = pRequestMessage;
+                SurveyInfoBO.XML = Xml;
+                SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
+                SurveyInfoBO.ViewId = ViewId;
+                SurveyInfoBO.ParentId = ParentId;
+                SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
+                SurveyRequestResultBO = RePublish(SurveyInfoBO);
+                ParentId = SurveyRequestResultBO.URL.Split('/').Last();
+                SurveyIds.Add(ViewId, ParentId);
+
+                }
+
+            foreach (var ViewId in this.ViewIds)
+                {
+
+                string PId = SurveyIds[ViewId.Value].ToString();
+                string SId = SurveyIds[ViewId.Key].ToString();
+                this.SurveyInfoDao.UpdateParentId(SId, ViewId.Key, PId);
+
+                }
+
+
+
+
+            return SurveyRequestResultBO;
             }
         private SurveyRequestResultBO PublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
             {
