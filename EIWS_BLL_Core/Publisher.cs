@@ -17,6 +17,7 @@ namespace Epi.Web.BLL
     {
         private Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao;
         private Epi.Web.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
+        Dictionary<int, int> ViewIds = new Dictionary<int, int>();
         #region"Public members"
         /// <summary>
         ///  This class is used to process the object sent from the WCF service “SurveyManager”, 
@@ -339,7 +340,10 @@ namespace Epi.Web.BLL
             {
 
             SurveyRequestResultBO SurveyRequestResultBO = new Web.Common.BusinessObject.SurveyRequestResultBO();
+            Dictionary<int, int> ViewIds = new Dictionary<int, int>();
+            Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
             string ParentId = "";
+            
             // 1- breck down the xml to n views
             List<string> XmlList = new List<string>();
             XmlList = XmlChunking(pRequestMessage.XML);  
@@ -350,21 +354,56 @@ namespace Epi.Web.BLL
             XDocument xdoc = XDocument.Parse(Xml);
             SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
             XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
-            
             int ViewId;
             int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out ViewId);
-
+            
+            GetRelateViewIds(ViewElement, ViewId);
+ 
             SurveyInfoBO = pRequestMessage;
             SurveyInfoBO.XML = Xml;
             SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
             SurveyInfoBO.ViewId = ViewId;
             SurveyInfoBO.ParentId = ParentId;
-            SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ; //HardCode
+            SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ; 
             SurveyRequestResultBO = Publish(SurveyInfoBO);
             ParentId = SurveyRequestResultBO.URL.Split('/').Last();
+            SurveyIds.Add( ViewId ,ParentId);
+
             }
+           
+            foreach(var ViewId in this.ViewIds )
+                {
+              
+                string PId = SurveyIds[ViewId.Value].ToString();
+                string SId = SurveyIds[ViewId.Key].ToString();
+                this.SurveyInfoDao.UpdateParentId(SId, ViewId.Key, PId);
+                
+                 }
+
+
+
 
             return SurveyRequestResultBO;
+            }
+
+        private void  GetRelateViewIds(XElement ViewElement ,int ViewId)
+            {
+          
+            var _RelateFields = from _Field in
+                                    ViewElement.Descendants("Field")
+                                where _Field.Attribute("FieldTypeId").Value == "20"
+                                select _Field;
+
+            foreach (var Item in _RelateFields)
+                {
+
+                int RelateViewId = 0;
+                int.TryParse(Item.Attribute("RelatedViewId").Value, out RelateViewId);
+
+                this.ViewIds.Add(RelateViewId, ViewId);
+                }
+
+          
             }
 
         private List<string> XmlChunking(string Xml)
