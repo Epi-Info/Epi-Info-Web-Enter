@@ -508,7 +508,31 @@ namespace Epi.Web.EF
            throw (ex);
            }
        }
+   public void UpdateParentId(string SurveyId ,int ViewId , string ParentId)
+       {
+       try
+           {
+           Guid Id = new Guid(SurveyId);
+           Guid PId = new Guid(ParentId);
 
+           //Update Survey
+           using (var Context = DataObjectFactory.CreateContext())
+               {
+               var Query = from Form in Context.SurveyMetaDatas
+                           where Form.SurveyId == Id && Form.ViewId == ViewId
+                           select Form;
+
+               var DataRow = Query.Single();
+               DataRow.ParentId = PId;
+               Context.SaveChanges();
+               }
+
+           }
+       catch (Exception ex)
+           {
+           throw (ex);
+           }
+       }
    private static List<string> MetaDaTaColumnNames()
        {
 
