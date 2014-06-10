@@ -252,7 +252,7 @@ namespace Epi.Web.MVC.Controllers
 
                         form = SetLists(form);
                       
-                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
+                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, true, PageNumber, UserId);
 
 
                         if (!string.IsNullOrEmpty(this.Request.Form["is_save_action"]) && this.Request.Form["is_save_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
@@ -1190,7 +1190,7 @@ namespace Epi.Web.MVC.Controllers
                               else
                                  {
                               //    //ExecuteRecordAfterCheckCode(form, surveyInfoModel, SurveyAnswer, responseId, i, UserId);
-                                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, Obj.ResponseId, form, SurveyAnswer, IsSubmited, true, i, UserId);
+                                // _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, Obj.ResponseId, form, SurveyAnswer, IsSubmited, true, i, UserId);
                                  }
                               // create my list of objects 
                               
