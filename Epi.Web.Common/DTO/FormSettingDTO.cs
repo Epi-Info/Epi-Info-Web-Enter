@@ -12,7 +12,7 @@ namespace Epi.Web.Common.DTO
         private Dictionary<int, string> _FormControlNameList;
         private Dictionary<int, string> _AssignedUserList;
         private Dictionary<int, string> _UserList;
-      
+        private string _FormId;
        
         public Dictionary<int, string> ColumnNameList
             {
@@ -35,7 +35,12 @@ namespace Epi.Web.Common.DTO
             get { return _UserList; }
             set { _UserList = value; }
             }
-       
 
+        public   string FormId
+            {
+            get { return _FormId; }
+            set { _FormId = value; }
+            }
+       
         }
     }
