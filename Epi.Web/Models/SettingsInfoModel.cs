@@ -15,7 +15,8 @@ namespace Epi.Web.MVC.Models
         private string _FormName;
         private Dictionary<int, string> _AssignedUserList;
         private Dictionary<int, string> _UserList;
-
+        private string _FormId;
+       
 
         public Dictionary<int, string> FormControlNameList
             {
@@ -63,6 +64,11 @@ namespace Epi.Web.MVC.Models
             {
             get { return _FormName; }
             set { _FormName = value; }
+            }
+        public string FormId
+            {
+            get { return _FormId; }
+            set { _FormId = value; }
             }
         }
     }

@@ -302,8 +302,8 @@ function ReadResponse(ActionUrl) {
 }
 function SaveSettings() {
    
-    if ($('select#SelectedColumns option').length>0) {
-	                $('#SelectedColumns option').prop('selected', true);
+    if ($('select.SelectedColumns option').length>0) {
+	                $('.SelectedColumns option').prop('selected', true);
 	                $('#SelectedUser option').prop('selected', true);
 	                var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
 	                var _form = $("#formsList").serialize();
@@ -322,7 +322,7 @@ function SaveSettings() {
 		        }
 		        else {
 		            alert('User should select at least one column.');
-		            $('select#SelectedColumns option').focus();
+		            $('select.SelectedColumns option').focus();
 		        }
 
  
