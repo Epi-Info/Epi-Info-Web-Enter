@@ -324,7 +324,10 @@ namespace Epi.Web.Common.ObjectMapping
                FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
                FormsHierarchyDTO.FormId = Obj.FormId;
                FormsHierarchyDTO.ViewId = Obj.ViewId;
+               if (Obj.ResponseIds!= null)
+                   {
                FormsHierarchyDTO.ResponseIds = ToSurveyAnswerDTO(Obj.ResponseIds);
+                    }
                result.Add(FormsHierarchyDTO);
                }
             return result;

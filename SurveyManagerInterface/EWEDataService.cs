@@ -869,9 +869,12 @@ namespace Epi.Web.WCF.SurveyService
             Epi.Web.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
             Epi.Web.Interfaces.DataInterface.IFormInfoDao IFormInfoDao = entityDaoFactory.FormInfoDao;
             Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao, IUserDao, IFormInfoDao);
-            string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting.ColumnNameList, FormSettingReq.FormSetting.AssignedUserList, FormSettingReq.FormInfo.FormId);
-            
 
+            foreach (var item in FormSettingReq.FormSetting)
+                {
+                string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, item.ColumnNameList, item.AssignedUserList, item.FormId);
+            
+                }
              
             return Response;
 
@@ -927,6 +930,7 @@ namespace Epi.Web.WCF.SurveyService
             {
 
             FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
+            List<SurveyResponseBO> AllResponsesIDsList = new List<SurveyResponseBO>();
             //1- Get All form  ID's
               Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
               Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
@@ -940,12 +944,18 @@ namespace Epi.Web.WCF.SurveyService
              
               Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
               Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+              if (!string.IsNullOrEmpty(FormsHierarchyRequest.SurveyResponseInfo.ResponseId))
+                  {
+                 AllResponsesIDsList = Implementation1.GetResponsesHierarchyIdsByRootId(FormsHierarchyRequest.SurveyResponseInfo.ResponseId);
 
-            List<SurveyResponseBO> AllResponsesIDsList = Implementation1.GetResponsesHierarchyIdsByRootId(FormsHierarchyRequest.SurveyResponseInfo.ResponseId);
-
+                  }
+              else 
+                  {
+                   AllResponsesIDsList = null;
+                  }
             //3 Combining the lists.
-             
-            FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(CombineLists(  RelatedFormIDsList,   AllResponsesIDsList));
+
+              FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(CombineLists(RelatedFormIDsList, AllResponsesIDsList));
     
             return FormsHierarchyResponse;
             
@@ -963,7 +973,10 @@ namespace Epi.Web.WCF.SurveyService
             FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
             FormsHierarchyBO.FormId = Item.FormId;
             FormsHierarchyBO.ViewId = Item.ViewId;
+            if (AllResponsesIDsList != null)
+                {
             FormsHierarchyBO.ResponseIds = AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId).ToList();
+                }
             List.Add(FormsHierarchyBO);
             }
         return List;
