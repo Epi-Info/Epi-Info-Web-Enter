@@ -301,8 +301,18 @@ function ReadResponse(ActionUrl) {
 
 }
 function SaveSettings() {
-   
-    if ($('select.SelectedColumns option').length>0) {
+
+    var validation = true;
+    $('.SelectedColumns').each(function () {
+
+        if (this.length == 0)
+         {
+            validation = false;
+         }
+    });
+
+    //if ($('select.SelectedColumns option').length > 0) {
+    if (validation) {
 	                $('.SelectedColumns option').prop('selected', true);
 	                $('#SelectedUser option').prop('selected', true);
 	                var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
@@ -314,14 +324,13 @@ function SaveSettings() {
 		                //contentType: 'application/json; charset=utf-8',
 		                data: _form,
 		                dataType: "html",
-		
-		success: successFunc,
-		Error: errorFunc
-});
+		                success: successFunc,
+		                Error: errorFunc
+                    });
 
 		        }
 		        else {
-		            alert('User should select at least one column.');
+		            alert('User should select at least one column for each form.');
 		            $('select.SelectedColumns option').focus();
 		        }
 
