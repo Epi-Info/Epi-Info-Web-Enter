@@ -1069,6 +1069,11 @@ namespace Epi.Web.MVC.Controllers
                 {
                 StringNumber = url.Substring(LastIndex, url.Length - LastIndex);
                 StringNumber = StringNumber.Trim('/');
+                if (StringNumber.Contains('?'))
+                    {
+                    int Index = StringNumber.IndexOf('?');
+                   StringNumber =   StringNumber.Remove(Index);
+                    }
                 }
             if (IsSaveAndClose)
                 {
