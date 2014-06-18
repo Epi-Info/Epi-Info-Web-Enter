@@ -389,8 +389,14 @@ function SaveSettings() {
 
 		var leftHeight = $("#left").height();
 		var rightHeight = $("#right").height();
-		if (leftHeight > rightHeight) { $("#right").height(leftHeight) }
-		else { $("#left").height(rightHeight) };
+		if (leftHeight > rightHeight)
+         {
+	   // $("#right").height(leftHeight)
+          }
+		else 
+        {
+            $("#left").height(rightHeight) 
+        }
 	});
 
 </script>
