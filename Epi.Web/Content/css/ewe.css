@@ -272,7 +272,7 @@ div.recordcontentdiv
         overflow:hidden;*/
         background: #dfdeda;
         padding:10px;
-        border: 1px solid #c2c2c2;
+       /* border: 1px solid #c2c2c2;*/
         display: table-cell;
         min-height: 550px;
     }
