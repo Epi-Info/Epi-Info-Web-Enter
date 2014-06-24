@@ -36,6 +36,8 @@ namespace Epi.Web.Common.DTO
         public string UserEmail { get; set; }
          [DataMember]
         public string RelateParentId { get; set; }
-        
+
+         [DataMember]
+         public List<SurveyAnswerDTO> ResponseHierarchyIds { get; set; }
     }
 }
