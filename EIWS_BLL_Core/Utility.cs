@@ -23,9 +23,10 @@ namespace Epi.Web.BLL
             if (resultRows.Count > 0)
             {
                 NumberOfRows = resultRows.Count;
-                ResponsesTotalsize = (int)resultRows.Select(x => x.TemplateXMLSize).Sum();
+                ResponsesTotalsize = GetResponsesTotalsize(resultRows);
 
-                AvgResponseSize = (int)resultRows.Select(x => x.TemplateXMLSize).Average();
+                AvgResponseSize = GetAvgResponseSize(resultRows);
+              
                // NumberOfResponsPerPage = (int)Math.Ceiling((ResponseMaxSize * (BandwidthUsageFactor/100)) / AvgResponseSize);
 
                 NumberOfResponsPerPage = (int)Math.Ceiling((int)(ResponseMaxSize * (BandwidthUsageFactor * 0.01)) / AvgResponseSize);
@@ -37,6 +38,33 @@ namespace Epi.Web.BLL
 
             return result;
         }
+
+        private static decimal GetAvgResponseSize(List<SurveyResponseBO> resultRows)
+            {
+            int Average =0;
+            List<int> ResponseSizeList = new List<int>();
+            foreach (var item in resultRows)
+                {
+                //ResponseSizeList.Add ((int)item.ResponseHierarchyIds.Select(x => x.TemplateXMLSize).Average());
+                ResponseSizeList.Add((int)item.ResponseHierarchyIds.Select(x => x.TemplateXMLSize).Sum());
+                }
+            Average = (int)ResponseSizeList.Average();
+
+            return Average;
+            }
+
+        private static int GetResponsesTotalsize(List<SurveyResponseBO> resultRows)
+            {
+            int Sum = 0;
+            //Sum = (int)resultRows.Select(x => x.TemplateXMLSize).Sum();
+            foreach (var item in resultRows)
+            {
+
+            Sum = Sum + (int)item.ResponseHierarchyIds.Select(x => x.TemplateXMLSize).Sum();
+                
+            }
+            return Sum;
+            }
 
         //SurveyInfoBO
         public static PageInfoBO GetSurveySize(List<SurveyInfoBO> resultRows, int BandwidthUsageFactor, int ResponseMaxSize = -1)

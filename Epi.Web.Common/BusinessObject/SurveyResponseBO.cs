@@ -31,6 +31,7 @@ namespace Epi.Web.Common.BusinessObject
         public string ParentId { get; set; }
         public string RelateParentId { get; set; }
         public bool IsNewRecord { get; set; }
+        public List<SurveyResponseBO> ResponseHierarchyIds { get; set; }
         public object Clone() 
             {
 
