@@ -145,100 +145,217 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="SurveyResponseId">Unique SurveyResponse identifier.</param>
         /// <returns>SurveyResponse.</returns>
+        //public List<SurveyResponseBO> GetSurveyResponse(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted, int pStatusId = -1, int PageNumber = -1, int PageSize = -1)
+        //{
+        //    List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+        //    List<SurveyResponse> responseList = new List<SurveyResponse>();
+
+        //    if (SurveyAnswerIdList.Count > 0)
+        //    {
+        //        foreach (string surveyResponseId in SurveyAnswerIdList.Distinct())
+        //        {
+        //            try
+        //            {
+        //                Guid Id = new Guid(surveyResponseId);
+                       
+
+        //                using (var Context = DataObjectFactory.CreateContext())
+        //                {
+        //                    SurveyResponse surveyResponse = Context.SurveyResponses.First(x => x.ResponseId == Id );
+        //                    if (surveyResponse != null)
+        //                    {
+        //                        responseList.Add(surveyResponse);
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                throw (ex);
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        try{
+        //        using (var Context = DataObjectFactory.CreateContext())
+        //        {
+        //            if (!string.IsNullOrEmpty(pSurveyId))
+        //            {
+        //                Guid Id = new Guid(pSurveyId);
+        //                responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id).ToList();
+        //            }
+                    
+                   
+        //        }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw (ex);
+        //        }
+        //    }
+
+
+        //    //if(! string.IsNullOrEmpty(pSurveyId))
+        //    //{
+        //    //    Guid Id = new Guid(pSurveyId);
+        //    //    List<SurveyResponse> surveyList = new List<SurveyResponse>();
+        //    //    surveyList.AddRange(responseList.Where(x => x.SurveyId == Id));
+        //    //    responseList = surveyList;
+        //    //}
+
+        //    if (pStatusId > -1)
+        //    {
+        //        List<SurveyResponse> statusList = new List<SurveyResponse>();
+        //        statusList.AddRange(responseList.Where(x => x.StatusId == pStatusId));
+        //        responseList = statusList;
+        //    }
+
+        //    if (pDateCompleted > DateTime.MinValue)
+        //    {
+        //        List<SurveyResponse> dateList = new List<SurveyResponse>();
+
+        //        //dateList.AddRange(responseList.Where(x => x.DateCompleted.Value.Month ==  pDateCompleted.Month && x.DateCompleted.Value.Year == pDateCompleted.Year && x.DateCompleted.Value.Day == pDateCompleted.Day));
+        //        dateList.AddRange(responseList.Where(x =>x.DateCompleted !=null && x.DateCompleted.Value.Month == pDateCompleted.Month && x.DateCompleted.Value.Year == pDateCompleted.Year && x.DateCompleted.Value.Day == pDateCompleted.Day));
+        //        responseList = dateList;
+        //    }
+
+        //    result = Mapper.Map(responseList);
+
+        //    if (PageNumber > 0 && PageSize > 0)
+        //    {
+        //        result.Sort(CompareByDateCreated);
+        //        // remove the items to skip
+        //        if (PageNumber * PageSize - PageSize > 0)
+        //        {
+        //            result.RemoveRange(0, PageSize);
+        //        }
+
+        //        if (PageNumber * PageSize < result.Count)
+        //        {
+        //            result.RemoveRange(PageNumber * PageSize, result.Count - PageNumber * PageSize);
+        //        }
+        //    }
+
+
+        //    return result;
+        //}
         public List<SurveyResponseBO> GetSurveyResponse(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted, int pStatusId = -1, int PageNumber = -1, int PageSize = -1)
-        {
-            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+            {
+            List<SurveyResponseBO> Finalresult = new List<SurveyResponseBO>();
+            IEnumerable<SurveyResponseBO> result;
             List<SurveyResponse> responseList = new List<SurveyResponse>();
 
             if (SurveyAnswerIdList.Count > 0)
-            {
-                foreach (string surveyResponseId in SurveyAnswerIdList.Distinct())
                 {
-                    try
+                foreach (string surveyResponseId in SurveyAnswerIdList.Distinct())
                     {
+                    try
+                        {
                         Guid Id = new Guid(surveyResponseId);
-                       
+
 
                         using (var Context = DataObjectFactory.CreateContext())
-                        {
-                            SurveyResponse surveyResponse = Context.SurveyResponses.First(x => x.ResponseId == Id );
-                            if (surveyResponse != null)
                             {
+                            SurveyResponse surveyResponse = Context.SurveyResponses.First(x => x.ResponseId == Id);
+                            if (surveyResponse != null)
+                                {
                                 responseList.Add(surveyResponse);
+                                }
                             }
                         }
-                    }
                     catch (Exception ex)
-                    {
+                        {
                         throw (ex);
+                        }
                     }
                 }
-            }
             else
-            {
-                try{
-                using (var Context = DataObjectFactory.CreateContext())
                 {
-                    if (!string.IsNullOrEmpty(pSurveyId))
+                try
                     {
-                        Guid Id = new Guid(pSurveyId);
-                        responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id).ToList();
+                    using (var Context = DataObjectFactory.CreateContext())
+                        {
+                        if (!string.IsNullOrEmpty(pSurveyId))
+                            {
+                            Guid Id = new Guid(pSurveyId);
+                            responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id).ToList();
+                            }
+
+                       
+                        }
                     }
-                    
-                   
-                }
-                }
                 catch (Exception ex)
-                {
+                    {
                     throw (ex);
+                    }
                 }
-            }
+ 
+
+            //if (pStatusId > -1)
+            //    {
+            //    List<SurveyResponse> statusList = new List<SurveyResponse>();
+            //    statusList.AddRange(responseList.Where(x => x.StatusId == pStatusId));
+            //    responseList = statusList;
+            //    }
+
+            //if (pDateCompleted > DateTime.MinValue)
+            //    {
+            //    List<SurveyResponse> dateList = new List<SurveyResponse>();
+
+            //    dateList.AddRange(responseList.Where(x => x.DateCompleted != null && x.DateCompleted.Value.Month == pDateCompleted.Month && x.DateCompleted.Value.Year == pDateCompleted.Year && x.DateCompleted.Value.Day == pDateCompleted.Day));
+            //    responseList = dateList;
+            //    }
+
+             
 
 
-            //if(! string.IsNullOrEmpty(pSurveyId))
-            //{
-            //    Guid Id = new Guid(pSurveyId);
-            //    List<SurveyResponse> surveyList = new List<SurveyResponse>();
-            //    surveyList.AddRange(responseList.Where(x => x.SurveyId == Id));
-            //    responseList = surveyList;
-            //}
 
-            if (pStatusId > -1)
-            {
-                List<SurveyResponse> statusList = new List<SurveyResponse>();
-                statusList.AddRange(responseList.Where(x => x.StatusId == pStatusId));
-                responseList = statusList;
-            }
+           
 
-            if (pDateCompleted > DateTime.MinValue)
-            {
-                List<SurveyResponse> dateList = new List<SurveyResponse>();
 
-                //dateList.AddRange(responseList.Where(x => x.DateCompleted.Value.Month ==  pDateCompleted.Month && x.DateCompleted.Value.Year == pDateCompleted.Year && x.DateCompleted.Value.Day == pDateCompleted.Day));
-                dateList.AddRange(responseList.Where(x =>x.DateCompleted !=null && x.DateCompleted.Value.Month == pDateCompleted.Month && x.DateCompleted.Value.Year == pDateCompleted.Year && x.DateCompleted.Value.Day == pDateCompleted.Day));
-                responseList = dateList;
-            }
 
-            result = Mapper.Map(responseList);
-
-            if (PageNumber > 0 && PageSize > 0)
-            {
-                result.Sort(CompareByDateCreated);
-                // remove the items to skip
-                if (PageNumber * PageSize - PageSize > 0)
+            if (PageSize != -1 && PageNumber != -1)
                 {
-                    result.RemoveRange(0, PageSize);
-                }
+                result = Mapper.Map(responseList);
 
-                if (PageNumber * PageSize < result.Count)
+                foreach (SurveyResponseBO item in result)
+                               {
+                               List<SurveyResponseBO> ResponsesHierarchy = this.GetResponsesHierarchyIdsByRootId(item.ResponseId.ToString());
+
+                               result.Where(x => x.ResponseId == item.ResponseId).Single().ResponseHierarchyIds = ResponsesHierarchy;
+
+                               }
+
+
+                result = result.Skip((PageNumber - 1) * PageSize).Take(PageSize);
+                foreach (var item in result)
+                    {
+                    Finalresult.Add(item);
+
+                    }
+                return Finalresult;
+                }
+            else
                 {
-                    result.RemoveRange(PageNumber * PageSize, result.Count - PageNumber * PageSize);
+
+
+                Finalresult = Mapper.Map(responseList);
+                foreach (SurveyResponseBO item in Finalresult)
+                    {
+                    List<SurveyResponseBO> ResponsesHierarchy = this.GetResponsesHierarchyIdsByRootId(item.ResponseId.ToString());
+
+                    Finalresult.Where(x => x.ResponseId == item.ResponseId).Single().ResponseHierarchyIds = ResponsesHierarchy;
+
+                    }
+
+                return Finalresult;
                 }
+
+
+
+
+
             }
-
-
-            return result;
-        }
 
 
         public List<SurveyResponseBO> GetSurveyResponseSize(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted, int pStatusId = -1, int PageNumber = -1, int PageSize = -1, int ResponseMaxSize = -1)

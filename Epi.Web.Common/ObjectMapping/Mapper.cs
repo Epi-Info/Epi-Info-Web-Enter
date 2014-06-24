@@ -143,20 +143,24 @@ namespace Epi.Web.Common.ObjectMapping
         /// <returns>A SurveyInfoDTO.</returns>
         public static SurveyAnswerDTO ToDataTransferObject(SurveyResponseBO pBO)
         {
-            return new SurveyAnswerDTO
-            {
-                SurveyId = pBO.SurveyId,
-                ResponseId = pBO.ResponseId,
-                DateUpdated = pBO.DateUpdated,
-                XML = pBO.XML,
-                DateCompleted = pBO.DateCompleted,
-                DateCreated = pBO.DateCreated, 
-                Status = pBO.Status,
-                IsDraftMode = pBO.IsDraftMode,
-                IsLocked = pBO.IsLocked,
-                ParentRecordId =pBO.ParentRecordId,
-                UserEmail = pBO.UserEmail
-            };
+        SurveyAnswerDTO SurveyAnswerDTO = new SurveyAnswerDTO();
+           
+                SurveyAnswerDTO.SurveyId = pBO.SurveyId;
+                SurveyAnswerDTO.ResponseId = pBO.ResponseId;
+                SurveyAnswerDTO.DateUpdated = pBO.DateUpdated;
+                SurveyAnswerDTO.XML = pBO.XML;
+                SurveyAnswerDTO.DateCompleted = pBO.DateCompleted;
+                SurveyAnswerDTO. DateCreated = pBO.DateCreated; 
+                SurveyAnswerDTO.Status = pBO.Status;
+                SurveyAnswerDTO.IsDraftMode = pBO.IsDraftMode;
+                SurveyAnswerDTO.IsLocked = pBO.IsLocked;
+                SurveyAnswerDTO.ParentRecordId =pBO.ParentRecordId;
+                SurveyAnswerDTO.UserEmail = pBO.UserEmail;
+                if (pBO.ResponseHierarchyIds != null)
+                    {
+                      SurveyAnswerDTO.ResponseHierarchyIds = ToDataTransferObject(pBO.ResponseHierarchyIds);
+                    }
+          return SurveyAnswerDTO;
         }
         public static List<SurveyAnswerDTO> ToDataTransferObject(List<SurveyResponseBO> pSurveyResposneList)
         {
