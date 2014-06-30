@@ -7,9 +7,9 @@ using System.Text;
 //using BusinessObjects;
 //using DataObjects.EntityFramework.ModelMapper;
 //using System.Linq.Dynamic;
-using Epi.Web.Interfaces.DataInterfaces;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
+using Epi.Web.Enter.Interfaces.DataInterfaces;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 
 namespace Epi.Web.EF
 {

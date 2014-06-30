@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Interfaces.DataInterface;
+using Epi.Web.Enter.Interfaces.DataInterface;
 
-namespace Epi.Web.Interfaces.DataInterfaces
+namespace Epi.Web.Enter.Interfaces.DataInterfaces
 {
     /// <summary>
     /// Abstract factory interface. Creates data access objects.

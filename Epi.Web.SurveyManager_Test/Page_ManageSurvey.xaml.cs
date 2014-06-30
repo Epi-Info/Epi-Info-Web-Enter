@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.ServiceModel;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.Exception;
 
 namespace Epi.Web.SurveyManager.Client
 {
@@ -29,14 +29,14 @@ namespace Epi.Web.SurveyManager.Client
         }
 
 
-        private List<Epi.Web.Common.DTO.SurveyInfoDTO> SurveyInfoList;
+        private List<Epi.Web.Enter.Common.DTO.SurveyInfoDTO> SurveyInfoList;
         private int selectedIndex;
 
         private void DownloadSurveyInfoButton_Click(object sender, RoutedEventArgs e)
         {
         EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
 
-            Epi.Web.Common.Message.SurveyInfoRequest Request = new Epi.Web.Common.Message.SurveyInfoRequest();
+            Epi.Web.Enter.Common.Message.SurveyInfoRequest Request = new Epi.Web.Enter.Common.Message.SurveyInfoRequest();
 
             if (!string.IsNullOrEmpty(this.SurveyCriteria_SurveyId.Text.Trim()))
             {
@@ -87,14 +87,14 @@ namespace Epi.Web.SurveyManager.Client
             this.datePicker2.SelectedDate = DateTime.Now;
             try
             {
-                Epi.Web.Common.Message.SurveyInfoResponse Result = client.GetSurveyInfo(Request);
+                Epi.Web.Enter.Common.Message.SurveyInfoResponse Result = client.GetSurveyInfo(Request);
                 SurveyInfoList = Result.SurveyInfoList;
                 SearchResultListBox.Items.Clear();
 
 
 
                 SurveyInfoResponseTextBox.AppendText(string.Format("{0} - records. \n\n", Result.SurveyInfoList.Count));
-                foreach (Epi.Web.Common.DTO.SurveyInfoDTO SurveyInfo in SurveyInfoList)
+                foreach (Epi.Web.Enter.Common.DTO.SurveyInfoDTO SurveyInfo in SurveyInfoList)
                 {
                     //SurveyInfoResponseTextBox.AppendText(string.Format("{0} - {1} - {2}\n", SurveyInfo.SurveyId, SurveyInfo.SurveyName, SurveyInfo.ClosingDate));
                     //System.Collections.Generic.KeyValuePair<string, string> kvp = new KeyValuePair<string, string>(SurveyInfo.SurveyId,string.Format("{0} - {1} - {2}\n", SurveyInfo.SurveyId, SurveyInfo.SurveyName, SurveyInfo.ClosingDate));
@@ -199,7 +199,7 @@ namespace Epi.Web.SurveyManager.Client
 
                 EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
 
-                Epi.Web.Common.Message.SurveyInfoRequest Request = new Epi.Web.Common.Message.SurveyInfoRequest();
+                Epi.Web.Enter.Common.Message.SurveyInfoRequest Request = new Epi.Web.Enter.Common.Message.SurveyInfoRequest();
                 Request.Action = "Update";
                 if (this.datePicker1.SelectedDate == null)
                 {
@@ -257,7 +257,7 @@ namespace Epi.Web.SurveyManager.Client
 
                 try
                 {
-                    Epi.Web.Common.Message.SurveyInfoResponse Result = client.SetSurveyInfo(Request);
+                    Epi.Web.Enter.Common.Message.SurveyInfoResponse Result = client.SetSurveyInfo(Request);
 
 
                    // SurveyInfoResponseTextBox.AppendText("Succefully updated survey:");

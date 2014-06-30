@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.BusinessRule
+namespace Epi.Web.Enter.Common.BusinessRule
 {
     /// <summary>
     /// Datatype enum of types to be used in validation rules.

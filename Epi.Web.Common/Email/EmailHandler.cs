@@ -5,7 +5,7 @@ using System.Web;
 using System.Net.Mail;
 using System.Net;
 using System.Configuration;
-namespace Epi.Web.Common.Email
+namespace Epi.Web.Enter.Common.Email
 {
     public class EmailHandler
     { 

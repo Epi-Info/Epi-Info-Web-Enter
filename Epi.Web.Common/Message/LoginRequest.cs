@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
-using Epi.Web.Common.MessageBase;
+using Epi.Web.Enter.Common.MessageBase;
 
-namespace Epi.Web.Common.Message
+namespace Epi.Web.Enter.Common.Message
 {
     /// <summary>
     /// Represents a login request message from a client. Contains user credentials.

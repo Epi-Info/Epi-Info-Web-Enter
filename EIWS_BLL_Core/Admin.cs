@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 using System.Configuration;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.Exception;
 namespace Epi.Web.BLL
     {
    public class Admin
         {
 
-       public Epi.Web.Interfaces.DataInterfaces.IAdminDao AdminDao;
+       public Epi.Web.Enter.Interfaces.DataInterfaces.IAdminDao AdminDao;
 
-           public Admin(Epi.Web.Interfaces.DataInterfaces.IAdminDao pAdminDao)
+       public Admin(Epi.Web.Enter.Interfaces.DataInterfaces.IAdminDao pAdminDao)
             {
                this.AdminDao = pAdminDao;
             }
@@ -22,7 +22,7 @@ namespace Epi.Web.BLL
 
            public  List<AdminBO> GetAdminInfoByOrgKey(string gOrgKeyEncrypted)
                {
-               string OrganizationKey = Epi.Web.Common.Security.Cryptography.Encrypt(gOrgKeyEncrypted);
+               string OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(gOrgKeyEncrypted);
                List<AdminBO> result = this.AdminDao.GetAdminInfoByOrgKey(OrganizationKey);
                return result;
                }
@@ -40,7 +40,7 @@ namespace Epi.Web.BLL
                try
                    {
 
-                   Epi.Web.Interfaces.DataInterfaces.IAdminDao AdminDao = new EF.EntityAdminDao();
+                   Epi.Web.Enter.Interfaces.DataInterfaces.IAdminDao AdminDao = new EF.EntityAdminDao();
                    Epi.Web.BLL.Admin Implementation = new Epi.Web.BLL.Admin(AdminDao);
                    AdminBOList = Implementation.GetAdminInfoByOrgKey(request.OrganizationKey.ToString());
                   
@@ -70,12 +70,12 @@ namespace Epi.Web.BLL
                    AdminList.Add(item.AdminEmail);
                    }
 
-               Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
+               Epi.Web.Enter.Common.Email.Email Email = new Web.Enter.Common.Email.Email();
                Email.Body = "The following survey has been promoted to FINAL mode:\n Title:" + SurveyInfo.SurveyName + " \n Survey ID:" + SurveyInfo.SurveyId + " \nOrganization:" + SurveyInfo.OrganizationName + "\n Start Date & Time:" + SurveyInfo.StartDate + "\n Closing Date & Time:" + SurveyInfo.ClosingDate + " \n \n \n  Thank you.";
                Email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
                Email.To = AdminList;
                Email.Subject = "Survey -" + SurveyInfo.SurveyName + " has been promoted to FINAL";
-               bool success = Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
+               bool success = Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(Email);
 
                }
         }

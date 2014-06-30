@@ -4,8 +4,8 @@ using System.Linq;
 using System.Web;
 using Epi.Web.MVC.Repositories.Core;
 using Epi.Web.MVC.DataServiceClient;
-using Epi.Web.Common.Message;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.Message;
+using Epi.Web.Enter.Common.Exception;
 using System.ServiceModel;
 using Epi.Web.MVC.DataServiceClient;
 using System.Web.Caching;
@@ -104,12 +104,12 @@ namespace Epi.Web.MVC.Repositories
         }
 
         #region stubcode
-            public List<Common.DTO.SurveyInfoDTO> GetList(Criterion criterion = null)
+            public List<Enter.Common.DTO.SurveyInfoDTO> GetList(Criterion criterion = null)
             {
                 throw new NotImplementedException();
             }
 
-            public Common.DTO.SurveyInfoDTO Get(int id)
+            public Enter.Common.DTO.SurveyInfoDTO Get(int id)
             {
                 throw new NotImplementedException();
             }
@@ -119,12 +119,12 @@ namespace Epi.Web.MVC.Repositories
                 throw new NotImplementedException();
             }
 
-            public void Insert(Common.DTO.SurveyInfoDTO t)
+            public void Insert(Enter.Common.DTO.SurveyInfoDTO t)
             {
                 throw new NotImplementedException();
             }
 
-            public void Update(Common.DTO.SurveyInfoDTO t)
+            public void Update(Enter.Common.DTO.SurveyInfoDTO t)
             {
                 throw new NotImplementedException();
             }

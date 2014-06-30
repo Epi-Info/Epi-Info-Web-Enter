@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Interfaces.DataInterface;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Security;
+using Epi.Web.Enter.Interfaces.DataInterface;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Security;
 using System.Configuration;
-using Epi.Web.Common.Constants;
-using Epi.Web.Common.Email;
-using Epi.Web.Common.Constants;
+using Epi.Web.Enter.Common.Constants;
+using Epi.Web.Enter.Common.Email;
+using Epi.Web.Enter.Common.Constants;
 namespace Epi.Web.BLL
 {
     public class User
@@ -24,7 +24,7 @@ namespace Epi.Web.BLL
         {
             UserBO UserResponseBO;
             string KeyForUserPasswordSalt = ReadSalt();
-            PasswordHasher PasswordHasher = new Web.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+            PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
             string salt = PasswordHasher.CreateSalt(User.UserName);
 
             User.PasswordHash = PasswordHasher.HashPassword(salt, User.PasswordHash);
@@ -69,7 +69,7 @@ namespace Epi.Web.BLL
 
 
                     string KeyForUserPasswordSalt = ReadSalt();
-                    PasswordHasher PasswordHasher = new Web.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+                    PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
                     string salt = PasswordHasher.CreateSalt(User.UserName);
 
                     User.PasswordHash = PasswordHasher.HashPassword(salt, password);
@@ -108,7 +108,7 @@ namespace Epi.Web.BLL
         private bool SendEmail(Email email, Constant.EmailCombinationEnum Combination)
         {
 
-         //   Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
+         //   Epi.Web.Enter.Common.Email.Email Email = new Web.Common.Email.Email();
 
             switch (Combination)
             {
@@ -127,7 +127,7 @@ namespace Epi.Web.BLL
             email.Body = email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
-            return Epi.Web.Common.Email.EmailHandler.SendMessage(email);
+            return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
 
         }
     }

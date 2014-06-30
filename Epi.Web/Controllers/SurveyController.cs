@@ -20,8 +20,8 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Reflection;
 using System.Diagnostics;
-using Epi.Web.Common.Message;
-using Epi.Web.Common.DTO;
+using Epi.Web.Enter.Common.Message;
+using Epi.Web.Enter.Common.DTO;
 using Epi.Web.MVC.Utility;
 using System.Linq;
 using System.Web.Configuration;
@@ -87,7 +87,7 @@ namespace Epi.Web.MVC.Controllers
                     IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
                     }
 
-                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(responseId);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(responseId);
                 if (!string.IsNullOrEmpty(Edit))
                     {
 
@@ -215,7 +215,7 @@ namespace Epi.Web.MVC.Controllers
                 {
                 string FormValuesHasChanged = Form_Has_Changed;
                 // bool.TryParse(this.Request.Form["Form_Has_Changed"], out FormValuesHasChanged);
-                Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
                  
                 // SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(SurveyAnswer.SurveyId);
                 object temp = System.Web.HttpContext.Current.Cache;
@@ -563,7 +563,7 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-        private void SetCurrentPage(Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, int PageNumber)
+        private void SetCurrentPage(Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, int PageNumber)
             {
 
             XDocument Xdoc = XDocument.Parse(surveyAnswerDTO.XML);
@@ -574,7 +574,7 @@ namespace Epi.Web.MVC.Controllers
 
             surveyAnswerDTO.XML = Xdoc.ToString();
 
-            Epi.Web.Common.Message.SurveyAnswerRequest sar = new Common.Message.SurveyAnswerRequest();
+            Epi.Web.Enter.Common.Message.SurveyAnswerRequest sar = new Enter.Common.Message.SurveyAnswerRequest();
             sar.Action = "Update";
             sar.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             sar.SurveyAnswerList.Add(surveyAnswerDTO);
@@ -585,9 +585,9 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-        private Epi.Web.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
             {
-            Epi.Web.Common.DTO.SurveyAnswerDTO result = null;
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             result = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
@@ -690,7 +690,7 @@ namespace Epi.Web.MVC.Controllers
                     bool IsMobileDevice = false;
 
                     IsMobileDevice = this.Request.Browser.IsMobileDevice;
-                    Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+                    Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
 
                     //  SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(SurveyAnswer.SurveyId);
                     SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
@@ -732,7 +732,7 @@ namespace Epi.Web.MVC.Controllers
                 IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
 
-                Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
 
 
 
@@ -847,10 +847,10 @@ namespace Epi.Web.MVC.Controllers
             {
 
             //1-Get the child Id
-             
-            SurveyInfoRequest SurveyInfoRequest = new Common.Message.SurveyInfoRequest();
-            SurveyInfoResponse SurveyInfoResponse = new Common.Message.SurveyInfoResponse();
-            SurveyInfoDTO SurveyInfoDTO = new Common.DTO.SurveyInfoDTO();
+
+            SurveyInfoRequest SurveyInfoRequest = new Enter.Common.Message.SurveyInfoRequest();
+            SurveyInfoResponse SurveyInfoResponse = new Enter.Common.Message.SurveyInfoResponse();
+            SurveyInfoDTO SurveyInfoDTO = new Enter.Common.DTO.SurveyInfoDTO();
             SurveyInfoDTO.SurveyId = SurveyId;
             SurveyInfoDTO.ViewId = ViewId;
             SurveyInfoRequest.SurveyInfoList.Add(SurveyInfoDTO);
@@ -895,9 +895,9 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //1-Get the child Id
             //SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest)
-            SurveyInfoRequest SurveyInfoRequest = new Common.Message.SurveyInfoRequest();
-            SurveyInfoResponse SurveyInfoResponse = new Common.Message.SurveyInfoResponse();
-            SurveyInfoDTO SurveyInfoDTO = new Common.DTO.SurveyInfoDTO();
+            SurveyInfoRequest SurveyInfoRequest = new Enter.Common.Message.SurveyInfoRequest();
+            SurveyInfoResponse SurveyInfoResponse = new Enter.Common.Message.SurveyInfoResponse();
+            SurveyInfoDTO SurveyInfoDTO = new Enter.Common.DTO.SurveyInfoDTO();
             SurveyInfoDTO.SurveyId = SurveyId;
             SurveyInfoDTO.ViewId = ViewId;
             SurveyInfoRequest.SurveyInfoList.Add(SurveyInfoDTO);
@@ -924,7 +924,7 @@ namespace Epi.Web.MVC.Controllers
             bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
             //if (!string.IsNullOrEmpty(EditForm))
             //    {
-            //    Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+            //    Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
             //    string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
 
             //    }
@@ -940,9 +940,9 @@ namespace Epi.Web.MVC.Controllers
             TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] = ResponseID.ToString();
 
             // create the first survey response
-            // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
+            // Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
            
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId, true, RelateResponseId,this.IsEditMode);
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(SurveyId, ResponseID.ToString(), UserId, true, RelateResponseId,this.IsEditMode);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -1026,7 +1026,7 @@ namespace Epi.Web.MVC.Controllers
         private MvcDynamicForms.Form SetFormPassCode(MvcDynamicForms.Form form, string responseId)
             {
 
-            Epi.Web.Common.Message.UserAuthenticationResponse AuthenticationResponse = _isurveyFacade.GetAuthenticationResponse(responseId);
+            Epi.Web.Enter.Common.Message.UserAuthenticationResponse AuthenticationResponse = _isurveyFacade.GetAuthenticationResponse(responseId);
 
             string strPassCode = Epi.Web.MVC.Utility.SurveyHelper.GetPassCode();
             if (string.IsNullOrEmpty(AuthenticationResponse.PassCode))
@@ -1262,7 +1262,7 @@ namespace Epi.Web.MVC.Controllers
             if (!string.IsNullOrEmpty(SurveyId))
                 {
                 SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
-                FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+                FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
 
                 //Populating the request
 
@@ -1354,7 +1354,7 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-            Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
             var form = _isurveyFacade.GetSurveyFormData(RelateSurveyId.ResponseIds[0].SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
             SurveyModel.Form = form;
 

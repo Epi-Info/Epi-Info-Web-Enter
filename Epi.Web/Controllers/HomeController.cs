@@ -14,9 +14,9 @@ using System.Web.Caching;
 using System.Web.UI;
 using System.Reflection;
 using System.Diagnostics;
-using Epi.Web.Common.Message;
+using Epi.Web.Enter.Common.Message;
 using Epi.Web.MVC.Utility;
-using Epi.Web.Common.DTO;
+using Epi.Web.Enter.Common.DTO;
 using System.Web.Configuration;
 namespace Epi.Web.MVC.Controllers
 {
@@ -62,7 +62,7 @@ namespace Epi.Web.MVC.Controllers
 
                 FormModel FormModel = new Models.FormModel();
                 FormModel.FormList = GetFormsInfoList(UserId1);
-                Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetUserInfo(UserId);
+                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetUserInfo(UserId);
 
                 FormModel.UserFirstName = result.User.FirstName;
                 FormModel.UserLastName = result.User.LastName;
@@ -121,7 +121,7 @@ namespace Epi.Web.MVC.Controllers
                  Session["RootResponseId"] = EditForm;
                  
                  Session["IsEditMode"] = true;
-                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
@@ -153,10 +153,10 @@ namespace Epi.Web.MVC.Controllers
             TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] = ResponseID.ToString();
 
             // create the first survey response
-            // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
+            // Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
             Session["RootFormId"] = AddNewFormId;
             Session["RootResponseId"] = ResponseID;
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -306,9 +306,9 @@ namespace Epi.Web.MVC.Controllers
         }
 
 
-        private Epi.Web.Common.DTO.SurveyAnswerDTO GetCurrentSurveyAnswer()
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetCurrentSurveyAnswer()
         {
-            Epi.Web.Common.DTO.SurveyAnswerDTO result = null;
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
 
             if (TempData.ContainsKey(Epi.Web.MVC.Constants.Constant.RESPONSE_ID)
                 && TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] != null
@@ -363,7 +363,7 @@ namespace Epi.Web.MVC.Controllers
             if (!string.IsNullOrEmpty(SurveyId))
             {
                 SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
-                FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+                FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
 
                 //Populating the request
 
@@ -412,13 +412,13 @@ namespace Epi.Web.MVC.Controllers
 
         //    public ActionResult Edit(string ResId)
         //    {
-        ////    Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResId);
+        ////    Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResId);
 
         //    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResId, PageNumber = 1 });
         //    }
-        private Epi.Web.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
         {
-            Epi.Web.Common.DTO.SurveyAnswerDTO result = null;
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             result = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
@@ -440,7 +440,7 @@ namespace Epi.Web.MVC.Controllers
 
         public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
         {
-            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+        FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
             List<KeyValuePair<int, string>> TempColumns = new List<KeyValuePair<int, string>>();
             //Get All forms
             List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy(formid);
@@ -531,7 +531,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult SaveSettings(string formid)
         {
             List<FormsHierarchyDTO> FormList = GetFormsHierarchy(formid);
-            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+            FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             foreach (var Form in FormList)
              {

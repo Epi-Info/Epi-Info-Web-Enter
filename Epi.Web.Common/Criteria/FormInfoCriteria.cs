@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
-namespace Epi.Web.Common.Criteria
+namespace Epi.Web.Enter.Common.Criteria
     {
     public class FormInfoCriteria : Criteria
         {

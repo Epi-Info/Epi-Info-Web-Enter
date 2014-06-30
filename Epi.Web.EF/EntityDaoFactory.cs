@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Epi.Web.Interfaces.DataInterfaces;
-using Epi.Web.Interfaces.DataInterface;
+using Epi.Web.Enter.Interfaces.DataInterfaces;
+using Epi.Web.Enter.Interfaces.DataInterface;
 
 namespace Epi.Web.EF
 {

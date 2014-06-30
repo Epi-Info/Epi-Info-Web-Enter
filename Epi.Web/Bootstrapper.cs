@@ -43,7 +43,7 @@ namespace Epi.Web.MVC
             //InjectionConstructor: creates an instance of Microsoft.Practices.Unity.InjectionConstructor that looks for a constructor with the given set of parameters
             // e.g. container.RegisterType<ITestService, TestService>();            
             
-            container.RegisterType<Epi.Web.Common.Message.SurveyInfoRequest, Epi.Web.Common.Message.SurveyInfoRequest>();
+            container.RegisterType<Epi.Web.Enter.Common.Message.SurveyInfoRequest, Epi.Web.Enter.Common.Message.SurveyInfoRequest>();
             if (IsIntegrated)
             {
 
@@ -62,7 +62,7 @@ namespace Epi.Web.MVC
                 container.RegisterType<Epi.Web.MVC.Repositories.Core.ISurveyInfoRepository, Epi.Web.MVC.Repositories.SurveyInfoRepository>();
             }
 
-            container.RegisterType<Epi.Web.Common.Message.SurveyAnswerRequest, Epi.Web.Common.Message.SurveyAnswerRequest>();
+            container.RegisterType<Epi.Web.Enter.Common.Message.SurveyAnswerRequest, Epi.Web.Enter.Common.Message.SurveyAnswerRequest>();
 
             if (IsIntegrated)
             {
@@ -74,7 +74,7 @@ namespace Epi.Web.MVC
             }
 
 
-            container.RegisterType<Common.DTO.SurveyAnswerDTO, Common.DTO.SurveyAnswerDTO>();
+            container.RegisterType<Enter.Common.DTO.SurveyAnswerDTO, Enter.Common.DTO.SurveyAnswerDTO>();
             container.RegisterType<Epi.Web.MVC.Facade.ISurveyFacade, Epi.Web.MVC.Facade.SurveyFacade>();
             container.RegisterControllers();
 

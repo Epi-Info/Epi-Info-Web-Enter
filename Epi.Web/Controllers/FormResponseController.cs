@@ -14,9 +14,9 @@ using System.Web.Caching;
 using System.Web.UI;
 using System.Reflection;
 using System.Diagnostics;
-using Epi.Web.Common.Message;
+using Epi.Web.Enter.Common.Message;
 using Epi.Web.MVC.Utility;
-using Epi.Web.Common.DTO;
+using Epi.Web.Enter.Common.DTO;
 using System.Web.Configuration;
 namespace Epi.Web.MVC.Controllers
 {
@@ -102,7 +102,7 @@ namespace Epi.Web.MVC.Controllers
         if (RelateSurveyId.ResponseIds.Count() > 0)
             {
             
-            Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
             var form = _isurveyFacade.GetSurveyFormData(RelateSurveyId.ResponseIds[0].SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
             SurveyModel.Form = form;
             if (string.IsNullOrEmpty(responseid))
@@ -154,7 +154,7 @@ namespace Epi.Web.MVC.Controllers
                     }
                 Session["IsEditMode"] = true;
                 IsEditMode = true;
-                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
                 }
@@ -166,7 +166,7 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             if (!string.IsNullOrEmpty(EditForm))
                 {
-                Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 surveyAnswerDTO.Status = 1;
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
@@ -190,9 +190,9 @@ namespace Epi.Web.MVC.Controllers
             TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID] = ResponseID.ToString();
 
             // create the first survey response
-            // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
-           // Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
-            Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId, true, this.Request.Form["Parent_Response_Id"].ToString(), IsEditMode);
+            // Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyModel.SurveyId, ResponseID.ToString());
+           // Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId, true, this.Request.Form["Parent_Response_Id"].ToString(), IsEditMode);
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -279,7 +279,7 @@ namespace Epi.Web.MVC.Controllers
 
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
             SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
-            FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+            FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
 
             //Populating the request
             FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
@@ -602,9 +602,9 @@ namespace Epi.Web.MVC.Controllers
             result = SurveyAnswerResponse.SurveyResponseList[0].ResponseId.ToString();
             return result;
             }
-        private Epi.Web.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
             {
-            Epi.Web.Common.DTO.SurveyAnswerDTO result = null;
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             result = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
@@ -672,7 +672,7 @@ namespace Epi.Web.MVC.Controllers
             if (!string.IsNullOrEmpty(SurveyId))
                 {
                 SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
-                FormSettingRequest FormSettingReq = new Common.Message.FormSettingRequest();
+                FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
 
                 //Populating the request
 

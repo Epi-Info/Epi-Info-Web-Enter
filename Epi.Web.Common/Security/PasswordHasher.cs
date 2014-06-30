@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Epi.Web.Common.Security
+namespace Epi.Web.Enter.Common.Security
 {
     /// <summary>
     /// Class to create salted hashed values for username / passwords.  A hash alone is not enough to defeat 

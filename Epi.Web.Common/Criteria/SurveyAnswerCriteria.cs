@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.Criteria
+namespace Epi.Web.Enter.Common.Criteria
 {
     /// <summary>
     /// Holds criteria for SurveyResponse queries.

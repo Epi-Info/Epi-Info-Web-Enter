@@ -18,7 +18,7 @@ namespace Epi.Web.MVC.Models
         /// </summary>
         /// <param name="FormInfoDTO"></param>
         /// <returns></returns>
-        public static FormInfoModel ToFormInfoModel(this Epi.Web.Common.DTO.FormInfoDTO FormInfoDTO)
+        public static FormInfoModel ToFormInfoModel(this Epi.Web.Enter.Common.DTO.FormInfoDTO FormInfoDTO)
         {
             return new FormInfoModel
             {
@@ -42,7 +42,7 @@ namespace Epi.Web.MVC.Models
         /// <returns></returns>
 
 
-        public static SurveyInfoModel ToSurveyInfoModel(this Epi.Web.Common.DTO.SurveyInfoDTO SurveyInfoDTO)
+        public static SurveyInfoModel ToSurveyInfoModel(this Epi.Web.Enter.Common.DTO.SurveyInfoDTO SurveyInfoDTO)
         {
             return new SurveyInfoModel
             {
@@ -71,9 +71,9 @@ namespace Epi.Web.MVC.Models
         /// <param name="customer"></param>
         /// <returns></returns>
 
-        public static Epi.Web.Common.DTO.SurveyInfoDTO ToSurveyInfoDTO(SurveyInfoModel SurveyInfoModel)
+        public static Epi.Web.Enter.Common.DTO.SurveyInfoDTO ToSurveyInfoDTO(SurveyInfoModel SurveyInfoModel)
         {
-            return new Epi.Web.Common.DTO.SurveyInfoDTO
+            return new Epi.Web.Enter.Common.DTO.SurveyInfoDTO
             {
                 SurveyId = SurveyInfoModel.SurveyId,
                 SurveyNumber = SurveyInfoModel.SurveyNumber,
@@ -93,7 +93,7 @@ namespace Epi.Web.MVC.Models
         }
 
 
-        public static SurveyAnswerModel ToSurveyAnswerModel(this Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswerDTO)
+        public static SurveyAnswerModel ToSurveyAnswerModel(this Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswerDTO)
         {
             return new SurveyAnswerModel
             {
@@ -112,9 +112,9 @@ namespace Epi.Web.MVC.Models
         /// <param name="customer"></param>
         /// <returns></returns>
 
-        public static Epi.Web.Common.DTO.SurveyAnswerDTO ToSurveyAnswerDTO(SurveyAnswerModel SurveyAnswerModel)
+        public static Epi.Web.Enter.Common.DTO.SurveyAnswerDTO ToSurveyAnswerDTO(SurveyAnswerModel SurveyAnswerModel)
         {
-            return new Epi.Web.Common.DTO.SurveyAnswerDTO
+            return new Epi.Web.Enter.Common.DTO.SurveyAnswerDTO
             {
                 ResponseId = SurveyAnswerModel.ResponseId,
                 SurveyId = SurveyAnswerModel.SurveyId,
@@ -125,9 +125,9 @@ namespace Epi.Web.MVC.Models
             };
         }
 
-        public static Epi.Web.Common.Message.UserAuthenticationRequest ToUserAuthenticationObj(Epi.Web.Common.DTO.PassCodeDTO pDTO)
+        public static Epi.Web.Enter.Common.Message.UserAuthenticationRequest ToUserAuthenticationObj(Epi.Web.Enter.Common.DTO.PassCodeDTO pDTO)
         {
-            return new Epi.Web.Common.Message.UserAuthenticationRequest
+            return new Epi.Web.Enter.Common.Message.UserAuthenticationRequest
             {
                 SurveyResponseId = pDTO.ResponseId,
                 PassCode = pDTO.PassCode
@@ -136,7 +136,7 @@ namespace Epi.Web.MVC.Models
         }
 
 
-        internal static List<RelateModel> ToRelateModel(List<Common.DTO.FormsHierarchyDTO> FormsHierarchy, string FormId)
+        internal static List<RelateModel> ToRelateModel(List<Enter.Common.DTO.FormsHierarchyDTO> FormsHierarchy, string FormId)
             {
             List<RelateModel> List = new List<RelateModel>();
            
@@ -152,7 +152,7 @@ namespace Epi.Web.MVC.Models
            return List;
             }
 
-        internal static List<SurveyAnswerModel> ToSurveyAnswerModel(List<Common.DTO.SurveyAnswerDTO> list)
+        internal static List<SurveyAnswerModel> ToSurveyAnswerModel(List<Enter.Common.DTO.SurveyAnswerDTO> list)
             {
             List<SurveyAnswerModel> ModelList = new List<SurveyAnswerModel>();
             foreach(var Obj in list)

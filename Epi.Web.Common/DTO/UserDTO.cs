@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.DTO
+namespace Epi.Web.Enter.Common.DTO
 {
     public class UserDTO
     {
@@ -79,9 +79,9 @@ namespace Epi.Web.Common.DTO
             set { _Role = value; }
         }
         
-        private Epi.Web.Common.Constants.Constant.OperationMode updateMode;
+        private Epi.Web.Enter.Common.Constants.Constant.OperationMode updateMode;
 
-        public Epi.Web.Common.Constants.Constant.OperationMode Operation
+        public Epi.Web.Enter.Common.Constants.Constant.OperationMode Operation
         {
             get { return updateMode; }
             set { updateMode = value; }

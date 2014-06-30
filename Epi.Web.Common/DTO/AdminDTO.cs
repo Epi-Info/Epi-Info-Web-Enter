@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.DTO
+namespace Epi.Web.Enter.Common.DTO
     {
    public class AdminDTO
        {

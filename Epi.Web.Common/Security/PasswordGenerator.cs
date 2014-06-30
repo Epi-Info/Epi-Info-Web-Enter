@@ -5,7 +5,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.Configuration;
 
-namespace Epi.Web.Common.Security
+namespace Epi.Web.Enter.Common.Security
 {
  public class PasswordGenerator
     {
