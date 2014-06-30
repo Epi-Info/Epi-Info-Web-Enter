@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
-using Epi.Web.Interfaces.DataInterface;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
+using Epi.Web.Enter.Interfaces.DataInterface;
 
-namespace Epi.Web.Interfaces.DataInterface
+namespace Epi.Web.Enter.Interfaces.DataInterface
     {
    public  interface IFormSettingDao
         {

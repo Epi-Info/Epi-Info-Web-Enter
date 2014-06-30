@@ -4,9 +4,9 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using Epi.Web.Common.DTO;
-using Epi.Web.Common.Message;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.DTO;
+using Epi.Web.Enter.Common.Message;
+using Epi.Web.Enter.Common.Exception;
 namespace Epi.Web.WCF.SurveyService
 {
     [ServiceContract]

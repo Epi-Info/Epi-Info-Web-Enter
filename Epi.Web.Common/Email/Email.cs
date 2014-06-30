@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.Email
+namespace Epi.Web.Enter.Common.Email
 {
     public class Email
     {

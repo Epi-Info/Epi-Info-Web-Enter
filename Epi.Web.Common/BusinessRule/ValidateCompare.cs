@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.BusinessRule
+namespace Epi.Web.Enter.Common.BusinessRule
 {
     /// <summary>
     /// Compares values of two properties given a data type and operator  (>, ==, etc).

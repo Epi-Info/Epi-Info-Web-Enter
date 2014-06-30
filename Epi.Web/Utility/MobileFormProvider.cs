@@ -15,10 +15,10 @@ namespace Epi.Web.MVC.Utility
     public class MobileFormProvider
     {
 
-        public static List<Epi.Web.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
-        public static List<Epi.Web.Common.DTO.SurveyInfoDTO> SurveyInfoList;
+        public static List<Epi.Web.Enter.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
+        public static List<Epi.Web.Enter.Common.DTO.SurveyInfoDTO> SurveyInfoList;
         
-        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Common.DTO.SurveyAnswerDTO _SurveyAnswer)
+        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer)
         {
             string SurveyAnswer;
 
@@ -33,7 +33,7 @@ namespace Epi.Web.MVC.Utility
 
             form.ResponseId = _SurveyAnswer.ResponseId;
 
-            form.SurveyInfo = (Epi.Web.Common.DTO.SurveyInfoDTO)(SurveyMetaData);
+            form.SurveyInfo = (Epi.Web.Enter.Common.DTO.SurveyInfoDTO)(SurveyMetaData);
 
             string XML = form.SurveyInfo.XML;
 
@@ -1244,7 +1244,7 @@ namespace Epi.Web.MVC.Utility
 
         }
 
-        public Epi.Core.EnterInterpreter.Rule_Context GetRelateCheckCodeObj(List<Epi.Web.Common.Helper.RelatedFormsObj> Obj, string FormCheckCode)
+        public Epi.Core.EnterInterpreter.Rule_Context GetRelateCheckCodeObj(List<Epi.Web.Enter.Common.Helper.RelatedFormsObj> Obj, string FormCheckCode)
             {
             Epi.Core.EnterInterpreter.EpiInterpreterParser EIP = new Epi.Core.EnterInterpreter.EpiInterpreterParser(Epi.Core.EnterInterpreter.EpiInterpreterParser.GetEnterCompiledGrammarTable());
             Epi.Core.EnterInterpreter.Rule_Context result = (Epi.Core.EnterInterpreter.Rule_Context)EIP.Context;
@@ -1256,17 +1256,17 @@ namespace Epi.Web.MVC.Utility
 
             return result;
             }
-        private static List<Epi.Web.Common.Helper.RelatedFormsObj> GetRelateFormObj()
+        private static List<Epi.Web.Enter.Common.Helper.RelatedFormsObj> GetRelateFormObj()
             {
 
-            List<Epi.Web.Common.Helper.RelatedFormsObj> List = new List<Common.Helper.RelatedFormsObj>();
+            List<Epi.Web.Enter.Common.Helper.RelatedFormsObj> List = new List<Enter.Common.Helper.RelatedFormsObj>();
 
 
             for (int i = 0; SurveyAnswerList.Count() > i; i++)
                 {
 
 
-                Epi.Web.Common.Helper.RelatedFormsObj RelatedFormsObj = new Epi.Web.Common.Helper.RelatedFormsObj();
+                Epi.Web.Enter.Common.Helper.RelatedFormsObj RelatedFormsObj = new Epi.Web.Enter.Common.Helper.RelatedFormsObj();
                 XDocument xdocResponse1 = XDocument.Parse(SurveyAnswerList[i].XML);
                 XDocument xdoc1 = XDocument.Parse(SurveyInfoList[i].XML.ToString());
                 RelatedFormsObj.MetaData = xdoc1;

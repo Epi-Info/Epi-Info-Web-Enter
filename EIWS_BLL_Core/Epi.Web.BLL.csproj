@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Epi.Web.Enter.Common">
+      <HintPath>..\Epi.Web.Common\bin\Debug\Epi.Web.Enter.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -67,10 +70,6 @@
     <Compile Include="SurveyResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Epi.Web.Common\Epi.Web.Common.csproj">
-      <Project>{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}</Project>
-      <Name>Epi.Web.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Epi.Web.EF\Epi.Web.EF.csproj">
       <Project>{05A484AB-A555-4200-936B-BEC573285BCC}</Project>
       <Name>Epi.Web.EF</Name>

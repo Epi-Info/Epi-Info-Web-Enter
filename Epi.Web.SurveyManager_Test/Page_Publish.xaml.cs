@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.ServiceModel;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.Exception;
 using System.Text.RegularExpressions;
 
 namespace Epi.Web.SurveyManager.Client
@@ -43,7 +43,7 @@ namespace Epi.Web.SurveyManager.Client
 
             EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
 
-            Epi.Web.Common.Message.PublishRequest Request = new Epi.Web.Common.Message.PublishRequest();
+            Epi.Web.Enter.Common.Message.PublishRequest Request = new Epi.Web.Enter.Common.Message.PublishRequest();
             if (this.datePicker1.SelectedDate == null)
             {
                 TimeSpan t = new TimeSpan(10, 0, 0, 0);
@@ -91,7 +91,7 @@ namespace Epi.Web.SurveyManager.Client
             Request.SurveyInfo.OwnerId = 2;//HardCode
             try
             {
-                Epi.Web.Common.Message.PublishResponse Result = client.PublishSurvey(Request);
+                Epi.Web.Enter.Common.Message.PublishResponse Result = client.PublishSurvey(Request);
 
                 passOrganizationKey.Password = string.Empty;
                 URL = Result.PublishInfo.URL;

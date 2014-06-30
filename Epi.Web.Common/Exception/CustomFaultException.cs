@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.Exception
+namespace Epi.Web.Enter.Common.Exception
 {
     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
     public class CustomFaultException

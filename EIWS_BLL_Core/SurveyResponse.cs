@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
+using Epi.Web.Enter.Common.BusinessObject;
 using System.Configuration;
-using Epi.Web.Common.Extension;
+using Epi.Web.Enter.Common.Extension;
 namespace Epi.Web.BLL
 {
     public class SurveyResponse
     {
-        private Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao;
+        private Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao;
 
-        public SurveyResponse(Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao pSurveyResponseDao)
+        public SurveyResponse(Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao pSurveyResponseDao)
         {
             this.SurveyResponseDao = pSurveyResponseDao;
         }

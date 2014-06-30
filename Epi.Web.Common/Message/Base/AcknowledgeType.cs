@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.MessageBase
+namespace Epi.Web.Enter.Common.MessageBase
 {
     /// <summary>
     /// Enumeration of message response acknowledgements. This is a simple

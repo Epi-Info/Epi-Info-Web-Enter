@@ -5,7 +5,7 @@ using System.Text;
 using System.Security.Cryptography;
 using System.IO;
 
-namespace Epi.Web.Common.Security
+namespace Epi.Web.Enter.Common.Security
 {
     /// <summary>
     /// This class contains two static methods one to entrypt string and one to decrypt string

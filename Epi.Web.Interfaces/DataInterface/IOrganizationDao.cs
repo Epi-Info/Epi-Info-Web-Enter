@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
+using Epi.Web.Enter.Common.BusinessObject;
 
-namespace Epi.Web.Interfaces.DataInterfaces
+namespace Epi.Web.Enter.Interfaces.DataInterfaces
 {
     /// <summary>
     /// Defines methods to access Organizations.

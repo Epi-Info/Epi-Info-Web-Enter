@@ -1,19 +1,19 @@
 ﻿using System;
 using Epi.Web.MVC.Repositories.Core;
-using Epi.Web.Common.Message;
+using Epi.Web.Enter.Common.Message;
 using Epi.Web.MVC.Constants;
 using Epi.Web.MVC.Utility;
 using Epi.Web.MVC.Models;
 using System.Collections.Generic;
-using Epi.Web.Common.DTO;
+using Epi.Web.Enter.Common.DTO;
 namespace Epi.Web.MVC.Facade
 {
     public interface ISurveyFacade
     {
 
-        MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice, List<SurveyAnswerDTO> _SurveyAnswerDTOList = null);
-        Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId="",bool IsEditMode = false);
-        void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel, string responseId, MvcDynamicForms.Form form, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved, int PageNumber,int UserId);
+        MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice, List<SurveyAnswerDTO> _SurveyAnswerDTOList = null);
+        Epi.Web.Enter.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId="",bool IsEditMode = false);
+        void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel, string responseId, MvcDynamicForms.Form form, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved, int PageNumber,int UserId);
         
         SurveyInfoModel GetSurveyInfoModel(string surveyId);
         List<FormInfoModel> GetFormsInfoModelList(FormsInfoRequest formReq);

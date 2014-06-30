@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.Extension
+namespace Epi.Web.Enter.Common.Extension
     {
     public static class LinqExtensions
         {

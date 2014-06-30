@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.BusinessObject
+namespace Epi.Web.Enter.Common.BusinessObject
 {
    public class PageInfoBO
     {

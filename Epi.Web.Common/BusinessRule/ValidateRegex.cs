@@ -5,7 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
-namespace Epi.Web.Common.BusinessRule
+namespace Epi.Web.Enter.Common.BusinessRule
 {
     /// <summary>
     /// Base class for regex based validation rules.

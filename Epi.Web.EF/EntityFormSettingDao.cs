@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
 using System.Text;
-using Epi.Web.Common;
-using Epi.Web.Common.Criteria;
-using Epi.Web.Interfaces.DataInterface;
-using Epi.Web.Common.BusinessObject;
+using Epi.Web.Enter.Common;
+using Epi.Web.Enter.Common.Criteria;
+using Epi.Web.Enter.Interfaces.DataInterface;
+using Epi.Web.Enter.Common.BusinessObject;
 
 namespace Epi.Web.EF
     {

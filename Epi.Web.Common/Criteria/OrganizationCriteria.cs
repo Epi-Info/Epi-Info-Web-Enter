@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Collections.Generic;
 
-namespace Epi.Web.Common.Criteria
+namespace Epi.Web.Enter.Common.Criteria
 {
     /// <summary>
     /// Holds criteria for Organization queries.

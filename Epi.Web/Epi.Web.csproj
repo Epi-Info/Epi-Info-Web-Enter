@@ -41,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Epi.Web.Enter.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\Epi.Web.Common\bin\Debug\Epi.Web.Enter.Common.dll</HintPath>
+    </Reference>
     <Reference Include="EpiInfo.Plugin, Version=7.0.9.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\EpiInfo.Plugin.dll</HintPath>
@@ -454,22 +457,39 @@
     <Content Include="Scripts\modernizr-2.0.6-development-only.js" />
     <Content Include="Scripts\PIE.htc" />
     <Content Include="Scripts\_references.js" />
-    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormResponseInfoResponse.datasource" />
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormResponseInfoResponse.datasource">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormSettingResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsHierarchyResponse.datasource" />
-    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsInfoResponse.datasource" />
-    <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource" />
-    <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource" />
-    <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource" />
-    <None Include="Service References\DataServiceClient\EWEDataService.disco" />
-    <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
-    <None Include="Service References\DataServiceClient\configuration.svcinfo" />
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.FormsInfoResponse.datasource">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyAnswerResponse.datasource">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.SurveyInfoResponse.datasource">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataServiceClient\EWEDataService.disco">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataServiceClient\configuration91.svcinfo">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataServiceClient\configuration.svcinfo">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\DataServiceClient\EWEDataService6.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\DataServiceClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
     <Content Include="Unity.Mvc3.README.txt" />
     <Content Include="Views\Shared\footer.htm" />
@@ -555,10 +575,6 @@
     <ProjectReference Include="..\Epi.Web.CheckCodeEngine\Epi.Web.CheckCodeEngine.csproj">
       <Project>{6B084882-EF4F-4CF0-85B1-1E8C357AE822}</Project>
       <Name>Epi.Web.CheckCodeEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Epi.Web.Common\Epi.Web.Common.csproj">
-      <Project>{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}</Project>
-      <Name>Epi.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Epi.Web.EF\Epi.Web.EF.csproj">
       <Project>{05A484AB-A555-4200-936B-BEC573285BCC}</Project>

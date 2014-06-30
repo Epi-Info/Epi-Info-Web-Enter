@@ -20,7 +20,7 @@ namespace MvcDynamicForms
         private string _formWrapperClass = "MvcDynamicForm";
         private string _fieldPrefix = "MvcDynamicField_";
         private FieldList _fields;
-        private Epi.Web.Common.DTO.SurveyInfoDTO _SurveyInfo;
+        private Epi.Web.Enter.Common.DTO.SurveyInfoDTO _SurveyInfo;
         private string _PageId = "";
         public double Width { get; set; }
         public double Height { get; set; }
@@ -335,7 +335,7 @@ namespace MvcDynamicForms
             return ErrorList.ToString();
 
         }
-        public Epi.Web.Common.DTO.SurveyInfoDTO SurveyInfo
+        public Epi.Web.Enter.Common.DTO.SurveyInfoDTO SurveyInfo
         {
             get {return this._SurveyInfo; }
             set { this._SurveyInfo = value; }
@@ -401,7 +401,7 @@ namespace MvcDynamicForms
 
             return result;
         }
-        public Epi.Core.EnterInterpreter.Rule_Context GetRelateCheckCodeObj(List<Epi.Web.Common.Helper.RelatedFormsObj> Obj, string FormCheckCode)
+        public Epi.Core.EnterInterpreter.Rule_Context GetRelateCheckCodeObj(List<Epi.Web.Enter.Common.Helper.RelatedFormsObj> Obj, string FormCheckCode)
             {
             Epi.Core.EnterInterpreter.EpiInterpreterParser EIP = new Epi.Core.EnterInterpreter.EpiInterpreterParser(Epi.Core.EnterInterpreter.EpiInterpreterParser.GetEnterCompiledGrammarTable());
             Epi.Core.EnterInterpreter.Rule_Context result = (Epi.Core.EnterInterpreter.Rule_Context)EIP.Context;

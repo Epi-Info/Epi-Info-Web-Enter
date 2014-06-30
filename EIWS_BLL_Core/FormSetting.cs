@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 using System.Xml;
 using System.Xml.Linq;
-using Epi.Web.Interfaces.DataInterface;
+using Epi.Web.Enter.Interfaces.DataInterface;
 using System.Configuration;
 namespace Epi.Web.BLL
     {
@@ -147,13 +147,13 @@ namespace Epi.Web.BLL
                         if (UsersEmail.Count() > 0)
                             {
                           
-                            Epi.Web.Common.Email.Email Email = new Web.Common.Email.Email();
+                            Epi.Web.Enter.Common.Email.Email Email = new Web.Enter.Common.Email.Email();
                             Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has assigned the following form  to you in Epi Web Enter.\n\nTitle: " + FormInfoBO.FormName +" \n \n \nPlease click the link below to launch Epi Web Enter.";
                             Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
                             Email.From = UserBO.EmailAddress;
                             Email.To = UsersEmail;
                             Email.Subject = "An Epi Web Enter Form - " + FormInfoBO.FormName + " has been assigned to You";
-                            Epi.Web.Common.Email.EmailHandler.SendMessage(Email);
+                            Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(Email);
 
 
                             }

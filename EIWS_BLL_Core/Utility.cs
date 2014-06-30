@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
+using Epi.Web.Enter.Common.BusinessObject;
 using System.Configuration;
 namespace Epi.Web.BLL
 {
@@ -102,7 +102,7 @@ namespace Epi.Web.BLL
         public static bool ValidateAdmin(string AdminKeyToValidate)
         {
             string AdminKey = ConfigurationManager.AppSettings["AdminKey"];
-            string EncryptedAdminKey = Epi.Web.Common.Security.Cryptography.Decrypt(AdminKey);
+            string EncryptedAdminKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(AdminKey);
 
             bool ISValidUser = false;
 
