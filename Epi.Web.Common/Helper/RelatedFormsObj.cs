@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
-namespace Epi.Web.Common.Helper
+namespace Epi.Web.Enter.Common.Helper
     {
     public class RelatedFormsObj
         {

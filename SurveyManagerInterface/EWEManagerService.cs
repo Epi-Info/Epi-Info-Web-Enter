@@ -4,17 +4,17 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using Epi.Web.Common.DTO;
-using Epi.Web.Common.Message;
-using Epi.Web.Common.MessageBase;
-using Epi.Web.Common.Criteria;
-using Epi.Web.Common.ObjectMapping;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.DTO;
+using Epi.Web.Enter.Common.Message;
+using Epi.Web.Enter.Common.MessageBase;
+using Epi.Web.Enter.Common.Criteria;
+using Epi.Web.Enter.Common.ObjectMapping;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Exception;
 using Epi.Web.BLL;
 
 using System.Configuration;
-using Epi.Web.Common.Security;
+using Epi.Web.Enter.Common.Security;
  
 namespace Epi.Web.WCF.SurveyService
 {
@@ -36,8 +36,8 @@ namespace Epi.Web.WCF.SurveyService
             try
             {
                 PublishResponse result = new PublishResponse(pRequest.RequestId);
-                Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao = new EF.EntityOrganizationDao();
 
 
                 Epi.Web.BLL.Publisher Implementation = new Epi.Web.BLL.Publisher(SurveyInfoDao,OrganizationDao);
@@ -72,11 +72,11 @@ namespace Epi.Web.WCF.SurveyService
             try
             {
                 SurveyInfoResponse result = new SurveyInfoResponse(pRequest.RequestId);
-                //Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
+                //Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
                 //Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
 
-                Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
-                Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
                 Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
 
                 // Validate client tag, access token, and user credentials
@@ -109,9 +109,9 @@ namespace Epi.Web.WCF.SurveyService
                 int BandwidthUsageFactor = Int32.Parse(ConfigurationManager.AppSettings["BandwidthUsageFactor"]);
 
 
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao entityDaoFactory1 = new EF.EntityOrganizationDao();
-                //Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao surveyInfoDao1 = entityDaoFactory1;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao entityDaoFactory1 = new EF.EntityOrganizationDao();
+                //Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao surveyInfoDao1 = entityDaoFactory1;
 
                 Epi.Web.BLL.Organization implementation1 = new Epi.Web.BLL.Organization(surveyInfoDao1);
                 bool ISValidOrg = implementation1.ValidateOrganization(pRequest.Criteria.OrganizationKey.ToString());
@@ -163,8 +163,8 @@ namespace Epi.Web.WCF.SurveyService
         {
             try
             {
-                Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
-                Epi.Web.Interfaces.DataInterfaces.IAdminDao AdminDao = new EF.EntityAdminDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IAdminDao AdminDao = new EF.EntityAdminDao();
                 Epi.Web.BLL.SurveyInfo Implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
                 Epi.Web.BLL.Admin ImplementationAdmin = new Epi.Web.BLL.Admin(AdminDao);
 
@@ -203,8 +203,8 @@ namespace Epi.Web.WCF.SurveyService
                     //validSurvey = Implementation.IsSurveyInfoValidByOrgKeyAndPublishKey(SurveyInfo.SurveyId, SurveyInfo.OrganizationKey.ToString(), SurveyInfo.UserPublishKey);
                     validSurvey = Implementation.IsSurveyInfoValidByOrgKey(SurveyInfo.SurveyId, SurveyInfo.OrganizationKey.ToString());
 
-                     Epi.Web.Interfaces.DataInterfaces.IOrganizationDao entityDaoFactory1 = new EF.EntityOrganizationDao();
-                     Epi.Web.Interfaces.DataInterfaces.IOrganizationDao surveyInfoDao1 = entityDaoFactory1;
+                     Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao entityDaoFactory1 = new EF.EntityOrganizationDao();
+                     Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao surveyInfoDao1 = entityDaoFactory1;
                      Epi.Web.BLL.Organization implementation1 = new Epi.Web.BLL.Organization(surveyInfoDao1);
                      bool ISValidOrg = implementation1.ValidateOrganization(SurveyInfo.OrganizationKey.ToString());
 
@@ -298,19 +298,19 @@ namespace Epi.Web.WCF.SurveyService
             try
             {
                 SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
-                //Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao surveyInfoDao = new EF.EntitySurveyResponseDao();
+                //Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao surveyInfoDao = new EF.EntitySurveyResponseDao();
                 //Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(surveyInfoDao);
 
-                Epi.Web.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
-                Epi.Web.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
                
 
 
                 //Get Organization Info
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao entityDaoFactory1 = new EF.EntityOrganizationDao();
-                //Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao surveyInfoDao1 = entityDaoFactory1;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao entityDaoFactory1 = new EF.EntityOrganizationDao();
+                //Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao surveyInfoDao1 = entityDaoFactory1;
 
                 Epi.Web.BLL.Organization implementation1 = new Epi.Web.BLL.Organization(surveyInfoDao1);
                 
@@ -337,7 +337,7 @@ namespace Epi.Web.WCF.SurveyService
                     }
 
 
-                    Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
+                    Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
                     Epi.Web.BLL.SurveyInfo SurveyInfo = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
 
 
@@ -604,7 +604,7 @@ namespace Epi.Web.WCF.SurveyService
            
             try
             {
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
                  // Transform SurveyInfo data transfer object to SurveyInfo business object
                  OrganizationBO Organization = Mapper.ToBusinessObject(request.Organization);
@@ -650,7 +650,7 @@ namespace Epi.Web.WCF.SurveyService
             
             try
             {
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
                 // Transform SurveyInfo data transfer object to SurveyInfo business object
                 OrganizationBO Organization = Mapper.ToBusinessObject(request.Organization);
@@ -698,7 +698,7 @@ namespace Epi.Web.WCF.SurveyService
         {
            try
             {
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
                 // Transform SurveyInfo data transfer object to SurveyInfo business object
                 OrganizationBO Organization = Mapper.ToBusinessObject(request.Organization);
@@ -747,7 +747,7 @@ namespace Epi.Web.WCF.SurveyService
           
             try
             {                             
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
                 // Transform SurveyInfo data transfer object to SurveyInfo business object
                 var Organization = Mapper.ToBusinessObject(request.Organization);
@@ -794,7 +794,7 @@ namespace Epi.Web.WCF.SurveyService
         {
            try
             {
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
                
                 // Transform SurveyInfo data transfer object to SurveyInfo business object
@@ -842,7 +842,7 @@ namespace Epi.Web.WCF.SurveyService
 
             try
             {
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
                 // Transform SurveyInfo data transfer object to SurveyInfo business object
                 var Organization = Mapper.ToBusinessObject(request.Organization);
@@ -896,9 +896,9 @@ namespace Epi.Web.WCF.SurveyService
              //var SurveyInfo = Mapper.ToBusinessObject(request.SurveyInfoList[0]);
              if (request.Criteria.SurveyIdList.Count == 0)
              {
-                Epi.Web.Interfaces.DataInterfaces.IOrganizationDao organizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao organizationDao = new EF.EntityOrganizationDao();
                 Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(organizationDao);
-                Epi.Web.Common.BusinessObject.OrganizationBO ogranizationBO = Implementation.GetOrganizationByKey(request.Criteria.OrganizationKey.ToString());
+                Epi.Web.Enter.Common.BusinessObject.OrganizationBO ogranizationBO = Implementation.GetOrganizationByKey(request.Criteria.OrganizationKey.ToString());
                 if (ogranizationBO == null)
                 {
                     validSurvey = false;
@@ -912,7 +912,7 @@ namespace Epi.Web.WCF.SurveyService
              }
              else
              {
-                Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
                 Epi.Web.BLL.SurveyInfo Implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
                 validSurvey = Implementation.IsSurveyInfoValidByOrgKey(request.Criteria.SurveyIdList[0].ToString(), request.Criteria.OrganizationKey.ToString());
              }
@@ -939,8 +939,8 @@ namespace Epi.Web.WCF.SurveyService
              try
                  {
                  PublishResponse result = new PublishResponse(pRequest.RequestId);
-                 Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
-                 Epi.Web.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao = new EF.EntityOrganizationDao();
+                 Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
+                 Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao = new EF.EntityOrganizationDao();
 
 
                  Epi.Web.BLL.Publisher Implementation = new Epi.Web.BLL.Publisher(SurveyInfoDao, OrganizationDao);

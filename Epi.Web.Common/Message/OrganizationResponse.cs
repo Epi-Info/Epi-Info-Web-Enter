@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.DTO;
+using Epi.Web.Enter.Common.DTO;
 using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.Message
+namespace Epi.Web.Enter.Common.Message
 {
     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
-    public class OrganizationResponse : Epi.Web.Common.MessageBase.ResponseBase 
+    public class OrganizationResponse : Epi.Web.Enter.Common.MessageBase.ResponseBase 
     {
 
         /// <summary>

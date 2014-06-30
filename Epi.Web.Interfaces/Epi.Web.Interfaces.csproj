@@ -8,8 +8,8 @@
     <ProjectGuid>{B8AF69BD-3CE1-4AA5-875D-3FB87C7FCE44}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Epi.Web.Interfaces</RootNamespace>
-    <AssemblyName>Epi.Web.Interfaces</AssemblyName>
+    <RootNamespace>Epi.Web.Enter.Interfaces</RootNamespace>
+    <AssemblyName>Epi.Web.Enter.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>

@@ -7,9 +7,9 @@ using System.Text;
 //using BusinessObjects;
 //using DataObjects.EntityFramework.ModelMapper;
 //using System.Linq.Dynamic;
-using Epi.Web.Interfaces.DataInterfaces;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
+using Epi.Web.Enter.Interfaces.DataInterfaces;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 namespace Epi.Web.EF
     {
     public class EntityAdminDao : IAdminDao
@@ -44,7 +44,7 @@ namespace Epi.Web.EF
 
                     foreach (var row in AdminQuery)
                         {
-                        AdminBO AdminBO = new Common.BusinessObject.AdminBO();
+                        AdminBO AdminBO = new Enter.Common.BusinessObject.AdminBO();
                         AdminBO.AdminEmail = row.response.AdminEmail;
                         AdminBO.IsActive = row.response.IsActive;
                         

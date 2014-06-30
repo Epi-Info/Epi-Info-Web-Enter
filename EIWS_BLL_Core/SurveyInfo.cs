@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 
 namespace Epi.Web.BLL
 {
 
   public  class SurveyInfo
     {
-      private Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao;
+      private Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao;
 
 
-        public SurveyInfo(Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao pSurveyInfoDao)
+        public SurveyInfo(Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao pSurveyInfoDao)
         {
             this.SurveyInfoDao = pSurveyInfoDao;
         }
@@ -66,7 +66,7 @@ namespace Epi.Web.BLL
         public bool IsSurveyInfoValidByOrgKeyAndPublishKey(string SurveyId, string Okey, Guid publishKey)
         {
 
-            string EncryptedKey = Epi.Web.Common.Security.Cryptography.Encrypt(Okey);
+            string EncryptedKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(Okey);
             List<SurveyInfoBO> result = this.SurveyInfoDao.GetSurveyInfoByOrgKeyAndPublishKey(SurveyId, EncryptedKey, publishKey);
 
              
@@ -85,7 +85,7 @@ namespace Epi.Web.BLL
         public bool IsSurveyInfoValidByOrgKey(string SurveyId, string pOrganizationKey)
         {
 
-            string EncryptedKey = Epi.Web.Common.Security.Cryptography.Encrypt(pOrganizationKey);
+            string EncryptedKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(pOrganizationKey);
             List<SurveyInfoBO> result = this.SurveyInfoDao.GetSurveyInfoByOrgKey(SurveyId, EncryptedKey);
 
 
@@ -108,14 +108,14 @@ namespace Epi.Web.BLL
         /// <returns>SurveyInfo.</returns>
         public List<SurveyInfoBO> GetSurveyInfo(List<string> SurveyInfoIdList, DateTime pClosingDate, string Okey, int pSurveyType = -1, int pPageNumber = -1, int pPageSize = -1)
         {
-            string EncryptedKey = Epi.Web.Common.Security.Cryptography.Encrypt(Okey);
+            string EncryptedKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(Okey);
             List<SurveyInfoBO> result = this.SurveyInfoDao.GetSurveyInfo(SurveyInfoIdList, pClosingDate, EncryptedKey, pSurveyType, pPageNumber, pPageSize);
             return result;
         }
         public PageInfoBO GetSurveySizeInfo(List<string> SurveyInfoIdList, DateTime pClosingDate, string Okey, int BandwidthUsageFactor, int pSurveyType = -1, int pPageNumber = -1, int pPageSize = -1, int pResponseMaxSize = -1)
         {
 
-            string EncryptedKey = Epi.Web.Common.Security.Cryptography.Encrypt(Okey);
+            string EncryptedKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(Okey);
 
             List<SurveyInfoBO> SurveyInfoBOList = this.SurveyInfoDao.GetSurveySizeInfo(SurveyInfoIdList, pClosingDate, EncryptedKey, pSurveyType, pPageNumber, pPageSize, pResponseMaxSize);
 

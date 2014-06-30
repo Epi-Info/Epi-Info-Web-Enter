@@ -11,7 +11,7 @@ using Epi.Core.EnterInterpreter;
 using System.Web.Security;
 using System.Reflection;
 using System.Diagnostics;
-using Epi.Web.Common.Constants;
+using Epi.Web.Enter.Common.Constants;
 using System.Linq;
 using System.Configuration;
 
@@ -60,7 +60,7 @@ namespace Epi.Web.MVC.Controllers
             //}
 
 
-            //Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(Model.UserName, Model.Password);
+            //Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(Model.UserName, Model.Password);
 
             //if (result.UserIsValid)
             //{
@@ -72,7 +72,7 @@ namespace Epi.Web.MVC.Controllers
             //    {
 
             //        FormsAuthentication.SetAuthCookie(Model.UserName, false);
-            //        string UserId = Epi.Web.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
+            //        string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
             //        Session["UserId"] = UserId;
             //        return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
             //    }
@@ -143,7 +143,7 @@ namespace Epi.Web.MVC.Controllers
                 return View("ForgotPassword", Model);
             }
 
-            bool success = _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, Operation = Constant.OperationMode.UpdatePassword });
+            bool success = _isurveyFacade.UpdateUser(new Enter.Common.DTO.UserDTO() { UserName = Model.UserName, Operation = Constant.OperationMode.UpdatePassword });
             if (success)
             {
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Login");
@@ -182,7 +182,7 @@ namespace Epi.Web.MVC.Controllers
                 return View("ResetPassword", Model);
             }
 
-            _isurveyFacade.UpdateUser(new Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
+            _isurveyFacade.UpdateUser(new Enter.Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
 
             return ValidateUser(Model.UserName, Model.Password, ReturnUrl);
 
@@ -202,7 +202,7 @@ namespace Epi.Web.MVC.Controllers
             }
 
 
-            Epi.Web.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(UserName, Password);
+            Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(UserName, Password);
 
             if (result.UserIsValid)
             {
@@ -219,7 +219,7 @@ namespace Epi.Web.MVC.Controllers
                 {
 
                     FormsAuthentication.SetAuthCookie(UserName, false);
-                    string UserId = Epi.Web.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
+                    string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
                     Session["UserId"] = UserId;
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
                     //return Redirect(ReturnUrl);

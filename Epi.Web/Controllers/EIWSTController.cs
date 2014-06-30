@@ -14,7 +14,7 @@ using System.Web.Caching;
 using System.Web.UI;
 using Epi.Web.EF;
 using System.ServiceModel.Description;
-using Epi.Web.Common.Security;
+using Epi.Web.Enter.Common.Security;
 using System.Reflection;
 using System.Diagnostics;
 namespace Epi.Web.MVC.Controllers
@@ -25,7 +25,7 @@ namespace Epi.Web.MVC.Controllers
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         private IEnumerable<XElement> PageFields;
         private  string RequiredList ="";
-        private Epi.Web.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
+        private Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
         /// <summary>
         /// injecting surveyFacade to the constructor 
         /// </summary>
@@ -99,7 +99,7 @@ namespace Epi.Web.MVC.Controllers
             try
                 {
                 Epi.Web.EF.EntityOrganizationDao NewEntity = new Epi.Web.EF.EntityOrganizationDao();
-                List<Epi.Web.Common.BusinessObject.OrganizationBO> OrganizationBO = new List<Common.BusinessObject.OrganizationBO>();
+                List<Epi.Web.Enter.Common.BusinessObject.OrganizationBO> OrganizationBO = new List<Enter.Common.BusinessObject.OrganizationBO>();
                 OrganizationBO = NewEntity.GetOrganizationNames();
                 if (OrganizationBO != null)
                     {

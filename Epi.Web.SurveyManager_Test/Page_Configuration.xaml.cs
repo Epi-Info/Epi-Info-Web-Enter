@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
-using Epi.Web.Common.Security;
+using Epi.Web.Enter.Common.Security;
 
 namespace Epi.Web.SurveyManager.Client
 {
@@ -174,7 +174,7 @@ namespace Epi.Web.SurveyManager.Client
             try
             {
                 EWEManagerService.EWEManagerServiceClient Client = ServiceClient.GetClient(pEndPointAddress, pIsAuthenticated, pIsWsHTTPBinding);
-                Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
+                Epi.Web.Enter.Common.Message.OrganizationRequest Request = new Epi.Web.Enter.Common.Message.OrganizationRequest();
                 var Result = Client.GetOrganization(Request);
                 this.PingResultTextBox.Text = "Successfully Created Service Client";
             }

@@ -2,7 +2,7 @@
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://www.yourcompany.com/types/" elementFormDefault="qualified" targetNamespace="http://www.yourcompany.com/types/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEManagerService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEManagerService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" />
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEManagerService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" />
   <xs:complexType name="PublishRequest">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
@@ -151,7 +151,7 @@
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="AdminSecurityKey" type="ser:guid" />
-          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="Organization" nillable="true" type="q3:OrganizationDTO" />
+          <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="Organization" nillable="true" type="q3:OrganizationDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -162,7 +162,7 @@
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
-          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" minOccurs="0" name="OrganizationList" nillable="true" type="q4:ArrayOfOrganizationDTO" />
+          <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="OrganizationList" nillable="true" type="q4:ArrayOfOrganizationDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

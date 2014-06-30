@@ -5,7 +5,7 @@ using System.Text;
 using System.ServiceModel;
 using System.ServiceModel.Security;
 using System.Configuration;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.Exception;
 
 namespace Epi.Web.SurveyManager.Client
 {

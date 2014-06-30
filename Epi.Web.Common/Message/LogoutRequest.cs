@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
-using Epi.Web.Common.MessageBase;
+using Epi.Web.Enter.Common.MessageBase;
 
-namespace Epi.Web.Common.Message
+namespace Epi.Web.Enter.Common.Message
 {
     /// <summary>
     /// Respresents a logout request message from client to web service.

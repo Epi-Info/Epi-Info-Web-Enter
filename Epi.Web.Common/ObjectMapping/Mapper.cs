@@ -1,11 +1,11 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.DTO;
-using Epi.Web.Common.Message;
-using Epi.Web.Common.Constants;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.DTO;
+using Epi.Web.Enter.Common.Message;
+using Epi.Web.Enter.Common.Constants;
 
-namespace Epi.Web.Common.ObjectMapping
+namespace Epi.Web.Enter.Common.ObjectMapping
 {
     /// <summary>
     /// Maps DTOs (Data Transfer Objects) to BOs (Business Objects) and vice versa.

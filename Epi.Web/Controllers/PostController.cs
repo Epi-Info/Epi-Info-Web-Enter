@@ -21,7 +21,7 @@ namespace Epi.Web.Controllers
         {
             try
             {
-                Epi.Web.Common.Email.Email EmailObj = new Common.Email.Email();
+            Epi.Web.Enter.Common.Email.Email EmailObj = new Enter.Common.Email.Email();
                 EmailObj.Body = redirectUrl + " and Pass Code is: " + passCode;
                 EmailObj.From = ConfigurationManager.AppSettings["EMAIL_FROM"].ToString();
                 EmailObj.Subject = "Link for Survey: " + surveyName;// EmailSubject;
@@ -29,7 +29,7 @@ namespace Epi.Web.Controllers
                 tempList.Add(emailAddress);
                 EmailObj.To = tempList ;
 
-                if (Epi.Web.Common.Email.EmailHandler.SendMessage(EmailObj))
+                if (Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(EmailObj))
                 {
                     return Json(true);
                 }

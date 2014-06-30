@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.Xml.XPath;
-using Epi.Web.Common.BusinessObject;
+using Epi.Web.Enter.Common.BusinessObject;
 using System.Xml;
 using System.Xml.Linq;
 namespace Epi.Web.BLL
@@ -15,8 +15,8 @@ namespace Epi.Web.BLL
   
     public class Publisher
     {
-        private Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao;
-        private Epi.Web.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
+        private Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao;
+        private Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
         Dictionary<int, int> ViewIds = new Dictionary<int, int>();
         #region"Public members"
         /// <summary>
@@ -27,7 +27,7 @@ namespace Epi.Web.BLL
         /// <param name="pRequestMessage"></param>
         /// <returns></returns>
         /// 
-        public Publisher(Epi.Web.Interfaces.DataInterfaces.ISurveyInfoDao pSurveyInfoDao, Epi.Web.Interfaces.DataInterfaces.IOrganizationDao pPrganizationDao)
+        public Publisher(Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao pSurveyInfoDao, Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao pPrganizationDao)
         {
             this.SurveyInfoDao = pSurveyInfoDao;
             this.OrganizationDao = pPrganizationDao;
@@ -115,7 +115,7 @@ namespace Epi.Web.BLL
         /// <returns></returns>
         private bool ValidateOrganizationKey(Guid gOrganizationKey)
         {
-            string strOrgKeyEncrypted = Epi.Web.Common.Security.Cryptography.Encrypt(gOrganizationKey.ToString());
+            string strOrgKeyEncrypted = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(gOrganizationKey.ToString());
             List<OrganizationBO> OrganizationBoList = this.OrganizationDao.GetOrganizationInfoByOrgKey(strOrgKeyEncrypted);
             if (OrganizationBoList.Count > 0)
             {
@@ -180,7 +180,7 @@ namespace Epi.Web.BLL
                             try
                                 {
 
-                                Epi.Web.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Common.BusinessObject.SurveyInfoBO();
+                                Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO();
 
                                 BO.SurveyId = SurveyId.ToString();
                                 BO.ClosingDate = pRequestMessage.ClosingDate;
@@ -269,7 +269,7 @@ namespace Epi.Web.BLL
                             try
                                 {
 
-                                Epi.Web.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Common.BusinessObject.SurveyInfoBO();
+                                Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO();
 
                                 BO.SurveyId = SurveyId.ToString();
                                 BO.ClosingDate = pRequestMessage.ClosingDate;
@@ -334,7 +334,7 @@ namespace Epi.Web.BLL
             }
         private SurveyRequestResultBO RePublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
             {
-            SurveyRequestResultBO SurveyRequestResultBO = new Web.Common.BusinessObject.SurveyRequestResultBO();
+            SurveyRequestResultBO SurveyRequestResultBO = new Web.Enter.Common.BusinessObject.SurveyRequestResultBO();
             Dictionary<int, int> ViewIds = new Dictionary<int, int>();
             Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
             string ParentId = "";
@@ -383,7 +383,7 @@ namespace Epi.Web.BLL
         private SurveyRequestResultBO PublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
             {
 
-            SurveyRequestResultBO SurveyRequestResultBO = new Web.Common.BusinessObject.SurveyRequestResultBO();
+            SurveyRequestResultBO SurveyRequestResultBO = new Web.Enter.Common.BusinessObject.SurveyRequestResultBO();
             Dictionary<int, int> ViewIds = new Dictionary<int, int>();
             Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
             string ParentId = "";

@@ -1,6 +1,6 @@
 ﻿using System;
 using Epi.Web.MVC.Repositories.Core;
-using Epi.Web.Common.Message;
+using Epi.Web.Enter.Common.Message;
 using Epi.Web.MVC.Constants;
 using Epi.Web.MVC.Utility;
 using Epi.Web.MVC.Models;
@@ -26,8 +26,8 @@ namespace Epi.Web.MVC.Utility
         /// <param name="surveyAnswerDTO"></param>
         /// <param name="surveyResponseXML"></param>
         /// <param name="iSurveyAnswerRepository"></param>
-        public static Epi.Web.Common.DTO.SurveyAnswerDTO CreateSurveyResponse(string surveyId, string responseId, SurveyAnswerRequest surveyAnswerRequest1,
-                                          Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
+        public static Epi.Web.Enter.Common.DTO.SurveyAnswerDTO CreateSurveyResponse(string surveyId, string responseId, SurveyAnswerRequest surveyAnswerRequest1,
+                                          Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
                                           SurveyResponseXML surveyResponseXML, ISurveyAnswerRepository iSurveyAnswerRepository,int UserId,bool IsChild = false,string RelateResponseId="",bool IsEditMode = false)
         {
             bool AddRoot = false;
@@ -77,7 +77,7 @@ namespace Epi.Web.MVC.Utility
         public static void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel,MvcDynamicForms.Form form, SurveyAnswerRequest surveyAnswerRequest,
                                                              SurveyResponseXML surveyResponseXML,
                                                             ISurveyAnswerRepository iSurveyAnswerRepository,
-                                                             SurveyAnswerResponse surveyAnswerResponse, string responseId, Epi.Web.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved,int  PageNumber,int UserId)
+                                                             SurveyAnswerResponse surveyAnswerResponse, string responseId, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved,int  PageNumber,int UserId)
         {
             // 1 Get the record for the current survey response
             // 2 update the current survey response
@@ -219,7 +219,7 @@ namespace Epi.Web.MVC.Utility
         /// <param name="iSurveyInfoRepository"></param>
         /// <param name="SurveyId"></param>
         /// <returns></returns>
-        public static Epi.Web.Common.DTO.SurveyInfoDTO GetSurveyInfoDTO(SurveyInfoRequest surveyInfoRequest,
+        public static Epi.Web.Enter.Common.DTO.SurveyInfoDTO GetSurveyInfoDTO(SurveyInfoRequest surveyInfoRequest,
                                                   ISurveyInfoRepository iSurveyInfoRepository,                 
                                                   string SurveyId)
         {
@@ -554,7 +554,7 @@ namespace Epi.Web.MVC.Utility
             string DecryptedUserId = "";
             try
                 {
-                DecryptedUserId = Epi.Web.Common.Security.Cryptography.Decrypt(Id);
+                DecryptedUserId = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(Id);
                 }
             catch (Exception ex)
                 {

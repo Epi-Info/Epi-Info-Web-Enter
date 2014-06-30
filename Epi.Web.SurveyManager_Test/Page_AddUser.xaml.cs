@@ -12,7 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Configuration;
-using Epi.Web.Common.Security;
+using Epi.Web.Enter.Common.Security;
 using System.Security;
 using System.Text.RegularExpressions;
  
@@ -77,7 +77,7 @@ namespace Epi.Web.SurveyManager.Client
         {
             MessagerichTextBox1.Document.Blocks.Clear();
             EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
-            Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
+            Epi.Web.Enter.Common.Message.OrganizationRequest Request = new Epi.Web.Enter.Common.Message.OrganizationRequest();
             MessagerichTextBox1.Foreground = Brushes.Red;
 
 
@@ -95,7 +95,7 @@ namespace Epi.Web.SurveyManager.Client
                             Request.Organization.Organization = OrganizationtextBox1.Text;
                             //Request.Organization.OrganizationKey = Cryptography.Encrypt(this.GeneratedkeytextBox1.Text);
                             Request.Organization.OrganizationKey =  this.GeneratedkeytextBox1.Text.ToString();
-                            Epi.Web.Common.Message.OrganizationResponse Result = client.SetOrganization(Request);
+                            Epi.Web.Enter.Common.Message.OrganizationResponse Result = client.SetOrganization(Request);
                             MessagerichTextBox1.Document.Blocks.Clear();
                             OrganizationtextBox1.Clear();
                             GeneratedkeytextBox1.Clear();
@@ -149,7 +149,7 @@ namespace Epi.Web.SurveyManager.Client
         {
 
         EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
-            Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
+            Epi.Web.Enter.Common.Message.OrganizationRequest Request = new Epi.Web.Enter.Common.Message.OrganizationRequest();
 
             this.ONameEditTextBox1.Clear();
             this.checkBox1.IsChecked = false;
@@ -165,7 +165,7 @@ namespace Epi.Web.SurveyManager.Client
                         {
                             Request.Organization.Organization = this.OnamelistBox1.SelectedItem.ToString();
                             Request.AdminSecurityKey = new Guid(passwordBox1.Password);
-                            Epi.Web.Common.Message.OrganizationResponse Result = client.GetOrganization(Request);
+                            Epi.Web.Enter.Common.Message.OrganizationResponse Result = client.GetOrganization(Request);
                             EditOtextBox1.Clear();
                             ONameEditTextBox1.Clear();
                             if (Result.Message != null)
@@ -245,7 +245,7 @@ namespace Epi.Web.SurveyManager.Client
             //if (!string.IsNullOrEmpty(EditOtextBox1.Text))
             //{
                 EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
-                Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
+                Epi.Web.Enter.Common.Message.OrganizationRequest Request = new Epi.Web.Enter.Common.Message.OrganizationRequest();
 
                 richTextBox1.Document.Blocks.Clear();
                 try
@@ -256,7 +256,7 @@ namespace Epi.Web.SurveyManager.Client
 
                         Request.AdminSecurityKey = new Guid(passwordBox1.Password);
                         Request.Organization.OrganizationKey = EditOtextBox1.Text;
-                        Epi.Web.Common.Message.OrganizationResponse Result = client.GetOrganizationByKey(Request);
+                        Epi.Web.Enter.Common.Message.OrganizationResponse Result = client.GetOrganizationByKey(Request);
                         if (Result.OrganizationList != null)
                         {
 
@@ -294,7 +294,7 @@ namespace Epi.Web.SurveyManager.Client
         {
             MessagerichTextBox1.Document.Blocks.Clear();
             EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
-            Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
+            Epi.Web.Enter.Common.Message.OrganizationRequest Request = new Epi.Web.Enter.Common.Message.OrganizationRequest();
             richTextBox1.Foreground = Brushes.Red;
             richTextBox1.Document.Blocks.Clear();
 
@@ -315,7 +315,7 @@ namespace Epi.Web.SurveyManager.Client
                             Request.Organization.Organization = ONameEditTextBox1.Text;
                             //Request.Organization.OrganizationKey = Cryptography.Encrypt(EditOtextBox1.Text);
                             Request.Organization.OrganizationKey =  EditOtextBox1.Text.ToString() ;
-                            Epi.Web.Common.Message.OrganizationResponse Result = client.UpdateOrganizationInfo(Request);
+                            Epi.Web.Enter.Common.Message.OrganizationResponse Result = client.UpdateOrganizationInfo(Request);
                            
                            
                             if (Result.Message.ToString().Contains("Successfully"))
@@ -345,7 +345,7 @@ namespace Epi.Web.SurveyManager.Client
         {
 
             EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
-            Epi.Web.Common.Message.OrganizationRequest Request = new Epi.Web.Common.Message.OrganizationRequest();
+            Epi.Web.Enter.Common.Message.OrganizationRequest Request = new Epi.Web.Enter.Common.Message.OrganizationRequest();
 
             richTextBox1.Document.Blocks.Clear();
 
@@ -356,8 +356,8 @@ namespace Epi.Web.SurveyManager.Client
                 {
 
                     Request.AdminSecurityKey = new Guid(passwordBox1.Password);
-                    // Epi.Web.Common.Message.OrganizationResponse Result = client.GetOrganizationInfo(Request);
-                    Epi.Web.Common.Message.OrganizationResponse Result = client.GetOrganizationNames(Request);
+                    // Epi.Web.Enter.Common.Message.OrganizationResponse Result = client.GetOrganizationInfo(Request);
+                    Epi.Web.Enter.Common.Message.OrganizationResponse Result = client.GetOrganizationNames(Request);
 
 
                     OnamelistBox1.Items.Clear();

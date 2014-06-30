@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.DTO
+namespace Epi.Web.Enter.Common.DTO
 {
     public class OrganizationDTO
     {

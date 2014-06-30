@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.BusinessObject
+namespace Epi.Web.Enter.Common.BusinessObject
 {
     public class SurveyInfoBO
     {

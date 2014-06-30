@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.DTO;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.DTO;
 
 namespace Epi.Web.EF
 {

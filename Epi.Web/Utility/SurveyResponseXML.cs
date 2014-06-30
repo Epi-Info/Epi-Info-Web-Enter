@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using System.Xml.Linq;
-using Epi.Web.Common.Message;
+using Epi.Web.Enter.Common.Message;
 using System.Xml.XPath;
 namespace Epi.Web.MVC.Utility
 {
@@ -270,7 +270,7 @@ namespace Epi.Web.MVC.Utility
                   }
               }
 
-          public Epi.Web.MVC.Models.ResponseModel ConvertXMLToModel(Epi.Web.Common.DTO.SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
+          public Epi.Web.MVC.Models.ResponseModel ConvertXMLToModel(Epi.Web.Enter.Common.DTO.SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
               {
               Epi.Web.MVC.Models.ResponseModel ResponseModel = new Models.ResponseModel();
 
@@ -360,7 +360,7 @@ namespace Epi.Web.MVC.Utility
                   throw new Exception(Ex.Message);
                   }
               }
-          private string GetColumnValue(Epi.Web.Common.DTO.SurveyAnswerDTO item, string columnName)
+          private string GetColumnValue(Epi.Web.Enter.Common.DTO.SurveyAnswerDTO item, string columnName)
               {
               string ColumnValue = "";
               switch (columnName)

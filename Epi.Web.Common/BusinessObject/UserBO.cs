@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Epi.Web.Common.BusinessObject
+namespace Epi.Web.Enter.Common.BusinessObject
 {
    public class UserBO
     {
@@ -79,9 +79,9 @@ namespace Epi.Web.Common.BusinessObject
             set { _Role = value; }
         }
 
-        private Epi.Web.Common.Constants.Constant.OperationMode updateMode;
+        private Epi.Web.Enter.Common.Constants.Constant.OperationMode updateMode;
 
-        public Epi.Web.Common.Constants.Constant.OperationMode Operation
+        public Epi.Web.Enter.Common.Constants.Constant.OperationMode Operation
         {
             get { return updateMode; }
             set { updateMode = value; }

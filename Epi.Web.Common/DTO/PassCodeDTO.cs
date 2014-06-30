@@ -5,7 +5,7 @@ using System.Text;
 using System.Runtime.Serialization;
 
 
-namespace Epi.Web.Common.DTO
+namespace Epi.Web.Enter.Common.DTO
 {
     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
     public class PassCodeDTO

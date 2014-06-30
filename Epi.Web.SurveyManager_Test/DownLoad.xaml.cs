@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.ServiceModel;
-using Epi.Web.Common.Exception;
+using Epi.Web.Enter.Common.Exception;
 using System.Text.RegularExpressions;
 
 namespace Epi.Web.SurveyManager.Client
@@ -39,7 +39,7 @@ namespace Epi.Web.SurveyManager.Client
         {
         EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
 
-            Epi.Web.Common.Message.SurveyInfoRequest Request = new Epi.Web.Common.Message.SurveyInfoRequest();
+            Epi.Web.Enter.Common.Message.SurveyInfoRequest Request = new Epi.Web.Enter.Common.Message.SurveyInfoRequest();
 
 
             //Checking the Organization key guid is in correct format
@@ -79,7 +79,7 @@ namespace Epi.Web.SurveyManager.Client
                 if (this.chkIsSizeRequestSurveyInfo.IsChecked == true)
                 {
                     Request.Criteria.ReturnSizeInfoOnly = true;
-                    Epi.Web.Common.Message.SurveyInfoResponse Result = client.GetSurveyInfo(Request);
+                    Epi.Web.Enter.Common.Message.SurveyInfoResponse Result = client.GetSurveyInfo(Request);
                     if (!string.IsNullOrEmpty(Result.Message))
                     {
                         SurveyInfoResponseTextBox.AppendText(string.Format(Result.Message));
@@ -100,7 +100,7 @@ namespace Epi.Web.SurveyManager.Client
 
                     // 1 - get sizing information
                     Request.Criteria.ReturnSizeInfoOnly = true;
-                    Epi.Web.Common.Message.SurveyInfoResponse SizeResult = client.GetSurveyInfo(Request);
+                    Epi.Web.Enter.Common.Message.SurveyInfoResponse SizeResult = client.GetSurveyInfo(Request);
 
 
                     if (!string.IsNullOrEmpty(SizeResult.Message))
@@ -122,9 +122,9 @@ namespace Epi.Web.SurveyManager.Client
                         {
                             Request.Criteria.PageNumber = i;
 
-                            Epi.Web.Common.Message.SurveyInfoResponse Result = client.GetSurveyInfo(Request);
+                            Epi.Web.Enter.Common.Message.SurveyInfoResponse Result = client.GetSurveyInfo(Request);
 
-                            foreach (Epi.Web.Common.DTO.SurveyInfoDTO SurveyInfo in Result.SurveyInfoList)
+                            foreach (Epi.Web.Enter.Common.DTO.SurveyInfoDTO SurveyInfo in Result.SurveyInfoList)
                             {
                                 SurveyInfoResponseTextBox.AppendText(string.Format("{0} - {1} - {2}\n", SurveyInfo.SurveyId, SurveyInfo.SurveyName, SurveyInfo.ClosingDate));
                             }
@@ -164,7 +164,7 @@ namespace Epi.Web.SurveyManager.Client
         {
         EWEManagerService.EWEManagerServiceClient client = ServiceClient.GetClient();
 
-            Epi.Web.Common.Message.SurveyAnswerRequest Request = new Epi.Web.Common.Message.SurveyAnswerRequest();
+            Epi.Web.Enter.Common.Message.SurveyAnswerRequest Request = new Epi.Web.Enter.Common.Message.SurveyAnswerRequest();
 
             foreach (string id in SurveyAnswerIdListBox.Items)
             {
@@ -224,7 +224,7 @@ namespace Epi.Web.SurveyManager.Client
                 if (this.chkIsSizeRequestSurveyResponse.IsChecked == true)
                 {
                     Request.Criteria.ReturnSizeInfoOnly = true;
-                    Epi.Web.Common.Message.SurveyAnswerResponse Result = client.GetSurveyAnswer(Request);
+                    Epi.Web.Enter.Common.Message.SurveyAnswerResponse Result = client.GetSurveyAnswer(Request);
 
                     if (!string.IsNullOrEmpty(Result.Message))
                     {
@@ -240,7 +240,7 @@ namespace Epi.Web.SurveyManager.Client
                 else
                 {
                     Request.Criteria.ReturnSizeInfoOnly = true;
-                     Epi.Web.Common.Message.SurveyAnswerResponse SizeResult = client.GetSurveyAnswer(Request);
+                     Epi.Web.Enter.Common.Message.SurveyAnswerResponse SizeResult = client.GetSurveyAnswer(Request);
 
                     if (!string.IsNullOrEmpty(SizeResult.Message))
                     {
@@ -262,9 +262,9 @@ namespace Epi.Web.SurveyManager.Client
                         {
                             Request.Criteria.PageNumber = i;
                             Request.Criteria.PageSize = PageSize;
-                            Epi.Web.Common.Message.SurveyAnswerResponse Result = client.GetSurveyAnswer(Request);
+                            Epi.Web.Enter.Common.Message.SurveyAnswerResponse Result = client.GetSurveyAnswer(Request);
                             SurveyAnswerResponseTextBox.AppendText(string.Format(" -Number of available records: {0}\n\n", Result.SurveyResponseList.Count));
-                            foreach (Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer in Result.SurveyResponseList)
+                            foreach (Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer in Result.SurveyResponseList)
                             {
                                 SurveyAnswerResponseTextBox.AppendText(string.Format("{0} - {1} - {2} - {3}\n", SurveyAnswer.ResponseId, SurveyAnswer.Status, SurveyAnswer.DateUpdated, SurveyAnswer.XML));
                             }

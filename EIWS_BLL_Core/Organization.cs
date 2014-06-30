@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 using System.Configuration;
 
 
@@ -12,9 +12,9 @@ namespace Epi.Web.BLL
 
     public class Organization
     {
-        private Epi.Web.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
+        private Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao OrganizationDao;
 
-        public Organization(Epi.Web.Interfaces.DataInterfaces.IOrganizationDao pOrganizationDao)
+        public Organization(Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao pOrganizationDao)
         {
             this.OrganizationDao = pOrganizationDao;
         }
@@ -31,7 +31,7 @@ namespace Epi.Web.BLL
             foreach (OrganizationBO _result in result)
             {
 
-                _result.OrganizationKey = Epi.Web.Common.Security.Cryptography.Decrypt(_result.OrganizationKey);
+                _result.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(_result.OrganizationKey);
             
             }
 
@@ -51,14 +51,14 @@ namespace Epi.Web.BLL
         }
         public void InsertOrganizationInfo(OrganizationBO OrganizationBO)
         {
-            OrganizationBO.OrganizationKey = Epi.Web.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
+            OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
 
             this.OrganizationDao.InsertOrganization(OrganizationBO);
              
         }
         public void UpdateOrganizationInfo(OrganizationBO OrganizationBO)
         {
-            OrganizationBO.OrganizationKey = Epi.Web.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
+            OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
             this.OrganizationDao.UpdateOrganization(OrganizationBO);
 
         }
@@ -68,7 +68,7 @@ namespace Epi.Web.BLL
         //Validate Organization
         public bool ValidateOrganization(string Key)
         {
-            //string EncryptedKey = Epi.Web.Common.Security.Cryptography.Encrypt(Key);
+            //string EncryptedKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(Key);
             OrganizationBO OrganizationBO = GetOrganizationObjByKey(Key);
             bool ISValidOrg = false;
 
@@ -96,7 +96,7 @@ namespace Epi.Web.BLL
         {
 
             bool orgExists = false;
-            key = Epi.Web.Common.Security.Cryptography.Encrypt(key);
+            key = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(key);
             List<OrganizationBO> orgBOList = GetOrganizationNames();
             //first find if the whether the organization name exists in the database
             foreach (OrganizationBO oBo in orgBOList)
@@ -125,7 +125,7 @@ namespace Epi.Web.BLL
 
         private OrganizationBO GetOrganizationObjByKey(string OrganizationKey)
         {
-            OrganizationKey = Epi.Web.Common.Security.Cryptography.Encrypt(OrganizationKey);
+            OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationKey);
             OrganizationBO result = this.OrganizationDao.GetOrganizationInfoByKey(OrganizationKey);
             return result;
         }

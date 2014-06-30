@@ -5,9 +5,9 @@ using System.Collections.Generic;
 //using BusinessObjects;
 //using DataObjects.EntityFramework.ModelMapper;
 //using System.Linq.Dynamic;
-using Epi.Web.Interfaces.DataInterfaces;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Extension;
+using Epi.Web.Enter.Interfaces.DataInterfaces;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Extension;
 
 namespace Epi.Web.EF
 {
@@ -304,7 +304,7 @@ namespace Epi.Web.EF
                    //retrieve OrganizationId based on OrganizationKey
                    using (var ContextOrg = DataObjectFactory.CreateContext())
                    {
-                       string OrgKey = Epi.Web.Common.Security.Cryptography.Encrypt(SurveyInfo.OrganizationKey.ToString());
+                       string OrgKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(SurveyInfo.OrganizationKey.ToString());
                        OrganizationId = ContextOrg.Organizations.FirstOrDefault(x => x.OrganizationKey == OrgKey).OrganizationId;
                    }
 

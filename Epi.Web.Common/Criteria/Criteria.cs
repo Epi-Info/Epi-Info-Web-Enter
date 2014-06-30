@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Epi.Web.Common.Criteria
+namespace Epi.Web.Enter.Common.Criteria
 {
     /// <summary>
     /// Base class that holds criteria for queries.

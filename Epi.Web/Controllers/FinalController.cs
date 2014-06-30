@@ -80,7 +80,7 @@ namespace Epi.Web.MVC.Controllers
 
                 FormsAuthentication.SetAuthCookie("BeginSurvey", false);
                 Guid responseId = Guid.NewGuid();
-                Epi.Web.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyId, responseId.ToString(),0);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(surveyId, responseId.ToString(),0);
                 SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
                 XDocument xdoc = XDocument.Parse(surveyInfoModel.XML);
                 MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice);

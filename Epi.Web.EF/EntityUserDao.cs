@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Epi.Web.Interfaces.DataInterface;
-using Epi.Web.Common.BusinessObject;
-using Epi.Web.Common.Criteria;
-using Epi.Web.Common.Constants;
+using Epi.Web.Enter.Interfaces.DataInterface;
+using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
+using Epi.Web.Enter.Common.Constants;
 namespace Epi.Web.EF
 {
     public class EntityUserDao : IUserDao
