@@ -610,10 +610,10 @@ namespace Epi.Web.MVC.Controllers
             {
             PreValidationResultEnum result = PreValidationResultEnum.Success;
 
-            if (DateTime.Now > SurveyInfo.ClosingDate)
-                {
-                return PreValidationResultEnum.SurveyIsPastClosingDate;
-                }
+            //if (DateTime.Now > SurveyInfo.ClosingDate)
+            //    {
+            //    return PreValidationResultEnum.SurveyIsPastClosingDate;
+            //    }
 
 
             if (SurveyAnswer.Status == 3)
