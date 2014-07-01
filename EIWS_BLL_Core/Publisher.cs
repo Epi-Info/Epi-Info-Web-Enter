@@ -425,7 +425,7 @@ namespace Epi.Web.BLL
                  }
 
 
-
+            SurveyRequestResultBO.URL = SurveyRequestResultBO.URL.Remove(SurveyRequestResultBO.URL.LastIndexOf('/'));
 
             return SurveyRequestResultBO;
             }
