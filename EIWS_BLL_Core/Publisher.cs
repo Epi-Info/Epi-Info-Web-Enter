@@ -139,7 +139,7 @@ namespace Epi.Web.BLL
            // URL.Append("/");
             //URL.Append(pRequestMessage.SurveyNumber.ToString());
             //URL.Append("/");
-            URL.Append(SurveyId.ToString());
+           // URL.Append(SurveyId.ToString());
             return URL.ToString();
         }
 
@@ -337,8 +337,8 @@ namespace Epi.Web.BLL
             SurveyRequestResultBO SurveyRequestResultBO = new Web.Enter.Common.BusinessObject.SurveyRequestResultBO();
             Dictionary<int, int> ViewIds = new Dictionary<int, int>();
             Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
-            string ParentId = "";
-
+         
+            List<SurveyInfoBO> FormsHierarchyIds = this.GetFormsHierarchyIdsByRootId(pRequestMessage.SurveyId.ToString());
             // 1- breck down the xml to n views
             List<string> XmlList = new List<string>();
             XmlList = XmlChunking(pRequestMessage.XML);
@@ -358,27 +358,26 @@ namespace Epi.Web.BLL
                 SurveyInfoBO.XML = Xml;
                 SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
                 SurveyInfoBO.ViewId = ViewId;
-                SurveyInfoBO.ParentId = ParentId;
+                
+                SurveyInfoBO pBO =  FormsHierarchyIds.Single(x => x.ViewId == ViewId);
+                SurveyInfoBO.SurveyId = pBO.SurveyId;
+                SurveyInfoBO.ParentId = pBO.ParentId;
+                SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
                 SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
                 SurveyRequestResultBO = RePublish(SurveyInfoBO);
-                ParentId = SurveyRequestResultBO.URL.Split('/').Last();
-                SurveyIds.Add(ViewId, ParentId);
 
+             
                 }
 
-            foreach (var ViewId in this.ViewIds)
-                {
-
-                string PId = SurveyIds[ViewId.Value].ToString();
-                string SId = SurveyIds[ViewId.Key].ToString();
-                this.SurveyInfoDao.UpdateParentId(SId, ViewId.Key, PId);
-
-                }
-
-
-
-
+        
             return SurveyRequestResultBO;
+            }
+
+        private List<SurveyInfoBO> GetFormsHierarchyIdsByRootId(string RootId)
+            {
+            List<SurveyInfoBO> FormsHierarchyIds = new List<SurveyInfoBO>();
+            FormsHierarchyIds = this.SurveyInfoDao.GetFormsHierarchyIdsByRootId(RootId);
+            return FormsHierarchyIds;
             }
         private SurveyRequestResultBO PublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
             {
@@ -421,10 +420,10 @@ namespace Epi.Web.BLL
                 string PId = SurveyIds[ViewId.Value].ToString();
                 string SId = SurveyIds[ViewId.Key].ToString();
                 this.SurveyInfoDao.UpdateParentId(SId, ViewId.Key, PId);
-                
+           
                  }
 
-
+            SurveyRequestResultBO.ViewIdAndFormIdList = SurveyIds;
             SurveyRequestResultBO.URL = SurveyRequestResultBO.URL.Remove(SurveyRequestResultBO.URL.LastIndexOf('/'));
 
             return SurveyRequestResultBO;
