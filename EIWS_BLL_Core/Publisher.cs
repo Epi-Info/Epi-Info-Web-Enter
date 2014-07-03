@@ -292,7 +292,7 @@ namespace Epi.Web.BLL
                                 BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
                                 BO.IsDraftMode = pRequestMessage.IsDraftMode;
                                 BO.StartDate = pRequestMessage.StartDate;
-
+                                BO.OwnerId = pRequestMessage.OwnerId;
 
                                 this.SurveyInfoDao.UpdateSurveyInfo(BO);
                                 result.URL = GetURL(pRequestMessage, SurveyId);
