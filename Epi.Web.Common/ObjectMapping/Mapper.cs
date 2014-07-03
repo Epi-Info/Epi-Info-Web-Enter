@@ -218,8 +218,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             {
                 IsPulished = pBO.IsPulished,
                 StatusText = pBO.StatusText,
-                URL = pBO.URL
-
+                URL = pBO.URL,
+                ViewIdAndFormIdList =pBO.ViewIdAndFormIdList
             };
         }
 
