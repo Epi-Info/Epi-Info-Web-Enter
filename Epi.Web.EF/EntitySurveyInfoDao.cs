@@ -342,14 +342,16 @@ namespace Epi.Web.EF
                 //Update Survey
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                    var Query = from response in Context.SurveyMetaDatas
-                                where response.SurveyId == Id
-                                select response;
+                    //var Query = from response in Context.SurveyMetaDatas
+                    //            where response.SurveyId == Id
+                    //            select response;
 
-                    var DataRow = Query.Single();
-                    DataRow = Mapper.ToEF(SurveyInfo);
+                    //var DataRow = Query.Single();
+                    //DataRow = Mapper.ToEF(SurveyInfo);
 
-                    
+                SurveyMetaData Row = Context.SurveyMetaDatas.First(x=>x.SurveyId == Id);
+
+                Row.TemplateXML = SurveyInfo.XML;
 
                     Context.SaveChanges();
                 }
