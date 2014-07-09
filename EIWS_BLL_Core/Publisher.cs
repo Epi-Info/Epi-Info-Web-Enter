@@ -91,10 +91,10 @@ namespace Epi.Web.BLL
                 isValid = false;
             }
             else if (string.IsNullOrEmpty(pRequestMessage.SurveyName))
-            {
+                {
 
                 isValid = false;
-            }
+                }
             
             else if ( string.IsNullOrEmpty(pRequestMessage.UserPublishKey.ToString()))
             {
@@ -160,7 +160,19 @@ namespace Epi.Web.BLL
              return IsRelatedForm;
             
             }
+        private int GetViewId(string Xml)
+            {
 
+            int ViewId = 0;
+            XDocument xdoc = XDocument.Parse(Xml);
+
+            XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
+            
+            int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out ViewId);
+             
+            return ViewId;
+
+            }
         private SurveyRequestResultBO Publish(SurveyInfoBO pRequestMessage)
             {
             SurveyRequestResultBO result = new SurveyRequestResultBO();
@@ -212,7 +224,9 @@ namespace Epi.Web.BLL
 
                                 // Set Survey Settings
                                 this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString());
-                                
+                                Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
+                                SurveyIdsList.Add(GetViewId(pRequestMessage.XML), SurveyId.ToString());
+                                result.ViewIdAndFormIdList = SurveyIdsList;
                                 result.URL = GetURL(pRequestMessage, SurveyId);
                                 result.IsPulished = true;
                                 }
@@ -295,6 +309,9 @@ namespace Epi.Web.BLL
                                 BO.OwnerId = pRequestMessage.OwnerId;
 
                                 this.SurveyInfoDao.UpdateSurveyInfo(BO);
+                                Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
+                                SurveyIdsList.Add(GetViewId(pRequestMessage.XML), SurveyId.ToString());
+                                result.ViewIdAndFormIdList = SurveyIdsList;
                                 result.URL = GetURL(pRequestMessage, SurveyId);
                                 result.IsPulished = true;
                                 }
@@ -383,7 +400,7 @@ namespace Epi.Web.BLL
             {
 
             SurveyRequestResultBO SurveyRequestResultBO = new Web.Enter.Common.BusinessObject.SurveyRequestResultBO();
-            Dictionary<int, int> ViewIds = new Dictionary<int, int>();
+           // Dictionary<int, int> ViewIds = new Dictionary<int, int>();
             Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
             string ParentId = "";
             
@@ -397,20 +414,21 @@ namespace Epi.Web.BLL
             XDocument xdoc = XDocument.Parse(Xml);
             SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
             XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
-            int ViewId;
-            int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out ViewId);
-            
-            GetRelateViewIds(ViewElement, ViewId);
+            int _ViewId;
+            int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out _ViewId);
+
+            GetRelateViewIds(ViewElement, _ViewId);
  
             SurveyInfoBO = pRequestMessage;
             SurveyInfoBO.XML = Xml;
             SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
-            SurveyInfoBO.ViewId = ViewId;
+            SurveyInfoBO.ViewId = _ViewId;
             SurveyInfoBO.ParentId = ParentId;
             SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ; 
             SurveyRequestResultBO = Publish(SurveyInfoBO);
-            ParentId = SurveyRequestResultBO.URL.Split('/').Last();
-            SurveyIds.Add( ViewId ,ParentId);
+           // ParentId = SurveyRequestResultBO.URL.Split('/').Last();
+            ParentId = SurveyRequestResultBO.ViewIdAndFormIdList[_ViewId];
+            SurveyIds.Add(_ViewId, ParentId);
 
             }
            
