@@ -352,7 +352,7 @@ namespace Epi.Web.EF
                 SurveyMetaData Row = Context.SurveyMetaDatas.First(x=>x.SurveyId == Id);
 
                 Row.TemplateXML = SurveyInfo.XML;
-
+                Row.IsDraftMode = SurveyInfo.IsDraftMode;
                     Context.SaveChanges();
                 }
 
