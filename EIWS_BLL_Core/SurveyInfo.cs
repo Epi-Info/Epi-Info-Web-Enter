@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using Epi.Web.Enter.Common.BusinessObject;
 using Epi.Web.Enter.Common.Criteria;
-
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
 namespace Epi.Web.BLL
 {
 
   public  class SurveyInfo
     {
       private Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao;
-
+      Dictionary<int, int> ViewIds = new Dictionary<int, int>();
 
         public SurveyInfo(Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao pSurveyInfoDao)
         {
@@ -132,12 +134,52 @@ namespace Epi.Web.BLL
             this.SurveyInfoDao.InsertSurveyInfo(pValue);
             return result;
         }
-        public SurveyInfoBO UpdateSurveyInfo(SurveyInfoBO pValue)
+        public SurveyInfoBO UpdateSurveyInfo(SurveyInfoBO pRequestMessage)
         {
-            SurveyInfoBO result = pValue;
-            if (ValidateSurveyFields(pValue))
+        SurveyInfoBO result = pRequestMessage;
+        if (ValidateSurveyFields(pRequestMessage))
             {
-                this.SurveyInfoDao.UpdateSurveyInfo(pValue);
+            if (this.IsRelatedForm(pRequestMessage.XML))
+                    {
+
+                    List<SurveyInfoBO> FormsHierarchyIds = this.GetFormsHierarchyIds(pRequestMessage.SurveyId.ToString());
+                    
+                    // 1- breck down the xml to n views
+                    List<string> XmlList = new List<string>();
+                    XmlList = XmlChunking(pRequestMessage.XML);
+
+                    // 2- call publish() with each of the views
+                    foreach (string Xml in XmlList)
+                        {
+                        XDocument xdoc = XDocument.Parse(Xml);
+                        SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
+                        XElement ViewElement = xdoc.XPathSelectElement("Template/Project/View");
+                        int ViewId;
+                        int.TryParse(ViewElement.Attribute("ViewId").Value.ToString(), out ViewId);
+
+                        GetRelateViewIds(ViewElement, ViewId);
+
+                        SurveyInfoBO = pRequestMessage;
+                        SurveyInfoBO.XML = Xml;
+                        SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
+                        SurveyInfoBO.ViewId = ViewId;
+
+                        SurveyInfoBO pBO = FormsHierarchyIds.Single(x => x.ViewId == ViewId);
+                        SurveyInfoBO.SurveyId = pBO.SurveyId;
+                        SurveyInfoBO.ParentId = pBO.ParentId;
+                        SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
+                        SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
+
+                        this.SurveyInfoDao.UpdateSurveyInfo(SurveyInfoBO);
+
+
+                        }
+                    }
+                else
+                    {
+
+                    this.SurveyInfoDao.UpdateSurveyInfo(pRequestMessage);
+                    }
                 result.StatusText = "Successfully updated survey information.";
             }else{
                 result.StatusText = "One or more survey required fields are missing values.";
@@ -204,9 +246,9 @@ namespace Epi.Web.BLL
             {
             List<SurveyInfoBO> SurveyInfoBOList = new List<SurveyInfoBO>();
             List<FormsHierarchyBO> result = new List<FormsHierarchyBO>();
-            
+
             SurveyInfoBOList = this.SurveyInfoDao.GetFormsHierarchyIdsByRootId(RootId);
-            foreach(var item in SurveyInfoBOList)
+            foreach (var item in SurveyInfoBOList)
                 {
                 FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
                 FormsHierarchyBO.ViewId = item.ViewId;
@@ -214,13 +256,76 @@ namespace Epi.Web.BLL
                 if (item.SurveyId == RootId)
                     {
                     FormsHierarchyBO.IsRoot = true;
-                     }
+                    }
                 result.Add(FormsHierarchyBO);
                 }
 
             return result;
-            
+
+            }
+        private List<SurveyInfoBO> GetFormsHierarchyIds(string RootId)
+            {
+            List<SurveyInfoBO> FormsHierarchyIds = new List<SurveyInfoBO>();
+            FormsHierarchyIds = this.SurveyInfoDao.GetFormsHierarchyIdsByRootId(RootId);
+            return FormsHierarchyIds;
+            }
+        private bool IsRelatedForm(string Xml)
+            {
+
+            bool IsRelatedForm = false;
+            XDocument xdoc = XDocument.Parse(Xml);
+
+
+            int NumberOfViews = xdoc.Descendants("View").Count();
+            if (NumberOfViews > 1)
+                {
+                IsRelatedForm = true;
+
+                }
+
+            return IsRelatedForm;
+
             }
 
+
+        private void GetRelateViewIds(XElement ViewElement, int ViewId)
+            {
+
+            var _RelateFields = from _Field in
+                                    ViewElement.Descendants("Field")
+                                where _Field.Attribute("FieldTypeId").Value == "20"
+                                select _Field;
+
+            foreach (var Item in _RelateFields)
+                {
+
+                int RelateViewId = 0;
+                int.TryParse(Item.Attribute("RelatedViewId").Value, out RelateViewId);
+
+                this.ViewIds.Add(RelateViewId, ViewId);
+                }
+
+
+            }
+
+        private List<string> XmlChunking(string Xml)
+            {
+            List<string> XmlList = new List<string>();
+            XDocument xdoc = XDocument.Parse(Xml);
+            XDocument xdoc1 = XDocument.Parse(Xml);
+
+            xdoc.Descendants("View").Remove();
+
+            foreach (XElement Xelement in xdoc1.Descendants("Project").Elements("View"))
+                {
+
+                //xdoc.Element("Project").Add(Xelement);
+                xdoc.Root.Element("Project").Add(Xelement);
+                XmlList.Add(xdoc.ToString());
+                xdoc.Descendants("View").Remove();
+                }
+
+            return XmlList;
+            }
     }
 }
