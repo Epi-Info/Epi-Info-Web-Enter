@@ -156,6 +156,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 SurveyAnswerDTO.IsLocked = pBO.IsLocked;
                 SurveyAnswerDTO.ParentRecordId =pBO.ParentRecordId;
                 SurveyAnswerDTO.UserEmail = pBO.UserEmail;
+                SurveyAnswerDTO.ViewId = pBO.ViewId;
+
                 if (pBO.ResponseHierarchyIds != null)
                     {
                       SurveyAnswerDTO.ResponseHierarchyIds = ToDataTransferObject(pBO.ResponseHierarchyIds);
