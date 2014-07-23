@@ -253,15 +253,14 @@ namespace Epi.Web.EF
                         {
                         Guid Id = new Guid(surveyResponseId);
 
-
-                        using (var Context = DataObjectFactory.CreateContext())
-                            {
+                           var Context = DataObjectFactory.CreateContext();
+                        
                             SurveyResponse surveyResponse = Context.SurveyResponses.First(x => x.ResponseId == Id);
                             if (surveyResponse != null)
                                 {
                                 responseList.Add(surveyResponse);
                                 }
-                            }
+                             
                         }
                     catch (Exception ex)
                         {
@@ -273,13 +272,13 @@ namespace Epi.Web.EF
                 {
                 try
                     {
-                    using (var Context = DataObjectFactory.CreateContext())
-                        {
+                    
                         if (!string.IsNullOrEmpty(pSurveyId))
                             {
+                            var Context = DataObjectFactory.CreateContext();
                             Guid Id = new Guid(pSurveyId);
                             responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id).ToList();
-                            }
+                           
 
                        
                         }
@@ -307,6 +306,7 @@ namespace Epi.Web.EF
             //    }
 
              
+
 
 
 
