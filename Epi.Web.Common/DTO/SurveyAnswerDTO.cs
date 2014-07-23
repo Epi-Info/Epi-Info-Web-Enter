@@ -39,5 +39,9 @@ namespace Epi.Web.Enter.Common.DTO
 
          [DataMember]
          public List<SurveyAnswerDTO> ResponseHierarchyIds { get; set; }
+
+
+         [DataMember]
+         public int ViewId { get; set; }
     }
 }
