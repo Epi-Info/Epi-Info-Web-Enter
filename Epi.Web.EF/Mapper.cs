@@ -217,7 +217,10 @@ namespace Epi.Web.EF
                 SurveyResponseBO.DateCreated = entity.DateCreated;
                 SurveyResponseBO.IsDraftMode = entity.IsDraftMode ;
                 SurveyResponseBO.IsLocked = entity.IsLocked;
-
+                if (entity.SurveyMetaData != null)
+                    {
+                    SurveyResponseBO.ViewId = (int)entity.SurveyMetaData.ViewId;
+                    }
             if (entity.ParentRecordId != null)
                 {
                         SurveyResponseBO.ParentRecordId = entity.ParentRecordId.ToString();
@@ -237,7 +240,7 @@ namespace Epi.Web.EF
         internal static List<SurveyResponseBO> Map(List<SurveyResponse> entities)
         {
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
-            foreach (SurveyResponse surveyResponse in entities)
+            foreach (var surveyResponse in entities)
             {
                 result.Add(Map(surveyResponse));
             }
