@@ -17,6 +17,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
         bool UpdateUserInfo(UserBO User);
         List<UserBO> GetUserByFormId(string FormId);
         UserBO GetCurrentUser(int userId);
-
+        UserBO GetUserByEmail(UserBO User);
     }
 }

@@ -134,5 +134,22 @@ namespace Epi.Web.EF
             return UserList;
 
             }
+
+        public UserBO GetUserByEmail(UserBO User)
+            {
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from Users in Context.Users
+                            where Users.EmailAddress == User.EmailAddress
+                            select Users;
+            UserBO Result = new UserBO();
+
+            foreach (var user in UserQuery)
+                {
+                Result = Mapper.MapToUserBO(user);
+                return Result;
+                }
+
+            return null;
+            }
     }
 }

@@ -318,6 +318,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             PhoneNumber = result.PhoneNumber,
             ResetPassword = result.ResetPassword,
             Role = result.Role,
+            Operation = Constant.OperationMode.NoChange,
             EmailAddress = result.EmailAddress
             };
         }
