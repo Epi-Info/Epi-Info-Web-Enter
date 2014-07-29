@@ -130,5 +130,14 @@ namespace Epi.Web.BLL
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
 
         }
+
+        public UserBO GetUserByEmail(UserBO User)
+            {
+            UserBO UserResponseBO;
+
+            UserResponseBO = UserDao.GetUserByEmail(User);
+
+            return UserResponseBO;
+            }
     }
 }

@@ -529,10 +529,7 @@ namespace Epi.Web.WCF.SurveyService
 
         public UserAuthenticationResponse UserLogin(UserAuthenticationRequest request)
         {
-            //UserDTO UserDTO = new UserDTO();
-            ////UserDTO.UserId = 1;
-            //UserDTO.UserName = "musman";
-            //UserDTO.PasswordHash = "eddd";
+           
 
             var response = new UserAuthenticationResponse();
             Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
