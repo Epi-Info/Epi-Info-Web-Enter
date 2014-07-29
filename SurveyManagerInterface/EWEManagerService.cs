@@ -961,5 +961,83 @@ namespace Epi.Web.WCF.SurveyService
                  }
              }
 
+         public UserAuthenticationResponse UserLogin(UserAuthenticationRequest request)
+             {
+             
+
+             var response = new UserAuthenticationResponse();
+             Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+             Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+             Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+
+             UserBO UserBO = Mapper.ToUserBO(request.User);
+
+             UserBO result = Implementation.GetUser(UserBO);
+
+
+
+             if (result != null)
+                 {
+
+                 //response.Acknowledge = AcknowledgeType.Failure; TBD
+                 //response.Message = "Invalid Pass Code.";
+                 response.User = Mapper.ToUserDTO(result);
+                 response.UserIsValid = true;
+
+                 }
+             else
+                 {
+                 response.UserIsValid = false;
+
+                 }
+
+
+             return response;
+             }
+         public bool UpdateUser(UserAuthenticationRequest request)
+             {
+             Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+             Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+             Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+
+             UserBO UserBO = Mapper.ToUserBO(request.User);
+
+             return Implementation.UpdateUser(UserBO);
+
+             }
+
+
+         public UserAuthenticationResponse GetUser(UserAuthenticationRequest request)
+             {
+             try
+                 {
+                 var response = new UserAuthenticationResponse();
+                 Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                 Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+                 Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+
+                 UserBO UserBO = Mapper.ToUserBO(request.User);
+
+                 // UserBO result = Implementation.GetUserByUserId(UserBO);
+
+                 UserBO result = Implementation.GetUserByEmail(UserBO);
+
+                 if (result != null)
+                     {
+
+
+                     response.User = Mapper.ToUserDTO(result);
+
+                     }
+                 return response;
+                 }
+             catch (Exception ex)
+             {
+
+             throw ex;
+              }
+
+            
+             }
     }
 }
