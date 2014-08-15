@@ -13,7 +13,7 @@
     <RootNamespace>Epi.Web.WCF.SurveyHost</RootNamespace>
     <AssemblyName>Epi.Web.WCF.SurveyHost</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -68,7 +68,9 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="EWEDataService.svc" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -158,7 +160,7 @@
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>22587</DevelopmentServerPort>
           <DevelopmentServerVPath>/Epi.Web.ServiceHost</DevelopmentServerVPath>
-          <IISUrl>http://localhost/EpiWebWCFSurveyHostCP</IISUrl>
+          <IISUrl>http://localhost:22587/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
