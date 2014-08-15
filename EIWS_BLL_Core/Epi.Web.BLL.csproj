@@ -58,7 +58,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.cs" />
     <Compile Include="FormInfo.cs" />
     <Compile Include="FormSetting.cs" />
     <Compile Include="User.cs" />
