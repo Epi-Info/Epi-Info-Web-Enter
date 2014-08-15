@@ -92,8 +92,7 @@ namespace Epi.Web.Enter.Common.Email
                 return false;
             }
         }
-              
+       }
     }
 
    
-}

@@ -164,9 +164,9 @@ namespace Epi.Web.WCF.SurveyService
             try
             {
                 Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = new EF.EntitySurveyInfoDao();
-                Epi.Web.Enter.Interfaces.DataInterfaces.IAdminDao AdminDao = new EF.EntityAdminDao();
+                
                 Epi.Web.BLL.SurveyInfo Implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
-                Epi.Web.BLL.Admin ImplementationAdmin = new Epi.Web.BLL.Admin(AdminDao);
+                
 
 
                 var response = new SurveyInfoResponse(request.RequestId);
@@ -232,7 +232,7 @@ namespace Epi.Web.WCF.SurveyService
                                         Implementation.UpdateSurveyInfo(SurveyInfo);
                                         response.SurveyInfoList.Add(Mapper.ToDataTransferObject(SurveyInfo));
                                         response.Message = SurveyInfo.StatusText;
-                                        ImplementationAdmin.SendEmailToAdmins(SurveyInfo);
+                                        //ImplementationAdmin.SendEmailToAdmins(SurveyInfo);// This process does not apply for EWE.
                                         }
                                     else if (request.Action == "Delete")
                                     {

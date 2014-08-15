@@ -19,7 +19,6 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_Admin_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Organization), "Admin", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Admin), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_lk_Status", "lk_Status", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.lk_Status), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_lk_SurveyType", "lk_SurveyType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.lk_SurveyType), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Organization), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
@@ -29,6 +28,9 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyResponseUser", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_SurveyMetaData1", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyMetaData), "SurveyMetaData1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyResponse", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyResponse), "SurveyResponse1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_UserOrganization_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Organization), "UserOrganization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.UserOrganization), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_UserOrganization_Role", "Role", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Role), "UserOrganization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.UserOrganization), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_UserOrganization_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.User), "UserOrganization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.UserOrganization), true)]
 
 #endregion
 
@@ -79,22 +81,6 @@ namespace Epi.Web.EF
         #endregion
     
         #region ObjectSet Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Admin> Admins
-        {
-            get
-            {
-                if ((_Admins == null))
-                {
-                    _Admins = base.CreateObjectSet<Admin>("Admins");
-                }
-                return _Admins;
-            }
-        }
-        private ObjectSet<Admin> _Admins;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -239,18 +225,42 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<ResponseXml> _ResponseXmls;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Role> Roles
+        {
+            get
+            {
+                if ((_Roles == null))
+                {
+                    _Roles = base.CreateObjectSet<Role>("Roles");
+                }
+                return _Roles;
+            }
+        }
+        private ObjectSet<Role> _Roles;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<UserOrganization> UserOrganizations
+        {
+            get
+            {
+                if ((_UserOrganizations == null))
+                {
+                    _UserOrganizations = base.CreateObjectSet<UserOrganization>("UserOrganizations");
+                }
+                return _UserOrganizations;
+            }
+        }
+        private ObjectSet<UserOrganization> _UserOrganizations;
 
         #endregion
 
         #region AddTo Methods
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Admins EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToAdmins(Admin admin)
-        {
-            base.AddObject("Admins", admin);
-        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the lk_Status EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -323,6 +333,22 @@ namespace Epi.Web.EF
         {
             base.AddObject("ResponseXmls", responseXml);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Roles EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToRoles(Role role)
+        {
+            base.AddObject("Roles", role);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the UserOrganizations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToUserOrganizations(UserOrganization userOrganization)
+        {
+            base.AddObject("UserOrganizations", userOrganization);
+        }
 
         #endregion
 
@@ -331,209 +357,6 @@ namespace Epi.Web.EF
     #endregion
 
     #region Entities
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="Admin")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Admin : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Admin object.
-        /// </summary>
-        /// <param name="adminId">Initial value of the AdminId property.</param>
-        /// <param name="adminEmail">Initial value of the AdminEmail property.</param>
-        /// <param name="organizationId">Initial value of the OrganizationId property.</param>
-        /// <param name="isActive">Initial value of the IsActive property.</param>
-        /// <param name="notify">Initial value of the Notify property.</param>
-        public static Admin CreateAdmin(global::System.Guid adminId, global::System.String adminEmail, global::System.Int32 organizationId, global::System.Boolean isActive, global::System.Boolean notify)
-        {
-            Admin admin = new Admin();
-            admin.AdminId = adminId;
-            admin.AdminEmail = adminEmail;
-            admin.OrganizationId = organizationId;
-            admin.IsActive = isActive;
-            admin.Notify = notify;
-            return admin;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Guid AdminId
-        {
-            get
-            {
-                return _AdminId;
-            }
-            set
-            {
-                if (_AdminId != value)
-                {
-                    OnAdminIdChanging(value);
-                    ReportPropertyChanging("AdminId");
-                    _AdminId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("AdminId");
-                    OnAdminIdChanged();
-                }
-            }
-        }
-        private global::System.Guid _AdminId;
-        partial void OnAdminIdChanging(global::System.Guid value);
-        partial void OnAdminIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String AdminEmail
-        {
-            get
-            {
-                return _AdminEmail;
-            }
-            set
-            {
-                OnAdminEmailChanging(value);
-                ReportPropertyChanging("AdminEmail");
-                _AdminEmail = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("AdminEmail");
-                OnAdminEmailChanged();
-            }
-        }
-        private global::System.String _AdminEmail;
-        partial void OnAdminEmailChanging(global::System.String value);
-        partial void OnAdminEmailChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 OrganizationId
-        {
-            get
-            {
-                return _OrganizationId;
-            }
-            set
-            {
-                OnOrganizationIdChanging(value);
-                ReportPropertyChanging("OrganizationId");
-                _OrganizationId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("OrganizationId");
-                OnOrganizationIdChanged();
-            }
-        }
-        private global::System.Int32 _OrganizationId;
-        partial void OnOrganizationIdChanging(global::System.Int32 value);
-        partial void OnOrganizationIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean IsActive
-        {
-            get
-            {
-                return _IsActive;
-            }
-            set
-            {
-                OnIsActiveChanging(value);
-                ReportPropertyChanging("IsActive");
-                _IsActive = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsActive");
-                OnIsActiveChanged();
-            }
-        }
-        private global::System.Boolean _IsActive;
-        partial void OnIsActiveChanging(global::System.Boolean value);
-        partial void OnIsActiveChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Boolean Notify
-        {
-            get
-            {
-                return _Notify;
-            }
-            set
-            {
-                OnNotifyChanging(value);
-                ReportPropertyChanging("Notify");
-                _Notify = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Notify");
-                OnNotifyChanged();
-            }
-        }
-        private global::System.Boolean _Notify;
-        partial void OnNotifyChanging(global::System.Boolean value);
-        partial void OnNotifyChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Admin_Organization", "Organization")]
-        public Organization Organization
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_Admin_Organization", "Organization").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_Admin_Organization", "Organization").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Organization> OrganizationReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_Admin_Organization", "Organization");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Organization>("OSELS_EWEModel.FK_Admin_Organization", "Organization", value);
-                }
-            }
-        }
-
-        #endregion
-
-    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -918,28 +741,6 @@ namespace Epi.Web.EF
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Admin_Organization", "Admin")]
-        public EntityCollection<Admin> Admins
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Admin>("OSELS_EWEModel.FK_Admin_Organization", "Admin");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Admin>("OSELS_EWEModel.FK_Admin_Organization", "Admin", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyMetaData_Organization", "SurveyMetaData")]
         public EntityCollection<SurveyMetaData> SurveyMetaDatas
         {
@@ -952,6 +753,28 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_Organization", "SurveyMetaData", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_UserOrganization_Organization", "UserOrganization")]
+        public EntityCollection<UserOrganization> UserOrganizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_Organization", "UserOrganization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_Organization", "UserOrganization", value);
                 }
             }
         }
@@ -1243,6 +1066,141 @@ namespace Epi.Web.EF
         #endregion
 
     
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="Role")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Role : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Role object.
+        /// </summary>
+        /// <param name="roleID">Initial value of the RoleID property.</param>
+        /// <param name="roleValue">Initial value of the RoleValue property.</param>
+        /// <param name="roleDescription">Initial value of the RoleDescription property.</param>
+        public static Role CreateRole(global::System.Int32 roleID, global::System.Int32 roleValue, global::System.String roleDescription)
+        {
+            Role role = new Role();
+            role.RoleID = roleID;
+            role.RoleValue = roleValue;
+            role.RoleDescription = roleDescription;
+            return role;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleID
+        {
+            get
+            {
+                return _RoleID;
+            }
+            set
+            {
+                if (_RoleID != value)
+                {
+                    OnRoleIDChanging(value);
+                    ReportPropertyChanging("RoleID");
+                    _RoleID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RoleID");
+                    OnRoleIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RoleID;
+        partial void OnRoleIDChanging(global::System.Int32 value);
+        partial void OnRoleIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleValue
+        {
+            get
+            {
+                return _RoleValue;
+            }
+            set
+            {
+                OnRoleValueChanging(value);
+                ReportPropertyChanging("RoleValue");
+                _RoleValue = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RoleValue");
+                OnRoleValueChanged();
+            }
+        }
+        private global::System.Int32 _RoleValue;
+        partial void OnRoleValueChanging(global::System.Int32 value);
+        partial void OnRoleValueChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String RoleDescription
+        {
+            get
+            {
+                return _RoleDescription;
+            }
+            set
+            {
+                OnRoleDescriptionChanging(value);
+                ReportPropertyChanging("RoleDescription");
+                _RoleDescription = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("RoleDescription");
+                OnRoleDescriptionChanged();
+            }
+        }
+        private global::System.String _RoleDescription;
+        partial void OnRoleDescriptionChanging(global::System.String value);
+        partial void OnRoleDescriptionChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_UserOrganization_Role", "UserOrganization")]
+        public EntityCollection<UserOrganization> UserOrganizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_Role", "UserOrganization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_Role", "UserOrganization", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
@@ -2919,6 +2877,284 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyResponse>("OSELS_EWEModel.SurveyResponseUser", "SurveyResponse", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_UserOrganization_User", "UserOrganization")]
+        public EntityCollection<UserOrganization> UserOrganizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_User", "UserOrganization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_User", "UserOrganization", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="UserOrganization")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserOrganization : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new UserOrganization object.
+        /// </summary>
+        /// <param name="userID">Initial value of the UserID property.</param>
+        /// <param name="organizationID">Initial value of the OrganizationID property.</param>
+        /// <param name="roleId">Initial value of the RoleId property.</param>
+        /// <param name="active">Initial value of the Active property.</param>
+        public static UserOrganization CreateUserOrganization(global::System.Int32 userID, global::System.Int32 organizationID, global::System.Int32 roleId, global::System.Boolean active)
+        {
+            UserOrganization userOrganization = new UserOrganization();
+            userOrganization.UserID = userID;
+            userOrganization.OrganizationID = organizationID;
+            userOrganization.RoleId = roleId;
+            userOrganization.Active = active;
+            return userOrganization;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                if (_UserID != value)
+                {
+                    OnUserIDChanging(value);
+                    ReportPropertyChanging("UserID");
+                    _UserID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserID");
+                    OnUserIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
+        partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OrganizationID
+        {
+            get
+            {
+                return _OrganizationID;
+            }
+            set
+            {
+                if (_OrganizationID != value)
+                {
+                    OnOrganizationIDChanging(value);
+                    ReportPropertyChanging("OrganizationID");
+                    _OrganizationID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("OrganizationID");
+                    OnOrganizationIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _OrganizationID;
+        partial void OnOrganizationIDChanging(global::System.Int32 value);
+        partial void OnOrganizationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RoleId
+        {
+            get
+            {
+                return _RoleId;
+            }
+            set
+            {
+                OnRoleIdChanging(value);
+                ReportPropertyChanging("RoleId");
+                _RoleId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("RoleId");
+                OnRoleIdChanged();
+            }
+        }
+        private global::System.Int32 _RoleId;
+        partial void OnRoleIdChanging(global::System.Int32 value);
+        partial void OnRoleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Active
+        {
+            get
+            {
+                return _Active;
+            }
+            set
+            {
+                OnActiveChanging(value);
+                ReportPropertyChanging("Active");
+                _Active = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Active");
+                OnActiveChanged();
+            }
+        }
+        private global::System.Boolean _Active;
+        partial void OnActiveChanging(global::System.Boolean value);
+        partial void OnActiveChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_UserOrganization_Organization", "Organization")]
+        public Organization Organization
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_UserOrganization_Organization", "Organization").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_UserOrganization_Organization", "Organization").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Organization> OrganizationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_UserOrganization_Organization", "Organization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Organization>("OSELS_EWEModel.FK_UserOrganization_Organization", "Organization", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_UserOrganization_Role", "Role")]
+        public Role Role
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role>("OSELS_EWEModel.FK_UserOrganization_Role", "Role").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role>("OSELS_EWEModel.FK_UserOrganization_Role", "Role").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Role> RoleReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Role>("OSELS_EWEModel.FK_UserOrganization_Role", "Role");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Role>("OSELS_EWEModel.FK_UserOrganization_Role", "Role", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_UserOrganization_User", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_UserOrganization_User", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_UserOrganization_User", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_UserOrganization_User", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("OSELS_EWEModel.FK_UserOrganization_User", "User", value);
                 }
             }
         }

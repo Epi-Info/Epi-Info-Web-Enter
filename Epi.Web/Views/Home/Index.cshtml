@@ -405,10 +405,13 @@ function SaveSettings() {
 		<h2>
 			My Forms</h2>
 	</div>
+ 
+	<div style="clear: both;">
 	<div id="userwelcome">
 		Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+      @Html.ActionLink("Admin", "Index", "Admin", null, null)	
 		</div>
 	<div style="clear: both;">
 	</div>
