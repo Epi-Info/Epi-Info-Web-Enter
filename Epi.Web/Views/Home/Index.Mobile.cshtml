@@ -32,6 +32,8 @@
 <style>
 
 #leftarrangeby .ui-select {display:inline-block !important;}
+#leftarrangeby .ui-select:nth-of-type(1) {width:200px;}
+#leftarrangeby .ui-select:nth-of-type(2) {width:150px;}
 </style>
  
 <div id="pageHeader">
@@ -46,8 +48,8 @@
      
         
 <div id="content" style="margin-bottom:200px; padding:5px;">
-     <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important;">
-            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; width:150px; display:inline-block;" onchange="FilterRecords(this);">
+     <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; margin-top:15px;">
+            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; width:200px; display:inline-block;" onchange="FilterRecords(this);">
                @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
                 <option value="1">Organization 1</option>        
                 <option value="2">Organization 2</option>
