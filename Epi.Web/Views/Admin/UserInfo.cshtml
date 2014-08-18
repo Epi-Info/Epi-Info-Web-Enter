@@ -1,5 +1,95 @@
-﻿@{
-    ViewBag.Title = "UserInfo";
+﻿@model Epi.Web.MVC.Models.AdminUserModel
+@{
+	ViewBag.Title = "Epi Web Enter - Site Administration";// + " - "+ 
+	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+ <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
+<div id="pageHeader">
+	<div id="pageTitleAdmin">
+		@*<h2 class="adminnav ">@Html.ActionLink("Organizations", "Index", "Admin", null, null)</h2>&nbsp;&nbsp;
+		<h2 class="adminnav admincurrent">Users</h2>*@
+	</div>
+ 
+	
+	<div id="userwelcome">
+		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
+	  @*  <a href="#">Log Out</a>*@
+	  
+	  @Html.ActionLink("My Forms", "Index", "Admin", null, null) &nbsp; | &nbsp;
+	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+	</div>
+	<div style="clear: both;"></div>
+</div>
 
-<h2>UserInfo</h2>
+<div id="content" style="margin:15px 0 200px; padding-left: 10px; min-height: 375px;">
+
+	<div id="formtitle" style="display:block;">
+		<h2 class="surveyTitle">[Add / Edit] Users</h2>
+	</div>
+	<div style="clear:both;"></div>
+
+	<div class="datagrid">
+
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true, "Please correct the errors and try again.")
+
+	<fieldset style="width:800px">
+		<legend>UserModels</legend>
+        <ol class="leftlist">
+			<li>
+				<h3>User Information</h3>
+			</li>
+            <li>
+				@Html.LabelFor(m => m.Email)
+				@Html.TextBoxFor(m => m.Email)
+			</li>
+			<li>
+				@Html.LabelFor(m => m.AdminFirstName)
+				@Html.TextBoxFor(m => m.AdminFirstName)
+			</li>
+			<li>
+				@Html.LabelFor(m => m.AdminLastName)
+				@Html.TextBoxFor(m => m.AdminLastName)
+			</li>
+			
+			
+			
+			<li></li>
+		</ol>
+		<ol class="rightlist">
+			
+			<li>
+				 <h3>Organization:
+				<span>Org Name 1</span></h3>
+			</li>
+			<li>
+				<label>Role</label>
+				@Html.TextBoxFor(m => m.AdminLastName)
+			</li>
+			<li>
+				<label>Active</label>
+				@Html.TextBoxFor(m => m.AdminLastName)
+			</li>
+			<li>
+				@Html.CheckBoxFor(m => m.AdminNotifications)
+				@Html.LabelFor(m => m.AdminNotifications, new { @style = "display:inline-block;" })
+			</li>
+			
+			<li></li>
+		</ol>
+		<div>
+        <div style="clear:both;"></div>
+		<input type="submit" value="Create" />
+		<input type="submit" value="Cancel"  style="margin-left:20px;"/>
+		</div>
+	</fieldset>
+}
+	
+	
+	
+	  
+	</div>
+	<div style="clear:both; visibility:collapse;"></div>
+</div>

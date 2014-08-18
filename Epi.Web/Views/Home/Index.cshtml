@@ -406,20 +406,30 @@ function SaveSettings() {
 			My Forms</h2>
 	</div>
  
-	<div style="clear: both;">
+	
 	<div id="userwelcome">
 		Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
-	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
-      @Html.ActionLink("Admin", "Index", "Admin", null, null)	
-		</div>
+	  
+      @Html.ActionLink("Site Administration", "Index", "Admin", null, null)	&nbsp; | &nbsp;
+      @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+	</div>
 	<div style="clear: both;">
 	</div>
 </div>
 <div id="content" style="@*margin-bottom: 200px;*@ padding-left: 10px; min-height: 375px;">
 	<div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
 		<span class="css3-metro-dropdown">
-			<select id="dropdown-1">
+			<select id="dropdown-2" style="width: 172px;">
+			   @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
+				<option value="1">Organization 1</option>
+				<option value="2">Organization 1e</option>
+				<option value="3" selected="selected">Organization 3</option>
+				@*	<option value="3">Last Saved Forms First</option>*@
+			</select>
+		</span>
+        <span class="css3-metro-dropdown">
+			<select id="dropdown-1" style="width: 131px;">
 			   @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
 				<option value="1">My Forms</option>
 				<option value="2">Forms Assigned to Me</option>

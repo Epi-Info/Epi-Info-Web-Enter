@@ -29,6 +29,10 @@
 
     
 </script>
+<style>
+
+#leftarrangeby .ui-select {display:inline-block !important;}
+</style>
  
 <div id="pageHeader">
   	<div id="pageTitle"><h2>My Forms</h2></div>
@@ -42,9 +46,15 @@
      
         
 <div id="content" style="margin-bottom:200px; padding:5px;">
-     <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; width:150px;">
+     <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important;">
+            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; width:150px; display:inline-block;" onchange="FilterRecords(this);">
+               @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
+                <option value="1">Organization 1</option>        
+                <option value="2">Organization 2</option>
+                <option value="3" selected="selected">Organization 3</option>
+            </select>
         
-            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; width:150px;" onchange="FilterRecords(this);">
+            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; width:150px; display:inline-block;" onchange="FilterRecords(this);">
                @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
                 <option value="1">My Forms</option>        
                 <option value="2">Forms Assigned to Me</option>
