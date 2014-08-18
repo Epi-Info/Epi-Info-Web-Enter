@@ -23,6 +23,10 @@ namespace Epi.Web.MVC.Controllers
             {
             return View("OrgInfo");
             }
+          public ActionResult UserInfo()
+          {
+              return View("UserInfo");
+          }
          
     }
 }

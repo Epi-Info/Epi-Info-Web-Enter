@@ -1,5 +1,101 @@
-﻿@{
-    ViewBag.Title = "OrgInfo";
+﻿@model Epi.Web.MVC.Models.AdminUserModel
+@{
+	ViewBag.Title = "Epi Web Enter - Site Administration";// + " - "+ 
+	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+ <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
+<div id="pageHeader">
+	<div id="pageTitleAdmin">
+		@*<h2 class="adminnav ">@Html.ActionLink("Organizations", "Index", "Admin", null, null)</h2>&nbsp;&nbsp;
+		<h2 class="adminnav admincurrent">Users</h2>*@
+	</div>
+ 
+	
+	<div id="userwelcome">
+		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
+	  @*  <a href="#">Log Out</a>*@
+	  
+	  @Html.ActionLink("My Forms", "Index", "Admin", null, null) &nbsp; | &nbsp;
+	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+	</div>
+	<div style="clear: both;"></div>
+</div>
+
+<div id="content" style="margin:15px 0 200px; padding-left: 10px; min-height: 375px;">
+
+	<div id="formtitle" style="display:block;">
+		<h2 class="surveyTitle">[Add / Edit] Organizations</h2>
+	</div>
+	<div style="clear:both;"></div>
+
+	<div class="datagrid">
+
+@using (Html.BeginForm())
+{
+	@Html.ValidationSummary(true, "Please correct the errors and try again.")
+
+	<fieldset style="width:800px">
+		<legend>UserModels</legend>
+		<ol class="leftlist">
+			<li>
+				<h3>Organization Details.</h3>
+			</li>
+			<li>
+				@Html.LabelFor(m => m.OrgName)
+				@Html.TextBoxFor(m => m.OrgName)
+			</li>
+			@*<li>
+				@Html.LabelFor(m => m.OrgKey)
+				@Html.TextBoxFor(m => m.OrgKey)
+				<input type="image" src="../../Images/key.png" alt="Generate New Key" style="vertical-align: middle; margin-top: -6px;" />
+			</li>*@
+			<li>
+				<label>Active</label>
+				@Html.TextBoxFor(m => m.ExpDate)
+			</li>
+			<li></li>
+			<li>
+				 @Html.CheckBoxFor(m => m.HostOrganization)
+				 @Html.LabelFor(m => m.HostOrganization, new { @style = "display:inline-block;" })
+			</li>
+			<li></li>
+		</ol>
+		<ol class="rightlist">
+			<li>
+				<h3>Administrator Information.</h3>
+			</li>
+            <li>
+				@Html.LabelFor(m => m.AdminEmail)
+				@Html.TextBoxFor(m => m.AdminEmail)
+			</li>
+			<li>
+				@Html.LabelFor(m => m.AdminFirstName)
+				@Html.TextBoxFor(m => m.AdminFirstName)
+			</li>
+			<li>
+				@Html.LabelFor(m => m.AdminLastName)
+				@Html.TextBoxFor(m => m.AdminLastName)
+			</li>
+			
+			<li></li>
+			<li>
+				@Html.CheckBoxFor(m => m.AdminNotifications)
+				@Html.LabelFor(m => m.AdminNotifications, new { @style = "display:inline-block;" })
+			</li>
+			<li></li>
+		</ol>
+		<div>
+        <div style="clear:both;"></div>
+		<input type="submit" value="Create" />
+		<input type="submit" value="Cancel"  style="margin-left:20px;"/>
+		</div>
+	</fieldset>
 }
 
-<h2>OrgInfo</h2>
+	
+	
+	  
+	</div>
+	<div style="clear:both; visibility:collapse;"></div>
+</div>

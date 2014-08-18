@@ -286,7 +286,12 @@ namespace Epi.Web.MVC
                    "Admin/UserList", // URL with parameters
                    new { controller = "Admin", action = "UserList" }
                ); // Parameter defaults
-
+            routes.MapRoute
+               (
+                   null, // Route name
+                   "Admin/UserInfo", // URL with parameters
+                   new { controller = "Admin", action = "UserInfo" }
+               ); // Parameter defaults
 
             //routes.MapRoute(
             //   "Default", // Route name
