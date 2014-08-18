@@ -173,6 +173,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AdminUserModel.cs" />
     <Compile Include="Models\FormInfoModel.cs" />
     <Compile Include="Models\FormModel.cs" />
     <Compile Include="Models\FormResponseInfoModel.cs" />
@@ -272,6 +273,7 @@
     <Content Include="Content\css\MobilePage.css" />
     <Content Include="Content\css\overlay.png" />
     <Content Include="Content\css\page.css" />
+    <Content Include="Content\css\eweAdmin.css" />
     <Content Include="Content\css\TabletEpiStyle.css" />
     <Content Include="Content\css\TabletEweStyle.css" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
@@ -307,6 +309,7 @@
     <Content Include="Content\images\delset.png" />
     <Content Include="Content\images\designlegend.png" />
     <Content Include="Content\images\DRAFT.png" />
+    <Content Include="Content\images\edit.png" />
     <Content Include="Content\images\epi.png" />
     <Content Include="Content\images\epiIcon.png" />
     <Content Include="Content\images\error.png" />
@@ -316,6 +319,8 @@
     <Content Include="Content\images\go.png" />
     <Content Include="Content\images\header_bg.png" />
     <Content Include="Content\images\header_bg2.png" />
+    <Content Include="Content\images\icn_alert_error.png" />
+    <Content Include="Content\images\icn_alert_success - Copy.png" />
     <Content Include="Content\images\icon-search-black.png" />
     <Content Include="Content\images\icons-18-black.png" />
     <Content Include="Content\images\icons-18-white.png" />
