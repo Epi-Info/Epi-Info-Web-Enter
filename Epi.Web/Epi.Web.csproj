@@ -180,6 +180,7 @@
     <Compile Include="Models\Mapper.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Omniture.cs" />
+    <Compile Include="Models\OrganizationModel.cs" />
     <Compile Include="Models\PassCodeModel.cs" />
     <Compile Include="Models\RelateModel.cs" />
     <Compile Include="Models\ResponseInfoModel.cs" />
@@ -480,6 +481,7 @@
     <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.OrganizationResponse.datasource" />
     <None Include="Service References\DataServiceClient\EWEDataService.disco">
       <SubType>Designer</SubType>
     </None>

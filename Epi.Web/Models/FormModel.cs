@@ -8,12 +8,19 @@ namespace Epi.Web.MVC.Models
     public class FormModel
         {
         private List<FormInfoModel> _FormList;
+        private List<OrganizationModel> _OrganizationList;
         private string  _UserLastName;
         private string _UserFirstName;
         public List<FormInfoModel> FormList
             {
             get { return _FormList; }
             set { _FormList = value; }
+            }
+        public List<OrganizationModel> OrganizationList
+            {
+
+            get { return _OrganizationList; }
+            set { _OrganizationList = value; }
             }
         public string UserLastName
             {
@@ -25,5 +32,6 @@ namespace Epi.Web.MVC.Models
             get { return _UserFirstName; }
             set { _UserFirstName = value; }
             }
+       
         }
     }
