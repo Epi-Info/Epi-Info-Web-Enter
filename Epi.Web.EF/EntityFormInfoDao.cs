@@ -35,7 +35,7 @@ namespace Epi.Web.EF
                      
                        foreach (var form in AllForms)
                            {
-                           if (form.Users.Contains(CurrentUser))
+                           if (form.Users.Contains(CurrentUser) )
                                {
                                   Assigned.Add(form.SurveyId.ToString());
                                }
@@ -47,6 +47,8 @@ namespace Epi.Web.EF
                                    join UserInfo in Context.Users
                                    on FormInfo.OwnerId equals UserInfo.UserID
                                    into temp
+                                  
+                                   
                                    from UserInfo in temp.DefaultIfEmpty()
                                    select new { FormInfo, UserInfo }; 
                      

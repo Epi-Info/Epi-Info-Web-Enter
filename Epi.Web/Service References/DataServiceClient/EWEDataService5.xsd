@@ -17,13 +17,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
+  <xs:complexType name="ArrayOfFormSettingDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FormSettingDTO" nillable="true" type="tns:FormSettingDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFormSettingDTO" nillable="true" type="tns:ArrayOfFormSettingDTO" />
   <xs:complexType name="FormSettingDTO">
     <xs:sequence>
       <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="AssignedUserList" nillable="true" type="q2:ArrayOfKeyValueOfintstring" />
       <xs:element xmlns:q3="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ColumnNameList" nillable="true" type="q3:ArrayOfKeyValueOfintstring" />
       <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="FormControlNameList" nillable="true" type="q4:ArrayOfKeyValueOfintstring" />
+      <xs:element minOccurs="0" name="FormId" nillable="true" type="xs:string" />
       <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="UserList" nillable="true" type="q5:ArrayOfKeyValueOfintstring" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormSettingDTO" nillable="true" type="tns:FormSettingDTO" />
+  <xs:complexType name="OrganizationDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Organization" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OrganizationKey" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="OrganizationDTO" nillable="true" type="tns:OrganizationDTO" />
+  <xs:complexType name="ArrayOfOrganizationDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="OrganizationDTO" nillable="true" type="tns:OrganizationDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfOrganizationDTO" nillable="true" type="tns:ArrayOfOrganizationDTO" />
 </xs:schema>

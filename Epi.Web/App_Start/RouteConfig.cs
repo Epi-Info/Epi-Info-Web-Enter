@@ -47,6 +47,12 @@ namespace Epi.Web.MVC
                new { controller = "Home", action = "ReadResponseInfo"}
            ); // Parameter defaults
             routes.MapRoute
+        (
+            null, // Route name
+            "Home/UpdateFormList", // URL with parameters
+            new { controller = "Home", action = "UpdateFormList" }
+        ); // Parameter defaults
+            routes.MapRoute
          (
              null, // Route name
              "Home/GetSettings", // URL with parameters
@@ -94,7 +100,7 @@ namespace Epi.Web.MVC
             (
                 null, // Route name
                 "Home/{surveyid}", // URL with parameters
-                new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional }
+                new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional}
             ); // Parameter defaults
 
             routes.MapRoute

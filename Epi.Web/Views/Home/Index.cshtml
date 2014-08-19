@@ -31,138 +31,160 @@
 <script type="text/jscript">
 
 
-	$(function () {
+    $(function () {
 
-		$("#exitdialog").dialog({
-			autoOpen: false,
-			show: "blind",
-			hide: "blind",
-			resizable: false,
-			height: 150,
-			width: 420,
-			modal: true,
-			buttons: [{
+        $("#exitdialog").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            height: 150,
+            width: 420,
+            modal: true,
+            buttons: [{
 
-				"text": 'Yes',
-				"click": function () {
-					$.ajax({
+                "text": 'Yes',
+                "click": function () {
+                    $.ajax({
 
-						//    url: 'Home/Delete/'+ $("#exitdialog").data('ResponseId') + '/' + '@ViewBag.UserId',
-						url: '@Url.Action("Delete","Home")' + '?ResponseId=' + $("#exitdialog").data('ResponseId'),
-						type: 'POST',
-						contentType: 'application/json; charset=utf-8',
-						success: successFunc,
-						error: errorFunc
-					});
+                        //    url: 'Home/Delete/'+ $("#exitdialog").data('ResponseId') + '/' + '@ViewBag.UserId',
+                        url: '@Url.Action("Delete","Home")' + '?ResponseId=' + $("#exitdialog").data('ResponseId'),
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        success: successFunc,
+                        error: errorFunc
+                    });
 
-					$.ajaxSetup({ cache: false });
+                    $.ajaxSetup({ cache: false });
 
-					function successFunc(data, status) {
-						$("#exitdialog").dialog("close");
-						ReadResponses($('#hidFormId').val(), $('#hidPageNumber').val());
-					}
+                    function successFunc(data, status) {
+                        $("#exitdialog").dialog("close");
+                        ReadResponses($('#hidFormId').val(), $('#hidPageNumber').val());
+                    }
 
-					function errorFunc() {
-						alert('error');
-					}
+                    function errorFunc() {
+                        alert('error');
+                    }
 
-				},
-				"class": 'dialogbtn'
+                },
+                "class": 'dialogbtn'
 
-			}, {
-				"text": 'No',
-				"click": function () {
-					$(this).dialog("close");
-				},
-				"class": 'dialogbtn'
+            }, {
+                "text": 'No',
+                "click": function () {
+                    $(this).dialog("close");
+                },
+                "class": 'dialogbtn'
 
-			}]
+            }]
 
-		});
+        });
 
 
-		$(document).on("click", "button[name='DeleteButton']", function (e) {
-			e.preventDefault();
-			$("#exitdialog")
+        $(document).on("click", "button[name='DeleteButton']", function (e) {
+            e.preventDefault();
+            $("#exitdialog")
 						.data('ResponseId', $(this).attr("value"))
 						.dialog("open");
 
-		});
+        });
 
 
 
-		$("button[class*='metro-tile']").click(function (e) {
-			e.preventDefault();
-			SetSettingButtonValue($(this).attr('data-FormId'));
-			$("button[class*='metro-tile']").removeClass('metro-set');
-			$(this).addClass('metro-set');
-			$("#right").show();
-			//   alert('1');
-			$.ajax({
-				url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-FormId'),
-				type: 'GET',
-				contentType: 'application/json; charset=utf-8',
-				//data: JSON.stringify(model),
-				success: successFunc,
-				error: errorFunc
-			});
-			$.ajaxSetup({ cache: false });
+        $("button[class*='metro-tile']").click(function (e) {
+            e.preventDefault();
+            SetSettingButtonValue($(this).attr('data-FormId'));
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $(this).addClass('metro-set');
+            $("#right").show();
+            //   alert('1');
+            $.ajax({
+                url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-FormId'),
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc,
+                error: errorFunc
+            });
+            $.ajaxSetup({ cache: false });
 
-			function successFunc(data, status) {
-				$('#right').html(data);
-			}
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
 
-			function errorFunc() {
-				alert('error');
-			}
+            function errorFunc() {
+                alert('error');
+            }
 
-		});
-		/////////////////////
-
-
+        });
+        /////////////////////
 
 
-		//////////////////////
-		$(document).on("click", "a[name='lnkPager']", function (e) {
-			e.preventDefault();
-
-			ReadResponses($(this).attr('data-formid'), $(this).attr('data-pagenumber'));
-		});
-
-		function ReadResponses(formid, pagenumber) {
-			 //alert('2');
-			$.ajax({
-				url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber,
-				type: 'GET',
-				contentType: 'application/json; charset=utf-8',
-				//data: JSON.stringify(model),
-				success: successFunc
-			});
-
-			$.ajaxSetup({ cache: false });
-
-			function successFunc(data, status) {
-				$('#right').html(data);
-			}
-
-			function errorFunc() {
-				alert('error');
-			}
-		}
 
 
-		$("#dropdown-1").change(function () {
+        //////////////////////
+        $(document).on("click", "a[name='lnkPager']", function (e) {
+            e.preventDefault();
 
-			FilterRecords(this);
-			$("#right").hide();
-			$("button[class*='metro-tile']").removeClass('metro-set');
-			$("button:visible").triggerHandler('click');
-		});
+            ReadResponses($(this).attr('data-formid'), $(this).attr('data-pagenumber'));
+        });
+
+        function ReadResponses(formid, pagenumber) {
+            //alert('2');
+            $.ajax({
+                url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc
+            });
+
+            $.ajaxSetup({ cache: false });
+
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+        }
 
 
-		//  $("button:visible").triggerHandler('click');
+        $("#dropdown-1").change(function () {
 
-	});
+            FilterRecords(this);
+            $("#right").hide();
+            $("button[class*='metro-tile']").removeClass('metro-set');
+            $("button:visible").triggerHandler('click');
+        });
+
+        $("#dropdown-2").change(function () {
+            var src = $(this).val();
+            $.ajax({
+                url: '@Url.Action("UpdateFormList","Home")' + '?OrgId=' + src,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc,
+                error: errorFunc
+            });
+            $.ajaxSetup({ cache: false });
+
+            function successFunc(data, status) {
+               
+                $('#left').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+
+        });
+
+        //  $("button:visible").triggerHandler('click');
+
+    });
 
 
 	$(document).ready(function () {
@@ -422,9 +444,10 @@ function SaveSettings() {
 		<span class="css3-metro-dropdown">
 			<select id="dropdown-2" style="width: 172px;">
 			   @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
-				<option value="1">Organization 1</option>
-				<option value="2">Organization 1e</option>
-				<option value="3" selected="selected">Organization 3</option>
+               @foreach(var item in Model.OrganizationList){
+				<option value="@item.OrganizationId">@item.Organization</option>
+                   }
+				
 				@*	<option value="3">Last Saved Forms First</option>*@
 			</select>
 		</span>

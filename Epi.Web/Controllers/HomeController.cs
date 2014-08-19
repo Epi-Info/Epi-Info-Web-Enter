@@ -59,9 +59,17 @@ namespace Epi.Web.MVC.Controllers
                 string SurveyMode = "";
                 //SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyid);
                 //  List<FormInfoModel> listOfformInfoModel = GetFormsInfoList(UserId1);
-
+                
                 FormModel FormModel = new Models.FormModel();
-                FormModel.FormList = GetFormsInfoList(UserId1);
+
+                // Get OrganizationList
+                OrganizationRequest Request = new OrganizationRequest();
+                Request.UserId = UserId;
+                OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
+                FormModel.OrganizationList = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
+               //Get Forms
+               
+                FormModel.FormList = GetFormsInfoList(UserId1, Organizations.OrganizationList[0].OrganizationId);
                 Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetUserInfo(UserId);
 
                 FormModel.UserFirstName = result.User.FirstName;
@@ -71,6 +79,7 @@ namespace Epi.Web.MVC.Controllers
                 Session["UserLastName"] = result.User.LastName;
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 
+               
                 //if (surveyInfoModel.IntroductionText != null)
                 //{
                 //    string introText = regex.Replace(surveyInfoModel.IntroductionText.Replace("  ", " &nbsp;"), "<br />");
@@ -282,6 +291,17 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
             }
         }
+        [HttpGet]
+        [Authorize]
+        public ActionResult UpdateFormList(int OrgId)//List<FormInfoModel> ModelList, string formid)
+            {
+
+            var model = new FormModel();
+            model.FormList =  GetFormsInfoList(new Guid(), OrgId);
+
+            return PartialView("ListForms",  model.FormList );
+           
+            }
 
         /// <summary>
         /// Following Action method takes ResponseId as a parameter and deletes the response.
@@ -334,7 +354,7 @@ namespace Epi.Web.MVC.Controllers
             return surveyInfoModel;
         }
 
-        public List<FormInfoModel> GetFormsInfoList(Guid UserId)
+        public List<FormInfoModel> GetFormsInfoList(Guid UserId   ,int OrgID )
         {
             FormsInfoRequest formReq = new FormsInfoRequest();
 
@@ -342,11 +362,12 @@ namespace Epi.Web.MVC.Controllers
             // formReq.Criteria.UserId = UserId;
             //define filter criteria here.
             //define sorting criteria here.
+           
             List<FormInfoModel> listOfFormsInfoModel = _isurveyFacade.GetFormsInfoModelList(formReq);
 
 
 
-            return listOfFormsInfoModel;
+            return listOfFormsInfoModel.Where(x=>x.OrganizationId== OrgID).ToList();
         }
 
         private int Compare(KeyValuePair<int, string> a, KeyValuePair<int, string> b)

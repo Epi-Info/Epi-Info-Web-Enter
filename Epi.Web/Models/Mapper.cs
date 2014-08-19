@@ -171,6 +171,27 @@ namespace Epi.Web.MVC.Models
             return ModelList;
             }
 
-     
+        internal static  OrganizationModel  ToOrganizationModel ( Enter.Common.DTO.OrganizationDTO  DTO)
+            {
+             OrganizationModel  ModelList = new  OrganizationModel();
+
+             ModelList.IsEnabled = DTO.IsEnabled;
+             ModelList.Organization = DTO.Organization;
+             ModelList.OrganizationId = DTO.OrganizationId;
+
+            return ModelList;
+            }
+
+        internal static List<OrganizationModel> ToOrganizationModelList(List<Enter.Common.DTO.OrganizationDTO> list)
+            {
+            List<OrganizationModel> ModelList = new List<OrganizationModel>();
+
+            foreach (var item in list)
+                {
+                ModelList.Add(Mapper.ToOrganizationModel(item));
+                }
+
+            return ModelList;
+            }
     }
 }

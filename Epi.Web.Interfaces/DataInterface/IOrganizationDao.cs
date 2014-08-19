@@ -84,5 +84,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
         /// <param name="Organization">Organization.</param>
          void DeleteOrganization(OrganizationBO Organization);
 
+
+         List<OrganizationBO> GetOrganizationInfoByUserId(int UserId);
     }
 }

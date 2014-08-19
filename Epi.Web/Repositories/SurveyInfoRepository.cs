@@ -192,5 +192,10 @@ namespace Epi.Web.MVC.Repositories
 
                 return _iDataService.GetAncestorResponseIdsByChildId(SARequest);
                 }
+       public OrganizationResponse GetUserOrganizations(OrganizationRequest OrgRequest)
+
+        {
+        return _iDataService.GetUserOrganizations(OrgRequest);
+        }
     }
 }
