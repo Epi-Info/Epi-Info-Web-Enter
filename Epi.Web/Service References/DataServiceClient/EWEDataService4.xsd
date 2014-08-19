@@ -69,6 +69,7 @@
       <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrganizationKey" type="ser:guid" />
       <xs:element minOccurs="0" name="OrganizationName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
       <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SurveyName" nillable="true" type="xs:string" />
@@ -138,6 +139,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="DateCompleted" type="xs:dateTime" />
           <xs:element minOccurs="0" name="IncludeOrderStatistics" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsEditMode" type="xs:boolean" />
           <xs:element minOccurs="0" name="IsMobile" type="xs:boolean" />
           <xs:element minOccurs="0" name="OrganizationKey" type="ser:guid" />
           <xs:element minOccurs="0" name="PageNumber" type="xs:int" />
@@ -168,11 +170,13 @@
       <xs:element minOccurs="0" name="IsLocked" type="xs:boolean" />
       <xs:element minOccurs="0" name="ParentRecordId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="RelateParentId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ResponseHierarchyIds" nillable="true" type="tns:ArrayOfSurveyAnswerDTO" />
       <xs:element minOccurs="0" name="ResponseId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Status" type="xs:int" />
       <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserEmail" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UserPublishKey" type="ser:guid" />
+      <xs:element minOccurs="0" name="ViewId" type="xs:int" />
       <xs:element minOccurs="0" name="XML" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -281,7 +285,7 @@
   <xs:complexType name="FormSettingRequest">
     <xs:sequence>
       <xs:element minOccurs="0" name="FormInfo" nillable="true" type="tns:FormInfoDTO" />
-      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q7:FormSettingDTO" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q7:ArrayOfFormSettingDTO" />
       <xs:element minOccurs="0" name="GetXml" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
@@ -329,4 +333,27 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="FormsHierarchyDTO" nillable="true" type="tns:FormsHierarchyDTO" />
+  <xs:complexType name="OrganizationRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AdminSecurityKey" type="ser:guid" />
+          <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="Organization" nillable="true" type="q9:OrganizationDTO" />
+          <xs:element minOccurs="0" name="UserId" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OrganizationRequest" nillable="true" type="tns:OrganizationRequest" />
+  <xs:complexType name="OrganizationResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:ResponseBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="OrganizationList" nillable="true" type="q10:ArrayOfOrganizationDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="OrganizationResponse" nillable="true" type="tns:OrganizationResponse" />
 </xs:schema>

@@ -44,5 +44,7 @@ namespace Epi.Web.MVC.Facade
 
 
         void DeleteResponseXml(SurveyAnswerRequest FormResponseReq);
+
+        OrganizationResponse GetUserOrganizations(OrganizationRequest Request);
     }
 }

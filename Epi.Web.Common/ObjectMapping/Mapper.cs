@@ -66,6 +66,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                  IsEnabled = pDTO.IsEnabled,
                  Organization = pDTO.Organization,
                  OrganizationKey = pDTO.OrganizationKey,
+                 OrganizationId = pDTO.OrganizationId
                  // AdminId = pDTO.AdminId,
                   
             };
@@ -79,7 +80,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
               //  AdminId = pBO.AdminId,
                 IsEnabled = pBO.IsEnabled,
                 Organization = pBO.Organization,
-                OrganizationKey = pBO.OrganizationKey
+                OrganizationKey = pBO.OrganizationKey,
+                OrganizationId =pBO.OrganizationId
 
             };
 

@@ -98,6 +98,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetResponsesByRelatedFormIdCustomFaultExceptio" +
             "nFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Enter.Common.Message.SurveyAnswerResponse GetResponsesByRelatedFormId(Epi.Web.Enter.Common.Message.SurveyAnswerRequest pRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetUserOrganizations", ReplyAction="http://tempuri.org/IEWEDataService/GetUserOrganizationsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetUserOrganizationsCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.OrganizationResponse GetUserOrganizations(Epi.Web.Enter.Common.Message.OrganizationRequest OrgRequest);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -205,6 +209,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Enter.Common.Message.SurveyAnswerResponse GetResponsesByRelatedFormId(Epi.Web.Enter.Common.Message.SurveyAnswerRequest pRequest) {
             return base.Channel.GetResponsesByRelatedFormId(pRequest);
+        }
+        
+        public Epi.Web.Enter.Common.Message.OrganizationResponse GetUserOrganizations(Epi.Web.Enter.Common.Message.OrganizationRequest OrgRequest) {
+            return base.Channel.GetUserOrganizations(OrgRequest);
         }
     }
 }

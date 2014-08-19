@@ -11,7 +11,7 @@ namespace Epi.Web.Enter.Common.DTO
         private string _Organization;
         private string _OrganizationKey;
         private bool _IsEnabled;
-        
+        private int _OrganizationId;
         public string Organization
         {
             get { return _Organization; }
@@ -30,6 +30,11 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _IsEnabled; }
             set { _IsEnabled = value; }
         }
+        public int OrganizationId
+            {
+            get { return _OrganizationId; }
+            set { _OrganizationId = value; }
+            }
 
 
     }

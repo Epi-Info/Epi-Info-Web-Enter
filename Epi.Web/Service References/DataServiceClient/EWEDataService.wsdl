@@ -191,6 +191,15 @@
   <wsdl:message name="IEWEDataService_GetResponsesByRelatedFormId_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q20="http://www.yourcompany.com/types/" name="detail" element="q20:CustomFaultException" />
   </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetUserOrganizations_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserOrganizations" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetUserOrganizations_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserOrganizationsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetUserOrganizations_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://www.yourcompany.com/types/" name="detail" element="q21:CustomFaultException" />
+  </wsdl:message>
   <wsdl:portType name="IEWEDataService">
     <wsdl:operation name="GetSurveyInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyInfo" message="tns:IEWEDataService_GetSurveyInfo_InputMessage" />
@@ -291,6 +300,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetResponsesByRelatedFormId" message="tns:IEWEDataService_GetResponsesByRelatedFormId_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetResponsesByRelatedFormIdResponse" message="tns:IEWEDataService_GetResponsesByRelatedFormId_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetResponsesByRelatedFormIdCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetResponsesByRelatedFormId_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOrganizations">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetUserOrganizations" message="tns:IEWEDataService_GetUserOrganizations_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetUserOrganizationsResponse" message="tns:IEWEDataService_GetUserOrganizations_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetUserOrganizationsCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetUserOrganizations_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEWEDataService" type="tns:IEWEDataService">
@@ -525,6 +539,18 @@
     </wsdl:operation>
     <wsdl:operation name="GetResponsesByRelatedFormId">
       <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetResponsesByRelatedFormId" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserOrganizations">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetUserOrganizations" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

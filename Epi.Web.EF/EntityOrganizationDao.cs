@@ -249,6 +249,41 @@ namespace Epi.Web.EF
         /// Deletes a Organization
         /// </summary>
         /// <param name="Organization">Organization.</param>
+        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId) 
+            {
+            List<OrganizationBO> result = new List<OrganizationBO>();
+
+
+            try
+                {
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+                    var Query = from OrganizationTable in Context.Organizations
+                                from UserOrganizationTable in Context.UserOrganizations
+
+                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && UserOrganizationTable.UserID == UserId
+                                select OrganizationTable;
+
+
+                    var DataRow = Query;
+                    foreach (var Row in DataRow)
+                        {
+
+                        result.Add(Mapper.Map(Row));
+
+                        }
+
+                    return result;
+                    }
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+            
+            
+            }
+
         public void DeleteOrganization(OrganizationBO Organization)
         {
 

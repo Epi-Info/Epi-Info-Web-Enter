@@ -129,5 +129,12 @@ namespace Epi.Web.BLL
             OrganizationBO result = this.OrganizationDao.GetOrganizationInfoByKey(OrganizationKey);
             return result;
         }
+
+        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId)
+            {
+
+            List<OrganizationBO> result = this.OrganizationDao.GetOrganizationInfoByUserId(UserId);
+            return result;
+            }
     }
 }
