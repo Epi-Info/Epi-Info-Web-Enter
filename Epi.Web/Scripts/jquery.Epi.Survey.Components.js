@@ -24,14 +24,16 @@ function FilterRecords(ctrl , OrgId ) {
         $(".metro-collect").show();
        
     }
-    
+    $(".NotSelectedOrg").hide();
 }
 
 function FilterRecordsByOrg(src) {
 
     //alert(src);
+    $("button[class*='metro-tile']").addClass('NotSelectedOrg');
     $(".metro-tile2").hide();
     $(".Org-" + src.toString()).show();
+    $(".Org-" + src.toString()).removeClass('NotSelectedOrg');
     $("#right").hide();
     $("button[class*='metro-tile']").removeClass('metro-set');
     $("button:visible").triggerHandler('click');

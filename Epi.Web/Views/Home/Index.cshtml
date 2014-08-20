@@ -29,7 +29,7 @@
 
 
 <script type="text/jscript">
-   
+
 
     $(function () {
 
@@ -153,23 +153,23 @@
 
         $("#dropdown-1").change(function () {
 
-             var OrgId = $("#dropdown-2").val();
-            
-            FilterRecords(this , OrgId);
+            var OrgId = $("#dropdown-2").val();
+
+            FilterRecords(this, OrgId);
             //FilterRecordsByOrg(OrgId);
             $("#right").hide();
             $("button[class*='metro-tile']").removeClass('metro-set');
-           
+
             $("button:visible").triggerHandler('click');
-            
-            
+
+
         });
 
         $("#dropdown-2").change(function () {
             var src = $(this).val();
-            
-            FilterRecordsByOrg(src);
 
+            FilterRecordsByOrg(src);
+            $("#dropdown-1").val('3');
         });
 
         //  $("button:visible").triggerHandler('click');
