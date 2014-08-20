@@ -1,6 +1,35 @@
-﻿  #pageTitleAdmin
+﻿  #header
+ {
+   height: 42px;
+    
+ }
+  
+  #header h1
+ {
+   float:right;
+    margin: 7px 10px 0 0;
+ }
+ 
+ #header h1::after {content: " - Site Administration";}
+ 
+ #header img 
+ {
+    float:right;
+ }
+  
+  #pageTitleAdmin
  {
     float: left;
+    margin-top: -57px;
+ }
+ 
+ .orgbtn{background: url("../images/org12.png") no-repeat center; display: block; width: 40px; height: 40px; text-indent: -9999px; /* hides the link text */}
+ .userbtn { background: url("../images/user12.png") no-repeat center; display: block; width: 40px; height: 40px; text-indent: -9999px;}
+ 
+ h2.surveyTitle 
+ {
+     font-size: 19pt;
+
  }
  
  #pageTitleAdmin h2
@@ -12,6 +41,15 @@
      display:inline-block;
     
  }
+ 
+ #formtitleadmin 
+ {
+    margin-top:-49px;
+    padding: 0 10px 1px 0;    
+    display:inline-block;
+    float:left;
+    
+ }
 
 .adminnav 
 {
@@ -19,9 +57,10 @@
     cursor: pointer; 
     vertical-align:middle;
     color:#fff;
-    border: 1px solid #1f3b53;
-    background: #74b700;
-    padding: 2px 15px 6px;
+    cursor: auto; 
+    /*border: 1px solid #1f3b53;*/
+   /* background: #74b700;*/
+    /*padding: 2px 15px 6px;*/
 }
 
 .adminnav a
@@ -29,11 +68,7 @@
     color:#fff;
     text-decoration:none;
 }
-.admincurrent
-{
-     background: #5c53ac;
-     cursor: auto;     
-}
+
 
 #success 
 {
@@ -41,7 +76,7 @@
     padding: 10px 50px ;
     background: url("../images/icn_alert_success.png") no-repeat 16px 8px;
     background-color: #e6ffbf;
-     margin:10px 0;
+    margin: 0 0 20px;
     font-weight: bold;
     display:block;
     clear:both;
@@ -62,7 +97,7 @@
 {
     overflow: hidden; 
     display: inline-block; 
-    margin: 10px 0;
+    
 }
 .datagrid table th 
 {
