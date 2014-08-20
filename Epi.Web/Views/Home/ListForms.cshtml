@@ -5,29 +5,29 @@
 <div class="divcontents">
     @foreach (var item in Model)
     {
-        var divClass = "metro-tile ";
+    var divClass = "metro-tile " + " Org-" + item.OrganizationId + " metro-tile2 ";
 
         if (item.IsOwner)
         {
-            divClass += "metro-design ";
+            divClass += " metro-design ";
         }
         else
         {
-            divClass += "metro-collect ";
+            divClass += " metro-collect ";
         }
 
         if (item.IsDraftMode)
         {
 
-            divClass += "metro-staging";
+            divClass += " metro-staging";
         }
         else
         {
-            divClass += "metro-prod";
+            divClass += " metro-prod";
         }
 @*<a href="@Url.RouteUrl(null, new { controller = "Home", action = "Index", formid = item.FormId })" >*@
 @*<a onclick="document.getElementById('formsList').submit()" href="#">*@
-  <button  class="@divClass" type=submit id="@item.FormId" data-FormId="@item.FormId" data-theme="@divClass" value="@item.FormName">
+  <button  class="@divClass" type="button" id="@item.FormId" data-FormId="@item.FormId" data-theme="@divClass" value="@item.FormName">
           <h3>@item.FormName</h3>
   </button>
         

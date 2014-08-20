@@ -158,7 +158,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Constants\Constant.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminOrganizationController.cs" />
+    <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\FinalController.cs" />
     <Compile Include="Controllers\FormResponseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -565,10 +566,10 @@
     <Content Include="Views\Login\ResetPassword.mobile.cshtml" />
     <Content Include="Views\Home\Settings.cshtml" />
     <Content Include="Views\Survey\ListResponses.cshtml" />
-    <Content Include="Views\Admin\OrgList.cshtml" />
-    <Content Include="Views\Admin\OrgInfo.cshtml" />
-    <Content Include="Views\Admin\UserList.cshtml" />
-    <Content Include="Views\Admin\UserInfo.cshtml" />
+    <Content Include="Views\AdminOrganization\OrgList.cshtml" />
+    <Content Include="Views\AdminOrganization\OrgInfo.cshtml" />
+    <Content Include="Views\AdminUser\UserList.cshtml" />
+    <Content Include="Views\AdminUser\UserInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

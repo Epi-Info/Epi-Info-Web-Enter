@@ -6,23 +6,17 @@ using System.Web.Mvc;
 
 namespace Epi.Web.MVC.Controllers
 {
-    public class AdminController : Controller
+    public class AdminUserController : Controller
     {
         //
         // GET: /Organization/
 
-        public ActionResult Index()
-        {
-            return View("OrgList");
-        }
+         
         public ActionResult UserList()
             {
             return View("UserList");
             }
-          public ActionResult OrgInfo()
-            {
-            return View("OrgInfo");
-            }
+          
           public ActionResult UserInfo()
           {
               return View("UserInfo");
