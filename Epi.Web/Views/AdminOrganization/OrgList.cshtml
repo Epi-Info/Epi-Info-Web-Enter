@@ -7,8 +7,9 @@
  <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
-		<h2 class="adminnav admincurrent">Organizations</h2>&nbsp;&nbsp;
-		<h2 class="adminnav">@Html.ActionLink("Users","UserList","Admin")</h2>
+		<h2 class="adminnav">@Html.ActionLink("Organizations", "Index", "Admin", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
+		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "Admin", null, new { @class = "userbtn" })</h2>
+
 	</div>
  
 	
@@ -24,7 +25,7 @@
 
 <div id="content" style="margin:15px 0 200px; padding-left: 10px; min-height: 375px;">
 
-    <div id="formtitle" style="display:block;">
+    <div id="formtitleadmin" style="display:block; ">
         <h2 class="surveyTitle">Manage Organizations</h2>
     </div>
     <div style="clear:both;"></div>
