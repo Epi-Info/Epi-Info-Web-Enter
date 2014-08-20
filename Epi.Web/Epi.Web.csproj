@@ -333,6 +333,7 @@
     <Content Include="Content\images\next.png" />
     <Content Include="Content\images\next1.png" />
     <Content Include="Content\images\next_d.png" />
+    <Content Include="Content\images\org12.png" />
     <Content Include="Content\images\overlay.png" />
     <Content Include="Content\images\pagination_bg.png" />
     <Content Include="Content\images\pagination_bg_1.png" />
@@ -357,6 +358,7 @@
     <Content Include="Content\images\submit.png" />
     <Content Include="Content\images\toc.png" />
     <Content Include="Content\images\uplevel.png" />
+    <Content Include="Content\images\user12.png" />
     <Content Include="Content\images\video.png" />
     <Content Include="Content\images\warn.png" />
     <Content Include="Content\jquery.mobile-1.0b3.css" />
