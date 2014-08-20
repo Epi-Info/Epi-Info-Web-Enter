@@ -3,25 +3,42 @@ function PopulateDiv(id, name) {
   
 }
 
-function FilterRecords(ctrl) {
+function FilterRecords(ctrl , OrgId ) {
     var src = $(ctrl).val();
-    //  alert(src);
+      //alert(src);
     //$("#imagePreview").html(src ? "<img src='" + src + "'>" : "");
-
+   
     if (src == 1) {
         $(".metro-collect").hide();
         $(".metro-design").show();
+        
     }
 
     if (src == 2) {
         $(".metro-design").hide();
         $(".metro-collect").show();
+         
     }
     if (src == 3) {
         $(".metro-design").show();
         $(".metro-collect").show();
-    } 
+       
+    }
+    
 }
+
+function FilterRecordsByOrg(src) {
+
+    //alert(src);
+    $(".metro-tile2").hide();
+    $(".Org-" + src.toString()).show();
+    $("#right").hide();
+    $("button[class*='metro-tile']").removeClass('metro-set');
+    $("button:visible").triggerHandler('click');
+}
+
+
+
 
 function NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl,passCode,EmailSubject) {
     /*post email address and redirect url asynchronously to Post controller */

@@ -46,11 +46,11 @@ namespace Epi.Web.MVC.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(string surveyid)
+        public ActionResult Index(string surveyid  )
         {
 
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
-
+            int OrgnizationId;
 
 
             Guid UserId1 = new Guid();
@@ -66,10 +66,11 @@ namespace Epi.Web.MVC.Controllers
                 OrganizationRequest Request = new OrganizationRequest();
                 Request.UserId = UserId;
                 OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
+
                 FormModel.OrganizationList = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
                //Get Forms
-               
-                FormModel.FormList = GetFormsInfoList(UserId1, Organizations.OrganizationList[0].OrganizationId);
+                OrgnizationId = Organizations.OrganizationList[0].OrganizationId;
+                FormModel.FormList = GetFormsInfoList(UserId1, OrgnizationId);
                 Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetUserInfo(UserId);
 
                 FormModel.UserFirstName = result.User.FirstName;
@@ -291,17 +292,8 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
             }
         }
-        [HttpGet]
-        [Authorize]
-        public ActionResult UpdateFormList(int OrgId)//List<FormInfoModel> ModelList, string formid)
-            {
-
-            var model = new FormModel();
-            model.FormList =  GetFormsInfoList(new Guid(), OrgId);
-
-            return PartialView("ListForms",  model.FormList );
-           
-            }
+   
+   
 
         /// <summary>
         /// Following Action method takes ResponseId as a parameter and deletes the response.
@@ -367,7 +359,8 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-            return listOfFormsInfoModel.Where(x=>x.OrganizationId== OrgID).ToList();
+           // return listOfFormsInfoModel.Where(x=>x.OrganizationId== OrgID).ToList();
+            return listOfFormsInfoModel ;
         }
 
         private int Compare(KeyValuePair<int, string> a, KeyValuePair<int, string> b)

@@ -46,12 +46,8 @@ namespace Epi.Web.MVC
                "Home/ReadResponseInfo", // URL with parameters
                new { controller = "Home", action = "ReadResponseInfo"}
            ); // Parameter defaults
-            routes.MapRoute
-        (
-            null, // Route name
-            "Home/UpdateFormList", // URL with parameters
-            new { controller = "Home", action = "UpdateFormList" }
-        ); // Parameter defaults
+         
+           
             routes.MapRoute
          (
              null, // Route name
@@ -277,26 +273,26 @@ namespace Epi.Web.MVC
             routes.MapRoute
                  (
                      null, // Route name
-                     "Admin/Index", // URL with parameters
-                     new { controller = "Admin", action = "Index" }
+                     "AdminOrganization/OrgList", // URL with parameters
+                     new { controller = "AdminOrganization", action = "OrgList" }
                  ); // Parameter defaults
             routes.MapRoute
                 (
                     null, // Route name
-                    "Admin/OrgInfo", // URL with parameters
-                    new { controller = "Admin", action = "OrgInfo" }
+                    "AdminOrganization/OrgInfo", // URL with parameters
+                    new { controller = "AdminOrganization", action = "OrgInfo" }
                 ); // Parameter defaults
             routes.MapRoute
                (
                    null, // Route name
-                   "Admin/UserList", // URL with parameters
-                   new { controller = "Admin", action = "UserList" }
+                   "AdminUser/UserList", // URL with parameters
+                   new { controller = "AdminUser", action = "UserList" }
                ); // Parameter defaults
             routes.MapRoute
                (
                    null, // Route name
                    "Admin/UserInfo", // URL with parameters
-                   new { controller = "Admin", action = "UserInfo" }
+                   new { controller = "AdminUser", action = "UserInfo" }
                ); // Parameter defaults
 
             //routes.MapRoute(
