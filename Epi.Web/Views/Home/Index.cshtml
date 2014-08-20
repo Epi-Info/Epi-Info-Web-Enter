@@ -427,7 +427,7 @@ function SaveSettings() {
 		Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  
-      @Html.ActionLink("Site Administration", "Index", "Admin", null, null)	&nbsp; | &nbsp;
+      @Html.ActionLink("Site Administration", "OrgList", "AdminOrganization", null, null)	&nbsp; | &nbsp;
       @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
 	</div>
 	<div style="clear: both;">
