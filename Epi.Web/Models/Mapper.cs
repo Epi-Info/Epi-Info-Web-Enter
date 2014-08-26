@@ -178,7 +178,7 @@ namespace Epi.Web.MVC.Models
              ModelList.IsEnabled = DTO.IsEnabled;
              ModelList.Organization = DTO.Organization;
              ModelList.OrganizationId = DTO.OrganizationId;
-
+             ModelList.OrganizationKey = DTO.OrganizationKey;
             return ModelList;
             }
 

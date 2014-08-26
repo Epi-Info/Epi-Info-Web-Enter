@@ -80,7 +80,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
               //  AdminId = pBO.AdminId,
                 IsEnabled = pBO.IsEnabled,
                 Organization = pBO.Organization,
-                OrganizationKey = pBO.OrganizationKey,
+                OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(pBO.OrganizationKey),
                 OrganizationId =pBO.OrganizationId
 
             };
