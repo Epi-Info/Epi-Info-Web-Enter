@@ -1,4 +1,4 @@
-﻿@model Epi.Web.MVC.Models.FormModel
+﻿@model List<Epi.Web.MVC.Models.OrganizationModel>
 @{
 	ViewBag.Title = "Epi Web Enter - Site Administration";// + " - "+ 
 	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
@@ -7,8 +7,8 @@
  <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
-		<h2 class="adminnav">@Html.ActionLink("Organizations", "Index", "Admin", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
-		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "Admin", null, new { @class = "userbtn" })</h2>
+		<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgInfo", "AdminOrganization", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
+		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>
 
 	</div>
  
@@ -17,7 +17,7 @@
 		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  
-	  @Html.ActionLink("My Forms", "Index", "Admin", null, null) &nbsp; | &nbsp;
+	  @Html.ActionLink("My Forms", "Index", "Home", null, null) &nbsp; | &nbsp;
 	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
 	</div>
 	<div style="clear: both;"></div>
@@ -31,15 +31,16 @@
     <div style="clear:both;"></div>
 
     <div class="datagrid">
-    <div id="success" >
+    @*<div id="success" >
    <span>[Org Name] has been added! </span>    
-</div>
+</div>*@
     
     <div style="clear:both;"></div>
 
     <div id="adminpaging">
 		<div style="float:left;">
-			@Html.ActionLink("Add New Organization","OrgInfo","Admin")
+			@*@Html.ActionLink("Add New Organization","OrgInfo","AdminOrganization")*@
+             @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgid = -1, iseditmode = false }, null)	
 		</div>
 		@*<div style="float:right;">
 			<a href="#"><span>Previous</span></a>
@@ -57,47 +58,25 @@
 				<th>Organization</th>
 				<th>Org Key</th>
 				<th>Active</th>
-                <th>Users</th>
+                
 				<th>Actions</th>
 			</tr>
 		</thead>
 
 		<tbody>
+        @foreach(var item in Model){
 			<tr>
-				<td>Org Name 1</td>
-				<td>554de308-1177-4af8-ae37-f16817f58c50</td>
-				<td>Yes</td>
-                <td>12</td>
-				<td><span ><a href="#">Edit</a></span></td>
+				<td>@item.Organization</td>
+				<td>@item.OrganizationKey</td>
+				<td>@item.IsEnabled</td>
+                <td><span > 
+                @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgid = item.OrganizationId, iseditmode = true }, null)	
+                </span>
+                
+                </td>
 			</tr>
-			<tr>
-				<td>Org Name 2</td>
-				<td>9606f86f-3819-4230-a187-b6eb1616a1a3</td>
-				<td>Yes</td>
-                <td>5</td>
-				<td><span ><a href="#">Edit</a></span></td>
-			</tr>
-			<tr>
-				<td>Org Name 3</td>
-				<td>1ec2ab86-3ed1-4d9b-a78e-784cd9af8fd3</td>
-				<td>Yes</td>
-                <td>22</td>
-				<td><span ><a href="#">Edit</a></span></td>
-			</tr>
-			<tr>
-				<td>Org Name 4</td>
-				<td>324be055-f746-486f-b2f8-303006348de4</td>
-				<td>No</td>
-                <td>1</td>
-				<td><span ><a href="#">Edit</a></span></td>
-			</tr>
-			<tr>
-				<td>Org Name 5</td>
-				<td>317dc156-bef4-4b81-8d4d-61ed6a171f57</td>
-				<td>No</td>
-                <td>2</td>
-				<td><span ><a href="#">Edit</a></span></td>
-			</tr>
+            }
+		
 		</tbody>
 	</table>
     </div>
