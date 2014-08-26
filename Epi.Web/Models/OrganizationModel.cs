@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using System.Web.Mvc;
+using System.ComponentModel.DataAnnotations;
 namespace Epi.Web.MVC.Models
     {
     public class OrganizationModel
@@ -12,6 +13,7 @@ namespace Epi.Web.MVC.Models
             private string _OrganizationKey;
             private bool _IsEnabled;
             private int _OrganizationId;
+            [Required(ErrorMessage = "Organization Name is required")]
             public string Organization
                 {
                 get { return _Organization; }
@@ -24,7 +26,7 @@ namespace Epi.Web.MVC.Models
                 set { _OrganizationKey = value; }
                 }
 
-
+             
             public bool IsEnabled
                 {
                 get { return _IsEnabled; }

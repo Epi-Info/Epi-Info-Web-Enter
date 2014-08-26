@@ -279,8 +279,14 @@ namespace Epi.Web.MVC
             routes.MapRoute
                 (
                     null, // Route name
-                    "AdminOrganization/OrgInfo", // URL with parameters
-                    new { controller = "AdminOrganization", action = "OrgInfo" }
+                    "AdminOrganization/{orgid}/{iseditmode}", // URL with parameters
+                    new { controller = "AdminOrganization", action = "OrgInfo", orgid = UrlParameter.Optional, iseditmode = UrlParameter.Optional }
+                ); // Parameter defaults
+            routes.MapRoute
+                (
+                    null, // Route name
+                    "AdminOrganization/Cancel", // URL with parameters
+                    new { controller = "AdminOrganization", action = "Cancel"}
                 ); // Parameter defaults
             routes.MapRoute
                (
