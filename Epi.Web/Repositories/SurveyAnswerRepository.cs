@@ -7,7 +7,7 @@ using Epi.Web.MVC.DataServiceClient;
 using Epi.Web.Enter.Common.Message;
 using Epi.Web.Enter.Common.Exception;
 using System.ServiceModel;
-using Epi.Web.MVC.DataServiceClient;
+ 
 
 namespace Epi.Web.MVC.Repositories
 {
@@ -571,6 +571,76 @@ namespace Epi.Web.MVC.Repositories
                     throw ex;
 
                     }
+
+                }
+            public OrganizationResponse GetOrganizationInfo(OrganizationRequest OrgRequest)
+                {
+
+
+                try
+                    {
+
+                    OrganizationResponse result = _iDataService.GetOrganizationInfo(OrgRequest);
+                    return result;
+                    }
+                catch (FaultException<CustomFaultException> cfe)
+                    {
+                    throw cfe;
+                    }
+                catch (FaultException fe)
+                    {
+                    throw fe;
+                    }
+                catch (CommunicationException ce)
+                    {
+                    throw ce;
+                    }
+                catch (TimeoutException te)
+                    {
+                    throw te;
+                    }
+                catch (Exception ex)
+                    {
+                    throw ex;
+
+                    }
+
+
+
+                }
+            public OrganizationResponse SetOrganization(OrganizationRequest Request)
+                {
+
+
+                try
+                    {
+
+                    OrganizationResponse result = _iDataService.SetOrganization(Request);
+                    return result;
+                    }
+                catch (FaultException<CustomFaultException> cfe)
+                    {
+                    throw cfe;
+                    }
+                catch (FaultException fe)
+                    {
+                    throw fe;
+                    }
+                catch (CommunicationException ce)
+                    {
+                    throw ce;
+                    }
+                catch (TimeoutException te)
+                    {
+                    throw te;
+                    }
+                catch (Exception ex)
+                    {
+                    throw ex;
+
+                    }
+
+
 
                 }
     }

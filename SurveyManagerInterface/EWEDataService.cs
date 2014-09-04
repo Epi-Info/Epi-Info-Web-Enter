@@ -1058,7 +1058,102 @@ namespace Epi.Web.WCF.SurveyService
             }
 
          }
-    
 
+        public OrganizationResponse GetOrganizationInfo(OrganizationRequest request) 
+            {
+            try
+                {
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
+                // Transform SurveyInfo data transfer object to SurveyInfo business object
+                OrganizationBO Organization = Mapper.ToBusinessObject(request.Organization);
+                OrganizationResponse response = new OrganizationResponse(request.RequestId);
+
+
+                if (!ValidRequest(request, response, Validate.All))
+                    return response;
+                OrganizationBO ListOrganizationBO = Implementation.GetOrganizationByKey(request.Organization.OrganizationKey);
+
+                response.OrganizationList = new List<OrganizationDTO>();
+               
+                   response.OrganizationList.Add(Mapper.ToDataTransferObjects(ListOrganizationBO));
+
+                    
+                return response;
+                }
+
+
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
+            
+            
+            
+            }
+        public OrganizationResponse SetOrganization(OrganizationRequest request)
+            {
+
+            try
+                {
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
+                // Transform SurveyInfo data transfer object to SurveyInfo business object
+                var Organization = Mapper.ToOrgBusinessObject(request.Organization);
+                var User = Mapper.ToUserBO(request.OrganizationAdminInfo);
+                 var response = new OrganizationResponse(request.RequestId);
+
+                 if (request.Action.ToUpper() =="UPDATE")
+                     {
+
+                     if (!ValidRequest(request, response, Validate.All))
+                         {
+                         response.Message = "Error";
+                         return response;
+                         }
+
+                        Implementation.UpdateOrganizationInfo(Organization);
+                        response.Message = "Successfully added organization Key";
+                     
+                    }
+                 else if (request.Action.ToUpper() == "INSERT")
+                     {
+                     Guid OrganizationKey = Guid.NewGuid();
+                     Organization.OrganizationKey = OrganizationKey.ToString();
+                     if (!ValidRequest(request, response, Validate.All))
+                         return response;
+                     if (Implementation.OrganizationNameExists(Organization.Organization, Organization.OrganizationKey, "Create"))
+                         {
+                         response.Message = "Exists";
+                         }
+                     else
+                         {
+                         Implementation.InsertOrganizationInfo(Organization, User);
+
+                         response.Message = "Success";
+                         }
+                         
+                        
+                      }
+                 
+                 return response;
+                }
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
+
+
+            }
     }
 }

@@ -25,5 +25,9 @@ namespace Epi.Web.Enter.Common.Message
         public Guid AdminSecurityKey;
         [DataMember]
         public int UserId;
+        [DataMember]
+        public string Action;
+        [DataMember]
+        public UserDTO OrganizationAdminInfo;
     }
 }

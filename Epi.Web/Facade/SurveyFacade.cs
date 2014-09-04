@@ -330,5 +330,22 @@ namespace Epi.Web.MVC.Facade
             
             
             }
+        public OrganizationResponse GetOrganizationInfo(OrganizationRequest OrgRequest)
+        {
+
+        OrganizationResponse OrganizationResponse = new OrganizationResponse();
+        OrganizationResponse = _iSurveyAnswerRepository.GetOrganizationInfo(OrgRequest);
+
+        return OrganizationResponse;
+           }
+        public OrganizationResponse SetOrganization(OrganizationRequest Request)
+            {
+
+            OrganizationResponse OrganizationResponse = new OrganizationResponse();
+            OrganizationResponse = _iSurveyAnswerRepository.SetOrganization(Request);
+
+            return OrganizationResponse;
+            
+            }
     }
 }

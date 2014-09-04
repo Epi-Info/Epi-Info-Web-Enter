@@ -127,6 +127,8 @@
     <Compile Include="Message\TokenRequest.cs" />
     <Compile Include="Message\TokenResponse.cs" />
     <Compile Include="Message\UserAuthenticationResponse.cs" />
+    <Compile Include="Message\UserRequest.cs" />
+    <Compile Include="Message\UserResponse.cs" />
     <Compile Include="ObjectMapping\Mapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Cryptography.cs" />

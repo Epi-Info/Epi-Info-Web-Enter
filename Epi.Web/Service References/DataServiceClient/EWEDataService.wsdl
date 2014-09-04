@@ -200,6 +200,24 @@
   <wsdl:message name="IEWEDataService_GetUserOrganizations_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q21="http://www.yourcompany.com/types/" name="detail" element="q21:CustomFaultException" />
   </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetOrganizationInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrganizationInfo" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetOrganizationInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOrganizationInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetOrganizationInfo_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://www.yourcompany.com/types/" name="detail" element="q22:CustomFaultException" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SetOrganization_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetOrganization" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SetOrganization_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetOrganizationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SetOrganization_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://www.yourcompany.com/types/" name="detail" element="q23:CustomFaultException" />
+  </wsdl:message>
   <wsdl:portType name="IEWEDataService">
     <wsdl:operation name="GetSurveyInfo">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyInfo" message="tns:IEWEDataService_GetSurveyInfo_InputMessage" />
@@ -305,6 +323,16 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetUserOrganizations" message="tns:IEWEDataService_GetUserOrganizations_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetUserOrganizationsResponse" message="tns:IEWEDataService_GetUserOrganizations_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetUserOrganizationsCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetUserOrganizations_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetOrganizationInfo" message="tns:IEWEDataService_GetOrganizationInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetOrganizationInfoResponse" message="tns:IEWEDataService_GetOrganizationInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetOrganizationInfoCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetOrganizationInfo_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetOrganization">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/SetOrganization" message="tns:IEWEDataService_SetOrganization_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/SetOrganizationResponse" message="tns:IEWEDataService_SetOrganization_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/SetOrganizationCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_SetOrganization_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEWEDataService" type="tns:IEWEDataService">
@@ -551,6 +579,30 @@
     </wsdl:operation>
     <wsdl:operation name="GetUserOrganizations">
       <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetUserOrganizations" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationInfo">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetOrganizationInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SetOrganization">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/SetOrganization" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

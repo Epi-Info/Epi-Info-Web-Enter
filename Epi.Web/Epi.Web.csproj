@@ -175,6 +175,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\OrgAdminInfoModel.cs" />
+    <Compile Include="Models\OrgListModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\FormInfoModel.cs" />
     <Compile Include="Models\FormModel.cs" />
@@ -486,22 +487,13 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.OrganizationResponse.datasource" />
-    <None Include="Service References\DataServiceClient\EWEDataService.disco">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DataServiceClient\configuration91.svcinfo">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DataServiceClient\configuration.svcinfo">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\DataServiceClient\EWEDataService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.PublishResponse.datasource" />
+    <None Include="Service References\DataServiceClient\EWEDataService.disco" />
+    <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
+    <None Include="Service References\DataServiceClient\configuration.svcinfo" />
     <None Include="Service References\DataServiceClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <Content Include="Unity.Mvc3.README.txt" />
     <Content Include="Views\Shared\footer.htm" />
@@ -546,6 +538,14 @@
     <Content Include="Views\Shared\PagerPartial.cshtml" />
     <Content Include="Views\Login\ForgotPassword.cshtml" />
     <Content Include="Views\Login\ForgotPassword.mobile.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\Login\ResetPassword.mobile.cshtml" />
+    <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Survey\ListResponses.cshtml" />
+    <Content Include="Views\AdminOrganization\OrgList.cshtml" />
+    <Content Include="Views\AdminOrganization\OrgInfo.cshtml" />
+    <Content Include="Views\AdminUser\UserList.cshtml" />
+    <Content Include="Views\AdminUser\UserInfo.cshtml" />
     <None Include="Service References\DataServiceClient\EWEDataService.wsdl" />
     <None Include="Service References\DataServiceClient\EWEDataService.xsd">
       <SubType>Designer</SubType>
@@ -565,14 +565,9 @@
     <None Include="Service References\DataServiceClient\EWEDataService5.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\Login\ResetPassword.cshtml" />
-    <Content Include="Views\Login\ResetPassword.mobile.cshtml" />
-    <Content Include="Views\Home\Settings.cshtml" />
-    <Content Include="Views\Survey\ListResponses.cshtml" />
-    <Content Include="Views\AdminOrganization\OrgList.cshtml" />
-    <Content Include="Views\AdminOrganization\OrgInfo.cshtml" />
-    <Content Include="Views\AdminUser\UserList.cshtml" />
-    <Content Include="Views\AdminUser\UserInfo.cshtml" />
+    <None Include="Service References\DataServiceClient\EWEDataService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
