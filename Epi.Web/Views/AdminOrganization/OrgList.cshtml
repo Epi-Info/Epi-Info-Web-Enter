@@ -1,4 +1,4 @@
-﻿@model List<Epi.Web.MVC.Models.OrganizationModel>
+﻿@model Epi.Web.MVC.Models.OrgListModel
 @{
 	ViewBag.Title = "Epi Web Enter - Site Administration";// + " - "+ 
 	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
@@ -31,16 +31,18 @@
     <div style="clear:both;"></div>
 
     <div class="datagrid">
-    @*<div id="success" >
-   <span>[Org Name] has been added! </span>    
-</div>*@
-    
+    @if(!string.IsNullOrEmpty(Model.Message))
+        {
+          <div id="success" >
+           <span>@Model.Message</span>    
+          </div>
+        }
     <div style="clear:both;"></div>
 
     <div id="adminpaging">
 		<div style="float:left;">
 			@*@Html.ActionLink("Add New Organization","OrgInfo","AdminOrganization")*@
-             @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgid = -1, iseditmode = false }, null)	
+             @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgkey = -1, iseditmode = false }, null)	
 		</div>
 		@*<div style="float:right;">
 			<a href="#"><span>Previous</span></a>
@@ -64,13 +66,14 @@
 		</thead>
 
 		<tbody>
-        @foreach(var item in Model){
+        @foreach (var item in Model.OrganizationList)
+            {
 			<tr>
 				<td>@item.Organization</td>
 				<td>@item.OrganizationKey</td>
 				<td>@item.IsEnabled</td>
                 <td><span > 
-                @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgid = item.OrganizationId, iseditmode = true }, null)	
+                @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgkey = item.OrganizationKey, iseditmode = true }, null)	
                 </span>
                 
                 </td>
@@ -82,5 +85,5 @@
     </div>
     <div style="clear:both; visibility:collapse;"></div>
 </div><!--End Content Div-->
-
-@Html.ActionLink("Add Org","OrgInfo","Admin")
+@*
+@Html.ActionLink("Add Org","OrgInfo","Admin")*@

@@ -567,5 +567,78 @@ namespace Epi.Web.MVC.Repositories
                    }
 
                }
+
+
+           public OrganizationResponse GetOrganizationInfo(OrganizationRequest OrgRequest) 
+               {
+
+
+               try
+                   {
+
+                   OrganizationResponse result = _iDataService.GetOrganizationInfo(OrgRequest);
+                   return result;
+                   }
+               catch (FaultException<CustomFaultException> cfe)
+                   {
+                   throw cfe;
+                   }
+               catch (FaultException fe)
+                   {
+                   throw fe;
+                   }
+               catch (CommunicationException ce)
+                   {
+                   throw ce;
+                   }
+               catch (TimeoutException te)
+                   {
+                   throw te;
+                   }
+               catch (Exception ex)
+                   {
+                   throw ex;
+
+                   }
+
+               
+               
+               }
+
+           public OrganizationResponse SetOrganization(OrganizationRequest Request)
+               {
+
+
+               try
+                   {
+
+                   OrganizationResponse result = _iDataService.SetOrganization(Request);
+                   return result;
+                   }
+               catch (FaultException<CustomFaultException> cfe)
+                   {
+                   throw cfe;
+                   }
+               catch (FaultException fe)
+                   {
+                   throw fe;
+                   }
+               catch (CommunicationException ce)
+                   {
+                   throw ce;
+                   }
+               catch (TimeoutException te)
+                   {
+                   throw te;
+                   }
+               catch (Exception ex)
+                   {
+                   throw ex;
+
+                   }
+
+
+
+               }
     }
 }

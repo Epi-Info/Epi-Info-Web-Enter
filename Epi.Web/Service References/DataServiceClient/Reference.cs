@@ -102,6 +102,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetUserOrganizations", ReplyAction="http://tempuri.org/IEWEDataService/GetUserOrganizationsResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetUserOrganizationsCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Enter.Common.Message.OrganizationResponse GetUserOrganizations(Epi.Web.Enter.Common.Message.OrganizationRequest OrgRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetOrganizationInfo", ReplyAction="http://tempuri.org/IEWEDataService/GetOrganizationInfoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetOrganizationInfoCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.OrganizationResponse GetOrganizationInfo(Epi.Web.Enter.Common.Message.OrganizationRequest OrgRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/SetOrganization", ReplyAction="http://tempuri.org/IEWEDataService/SetOrganizationResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/SetOrganizationCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.OrganizationResponse SetOrganization(Epi.Web.Enter.Common.Message.OrganizationRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -213,6 +221,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Enter.Common.Message.OrganizationResponse GetUserOrganizations(Epi.Web.Enter.Common.Message.OrganizationRequest OrgRequest) {
             return base.Channel.GetUserOrganizations(OrgRequest);
+        }
+        
+        public Epi.Web.Enter.Common.Message.OrganizationResponse GetOrganizationInfo(Epi.Web.Enter.Common.Message.OrganizationRequest OrgRequest) {
+            return base.Channel.GetOrganizationInfo(OrgRequest);
+        }
+        
+        public Epi.Web.Enter.Common.Message.OrganizationResponse SetOrganization(Epi.Web.Enter.Common.Message.OrganizationRequest request) {
+            return base.Channel.SetOrganization(request);
         }
     }
 }

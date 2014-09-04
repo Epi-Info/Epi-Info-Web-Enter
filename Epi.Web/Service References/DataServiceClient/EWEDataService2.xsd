@@ -295,4 +295,32 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetOrganizationInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://www.yourcompany.com/types/" minOccurs="0" name="OrgRequest" nillable="true" type="q42:OrganizationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrganizationInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://www.yourcompany.com/types/" minOccurs="0" name="GetOrganizationInfoResult" nillable="true" type="q43:OrganizationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetOrganization">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://www.yourcompany.com/types/" minOccurs="0" name="request" nillable="true" type="q44:OrganizationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetOrganizationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://www.yourcompany.com/types/" minOccurs="0" name="SetOrganizationResult" nillable="true" type="q45:OrganizationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

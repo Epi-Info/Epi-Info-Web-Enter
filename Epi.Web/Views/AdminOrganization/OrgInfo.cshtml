@@ -70,12 +70,48 @@
 }
 
 </style>
-<script>
+ 
+<link  href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+@*<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" language="javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>  *@
+<script type="text/javascript" language="javascript">
+//    $(document).ready(function () {
 
-    
+//        $('#persons').keyup(function () {
+
+//            var UpdateUrl = '@Url.Action("AutoComplete", "AdminOrganization")'+"?term=" + $('#persons').val()  ;
+
+//            $.ajax({
+//                url: UpdateUrl,
+//                type: 'POST',
+//                contentType: 'application/json; charset=utf-8',
+//                //data: "{}",
+//                dataType: "json",
+//                //cache: false,
+//                async: false,
+//                success: successFunc,
+//                error: errorFunc
+//            });
+//            $.ajaxSetup({ cache: false });
+//            function successFunc(data) {
+//               
+//                var availableTags = data;
+//                $('#persons').autocomplete({ source: availableTags });
+//            }
+//            function errorFunc(data) {
+//                alert('failed');
+//            }
+
+
+
+// 
+//        });
+//    });
+   
+
 
 </script>
- <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
 		@*<h2 class="adminnav ">@Html.ActionLink("Organizations", "Index", "Admin", null, null)</h2>&nbsp;&nbsp;
@@ -128,24 +164,32 @@
                 
 
 			</li>
-			 
-			@*<li>
-				<label>Active</label>
-				@Html.TextBoxFor(m => m.ExpDate)
-			</li>
-			<li></li>
 			<li>
-				 @Html.CheckBoxFor(m => m.HostOrganization)
-				 @Html.LabelFor(m => m.HostOrganization, new { @style = "display:inline-block;" })
+           
+               <label class="accountlabel"  id="Activelabel"> @Html.CheckBoxFor(m => m.IsOrgEnabled , new { @checked = "checked" }) Organization Is Enabled.</label> 
+               
 			</li>
-			<li></li>*@
+			 
 		</ol>
+ 
 
+         @if (!Model.IsEditMode)
+             {
 		<ol class="rightlist">
 			<li>
 				<h3>Administrator Information.</h3>
 			</li>
-            
+             <li>
+               <label class="accountlabel" id="AdminEmaillabel">* Admin Email:</label> 
+				  @Html.TextBoxFor(m => m.AdminEmail, new { @id = "persons", @class = "Account" }) <br>
+                @Html.ValidationMessageFor(m => m.AdminEmail, null, new { @class = "required" })
+			</li>
+			 
+			<li>
+             <label class="accountlabel" id="ConfirmAdminEmaillabel">* Confirm Admin Email:</label> 
+				  @Html.TextBoxFor(m => m.ConfirmAdminEmail, new { @class = "Account" }) <br>
+                @Html.ValidationMessageFor(m => m.ConfirmAdminEmail, null, new { @class = "required" })
+			<li></li>
 			<li>
               <label class="accountlabel" id="AdminFirstNamelabel">* Admin First Name:</label> 
 			  @Html.TextBoxFor(m => m.AdminFirstName, new { @class = "Account" }) <br>
@@ -156,18 +200,9 @@
 				  @Html.TextBoxFor(m => m.AdminLastName, new { @class = "Account" }) <br>
                 @Html.ValidationMessageFor(m => m.AdminLastName, null, new { @class = "required" })
 			</li>
-			 <li>
-               <label class="accountlabel" id="AdminEmaillabel">* Admin Email:</label> 
-				  @Html.TextBoxFor(m => m.AdminEmail, new { @class = "Account" }) <br>
-                @Html.ValidationMessageFor(m => m.AdminEmail, null, new { @class = "required" })
-			</li>
-			 
-			<li>
-             <label class="accountlabel" id="ConfirmAdminEmaillabel">* Confirm Admin Email:</label> 
-				  @Html.TextBoxFor(m => m.ConfirmAdminEmail, new { @class = "Account" }) <br>
-                @Html.ValidationMessageFor(m => m.ConfirmAdminEmail, null, new { @class = "required" })
-			<li></li>
+			
 		</ol>
+             }
 		<div>
         <div style="clear:both;"></div>
          @if (!Model.IsEditMode)

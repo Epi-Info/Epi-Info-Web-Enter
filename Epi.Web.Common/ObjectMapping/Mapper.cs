@@ -71,7 +71,17 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                   
             };
         }
+        public static OrganizationBO ToOrgBusinessObject(OrganizationDTO pDTO)
+            {
+            return new OrganizationBO
+            {
+                IsEnabled = pDTO.IsEnabled,
+                Organization = pDTO.Organization,
+                OrganizationKey = pDTO.OrganizationKey
+                 
 
+            };
+            }
         public static OrganizationDTO ToDataTransferObjects(OrganizationBO pBO)
         {
 

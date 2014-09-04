@@ -269,7 +269,12 @@ namespace Epi.Web.MVC
              "Post/SignOut/{id}",                           // URL with parameters
              new { controller = "Post", action = "SignOut", id = "" }
              );  // Parameter defaults
-
+            routes.MapRoute
+          (
+              null, // Route name
+              "AdminOrganization/AutoComplete", // URL with parameters
+              new { controller = "AdminOrganization", action = "AutoComplete" }
+          ); // Parameter defaults
             routes.MapRoute
                  (
                      null, // Route name
@@ -279,8 +284,8 @@ namespace Epi.Web.MVC
             routes.MapRoute
                 (
                     null, // Route name
-                    "AdminOrganization/{orgid}/{iseditmode}", // URL with parameters
-                    new { controller = "AdminOrganization", action = "OrgInfo", orgid = UrlParameter.Optional, iseditmode = UrlParameter.Optional }
+                    "AdminOrganization/{orgkey}/{iseditmode}", // URL with parameters
+                    new { controller = "AdminOrganization", action = "OrgInfo", orgkey = UrlParameter.Optional, iseditmode = UrlParameter.Optional }
                 ); // Parameter defaults
             routes.MapRoute
                 (
@@ -288,6 +293,8 @@ namespace Epi.Web.MVC
                     "AdminOrganization/Cancel", // URL with parameters
                     new { controller = "AdminOrganization", action = "Cancel"}
                 ); // Parameter defaults
+       
+            
             routes.MapRoute
                (
                    null, // Route name
