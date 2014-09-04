@@ -56,6 +56,22 @@ namespace Epi.Web.BLL
             this.OrganizationDao.InsertOrganization(OrganizationBO);
              
         }
+        public void InsertOrganizationInfo (OrganizationBO OrganizationBO , UserBO UserBO )
+            {
+            OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
+
+            // Check if the user Exists
+            var User = this.OrganizationDao.GetUserByEmail(UserBO);
+            if (string.IsNullOrEmpty(User.EmailAddress))
+                {
+
+                this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
+                }
+            else
+                {
+                this.OrganizationDao.InsertOrganization(OrganizationBO, User.UserId, UserBO.Role);
+                }
+            }
         public void UpdateOrganizationInfo(OrganizationBO OrganizationBO)
         {
             OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);

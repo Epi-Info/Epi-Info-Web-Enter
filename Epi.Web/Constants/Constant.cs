@@ -60,5 +60,12 @@ namespace Epi.Web.MVC.Constants
             return columns;
             
             }
+        public enum UserRole
+            {
+            User = 1,
+            OrgAdmin = 2,
+            Admin = 3
+            }
+
     }
 }

@@ -36,5 +36,9 @@ namespace Epi.Web.MVC.Repositories.Core
         SurveyAnswerResponse DeleteResponseXml(SurveyAnswerRequest FormResponseReq);
 
         OrganizationResponse GetUserOrganizations(OrganizationRequest OrgRequest);
+
+        OrganizationResponse GetOrganizationInfo(OrganizationRequest OrgRequest);
+
+        OrganizationResponse SetOrganization(OrganizationRequest Request);
     }
 }

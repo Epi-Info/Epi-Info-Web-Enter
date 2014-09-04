@@ -189,7 +189,72 @@ namespace Epi.Web.EF
             }
              
         }
+        /// <summary>
+        /// Inserts a new Organization. 
+        /// </summary>
+        /// <remarks>
+        /// Following insert, Organization object will contain the new identifier.
+        /// </remarks>  
+        /// <param name="Organization">Organization.</param>
+        public void InsertOrganization(OrganizationBO Organization,UserBO User)
+            {
+            try
+                {
 
+                UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(Organization.IsEnabled, User, Organization);
+                  using (var Context = DataObjectFactory.CreateContext())
+                      {
+
+                      Context.AddToUserOrganizations(UserOrganizationEntity);
+
+                      Context.SaveChanges();
+                      }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+            }
+        public void InsertOrganization(OrganizationBO Organization, int UserId,int RoleId)
+            {
+            try
+                {
+
+
+                UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(Organization.IsEnabled, UserId, RoleId, Organization);
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                    Context.AddToUserOrganizations(UserOrganizationEntity);
+
+                    Context.SaveChanges();
+                    }
+
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+            }
+        public UserBO GetUserByEmail(UserBO User)
+            {
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from Users in Context.Users
+                            where Users.EmailAddress == User.EmailAddress
+                            select Users;
+            UserBO Result = new UserBO();
+
+            foreach (var user in UserQuery)
+                {
+                Result = Mapper.MapToUserBO(user);
+                return Result;
+                }
+
+            return null;
+            }
         /// <summary>
         /// Updates a Organization.
         /// </summary>
