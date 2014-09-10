@@ -1117,9 +1117,19 @@ namespace Epi.Web.WCF.SurveyService
                          return response;
                          }
 
-                        Implementation.UpdateOrganizationInfo(Organization);
-                        response.Message = "Successfully added organization Key";
-                     
+                    //    Implementation.UpdateOrganizationInfo(Organization);
+                       // response.Message = "Successfully added organization Key";
+                        if (Implementation.OrganizationNameExists(Organization.Organization, Organization.OrganizationKey, "Create"))
+                            {
+                            response.Message = "Exists";
+                            }
+                        else
+                            {
+
+
+                            Implementation.UpdateOrganizationInfo(Organization);
+                            response.Message = "Successfully added organization Key";
+                            }
                     }
                  else if (request.Action.ToUpper() == "INSERT")
                      {

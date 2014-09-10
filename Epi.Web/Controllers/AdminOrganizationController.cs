@@ -62,6 +62,7 @@ namespace Epi.Web.MVC.Controllers
      public ActionResult OrgInfo(OrgAdminInfoModel OrgAdminInfoModel)
          {
          int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+         
          string url = "";
          if (this.Request.UrlReferrer == null)
              {
@@ -103,14 +104,33 @@ namespace Epi.Web.MVC.Controllers
              Request.Action = "UpDate";
              try
                  {
-                 _isurveyFacade.SetOrganization(Request);
+                 OrganizationResponse Result = _isurveyFacade.SetOrganization(Request);
                  OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
                  List<OrganizationModel> Model = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
                  OrgListModel OrgListModel = new OrgListModel();
                  OrgListModel.OrganizationList = Model;
                  OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " info has been updated.";
+                 if (Result.Message.ToUpper() != "EXISTS")
+                     {
 
-                 return View("OrgList", OrgListModel);
+                     OrgListModel.Message = "The organization with the name " + OrgAdminInfoModel.OrgName + " has been Udated.";
+                     return View("OrgList", OrgListModel);
+                     }
+                 else
+                     {
+                         OrgAdminInfoModel OrgInfo = new OrgAdminInfoModel();
+                         Request.Organization.OrganizationKey = GetOrgKey(url); ;
+
+                         Organizations = _isurveyFacade.GetOrganizationInfo(Request);
+                         OrgInfo = Mapper.ToOrgAdminInfoModel(Organizations);
+                         OrgInfo.IsEditMode = true;
+                         ModelState.AddModelError("OrgName", "The organization name provided already exists.");
+                         return View("OrgInfo", OrgInfo);
+                        
+     
+
+                     }
+                
                  }
              catch (Exception ex)
                  {
@@ -161,8 +181,15 @@ namespace Epi.Web.MVC.Controllers
                          }
                      else
                          {
-                         OrgListModel.Message = "The organization name provided already exists.";
+                        // OrgListModel.Message = "The organization name provided already exists.";
+                         OrgAdminInfoModel OrgInfo = new OrgAdminInfoModel();
+                         //Request.Organization.OrganizationKey = GetOrgKey(url); ;
 
+                         //Organizations = _isurveyFacade.GetOrganizationInfo(Request);
+                         OrgInfo = Mapper.ToOrgAdminInfoModel(Organizations);
+                         OrgInfo.IsEditMode = false;
+                         ModelState.AddModelError("OrgName", "The organization name provided already exists.");
+                         return View("OrgInfo", OrgInfo);
                          }
                      return View("OrgList", OrgListModel);
                      }
