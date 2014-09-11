@@ -1,4 +1,4 @@
-﻿@model Epi.Web.MVC.Models.FormModel
+﻿@model Epi.Web.MVC.Models.UserOrgModel
 @{
 	ViewBag.Title = "Epi Web Enter - Site Administration";// + " - "+ 
 	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
@@ -7,16 +7,47 @@
  <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
-		<h2 class="adminnav">@Html.ActionLink("Organizations", "Index", "Admin", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
-		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "Admin", null, new { @class = "userbtn" })</h2>
+		<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
+		@*<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>*@
 	</div>
+ <script type="text/javascript">
+
+
+
+     function GetList() {
+         var element = document.getElementById("OrgList");
+         var OrgId = element.options[element.selectedIndex].value;
+         $("#UserList").show();
+                  $.ajax({
+                      url: '@Url.Action("GetUserList","AdminUser")' + '?orgid=' + OrgId.toString(),
+                      type: 'GET',
+                      contentType: 'application/json; charset=utf-8',
+                      //data: JSON.stringify(model),
+                      success: successFunc,
+                      error: errorFunc
+                  });
+                   $.ajaxSetup({ cache: false });
+
+                  function successFunc(data, status) {
+
+                      $("#UserList").html(data);
+                      
+                  }
+
+                  function errorFunc() {
+                      alert('error');
+                  }
+     
+     }
+     
  
+ </script>
 	
 	<div id="userwelcome">
 		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  
-	  @Html.ActionLink("My Forms", "Index", "Admin", null, null) &nbsp; | &nbsp;
+	  @Html.ActionLink("My Forms", "Index", "Home", null, null) &nbsp; | &nbsp;
 	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
 	</div>
 	<div style="clear: both;"></div>
@@ -38,17 +69,18 @@
 
     <div class="userorg">
         <label><strong>Organization:</strong></label>
-        <select>
-            <option>Org Name 1</option>
-            <option>Org Name 2</option>
-            <option>Org Name 3</option>
-            <option>Org Name 4</option>
+        <select id="OrgList" onchange="GetList()">
+        @foreach(var Org in Model.OrgList )
+            {
+            <option value= '@Org.OrganizationId'>@Org.Organization</option>
+          
+            }
         </select> 
     </div>
 
     <div id="adminpaging">
 		<div style="float:left;">
-			@Html.ActionLink("Add New User", "UserInfo", "Admin")
+			@Html.ActionLink("Add New User", "UserInfo", "AdminUser")
 		</div>
 		@*<div style="float:right;">
 			<a href="#"><span>Previous</span></a>
@@ -57,66 +89,13 @@
 		</div>*@
         <div style="clear:both;"></div>
 	</div>
-    
-    
-	   <table class="sortable">
+   
+           <div id="UserList"  >
+				@Html.Partial("PartialUserList", Model.UserList)
+			</div>
 
-        <thead>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>Active</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-
-        <tbody>
-            <tr>
-                <td>Firstname</td>
-                <td>Lastname</td>
-                <td>firstlast@email.com</td>
-                <td>Yes</td>
-                <td>Org Admin</td>
-                <td><span ><a href="#">Edit</a></span></td>
-            </tr>
-            <tr>
-                <td>Firstname</td>
-                <td>Lastname</td>
-                <td>firstlast@email.com</td>
-                <td>Yes</td>
-                <td>Org Admin</td>
-                <td><span ><a href="#">Edit</a></span></td>
-            </tr>
-            <tr>
-                <td>Firstname</td>
-                <td>Lastname</td>
-                <td>firstlast@email.com</td>
-                <td>Yes</td>
-                <td>Org Admin</td>
-               <td><span ><a href="#">Edit</a></span></td>
-            </tr>
-            <tr>
-                <td>Firstname</td>
-                <td>Lastname</td>
-                <td>firstlast@email.com</td>
-                <td>Yes</td>
-                <td>User</td>
-                <td><span ><a href="#">Edit</a></span></td>
-            </tr>
-            <tr>
-                <td>Firstname</td>
-                <td>Lastname</td>
-                <td>firstlast@email.com</td>
-                <td>No</td>
-                <td>User</td>
-                <td><span ><a href="#">Edit</a></span></td>
-            </tr>
-        </tbody>
-    </table>
     </div>
     <div style="clear:both; visibility:collapse;"></div>
 </div>
 
- @Html.ActionLink("Add User","UserInfo","Admin")
+ 

@@ -151,5 +151,33 @@ namespace Epi.Web.EF
 
             return null;
             }
+
+        public  List<UserBO> GetUserByOrgId(int OrgId) {
+
+        List<UserBO> UserList = new List<UserBO>();
+        using (var Context = DataObjectFactory.CreateContext())
+            {
+            var SelectedUserQuery = from UserOrg in Context.UserOrganizations
+                                    join user in Context.Users on UserOrg.UserID equals user.UserID
+                                    where UserOrg.OrganizationID == OrgId
+                                    select user;
+            foreach (var user in SelectedUserQuery)
+                {
+                var UserBO = Mapper.MapToUserBO(user);
+                var User =  Context.UserOrganizations.Where(x => x.UserID == user.UserID && x.OrganizationID == OrgId).Single();
+                UserBO.IsActive = User.Active;
+                UserBO.Role = User.RoleId;
+                UserList.Add(UserBO);
+                }
+            }
+
+     
+
+        return UserList;
+        
+            }
+
+
+       
     }
 }

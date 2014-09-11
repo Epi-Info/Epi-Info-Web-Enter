@@ -62,14 +62,17 @@ namespace Epi.Web.BLL
 
             // Check if the user Exists
             var User = this.OrganizationDao.GetUserByEmail(UserBO);
-            if (string.IsNullOrEmpty(User.EmailAddress))
+            if (User != null)
                 {
+                if (string.IsNullOrEmpty(User.EmailAddress))
+                    {
 
-                this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
-                }
-            else
-                {
-                this.OrganizationDao.InsertOrganization(OrganizationBO, User.UserId, UserBO.Role);
+                    this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
+                    }
+                else
+                    {
+                    this.OrganizationDao.InsertOrganization(OrganizationBO, User.UserId, UserBO.Role);
+                    }
                 }
             }
         public void UpdateOrganizationInfo(OrganizationBO OrganizationBO)
