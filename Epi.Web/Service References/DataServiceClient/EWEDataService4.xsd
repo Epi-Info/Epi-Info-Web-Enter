@@ -337,8 +337,10 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RequestBase">
         <xs:sequence>
+          <xs:element minOccurs="0" name="Action" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="AdminSecurityKey" type="ser:guid" />
           <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="Organization" nillable="true" type="q9:OrganizationDTO" />
+          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="OrganizationAdminInfo" nillable="true" type="q10:UserDTO" />
           <xs:element minOccurs="0" name="UserId" type="xs:int" />
         </xs:sequence>
       </xs:extension>
@@ -350,7 +352,8 @@
       <xs:extension base="tns:ResponseBase">
         <xs:sequence>
           <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
-          <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="OrganizationList" nillable="true" type="q10:ArrayOfOrganizationDTO" />
+          <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="OrganizationList" nillable="true" type="q11:ArrayOfOrganizationDTO" />
+          <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="OrganizationUsersList" nillable="true" type="q12:ArrayOfUserDTO" />
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

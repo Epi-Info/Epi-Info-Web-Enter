@@ -87,5 +87,12 @@ namespace Epi.Web.Enter.Common.DTO
             set { updateMode = value; }
         }
 
+        private bool _IsActive;
+
+        public bool IsActive
+            {
+            get { return _IsActive; }
+            set { _IsActive = value; }
+            }
     }
 }

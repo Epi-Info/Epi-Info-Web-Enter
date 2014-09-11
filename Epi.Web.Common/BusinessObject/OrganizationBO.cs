@@ -13,6 +13,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private string _OrganizationKey;
         private bool _IsEnabled;
         private int _OrganizationId;
+        private List<UserBO> _OrganizationUserList;
         [DataMember]
         public string Organization
         {
@@ -40,5 +41,6 @@ namespace Epi.Web.Enter.Common.BusinessObject
             get { return _OrganizationId; }
             set { _OrganizationId = value; }
             }
+       
     }
 }

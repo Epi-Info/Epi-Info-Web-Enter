@@ -80,7 +80,8 @@ namespace Epi.Web.EF
             Result.LastName = user.LastName;
             Result.PhoneNumber = user.PhoneNumber;
             Result.ResetPassword = user.ResetPassword;
-            //Result.Role = user.role
+           
+           
             return Result;
         }
 
@@ -490,5 +491,6 @@ namespace Epi.Web.EF
 
             return UserOrganization;
             }
+         
     }
 }

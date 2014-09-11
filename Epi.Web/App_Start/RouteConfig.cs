@@ -293,8 +293,13 @@ namespace Epi.Web.MVC
                     "AdminOrganization/Cancel", // URL with parameters
                     new { controller = "AdminOrganization", action = "Cancel"}
                 ); // Parameter defaults
-       
-            
+
+            routes.MapRoute
+            (
+                null, // Route name
+                "AdminUser/GetUserList", // URL with parameters
+                new { controller = "AdminUser", action = "GetUserList", orgid = UrlParameter.Optional }
+            ); // Parameter defaults
             routes.MapRoute
                (
                    null, // Route name

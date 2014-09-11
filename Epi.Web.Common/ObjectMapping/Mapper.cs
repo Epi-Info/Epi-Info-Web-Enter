@@ -334,7 +334,20 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             EmailAddress = result.EmailAddress
             };
         }
-
+        public static UserDTO ToDataTransferObject(UserBO result)
+            {
+            return new UserDTO()
+            {
+                UserId = result.UserId,
+                UserName = result.UserName,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                PhoneNumber = result.PhoneNumber,
+                Role = result.Role,
+                IsActive = result.IsActive,
+                EmailAddress = result.EmailAddress
+            };
+            }
         public static List<FormsHierarchyDTO> ToFormHierarchyDTO(List<FormsHierarchyBO> AllChildIDsList)
             {
             List<FormsHierarchyDTO> result = new List<FormsHierarchyDTO>();

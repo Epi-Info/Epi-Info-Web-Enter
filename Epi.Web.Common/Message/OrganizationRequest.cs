@@ -29,5 +29,6 @@ namespace Epi.Web.Enter.Common.Message
         public string Action;
         [DataMember]
         public UserDTO OrganizationAdminInfo;
+         
     }
 }

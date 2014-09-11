@@ -1,4 +1,4 @@
-﻿@model Epi.Web.MVC.Models.AdminUserModel
+﻿@model Epi.Web.MVC.Models.UserModel
 @{
 	ViewBag.Title = "Epi Web Enter - Site Administration";// + " - "+ 
 	// Model.SurveyName + " - " + Model.IsDraftModeStyleClass;
@@ -7,8 +7,8 @@
  <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
-		@*<h2 class="adminnav ">@Html.ActionLink("Organizations", "Index", "Admin", null, null)</h2>&nbsp;&nbsp;
-		<h2 class="adminnav admincurrent">Users</h2>*@
+		@*<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
+		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>*@
 	</div>
  
 	
@@ -16,8 +16,9 @@
 		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  
-	  @Html.ActionLink("My Forms", "Index", "Admin", null, null) &nbsp; | &nbsp;
+	  @Html.ActionLink("My Forms", "Index", "Home", null, null) &nbsp; | &nbsp;
 	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+	 
 	</div>
 	<div style="clear: both;"></div>
 </div>
@@ -46,11 +47,11 @@
 				@Html.TextBoxFor(m => m.Email)
 			</li>
 			<li>
-				@Html.LabelFor(m => m.AdminFirstName)
-				@Html.TextBoxFor(m => m.AdminFirstName)
+				@Html.LabelFor(m => m.FirstName)
+				@Html.TextBoxFor(m => m.FirstName)
 			</li>
 			<li>
-				@Html.LabelFor(m => m.AdminLastName)
+				@Html.LabelFor(m => m.LastName)
 				@Html.TextBoxFor(m => m.AdminLastName)
 			</li>
 			
@@ -66,7 +67,7 @@
 			</li>
 			<li>
 				<label>Role</label>
-				@Html.TextBoxFor(m => m.AdminLastName)
+				@Html.TextBoxFor(m => m.LastName)
 			</li>
 			<li>
 				<label>Active</label>
