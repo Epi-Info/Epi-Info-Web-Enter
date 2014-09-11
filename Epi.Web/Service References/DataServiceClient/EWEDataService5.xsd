@@ -6,6 +6,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="EmailAddress" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
       <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Constants" minOccurs="0" name="Operation" type="q1:Constant.OperationMode" />
       <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />

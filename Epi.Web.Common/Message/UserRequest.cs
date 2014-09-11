@@ -8,5 +8,7 @@ namespace Epi.Web.Enter.Common.Message
         {
        [DataMember]
         public UserDTO User;
+       [DataMember]
+       public OrganizationDTO  Organization;
         }
     }

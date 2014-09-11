@@ -77,8 +77,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             {
                 IsEnabled = pDTO.IsEnabled,
                 Organization = pDTO.Organization,
-                OrganizationKey = pDTO.OrganizationKey
-                 
+                OrganizationKey = pDTO.OrganizationKey,
+                 OrganizationId =pDTO.OrganizationId
 
             };
             }
@@ -331,7 +331,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             ResetPassword = result.ResetPassword,
             Role = result.Role,
             Operation = Constant.OperationMode.NoChange,
-            EmailAddress = result.EmailAddress
+            EmailAddress = result.EmailAddress,
+            IsActive = result.IsActive
             };
         }
         public static UserDTO ToDataTransferObject(UserBO result)

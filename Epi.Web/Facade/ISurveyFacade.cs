@@ -51,5 +51,8 @@ namespace Epi.Web.MVC.Facade
 
         OrganizationResponse SetOrganization(OrganizationRequest Request);
         OrganizationResponse GetOrganizationUsers(OrganizationRequest OrgRequest);
+
+        UserResponse GetUserInfo(UserRequest Request);
+        UserResponse SetUserInfo(UserRequest Request);
     }
 }

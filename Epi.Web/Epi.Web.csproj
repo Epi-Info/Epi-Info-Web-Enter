@@ -489,9 +489,13 @@
     </None>
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.OrganizationResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.PublishResponse.datasource" />
+    <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.UserResponse.datasource" />
     <None Include="Service References\DataServiceClient\EWEDataService.disco" />
     <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
     <None Include="Service References\DataServiceClient\configuration.svcinfo" />
+    <None Include="Service References\DataServiceClient\EWEDataService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\DataServiceClient\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
