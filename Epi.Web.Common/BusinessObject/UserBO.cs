@@ -87,5 +87,15 @@ namespace Epi.Web.Enter.Common.BusinessObject
             set { updateMode = value; }
         }
 
+        private bool _IsActive;
+
+        public bool IsActive
+            {
+            get { return _IsActive; }
+            set { _IsActive = value; }
+            }
+
+
+
     }
 }

@@ -323,4 +323,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetOrganizationUsers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://www.yourcompany.com/types/" minOccurs="0" name="request" nillable="true" type="q46:OrganizationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetOrganizationUsersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://www.yourcompany.com/types/" minOccurs="0" name="GetOrganizationUsersResult" nillable="true" type="q47:OrganizationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

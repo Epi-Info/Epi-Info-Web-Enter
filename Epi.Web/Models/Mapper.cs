@@ -202,5 +202,51 @@ namespace Epi.Web.MVC.Models
 
             return OrgAdminInfoModel;
             }
+
+        internal static List<UserModel> ToUserModelList(List<Enter.Common.DTO.UserDTO> UserList)
+            {
+            List<UserModel> UserModel = new List<UserModel>() ;
+            foreach (var user in UserList)
+                {
+                UserModel.Add(Mapper.ToUserModelList(user));
+                
+                }
+            return UserModel;
+            }
+
+        private static UserModel ToUserModelList(Enter.Common.DTO.UserDTO user)
+            {
+            UserModel UserModel = new UserModel();
+            UserModel.Email = user.EmailAddress;
+            UserModel.FirstName = user.FirstName;
+            UserModel.LastName = user.LastName;
+            UserModel.Role = GetUserRole(user.Role);
+            UserModel.IsActive = user.IsActive;
+
+            return UserModel;
+            }
+
+        private static string GetUserRole(int p)
+            {
+            string Role ="";
+            switch (p)
+                {
+                case 1:
+                    Role = "User";
+                    break;
+
+                case 2:
+                    Role = "Organization Admin";
+                    break;
+
+                case 3:
+                    Role = "Admin";
+                    break;
+
+                default:
+                    break;
+                }
+            return Role;
+            }
     }
 }

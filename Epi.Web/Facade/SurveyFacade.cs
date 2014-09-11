@@ -347,5 +347,14 @@ namespace Epi.Web.MVC.Facade
             return OrganizationResponse;
             
             }
+        public OrganizationResponse GetOrganizationUsers(OrganizationRequest OrgRequest)
+            {
+            OrganizationResponse OrganizationResponse = new OrganizationResponse();
+            OrganizationResponse = _iSurveyAnswerRepository.GetOrganizationUsers(OrgRequest);
+
+            return OrganizationResponse;
+
+
+            }
     }
 }

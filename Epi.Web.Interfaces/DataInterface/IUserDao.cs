@@ -18,5 +18,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
         List<UserBO> GetUserByFormId(string FormId);
         UserBO GetCurrentUser(int userId);
         UserBO GetUserByEmail(UserBO User);
+
+        List<UserBO> GetUserByOrgId(int OrgId);
     }
 }

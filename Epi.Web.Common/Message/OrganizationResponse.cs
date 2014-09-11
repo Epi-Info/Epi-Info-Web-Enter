@@ -30,5 +30,8 @@ namespace Epi.Web.Enter.Common.Message
         /// </summary>
         [DataMember]
         public List<OrganizationDTO> OrganizationList;
+
+        [DataMember]
+        public List<UserDTO> OrganizationUsersList;
     }
 }

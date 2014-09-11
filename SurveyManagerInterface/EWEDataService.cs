@@ -1165,5 +1165,43 @@ namespace Epi.Web.WCF.SurveyService
 
 
             }
+
+        public OrganizationResponse GetOrganizationUsers(OrganizationRequest request)
+            {
+
+            try
+                {
+               var IUserDao = new EF.EntityUserDao();
+               Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+                // Transform SurveyInfo data transfer object to SurveyInfo business object
+                OrganizationBO Organization = Mapper.ToBusinessObject(request.Organization);
+                var response = new OrganizationResponse(request.RequestId);
+
+
+                if (!ValidRequest(request, response, Validate.All))
+                    return response;
+
+                List<UserBO> ListUserBO = Implementation.GetUsersByOrgId(request.Organization.OrganizationId);
+                response.OrganizationUsersList = new List<UserDTO>();
+                foreach (UserBO  Item in ListUserBO)
+                    {
+                   (response.OrganizationUsersList).Add(Mapper.ToDataTransferObject(Item));
+
+                    }
+                return response;
+                }
+
+            
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
+
+            }
     }
 }
