@@ -20,7 +20,13 @@
                 <td>@user.Email</td>
                 <td>@user.IsActive</td>
                 <td>@user.Role</td>
-                <td><span ><a href="#">Edit</a></span></td>
+                <td>
+                <span >
+                    @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { userid = user.UserId, iseditmode = true , orgid = ViewBag.SelectedOrg }, null)	
+                </span>
+                </td> 
+
+              
             </tr>
             }
         </tbody>

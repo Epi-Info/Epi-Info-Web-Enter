@@ -114,6 +114,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetOrganizationUsers", ReplyAction="http://tempuri.org/IEWEDataService/GetOrganizationUsersResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetOrganizationUsersCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Enter.Common.Message.OrganizationResponse GetOrganizationUsers(Epi.Web.Enter.Common.Message.OrganizationRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetUserInfo", ReplyAction="http://tempuri.org/IEWEDataService/GetUserInfoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetUserInfoCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.UserResponse GetUserInfo(Epi.Web.Enter.Common.Message.UserRequest request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/SetUserInfo", ReplyAction="http://tempuri.org/IEWEDataService/SetUserInfoResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/SetUserInfoCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.UserResponse SetUserInfo(Epi.Web.Enter.Common.Message.UserRequest request);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -237,6 +245,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public Epi.Web.Enter.Common.Message.OrganizationResponse GetOrganizationUsers(Epi.Web.Enter.Common.Message.OrganizationRequest request) {
             return base.Channel.GetOrganizationUsers(request);
+        }
+        
+        public Epi.Web.Enter.Common.Message.UserResponse GetUserInfo(Epi.Web.Enter.Common.Message.UserRequest request) {
+            return base.Channel.GetUserInfo(request);
+        }
+        
+        public Epi.Web.Enter.Common.Message.UserResponse SetUserInfo(Epi.Web.Enter.Common.Message.UserRequest request) {
+            return base.Channel.SetUserInfo(request);
         }
     }
 }

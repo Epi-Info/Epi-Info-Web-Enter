@@ -34,6 +34,10 @@ namespace Epi.Web.MVC.Models
     public string Role { get; set; }
 
     public bool IsActive { get; set; }
+
+    public bool IsEditMode { get; set; }
+    public int UserId { get; set; }
+    
     }
    
 }

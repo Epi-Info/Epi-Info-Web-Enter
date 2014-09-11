@@ -674,6 +674,69 @@ namespace Epi.Web.MVC.Repositories
                    }
 
                }
+           public UserResponse GetUserInfo(UserRequest Request) {
 
+           try
+               {
+
+               UserResponse result = _iDataService.GetUserInfo(Request);
+               return result;
+               }
+           catch (FaultException<CustomFaultException> cfe)
+               {
+               throw cfe;
+               }
+           catch (FaultException fe)
+               {
+               throw fe;
+               }
+           catch (CommunicationException ce)
+               {
+               throw ce;
+               }
+           catch (TimeoutException te)
+               {
+               throw te;
+               }
+           catch (Exception ex)
+               {
+               throw ex;
+
+               }
+               }
+
+           public UserResponse SetUserInfo(UserRequest Request)
+
+           {
+           try
+               {
+
+               UserResponse result = _iDataService.SetUserInfo(Request);
+               return result;
+               }
+           catch (FaultException<CustomFaultException> cfe)
+               {
+               throw cfe;
+               }
+           catch (FaultException fe)
+               {
+               throw fe;
+               }
+           catch (CommunicationException ce)
+               {
+               throw ce;
+               }
+           catch (TimeoutException te)
+               {
+               throw te;
+               }
+           catch (Exception ex)
+               {
+               throw ex;
+
+               }
+               
+               
+               }
     }
 }

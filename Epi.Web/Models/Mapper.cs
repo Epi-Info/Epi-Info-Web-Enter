@@ -208,13 +208,13 @@ namespace Epi.Web.MVC.Models
             List<UserModel> UserModel = new List<UserModel>() ;
             foreach (var user in UserList)
                 {
-                UserModel.Add(Mapper.ToUserModelList(user));
+                UserModel.Add(Mapper.ToUserModel(user));
                 
                 }
             return UserModel;
             }
 
-        private static UserModel ToUserModelList(Enter.Common.DTO.UserDTO user)
+        public  static UserModel ToUserModel(Enter.Common.DTO.UserDTO user)
             {
             UserModel UserModel = new UserModel();
             UserModel.Email = user.EmailAddress;
@@ -222,10 +222,20 @@ namespace Epi.Web.MVC.Models
             UserModel.LastName = user.LastName;
             UserModel.Role = GetUserRole(user.Role);
             UserModel.IsActive = user.IsActive;
-
+            UserModel.UserId = user.UserId;
             return UserModel;
             }
-
+        public static UserModel ToUserModelR(Enter.Common.DTO.UserDTO user)
+            {
+            UserModel UserModel = new UserModel();
+            UserModel.Email = user.EmailAddress;
+            UserModel.FirstName = user.FirstName;
+            UserModel.LastName = user.LastName;
+            UserModel.Role =  user.Role.ToString();
+            UserModel.IsActive = user.IsActive;
+            UserModel.UserId = user.UserId;
+            return UserModel;
+            }
         private static string GetUserRole(int p)
             {
             string Role ="";
@@ -248,5 +258,7 @@ namespace Epi.Web.MVC.Models
                 }
             return Role;
             }
+
+      
     }
 }

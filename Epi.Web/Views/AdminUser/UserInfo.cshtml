@@ -26,7 +26,12 @@
 <div id="content" style="margin:15px 0 200px; padding-left: 10px; min-height: 375px;">
 
 	<div id="formtitle" style="display:block;">
-		<h2 class="surveyTitle">[Add / Edit] Users</h2>
+		 
+       @if(Model.IsEditMode){
+		<h2 class="surveyTitle">Edit Users</h2>
+        }else{
+        <h2 class="surveyTitle">Add Users</h2>
+        }
 	</div>
 	<div style="clear:both;"></div>
 
@@ -41,49 +46,84 @@
         <ol class="leftlist">
 			<li>
 				<h3>User Information</h3>
+                 @Html.ValidationMessage("Error")<br>
 			</li>
             <li>
-				@Html.LabelFor(m => m.Email)
-				@Html.TextBoxFor(m => m.Email)
+				 
+                <label class="accountlabel" id="Emaillabel">* Email:</label> 
+                 @Html.TextBoxFor(m => m.Email, new { @class = "Account" }) <br>
+                @Html.ValidationMessageFor(m => m.Email, null, new { @class = "required" })
+                
+
 			</li>
 			<li>
-				@Html.LabelFor(m => m.FirstName)
-				@Html.TextBoxFor(m => m.FirstName)
+				 
+
+                 <label class="accountlabel" id="FirstNamelabel">* First Name:</label> 
+                 @Html.TextBoxFor(m => m.FirstName, new { @class = "Account" }) <br>
+                @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "required" })
 			</li>
 			<li>
-				@Html.LabelFor(m => m.LastName)
-				@Html.TextBoxFor(m => m.AdminLastName)
+			 
+                 <label class="accountlabel" id="LastNamelabel">* Last Name:</label> 
+                 @Html.TextBoxFor(m => m.LastName, new { @class = "Account" }) <br>
+                @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "required" })
 			</li>
 			
 			
 			
 			<li></li>
 		</ol>
-		<ol class="rightlist">
+	 <ol class="rightlist">
 			
 			<li>
 				 <h3>Organization:
 				<span>Org Name 1</span></h3>
 			</li>
 			<li>
-				<label>Role</label>
-				@Html.TextBoxFor(m => m.LastName)
+				@*<label>Role</label>
+				@Html.TextBoxFor(m => m.LastName)*@
+                 <label class="accountlabel" id="Rolelabel"> Role:</label> 
+                @*  <select id="OrgList" onchange="GetList()">
+                        <option value= '1'>User</option>
+                        <option value= '2'>Organization Admin</option>
+                        <option value= '3'>Admin</option>
+                  </select> *@
+ 
+	
+@Html.DropDownListFor(model => model.Role, new SelectList(
+                  new List<Object>{
+                       new { value = 1, text = "User"  },
+                       new { value = 2 , text = "Organization" },
+                       new { value = 3 , text = "Admin"}
+                    },
+                  "value",
+                  "text",
+                   1))
+                 
+
+        
+
+
 			</li>
+            <li>
+				</li>	     
 			<li>
-				<label>Active</label>
-				@Html.TextBoxFor(m => m.AdminLastName)
+				    <label class="accountlabel"  id="Activelabel">
+                     @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked" }) User Is Active.</label> 
 			</li>
-			<li>
+			@*<li>
 				@Html.CheckBoxFor(m => m.AdminNotifications)
 				@Html.LabelFor(m => m.AdminNotifications, new { @style = "display:inline-block;" })
-			</li>
+			</li>*@
 			
 			<li></li>
 		</ol>
 		<div>
         <div style="clear:both;"></div>
 		<input type="submit" value="Create" />
-		<input type="submit" value="Cancel"  style="margin-left:20px;"/>
+		@*<input type="submit" value="Cancel"  style="margin-left:20px;"/>*@
+         @Html.ActionLink("Cancel", "UserList", "AdminUser", null, null)
 		</div>
 	</fieldset>
 }

@@ -356,5 +356,17 @@ namespace Epi.Web.MVC.Facade
 
 
             }
+        public UserResponse GetUserInfo(UserRequest Request)
+            {
+            UserResponse UserResponse = new UserResponse();
+            UserResponse = _iSurveyAnswerRepository.GetUserInfo(Request);
+            return UserResponse;
+            }
+        public UserResponse SetUserInfo(UserRequest Request)
+            {
+            UserResponse UserResponse = new UserResponse();
+            UserResponse = _iSurveyAnswerRepository.SetUserInfo(Request);
+            return UserResponse;
+            }
     }
 }

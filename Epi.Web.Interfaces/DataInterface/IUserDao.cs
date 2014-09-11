@@ -20,5 +20,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
         UserBO GetUserByEmail(UserBO User);
 
         List<UserBO> GetUserByOrgId(int OrgId);
+
+        UserBO GetUserByUserIdAndOrgId(UserBO UserBO, OrganizationBO OrgBO);
     }
 }

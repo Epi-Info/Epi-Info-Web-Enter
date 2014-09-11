@@ -42,5 +42,9 @@ namespace Epi.Web.MVC.Repositories.Core
         OrganizationResponse SetOrganization(OrganizationRequest Request);
 
         OrganizationResponse GetOrganizationUsers(OrganizationRequest OrgRequest);
+
+        UserResponse GetUserInfo(UserRequest Request);
+
+        UserResponse SetUserInfo(UserRequest Request);
     }
 }

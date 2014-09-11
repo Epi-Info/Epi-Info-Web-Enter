@@ -80,7 +80,9 @@
 
     <div id="adminpaging">
 		<div style="float:left;">
-			@Html.ActionLink("Add New User", "UserInfo", "AdminUser")
+			
+           @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, null)
+    
 		</div>
 		@*<div style="float:right;">
 			<a href="#"><span>Previous</span></a>

@@ -294,24 +294,28 @@ namespace Epi.Web.MVC
                     new { controller = "AdminOrganization", action = "Cancel"}
                 ); // Parameter defaults
 
+
+
+           
             routes.MapRoute
             (
                 null, // Route name
                 "AdminUser/GetUserList", // URL with parameters
                 new { controller = "AdminUser", action = "GetUserList", orgid = UrlParameter.Optional }
             ); // Parameter defaults
+          
             routes.MapRoute
-               (
-                   null, // Route name
-                   "AdminUser/UserList", // URL with parameters
-                   new { controller = "AdminUser", action = "UserList" }
-               ); // Parameter defaults
+              (
+                  null, // Route name
+                  "AdminUser/UserList", // URL with parameters
+                  new { controller = "AdminUser", action = "UserList" }
+              ); // Parameter defaults
             routes.MapRoute
-               (
-                   null, // Route name
-                   "Admin/UserInfo", // URL with parameters
-                   new { controller = "AdminUser", action = "UserInfo" }
-               ); // Parameter defaults
+              (
+                  null, // Route name
+                  "AdminUser/{userid}/{iseditmode}/{orgid}", // URL with parameters
+                  new { controller = "AdminUser", action = "UserInfo", userid = UrlParameter.Optional, iseditmode = UrlParameter.Optional, orgid = UrlParameter.Optional }
+              ); // Parameter defaults
 
             //routes.MapRoute(
             //   "Default", // Route name

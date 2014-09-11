@@ -21,7 +21,7 @@ namespace Epi.Web.MVC.Controllers
         {
             _isurveyFacade = isurveyFacade;
         }
-         
+        [HttpGet] 
         public ActionResult UserList()
             {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
@@ -41,14 +41,40 @@ namespace Epi.Web.MVC.Controllers
             List<UserModel> UserModel = Mapper.ToUserModelList(OrganizationUsers.OrganizationUsersList);
 
            UserOrgModel.UserList = UserModel;
-           
+            ViewBag.SelectedOrg = Organizations.OrganizationList[0].OrganizationId;
             return View("UserList", UserOrgModel);
             }
-          
-          public ActionResult UserInfo()
-          {
-              return View("UserInfo");
-          }
+        [HttpGet]
+        public ActionResult UserInfo(int userid, bool iseditmode,int orgid)
+            {
+            UserModel UserModel = new UserModel();
+            UserRequest Request = new UserRequest();
+            if (iseditmode)
+                {
+
+
+                Request.Organization = new OrganizationDTO();
+                Request.Organization.OrganizationId = orgid;
+
+                Request.User = new UserDTO();
+                Request.User.UserId = userid;
+
+                UserResponse Response = _isurveyFacade.GetUserInfo(Request);
+
+               
+                UserModel = Mapper.ToUserModelR( Response.User[0]);
+
+                return View("UserInfo", UserModel);
+               }
+            UserModel.IsEditMode = iseditmode;
+            UserModel.IsActive = true;
+            return View("UserInfo", UserModel);
+            }
+        //[HttpPost]
+        //  public ActionResult UserInfo()
+        //  {
+        //      return View("UserInfo");
+        //  }
   [HttpGet]
           public ActionResult GetUserList(int orgid)
          {
@@ -58,6 +84,7 @@ namespace Epi.Web.MVC.Controllers
          Request.Organization.OrganizationId = orgid;
          OrganizationResponse OrganizationUsers = _isurveyFacade.GetOrganizationUsers(Request);
          List<UserModel> UserModel = Mapper.ToUserModelList(OrganizationUsers.OrganizationUsersList);
+         ViewBag.SelectedOrg = orgid;
          return PartialView("PartialUserList", UserModel);
           
        
