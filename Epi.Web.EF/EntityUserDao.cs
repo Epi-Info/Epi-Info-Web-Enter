@@ -75,6 +75,28 @@ namespace Epi.Web.EF
 
             return null;
         }
+        public UserBO GetUserByUserIdAndOrgId(UserBO User, OrganizationBO OrgBO)
+            {
+
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from Users in Context.Users
+                            where Users.UserID == User.UserId
+                            select Users;
+            UserBO Result = new UserBO();
+
+            foreach (var user in UserQuery)
+                {
+                Result = Mapper.MapToUserBO(user);
+
+                var _User = Context.UserOrganizations.Where(x => x.UserID == user.UserID && x.OrganizationID == OrgBO.OrganizationId).Single();
+                Result.IsActive = _User.Active;
+                Result.Role = _User.RoleId;
+
+                }
+            return Result;
+
+
+            }
         public UserBO GetCurrentUser(int UserId)
             {
             UserBO Result = new UserBO();

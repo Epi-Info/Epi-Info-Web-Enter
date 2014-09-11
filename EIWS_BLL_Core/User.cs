@@ -146,5 +146,14 @@ namespace Epi.Web.BLL
             List = UserDao.GetUserByOrgId(OrgId);
             return List;
             }
+
+        public UserBO GetUserByUserIdAndOrgId(UserBO UserBO, OrganizationBO OrgBO)
+            {
+            UserBO UserResponseBO;
+
+            UserResponseBO = UserDao.GetUserByUserIdAndOrgId(UserBO, OrgBO);
+
+            return UserResponseBO;
+            }
     }
 }

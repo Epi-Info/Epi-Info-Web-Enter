@@ -1203,5 +1203,41 @@ namespace Epi.Web.WCF.SurveyService
                 }
 
             }
+
+        public UserResponse GetUserInfo(UserRequest request)
+            {
+
+            UserResponse Response = new UserResponse();
+            Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+            Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+
+            UserBO UserBO = Mapper.ToUserBO(request.User);
+            OrganizationBO OrgBO = Mapper.ToOrgBusinessObject(request.Organization);
+            UserBO result = Implementation.GetUserByUserIdAndOrgId(UserBO, OrgBO);
+
+
+
+            if (result != null)
+                {
+
+                Response.User = new List<UserDTO>();
+                Response.User.Add( Mapper.ToUserDTO(result));
+
+                }
+
+
+            return Response;
+            }
+
+
+        public UserResponse SetUserInfo(UserRequest request)
+            {
+
+            UserResponse UserResponse = new UserResponse();
+
+            return UserResponse;
+            
+            }
     }
 }

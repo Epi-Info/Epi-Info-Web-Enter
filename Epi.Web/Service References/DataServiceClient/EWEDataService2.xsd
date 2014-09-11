@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd2" namespace="http://www.yourcompany.com/types/" />
+  <xs:import schemaLocation="http://localhost:22587/Epi.Web.ServiceHost/EWEDataService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Message" />
   <xs:element name="GetSurveyInfo">
     <xs:complexType>
       <xs:sequence>
@@ -334,6 +335,34 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q47="http://www.yourcompany.com/types/" minOccurs="0" name="GetOrganizationUsersResult" nillable="true" type="q47:OrganizationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Message" minOccurs="0" name="request" nillable="true" type="q48:UserRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q49="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Message" minOccurs="0" name="GetUserInfoResult" nillable="true" type="q49:UserResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetUserInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Message" minOccurs="0" name="request" nillable="true" type="q50:UserRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetUserInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q51="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Message" minOccurs="0" name="SetUserInfoResult" nillable="true" type="q51:UserResponse" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
