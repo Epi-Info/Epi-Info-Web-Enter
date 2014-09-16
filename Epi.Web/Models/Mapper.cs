@@ -259,6 +259,27 @@ namespace Epi.Web.MVC.Models
             return Role;
             }
 
-      
+
+
+        internal static Enter.Common.DTO.UserDTO ToUserDTO(UserModel UserModel)
+            {
+            Enter.Common.DTO.UserDTO UserDTO = new Enter.Common.DTO.UserDTO();
+
+            UserDTO.EmailAddress = UserModel.Email;
+            UserDTO.UserId = UserModel.UserId;
+            UserDTO.FirstName = UserModel.FirstName;
+            UserDTO.LastName = UserModel.LastName;
+            UserDTO.Role = int.Parse(UserModel.Role);
+            UserDTO.IsActive = UserModel.IsActive;
+            if (!string.IsNullOrEmpty(UserModel.PhoneNumber))
+                {
+                UserDTO.PhoneNumber = UserModel.PhoneNumber;
+                }
+            else
+                {
+                UserDTO.PhoneNumber = "123456789";
+                }
+            return UserDTO;
+            }
     }
 }

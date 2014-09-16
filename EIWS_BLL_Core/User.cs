@@ -33,7 +33,13 @@ namespace Epi.Web.BLL
 
             return UserResponseBO;
         }
+        public bool GetExistingUser(UserBO User)
+            {
+            bool Exists = false;
+            Exists = UserDao.GetExistingUser(User);
 
+            return Exists;
+            }
         private string ReadSalt()
         {
             return ConfigurationManager.AppSettings["KeyForUserPasswordSalt"];
@@ -48,8 +54,9 @@ namespace Epi.Web.BLL
             return UserResponseBO;
         }
 
-        public bool UpdateUser(UserBO User)
+        public bool UpdateUser(UserBO User,OrganizationBO OrgBO)
         {
+        bool success = false;
             switch (User.Operation)
             {
                 case Constant.OperationMode.UpdatePassword:
@@ -73,7 +80,7 @@ namespace Epi.Web.BLL
                     string salt = PasswordHasher.CreateSalt(User.UserName);
 
                     User.PasswordHash = PasswordHasher.HashPassword(salt, password);
-                    bool success = UserDao.UpdateUserPassword(User);
+                      success = UserDao.UpdateUserPassword(User);
 
                     if (success)
                     {
@@ -98,7 +105,9 @@ namespace Epi.Web.BLL
                     return success;
 
                 case Constant.OperationMode.UpdateUserInfo:
-                    break;
+                    success = UserDao.UpdateUserInfo(User, OrgBO);
+                      return success;
+                    
                 default:
                     break;
             }
@@ -154,6 +163,14 @@ namespace Epi.Web.BLL
             UserResponseBO = UserDao.GetUserByUserIdAndOrgId(UserBO, OrgBO);
 
             return UserResponseBO;
+            }
+        public bool SetUserInfo(UserBO UserBO, OrganizationBO OrgBO)
+            {
+            bool UserResponse;
+
+            UserResponse = UserDao.InsertUser(UserBO, OrgBO);
+
+            return UserResponse;
             }
     }
 }

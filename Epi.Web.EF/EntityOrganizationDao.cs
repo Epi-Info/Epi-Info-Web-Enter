@@ -355,6 +355,35 @@ namespace Epi.Web.EF
            //Delete Survey
        
        }
-       
+        public OrganizationBO GetOrganizationByOrgId(int OrganizationId) 
+            {
+            OrganizationBO   OrganizationBO = new  OrganizationBO ();
+            try
+                {
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+                    var Query = from response in Context.Organizations
+                                where response.OrganizationId == OrganizationId
+                                select response;
+
+                    if (Query.Count() > 0)
+                        {
+                        OrganizationBO = Mapper.Map(Query.SingleOrDefault());
+
+                        }
+                    else
+                        {
+                        return null;
+                        }
+                    
+                    }
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+            return OrganizationBO;
+            
+            }
     }
 }
