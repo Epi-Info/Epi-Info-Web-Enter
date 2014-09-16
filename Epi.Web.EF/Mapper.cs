@@ -491,6 +491,16 @@ namespace Epi.Web.EF
 
             return UserOrganization;
             }
-         
+        internal static UserOrganization ToUserOrganizationEntity(UserBO User, OrganizationBO Organization)
+            {
+            UserOrganization UserOrganization = new UserOrganization();
+            UserOrganization.Active = User.IsActive;
+            UserOrganization.UserID = User.UserId;
+            UserOrganization.RoleId = User.Role;
+            UserOrganization.OrganizationID = Organization.OrganizationId;
+           
+
+            return UserOrganization;
+            }
     }
 }

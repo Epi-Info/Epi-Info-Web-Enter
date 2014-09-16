@@ -9,16 +9,17 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
     public interface IUserDao
     {
         UserBO GetUser(UserBO User);
+        bool GetExistingUser(UserBO User);
         bool UpdateUser(UserBO User);
         bool DeleteUser(UserBO User);
-        bool InsertUser(UserBO User);
+        bool InsertUser(UserBO User, OrganizationBO OrgBO);
         UserBO GetUserByUserId(UserBO User);
         bool UpdateUserPassword(UserBO User);
-        bool UpdateUserInfo(UserBO User);
+        bool UpdateUserInfo(UserBO User, OrganizationBO OrgBO);
         List<UserBO> GetUserByFormId(string FormId);
         UserBO GetCurrentUser(int userId);
         UserBO GetUserByEmail(UserBO User);
-
+      
         List<UserBO> GetUserByOrgId(int OrgId);
 
         UserBO GetUserByUserIdAndOrgId(UserBO UserBO, OrganizationBO OrgBO);

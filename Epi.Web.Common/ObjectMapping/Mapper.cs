@@ -260,6 +260,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 PasswordHash = User.PasswordHash,
                 ResetPassword = User.ResetPassword,
                 Role = User.Role,
+                IsActive = User.IsActive,
                 Operation = (Constant.OperationMode)User.Operation
             };
         }

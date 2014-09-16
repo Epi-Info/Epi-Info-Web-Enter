@@ -27,7 +27,21 @@ namespace Epi.Web.EF
             return null;
         }
 
+        public bool GetExistingUser(UserBO User)
+            {
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from user in Context.Users
+                            where user.UserName == User.UserName && user.LastName == User.LastName && user.EmailAddress == User.EmailAddress
+                            select user;
+            bool Result = false;
 
+            foreach (var user in UserQuery)
+                {
+                Result = true;
+                }
+
+            return Result;
+            }
 
         public bool UpdateUser(UserBO User)
         {
@@ -55,9 +69,32 @@ namespace Epi.Web.EF
             throw new NotImplementedException();
         }
 
-        public bool InsertUser(UserBO User)
+        public bool InsertUser(UserBO User, OrganizationBO OrgBO)
         {
-            throw new NotImplementedException();
+        try
+            {
+
+ 
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+                var Org  = Context.Organizations.Where(x => x.OrganizationId == OrgBO.OrganizationId).Single();
+          
+                Context.Organizations.Attach(Org);
+                Context.Users.AddObject(Mapper.ToUserEntity(User));
+
+
+                UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(User, OrgBO);
+               Context.UserOrganizations.AddObject(UserOrganizationEntity);
+                
+
+                Context.SaveChanges();
+                }
+            return true;
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
         }
         public UserBO GetUserByUserId(UserBO User)
         {
@@ -132,9 +169,37 @@ namespace Epi.Web.EF
             }
         }
 
-        public bool UpdateUserInfo(UserBO User)
+        public bool UpdateUserInfo(UserBO User , OrganizationBO OrgBO)
         {
-            throw new NotImplementedException();
+    
+        try
+            {
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+               
+
+                User user = Context.Users.First(x => x.UserID == User.UserId);
+               // user.UserName = User.UserName;
+                user.EmailAddress = User.EmailAddress;
+                user.FirstName = User.FirstName;
+                user.LastName = User.LastName ;
+
+                UserOrganization UserOrganization = Context.UserOrganizations.First(x=>x.OrganizationID == OrgBO.OrganizationId && x.UserID == User.UserId);
+                UserOrganization.RoleId = User.Role;
+                UserOrganization.Active = User.IsActive;
+
+                Context.SaveChanges();
+                    
+               
+                
+                }
+            return true;
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+
         }
 
         public List<UserBO> GetUserByFormId(string FormId)
@@ -199,7 +264,7 @@ namespace Epi.Web.EF
         
             }
 
-
+ 
        
     }
 }

@@ -569,8 +569,9 @@ namespace Epi.Web.WCF.SurveyService
             Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
 
             UserBO UserBO = Mapper.ToUserBO(request.User);
-
-            return Implementation.UpdateUser(UserBO);
+            OrganizationBO OrgBO = new OrganizationBO();
+            return Implementation.UpdateUser(UserBO, OrgBO);
+           
 
             }
 
@@ -1234,9 +1235,50 @@ namespace Epi.Web.WCF.SurveyService
         public UserResponse SetUserInfo(UserRequest request)
             {
 
-            UserResponse UserResponse = new UserResponse();
+            try
+                {
+                UserResponse response = new UserResponse();
+                Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
 
-            return UserResponse;
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.BLL.Organization Implementation1 = new Epi.Web.BLL.Organization(IOrganizationDao);
+
+                Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
+                UserBO UserBO = Mapper.ToUserBO(request.User);
+                OrganizationBO OrgBo = Mapper.ToOrgBusinessObject(request.Organization);
+                if (request.Action.ToUpper() == "UPDATE")
+                    {
+                    OrganizationBO OrganizationBO = Implementation1.GetOrganizationByOrgId(request.CurrentOrg);
+                    UserBO.Operation = Enter.Common.Constants.Constant.OperationMode.UpdateUserInfo;
+                    Implementation.UpdateUser(UserBO, OrganizationBO);
+                    }
+                else 
+                    {
+                    var UserExists = Implementation.GetExistingUser(UserBO);
+                    if (!UserExists)
+                        {
+                        OrgBo.OrganizationId = request.CurrentOrg; // User is added to the current organization
+                        Implementation.SetUserInfo(UserBO, OrgBo);
+                        response.Message = "Success";
+                        }
+                    else 
+                        {
+                        response.Message = "Exists";
+                        }
+                    }
+
+                return response;
+                }
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
             
             }
     }

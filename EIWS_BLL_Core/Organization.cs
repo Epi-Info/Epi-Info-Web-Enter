@@ -24,6 +24,13 @@ namespace Epi.Web.BLL
              OrganizationBO result =  GetOrganizationObjByKey(OrganizationKey);
              return result;
         }
+        public OrganizationBO GetOrganizationByOrgId(int OrganizationId)
+            {
+            OrganizationBO result = this.OrganizationDao.GetOrganizationByOrgId(OrganizationId); ;
+            return result;
+            }
+
+      
         public List<OrganizationBO> GetOrganizationKey(string OrganizationName)
         {
 
