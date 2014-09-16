@@ -1001,8 +1001,8 @@ namespace Epi.Web.WCF.SurveyService
              Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
 
              UserBO UserBO = Mapper.ToUserBO(request.User);
-
-             return Implementation.UpdateUser(UserBO);
+             OrganizationBO OrgBO = new OrganizationBO();
+             return Implementation.UpdateUser(UserBO, OrgBO);
 
              }
 

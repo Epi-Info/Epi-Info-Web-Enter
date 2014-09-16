@@ -10,5 +10,7 @@ namespace Epi.Web.Enter.Common.Message
 
         [DataMember]
         public List<UserDTO> User;
+         [DataMember]
+        public string Message;
         }
     }

@@ -14,7 +14,8 @@ namespace Epi.Web.MVC.Models
 
         public List<OrganizationModel> OrgList { get; set; }
 
-         
+        public string Message { get; set; }
 
+         
         }
     }

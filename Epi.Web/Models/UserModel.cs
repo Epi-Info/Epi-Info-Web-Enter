@@ -31,6 +31,9 @@ namespace Epi.Web.MVC.Models
     [Compare("AdminEmail", ErrorMessage = "The email and confirmation do not match.")]
     public string ConfirmEmail { get;set; }
 
+
+    public string PhoneNumber { get; set; }
+
     public string Role { get; set; }
 
     public bool IsActive { get; set; }

@@ -61,16 +61,18 @@
     <div style="clear:both;"></div>
 
     <div class="datagrid">
-    <div id="success" >
-   <span>[User First Last Name] has been added! </span>    
-</div>
-    
+    @if (!string.IsNullOrEmpty(Model.Message))
+        {
+          <div id="success" >
+           <span>@Model.Message</span>    
+          </div>
+        }
     <div style="clear:both;"></div>
 
     <div class="userorg">
         <label><strong>Organization:</strong></label>
         <select id="OrgList" onchange="GetList()">
-        @foreach(var Org in Model.OrgList )
+        @foreach (var Org in Model.OrgList)
             {
             <option value= '@Org.OrganizationId'>@Org.Organization</option>
           

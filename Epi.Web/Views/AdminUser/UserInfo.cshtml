@@ -94,8 +94,8 @@
 @Html.DropDownListFor(model => model.Role, new SelectList(
                   new List<Object>{
                        new { value = 1, text = "User"  },
-                       new { value = 2 , text = "Organization" },
-                       new { value = 3 , text = "Admin"}
+                       new { value = 2 , text = "Organization Admin" },
+                       //new { value = 3 , text = "Admin"}
                     },
                   "value",
                   "text",
@@ -121,7 +121,15 @@
 		</ol>
 		<div>
         <div style="clear:both;"></div>
-		<input type="submit" value="Create" />
+		@if (!@Model.IsEditMode)
+             {
+		     <input type="submit" value="Create" id="Create"/>
+             }
+         else 
+             { 
+              <input type="submit" value="Update" id="Update"/>
+             
+             }
 		@*<input type="submit" value="Cancel"  style="margin-left:20px;"/>*@
          @Html.ActionLink("Cancel", "UserList", "AdminUser", null, null)
 		</div>
