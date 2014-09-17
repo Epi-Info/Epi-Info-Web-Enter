@@ -25,6 +25,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult OrgList( )
         {
               int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+              int UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
         OrganizationRequest Request = new OrganizationRequest();
         Request.UserId = UserId;
         OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
@@ -33,8 +34,16 @@ namespace Epi.Web.MVC.Controllers
         OrgListModel OrgListModel = new OrgListModel();
         OrgListModel.OrganizationList = Model;
 
-        return View("OrgList", OrgListModel);
-             
+        if (UserHighestRole == 3)
+                {
+                return View("OrgList", OrgListModel);
+                }
+            else
+                {
+                
+                return RedirectToAction("UserList", "AdminUser" );
+                }
+       
         }
         
        

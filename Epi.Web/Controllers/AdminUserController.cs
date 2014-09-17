@@ -25,6 +25,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult UserList()
             {
             UserOrgModel UserOrgModel = GetUserInfoList();
+            UserOrgModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
             return View("UserList", UserOrgModel);
             }
 
@@ -98,6 +99,7 @@ namespace Epi.Web.MVC.Controllers
                 {
                 throw ex;
                  }
+            UserOrgModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
             return View("UserList", UserOrgModel);
             }
   [HttpGet]
