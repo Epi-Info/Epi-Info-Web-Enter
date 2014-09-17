@@ -221,6 +221,7 @@ namespace Epi.Web.MVC.Controllers
                     FormsAuthentication.SetAuthCookie(UserName, false);
                     string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
                     Session["UserId"] = UserId;
+                    Session["UserHighestRole"] = result.User.Role;
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
                     //return Redirect(ReturnUrl);
                 }
