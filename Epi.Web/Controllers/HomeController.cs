@@ -61,7 +61,7 @@ namespace Epi.Web.MVC.Controllers
                 //  List<FormInfoModel> listOfformInfoModel = GetFormsInfoList(UserId1);
                 
                 FormModel FormModel = new Models.FormModel();
-
+                FormModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
                 // Get OrganizationList
                 OrganizationRequest Request = new OrganizationRequest();
                 Request.UserId = UserId;

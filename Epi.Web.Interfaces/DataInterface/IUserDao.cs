@@ -23,5 +23,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
         List<UserBO> GetUserByOrgId(int OrgId);
 
         UserBO GetUserByUserIdAndOrgId(UserBO UserBO, OrganizationBO OrgBO);
+
+        int GetUserHighestRole(int UserId);
     }
 }

@@ -7,7 +7,10 @@
  <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
-		<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
+    @if(Model.UserHighestRole == 3){
+		<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>
+        <span>&nbsp;&nbsp;</span>
+        }
 		@*<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>*@
 	</div>
  <script type="text/javascript">

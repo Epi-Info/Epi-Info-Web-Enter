@@ -427,7 +427,12 @@ function SaveSettings() {
 		Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  
-      @Html.ActionLink("Site Administration", "OrgList", "AdminOrganization", null, null)	&nbsp; | &nbsp;
+     @if (Model.UserHighestRole == 2 || Model.UserHighestRole == 3)
+      {
+      @Html.ActionLink("Site Administration ", "OrgList", "AdminOrganization", null, null);
+       <span>&nbsp; | &nbsp;</span> 
+      }
+
       @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
 	</div>
 	<div style="clear: both;">

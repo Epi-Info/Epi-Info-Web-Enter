@@ -11,6 +11,7 @@ namespace Epi.Web.MVC.Models
         private List<OrganizationModel> _OrganizationList;
         private string  _UserLastName;
         private string _UserFirstName;
+        private int _UserHighestRole;
         public List<FormInfoModel> FormList
             {
             get { return _FormList; }
@@ -32,6 +33,11 @@ namespace Epi.Web.MVC.Models
             get { return _UserFirstName; }
             set { _UserFirstName = value; }
             }
-       
+
+        public int UserHighestRole
+            {
+            get { return _UserHighestRole; }
+            set { _UserHighestRole = value; }
+            }
         }
     }

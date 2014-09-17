@@ -264,6 +264,33 @@ namespace Epi.Web.EF
         
             }
 
+        public int GetUserHighestRole(int UserId) 
+            {
+            int HighestRole = 0;
+
+            try
+                {
+                using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+
+                    var Rows = Context.UserOrganizations.Where(x => x.UserID ==  UserId);
+                    HighestRole =Rows.Max(x => x.RoleId);
+                    
+
+                    }
+               
+                }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+
+
+            return HighestRole;
+            
+            
+            }
  
        
     }
