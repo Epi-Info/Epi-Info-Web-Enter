@@ -495,7 +495,7 @@ namespace Epi.Web.EF
             {
             UserOrganization UserOrganization = new UserOrganization();
             UserOrganization.Active = User.IsActive;
-            UserOrganization.UserID = User.UserId;
+           // UserOrganization.UserID = User.UserId;
             UserOrganization.RoleId = User.Role;
             UserOrganization.OrganizationID = Organization.OrganizationId;
            

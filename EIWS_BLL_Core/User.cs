@@ -8,7 +8,7 @@ using Epi.Web.Enter.Common.Security;
 using System.Configuration;
 using Epi.Web.Enter.Common.Constants;
 using Epi.Web.Enter.Common.Email;
-using Epi.Web.Enter.Common.Constants;
+
 namespace Epi.Web.BLL
 {
     public class User
@@ -128,6 +128,10 @@ namespace Epi.Web.BLL
                 case Constant.EmailCombinationEnum.PasswordChanged:
                     email.Subject = "Your Epi Web Enter Password has been updated";
                     email.Body = " You recently updated your password for Epi Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n Please click the link below to launch Epi Web Enter.";
+                    break;
+                case Constant.EmailCombinationEnum.UpdateUserInfo:
+                    email.Subject = "Your Epi Web Enter Account info has been updated";
+                    email.Body = " You account info has been updated in Epi Web Enter system.";
                     break;
                 default:
                     break;
