@@ -17,7 +17,8 @@ namespace Epi.Web.Enter.Common.Constants
         public enum EmailCombinationEnum
         {
             ResetPassword = 1,
-            PasswordChanged = 2
+            PasswordChanged = 2,
+             UpdateUserInfo = 3
         }
     }
 }
