@@ -77,13 +77,13 @@
 	 <ol class="rightlist">
 			
 			<li>
-				 <h3>Organization:
-				<span>Org Name 1</span></h3>
+				 <h3>Organization Details
+				@*<span>Org Name 1</span>*@</h3>
 			</li>
 			<li>
 				@*<label>Role</label>
 				@Html.TextBoxFor(m => m.LastName)*@
-                 <label class="accountlabel" id="Rolelabel"> Role:</label> 
+                 <label class="accountlabel" id="Rolelabel"> Role in Organization:</label> 
                 @*  <select id="OrgList" onchange="GetList()">
                         <option value= '1'>User</option>
                         <option value= '2'>Organization Admin</option>
@@ -91,7 +91,7 @@
                   </select> *@
  
 	
-@Html.DropDownListFor(model => model.Role, new SelectList(
+                @Html.DropDownListFor(model => model.Role, new SelectList(
                   new List<Object>{
                        new { value = 1, text = "User"  },
                        new { value = 2 , text = "Organization Admin" },
@@ -106,11 +106,10 @@
 
 
 			</li>
-            <li>
-				</li>	     
+            <li></li>	     
 			<li>
 				    <label class="accountlabel"  id="Activelabel">
-                     @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked" }) User Is Active.</label> 
+                     @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked" }) User is Active</label> 
 			</li>
 			@*<li>
 				@Html.CheckBoxFor(m => m.AdminNotifications)
@@ -131,7 +130,7 @@
              
              }
 		@*<input type="submit" value="Cancel"  style="margin-left:20px;"/>*@
-         @Html.ActionLink("Cancel", "UserList", "AdminUser", null, null)
+         @Html.ActionLink("Cancel", "UserList", "AdminUser", null, new { @class = "cancelbtn" })
 		</div>
 	</fieldset>
 }

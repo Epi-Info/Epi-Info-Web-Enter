@@ -334,6 +334,10 @@ div.recordcontentdiv
     padding: 0 10px 1px 0;    
     display:inline-block;
     float:left;
+    line-height: 130%;
+    max-width:70%;
+    overflow:hidden;
+    text-overflow:ellipsis;
     
  }
  
@@ -381,9 +385,21 @@ button.default:hover, button.default:active
     background-repeat: no-repeat; 
     background-size: 18px;
     background-position: 8px center;
-    width: 110px;
+    /*width: 110px;*/
     height: 35px;
-    padding: 4px 6px 4px 30px;
+    padding: 4px 12px 4px 30px;
+}
+
+button.search
+{
+    background-image: url('../images/Search-Find.png');
+    background-repeat: no-repeat; 
+    background-size: 18px;
+    background-position: 8px center;
+    /*width: 110px;*/
+    height: 35px;
+    padding: 4px 12px 4px 30px;
+    background-color: #74b700 !important;
 }
  
  #infobox1
@@ -391,6 +407,14 @@ button.default:hover, button.default:active
     font-size: 10pt;
     margin: 10px 0  10px 0;
     display:block;
+ }
+ 
+ span.buttontext 
+ {
+    display: block;
+    font-size: 8pt;
+    line-height: 132%;
+    margin: 3px 0;
  }
  
  #create
@@ -421,17 +445,58 @@ button.default:hover, button.default:active
  #addnew
  {
     float:left;
+    /*width:33%;*/
  }
- 
+ #tableSort
+ {
+     /*width:33%;*/
+     float:right;
+     display:inline-block;
+     margin:0 auto 15px;
+     text-align:right;
+ }
+ #tableSort select {
+    letter-spacing: 0.02em;
+    font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
+    font-weight: 300;
+    font-size:1.2em;
+     height: 36px;
+    line-height: 24px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 35px;
+    min-width: 80px;
+   border: 1px solid #b4b4b4;
+    background-clip: padding-box;
+
+}
+
+#tableSort option {
+    letter-spacing: 0.02em;
+    font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
+    font-weight: 300;
+    /* height: 28px;*/
+    line-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 2px;
+    min-height: 24px;
+    min-width: 80px;
+   
+    background-clip: padding-box;
+
+}
  button.record
 {
     background-image: url('../images/addnew.png');
     background-repeat: no-repeat; 
     background-size: 18px;
     background-position: 8px center;
-    width: 180px;
+    /*width: 155px;*/
     height: 35px;
-    padding: 4px 6px 4px 30px;
+    padding: 4px 12px 4px 33px;
 }
 
 button.exitsurvey
@@ -563,9 +628,9 @@ button.paging img
 	min-width: 232px;
 	width: 97%;
 	min-height: 30px;
-	padding:8px 8px 20px 48px;/* 5px 5px 15px 45px;*/
+	padding:8px 8px 10px 48px;/* 5px 5px 15px 45px;*/
 	color: #FFF;
-	border-width: 3px;
+	border-width: 5px;
 	border-style: solid;
 	cursor: default;
 	-webkit-transition: 0.1s all;
@@ -619,26 +684,28 @@ button.paging img
 
 .metro-set {
 	/*background-color:#D8512B;*/
-    border-color:black;
+    border-color:#ffc000;
 }
 
 
 .metro-tile:hover {
-	-webkit-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
+	/*-webkit-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-moz-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-ms-transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
 	transform: scale(0.97) perspective(400px) rotateY(0deg) rotateX(0deg);
 	border-width: 3px;
-	border-style:solid; 
+	border-style:solid;*/ 
+	border-color: White;
 }
 
 .metro-set:hover { 
-    -webkit-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
+   /* -webkit-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-moz-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
 	-ms-transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
 	transform: scale(1.0) perspective(400px) rotateY(0deg) rotateX(0deg);
 	border-width: 3px;
-	border-style:solid; 
+	border-style:solid; */
+	border-color: White;
     
 }
 
@@ -761,11 +828,11 @@ button.paging img
 		/*border-bottom: 1px solid #2878ec; */
 		text-align: left; 
 		vertical-align:top;
-		max-width: 140px;
+		/*max-width: 140px;*/
 		
 	}
 	
-	#RelateNavigation #recordstable td, #recordstable th {width:120px;  max-width: 130px; font-size:1.15em; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important}
+	#RelateNavigation #recordstable td, #recordstable th { max-width: 130px; font-size:1.15em; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif !important}
 	#RelateNavigation #NumberOfRecords div span.boldlabel { font-size:1em !important;}
 	#RelateNavigation #addnew {margin-top: -30px;}
 	

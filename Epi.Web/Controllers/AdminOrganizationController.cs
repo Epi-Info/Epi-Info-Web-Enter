@@ -118,11 +118,11 @@ namespace Epi.Web.MVC.Controllers
                  List<OrganizationModel> Model = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
                  OrgListModel OrgListModel = new OrgListModel();
                  OrgListModel.OrganizationList = Model;
-                 OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " info has been updated.";
+                 OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " has been updated.";
                  if (Result.Message.ToUpper() != "EXISTS")
                      {
 
-                     OrgListModel.Message = "The organization with the name " + OrgAdminInfoModel.OrgName + " has been Udated.";
+                         OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " has been updated.";
                      return View("OrgList", OrgListModel);
                      }
                  else
@@ -186,7 +186,7 @@ namespace Epi.Web.MVC.Controllers
                      if (Result.Message.ToUpper() != "EXISTS")
                          {
                         
-                         OrgListModel.Message = "A new organization with the name " + OrgAdminInfoModel.OrgName + " has been Added.";
+                         OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " has been created.";
                          }
                      else
                          {
