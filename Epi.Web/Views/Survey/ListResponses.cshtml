@@ -1,6 +1,6 @@
 ﻿@model Epi.Web.MVC.Models.SurveyModel  
- <div id="formtitle">
-   <h2 class="surveyTitle" style="margin: 0 0 .2em 0;">@Model.Form.SurveyInfo.SurveyName
+ <div id="formtitle" style="margin: 10px 0 0 0;">
+   <h2 class="surveyTitle" style="margin: 7px 0 .2em 0;">@Model.Form.SurveyInfo.SurveyName
     </h2>
     <!--<hr class="hr1" />-->
 </div>
@@ -86,7 +86,7 @@
 <div id="recordscontent">
     <!--style="display:inline-block;"-->
     <div id="addnew">
-        <button  type="submit"  onclick="AddChild(@HttpContext.Current.Session["RequestedViewId"]);" name="AddNewFormId" class="default record" style="width:160px !important; font-size: 1.15em;" >
+        <button  type="submit"  onclick="AddChild(@HttpContext.Current.Session["RequestedViewId"]);" name="AddNewFormId" class="default record" style="width:165px !important; font-size: 1.15em;" >
             Add New Record
         </button>
     </div>

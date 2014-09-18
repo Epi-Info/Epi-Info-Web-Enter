@@ -325,7 +325,7 @@
     <Content Include="Content\images\header_bg.png" />
     <Content Include="Content\images\header_bg2.png" />
     <Content Include="Content\images\icn_alert_error.png" />
-    <Content Include="Content\images\icn_alert_success - Copy.png" />
+    <Content Include="Content\images\icn_alert_success.png" />
     <Content Include="Content\images\icon-search-black.png" />
     <Content Include="Content\images\icons-18-black.png" />
     <Content Include="Content\images\icons-18-white.png" />
@@ -351,9 +351,12 @@
     <Content Include="Content\images\root.png" />
     <Content Include="Content\images\save.png" />
     <Content Include="Content\images\saveset.png" />
+    <Content Include="Content\images\Search-Find.png" />
     <Content Include="Content\images\secondary_bar.png" />
     <Content Include="Content\images\settings.png" />
     <Content Include="Content\images\sign_warning.png" />
+    <Content Include="Content\images\Sort-Ascending.png" />
+    <Content Include="Content\images\Sort-Descending.png" />
     <Content Include="Content\images\staging.png" />
     <Content Include="Content\images\staging1.png" />
     <Content Include="Content\images\staginglegend.png" />

@@ -166,7 +166,7 @@
 			</li>
 			<li>
            
-               <label class="accountlabel"  id="Activelabel"> @Html.CheckBoxFor(m => m.IsOrgEnabled , new { @checked = "checked" }) Organization Is Enabled.</label> 
+               <label class="accountlabel"  id="Activelabel"> @Html.CheckBoxFor(m => m.IsOrgEnabled , new { @checked = "checked" }) Organization is Enabled</label> 
                
 			</li>
 			 
@@ -215,7 +215,7 @@
              
              }
 		@*<input type="button" onclick="Cancel();" value="Cancel"  style="margin-left:20px;"/>*@
-         @Html.ActionLink("Cancel", "OrgList", "AdminOrganization", null, null)
+         @Html.ActionLink("Cancel", "OrgList", "AdminOrganization", null, new { @class = "cancelbtn" })
 
         
 		</div>

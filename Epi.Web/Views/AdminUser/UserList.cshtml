@@ -11,7 +11,7 @@
 		<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>
         <span>&nbsp;&nbsp;</span>
         }
-		@*<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>*@
+		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>
 	</div>
  <script type="text/javascript">
 
@@ -84,7 +84,7 @@
     </div>
 
     <div id="adminpaging">
-		<div style="float:left;">
+		<div >
 			
            @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, null)
     
@@ -96,7 +96,7 @@
 		</div>*@
         <div style="clear:both;"></div>
 	</div>
-   
+   <div style="clear:both;"></div>
            <div id="UserList"  >
 				@Html.Partial("PartialUserList", Model.UserList)
 			</div>
