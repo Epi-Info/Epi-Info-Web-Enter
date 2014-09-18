@@ -411,7 +411,7 @@ function SaveSettings() {
           }
 		else 
         {
-            $("#left").height(rightHeight) 
+           // $("#left").height(rightHeight) 
         }
 	});
 
@@ -438,62 +438,59 @@ function SaveSettings() {
 	<div style="clear: both;">
 	</div>
 </div>
-<div id="content" style="@*margin-bottom: 200px;*@ padding-left: 10px; min-height: 375px;">
-	<div id="leftarrangeby" style="float: left; vertical-align: middle; width: 320px;">
-		<span class="css3-metro-dropdown">
-			<select id="dropdown-2" style="width: 172px;">
-			   @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
-               @foreach(var item in Model.OrganizationList){
-				<option value="@item.OrganizationId">@item.Organization</option>
-                   }
-				
-				@*	<option value="3">Last Saved Forms First</option>*@
-			</select>
-		</span>
-        <span class="css3-metro-dropdown">
-			<select id="dropdown-1" style="width: 131px;">
-			   @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
-				<option value="1">My Forms</option>
-				<option value="2">Forms Assigned to Me</option>
-				<option value="3" selected="selected">All Forms</option>
-				@*	<option value="3">Last Saved Forms First</option>*@
-			</select>
-		</span>
-	</div>
-	<div id="rightlegend" style="float: left; font-size: 9pt; vertical-align: baseline;
-		margin-top: 8px;">
-		<div id="Div1" style="display: inline; margin-right: 30px;">
-			<img alt="" src="~/Content/images/designlegend.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			My Forms</div>
-		<div id="Div2" style="display: inline; margin-right: 30px;">
-			<img alt="" src="~/Content/images/collectlegend.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			Forms Assigned to Me</div>
-		<div id="Div4" style="display: inline; margin-right: 30px;">
-			<img alt="" src="~/Content/images/prodlegend1.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			Forms in Production</div>
-		<div id="Div3" style="display: inline;">
-			<img alt="" src="~/Content/images/staginglegend1.png" align="middle" style="width: 16px;
-				vertical-align: middle;" />
-			Forms in Staging</div>
-	</div>
-	<div style="clear: both;">
-	</div>
-	<!-- <a href="#" class="show_hide">Show/hide</a>-->
+<div id="content" style="@*margin-bottom: 200px;*@ padding-left: 10px; min-height: 375px; margin: 0 !important;">
+
 	@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
 	{
 		
 	
 		<div class="section group" id="main">
-			<div id="left" class="col span_1_of_3">
+			<div id="left" class="col span_1_of_3" style="width: 317px !important; margin:0 !important;">
+                <div id="leftarrangeby" style="float: left; vertical-align: middle; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 5px solid White; vertical-align: middle;">
+		            <span class="css3-metro-dropdown">
+			            <select id="dropdown-2" style="width: 172px;">
+			               @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
+                           @foreach(var item in Model.OrganizationList){
+				            <option value="@item.OrganizationId">@item.Organization</option>
+                               }
+				
+				            @*	<option value="3">Last Saved Forms First</option>*@
+			            </select>
+		            </span>
+                    <span class="css3-metro-dropdown">
+			            <select id="dropdown-1" style="width: 131px;">
+			               @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
+				            <option value="1">My Forms</option>
+				            <option value="2">Forms Assigned to Me</option>
+				            <option value="3" selected="selected">All Forms</option>
+				            @*	<option value="3">Last Saved Forms First</option>*@
+			            </select>
+		            </span>
+	            </div>
 				@Html.Partial("ListForms", Model.FormList)
+                <div id="rightlegend" style="font-size: 9pt; vertical-align: baseline; color:#fff; margin-top: 15px;">
+		            <div id="Div1" style="">
+			            <img alt="" src="~/Content/images/designlegend.png" align="middle" style="width: 16px;
+				            vertical-align: middle;" />
+			            My Forms</div>
+		            <div id="Div2" style="">
+			            <img alt="" src="~/Content/images/collectlegend.png" align="middle" style="width: 16px;
+				            vertical-align: middle;" />
+			            Forms Assigned to Me</div>
+		            <div id="Div4" style="">
+			            <img alt="" src="~/Content/images/prod1.png" align="middle" style="width: 16px;
+				            vertical-align: middle;" />
+			            Forms in Production</div>
+		            <div id="Div3" style="">
+			            <img alt="" src="~/Content/images/staging1.png" align="middle" style="width: 16px;
+				            vertical-align: middle;" />
+			            Forms in Staging</div>
+	            </div>
 			</div>
-			<div id="right" class="col span_1_of_3" style="background: white; min-width: 800px;">
+			<div id="right" class="col span_1_of_3" style="background: white; min-width: 800px; margin:0 !important;">
 			   @* @Html.Partial("ListResponses", Model)*@
 			</div>
-		  
+		  <div style=""clear:both"></div>
 		</div>
 	}
 	<div id="settingscontent" style="height:0;">

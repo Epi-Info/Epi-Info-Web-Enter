@@ -76,7 +76,7 @@ namespace Epi.Web.MVC.Controllers
                     Request.CurrentUser = UserId;
                     Response = _isurveyFacade.SetUserInfo(Request);
                     UserOrgModel = GetUserInfoList();
-                    UserOrgModel.Message = UserModel.FirstName + " " + UserModel.LastName + " has been Updated! ";
+                    UserOrgModel.Message = "User information for " + UserModel.FirstName + " " + UserModel.LastName + " has been updated. ";
                     }
                 else 
                     {
@@ -89,7 +89,7 @@ namespace Epi.Web.MVC.Controllers
                      Request.CurrentUser = UserId;
                      Response = _isurveyFacade.SetUserInfo(Request);
                      UserOrgModel = GetUserInfoList();
-                     UserOrgModel.Message = UserModel.FirstName + " " + UserModel.LastName + " has been added! ";
+                     UserOrgModel.Message = "User " + UserModel.FirstName + " " + UserModel.LastName + " has been added. ";
                     }
                
                

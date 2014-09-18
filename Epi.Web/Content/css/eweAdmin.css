@@ -74,18 +74,19 @@
 {
     border: 1px solid #32510f;
     padding: 10px 50px ;
-    background: url("../images/icn_alert_success.png") no-repeat 16px 8px;
+    background: url("../images/icn_alert_success.png") no-repeat 18px centeradminpaging;
     background-color: #e6ffbf;
+    background-position: 18px center;
     margin: 0 0 20px;
     font-weight: bold;
     display:block;
     clear:both;
 }
 
-.userorg { margin:10px 0 20px;}
+.userorg { float:left;}
 .userorg select {width:200px;}
 
-#adminpaging { background: #E1EEf4; padding: 5px; border:1px solid #2878ec; margin-bottom:15px;} 
+#adminpaging { float:right; margin-bottom:15px;} 
 
 .datagrid table 
 { 
@@ -125,7 +126,7 @@
 { 
     text-decoration: none; 
     display: inline-block;
-    padding: 2px 8px; 
+    padding: 5px 8px; 
     margin: 1px;
     color: #FFFFFF;
     border: 1px solid #1f3b53;
@@ -188,15 +189,21 @@ fieldset {
             border: 1px solid #7ac0da;
         }
 
-    fieldset input[type="submit"], input[type="submit"] {
+    fieldset input[type="submit"], input[type="submit"], fieldset a.cancelbtn {
         /*background-color: #d3dce0;
         border: 1px solid #787878;*/
         cursor: pointer;
         border: 1px solid #1f3b53;
         background: #5c53ac;
         font-weight: 600;
-        padding: 7px;
-         text-decoration: none; display: inline-block;  padding: 8px 14px; margin: 1px;color: #FFFFFF; 
+        text-decoration: none; display: inline-block;  padding: 8px 14px; margin: 1px;color: #FFFFFF; 
+    }
+    
+    fieldset a.cancelbtn 
+    {
+        padding:5px 14px 5px !important;
+        height:24px;
+        font-weight: 600;
     }
     
     fieldset input[type="submit"]:hover, fieldset input[type="submit"]:focus, input[type="submit"]:hover, input[type="submit"]:focus
@@ -206,15 +213,17 @@ select {
     letter-spacing: 0.02em;
     font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
     font-weight: 300;
-    /* height: 28px;*/
-    line-height: 30px;
+    font-size:1.2em;
+     height: 36px;
+    line-height: 24px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 2px;
+    padding: 5px;
+    margin: 5px 0 4px;
     min-height: 24px;
     min-width: 80px;
-   border: 1px solid #1f3b53;
+   border: 1px solid #b4b4b4;
     background-clip: padding-box;
 
 }
