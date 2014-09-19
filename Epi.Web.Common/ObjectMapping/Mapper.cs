@@ -31,17 +31,17 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 OrganizationName = pDTO.OrganizationName,
                 DepartmentName = pDTO.DepartmentName,
                 ClosingDate = pDTO.ClosingDate,
-                UserPublishKey=pDTO.UserPublishKey,
+                UserPublishKey = pDTO.UserPublishKey,
                 SurveyType = pDTO.SurveyType,
                 OrganizationKey = pDTO.OrganizationKey,
-                 IsDraftMode = pDTO.IsDraftMode,
-                 StartDate  = pDTO.StartDate,
-                 OwnerId = pDTO.OwnerId,
+                IsDraftMode = pDTO.IsDraftMode,
+                StartDate = pDTO.StartDate,
+                OwnerId = pDTO.OwnerId,
             };
         }
 
         public static FormInfoDTO ToFormInfoDTO(FormInfoBO BO)
-            {
+        {
             return new FormInfoDTO
             {
                 FormId = BO.FormId,
@@ -52,46 +52,46 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsDraftMode = BO.IsDraftMode,
                 UserId = BO.UserId,
                 IsOwner = BO.IsOwner,
-                OwnerFName =BO.OwnerFName,
+                OwnerFName = BO.OwnerFName,
                 OwnerLName = BO.OwnerLName
 
             };
-            }
+        }
 
-    
+
         public static OrganizationBO ToBusinessObject(OrganizationDTO pDTO)
         {
-            return new OrganizationBO
-            {
-                 IsEnabled = pDTO.IsEnabled,
-                 Organization = pDTO.Organization,
-                 OrganizationKey = pDTO.OrganizationKey,
-                 OrganizationId = pDTO.OrganizationId
-                 // AdminId = pDTO.AdminId,
-                  
-            };
-        }
-        public static OrganizationBO ToOrgBusinessObject(OrganizationDTO pDTO)
-            {
             return new OrganizationBO
             {
                 IsEnabled = pDTO.IsEnabled,
                 Organization = pDTO.Organization,
                 OrganizationKey = pDTO.OrganizationKey,
-                 OrganizationId =pDTO.OrganizationId
+                OrganizationId = pDTO.OrganizationId
+                // AdminId = pDTO.AdminId,
 
             };
-            }
+        }
+        public static OrganizationBO ToOrgBusinessObject(OrganizationDTO pDTO)
+        {
+            return new OrganizationBO
+            {
+                IsEnabled = pDTO.IsEnabled,
+                Organization = pDTO.Organization,
+                OrganizationKey = pDTO.OrganizationKey,
+                OrganizationId = pDTO.OrganizationId
+
+            };
+        }
         public static OrganizationDTO ToDataTransferObjects(OrganizationBO pBO)
         {
 
             return new OrganizationDTO
             {
-              //  AdminId = pBO.AdminId,
+                //  AdminId = pBO.AdminId,
                 IsEnabled = pBO.IsEnabled,
                 Organization = pBO.Organization,
                 OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(pBO.OrganizationKey),
-                OrganizationId =pBO.OrganizationId
+                OrganizationId = pBO.OrganizationId
 
             };
 
@@ -126,14 +126,14 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 ExitText = pBO.ExitText,
                 OrganizationName = pBO.OrganizationName,
                 DepartmentName = pBO.DepartmentName,
-                SurveyType =pBO.SurveyType,
+                SurveyType = pBO.SurveyType,
                 ClosingDate = pBO.ClosingDate,
                 IsDraftMode = pBO.IsDraftMode,
                 StartDate = pBO.StartDate,
-                
+
                 UserPublishKey = pBO.UserPublishKey
 
-               
+
 
             };
         }
@@ -155,26 +155,27 @@ namespace Epi.Web.Enter.Common.ObjectMapping
         /// <returns>A SurveyInfoDTO.</returns>
         public static SurveyAnswerDTO ToDataTransferObject(SurveyResponseBO pBO)
         {
-        SurveyAnswerDTO SurveyAnswerDTO = new SurveyAnswerDTO();
-           
-                SurveyAnswerDTO.SurveyId = pBO.SurveyId;
-                SurveyAnswerDTO.ResponseId = pBO.ResponseId;
-                SurveyAnswerDTO.DateUpdated = pBO.DateUpdated;
-                SurveyAnswerDTO.XML = pBO.XML;
-                SurveyAnswerDTO.DateCompleted = pBO.DateCompleted;
-                SurveyAnswerDTO. DateCreated = pBO.DateCreated; 
-                SurveyAnswerDTO.Status = pBO.Status;
-                SurveyAnswerDTO.IsDraftMode = pBO.IsDraftMode;
-                SurveyAnswerDTO.IsLocked = pBO.IsLocked;
-                SurveyAnswerDTO.ParentRecordId =pBO.ParentRecordId;
-                SurveyAnswerDTO.UserEmail = pBO.UserEmail;
-                SurveyAnswerDTO.ViewId = pBO.ViewId;
-                SurveyAnswerDTO.RelateParentId = pBO.RelateParentId;
-                if (pBO.ResponseHierarchyIds != null)
-                    {
-                      SurveyAnswerDTO.ResponseHierarchyIds = ToDataTransferObject(pBO.ResponseHierarchyIds);
-                    }
-          return SurveyAnswerDTO;
+            SurveyAnswerDTO SurveyAnswerDTO = new SurveyAnswerDTO();
+
+            SurveyAnswerDTO.SurveyId = pBO.SurveyId;
+            SurveyAnswerDTO.ResponseId = pBO.ResponseId;
+            SurveyAnswerDTO.DateUpdated = pBO.DateUpdated;
+            SurveyAnswerDTO.XML = pBO.XML;
+            SurveyAnswerDTO.DateCompleted = pBO.DateCompleted;
+            SurveyAnswerDTO.DateCreated = pBO.DateCreated;
+            SurveyAnswerDTO.Status = pBO.Status;
+            SurveyAnswerDTO.IsDraftMode = pBO.IsDraftMode;
+            SurveyAnswerDTO.IsLocked = pBO.IsLocked;
+            SurveyAnswerDTO.ParentRecordId = pBO.ParentRecordId;
+            SurveyAnswerDTO.UserEmail = pBO.UserEmail;
+            SurveyAnswerDTO.ViewId = pBO.ViewId;
+            SurveyAnswerDTO.RelateParentId = pBO.RelateParentId;
+            SurveyAnswerDTO.SqlData = pBO.SqlData;
+            if (pBO.ResponseHierarchyIds != null)
+            {
+                SurveyAnswerDTO.ResponseHierarchyIds = ToDataTransferObject(pBO.ResponseHierarchyIds);
+            }
+            return SurveyAnswerDTO;
         }
         public static List<SurveyAnswerDTO> ToDataTransferObject(List<SurveyResponseBO> pSurveyResposneList)
         {
@@ -192,7 +193,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
         /// </summary>
         /// <param name="SurveyInfo">A SurveyResponseDTO business object.</param>
         /// /// <returns>A SurveyResponseBO.</returns>
-        public static SurveyResponseBO ToBusinessObject(SurveyAnswerDTO pDTO,int UserId = 0)
+        public static SurveyResponseBO ToBusinessObject(SurveyAnswerDTO pDTO, int UserId = 0)
         {
             return new SurveyResponseBO
             {
@@ -205,8 +206,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 Status = pDTO.Status,
                 IsDraftMode = pDTO.IsDraftMode,
                 UserId = UserId,
-                ParentRecordId=pDTO.ParentRecordId
-                
+                ParentRecordId = pDTO.ParentRecordId
+
             };
         }
 
@@ -233,7 +234,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsPulished = pBO.IsPulished,
                 StatusText = pBO.StatusText,
                 URL = pBO.URL,
-                ViewIdAndFormIdList =pBO.ViewIdAndFormIdList
+                ViewIdAndFormIdList = pBO.ViewIdAndFormIdList
             };
         }
 
@@ -247,7 +248,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             };
         }
 
-        public static UserBO ToUserBO(UserDTO User) 
+        public static UserBO ToUserBO(UserDTO User)
         {
             return new UserBO
             {
@@ -274,8 +275,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 PassCode = AuthenticationRequestBO.PassCode,
 
             };
-        
-        
+
+
         }
         /// <summary>
         /// Transforms list of SurveyInfoBO BOs list of category DTOs.
@@ -289,55 +290,54 @@ namespace Epi.Web.Enter.Common.ObjectMapping
         }
 
         public static AdminDTO ToAdminDTO(AdminBO AdminBO)
-            
-            {
+        {
 
-           
+
 
             return new AdminDTO
             {
-                 
-                 AdminEmail = AdminBO.AdminEmail,
-                 IsActive = AdminBO.IsActive,
-                 OrganizationId = AdminBO.OrganizationId
+
+                AdminEmail = AdminBO.AdminEmail,
+                IsActive = AdminBO.IsActive,
+                OrganizationId = AdminBO.OrganizationId
 
             };
-            
-            }
+
+        }
 
         public static FormSettingDTO ToDataTransferObject(FormSettingBO pBO)
-            {
+        {
             return new FormSettingDTO
             {
                 ColumnNameList = pBO.ColumnNameList,
                 FormControlNameList = pBO.FormControlNameList,
                 AssignedUserList = pBO.AssignedUserList,
                 UserList = pBO.UserList
-                  
 
             };
-            }
+        }
 
 
 
         public static UserDTO ToUserDTO(UserBO result)
         {
-            return new UserDTO() {
-            UserId = result.UserId,
-            UserName = result.UserName,
-            FirstName = result.FirstName,
-            LastName = result.LastName,
-            PasswordHash = result.PasswordHash,
-            PhoneNumber = result.PhoneNumber,
-            ResetPassword = result.ResetPassword,
-            Role = result.Role,
-            Operation = Constant.OperationMode.NoChange,
-            EmailAddress = result.EmailAddress,
-            IsActive = result.IsActive
+            return new UserDTO()
+            {
+                UserId = result.UserId,
+                UserName = result.UserName,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                PasswordHash = result.PasswordHash,
+                PhoneNumber = result.PhoneNumber,
+                ResetPassword = result.ResetPassword,
+                Role = result.Role,
+                Operation = Constant.OperationMode.NoChange,
+                EmailAddress = result.EmailAddress,
+                IsActive = result.IsActive
             };
         }
         public static UserDTO ToDataTransferObject(UserBO result)
-            {
+        {
             return new UserDTO()
             {
                 UserId = result.UserId,
@@ -349,29 +349,29 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsActive = result.IsActive,
                 EmailAddress = result.EmailAddress
             };
-            }
+        }
         public static List<FormsHierarchyDTO> ToFormHierarchyDTO(List<FormsHierarchyBO> AllChildIDsList)
-            {
+        {
             List<FormsHierarchyDTO> result = new List<FormsHierarchyDTO>();
             foreach (FormsHierarchyBO Obj in AllChildIDsList)
-               {
-               FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
-               FormsHierarchyDTO.FormId = Obj.FormId;
-               FormsHierarchyDTO.ViewId = Obj.ViewId;
-               if (Obj.ResponseIds!= null)
-                   {
-               FormsHierarchyDTO.ResponseIds = ToSurveyAnswerDTO(Obj.ResponseIds);
-                    }
-               result.Add(FormsHierarchyDTO);
-               }
-            return result;
+            {
+                FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
+                FormsHierarchyDTO.FormId = Obj.FormId;
+                FormsHierarchyDTO.ViewId = Obj.ViewId;
+                if (Obj.ResponseIds != null)
+                {
+                    FormsHierarchyDTO.ResponseIds = ToSurveyAnswerDTO(Obj.ResponseIds);
+                }
+                result.Add(FormsHierarchyDTO);
             }
+            return result;
+        }
 
         private static List<SurveyAnswerDTO> ToSurveyAnswerDTO(List<SurveyResponseBO> list)
-            {
+        {
             List<SurveyAnswerDTO> ModelList = new List<SurveyAnswerDTO>();
             foreach (var Obj in list)
-                {
+            {
                 SurveyAnswerDTO SurveyAnswerModel = new SurveyAnswerDTO();
                 SurveyAnswerModel.ResponseId = Obj.ResponseId;
                 SurveyAnswerModel.SurveyId = Obj.SurveyId;
@@ -382,11 +382,11 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 SurveyAnswerModel.ParentRecordId = Obj.ParentRecordId;
                 SurveyAnswerModel.RelateParentId = Obj.RelateParentId;
                 ModelList.Add(SurveyAnswerModel);
-                }
-            return ModelList;
             }
+            return ModelList;
+        }
 
-    
-        
+
+
     }
 }

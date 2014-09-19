@@ -10,7 +10,7 @@ namespace Epi.Web.Enter.Common.DTO
     public class SurveyAnswerDTO
     {
         [DataMember]
-        public string ResponseId{ get; set; }
+        public string ResponseId { get; set; }
         [DataMember]
         public string SurveyId { get; set; }
         [DataMember]
@@ -28,20 +28,22 @@ namespace Epi.Web.Enter.Common.DTO
 
         [DataMember]
         public bool IsDraftMode { get; set; }
-         [DataMember]
+        [DataMember]
         public bool IsLocked { get; set; }
         [DataMember]
-         public string ParentRecordId { get; set; }
+        public string ParentRecordId { get; set; }
         [DataMember]
         public string UserEmail { get; set; }
-         [DataMember]
+        [DataMember]
         public string RelateParentId { get; set; }
 
-         [DataMember]
-         public List<SurveyAnswerDTO> ResponseHierarchyIds { get; set; }
+        [DataMember]
+        public List<SurveyAnswerDTO> ResponseHierarchyIds { get; set; }
 
+        [DataMember]
+        public Dictionary<string, string> SqlData { get; set; }
 
-         [DataMember]
-         public int ViewId { get; set; }
+        [DataMember]
+        public int ViewId { get; set; }
     }
 }
