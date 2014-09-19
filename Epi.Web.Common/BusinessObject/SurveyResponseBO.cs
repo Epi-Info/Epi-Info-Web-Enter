@@ -34,6 +34,8 @@ namespace Epi.Web.Enter.Common.BusinessObject
         public List<SurveyResponseBO> ResponseHierarchyIds { get; set; }
         public int ViewId { get; set; }
 
+        public Dictionary<string, string> SqlData { get; set; }
+
         public object Clone() 
             {
 
