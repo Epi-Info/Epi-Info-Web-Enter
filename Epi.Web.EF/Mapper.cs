@@ -437,8 +437,8 @@ namespace Epi.Web.EF
             UserEntity.LastName = User.LastName;
             UserEntity.FirstName = User.FirstName;
             UserEntity.PhoneNumber = User.PhoneNumber;
-            UserEntity.ResetPassword = false;
-            UserEntity.PasswordHash = "PassWord1";
+            UserEntity.ResetPassword = User.ResetPassword;
+            UserEntity.PasswordHash = User.PasswordHash;
 
             return UserEntity;
             }

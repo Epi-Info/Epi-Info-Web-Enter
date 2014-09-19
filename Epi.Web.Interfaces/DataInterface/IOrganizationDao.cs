@@ -76,7 +76,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
         /// Updates a Organization.
         /// </summary>
         /// <param name="Organization">Organization.</param>
-        void UpdateOrganization(OrganizationBO Organization);
+        bool UpdateOrganization(OrganizationBO Organization);
 
         /// <summary>
         /// Deletes a Organization
@@ -85,10 +85,10 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          void DeleteOrganization(OrganizationBO Organization);
 
 
-         List<OrganizationBO> GetOrganizationInfoByUserId(int UserId);
-         void InsertOrganization(OrganizationBO Organization,UserBO User);
+         List<OrganizationBO> GetOrganizationInfoByUserId(int UserId, int UserRole);
+         bool InsertOrganization(OrganizationBO Organization,UserBO User);
          UserBO GetUserByEmail(UserBO User);
-         void InsertOrganization(OrganizationBO Organization, int UserId,int RoleId);
+         bool InsertOrganization(OrganizationBO Organization, int UserId,int RoleId);
          
 
          OrganizationBO GetOrganizationByOrgId(int OrganizationId);

@@ -128,7 +128,7 @@ namespace Epi.Web.MVC.Controllers
          
           OrganizationRequest Request = new OrganizationRequest();
           Request.UserId = UserId;
-
+          Request.UserRole = 2;
           OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
           List<OrganizationModel> OrgListModel = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
           UserOrgModel.OrgList = OrgListModel;
