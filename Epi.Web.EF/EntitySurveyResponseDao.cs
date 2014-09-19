@@ -1330,6 +1330,15 @@ namespace Epi.Web.EF
 
                 Context.ResponseXmls.DeleteObject(Response);
 
+
+                //Update Status
+                var Query = from response in Context.SurveyResponses
+                            where response.ResponseId == Id
+                            select response;
+
+                var DataRow = Query.Single();
+                DataRow.StatusId = 2;
+
                 Context.SaveChanges();
 
             }
@@ -1344,13 +1353,20 @@ namespace Epi.Web.EF
 
             try
             {
+            Guid Id = new Guid(ResponseXmlBO.ResponseId);
+
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     ResponseXml ResponseXml = Mapper.ToEF(ResponseXmlBO);
-
-
                     Context.AddToResponseXmls(ResponseXml);
 
+                    //Update Status
+                    var Query = from response in Context.SurveyResponses
+                                where response.ResponseId == Id
+                                select response;
+
+                    var DataRow = Query.Single();
+                    DataRow.StatusId = 1;
                     Context.SaveChanges();
                 }
             }

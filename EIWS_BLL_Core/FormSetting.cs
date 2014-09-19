@@ -50,7 +50,7 @@ namespace Epi.Web.BLL
             int Count = 0;
             foreach (var _FieldTypeID in _FieldsTypeIDs)
                 {
-                if (!Selected.ContainsValue(_FieldTypeID.Attribute("Name").Value.ToString()) && _FieldTypeID.Attribute("FieldTypeId").Value != "2" && _FieldTypeID.Attribute("FieldTypeId").Value != "21")
+                if (!Selected.ContainsValue(_FieldTypeID.Attribute("Name").Value.ToString()) && _FieldTypeID.Attribute("FieldTypeId").Value != "2" && _FieldTypeID.Attribute("FieldTypeId").Value != "21" && _FieldTypeID.Attribute("FieldTypeId").Value != "3")
                     {
                     List.Add(Count, _FieldTypeID.Attribute("Name").Value.ToString());
                     Count++;
