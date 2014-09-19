@@ -117,6 +117,66 @@
             }
 
         });
+
+        //Sort by Logic for ASC and DESC button clicks
+
+        $(document).on("click", "button[id='SortASC']", function (e) {
+            e.preventDefault();
+            $("#right").show();
+            var formid = $('#hidFormId').val();
+            var pageNumber = $('#hidPageNumber').val();
+            var Sort = 'ASC';
+            var SortField = $("#columns").val(); // 'PetsName';
+
+            $.ajax({
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc,
+                error: errorFunc
+            });
+            $.ajaxSetup({ cache: false });
+
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+
+        });
+
+        $(document).on("click", "button[id='SortDESC']", function (e) {
+            e.preventDefault();
+            $("#right").show();
+            var formid = $('#hidFormId').val();
+            var pageNumber = $('#hidPageNumber').val();
+            var Sort = 'DESC';
+            var SortField = $("#columns").val(); // 'PetsName';
+
+            $.ajax({
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc,
+                error: errorFunc
+            });
+            $.ajaxSetup({ cache: false });
+
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+
+        });
+
+
         /////////////////////
 
 
@@ -130,7 +190,6 @@
         });
 
         function ReadResponses(formid, pagenumber) {
-            //alert('2');
             $.ajax({
                 url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber,
                 type: 'GET',
