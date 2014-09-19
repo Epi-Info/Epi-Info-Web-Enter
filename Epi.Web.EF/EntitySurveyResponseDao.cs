@@ -710,12 +710,46 @@ namespace Epi.Web.EF
         }
 
 
-        public List<SurveyResponseBO> GetFormResponseByFormId(string FormId, int PageNumber, int PageSize)
+        List<SurveyResponseBO> ISurveyResponseDao.GetFormResponseByFormId(string FormId, int PageNumber, int PageSize)
+        {
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+            try
+            {
+
+                Guid Id = new Guid(FormId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
+
+                    SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
+
+
+                    foreach (SurveyResponse Response in SurveyResponseList)
+                    {
+
+                        result.Add(Mapper.Map(Response, Response.Users.First()));
+
+                    }
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return result;
+        }
+
+        List<SurveyResponseBO> ISurveyResponseDao.GetFormResponseByFormId(SurveyAnswerCriteria criteria)
         {
 
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
-            IsSqlProject = IsEISQLProject(FormId);//Checks to see if current form is SqlProject
+            IsSqlProject = IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
 
             if (IsSqlProject)
             {
@@ -724,11 +758,11 @@ namespace Epi.Web.EF
                 //do a read from ResponseDisplaySettings to read the column names. if for a given survey they dont exist 
                 //read the first 5 columns from EI7 sql server database.
 
-                string EI7ConnectionString = ReadConnectionString(FormId);
+                string EI7ConnectionString = ReadConnectionString(criteria.SurveyId);
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
 
-                string EI7Query = BuildEI7Query(FormId);
+                string EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield);
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
@@ -771,7 +805,7 @@ namespace Epi.Web.EF
 
                 SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
 
-                result = result.Skip((PageNumber - 1) * PageSize).Take(PageSize).ToList();
+                result = result.Skip((criteria.PageNumber - 1) * criteria.PageSize).Take(criteria.PageSize).ToList();
                 //SurveyResponseBO.SqlResponseDataBO.SqlData = DataRows;
             }
             else
@@ -781,14 +815,14 @@ namespace Epi.Web.EF
                 try
                 {
 
-                    Guid Id = new Guid(FormId);
+                    Guid Id = new Guid(criteria.SurveyId);
 
                     using (var Context = DataObjectFactory.CreateContext())
                     {
 
                         IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
 
-                        SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
+                        SurveyResponseList = SurveyResponseList.Skip((criteria.PageNumber - 1) * criteria.PageSize).Take(criteria.PageSize);
 
 
                         foreach (SurveyResponse Response in SurveyResponseList)
@@ -818,7 +852,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string BuildEI7Query(string FormId)
+        private string BuildEI7Query(string FormId, string SortOrder, string Sortfield)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.ConnectionString);
             EweConnection.Open();
@@ -853,24 +887,33 @@ namespace Epi.Web.EF
 
             StringBuilder stringBuilder = new StringBuilder();
             StringBuilder tableNameBuilder = new StringBuilder();
-            stringBuilder.Append("Select " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
+            stringBuilder.Append("SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
 
             StringBuilder sortBuilder = new StringBuilder(" ORDER BY ");
+            if (Sortfield != null && SortOrder != null)
+            {
+                sortBuilder.Append(Sortfield + " " + SortOrder);
+            }
+            else
+            {
+                sortBuilder.Append(EweDS.Tables[0].Rows[0][1] + "." + EweDS.Tables[0].Rows[0][0]);
+            }
 
+            // Builds the select part of the query.
             foreach (DataRow row in EweDS.Tables[0].Rows)
             {
                 stringBuilder.Append(row[1] + "." + row[0] + ", ");
 
-                sortBuilder.Append(row[1] + "." + row[0] + ", ");
             }
             stringBuilder.Remove(stringBuilder.Length - 2, 1);
-            sortBuilder.Remove(sortBuilder.Length - 2, 1);
-            stringBuilder.Append("from ");
 
+            stringBuilder.Append(" FROM ");
+            //Following code gives distinct data values.
             DataView view = new DataView(EweDS.Tables[0]);
             DataTable TableNames = view.ToTable(true, "TableName");
 
             stringBuilder.Append(TableNames.Rows[0][0]);
+            //Builds the JOIN part of the query.
             for (int i = 0; i < TableNames.Rows.Count - 1; i++)
             {
                 if (i + 1 < TableNames.Rows.Count)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Epi.Web.Enter.Common.BusinessObject;
+using Epi.Web.Enter.Common.Criteria;
 
 namespace Epi.Web.Enter.Interfaces.DataInterfaces
 {
@@ -93,12 +94,13 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          UserAuthenticationResponseBO GetAuthenticationResponse(UserAuthenticationRequestBO passcodeBO);
 
          List<SurveyResponseBO> GetFormResponseByFormId(string FormId,int PageNumber, int PageSize);
+         List<SurveyResponseBO> GetFormResponseByFormId(SurveyAnswerCriteria criteria);
          int GetFormResponseCount(string FormId);
          string GetResponseParentId(string ResponseId);
          SurveyResponseBO GetSingleResponse(string ResponseId);
 
          List<SurveyResponseBO> GetResponsesHierarchyIdsByRootId(string RootId);
-         void DeleteSingleSurveyResponse(SurveyResponseBO SurveyResponse);
+         void DeleteSingleSurveyResponse(SurveyResponseBO SurveyResponse); 
          SurveyResponseBO GetFormResponseByParentRecordId(string ResponseId);
          List<SurveyResponseBO> GetAncestorResponseIdsByChildId(string ChildId);
 
