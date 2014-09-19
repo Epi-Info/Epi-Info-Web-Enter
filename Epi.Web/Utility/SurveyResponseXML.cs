@@ -152,12 +152,21 @@ namespace Epi.Web.MVC.Utility
                                        select _FieldTypeID;
 
                   this.PageFields = _FieldsTypeIDs;
+                  string  PageId;
+                  if (this.PageFields.Count() > 0)
+                      {
+                      PageId = this.PageFields.First().Attribute("PageId").Value;
+                      }
+                  else {
+                  PageId = "";
+                      }
 
-                  XDocument CurrentPageXml = ToXDocument(GetResponseXml("", false, i, ""));
+                  XDocument CurrentPageXml = ToXDocument(GetResponseXml("", false, i, PageId));
 
                   if (i == 0)
                       {
-                      XmlResponse = ToXDocument(GetResponseXml("", true, i, ""));
+                      XmlResponse = ToXDocument(GetResponseXml("", true, i, PageId));
+                      
                       }
                   else
                       {
