@@ -26,6 +26,7 @@ namespace Epi.Web.MVC.Controllers
             {
             UserOrgModel UserOrgModel = GetUserInfoList();
             UserOrgModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
+            Session["CurrentOrgId"] = UserOrgModel.OrgList[0].OrganizationId;
             return View("UserList", UserOrgModel);
             }
 
@@ -35,7 +36,7 @@ namespace Epi.Web.MVC.Controllers
             {
             UserModel UserModel = new UserModel();
             UserRequest Request = new UserRequest();
-            Session["CurrentOrgId"]  = orgid;
+           orgid =int.Parse( Session["CurrentOrgId"].ToString() )  ;
             if (iseditmode)
                 {
 
