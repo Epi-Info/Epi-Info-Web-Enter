@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 using System;
-using Epi.Web.Enter.Common.Security; 
+using Epi.Web.Enter.Common.Security;
 
 namespace Epi.Web.EF
 {
@@ -24,10 +24,10 @@ namespace Epi.Web.EF
                 //Decrypt connection string here
                 _connectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString);
             }
-            catch (Exception ex) 
-                {
-                    throw (ex);
-                }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
         }
 
         /// <summary>
@@ -49,6 +49,20 @@ namespace Epi.Web.EF
         public static Epi.Web.EF.SurveyResponse CreateSurveyResponse()
         {
             return new Epi.Web.EF.SurveyResponse();
+        }
+
+        /// <summary>
+        /// Property to read connection string without meta information
+        /// </summary>
+        public static string ConnectionString
+        {
+            get
+            {
+                string connstr = _connectionString.Substring(_connectionString.IndexOf("connection string"));
+                connstr = connstr.Replace("connection string=", "");
+                connstr = connstr.Replace("\"", "");
+                return connstr;
+            }
         }
     }
 }
