@@ -26,9 +26,9 @@ namespace Epi.Web.MVC.Models
 
 
 
-    [Required(ErrorMessage = "Confirm email is required.")]
-    [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email address.")]
-    [Compare("AdminEmail", ErrorMessage = "The email and confirmation do not match.")]
+    //[Required(ErrorMessage = "Confirm email is required.")]
+    //[RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email address.")]
+    //[Compare("AdminEmail", ErrorMessage = "The email and confirmation do not match.")]
     public string ConfirmEmail { get;set; }
 
 
