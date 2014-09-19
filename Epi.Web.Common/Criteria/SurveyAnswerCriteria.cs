@@ -84,5 +84,11 @@ namespace Epi.Web.Enter.Common.Criteria
        public int UserId { get; set; }
        [DataMember]
        public bool IsEditMode { get; set; }
+
+       [DataMember]
+       public string SortOrder { get; set; }
+
+       [DataMember]
+       public string Sortfield { get; set; }
     }
 }
