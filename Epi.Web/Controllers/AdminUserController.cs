@@ -64,36 +64,40 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             try
                 {
-                 
-                if (UserModel.IsEditMode)
+                if (ModelState.IsValid)
                     {
-                    Request.Action = "UpDate";
-                   
-                    Request.User = Mapper.ToUserDTO(UserModel);
-                  
-                             Request.CurrentOrg = int.Parse(Session["CurrentOrgId"].ToString()); 
-                    
-                    Request.CurrentUser = UserId;
-                    Response = _isurveyFacade.SetUserInfo(Request);
-                    UserOrgModel = GetUserInfoList();
-                    UserOrgModel.Message = "User information for " + UserModel.FirstName + " " + UserModel.LastName + " has been updated. ";
+                    if (UserModel.IsEditMode)
+                        {
+                        Request.Action = "UpDate";
+
+                        Request.User = Mapper.ToUserDTO(UserModel);
+
+                        Request.CurrentOrg = int.Parse(Session["CurrentOrgId"].ToString());
+
+                        Request.CurrentUser = UserId;
+                        Response = _isurveyFacade.SetUserInfo(Request);
+                        UserOrgModel = GetUserInfoList();
+                        UserOrgModel.Message = "User information for " + UserModel.FirstName + " " + UserModel.LastName + " has been updated. ";
+                        }
+                    else
+                        {
+                        Request.Action = "";
+                        Request.User = Mapper.ToUserDTO(UserModel);
+
+                        Request.CurrentOrg = int.Parse(Session["CurrentOrgId"].ToString());
+
+
+                        Request.CurrentUser = UserId;
+                        Response = _isurveyFacade.SetUserInfo(Request);
+                        UserOrgModel = GetUserInfoList();
+                        UserOrgModel.Message = "User " + UserModel.FirstName + " " + UserModel.LastName + " has been added. ";
+                        }
+
+
                     }
-                else 
-                    {
-                    Request.Action = "";
-                     Request.User = Mapper.ToUserDTO(UserModel);
-                     
-                         Request.CurrentOrg = int.Parse(Session["CurrentOrgId"].ToString());
-                       
-                        
-                     Request.CurrentUser = UserId;
-                     Response = _isurveyFacade.SetUserInfo(Request);
-                     UserOrgModel = GetUserInfoList();
-                     UserOrgModel.Message = "User " + UserModel.FirstName + " " + UserModel.LastName + " has been added. ";
+                else {
+                        return View("UserInfo", UserModel);
                     }
-               
-               
-                
                 }
              catch(Exception ex)
                 {
