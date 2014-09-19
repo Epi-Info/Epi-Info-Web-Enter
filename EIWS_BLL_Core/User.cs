@@ -107,6 +107,15 @@ namespace Epi.Web.BLL
 
                 case Constant.OperationMode.UpdateUserInfo:
                     success = UserDao.UpdateUserInfo(User, OrgBO);
+                    if (success)
+                        {
+                        List<string> EmailList = new List<string>();
+                        EmailList.Add(User.UserName);
+                        Email email = new Email();
+                          success = SendEmail(email, Constant.EmailCombinationEnum.UpdateUserInfo);
+                  
+
+                        }
                       return success;
                     
                 default:
@@ -133,6 +142,10 @@ namespace Epi.Web.BLL
                 case Constant.EmailCombinationEnum.UpdateUserInfo:
                     email.Subject = "Your Epi Web Enter Account info has been updated";
                     email.Body = " You account info has been updated in Epi Web Enter system.";
+                    break;
+                case Constant.EmailCombinationEnum.InsertUser:
+                    email.Subject = "Epi Web Enter account.";
+                
                     break;
                 default:
                     break;
@@ -171,11 +184,25 @@ namespace Epi.Web.BLL
             }
         public bool SetUserInfo(UserBO UserBO, OrganizationBO OrgBO)
             {
-            bool UserResponse;
+            bool success;
+             string KeyForUserPasswordSalt = ReadSalt();
+                    PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+                    string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
+                    UserBO.ResetPassword = true;
+                    UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
+            success = UserDao.InsertUser(UserBO, OrgBO);
+            if (success)
+                {
+                
+                List<string> EmailList = new List<string>();
+                EmailList.Add(UserBO.UserName);
+                Email email = new Email();
+                email.Body = "Your account has now been created for" + OrgBO.Organization + "/n" + "Please click the link below to launch Epi Web Enter." + "/n" + ConfigurationManager.AppSettings["BaseURL"] + "/nThank you"; 
+                success = SendEmail(email, Constant.EmailCombinationEnum.InsertUser);
 
-            UserResponse = UserDao.InsertUser(UserBO, OrgBO);
 
-            return UserResponse;
+                }
+            return success;
             }
     }
 }
