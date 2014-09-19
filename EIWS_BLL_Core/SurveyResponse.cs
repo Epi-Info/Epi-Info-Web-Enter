@@ -5,6 +5,7 @@ using System.Text;
 using Epi.Web.Enter.Common.BusinessObject;
 using System.Configuration;
 using Epi.Web.Enter.Common.Extension;
+using Epi.Web.Enter.Common.Criteria;
 namespace Epi.Web.BLL
 {
     public class SurveyResponse
@@ -36,6 +37,23 @@ namespace Epi.Web.BLL
                 PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]);
             }
             result = this.SurveyResponseDao.GetFormResponseByFormId(FormId, PageNumber, PageSize);
+            return result;
+        }
+
+        public List<SurveyResponseBO> GetFormResponseListById(SurveyAnswerCriteria criteria)
+        {
+            List<SurveyResponseBO> result = null;
+
+            //int PageSize;
+            if (criteria.IsMobile)
+            {
+                criteria.PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE_Mobile"]);
+            }
+            else
+            {
+                criteria.PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]);
+            }
+            result = this.SurveyResponseDao.GetFormResponseByFormId(criteria);
             return result;
         }
         public int GetNumberOfPages(string FormId, bool IsMobile)
