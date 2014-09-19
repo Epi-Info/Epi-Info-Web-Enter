@@ -294,6 +294,27 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield)//List<FormInfoModel> ModelList, string formid)
+        {
+            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
+
+            var model = new FormResponseInfoModel();
+
+
+            model = GetFormResponseInfoModel(formid, page, sort, sortfield);
+
+            if (IsMobileDevice == false)
+            {
+                return PartialView("ListResponses", model);
+            }
+            else
+            {
+                return View("ListResponses", model);
+            }
+        }
+
 
 
         /// <summary>
@@ -370,7 +391,7 @@ namespace Epi.Web.MVC.Controllers
         }
 
 
-        public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber)
+        public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber, string sort = "", string sortfield = "")
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
@@ -396,7 +417,23 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
                 FormResponseReq.Criteria.PageNumber = PageNumber;
                 FormResponseReq.Criteria.UserId = UserId;
+                if (sort.Length > 0)
+                {
+                    FormResponseReq.Criteria.SortOrder = sort;
+                }
+                if (sortfield.Length > 0)
+                {
+                    FormResponseReq.Criteria.Sortfield = sortfield;
+                }
+
+
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
+
+                if (sortfield.Length > 0)
+                {
+                  SortColumnList(sortfield, FormResponseInfoModel);  
+                }
+                
 
                 //var ResponseTableList ; //= FormSettingResponse.FormSetting.DataRows;
                 //Setting Resposes List
@@ -411,7 +448,7 @@ namespace Epi.Web.MVC.Controllers
                     {
                         ResponseList.Add(SurveyResponseXML.ConvertXMLToModel(item, Columns));
                     }
-                    
+
                 }
 
 
@@ -431,6 +468,21 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.CurrentPage = PageNumber;
             }
             return FormResponseInfoModel;
+        }
+
+        private void SortColumnList(string sortfield, FormResponseInfoModel FormResponseInfoModel)
+        {
+            KeyValuePair<int, string> Column = Columns.Single(col => col.Value == sortfield);
+
+            Columns.Remove(Columns.Single(c => c.Key == Column.Key));
+
+            KeyValuePair<int, string> Column1 = new KeyValuePair<int, string>(0, Column.Value);
+
+            Columns.Add(Column1);
+
+            Columns.Sort(Compare);
+
+            FormResponseInfoModel.Columns = Columns;
         }
 
         private ResponseModel ConvertRowToModel(SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
@@ -460,7 +512,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 Response.Column5 = item.SqlData[Columns[4].Value];
             }
-            
+
             //Response.Column2 = item.SqlData[Columns[2].Value];
             //Response.Column3 = item.SqlData[Columns[3].Value];
             //Response.Column4 = item.SqlData[Columns[4].Value];

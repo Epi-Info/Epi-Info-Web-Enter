@@ -41,10 +41,18 @@ namespace Epi.Web.MVC
             //); // Parameter defaults
 
             routes.MapRoute
+          (
+              null, // Route name
+              "Home/ReadSortedResponseInfo", ///{formid}/{page}/{sort}/{sortfield} URL with parameters
+              new { controller = "Home", action = "ReadSortedResponseInfo", formid = UrlParameter.Optional, page = UrlParameter.Optional, sort = UrlParameter.Optional, sortfield = UrlParameter.Optional }
+          ); // Parameter defaults
+
+
+            routes.MapRoute
            (
                null, // Route name
                "Home/ReadResponseInfo", // URL with parameters
-               new { controller = "Home", action = "ReadResponseInfo"}
+               new { controller = "Home", action = "ReadResponseInfo" }
            ); // Parameter defaults
          
            
