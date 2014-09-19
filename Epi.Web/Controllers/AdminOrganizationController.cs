@@ -28,6 +28,7 @@ namespace Epi.Web.MVC.Controllers
               int UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
         OrganizationRequest Request = new OrganizationRequest();
         Request.UserId = UserId;
+        Request.UserRole = UserHighestRole;
         OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
 
         List<OrganizationModel> Model  = Mapper.ToOrganizationModelList(Organizations.OrganizationList);

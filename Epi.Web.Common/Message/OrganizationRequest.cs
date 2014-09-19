@@ -26,6 +26,8 @@ namespace Epi.Web.Enter.Common.Message
         [DataMember]
         public int UserId;
         [DataMember]
+        public int UserRole;
+        [DataMember]
         public string Action;
         [DataMember]
         public UserDTO OrganizationAdminInfo;

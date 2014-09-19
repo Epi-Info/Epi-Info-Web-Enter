@@ -1037,7 +1037,7 @@ namespace Epi.Web.WCF.SurveyService
                 if (!ValidRequest(request, response, Validate.All))
                     return response;
 
-                List<OrganizationBO> ListOrganizationBO = Implementation.GetOrganizationInfoByUserId(request.UserId);
+                List<OrganizationBO> ListOrganizationBO = Implementation.GetOrganizationInfoByUserId(request.UserId,request.UserRole);
                 response.OrganizationList = new List<OrganizationDTO>();
                 foreach (OrganizationBO Item in ListOrganizationBO)
                     {

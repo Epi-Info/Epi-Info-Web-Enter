@@ -65,6 +65,7 @@ namespace Epi.Web.MVC.Controllers
                 // Get OrganizationList
                 OrganizationRequest Request = new OrganizationRequest();
                 Request.UserId = UserId;
+                Request.UserRole = FormModel.UserHighestRole;
                 OrganizationResponse Organizations = _isurveyFacade.GetUserOrganizations(Request);
 
                 FormModel.OrganizationList = Mapper.ToOrganizationModelList(Organizations.OrganizationList);

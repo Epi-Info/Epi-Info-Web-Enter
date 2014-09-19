@@ -196,7 +196,7 @@ namespace Epi.Web.EF
         /// Following insert, Organization object will contain the new identifier.
         /// </remarks>  
         /// <param name="Organization">Organization.</param>
-        public void InsertOrganization(OrganizationBO Organization,UserBO User)
+        public bool InsertOrganization(OrganizationBO Organization,UserBO User)
             {
             try
                 {
@@ -208,6 +208,7 @@ namespace Epi.Web.EF
                       Context.AddToUserOrganizations(UserOrganizationEntity);
 
                       Context.SaveChanges();
+                      return true;
                       }
 
                 }
@@ -217,7 +218,7 @@ namespace Epi.Web.EF
                 }
 
             }
-        public void InsertOrganization(OrganizationBO Organization, int UserId,int RoleId)
+        public bool InsertOrganization(OrganizationBO Organization, int UserId,int RoleId)
             {
             try
                 {
@@ -230,6 +231,7 @@ namespace Epi.Web.EF
                     Context.AddToUserOrganizations(UserOrganizationEntity);
 
                     Context.SaveChanges();
+                    return true;
                     }
 
                 }
@@ -259,7 +261,7 @@ namespace Epi.Web.EF
         /// Updates a Organization.
         /// </summary>
         /// <param name="Organization">Organization.</param>
-        public void UpdateOrganization(OrganizationBO Organization)
+        public bool UpdateOrganization(OrganizationBO Organization)
         {
        
         ////Update Survey
@@ -275,6 +277,7 @@ namespace Epi.Web.EF
               
                 DataRow.IsEnabled =  Organization.IsEnabled ;
                 Context.SaveChanges();
+                return true;
             }
             }
             catch (Exception ex)
@@ -314,7 +317,7 @@ namespace Epi.Web.EF
         /// Deletes a Organization
         /// </summary>
         /// <param name="Organization">Organization.</param>
-        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId) 
+        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId,int UserRole) 
             {
             List<OrganizationBO> result = new List<OrganizationBO>();
 
@@ -323,22 +326,41 @@ namespace Epi.Web.EF
                 {
                 using (var Context = DataObjectFactory.CreateContext())
                     {
-                    var Query = from OrganizationTable in Context.Organizations
+                 
+                    if(UserRole == 3){
+                       var Query = from OrganizationTable in Context.Organizations
+                                
+                                select  OrganizationTable;
+                       var DataRow = Query.Distinct();
+                       foreach (var Row in DataRow)
+                           {
+
+                           result.Add(Mapper.Map(Row));
+
+                           }
+
+                       return result;
+                        }
+                    else{
+                       var  Query = from OrganizationTable in Context.Organizations
                                 from UserOrganizationTable in Context.UserOrganizations
 
-                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && UserOrganizationTable.UserID == UserId
+                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && UserOrganizationTable.UserID == UserId  
                                 select OrganizationTable;
 
+                       var DataRow = Query;
+                       foreach (var Row in DataRow)
+                           {
 
-                    var DataRow = Query;
-                    foreach (var Row in DataRow)
-                        {
+                           result.Add(Mapper.Map(Row));
 
-                        result.Add(Mapper.Map(Row));
+                           }
 
+                       return result;
+                        
                         }
 
-                    return result;
+                  
                     }
                 }
             catch (Exception ex)
