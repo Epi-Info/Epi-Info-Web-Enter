@@ -465,6 +465,8 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.NumberOfPages = FormResponseList.NumberOfPages;
                 FormResponseInfoModel.PageSize = ReadPageSize();
                 FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
+                FormResponseInfoModel.sortfield = sortfield;
+                FormResponseInfoModel.sortOrder = sort;
                 FormResponseInfoModel.CurrentPage = PageNumber;
             }
             return FormResponseInfoModel;
