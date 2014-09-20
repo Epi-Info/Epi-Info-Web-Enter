@@ -59,7 +59,7 @@
 
                     function successFunc(data, status) {
                         $("#exitdialog").dialog("close");
-                        ReadResponses($('#hidFormId').val(), $('#hidPageNumber').val());
+                        ReadResponses($('#hidFormId').val(), $('#hidPageNumber').val(), '', '');
                     }
 
                     function errorFunc() {
@@ -186,12 +186,25 @@
         $(document).on("click", "a[name='lnkPager']", function (e) {
             e.preventDefault();
 
-            ReadResponses($(this).attr('data-formid'), $(this).attr('data-pagenumber'));
+            var sortOrder = $(this).attr('data-sort');
+            var sortField = $(this).attr('data-sortfield');
+
+            if (sortOrder == undefined) {
+                sortOrder = '';
+            }
+
+            if (sortField == undefined) {
+                sortField = '';
+            }
+
+            ReadResponses($(this).attr('data-formid'), $(this).attr('data-pagenumber'), sortOrder, sortField);
+
         });
 
-        function ReadResponses(formid, pagenumber) {
+        function ReadResponses(formid, pagenumber, sortOrder, sortField) {
+
             $.ajax({
-                url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber,
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
                 //data: JSON.stringify(model),

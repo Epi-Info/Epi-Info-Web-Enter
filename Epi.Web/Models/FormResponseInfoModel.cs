@@ -17,6 +17,8 @@ namespace Epi.Web.MVC.Models
         public int NumberOfResponses;
         public int ViewId;
         public string ParentResponseId;
+        public string sortOrder;
+        public string sortfield;
         public FormResponseInfoModel()
         {
             FormInfoModel = new FormInfoModel();
