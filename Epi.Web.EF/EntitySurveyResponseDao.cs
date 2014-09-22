@@ -1127,10 +1127,12 @@ namespace Epi.Web.EF
                 {
 
 
-                    SurveyResponse Response = Context.SurveyResponses.ToList().Where(x => x.ResponseId == Id).First();
-                    result = (Mapper.Map(Response));
+                    var Response = Context.SurveyResponses.Where(x => x.ResponseId == Id);//.First();
+                    if (Response.Count()> 0)
+                        {
+                    result = (Mapper.Map(Response.First()));
 
-
+                        }
 
 
                 }
