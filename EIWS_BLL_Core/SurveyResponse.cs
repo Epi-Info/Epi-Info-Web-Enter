@@ -255,6 +255,11 @@ namespace Epi.Web.BLL
             }
             return result;
         }
+        public void UpdateFormResponse(SurveyResponseBO pValue)
+            {
+          
+                this.SurveyResponseDao.UpdateSurveyResponse(pValue);
+             }
         public bool DeleteSurveyResponse(SurveyResponseBO pValue)
         {
             bool result = false;
@@ -429,11 +434,18 @@ namespace Epi.Web.BLL
                 else
                     {
                     //Insert Survey Response
-
+                    SurveyResponse = this.SurveyResponseDao.GetSingleResponse(request.AnswerInfo.ResponseId.ToString());
+                    if (SurveyResponse.SurveyId == null)
+                        {
                     SurveyResponse = InsertSurveyResponse(Mapper.ToBusinessObject(Xml, request.AnswerInfo.SurveyId.ToString(), request.AnswerInfo.ParentRecordId.ToString(), request.AnswerInfo.ResponseId.ToString(),request.AnswerInfo.UserId));
                     response = new PreFilledAnswerResponse();
                     response.Status = ((Message)2).ToString(); 
-
+                        }
+                    else{
+                    UpdateFormResponse(Mapper.ToBusinessObject(Xml, request.AnswerInfo.SurveyId.ToString(), request.AnswerInfo.ParentRecordId.ToString(), request.AnswerInfo.ResponseId.ToString(), request.AnswerInfo.UserId));
+                    response = new PreFilledAnswerResponse();
+                    response.Status = ((Message)2).ToString(); 
+                        }
                     }
                 
             
