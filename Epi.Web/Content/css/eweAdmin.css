@@ -213,7 +213,7 @@ select {
     letter-spacing: 0.02em;
     font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
     font-weight: 300;
-    font-size:1.2em;
+    font-size:1.0em;
      height: 36px;
     line-height: 24px;
     -webkit-box-sizing: border-box;
@@ -274,3 +274,12 @@ ol li h3 {margin-bottom:10px;border-bottom:5px solid #74b700;padding: 0 10px 1px
 #confirm-container a.modal-close:active,
 #confirm-container a.modal-close:visited {text-decoration:none; font-weight:bold; position:absolute; right:10px; top:2px; color:#fff;}
 #confirm-container a.modal-close:hover {color:#ccc;}
+
+.input-validation-error {
+    background-color: #ffeeee;
+    
+}
+.field-validation-error, .required {
+    color: #ff0000;
+    font-weight:bold;
+}

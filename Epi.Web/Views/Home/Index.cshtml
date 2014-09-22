@@ -115,7 +115,9 @@
             function errorFunc() {
                 alert('error');
             }
-
+            //return page to the top when a form is selected if the list of forms is too long.
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            return false;
         });
 
         //Sort by Logic for ASC and DESC button clicks
