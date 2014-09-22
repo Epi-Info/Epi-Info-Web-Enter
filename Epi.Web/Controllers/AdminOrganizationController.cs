@@ -160,7 +160,7 @@ namespace Epi.Web.MVC.Controllers
                  {
 
 
-
+                 int UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
                  OrganizationRequest Request = new OrganizationRequest();
                  Request.Organization.Organization = OrgAdminInfoModel.OrgName;
                  Request.Organization.IsEnabled = OrgAdminInfoModel.IsOrgEnabled;
@@ -172,8 +172,8 @@ namespace Epi.Web.MVC.Controllers
                  AdminInfo.Role = 2;
                  AdminInfo.PhoneNumber = "123456789";
                  Request.OrganizationAdminInfo = AdminInfo;
-                 
-              
+
+                 Request.UserRole = UserHighestRole;
                  Request.UserId = UserId;
                  Request.Action = "Insert";
                  try
