@@ -112,8 +112,12 @@ namespace Epi.Web.BLL
 
                        }
                     }
-               
-                
+
+                else
+                    {
+                    success = this.OrganizationDao.InsertOrganization(OrganizationBO, User.UserId,UserBO.Role);
+
+                    }
                 }
             else
                 {
