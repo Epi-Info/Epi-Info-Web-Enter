@@ -459,7 +459,7 @@ button.search
     letter-spacing: 0.02em;
     font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
     font-weight: 300;
-    font-size:1.2em;
+    font-size:1.0em;
      height: 36px;
     line-height: 24px;
     -webkit-box-sizing: border-box;
@@ -1176,3 +1176,70 @@ button.edit {
 #available1 label, #selected1 label {font-weight:bold; font-size:9pt;}
 
 #mode select{font-size: 12pt;height: 30px;width: 150px;}
+
+#searchbox
+{
+    margin:10px 0;
+    background: none repeat scroll 0 0 #e4ffb7;
+    border: 1px solid #74b700;
+    padding: 10px;
+    width:97%;
+}
+.searchrow
+{
+    padding:8px 0;
+}
+
+.searchrow select 
+{
+    letter-spacing: 0.02em;
+    font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
+    font-weight: 300;
+    font-size:1.0em;
+     height: 36px;
+    line-height: 24px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 30px;
+    width: 180px;
+   border: 1px solid #b4b4b4;
+    background-clip: padding-box;
+
+}
+
+.searchrow option {
+    letter-spacing: 0.02em;
+    font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
+    font-weight: 300;
+    /* height: 28px;*/
+    line-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 2px;
+    min-height: 24px;
+    min-width: 80px;
+    background-clip: padding-box;
+
+}
+
+.searchrow input[type="text"]
+{
+     border: 1px solid #b4b4b4;
+    color: #333;
+    font-size: 1.2em;
+   height: 27px;
+    width: 400px;
+}
+.searchrow input[type="text"]:focus,
+{
+    border: 1px solid #7ac0da;
+}
+#searchbox button {
+    
+    height: 30px;
+    padding: 3px 15px;
+    width: 65px;
+    margin: -7px 10px 0 0;
+}
