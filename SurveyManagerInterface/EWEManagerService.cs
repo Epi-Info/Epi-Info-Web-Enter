@@ -1039,5 +1039,30 @@ namespace Epi.Web.WCF.SurveyService
 
             
              }
+
+         public PreFilledAnswerResponse SetSurveyAnswer(PreFilledAnswerRequest request)
+             {
+             try
+                 {
+
+                 PreFilledAnswerResponse response;
+                 Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = new EF.EntitySurveyResponseDao();
+                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+
+                 response = Implementation.SetSurveyAnswer(request);
+
+                 return response;
+                 }
+             catch (Exception ex)
+                 {
+                // PassCodeDTO DTOList = new Common.DTO.PassCodeDTO();
+                // PreFilledAnswerResponse response = new PreFilledAnswerResponse(DTOList);
+                 PreFilledAnswerResponse response = new PreFilledAnswerResponse();
+                 response.ErrorMessageList.Add("Failed", "Failed to insert Response");
+                 response.Status = ((Epi.Web.BLL.SurveyResponse.Message)1).ToString();
+                 return response;
+                 }
+             }
+
     }
 }

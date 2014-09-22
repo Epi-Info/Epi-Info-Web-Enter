@@ -169,4 +169,60 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UserLogin">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://www.yourcompany.com/types/" minOccurs="0" name="request" nillable="true" type="q24:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UserLoginResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://www.yourcompany.com/types/" minOccurs="0" name="UserLoginResult" nillable="true" type="q25:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://www.yourcompany.com/types/" minOccurs="0" name="request" nillable="true" type="q26:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateUserResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUser">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://www.yourcompany.com/types/" minOccurs="0" name="request" nillable="true" type="q27:UserAuthenticationRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://www.yourcompany.com/types/" minOccurs="0" name="GetUserResult" nillable="true" type="q28:UserAuthenticationResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSurveyAnswer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://www.yourcompany.com/types/" minOccurs="0" name="pRequestMessage" nillable="true" type="q29:PreFilledAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetSurveyAnswerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://www.yourcompany.com/types/" minOccurs="0" name="SetSurveyAnswerResult" nillable="true" type="q30:PreFilledAnswerResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
