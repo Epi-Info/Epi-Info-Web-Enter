@@ -54,5 +54,7 @@ namespace Epi.Web.MVC.Facade
 
         UserResponse GetUserInfo(UserRequest Request);
         UserResponse SetUserInfo(UserRequest Request);
+
+        void UpdateResponseStatus(SurveyAnswerRequest Request);
     }
 }
