@@ -502,5 +502,10 @@ namespace Epi.Web.EF
 
             return UserOrganization;
             }
+
+        internal static Datasource Map(DbConnectionStringBO ConnectionString)
+            {
+            throw new NotImplementedException();
+            }
     }
 }

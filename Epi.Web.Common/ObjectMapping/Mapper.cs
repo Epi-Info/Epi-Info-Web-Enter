@@ -38,6 +38,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsDraftMode = pDTO.IsDraftMode,
                 StartDate = pDTO.StartDate,
                 OwnerId = pDTO.OwnerId,
+                DBConnectionString = pDTO.DBConnectionString,
+                IsSqlProject = pDTO.IsSqlProject
             };
             }
 
