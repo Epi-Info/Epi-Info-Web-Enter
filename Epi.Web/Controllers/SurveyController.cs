@@ -835,7 +835,12 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public ActionResult LogOut()
             {
-
+           
+                SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
+                SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
+              
+                _isurveyFacade.UpdateResponseStatus(SARequest);
+                
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Login");
 

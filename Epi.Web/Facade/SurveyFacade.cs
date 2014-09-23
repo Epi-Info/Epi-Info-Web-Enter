@@ -368,5 +368,11 @@ namespace Epi.Web.MVC.Facade
             UserResponse = _iSurveyAnswerRepository.SetUserInfo(Request);
             return UserResponse;
             }
+
+        public void UpdateResponseStatus(SurveyAnswerRequest Request) 
+            { 
+            _iSurveyAnswerRepository.UpdateResponseStatus(Request);
+            
+            }
     }
 }

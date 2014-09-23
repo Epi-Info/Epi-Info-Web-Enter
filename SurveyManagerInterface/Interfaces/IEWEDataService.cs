@@ -107,6 +107,9 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         UserResponse SetUserInfo(UserRequest request);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        void UpdateResponseStatus(SurveyAnswerRequest Request);
     }
 
 }

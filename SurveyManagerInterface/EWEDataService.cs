@@ -1282,5 +1282,42 @@ namespace Epi.Web.WCF.SurveyService
                 }
             
             }
+
+        public void UpdateResponseStatus(SurveyAnswerRequest request) 
+            {
+            try
+                {
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = new EF.EntitySurveyResponseDao();
+                Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+
+
+                //SurveyAnswerResponse response = new SurveyAnswerResponse(request.RequestId);
+                SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList, request.Criteria.UserId)[0];
+
+                //SurveyResponse.UserId = request.Criteria.UserId;
+                //Implementation.UpdateSurveyResponse(SurveyResponse);
+                //response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
+
+                Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+                List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ResponseId);
+
+
+                List<SurveyResponseBO> ResultList = Implementation.UpdateSurveyResponse(SurveyResponseBOList, 2);
+                         
+                }
+            catch (Exception ex)
+                {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+                }
+            
+            
+            
+            
+            }
     }
 }

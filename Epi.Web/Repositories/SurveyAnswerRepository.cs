@@ -740,5 +740,38 @@ namespace Epi.Web.MVC.Repositories
 
 
                 }
+
+           public void UpdateResponseStatus(SurveyAnswerRequest Request)
+                {
+                try
+                    {
+
+                    _iDataService.UpdateResponseStatus(Request);
+                     
+                    }
+                catch (FaultException<CustomFaultException> cfe)
+                    {
+                    throw cfe;
+                    }
+                catch (FaultException fe)
+                    {
+                    throw fe;
+                    }
+                catch (CommunicationException ce)
+                    {
+                    throw ce;
+                    }
+                catch (TimeoutException te)
+                    {
+                    throw te;
+                    }
+                catch (Exception ex)
+                    {
+                    throw ex;
+
+                    }
+
+
+                }
     }
 }
