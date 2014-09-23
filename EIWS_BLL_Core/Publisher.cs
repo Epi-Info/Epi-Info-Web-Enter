@@ -218,10 +218,15 @@ namespace Epi.Web.BLL
                                 BO.ViewId = pRequestMessage.ViewId;
                                 BO.ParentId = pRequestMessage.ParentId;
                                 BO.OwnerId = pRequestMessage.OwnerId;
+                                BO.IsSqlProject = pRequestMessage.IsSqlProject;
+                               
                                 //Insert Survey MetaData
                                 this.SurveyInfoDao.InsertSurveyInfo(BO);
                                 
-
+                                //Insert Connection string..
+                                DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
+                                DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
+                                this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
                                 // Set Survey Settings
                                 this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString());
                                 Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
@@ -263,6 +268,11 @@ namespace Epi.Web.BLL
                     }
                
             return result;
+            }
+
+        private DbConnectionStringBO GetConnection(string p)
+            {
+            throw new NotImplementedException();
             }
         private SurveyRequestResultBO RePublish(SurveyInfoBO pRequestMessage)
             {
@@ -307,8 +317,14 @@ namespace Epi.Web.BLL
                                 BO.IsDraftMode = pRequestMessage.IsDraftMode;
                                 BO.StartDate = pRequestMessage.StartDate;
                                 BO.OwnerId = pRequestMessage.OwnerId;
-
+                                 BO.IsSqlProject = pRequestMessage.IsSqlProject;
+                                
                                 this.SurveyInfoDao.UpdateSurveyInfo(BO);
+                                //Insert Connection string..
+                                DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
+                                DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
+                                this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
+
                                 Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
                                 SurveyIdsList.Add(GetViewId(pRequestMessage.XML), SurveyId.ToString());
                                 result.ViewIdAndFormIdList = SurveyIdsList;
@@ -381,6 +397,8 @@ namespace Epi.Web.BLL
                 SurveyInfoBO.ParentId = pBO.ParentId;
                 SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
                 SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
+                SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+                SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
                 SurveyRequestResultBO = RePublish(SurveyInfoBO);
 
              
@@ -424,7 +442,9 @@ namespace Epi.Web.BLL
             SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
             SurveyInfoBO.ViewId = _ViewId;
             SurveyInfoBO.ParentId = ParentId;
-            SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ; 
+            SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ;
+            SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+            SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
             SurveyRequestResultBO = Publish(SurveyInfoBO);
            // ParentId = SurveyRequestResultBO.URL.Split('/').Last();
             ParentId = SurveyRequestResultBO.ViewIdAndFormIdList[_ViewId];
