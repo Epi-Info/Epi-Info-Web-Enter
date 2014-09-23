@@ -72,7 +72,7 @@ namespace Epi.Web.MVC.Controllers
      public ActionResult OrgInfo(OrgAdminInfoModel OrgAdminInfoModel)
          {
          int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
-         
+         int UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
          string url = "";
          if (this.Request.UrlReferrer == null)
              {
@@ -101,7 +101,7 @@ namespace Epi.Web.MVC.Controllers
              AdminInfo.FirstName ="";
              AdminInfo.LastName = "";
              AdminInfo.EmailAddress = "";
-             //AdminInfo.Role = "";
+             AdminInfo.Role =0;
              AdminInfo.PhoneNumber = "";
              Request.OrganizationAdminInfo = AdminInfo;
 
@@ -111,6 +111,7 @@ namespace Epi.Web.MVC.Controllers
 
              Request.Organization.OrganizationKey = GetOrgKey(url);
              Request.UserId = UserId;
+             Request.UserRole = UserHighestRole;
              Request.Action = "UpDate";
              try
                  {
@@ -160,7 +161,7 @@ namespace Epi.Web.MVC.Controllers
                  {
 
 
-                 int UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
+                
                  OrganizationRequest Request = new OrganizationRequest();
                  Request.Organization.Organization = OrgAdminInfoModel.OrgName;
                  Request.Organization.IsEnabled = OrgAdminInfoModel.IsOrgEnabled;
