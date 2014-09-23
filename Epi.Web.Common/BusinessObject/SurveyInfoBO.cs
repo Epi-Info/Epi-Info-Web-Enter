@@ -28,6 +28,8 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private string _ParentId;
         private int _ViewId;
         private int _OwnerId;
+        private bool _IsSqlProject;
+        private string _DBConnectionString;
         public string StatusText
         { 
             get { return _StatusText; }
@@ -154,6 +156,18 @@ namespace Epi.Web.Enter.Common.BusinessObject
             {
             get { return _OwnerId; }
             set { _OwnerId = value; }
+            }
+        [DataMember]
+        public bool IsSqlProject
+            {
+            get { return _IsSqlProject; }
+            set { _IsSqlProject = value; }
+            }
+        [DataMember]
+        public string DBConnectionString
+            {
+            get { return _DBConnectionString; }
+            set { _DBConnectionString = value; }
             }
     }
 }

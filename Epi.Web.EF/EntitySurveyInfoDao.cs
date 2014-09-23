@@ -547,7 +547,56 @@ namespace Epi.Web.EF
        return columns;
 
        }
-   
+
+
+   public void InsertConnectionString(DbConnectionStringBO ConnectionString)
+       { 
+        try
+           {
+          
+              
+               using (var Context = DataObjectFactory.CreateContext())
+                   {
+
+                   Datasource ConnectionEntity = Mapper.Map(ConnectionString);
+
+                   Context.AddToDatasources(ConnectionEntity);
+
+                   Context.SaveChanges();
+                   
+                   }
+           }
+       catch (Exception ex)
+           {
+           throw (ex);
+           }
+       }
+   public void UpdateConnectionString(DbConnectionStringBO ConnectionString) 
+       {
+       try
+           {
+
+
+           using (var Context = DataObjectFactory.CreateContext())
+               {
+               var Query = from DataSource in Context.Datasources
+                           where DataSource.SurveyId == ConnectionString.SurveyId
+                           select DataSource;
+
+               var DataRow = Query.Single();
+               DataRow = Mapper.Map(ConnectionString);
+
+               Context.AddToDatasources(DataRow);
+
+               Context.SaveChanges();
+
+               }
+           }
+       catch (Exception ex)
+           {
+           throw (ex);
+           }
+       }
 
     }
 }
