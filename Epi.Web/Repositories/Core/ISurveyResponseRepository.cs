@@ -46,5 +46,7 @@ namespace Epi.Web.MVC.Repositories.Core
         UserResponse GetUserInfo(UserRequest Request);
 
         UserResponse SetUserInfo(UserRequest Request);
+
+        void UpdateResponseStatus(SurveyAnswerRequest Request);
     }
 }

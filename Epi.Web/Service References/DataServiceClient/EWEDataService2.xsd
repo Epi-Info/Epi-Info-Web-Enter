@@ -366,4 +366,16 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="UpdateResponseStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://www.yourcompany.com/types/" minOccurs="0" name="Request" nillable="true" type="q52:SurveyAnswerRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateResponseStatusResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
