@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Epi.Web.Enter.Interfaces.DataInterfaces;
 using Epi.Web.Enter.Common.BusinessObject;
 using Epi.Web.Enter.Common.Extension;
+using System.Data.Objects;
+using System.Data.SqlClient;
 
 namespace Epi.Web.EF
 {
@@ -556,11 +558,8 @@ namespace Epi.Web.EF
           
               
                using (var Context = DataObjectFactory.CreateContext())
-                   {
-
-                   Datasource ConnectionEntity = Mapper.Map(ConnectionString);
-
-                   Context.AddToDatasources(ConnectionEntity);
+                   { 
+                   Context.usp_AddDatasource(ConnectionString.DatasourceServerName, ConnectionString.DatabaseType, ConnectionString.InitialCatalog, ConnectionString.PersistSecurityInfo, ConnectionString.DatabaseUserID, ConnectionString.SurveyId, ConnectionString.Password);
 
                    Context.SaveChanges();
                    
