@@ -276,7 +276,7 @@ namespace Epi.Web.BLL
             {
             DbConnectionStringBO DbConnectionStringBO = new Enter.Common.BusinessObject.DbConnectionStringBO();
             //string connStr = "Data Source=SERVERx;Initial Catalog=DBx;User ID=u;Password=p";
-           // string connStr =  "Data Source=ETIEX-022/SQLEXPRESS;Initial Catalog=TestEpi;Integrated Security=True";
+          // string connStr =  "Data Source=ETIEX-022/SQLEXPRESS;Initial Catalog=TestEpi;Integrated Security=True";
             var csb = new SqlConnectionStringBuilder(ConnectionString);
 
             DbConnectionStringBO.DatasourceServerName = csb.DataSource;
@@ -334,11 +334,11 @@ namespace Epi.Web.BLL
                                  BO.IsSqlProject = pRequestMessage.IsSqlProject;
                                 
                                 this.SurveyInfoDao.UpdateSurveyInfo(BO);
-                                //Insert Connection string..
-                                DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
-                                DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
-                                DbConnectionStringBO.SurveyId = SurveyId;
-                                this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
+                                ////Insert Connection string..
+                                //DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
+                                //DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
+                                //DbConnectionStringBO.SurveyId = SurveyId;
+                                //this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
 
                                 Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
                                 SurveyIdsList.Add(GetViewId(pRequestMessage.XML), SurveyId.ToString());
