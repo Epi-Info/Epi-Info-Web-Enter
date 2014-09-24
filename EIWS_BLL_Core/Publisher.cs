@@ -7,6 +7,7 @@ using System.Xml.XPath;
 using Epi.Web.Enter.Common.BusinessObject;
 using System.Xml;
 using System.Xml.Linq;
+using System.Data.SqlClient;
 namespace Epi.Web.BLL
 {
    /// <summary>
@@ -226,6 +227,7 @@ namespace Epi.Web.BLL
                                 //Insert Connection string..
                                 DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
                                 DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
+                                DbConnectionStringBO.SurveyId = SurveyId;
                                 this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
                                 // Set Survey Settings
                                 this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString());
@@ -270,9 +272,21 @@ namespace Epi.Web.BLL
             return result;
             }
 
-        private DbConnectionStringBO GetConnection(string p)
+        private DbConnectionStringBO GetConnection(string ConnectionString)
             {
-            throw new NotImplementedException();
+            DbConnectionStringBO DbConnectionStringBO = new Enter.Common.BusinessObject.DbConnectionStringBO();
+            //string connStr = "Data Source=SERVERx;Initial Catalog=DBx;User ID=u;Password=p";
+           // string connStr =  "Data Source=ETIEX-022/SQLEXPRESS;Initial Catalog=TestEpi;Integrated Security=True";
+            var csb = new SqlConnectionStringBuilder(ConnectionString);
+
+            DbConnectionStringBO.DatasourceServerName = csb.DataSource;
+            DbConnectionStringBO.InitialCatalog= csb.InitialCatalog;
+            DbConnectionStringBO.Password = csb.Password;
+            DbConnectionStringBO.DatabaseUserID = csb.UserID;
+            DbConnectionStringBO.PersistSecurityInfo = csb.IntegratedSecurity.ToString();
+
+            DbConnectionStringBO.DatabaseType = "SQL";
+            return DbConnectionStringBO;
             }
         private SurveyRequestResultBO RePublish(SurveyInfoBO pRequestMessage)
             {
@@ -323,6 +337,7 @@ namespace Epi.Web.BLL
                                 //Insert Connection string..
                                 DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
                                 DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
+                                DbConnectionStringBO.SurveyId = SurveyId;
                                 this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
 
                                 Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
