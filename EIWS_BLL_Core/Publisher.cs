@@ -225,10 +225,13 @@ namespace Epi.Web.BLL
                                 this.SurveyInfoDao.InsertSurveyInfo(BO);
                                 
                                 //Insert Connection string..
+                                if (pRequestMessage.IsSqlProject)
+                                    {
                                 DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
                                 DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
                                 DbConnectionStringBO.SurveyId = SurveyId;
                                 this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
+                                    }
                                 // Set Survey Settings
                                 this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString());
                                 Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
