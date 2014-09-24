@@ -505,7 +505,16 @@ namespace Epi.Web.EF
 
         internal static Datasource Map(DbConnectionStringBO ConnectionString)
             {
-            throw new NotImplementedException();
+            Datasource Datasource = new Datasource();
+            Datasource.DatabaseType = ConnectionString.DatabaseType;
+            Datasource.DatabaseUserID = ConnectionString.DatabaseUserID;
+            Datasource.DatasourceID = ConnectionString.DatasourceID;
+            Datasource.DatasourceServerName = ConnectionString.DatasourceServerName;
+            Datasource.InitialCatalog = ConnectionString.InitialCatalog;
+            Datasource.Password = ConnectionString.Password;
+            Datasource.SurveyId = ConnectionString.SurveyId;
+            Datasource.PersistSecurityInfo = ConnectionString.PersistSecurityInfo;
+            return Datasource;
             }
     }
 }

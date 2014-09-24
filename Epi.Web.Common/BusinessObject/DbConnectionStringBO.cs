@@ -9,7 +9,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
     [DataContract(Namespace = "http://www.yourcompany.com/types/")]
     public class DbConnectionStringBO
         {
-        private string _DatasourceID;
+        private int _DatasourceID;
         private string _DatasourceServerName;
         private string _DatabaseType;
         private string _InitialCatalog;
@@ -18,7 +18,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private string _DatabaseUserID;
         private string _Password;
         [DataMember]
-        public string DatasourceID
+        public int DatasourceID
             {
             get { return _DatasourceID; }
             set { _DatasourceID = value; }
