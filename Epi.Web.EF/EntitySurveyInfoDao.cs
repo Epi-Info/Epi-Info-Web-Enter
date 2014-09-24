@@ -352,7 +352,7 @@ namespace Epi.Web.EF
                     //DataRow = Mapper.ToEF(SurveyInfo);
 
                 SurveyMetaData Row = Context.SurveyMetaDatas.First(x=>x.SurveyId == Id);
-
+                Row.IsSQLProject = SurveyInfo.IsSqlProject;
                 Row.TemplateXML = SurveyInfo.XML;
                 Row.IsDraftMode = SurveyInfo.IsDraftMode;
                     Context.SaveChanges();

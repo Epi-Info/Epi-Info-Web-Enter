@@ -150,6 +150,7 @@ namespace Epi.Web.EF
                 SurveyMetaData.StartDate = businessobject.StartDate;
                 SurveyMetaData.OwnerId = businessobject.OwnerId ;
                 SurveyMetaData.ViewId = businessobject.ViewId;
+                SurveyMetaData.IsSQLProject = businessobject.IsSqlProject;
                if(!string.IsNullOrEmpty(businessobject.ParentId))
                    {
                    SurveyMetaData.ParentId = new Guid(businessobject.ParentId);
