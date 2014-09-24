@@ -453,6 +453,95 @@ namespace Epi.Web.EF
 
         #endregion
 
+        #region Function Imports
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="datasourceServerName">No Metadata Documentation available.</param>
+        /// <param name="databaseType">No Metadata Documentation available.</param>
+        /// <param name="initialCatalog">No Metadata Documentation available.</param>
+        /// <param name="persistSecurityInfo">No Metadata Documentation available.</param>
+        /// <param name="databaseUserID">No Metadata Documentation available.</param>
+        /// <param name="surveyID">No Metadata Documentation available.</param>
+        /// <param name="password">No Metadata Documentation available.</param>
+        public int usp_AddDatasource(global::System.String datasourceServerName, global::System.String databaseType, global::System.String initialCatalog, global::System.String persistSecurityInfo, global::System.String databaseUserID, Nullable<global::System.Guid> surveyID, global::System.String password)
+        {
+            ObjectParameter datasourceServerNameParameter;
+            if (datasourceServerName != null)
+            {
+                datasourceServerNameParameter = new ObjectParameter("DatasourceServerName", datasourceServerName);
+            }
+            else
+            {
+                datasourceServerNameParameter = new ObjectParameter("DatasourceServerName", typeof(global::System.String));
+            }
+    
+            ObjectParameter databaseTypeParameter;
+            if (databaseType != null)
+            {
+                databaseTypeParameter = new ObjectParameter("DatabaseType", databaseType);
+            }
+            else
+            {
+                databaseTypeParameter = new ObjectParameter("DatabaseType", typeof(global::System.String));
+            }
+    
+            ObjectParameter initialCatalogParameter;
+            if (initialCatalog != null)
+            {
+                initialCatalogParameter = new ObjectParameter("InitialCatalog", initialCatalog);
+            }
+            else
+            {
+                initialCatalogParameter = new ObjectParameter("InitialCatalog", typeof(global::System.String));
+            }
+    
+            ObjectParameter persistSecurityInfoParameter;
+            if (persistSecurityInfo != null)
+            {
+                persistSecurityInfoParameter = new ObjectParameter("PersistSecurityInfo", persistSecurityInfo);
+            }
+            else
+            {
+                persistSecurityInfoParameter = new ObjectParameter("PersistSecurityInfo", typeof(global::System.String));
+            }
+    
+            ObjectParameter databaseUserIDParameter;
+            if (databaseUserID != null)
+            {
+                databaseUserIDParameter = new ObjectParameter("DatabaseUserID", databaseUserID);
+            }
+            else
+            {
+                databaseUserIDParameter = new ObjectParameter("DatabaseUserID", typeof(global::System.String));
+            }
+    
+            ObjectParameter surveyIDParameter;
+            if (surveyID.HasValue)
+            {
+                surveyIDParameter = new ObjectParameter("SurveyID", surveyID);
+            }
+            else
+            {
+                surveyIDParameter = new ObjectParameter("SurveyID", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter passwordParameter;
+            if (password != null)
+            {
+                passwordParameter = new ObjectParameter("Password", password);
+            }
+            else
+            {
+                passwordParameter = new ObjectParameter("Password", typeof(global::System.String));
+            }
+    
+            return base.ExecuteFunction("usp_AddDatasource", datasourceServerNameParameter, databaseTypeParameter, initialCatalogParameter, persistSecurityInfoParameter, databaseUserIDParameter, surveyIDParameter, passwordParameter);
+        }
+
+        #endregion
+
     }
 
     #endregion
