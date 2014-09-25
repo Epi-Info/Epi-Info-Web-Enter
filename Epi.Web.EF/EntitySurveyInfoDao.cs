@@ -579,14 +579,14 @@ namespace Epi.Web.EF
 
            using (var Context = DataObjectFactory.CreateContext())
                {
-               var Query = from DataSource in Context.Datasources
+               var Query = from DataSource in Context.EIDatasources
                            where DataSource.SurveyId == ConnectionString.SurveyId
                            select DataSource;
 
                var DataRow = Query.Single();
                DataRow = Mapper.Map(ConnectionString);
 
-               Context.AddToDatasources(DataRow);
+               Context.AddToEIDatasources(DataRow);
 
                Context.SaveChanges();
 
