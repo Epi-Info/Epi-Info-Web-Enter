@@ -504,9 +504,9 @@ namespace Epi.Web.EF
             return UserOrganization;
             }
 
-        internal static Datasource Map(DbConnectionStringBO ConnectionString)
+        internal static EIDatasource Map(DbConnectionStringBO ConnectionString)
             {
-            Datasource Datasource = new Datasource();
+            EIDatasource Datasource = new EIDatasource();
             Datasource.DatabaseType = ConnectionString.DatabaseType;
             Datasource.DatabaseUserID = ConnectionString.DatabaseUserID;
             Datasource.DatasourceID = ConnectionString.DatasourceID;

@@ -465,7 +465,7 @@ namespace Epi.Web.BLL
             Dictionary<string, string> WrongFieldTypeList = new Dictionary<string, string>();
             SurveyResponseXML Implementation = new SurveyResponseXML(request, SurveyXml);
             FieldNotFoundList = Implementation.ValidateResponseFileds();
-            WrongFieldTypeList = Implementation.ValidateResponseFiledTypes();
+            //WrongFieldTypeList = Implementation.ValidateResponseFiledTypes();
             MessageList = MessageList.Union(FieldNotFoundList).Union(WrongFieldTypeList).ToDictionary(k => k.Key, v => v.Value);
             return MessageList;
 
