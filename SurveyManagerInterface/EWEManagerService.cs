@@ -1063,6 +1063,9 @@ namespace Epi.Web.WCF.SurveyService
                  return response;
                  }
              }
+         public bool PingManagerService() {
 
+         return true;
+             }
     }
 }
