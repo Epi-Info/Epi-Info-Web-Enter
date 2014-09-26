@@ -764,6 +764,11 @@ namespace Epi.Web.EF
 
                 string EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield);
 
+                if (EI7Query == string.Empty)
+                {
+                    return result;
+                }
+
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
 
@@ -883,7 +888,10 @@ namespace Epi.Web.EF
                 throw ex;
             }
 
-
+            if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0)
+            {
+                return string.Empty;
+            }
 
             StringBuilder stringBuilder = new StringBuilder();
             StringBuilder tableNameBuilder = new StringBuilder();
@@ -1128,11 +1136,11 @@ namespace Epi.Web.EF
 
 
                     var Response = Context.SurveyResponses.Where(x => x.ResponseId == Id);//.First();
-                    if (Response.Count()> 0)
-                        {
-                    result = (Mapper.Map(Response.First()));
+                    if (Response.Count() > 0)
+                    {
+                        result = (Mapper.Map(Response.First()));
 
-                        }
+                    }
 
 
                 }
@@ -1279,6 +1287,127 @@ namespace Epi.Web.EF
 
         }
 
+        public List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, string SurveyId)
+        {
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+
+            try
+            {
+
+                Guid RId = new Guid(ResponseId);
+                Guid SId = new Guid(SurveyId);
+
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            return result;
+
+        }
+
+        public List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, SurveyAnswerCriteria Criteria)
+        {
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+            if (IsSqlProject)
+            {
+                //make a connection to datasource table to read the connection string.
+                //do a read to see which column belongs to which page/table.
+                //do a read from ResponseDisplaySettings to read the column names. if for a given survey they dont exist 
+                //read the first 5 columns from EI7 sql server database.
+
+                string EI7ConnectionString = ReadConnectionString(Criteria.SurveyId);
+
+                SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
+
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield);
+
+                SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
+                EI7Command.CommandType = CommandType.Text;
+
+                SqlDataAdapter EI7Adapter = new SqlDataAdapter(EI7Command);
+
+                DataSet EI7DS = new DataSet();
+
+                EI7Connection.Open();
+
+                try
+                {
+                    EI7Adapter.Fill(EI7DS);
+                    EI7Connection.Close();
+                }
+                catch (Exception)
+                {
+                    EI7Connection.Close();
+                    throw;
+                }
+
+
+                // List<Dictionary<string, string>> DataRows = new List<Dictionary<string, string>>();
+
+                for (int i = 0; i < EI7DS.Tables[0].Rows.Count; i++)
+                {
+                    Dictionary<string, string> rowDic = new Dictionary<string, string>();
+                    SurveyResponseBO SurveyResponseBO = new Enter.Common.BusinessObject.SurveyResponseBO();
+                    for (int j = 0; j < EI7DS.Tables[0].Columns.Count; j++)
+                    {
+                        rowDic.Add(EI7DS.Tables[0].Columns[j].ColumnName, EI7DS.Tables[0].Rows[i][j].ToString());
+                    }
+                    //.Skip((PageNumber - 1) * PageSize).Take(PageSize); ;
+                    //IEnumerable<KeyValuePair<string, string>> temp = rowDic.AsEnumerable();
+                    //temp.Skip((PageNumber - 1) * PageSize).Take(PageSize); 
+
+                    SurveyResponseBO.SqlData = rowDic;
+                    result.Add(SurveyResponseBO);
+                }
+
+                SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
+
+                result = result.Skip((Criteria.PageNumber - 1) * Criteria.PageSize).Take(Criteria.PageSize).ToList();
+                //SurveyResponseBO.SqlResponseDataBO.SqlData = DataRows;
+            }
+            else
+            {
+
+                try
+                {
+
+                    Guid RId = new Guid(ResponseId);
+                    Guid SId = new Guid(Criteria.SurveyId);
+
+                    using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                        result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
+
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+            }
+            return result;
+
+        }
+
+
+        /*
+         * 
+         * */
 
         public SurveyResponseBO GetResponseXml(string ResponseId)
         {
@@ -1355,7 +1484,7 @@ namespace Epi.Web.EF
 
             try
             {
-            Guid Id = new Guid(ResponseXmlBO.ResponseId);
+                Guid Id = new Guid(ResponseXmlBO.ResponseId);
 
                 using (var Context = DataObjectFactory.CreateContext())
                 {
