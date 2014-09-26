@@ -483,13 +483,20 @@ namespace Epi.Web.EF
         }
 
 
-   public void InsertFormdefaultSettings(string FormId)
+   public void InsertFormdefaultSettings(string FormId, bool IsSqlProject, List<string> ControlsNameList)
        {
       
        try
            {
            List<string> ColumnNames = new List<string>();
-           ColumnNames = MetaDaTaColumnNames();
+           if (!IsSqlProject)
+               {
+                  ColumnNames = MetaDaTaColumnNames();
+               }
+           else
+               {
+                   ColumnNames = ControlsNameList;
+               }
            int i = 1;
            foreach (string Column in ColumnNames)
                {

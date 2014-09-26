@@ -233,7 +233,7 @@ namespace Epi.Web.BLL
                                 this.SurveyInfoDao.InsertConnectionString(DbConnectionStringBO);
                                     }
                                 // Set Survey Settings
-                                this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString());
+                                this.SurveyInfoDao.InsertFormdefaultSettings(SurveyId.ToString(), pRequestMessage.IsSqlProject,GetSurveyControls(BO));
                                 Dictionary<int, string> SurveyIdsList = new Dictionary<int, string>();
                                 SurveyIdsList.Add(GetViewId(pRequestMessage.XML), SurveyId.ToString());
                                 result.ViewIdAndFormIdList = SurveyIdsList;
@@ -525,8 +525,26 @@ namespace Epi.Web.BLL
             return XmlList;
             }
         #endregion
-        
-        
+
+        private List<string> GetSurveyControls(SurveyInfoBO SurveyInfoBO)
+            {
+            List<string> List = new List<string>();
+
+            XDocument xdoc = XDocument.Parse(SurveyInfoBO.XML);
+
+
+            var _FieldsTypeIDs = from _FieldTypeID in
+                                     xdoc.Descendants("Field")
+                                 select _FieldTypeID;
+
+            foreach (var _FieldTypeID in _FieldsTypeIDs.Take(5))
+                {
+                 List.Add(_FieldTypeID.Attribute("Name").Value.ToString());
+
+                }
+            return List;
+
+            }
       
     }
 }
