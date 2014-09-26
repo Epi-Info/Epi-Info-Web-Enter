@@ -51,14 +51,7 @@
           </EntitySet>
           <EntitySet Name="SurveyMetaDataUser" EntityType="OSELS_EWEModel.Store.SurveyMetaDataUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyResponse" EntityType="OSELS_EWEModel.Store.SurveyResponse" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyResponseTracking" EntityType="OSELS_EWEModel.Store.SurveyResponseTracking" store:Type="Tables" store:Schema="dbo" store:Name="SurveyResponseTracking">
-            <DefiningQuery>SELECT 
-      [SurveyResponseTracking].[SurveyResponseTrackingId] AS [SurveyResponseTrackingId], 
-      [SurveyResponseTracking].[ResponseId] AS [ResponseId], 
-      [SurveyResponseTracking].[IsSQLResponse] AS [IsSQLResponse], 
-      [SurveyResponseTracking].[IsResponseinsertedToEpi7] AS [IsResponseinsertedToEpi7]
-      FROM [dbo].[SurveyResponseTracking] AS [SurveyResponseTracking]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="SurveyResponseTracking" EntityType="OSELS_EWEModel.Store.SurveyResponseTracking" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SurveyResponseUser" EntityType="OSELS_EWEModel.Store.SurveyResponseUser" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="sysdiagrams" EntityType="OSELS_EWEModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="OSELS_EWEModel.Store.User" store:Type="Tables" Schema="dbo" />
@@ -118,6 +111,10 @@
           <AssociationSet Name="FK_SurveyResponse_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponse_SurveyResponse">
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
             <End Role="SurveyResponse1" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponseTracking_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponseTracking_SurveyResponse">
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End Role="SurveyResponseTracking" EntitySet="SurveyResponseTracking" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponseUser_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponseUser_SurveyResponse">
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
@@ -343,20 +340,14 @@
           <Property Name="RelateParentId" Type="uniqueidentifier" />
           <Property Name="RecordSourceId" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'OSELS_EWE.dbo.SurveyResponseTracking' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="SurveyResponseTracking">
           <Key>
             <PropertyRef Name="SurveyResponseTrackingId" />
-            <PropertyRef Name="ResponseId" />
-            <PropertyRef Name="IsSQLResponse" />
-            <PropertyRef Name="IsResponseinsertedToEpi7" />
           </Key>
           <Property Name="SurveyResponseTrackingId" Type="int" Nullable="false" />
-          <Property Name="ResponseId" Type="int" Nullable="false" />
+          <Property Name="ResponseId" Type="uniqueidentifier" />
           <Property Name="IsSQLResponse" Type="bit" Nullable="false" />
-          <Property Name="IsResponseinsertedToEpi7" Type="int" Nullable="false" />
+          <Property Name="IsResponseinsertedToEpi7" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyResponseUser">
           <Key>
@@ -567,6 +558,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyResponseTracking_SurveyResponse">
+          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="0..1" />
+          <End Role="SurveyResponseTracking" Type="OSELS_EWEModel.Store.SurveyResponseTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyResponse">
+              <PropertyRef Name="ResponseId" />
+            </Principal>
+            <Dependent Role="SurveyResponseTracking">
+              <PropertyRef Name="ResponseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyResponseUser_SurveyResponse">
           <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="1" />
           <End Role="SurveyResponseUser" Type="OSELS_EWEModel.Store.SurveyResponseUser" Multiplicity="*" />
@@ -667,6 +670,12 @@
           <Parameter Name="SurveyID" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_create_epi7_insert_statement" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="xml" Type="xml" Mode="In" />
+          <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ResponseId" Type="varchar" Mode="In" />
+          <Parameter Name="SqlText" Type="varchar(max)" Mode="InOut" />
+        </Function>
         <Function Name="usp_get_form_family" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SurveyId" Type="varchar" Mode="In" />
         </Function>
@@ -760,7 +769,6 @@
             <End Role="EIDatasource" EntitySet="EIDatasources" />
           </AssociationSet>
           <EntitySet Name="familysets" EntityType="OSELS_EWEModel.familyset" />
-          <EntitySet Name="SurveyResponseTrackings" EntityType="OSELS_EWEModel.SurveyResponseTracking" />
           <EntitySet Name="SurveyResponses" EntityType="OSELS_EWEModel.SurveyResponse" />
           <AssociationSet Name="FK_SurveyResponse_lk_Status" Association="OSELS_EWEModel.FK_SurveyResponse_lk_Status">
             <End Role="lk_Status" EntitySet="lk_Status" />
@@ -777,6 +785,11 @@
           <AssociationSet Name="SurveyResponseUser" Association="OSELS_EWEModel.SurveyResponseUser">
             <End Role="SurveyResponse" EntitySet="SurveyResponses" />
             <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="SurveyResponseTrackings" EntityType="OSELS_EWEModel.SurveyResponseTracking" />
+          <AssociationSet Name="FK_SurveyResponseTracking_SurveyResponse" Association="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse">
+            <End Role="SurveyResponse" EntitySet="SurveyResponses" />
+            <End Role="SurveyResponseTracking" EntitySet="SurveyResponseTrackings" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="lk_Status">
@@ -1159,18 +1172,6 @@
           <Property Type="Int32" Name="ViewId" />
           <Property Type="Boolean" Name="IsSQLProject" />
         </EntityType>
-        <EntityType Name="SurveyResponseTracking">
-          <Key>
-            <PropertyRef Name="SurveyResponseTrackingId" />
-            <PropertyRef Name="ResponseId" />
-            <PropertyRef Name="IsSQLResponse" />
-            <PropertyRef Name="IsResponseinsertedToEpi7" />
-          </Key>
-          <Property Type="Int32" Name="SurveyResponseTrackingId" Nullable="false" />
-          <Property Type="Int32" Name="ResponseId" Nullable="false" />
-          <Property Type="Boolean" Name="IsSQLResponse" Nullable="false" />
-          <Property Type="Int32" Name="IsResponseinsertedToEpi7" Nullable="false" />
-        </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
             <PropertyRef Name="ResponseId" />
@@ -1194,6 +1195,7 @@
           <NavigationProperty Name="SurveyResponse1" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyResponse" FromRole="SurveyResponse" ToRole="SurveyResponse1" />
           <NavigationProperty Name="SurveyResponse2" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyResponse" FromRole="SurveyResponse1" ToRole="SurveyResponse" />
           <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="SurveyResponse" ToRole="User" />
+          <NavigationProperty Name="SurveyResponseTrackings" Relationship="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse" FromRole="SurveyResponse" ToRole="SurveyResponseTracking" />
         </EntityType>
         <Association Name="FK_SurveyResponse_lk_Status">
           <End Type="OSELS_EWEModel.lk_Status" Role="lk_Status" Multiplicity="1" />
@@ -1234,6 +1236,28 @@
         <Association Name="SurveyResponseUser">
           <End Type="OSELS_EWEModel.SurveyResponse" Role="SurveyResponse" Multiplicity="*" />
           <End Type="OSELS_EWEModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <EntityType Name="SurveyResponseTracking">
+          <Key>
+            <PropertyRef Name="SurveyResponseTrackingId" />
+          </Key>
+          <Property Type="Int32" Name="SurveyResponseTrackingId" Nullable="false" />
+          <Property Type="Guid" Name="ResponseId" />
+          <Property Type="Boolean" Name="IsSQLResponse" Nullable="false" />
+          <Property Type="Boolean" Name="IsResponseinsertedToEpi7" Nullable="false" />
+          <NavigationProperty Name="SurveyResponse" Relationship="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse" FromRole="SurveyResponseTracking" ToRole="SurveyResponse" />
+        </EntityType>
+        <Association Name="FK_SurveyResponseTracking_SurveyResponse">
+          <End Type="OSELS_EWEModel.SurveyResponse" Role="SurveyResponse" Multiplicity="0..1" />
+          <End Type="OSELS_EWEModel.SurveyResponseTracking" Role="SurveyResponseTracking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyResponse">
+              <PropertyRef Name="ResponseId" />
+            </Principal>
+            <Dependent Role="SurveyResponseTracking">
+              <PropertyRef Name="ResponseId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
       </Schema>
     </edmx:ConceptualModels>
@@ -1452,16 +1476,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="SurveyResponseTrackings">
-            <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponseTracking">
-              <MappingFragment StoreEntitySet="SurveyResponseTracking">
-                <ScalarProperty Name="IsResponseinsertedToEpi7" ColumnName="IsResponseinsertedToEpi7" />
-                <ScalarProperty Name="IsSQLResponse" ColumnName="IsSQLResponse" />
-                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
-                <ScalarProperty Name="SurveyResponseTrackingId" ColumnName="SurveyResponseTrackingId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SurveyResponses">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponse">
               <MappingFragment StoreEntitySet="SurveyResponse">
@@ -1490,6 +1504,16 @@
               <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="SurveyResponseTrackings">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponseTracking">
+              <MappingFragment StoreEntitySet="SurveyResponseTracking">
+                <ScalarProperty Name="IsResponseinsertedToEpi7" ColumnName="IsResponseinsertedToEpi7" />
+                <ScalarProperty Name="IsSQLResponse" ColumnName="IsSQLResponse" />
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+                <ScalarProperty Name="SurveyResponseTrackingId" ColumnName="SurveyResponseTrackingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1511,7 +1535,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="Epi.Web.Model" ZoomLevel="67">
-        <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="10.75" PointY="5.125" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="9.625" PointY="5.625" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="3.75" PointY="2.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.Organization" Width="1.5" PointX="0.75" PointY="5.375" Height="2.3648893229166656" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaData" Width="1.5" PointX="6" PointY="4" Height="6.7878222656250014" IsExpanded="true" />
@@ -1528,9 +1552,9 @@
           <ConnectorPoint PointX="6" PointY="6.6535953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.SurveyMetaDataUser" ManuallyRouted="false">
-          <ConnectorPoint PointX="6.21875" PointY="10.787822265625001" />
-          <ConnectorPoint PointX="6.21875" PointY="16.692047526041669" />
-          <ConnectorPoint PointX="4.5" PointY="16.692047526041669" />
+          <ConnectorPoint PointX="6.21875" PointY="11.133977981770823" />
+          <ConnectorPoint PointX="4.5" PointY="17.038203242187489" />
+          <ConnectorPoint PointX="6.21875" PointY="17.038203242187489" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.ResponseDisplaySetting" Width="1.5" PointX="6" PointY="1.125" Height="1.7879850260416674" />
         <AssociationConnector Association="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData" >
@@ -1596,32 +1620,39 @@
         <EntityTypeShape EntityType="OSELS_EWEModel.EIDatasource" Width="1.5" PointX="14" PointY="5.25" Height="2.749492187500004" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_RecordSource" Width="1.5" PointX="8.375" PointY="9.75" Height="1.4033821614583388" />
         <AssociationConnector Association="OSELS_EWEModel.FK_Datasource_SurveyMetaData1" >
-          <ConnectorPoint PointX="7.5" PointY="7.3913378906250014" />
-          <ConnectorPoint PointX="14" PointY="7.3913378906250014" />
+          <ConnectorPoint PointX="7.5" PointY="7.9874936067708227" />
+          <ConnectorPoint PointX="13.197916666666666" PointY="7.9874936067708218" />
+          <ConnectorPoint PointX="13.364583333333334" PointY="7.9874936067708227" />
+          <ConnectorPoint PointX="14" PointY="7.9874936067708227" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.familyset" Width="1.5" PointX="13.875" PointY="9.25" Height="4.8648079427083388" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponseTracking" Width="2.5" PointX="10.875" PointY="1.25" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="16.875" PointY="2.75" Height="4.6725065104166683" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="12.25" PointY="0.5" Height="4.8648079427083326" />
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_lk_Status" >
-          <ConnectorPoint PointX="12.25" PointY="5.15625" />
-          <ConnectorPoint PointX="16.875" PointY="5.15625" />
+          <ConnectorPoint PointX="11.125" PointY="6.422841796875" />
+          <ConnectorPoint PointX="12.765625" PointY="6.422841796875" />
+          <ConnectorPoint PointX="12.765625" PointY="5.3648079427083326" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" >
-          <ConnectorPoint PointX="7.5" PointY="4.515625" />
-          <ConnectorPoint PointX="16.875" PointY="4.515625" />
+          <ConnectorPoint PointX="7.5" PointY="4.6824039713541667" />
+          <ConnectorPoint PointX="12.25" PointY="4.6824039713541667" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyResponse" >
-          <ConnectorPoint PointX="17.406923076923075" PointY="7.4225065104166683" />
-          <ConnectorPoint PointX="17.406923076923075" PointY="7.6725065104166674" />
-          <ConnectorPoint PointX="17.853461538461538" PointY="7.6725065104166674" />
-          <ConnectorPoint PointX="17.853461538461538" PointY="7.4225065104166683" />
+          <ConnectorPoint PointX="12.781923076923077" PointY="0.5" />
+          <ConnectorPoint PointX="12.781923076923077" PointY="0.24999999999999956" />
+          <ConnectorPoint PointX="13.228461538461538" PointY="0.24999999999999956" />
+          <ConnectorPoint PointX="13.228461538461538" PointY="0.5" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.SurveyResponseUser" >
-          <ConnectorPoint PointX="17.109709038461538" PointY="7.4225065104166683" />
-          <ConnectorPoint PointX="17.109709038461538" PointY="15.877271263020834" />
+          <ConnectorPoint PointX="13.28125" PointY="5.3648079427083326" />
+          <ConnectorPoint PointX="13.28125" PointY="15.877271263020834" />
           <ConnectorPoint PointX="6.302083333333333" PointY="15.877271263020834" />
           <ConnectorPoint PointX="6.135416666666667" PointY="15.877271263020834" />
           <ConnectorPoint PointX="4.5" PointY="15.877271263020834" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponseTracking" Width="1.5" PointX="14.5" PointY="2.25" Height="1.9802864583333384" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse" >
+          <ConnectorPoint PointX="13.75" PointY="3.2401432291666694" />
+          <ConnectorPoint PointX="14.5" PointY="3.2401432291666694" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
