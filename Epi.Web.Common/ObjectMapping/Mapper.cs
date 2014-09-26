@@ -39,7 +39,9 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 StartDate = pDTO.StartDate,
                 OwnerId = pDTO.OwnerId,
                 DBConnectionString = pDTO.DBConnectionString,
-                IsSqlProject = pDTO.IsSqlProject
+                IsSqlProject = pDTO.IsSqlProject,
+                ViewId = pDTO.ViewId
+                 
             };
             }
 
