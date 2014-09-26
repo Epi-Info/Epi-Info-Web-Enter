@@ -93,6 +93,7 @@
     <Compile Include="DTO\PreFilledAnswerDTO.cs" />
     <Compile Include="DTO\ResponseXmlDTO.cs" />
     <Compile Include="DTO\SurveyAnswerDTO.cs" />
+    <Compile Include="DTO\SurveyControlDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Email\Email.cs" />
     <Compile Include="Exception\CustomFaultException.cs" />

@@ -113,7 +113,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
 
 
          List<SurveyInfoBO> GetFormsHierarchyIdsByRootId(string RootId);
-         void InsertFormdefaultSettings(string FormId);
+         void InsertFormdefaultSettings(string FormId,bool  IsSqlProject,List<string> ControlsNameList);
          void UpdateParentId(string SurveyId, int ViewId, string ParentId);
          void InsertConnectionString(DbConnectionStringBO ConnectionString);
          void UpdateConnectionString(DbConnectionStringBO ConnectionString);
