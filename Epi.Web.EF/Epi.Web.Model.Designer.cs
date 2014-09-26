@@ -36,6 +36,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyMetaData", "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyMetaData), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_SurveyResponse", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyResponse), "SurveyResponse1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyResponseUser", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyResponse), "SurveyResponseTracking", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponseTracking), true)]
 
 #endregion
 
@@ -330,22 +331,6 @@ namespace Epi.Web.EF
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<SurveyResponseTracking> SurveyResponseTrackings
-        {
-            get
-            {
-                if ((_SurveyResponseTrackings == null))
-                {
-                    _SurveyResponseTrackings = base.CreateObjectSet<SurveyResponseTracking>("SurveyResponseTrackings");
-                }
-                return _SurveyResponseTrackings;
-            }
-        }
-        private ObjectSet<SurveyResponseTracking> _SurveyResponseTrackings;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<SurveyResponse> SurveyResponses
         {
             get
@@ -358,6 +343,22 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<SurveyResponse> _SurveyResponses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SurveyResponseTracking> SurveyResponseTrackings
+        {
+            get
+            {
+                if ((_SurveyResponseTrackings == null))
+                {
+                    _SurveyResponseTrackings = base.CreateObjectSet<SurveyResponseTracking>("SurveyResponseTrackings");
+                }
+                return _SurveyResponseTrackings;
+            }
+        }
+        private ObjectSet<SurveyResponseTracking> _SurveyResponseTrackings;
 
         #endregion
 
@@ -484,19 +485,19 @@ namespace Epi.Web.EF
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the SurveyResponseTrackings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToSurveyResponseTrackings(SurveyResponseTracking surveyResponseTracking)
-        {
-            base.AddObject("SurveyResponseTrackings", surveyResponseTracking);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the SurveyResponses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToSurveyResponses(SurveyResponse surveyResponse)
         {
             base.AddObject("SurveyResponses", surveyResponse);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SurveyResponseTrackings EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSurveyResponseTrackings(SurveyResponseTracking surveyResponseTracking)
+        {
+            base.AddObject("SurveyResponseTrackings", surveyResponseTracking);
         }
 
         #endregion
@@ -4639,6 +4640,28 @@ namespace Epi.Web.EF
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyResponseTracking_SurveyResponse", "SurveyResponseTracking")]
+        public EntityCollection<SurveyResponseTracking> SurveyResponseTrackings
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SurveyResponseTracking>("OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse", "SurveyResponseTracking");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyResponseTracking>("OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse", "SurveyResponseTracking", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -4658,14 +4681,12 @@ namespace Epi.Web.EF
         /// Create a new SurveyResponseTracking object.
         /// </summary>
         /// <param name="surveyResponseTrackingId">Initial value of the SurveyResponseTrackingId property.</param>
-        /// <param name="responseId">Initial value of the ResponseId property.</param>
         /// <param name="isSQLResponse">Initial value of the IsSQLResponse property.</param>
         /// <param name="isResponseinsertedToEpi7">Initial value of the IsResponseinsertedToEpi7 property.</param>
-        public static SurveyResponseTracking CreateSurveyResponseTracking(global::System.Int32 surveyResponseTrackingId, global::System.Int32 responseId, global::System.Boolean isSQLResponse, global::System.Int32 isResponseinsertedToEpi7)
+        public static SurveyResponseTracking CreateSurveyResponseTracking(global::System.Int32 surveyResponseTrackingId, global::System.Boolean isSQLResponse, global::System.Boolean isResponseinsertedToEpi7)
         {
             SurveyResponseTracking surveyResponseTracking = new SurveyResponseTracking();
             surveyResponseTracking.SurveyResponseTrackingId = surveyResponseTrackingId;
-            surveyResponseTracking.ResponseId = responseId;
             surveyResponseTracking.IsSQLResponse = isSQLResponse;
             surveyResponseTracking.IsResponseinsertedToEpi7 = isResponseinsertedToEpi7;
             return surveyResponseTracking;
@@ -4705,9 +4726,9 @@ namespace Epi.Web.EF
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 ResponseId
+        public Nullable<global::System.Guid> ResponseId
         {
             get
             {
@@ -4715,24 +4736,21 @@ namespace Epi.Web.EF
             }
             set
             {
-                if (_ResponseId != value)
-                {
-                    OnResponseIdChanging(value);
-                    ReportPropertyChanging("ResponseId");
-                    _ResponseId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ResponseId");
-                    OnResponseIdChanged();
-                }
+                OnResponseIdChanging(value);
+                ReportPropertyChanging("ResponseId");
+                _ResponseId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ResponseId");
+                OnResponseIdChanged();
             }
         }
-        private global::System.Int32 _ResponseId;
-        partial void OnResponseIdChanging(global::System.Int32 value);
+        private Nullable<global::System.Guid> _ResponseId;
+        partial void OnResponseIdChanging(Nullable<global::System.Guid> value);
         partial void OnResponseIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Boolean IsSQLResponse
         {
@@ -4742,14 +4760,11 @@ namespace Epi.Web.EF
             }
             set
             {
-                if (_IsSQLResponse != value)
-                {
-                    OnIsSQLResponseChanging(value);
-                    ReportPropertyChanging("IsSQLResponse");
-                    _IsSQLResponse = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("IsSQLResponse");
-                    OnIsSQLResponseChanged();
-                }
+                OnIsSQLResponseChanging(value);
+                ReportPropertyChanging("IsSQLResponse");
+                _IsSQLResponse = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsSQLResponse");
+                OnIsSQLResponseChanged();
             }
         }
         private global::System.Boolean _IsSQLResponse;
@@ -4759,9 +4774,9 @@ namespace Epi.Web.EF
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 IsResponseinsertedToEpi7
+        public global::System.Boolean IsResponseinsertedToEpi7
         {
             get
             {
@@ -4769,23 +4784,62 @@ namespace Epi.Web.EF
             }
             set
             {
-                if (_IsResponseinsertedToEpi7 != value)
-                {
-                    OnIsResponseinsertedToEpi7Changing(value);
-                    ReportPropertyChanging("IsResponseinsertedToEpi7");
-                    _IsResponseinsertedToEpi7 = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("IsResponseinsertedToEpi7");
-                    OnIsResponseinsertedToEpi7Changed();
-                }
+                OnIsResponseinsertedToEpi7Changing(value);
+                ReportPropertyChanging("IsResponseinsertedToEpi7");
+                _IsResponseinsertedToEpi7 = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsResponseinsertedToEpi7");
+                OnIsResponseinsertedToEpi7Changed();
             }
         }
-        private global::System.Int32 _IsResponseinsertedToEpi7;
-        partial void OnIsResponseinsertedToEpi7Changing(global::System.Int32 value);
+        private global::System.Boolean _IsResponseinsertedToEpi7;
+        partial void OnIsResponseinsertedToEpi7Changing(global::System.Boolean value);
         partial void OnIsResponseinsertedToEpi7Changed();
 
         #endregion
 
     
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse")]
+        public SurveyResponse SurveyResponse
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<SurveyResponse> SurveyResponseReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<SurveyResponse>("OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse", value);
+                }
+            }
+        }
+
+        #endregion
+
     }
     
     /// <summary>
