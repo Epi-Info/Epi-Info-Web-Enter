@@ -393,7 +393,8 @@ namespace Epi.Web.BLL
             // 1- breck down the xml to n views
             List<string> XmlList = new List<string>();
             XmlList = XmlChunking(pRequestMessage.XML);
-
+            string ParentId = "";
+            
             // 2- call publish() with each of the views
             foreach (string Xml in XmlList)
                 {
@@ -409,19 +410,41 @@ namespace Epi.Web.BLL
                 SurveyInfoBO.XML = Xml;
                 SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
                 SurveyInfoBO.ViewId = ViewId;
+                var ViewExists = FormsHierarchyIds.Where(x => x.ViewId == ViewId);
+                if (ViewExists.Count() > 0)
+                    {
+                    SurveyInfoBO pBO = FormsHierarchyIds.Single(x => x.ViewId == ViewId);
+                    SurveyInfoBO.SurveyId = pBO.SurveyId;
+                    SurveyInfoBO.ParentId = pBO.ParentId;
+                    SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
+                    SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
+                    SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+                    SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
+                    SurveyRequestResultBO = RePublish(SurveyInfoBO);
+                    }
+                else {
+                        SurveyInfoBO.XML = Xml;
+                        SurveyInfoBO.SurveyName = ViewElement.Attribute("Name").Value.ToString();
+                        SurveyInfoBO.ViewId = ViewId;
+                        SurveyInfoBO.ParentId = ParentId;
+                        SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
+                        SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+                        SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
+                      SurveyRequestResultBO = Publish(SurveyInfoBO);
+                     
+                    }
+                ParentId = SurveyRequestResultBO.ViewIdAndFormIdList[ViewId];
+                SurveyIds.Add(ViewId, ParentId);
                 
-                SurveyInfoBO pBO =  FormsHierarchyIds.Single(x => x.ViewId == ViewId);
-                SurveyInfoBO.SurveyId = pBO.SurveyId;
-                SurveyInfoBO.ParentId = pBO.ParentId;
-                SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
-                SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
-                SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
-                SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
-                SurveyRequestResultBO = RePublish(SurveyInfoBO);
-
-             
                 }
+            foreach (var _ViewId in this.ViewIds)
+                {
 
+                string PId = SurveyIds[_ViewId.Value].ToString();
+                string SId = SurveyIds[_ViewId.Key].ToString();
+                this.SurveyInfoDao.UpdateParentId(SId, _ViewId.Key, PId);
+
+                }
         
             return SurveyRequestResultBO;
             }
