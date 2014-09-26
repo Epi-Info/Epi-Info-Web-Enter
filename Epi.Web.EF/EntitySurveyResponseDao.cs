@@ -762,7 +762,9 @@ namespace Epi.Web.EF
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
 
-                string EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield);
+
+
+                string EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString);
 
                 if (EI7Query == string.Empty)
                 {
@@ -857,7 +859,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string BuildEI7Query(string FormId, string SortOrder, string Sortfield)
+        private string BuildEI7Query(string FormId, string SortOrder, string Sortfield, string EI7Connectionstring)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.ConnectionString);
             EweConnection.Open();
@@ -887,15 +889,32 @@ namespace Epi.Web.EF
                 EweConnection.Close();
                 throw ex;
             }
+            SqlConnection EI7Connection = new SqlConnection(EI7Connectionstring);
 
-            if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0)
+            EI7Connection.Open();
+
+            SqlCommand EI7Command = new SqlCommand(" SELECT *  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" + EweDS.Tables[0].Rows[0][1] + "'", EI7Connection);
+            object eI7CommandExecuteScalar;
+            try
             {
+                eI7CommandExecuteScalar = EI7Command.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0
+                || eI7CommandExecuteScalar == null)
+            {
+                EI7Connection.Close();
                 return string.Empty;
             }
 
-            StringBuilder stringBuilder = new StringBuilder(); 
+            StringBuilder stringBuilder = new StringBuilder();
             StringBuilder tableNameBuilder = new StringBuilder();
-            stringBuilder.Append("SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
+            stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
 
             StringBuilder sortBuilder = new StringBuilder(" ORDER BY ");
             if (Sortfield != null && SortOrder != null)
