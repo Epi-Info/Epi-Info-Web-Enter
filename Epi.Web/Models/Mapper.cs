@@ -22,6 +22,7 @@ namespace Epi.Web.MVC.Models
         {
             return new FormInfoModel
             {
+                IsSQLProject = FormInfoDTO.IsSQLProject,
                 FormId = FormInfoDTO.FormId,
                 FormName = FormInfoDTO.FormName,
                 FormNumber = FormInfoDTO.FormNumber,
