@@ -49,6 +49,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             {
             return new FormInfoDTO
             {
+                IsSQLProject = BO.IsSQLProject,
                 FormId = BO.FormId,
                 FormNumber = BO.FormNumber,
                 FormName = BO.FormName,

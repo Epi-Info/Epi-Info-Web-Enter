@@ -17,6 +17,14 @@ namespace Epi.Web.MVC.Models
         private bool _IsOwner;
         private string _OwnerLName;
         private string _OwnerFName;
+        private bool _isSQLProject;
+
+        public bool IsSQLProject
+        {
+            get { return _isSQLProject; }
+            set { _isSQLProject = value; }
+        }
+
         public string FormId
         {
             get { return _FormId; }
