@@ -113,5 +113,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          void DeleteResponseXml(ResponseXmlBO ResponseXmlBO);
 
          void InsertResponseXml(ResponseXmlBO item);
+         bool ISResponseExists(Guid ResponseId);
     }
 }

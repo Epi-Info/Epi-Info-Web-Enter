@@ -146,10 +146,11 @@ namespace Epi.Web.MVC.Facade
         /// </summary>
         /// <param name="ResponseId"></param>
         /// <returns></returns>
-        public SurveyAnswerResponse GetSurveyAnswerResponse(string responseId)
+        public SurveyAnswerResponse GetSurveyAnswerResponse(string responseId,string FormId ="")
         {
             _surveyAnswerRequest.Criteria.SurveyAnswerIdList.Clear();
             _surveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId);
+            _surveyAnswerRequest.Criteria.SurveyId = FormId;
             SurveyAnswerResponse surveyAnswerResponse = _iSurveyAnswerRepository.GetSurveyAnswer(_surveyAnswerRequest);
             return surveyAnswerResponse;
         }

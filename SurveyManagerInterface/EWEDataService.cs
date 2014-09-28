@@ -259,9 +259,13 @@ namespace Epi.Web.WCF.SurveyService
                 //{
                 //result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
                 //}
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao SurveyInfoDao = new EF.EntitySurveyInfoDao();
+                Epi.Web.BLL.SurveyInfo Implementation1 = new Epi.Web.BLL.SurveyInfo(SurveyInfoDao);
+                SurveyInfoBO SurveyInfoBO = Implementation1.GetSurveyInfoById(pRequest.Criteria.SurveyId);
+                List<SurveyInfoBO> SurveyInfoBOList = new List<SurveyInfoBO>();
+                SurveyInfoBOList.Add(SurveyInfoBO);
 
-
-                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey));
+                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey, pRequest.Criteria.SurveyId, SurveyInfoBOList));
 
                 //SurveyResponseBO Request = new SurveyResponseBO();
 
@@ -400,7 +404,7 @@ namespace Epi.Web.WCF.SurveyService
                     else if (request.Action.Equals("Delete", StringComparison.OrdinalIgnoreCase))
                         {
                         var criteria = request.Criteria as SurveyAnswerCriteria;
-                        var survey = Implementation.GetSurveyResponseById(new List<string> { SurveyResponse.SurveyId }, SurveyResponse.UserPublishKey);
+                        var survey = Implementation.GetSurveyResponseById(new List<string> { SurveyResponse.SurveyId }, SurveyResponse.UserPublishKey, request.Criteria.SurveyId);
 
                         foreach (SurveyResponseBO surveyResponse in survey)
                             {
