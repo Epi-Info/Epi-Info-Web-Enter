@@ -11,6 +11,8 @@ namespace Epi.Web.EF
     {
         private static readonly string _connectionString;
 
+        private static readonly string _eweAdoConnectionString;
+
         /// <summary>
         /// Static constructor. Reads the connectionstring from web.config just once.
         /// </summary>
@@ -21,8 +23,11 @@ namespace Epi.Web.EF
                 //  string connectionStringName = ConfigurationManager.AppSettings.Get("ConnectionStringName");
                 string connectionStringName = "EIWSEntities";
 
+                string EWEADOconnectionStringName = "EI7ADO";
+
                 //Decrypt connection string here
                 _connectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString);
+                _eweAdoConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings[EWEADOconnectionStringName].ConnectionString);
             }
             catch (Exception ex)
             {
@@ -54,14 +59,16 @@ namespace Epi.Web.EF
         /// <summary>
         /// Property to read connection string without meta information
         /// </summary>
-        public static string ConnectionString
+        public static string EWEADOConnectionString
         {
             get
             {
-                string connstr = _connectionString.Substring(_connectionString.IndexOf("connection string"));
-                connstr = connstr.Replace("connection string=", "");
-                connstr = connstr.Replace("\"", "");
-                return connstr;
+                //string connstr = _connectionString.Substring(_connectionString.IndexOf("connection string"));
+                //connstr = connstr.Replace("connection string=", "");
+                //connstr = connstr.Replace("\"", "");
+                //return connstr;
+
+                return _eweAdoConnectionString;
             }
         }
     }
