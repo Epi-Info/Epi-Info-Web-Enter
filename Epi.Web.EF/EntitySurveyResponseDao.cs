@@ -758,13 +758,18 @@ namespace Epi.Web.EF
                 //do a read from ResponseDisplaySettings to read the column names. if for a given survey they dont exist 
                 //read the first 5 columns from EI7 sql server database.
 
-                string EI7ConnectionString = ReadConnectionString(criteria.SurveyId);
+                string tableName = ReadEI7DatabaseName(criteria.SurveyId);
+
+                string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
+
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
 
 
 
                 string EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString);
+
+                
 
                 if (EI7Query == string.Empty)
                 {
@@ -861,7 +866,7 @@ namespace Epi.Web.EF
         /// <returns></returns>
         private string BuildEI7Query(string FormId, string SortOrder, string Sortfield, string EI7Connectionstring)
         {
-            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.ConnectionString);
+            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
 
             SqlCommand EweCommand = new SqlCommand("usp_GetFormFieldsInfo", EweConnection);//send formid for stored procedure to look for common columns between the two tables
@@ -954,6 +959,208 @@ namespace Epi.Web.EF
             return stringBuilder.Append(sortBuilder.ToString()).ToString();
         }
 
+
+        /// <summary>
+        /// Builds SQL Select query by reading the columns, tablename from the EWE database.
+        /// </summary>
+        /// <param name="FormId"></param>
+        /// <returns></returns>
+        private string BuildEI7ResponseQuery(string ResponseId, string SurveyId, string SortOrder, string Sortfield, string EI7Connectionstring, bool IsChild = false)
+        {
+            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
+            EweConnection.Open();
+
+            SqlCommand EweCommand = new SqlCommand("usp_GetResponseFieldsInfo", EweConnection);//send formid for stored procedure to look for common columns between the two tables
+            //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
+
+            EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
+            EweCommand.Parameters["@FormId"].Value = "14EAA835-9C33-4C7D-81A3-41CE0E122784"; //SurveyId;
+
+            EweCommand.CommandType = CommandType.StoredProcedure;
+            //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
+
+
+
+            SqlDataAdapter EweDataAdapter = new SqlDataAdapter(EweCommand);
+
+            DataSet EweDS = new DataSet();
+
+            try
+            {
+                EweDataAdapter.Fill(EweDS);
+                EweConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                EweConnection.Close();
+                throw ex;
+            }
+            SqlConnection EI7Connection = new SqlConnection(EI7Connectionstring);
+
+            EI7Connection.Open();
+
+            SqlCommand EI7Command = new SqlCommand(" SELECT *  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" + EweDS.Tables[0].Rows[0][1] + "'", EI7Connection);
+            object eI7CommandExecuteScalar;
+            try
+            {
+                eI7CommandExecuteScalar = EI7Command.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0
+                || eI7CommandExecuteScalar == null)
+            {
+                EI7Connection.Close();
+                return string.Empty;
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder tableNameBuilder = new StringBuilder();
+            stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
+
+            StringBuilder sortBuilder = new StringBuilder(" ORDER BY ");
+            if (Sortfield != null && SortOrder != null)
+            {
+                sortBuilder.Append(Sortfield + " " + SortOrder);
+            }
+            else
+            {
+                sortBuilder.Append(EweDS.Tables[0].Rows[0][1] + "." + EweDS.Tables[0].Rows[0][0]);
+            }
+
+            // Builds the select part of the query.
+            foreach (DataRow row in EweDS.Tables[0].Rows)
+            {
+                stringBuilder.Append(row[1] + "." + row[0] + ", ");
+
+            }
+            stringBuilder.Remove(stringBuilder.Length - 2, 1);
+
+            stringBuilder.Append(" FROM ");
+            //Following code gives distinct data values.
+            DataView view = new DataView(EweDS.Tables[0]);
+            DataTable TableNames = view.ToTable(true, "TableName");
+
+            stringBuilder.Append(TableNames.Rows[0][0]);
+            //Builds the JOIN part of the query.
+            for (int i = 0; i < TableNames.Rows.Count - 1; i++)
+            {
+                if (i + 1 < TableNames.Rows.Count)
+                {
+                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1][0]);
+                    stringBuilder.Append(" ON " + TableNames.Rows[0][0] + ".GlobalRecordId =" + TableNames.Rows[i + 1][0] + ".GlobalRecordId");
+
+                }
+            }
+
+            stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0][4] + " ON " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0][4] + ".GlobalRecordId");
+            stringBuilder.Append(" WHERE " + EweDS.Tables[0].Rows[0][4] + ".FKEY ='" + ResponseId + "'");
+
+            return stringBuilder.Append(sortBuilder.ToString()).ToString();
+        }
+
+        /// <summary>
+        /// Builds SQL Select query by reading the columns, tablename from the EWE database.
+        /// </summary>
+        /// <param name="FormId"></param>
+        /// <returns></returns>
+        private string BuildEI7ResponseAllFieldsQuery(string ResponseId, string SurveyId, string EI7Connectionstring)
+        {
+            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
+            EweConnection.Open();
+
+            SqlCommand EweCommand = new SqlCommand("usp_GetResponseAllFieldsInfo", EweConnection);//send formid for stored procedure to look for common columns between the two tables
+            //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
+
+            EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
+            EweCommand.Parameters["@FormId"].Value = "14EAA835-9C33-4C7D-81A3-41CE0E122784"; //SurveyId;
+
+            EweCommand.CommandType = CommandType.StoredProcedure;
+            //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
+
+
+
+            SqlDataAdapter EweDataAdapter = new SqlDataAdapter(EweCommand);
+
+            DataSet EweDS = new DataSet();
+
+            try
+            {
+                EweDataAdapter.Fill(EweDS);
+                EweConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                EweConnection.Close();
+                throw ex;
+            }
+            SqlConnection EI7Connection = new SqlConnection(EI7Connectionstring);
+
+            EI7Connection.Open();
+
+            SqlCommand EI7Command = new SqlCommand(" SELECT *  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" + EweDS.Tables[0].Rows[0][1] + "'", EI7Connection);
+            object eI7CommandExecuteScalar;
+            try
+            {
+                eI7CommandExecuteScalar = EI7Command.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0
+                || eI7CommandExecuteScalar == null)
+            {
+                EI7Connection.Close();
+                return string.Empty;
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder tableNameBuilder = new StringBuilder();
+            stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId,");
+
+            
+
+            // Builds the select part of the query.
+            foreach (DataRow row in EweDS.Tables[0].Rows)
+            {
+                stringBuilder.Append(row["TableName"] + "." + row["FieldName"] + ", ");
+
+            }
+            stringBuilder.Remove(stringBuilder.Length - 2, 1);
+
+            stringBuilder.Append(" FROM ");
+            //Following code gives distinct data values.
+            DataView view = new DataView(EweDS.Tables[0]);
+            DataTable TableNames = view.ToTable(true, "TableName");
+
+            stringBuilder.Append(TableNames.Rows[0]["TableName"]);
+            //Builds the JOIN part of the query.
+            for (int i = 0; i < TableNames.Rows.Count - 1; i++)
+            {
+                if (i + 1 < TableNames.Rows.Count)
+                {
+                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["TableName"]);
+                    stringBuilder.Append(" ON " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId =" + TableNames.Rows[i + 1]["TableName"] + ".GlobalRecordId");
+
+                }
+            }
+
+            stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
+            stringBuilder.Append(" WHERE " + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".FKEY ='" + ResponseId + "'");
+
+            return stringBuilder.ToString();
+        }
+
+
+
+        
         /// <summary>
         /// Validates if current form is Sql Project
         /// </summary>
@@ -961,7 +1168,7 @@ namespace Epi.Web.EF
         /// <returns></returns>
         private bool IsEISQLProject(string FormId)
         {
-            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.ConnectionString);
+            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
 
             EweConnection.Open();
 
@@ -999,9 +1206,9 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string ReadConnectionString(string FormId)
+        private string ReadEI7DatabaseName(string FormId)
         {
-            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.ConnectionString);
+            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
 
             EweConnection.Open();
 
@@ -1028,7 +1235,9 @@ namespace Epi.Web.EF
 
             //ConnectionString = DSConnstr.Tables[0].Rows[0][0] + "";
 
-            return ConnectionString;
+            //return ConnectionString;
+
+            return ConnectionString.Substring(ConnectionString.LastIndexOf('=') + 1);
         }
 
         public int GetFormResponseCount(string FormId)
@@ -1306,6 +1515,103 @@ namespace Epi.Web.EF
 
         }
 
+
+        public List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, SurveyAnswerCriteria Criteria)
+        {
+            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+
+            IsSqlProject = true; // IsEISQLProject(Criteria.SurveyId);//Checks to see if current form is SqlProject
+
+            if (IsSqlProject)
+            {
+                //make a connection to datasource table to read the connection string.
+                //do a read to see which column belongs to which page/table.
+                //do a read from ResponseDisplaySettings to read the column names. if for a given survey they dont exist 
+                //read the first 5 columns from EI7 sql server database.
+
+                string tableName = ReadEI7DatabaseName(Criteria.SurveyId);
+
+                string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
+
+                SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
+
+                string EI7Query = BuildEI7ResponseQuery(ResponseId ,Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString);
+
+                SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
+                EI7Command.CommandType = CommandType.Text;
+
+                SqlDataAdapter EI7Adapter = new SqlDataAdapter(EI7Command);
+
+                DataSet EI7DS = new DataSet();
+
+                EI7Connection.Open();
+
+                try
+                {
+                    EI7Adapter.Fill(EI7DS);
+                    EI7Connection.Close();
+                }
+                catch (Exception)
+                {
+                    EI7Connection.Close();
+                    throw;
+                }
+
+
+                // List<Dictionary<string, string>> DataRows = new List<Dictionary<string, string>>();
+
+                for (int i = 0; i < EI7DS.Tables[0].Rows.Count; i++)
+                {
+                    Dictionary<string, string> rowDic = new Dictionary<string, string>();
+                    SurveyResponseBO SurveyResponseBO = new Enter.Common.BusinessObject.SurveyResponseBO();
+                    for (int j = 0; j < EI7DS.Tables[0].Columns.Count; j++)
+                    {
+                        rowDic.Add(EI7DS.Tables[0].Columns[j].ColumnName, EI7DS.Tables[0].Rows[i][j].ToString());
+                    }
+                    //.Skip((PageNumber - 1) * PageSize).Take(PageSize); ;
+                    //IEnumerable<KeyValuePair<string, string>> temp = rowDic.AsEnumerable();
+                    //temp.Skip((PageNumber - 1) * PageSize).Take(PageSize); 
+
+                    SurveyResponseBO.SqlData = rowDic;
+                    result.Add(SurveyResponseBO);
+                }
+
+                SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
+
+                result = result.Skip((Criteria.PageNumber - 1) * Criteria.PageSize).Take(Criteria.PageSize).ToList();
+                //SurveyResponseBO.SqlResponseDataBO.SqlData = DataRows;
+            }
+            else
+            {
+
+                try
+                {
+
+                    Guid RId = new Guid(ResponseId);
+                    Guid SId = new Guid(Criteria.SurveyId);
+
+                    using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                        result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
+
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+            }
+            return result;
+
+        }
+
+
+        /*
+         * 
+         * */
 
         public SurveyResponseBO GetResponseXml(string ResponseId)
         {
