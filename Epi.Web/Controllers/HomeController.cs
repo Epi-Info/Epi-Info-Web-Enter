@@ -127,12 +127,15 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             Session["FormValuesHasChanged"] = "";
             if (!string.IsNullOrEmpty(EditForm))
-            {
-                Session["RootFormId"] = surveyid;
+                {
+                if (!string.IsNullOrEmpty(surveyid))
+                    {
+                     Session["RootFormId"] = surveyid;
+                    }
                 Session["RootResponseId"] = EditForm;
 
                 Session["IsEditMode"] = true;
-                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm, Session["RootFormId"].ToString());
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
@@ -281,7 +284,7 @@ namespace Epi.Web.MVC.Controllers
 
             var model = new FormResponseInfoModel();
 
-
+            Session["RootFormId"] = formid;
             model = GetFormResponseInfoModel(formid, page);
 
             if (IsMobileDevice == false)
@@ -536,12 +539,12 @@ namespace Epi.Web.MVC.Controllers
 
         //    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResId, PageNumber = 1 });
         //    }
-        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId)
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId,string FormId)
         {
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
 
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
-            result = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0];
+            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId).SurveyResponseList[0];
 
             return result;
 
