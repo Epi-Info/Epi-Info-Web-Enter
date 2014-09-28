@@ -864,6 +864,100 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
+        private string BuildEI7ResponseQueryAllFields(string ResponseId, string FormId, string EI7Connectionstring)
+        {
+            SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
+            EweConnection.Open();
+
+            SqlCommand EweCommand = new SqlCommand("usp_GetResponseAllFieldsInfo", EweConnection);//send formid for stored procedure to look for common columns between the two tables
+            //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
+
+            EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
+            EweCommand.Parameters["@FormId"].Value = FormId;
+
+            EweCommand.CommandType = CommandType.StoredProcedure;
+            //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
+
+
+
+            SqlDataAdapter EweDataAdapter = new SqlDataAdapter(EweCommand);
+
+            DataSet EweDS = new DataSet();
+
+            try
+            {
+                EweDataAdapter.Fill(EweDS);
+                EweConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                EweConnection.Close();
+                throw ex;
+            }
+            SqlConnection EI7Connection = new SqlConnection(EI7Connectionstring);
+
+            EI7Connection.Open();
+
+            SqlCommand EI7Command = new SqlCommand(" SELECT *  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" + EweDS.Tables[0].Rows[0]["TableName"] + "'", EI7Connection);
+            object eI7CommandExecuteScalar;
+            try
+            {
+                eI7CommandExecuteScalar = EI7Command.ExecuteScalar();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+            if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0
+                || eI7CommandExecuteScalar == null)
+            {
+                EI7Connection.Close();
+                return string.Empty;
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            StringBuilder tableNameBuilder = new StringBuilder();
+            stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId,");
+
+                        // Builds the select part of the query.
+            foreach (DataRow row in EweDS.Tables[0].Rows)
+            {
+                stringBuilder.Append(row["TableName"] + "." + row["FieldName"] + ", ");
+
+            }
+            stringBuilder.Remove(stringBuilder.Length - 2, 1);
+
+            stringBuilder.Append(" FROM ");
+            //Following code gives distinct data values.
+            DataView view = new DataView(EweDS.Tables[0]);
+            DataTable TableNames = view.ToTable(true, "TableName");
+
+            stringBuilder.Append(TableNames.Rows[0][0]);
+            //Builds the JOIN part of the query.
+            for (int i = 0; i < TableNames.Rows.Count - 1; i++)
+            {
+                if (i + 1 < TableNames.Rows.Count)
+                {
+                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1][0]);
+                    stringBuilder.Append(" ON " + TableNames.Rows[0][0] + ".GlobalRecordId =" + TableNames.Rows[i + 1][0] + ".GlobalRecordId");
+
+                }
+            }
+
+            StringBuilder WhereClause = new StringBuilder();
+
+            WhereClause.Append(" WHERE " + TableNames.Rows[0][0] + ".GLobalRecordId ='" + ResponseId +"'");
+
+            return stringBuilder.Append(WhereClause.ToString()).ToString();
+        }
+
+        /// <summary>
+        /// Builds SQL Select query by reading the columns, tablename from the EWE database.
+        /// </summary>
+        /// <param name="FormId"></param>
+        /// <returns></returns>
         private string BuildEI7Query(string FormId, string SortOrder, string Sortfield, string EI7Connectionstring)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
