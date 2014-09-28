@@ -90,5 +90,8 @@ namespace Epi.Web.Enter.Common.Criteria
 
        [DataMember]
        public string Sortfield { get; set; }
+
+       [DataMember]
+       public bool GetAllColumns { get; set; }
     }
 }

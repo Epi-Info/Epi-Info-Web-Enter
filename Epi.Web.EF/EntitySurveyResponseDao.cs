@@ -764,13 +764,15 @@ namespace Epi.Web.EF
 
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
-
-
-
-                string EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString);
-
-                
-
+                string EI7Query;
+                if (!criteria.GetAllColumns)
+                    {
+                            EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString);
+                    }
+                else
+                    {
+                            EI7Query = BuildEI7ResponseAllFieldsQuery(criteria.SurveyAnswerIdList[0].ToString(), criteria.SurveyId, EI7ConnectionString);
+                    }
                 if (EI7Query == string.Empty)
                 {
                     return result;
@@ -864,7 +866,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string BuildEI7ResponseQueryAllFields(string ResponseId, string FormId, string EI7Connectionstring)
+        public string BuildEI7ResponseQueryAllFields(string ResponseId, string FormId, string EI7Connectionstring)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
@@ -1171,7 +1173,7 @@ namespace Epi.Web.EF
             //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
 
             EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
-            EweCommand.Parameters["@FormId"].Value = "14EAA835-9C33-4C7D-81A3-41CE0E122784"; //SurveyId;
+            EweCommand.Parameters["@FormId"].Value = SurveyId;
 
             EweCommand.CommandType = CommandType.StoredProcedure;
             //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
@@ -1246,8 +1248,9 @@ namespace Epi.Web.EF
                 }
             }
 
-            stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
-            stringBuilder.Append(" WHERE " + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".FKEY ='" + ResponseId + "'");
+            //stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
+            //stringBuilder.Append(" WHERE " + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".FKEY ='" + ResponseId + "'");
+            stringBuilder.Append(" WHERE " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId ='" + ResponseId + "'");
 
             return stringBuilder.ToString();
         }
@@ -1333,7 +1336,30 @@ namespace Epi.Web.EF
 
             return ConnectionString.Substring(ConnectionString.LastIndexOf('=') + 1);
         }
+      public  bool ISResponseExists(Guid ResponseId) {
+        bool Exists= false;
+        try
+            {
 
+           
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.ResponseId == ResponseId);
+                if (SurveyResponseList.Count()>0) {
+                        Exists = true;
+                    }
+
+                }
+            return Exists;
+
+            }
+        catch (Exception ex)
+            {
+            throw (ex);
+            }
+            }
         public int GetFormResponseCount(string FormId)
         {
             int ResponseCount = 0;
