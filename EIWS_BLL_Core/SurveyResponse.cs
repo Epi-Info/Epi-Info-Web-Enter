@@ -391,6 +391,17 @@ namespace Epi.Web.BLL
 
         }
 
+        public List<SurveyResponseBO> GetResponsesByRelatedFormId(string ResponseId, SurveyAnswerCriteria Criteria)
+        {
+            List<SurveyResponseBO> SurveyResponseBO = new List<SurveyResponseBO>();
+
+            SurveyResponseBO = this.SurveyResponseDao.GetResponsesByRelatedFormId(ResponseId, Criteria);
+
+
+            return SurveyResponseBO;
+
+        }
+
         public SurveyResponseBO GetResponseXml(string ResponseId)
         {
             SurveyResponseBO SurveyResponseBO = new SurveyResponseBO();

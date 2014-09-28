@@ -1068,7 +1068,7 @@ namespace Epi.Web.EF
             //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
 
             EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
-            EweCommand.Parameters["@FormId"].Value = "14EAA835-9C33-4C7D-81A3-41CE0E122784"; //SurveyId;
+            EweCommand.Parameters["@FormId"].Value = SurveyId; // "00bd65ff-f051-4e16-a8dc-ddb3577911cc"; //"14EAA835-9C33-4C7D-81A3-41CE0E122784"; //SurveyId;
 
             EweCommand.CommandType = CommandType.StoredProcedure;
             //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
@@ -1614,7 +1614,7 @@ namespace Epi.Web.EF
         {
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
-            IsSqlProject = true; // IsEISQLProject(Criteria.SurveyId);//Checks to see if current form is SqlProject
+            IsSqlProject = IsEISQLProject(Criteria.SurveyId);//Checks to see if current form is SqlProject
 
             if (IsSqlProject)
             {
@@ -1672,7 +1672,7 @@ namespace Epi.Web.EF
 
                 SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
 
-                result = result.Skip((Criteria.PageNumber - 1) * Criteria.PageSize).Take(Criteria.PageSize).ToList();
+                //result = result.Skip((Criteria.PageNumber - 1) * Criteria.PageSize).Take(Criteria.PageSize).ToList();
                 //SurveyResponseBO.SqlResponseDataBO.SqlData = DataRows;
             }
             else
