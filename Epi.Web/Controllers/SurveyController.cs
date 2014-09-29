@@ -1324,7 +1324,7 @@ namespace Epi.Web.MVC.Controllers
             ResponseModel Response = new ResponseModel();
 
             Response.Column0 = item.SqlData["GlobalRecordId"];
-            if (Columns.Count > 1)
+            if (Columns.Count > 0)
             {
                 Response.Column1 = item.SqlData[Columns[0].Value];
             }
