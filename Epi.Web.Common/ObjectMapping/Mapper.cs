@@ -386,7 +386,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsDraftMode = false,
                 //ParentId = ParentRecordId,
                 TemplateXMLSize = RemoveWhitespace(Xml).Length,
-                
+                RecrodSourceId = 2,
                 ParentRecordId = ParentRecordId,
                 UserId = UserId
 

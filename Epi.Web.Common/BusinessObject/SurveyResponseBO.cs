@@ -35,7 +35,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         public int ViewId { get; set; }
 
         public Dictionary<string, string> SqlData { get; set; }
-
+        public int RecrodSourceId { get; set; }
         public object Clone() 
             {
 

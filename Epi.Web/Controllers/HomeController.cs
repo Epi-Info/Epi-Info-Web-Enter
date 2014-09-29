@@ -544,9 +544,9 @@ namespace Epi.Web.MVC.Controllers
         private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId,string FormId)
         {
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
-
+            int   UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
-            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId).SurveyResponseList[0];
+            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId,UserId).SurveyResponseList[0];
 
             return result;
 
