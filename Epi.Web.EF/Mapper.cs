@@ -301,6 +301,7 @@ namespace Epi.Web.EF
             SurveyResponse.DateCompleted = pBO.DateCompleted;
             SurveyResponse.DateCreated = pBO.DateCreated;
             SurveyResponse.IsDraftMode = pBO.IsDraftMode;
+            SurveyResponse.RecordSourceId = pBO.RecrodSourceId;
             if (!string.IsNullOrEmpty(pBO.RelateParentId))
             {
                 SurveyResponse.RelateParentId = new Guid(pBO.RelateParentId);

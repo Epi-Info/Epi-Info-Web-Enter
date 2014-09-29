@@ -94,11 +94,11 @@ namespace Epi.Web.EF
 
             int  OrganizationId =0;
             try {
-            using (var Context = DataObjectFactory.CreateContext())
-            {
+            //using (var Context = DataObjectFactory.CreateContext())
+            //{
                
-                OrganizationId =  Context.Organizations.FirstOrDefault(x => x.OrganizationKey == pOrganizationKey).OrganizationId;
-            }
+            //    OrganizationId =  Context.Organizations.FirstOrDefault(x => x.OrganizationKey == pOrganizationKey).OrganizationId;
+            //}
             }
             catch (Exception ex)
             {
@@ -113,7 +113,8 @@ namespace Epi.Web.EF
                     try{
                             using (var Context = DataObjectFactory.CreateContext())
                             {
-                                responseList.Add(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id && x.OrganizationId == OrganizationId));
+                                //responseList.Add(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id && x.OrganizationId == OrganizationId));
+                                responseList.Add(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id ));
                             }
                     }
                     catch (Exception ex)
