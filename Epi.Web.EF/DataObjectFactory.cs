@@ -23,7 +23,7 @@ namespace Epi.Web.EF
                 //  string connectionStringName = ConfigurationManager.AppSettings.Get("ConnectionStringName");
                 string connectionStringName = "EIWSEntities";
 
-                string EWEADOconnectionStringName = "EI7ADO";
+                string EWEADOconnectionStringName = "EWEADO";
 
                 //Decrypt connection string here
                 _connectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString);
