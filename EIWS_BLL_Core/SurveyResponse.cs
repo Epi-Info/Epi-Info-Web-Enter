@@ -28,15 +28,17 @@ namespace Epi.Web.BLL
             this.SurveyResponseDao = pSurveyResponseDao;
         }
 
-        public List<SurveyResponseBO> GetSurveyResponseById(List<String> pId, Guid UserPublishKey, string FormId, List<SurveyInfoBO> SurveyBOList=null)
+     
+        public List<SurveyResponseBO> GetSurveyResponseById(SurveyAnswerCriteria Criteria, List<SurveyInfoBO> SurveyBOList = null)
         {
+
             //Check if this Response exists in EWE DataBase
-           Guid Id = new Guid(pId[0]);
+        Guid Id = new Guid(Criteria.SurveyAnswerIdList[0]);
            bool ResponseExists = this.SurveyResponseDao.ISResponseExists(Id);
            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
            if (ResponseExists)
                {
-               result = this.SurveyResponseDao.GetSurveyResponse(pId, UserPublishKey);
+               result = this.SurveyResponseDao.GetSurveyResponse(Criteria.SurveyAnswerIdList, Criteria.UserPublishKey);
                }
            else 
                {
@@ -46,8 +48,8 @@ namespace Epi.Web.BLL
                //Retrieve response data sets from Epi 7 DataBase
                SurveyAnswerCriteria SurveyAnswerCriteria = new Enter.Common.Criteria.SurveyAnswerCriteria ();
                SurveyAnswerCriteria.GetAllColumns = true;
-               SurveyAnswerCriteria.SurveyId = FormId;
-               SurveyAnswerCriteria.SurveyAnswerIdList.Add(pId[0]);
+               SurveyAnswerCriteria.SurveyId = Criteria.SurveyId;
+               SurveyAnswerCriteria.SurveyAnswerIdList.Add(Criteria.SurveyAnswerIdList[0]);
                SurveyAnswerCriteria.PageSize = 1;
                SurveyAnswerCriteria.PageNumber = 1;
                result = this.SurveyResponseDao.GetFormResponseByFormId(SurveyAnswerCriteria);
@@ -57,9 +59,9 @@ namespace Epi.Web.BLL
               
                //Build Response Xml
                 PreFilledAnswerRequest Request = new PreFilledAnswerRequest();
-                Request.AnswerInfo.ResponseId = new Guid(pId[0]);
-                Request.AnswerInfo.SurveyId = new Guid(FormId);
-                Request.AnswerInfo.UserId = 2;
+                Request.AnswerInfo.ResponseId = new Guid(Criteria.SurveyAnswerIdList[0]);
+                Request.AnswerInfo.SurveyId = new Guid(Criteria.SurveyId);
+                Request.AnswerInfo.UserId = Criteria.UserId;
                 Request.AnswerInfo.SurveyQuestionAnswerList = new Dictionary<string, string>();
                 foreach (var item in DataList)
                     {
@@ -68,13 +70,13 @@ namespace Epi.Web.BLL
                     Request.AnswerInfo.SurveyQuestionAnswerList.Add(item.Key, item.Value);
 
                     }
-                Request.AnswerInfo.OrganizationKey = new Guid ( "a4b6a687-610d-442a-a80c-d1c781087181");
+              //  Request.AnswerInfo.OrganizationKey = new Guid ( "a4b6a687-610d-442a-a80c-d1c781087181");
               var response = SetSurveyAnswer(Request);
               // string Xml = CreateResponseXml(  Request,  SurveyBOList);
 
                 //Insert response xml into EWE
 
-              result = this.SurveyResponseDao.GetSurveyResponse(pId, UserPublishKey);
+              result = this.SurveyResponseDao.GetSurveyResponse(Criteria.SurveyAnswerIdList, Criteria.UserPublishKey);
                }
             return result;
         }
