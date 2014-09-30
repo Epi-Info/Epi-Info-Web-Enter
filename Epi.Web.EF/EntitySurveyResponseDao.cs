@@ -1546,7 +1546,7 @@ namespace Epi.Web.EF
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
             IsSqlProject = IsEISQLProject(Criteria.SurveyId);//Checks to see if current form is SqlProject
-
+             
             if (IsSqlProject)
             {
                 //make a connection to datasource table to read the connection string.
@@ -1555,6 +1555,7 @@ namespace Epi.Web.EF
                 //read the first 5 columns from EI7 sql server database.
 
                 string tableName = ReadEI7DatabaseName(Criteria.SurveyId);
+               
 
                 string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
 
