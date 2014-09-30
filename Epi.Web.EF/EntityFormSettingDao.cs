@@ -206,9 +206,10 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     List<string> Columns = (from c in Context.SurveyMetaDataTransforms
-                                           where c.SurveyId == Id 
-                                           select c.FieldName).ToList();
-                    return Columns; 
+                                            where c.SurveyId == Id && 
+                                            (c.FieldTypeId != 2 && c.FieldTypeId != 20 && c.FieldTypeId != 3 && c.FieldTypeId != 17 && c.FieldTypeId != 21) //filter non-data fields.
+                                            select c.FieldName).ToList();
+                    return Columns;
                 }
             }
             catch (Exception ex)
