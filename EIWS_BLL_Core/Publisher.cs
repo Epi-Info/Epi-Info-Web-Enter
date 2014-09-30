@@ -550,26 +550,28 @@ namespace Epi.Web.BLL
         #endregion
 
         private List<string> GetSurveyControls(SurveyInfoBO SurveyInfoBO)
-            {
+        {
             List<string> List = new List<string>();
 
             XDocument xdoc = XDocument.Parse(SurveyInfoBO.XML);
 
-
             var _FieldsTypeIDs = from _FieldTypeID in
-                                     xdoc.Descendants("Field")
+                                 xdoc.Descendants("Field")
                                  select _FieldTypeID;
 
-            foreach (var _FieldTypeID in _FieldsTypeIDs.Take(5))
-                {
-                if (  _FieldTypeID.Attribute("FieldTypeId").Value != "2" && _FieldTypeID.Attribute("FieldTypeId").Value != "21" && _FieldTypeID.Attribute("FieldTypeId").Value != "3")
-                    {
-                    List.Add(_FieldTypeID.Attribute("Name").Value.ToString());
-                    }
-                }
-            return List;
+            string fieldType = "";
 
+            foreach (var _FieldTypeID in _FieldsTypeIDs.Take(5))
+            {
+                fieldType = _FieldTypeID.Attribute("FieldTypeId").Value;
+
+                if (fieldType != "2" && fieldType != "21" && fieldType != "3" && fieldType != "20")
+                {
+                    List.Add(_FieldTypeID.Attribute("Name").Value.ToString());
+                }
             }
+            return List;
+        }
       
     }
 }
