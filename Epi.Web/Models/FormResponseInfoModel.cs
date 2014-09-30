@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Epi.Web.MVC.Models
 {
@@ -19,6 +20,13 @@ namespace Epi.Web.MVC.Models
         public string ParentResponseId;
         public string sortOrder;
         public string sortfield;
+        public SeachBoxModel SearchModel;
+        public List<SelectListItem> SearchColumns1;
+        public List<SelectListItem> SearchColumns2;
+        public List<SelectListItem> SearchColumns3;
+        public List<SelectListItem> SearchColumns4;
+        public List<SelectListItem> SearchColumns5;
+
         public FormResponseInfoModel()
         {
             FormInfoModel = new FormInfoModel();

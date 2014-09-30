@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Models\OrgAdminInfoModel.cs" />
     <Compile Include="Models\OrgListModel.cs" />
+    <Compile Include="Models\SeachBoxModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\FormInfoModel.cs" />
     <Compile Include="Models\FormModel.cs" />
