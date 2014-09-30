@@ -232,7 +232,13 @@ namespace Epi.Web.BLL
             SurveyResponseBO result = pValue;
             //Check if this respose has prent
             string ParentId = SurveyResponseDao.GetResponseParentId(pValue.ResponseId);
-            if (!string.IsNullOrEmpty(ParentId) && pValue.Status == 2)
+            Guid ParentIdGuid = Guid.Empty;
+            if (!string.IsNullOrEmpty(ParentId) )
+                {
+                       ParentIdGuid = new Guid(ParentId);
+                }
+            
+            if ( pValue.Status == 2 && ParentIdGuid!= Guid.Empty )
             {
                 //read the child 
 
