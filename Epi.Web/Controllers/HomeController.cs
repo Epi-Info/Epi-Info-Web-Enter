@@ -18,6 +18,7 @@ using Epi.Web.Enter.Common.Message;
 using Epi.Web.MVC.Utility;
 using Epi.Web.Enter.Common.DTO;
 using System.Web.Configuration;
+using System.Text;
 namespace Epi.Web.MVC.Controllers
 {
     [Authorize]
@@ -127,11 +128,11 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             Session["FormValuesHasChanged"] = "";
             if (!string.IsNullOrEmpty(EditForm))
-                {
+            {
                 if (!string.IsNullOrEmpty(surveyid))
-                    {
-                     Session["RootFormId"] = surveyid;
-                    }
+                {
+                    Session["RootFormId"] = surveyid;
+                }
                 Session["RootResponseId"] = EditForm;
 
                 Session["IsEditMode"] = true;
@@ -305,7 +306,6 @@ namespace Epi.Web.MVC.Controllers
 
             var model = new FormResponseInfoModel();
 
-
             model = GetFormResponseInfoModel(formid, page, sort, sortfield);
 
             if (IsMobileDevice == false)
@@ -315,6 +315,64 @@ namespace Epi.Web.MVC.Controllers
             else
             {
                 return View("ListResponses", model);
+            }
+        }
+
+        private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SeachBoxModel SearchModel, FormResponseInfoModel Model)
+        {
+            FormCollection Collection = new FormCollection(nameValueCollection);
+
+            
+
+            StringBuilder searchBuilder = new StringBuilder();
+
+            if (Collection["col1"] == null)
+            {
+                return "";
+            }
+
+            if (Collection["col1"].Length > 0 && Collection["val1"].Length > 0)
+            {
+                searchBuilder.Append(Collection["col1"] + "='" + Collection["val1"] + "'");
+                SearchModel.SearchCol1 = Collection["col1"];
+                SearchModel.Value1 = Collection["val1"];
+            }
+            if (Collection["col2"].Length > 0 && Collection["val2"].Length > 0)
+            {
+                searchBuilder.Append(" AND " + Collection["col2"] + "='" + Collection["val2"] + "'");
+                SearchModel.SearchCol2 = Collection["col2"];
+                SearchModel.Value2 = Collection["val2"];
+            }
+            if (Collection["col3"].Length > 0 && Collection["val3"].Length > 0)
+            {
+                searchBuilder.Append(" AND " + Collection["col3"] + "='" + Collection["val3"] + "'");
+                SearchModel.SearchCol3 = Collection["col3"];
+                SearchModel.Value3 = Collection["val3"];
+            }
+            if (Collection["col4"].Length > 0 && Collection["val4"].Length > 0)
+            {
+                searchBuilder.Append(" AND " + Collection["col4"] + "='" + Collection["val4"] + "'");
+                SearchModel.SearchCol4 = Collection["col4"];
+                SearchModel.Value4 = Collection["val4"];
+            } 
+            if (Collection["col5"].Length > 0 && Collection["val5"].Length > 0)
+            {
+                searchBuilder.Append(" AND " + Collection["col5"] + "='" + Collection["val5"] + "'");
+                SearchModel.SearchCol5 = Collection["col5"];
+                SearchModel.Value5 = Collection["val5"];
+            }
+
+
+            return searchBuilder.ToString();
+        }
+
+        private void PopulateDropDownlist(List<SelectListItem> SearchColumns, string searchValue)
+        {
+            //Model.SearchColumns1 = new List<SelectListItem>();
+            foreach (var item in Columns)
+            {
+                SelectListItem newSelectListItem = new SelectListItem { Text = item.Value, Value = item.Value, Selected = item.Value == searchValue };
+                SearchColumns.Add(newSelectListItem);
             }
         }
 
@@ -398,6 +456,7 @@ namespace Epi.Web.MVC.Controllers
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
+            FormResponseInfoModel.SearchModel = new SeachBoxModel();
             SurveyResponseXML SurveyResponseXML = new SurveyResponseXML();
             if (!string.IsNullOrEmpty(SurveyId))
             {
@@ -415,12 +474,26 @@ namespace Epi.Web.MVC.Controllers
 
                 // Setting  Column Name  List
                 FormResponseInfoModel.Columns = Columns;
+                
 
                 //Getting Resposes
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
                 FormResponseReq.Criteria.PageNumber = PageNumber;
                 FormResponseReq.Criteria.UserId = UserId;
-               // FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria();
+                FormResponseInfoModel.SearchColumns1 = new List<SelectListItem>();
+                FormResponseInfoModel.SearchColumns2 = new List<SelectListItem>();
+                FormResponseInfoModel.SearchColumns3 = new List<SelectListItem>();
+                FormResponseInfoModel.SearchColumns4 = new List<SelectListItem>();
+                FormResponseInfoModel.SearchColumns5 = new List<SelectListItem>();
+                FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
+
+
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns1, FormResponseInfoModel.SearchModel.SearchCol1);
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns2, FormResponseInfoModel.SearchModel.SearchCol2);
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns3, FormResponseInfoModel.SearchModel.SearchCol3);
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns4, FormResponseInfoModel.SearchModel.SearchCol4);
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns5, FormResponseInfoModel.SearchModel.SearchCol5);
+
 
                 if (sort.Length > 0)
                 {
@@ -436,9 +509,9 @@ namespace Epi.Web.MVC.Controllers
 
                 if (sortfield.Length > 0)
                 {
-                  SortColumnList(sortfield, FormResponseInfoModel);  
+                    SortColumnList(sortfield, FormResponseInfoModel);
                 }
-                
+
 
                 //var ResponseTableList ; //= FormSettingResponse.FormSetting.DataRows;
                 //Setting Resposes List
@@ -541,7 +614,7 @@ namespace Epi.Web.MVC.Controllers
 
         //    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResId, PageNumber = 1 });
         //    }
-        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId,string FormId)
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId, string FormId)
         {
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
             int   UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());

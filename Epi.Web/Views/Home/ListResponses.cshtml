@@ -59,37 +59,92 @@
 
 <div id="searchbox" style="display:none;">
     <div class="searchrow">
-        <select>
+        @*<select>
             <option>Select</option>
-        </select>
-        <input type="text" />
+        </select>*@
+       @*     <select id="columns1" style="width: 172px;">
+                           @foreach (var item in Model.Columns)
+                           {
+				            <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                           }
+				
+				            
+			            </select>*@
+                       @* @Html.DropDownList("columns1", Model.SearchColumns)*@
+                        @Html.DropDownListFor(m => m.SearchModel.SearchCol1, Model.SearchColumns1, string.Empty)
+                        @Html.TextBoxFor( m => m.SearchModel.Value1,string.Empty)
+      @*  <input type="text" id="val1" />*@
     </div>
     <div class="searchrow">
-        <select>
+      @*  <select>
             <option>Select</option>
-        </select>
-        <input type="text" />
+        </select>*@
+       @* <select id="columns2" style="width: 172px;">
+                           @foreach (var item in Model.Columns)
+                           {
+				            <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                           }
+				
+				            
+			            </select>*@
+                       @* @Html.DropDownList("columns2", Model.SearchColumns)
+        <input type="text"  id="val2"/>*@
+          @Html.DropDownListFor(m => m.SearchModel.SearchCol2, Model.SearchColumns2, string.Empty)
+                        @Html.TextBoxFor( m => m.SearchModel.Value2,string.Empty)
     </div>
     <div class="searchrow">
-        <select>
+        @*<select>
             <option>Select</option>
-        </select>
-        <input type="text" />
+        </select>*@
+       @* <select id="columns3" style="width: 172px;">
+                           @foreach (var item in Model.Columns)
+                           {
+				            <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                           }
+				
+				            
+			            </select>*@
+                    @*    @Html.DropDownList("columns3", Model.SearchColumns)
+        <input type="text"  id="val3"/>*@
+          @Html.DropDownListFor(m => m.SearchModel.SearchCol3, Model.SearchColumns3, string.Empty)
+                        @Html.TextBoxFor( m => m.SearchModel.Value3,string.Empty)
     </div>
     <div class="searchrow">
-        <select>
+       @* <select>
             <option>Select</option>
-        </select>
-        <input type="text" />
+        </select>*@
+        @*<select id="columns4" style="width: 172px;">
+                           @foreach (var item in Model.Columns)
+                           {
+				            <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                           }
+				
+				            
+			            </select>*@
+                       @* @Html.DropDownList("columns4", Model.SearchColumns)
+        <input type="text" id="val4" />*@
+          @Html.DropDownListFor(m => m.SearchModel.SearchCol4, Model.SearchColumns4, string.Empty)
+                        @Html.TextBoxFor( m => m.SearchModel.Value4,string.Empty)
     </div>
     <div class="searchrow" style=" display:inline-block; margin-right: 15px;">
-        <select>
+       @* <select>
             <option>Select</option>
-        </select>
-        <input type="text" />
+        </select>*@
+      @*  <select id="columns5" style="width: 172px;">
+                           @foreach (var item in Model.Columns)
+                           {
+				            <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                           }
+				
+				            
+			            </select>*@
+                @*        @Html.DropDownList("columns5", Model.SearchColumns)
+        <input type="text"  id="val5"/>*@
+          @Html.DropDownListFor(m => m.SearchModel.SearchCol5, Model.SearchColumns5, string.Empty)
+                        @Html.TextBoxFor( m => m.SearchModel.Value5,string.Empty)
     </div>
-    <button class="default" style="width:80px;">Go</button>
-    <button class="default">Reset</button>
+    <button class="default" style="width:80px;" name="Search">Go</button>
+    <button class="default" name="ResetSearch">Reset</button>
 </div>
 
 @{

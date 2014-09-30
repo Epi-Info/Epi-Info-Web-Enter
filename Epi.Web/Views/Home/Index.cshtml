@@ -120,6 +120,86 @@
             return false;
         });
 
+        $(document).on("click", "button[name='Search']", function (e) {
+            e.preventDefault();
+            $("#right").show();
+            var formid = $('#hidFormId').val();
+            var pageNumber = $('#hidPageNumber').val();
+            var Sort = 'ASC';
+            var SortField = $("#columns").val(); // 'PetsName';
+
+            var col1 = $("#SearchModel_SearchCol1").val();
+            var val1 = $("#SearchModel_Value1").val();
+            var col2 = $("#SearchModel_SearchCol2").val();
+            var val2 = $("#SearchModel_Value2").val();
+            var col3 = $("#SearchModel_SearchCol3").val();
+            var val3 = $("#SearchModel_Value3").val();
+            var col4 = $("#SearchModel_SearchCol4").val();
+            var val4 = $("#SearchModel_Value4").val();
+            var col5 = $("#SearchModel_SearchCol5").val();
+            var val5 = $("#SearchModel_Value5").val();
+
+            $.ajax({
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField
+                + "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc,
+                error: errorFunc
+            });
+            $.ajaxSetup({ cache: false });
+
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+
+        });
+
+        $(document).on("click", "button[name='ResetSearch']", function (e) {
+            e.preventDefault();
+            $("#right").show();
+            var formid = $('#hidFormId').val();
+            var pageNumber = $('#hidPageNumber').val();
+            var Sort = 'ASC';
+            var SortField = $("#columns").val();
+
+            var col1 = '';
+            var val1 = '';
+            var col2 = '';
+            var val2 = '';
+            var col3 = '';
+            var val3 = '';
+            var col4 = '';
+            var val4 = '';
+            var col5 = '';
+            var val5 = '';
+
+            $.ajax({
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField
+                + "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5,
+                type: 'GET',
+                contentType: 'application/json; charset=utf-8',
+                //data: JSON.stringify(model),
+                success: successFunc,
+                error: errorFunc
+            });
+            $.ajaxSetup({ cache: false });
+
+            function successFunc(data, status) {
+                $('#right').html(data);
+            }
+
+            function errorFunc() {
+                alert('error');
+            }
+
+        });
+
         //Sort by Logic for ASC and DESC button clicks
 
         $(document).on("click", "button[id='SortASC']", function (e) {
