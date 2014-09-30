@@ -366,7 +366,7 @@ namespace Epi.Web.MVC.Controllers
             return searchBuilder.ToString();
         }
 
-        private void PopulateDropDownlist(List<SelectListItem> SearchColumns, string searchValue)
+        private void PopulateDropDownlist(List<SelectListItem> SearchColumns, string searchValue, List<KeyValuePair<int, string>> Columns)
         {
             //Model.SearchColumns1 = new List<SelectListItem>();
             foreach (var item in Columns)
@@ -487,12 +487,18 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.SearchColumns5 = new List<SelectListItem>();
                 FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
 
+                //List<KeyValuePair<int, string>> AllColumns = Columns.AddRange();
+                //if (FormSettingResponse.FormSetting.FormControlNameList != null)
+                //{
+                //    Columns.AddRange(FormSettingResponse.FormSetting.FormControlNameList.ToList());
+                //}
+                //.AddRange(Columns);
 
-                PopulateDropDownlist(FormResponseInfoModel.SearchColumns1, FormResponseInfoModel.SearchModel.SearchCol1);
-                PopulateDropDownlist(FormResponseInfoModel.SearchColumns2, FormResponseInfoModel.SearchModel.SearchCol2);
-                PopulateDropDownlist(FormResponseInfoModel.SearchColumns3, FormResponseInfoModel.SearchModel.SearchCol3);
-                PopulateDropDownlist(FormResponseInfoModel.SearchColumns4, FormResponseInfoModel.SearchModel.SearchCol4);
-                PopulateDropDownlist(FormResponseInfoModel.SearchColumns5, FormResponseInfoModel.SearchModel.SearchCol5);
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns1, FormResponseInfoModel.SearchModel.SearchCol1, FormSettingResponse.FormSetting.FormControlNameList.ToList());
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns2, FormResponseInfoModel.SearchModel.SearchCol2, FormSettingResponse.FormSetting.FormControlNameList.ToList());
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns3, FormResponseInfoModel.SearchModel.SearchCol3, FormSettingResponse.FormSetting.FormControlNameList.ToList());
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns4, FormResponseInfoModel.SearchModel.SearchCol4, FormSettingResponse.FormSetting.FormControlNameList.ToList());
+                PopulateDropDownlist(FormResponseInfoModel.SearchColumns5, FormResponseInfoModel.SearchModel.SearchCol5, FormSettingResponse.FormSetting.FormControlNameList.ToList());
 
 
                 if (sort.Length > 0)

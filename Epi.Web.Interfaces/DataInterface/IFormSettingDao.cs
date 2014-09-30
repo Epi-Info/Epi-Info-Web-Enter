@@ -18,5 +18,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
        void UpDateFormMode(FormInfoBO FormInfoBO);
 
        void UpDateAssignedUserList(FormSettingBO FormSettingBO, string FormId);
+
+       List<string> GetAllColumnNames(string FormId);
         }
     }
