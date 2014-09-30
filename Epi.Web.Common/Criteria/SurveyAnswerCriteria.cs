@@ -93,5 +93,8 @@ namespace Epi.Web.Enter.Common.Criteria
 
        [DataMember]
        public bool GetAllColumns { get; set; }
+
+       [DataMember]
+       public string SearchCriteria { get; set; }
     }
 }
