@@ -74,7 +74,8 @@
 {
     border: 1px solid #32510f;
     padding: 10px 50px ;
-    background: url("../images/icn_alert_success.png") no-repeat 18px centeradminpaging;
+    background-image: url("../images/icn_alert_success.png");
+    background-repeat: no-repeat;
     background-color: #e6ffbf;
     background-position: 18px center;
     margin: 0 0 20px;
