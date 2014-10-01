@@ -120,14 +120,7 @@
             return false;
         });
 
-        $(document).on("click", "button[name='Search']", function (e) {
-            e.preventDefault();
-            $("#right").show();
-            var formid = $('#hidFormId').val();
-            var pageNumber = $('#hidPageNumber').val();
-            var Sort = 'ASC';
-            var SortField = $("#columns").val(); // 'PetsName';
-
+        function ReadSearchFields() {
             var col1 = $("#SearchModel_SearchCol1").val();
             var val1 = $("#SearchModel_Value1").val();
             var col2 = $("#SearchModel_SearchCol2").val();
@@ -138,25 +131,37 @@
             var val4 = $("#SearchModel_Value4").val();
             var col5 = $("#SearchModel_SearchCol5").val();
             var val5 = $("#SearchModel_Value5").val();
+            return "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5;
+        }
 
-            $.ajax({
-                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField
-                + "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5,
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
-                //data: JSON.stringify(model),
-                success: successFunc,
-                error: errorFunc
-            });
-            $.ajaxSetup({ cache: false });
+        $(document).on("click", "button[name='Search']", function (e) {
+            e.preventDefault();
+            $("#right").show();
+            var formid = $('#hidFormId').val();
+            var pageNumber = $('#hidPageNumber').val();
+            var Sort = 'ASC';
+            var SortField = $("#columns").val(); // 'PetsName';
 
-            function successFunc(data, status) {
-                $('#right').html(data);
-            }
+            ReadResponses(formid, 1, Sort, SortField);
 
-            function errorFunc() {
-                alert('error');
-            }
+            //            $.ajax({
+            //                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField
+            //                + ReadSearchFields() ,
+            //                type: 'GET',
+            //                contentType: 'application/json; charset=utf-8',
+            //                //data: JSON.stringify(model),
+            //                success: successFunc,
+            //                error: errorFunc
+            //            });
+            //            $.ajaxSetup({ cache: false });
+
+            //            function successFunc(data, status) {
+            //                $('#right').html(data);
+            //            }
+
+            //            function errorFunc() {
+            //                alert('error');
+            //            }
 
         });
 
@@ -210,23 +215,25 @@
             var Sort = 'ASC';
             var SortField = $("#columns").val(); // 'PetsName';
 
-            $.ajax({
-                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField,
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
-                //data: JSON.stringify(model),
-                success: successFunc,
-                error: errorFunc
-            });
-            $.ajaxSetup({ cache: false });
+            ReadResponses(formid, 1, Sort, SortField);
 
-            function successFunc(data, status) {
-                $('#right').html(data);
-            }
+            //            $.ajax({
+            //                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField + ReadSearchFields(),
+            //                type: 'GET',
+            //                contentType: 'application/json; charset=utf-8',
+            //                //data: JSON.stringify(model),
+            //                success: successFunc,
+            //                error: errorFunc
+            //            });
+            //            $.ajaxSetup({ cache: false });
 
-            function errorFunc() {
-                alert('error');
-            }
+            //            function successFunc(data, status) {
+            //                $('#right').html(data);
+            //            }
+
+            //            function errorFunc() {
+            //                alert('error');
+            //            }
 
         });
 
@@ -237,24 +244,25 @@
             var pageNumber = $('#hidPageNumber').val();
             var Sort = 'DESC';
             var SortField = $("#columns").val(); // 'PetsName';
+            ReadResponses(formid, 1, Sort, SortField);
 
-            $.ajax({
-                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField,
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
-                //data: JSON.stringify(model),
-                success: successFunc,
-                error: errorFunc
-            });
-            $.ajaxSetup({ cache: false });
+            //            $.ajax({
+            //                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField + ReadSearchFields(),
+            //                type: 'GET',
+            //                contentType: 'application/json; charset=utf-8',
+            //                //data: JSON.stringify(model),
+            //                success: successFunc,
+            //                error: errorFunc
+            //            });
+            //            $.ajaxSetup({ cache: false });
 
-            function successFunc(data, status) {
-                $('#right').html(data);
-            }
+            //            function successFunc(data, status) {
+            //                $('#right').html(data);
+            //            }
 
-            function errorFunc() {
-                alert('error');
-            }
+            //            function errorFunc() {
+            //                alert('error');
+            //            }
 
         });
 
@@ -286,7 +294,9 @@
         function ReadResponses(formid, pagenumber, sortOrder, sortField) {
 
             $.ajax({
-                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
+                //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField
+                + ReadSearchFields(),
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
                 //data: JSON.stringify(model),
