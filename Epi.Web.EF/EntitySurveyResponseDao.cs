@@ -963,8 +963,8 @@ namespace Epi.Web.EF
             {
                 if (i + 1 < TableNames.Rows.Count)
                 {
-                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["ColumnName"]);
-                    stringBuilder.Append(" ON " + TableNames.Rows[0]["ColumnName"] + ".GlobalRecordId =" + TableNames.Rows[i + 1]["ColumnName"] + ".GlobalRecordId");
+                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["TableName"]);
+                    stringBuilder.Append(" ON " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId =" + TableNames.Rows[i + 1]["TableName"] + ".GlobalRecordId");
 
                 }
             }
