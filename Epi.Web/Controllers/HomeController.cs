@@ -480,7 +480,7 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
                 FormResponseReq.Criteria.PageNumber = PageNumber;
                 FormResponseReq.Criteria.UserId = UserId;
-                
+                FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
                 FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
 
                 PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
