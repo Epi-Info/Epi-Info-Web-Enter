@@ -749,7 +749,8 @@ namespace Epi.Web.EF
 
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
-            IsSqlProject = criteria.IsSqlProject; // IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
+           
+            IsSqlProject = IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
 
             if (IsSqlProject)
             {
@@ -1175,40 +1176,56 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        //private bool IsEISQLProject(string FormId)
-        //{
-        //    SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
+        private bool IsEISQLProject(string FormId)
+            {
+            //SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
 
-        //    EweConnection.Open();
+            //EweConnection.Open();
 
-        //    SqlCommand EweCommand = new SqlCommand("usp_IsSQLProject", EweConnection);
-        //    EweCommand.CommandType = CommandType.StoredProcedure;
-        //    EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
-        //    EweCommand.Parameters["@FormId"].Value = FormId;
-
-
-        //    SqlDataAdapter EweDataAdapter = new SqlDataAdapter(EweCommand);
-
-        //    bool IsSqlProj = false;
-        //    try
-        //    {
-        //        object issqlprj = EweDataAdapter.SelectCommand.ExecuteScalar();
-
-        //        if (issqlprj != DBNull.Value)
-        //        {
-        //            IsSqlProj = Convert.ToBoolean(issqlprj);
-        //        }
+            //SqlCommand EweCommand = new SqlCommand("usp_IsSQLProject", EweConnection);
+            //EweCommand.CommandType = CommandType.StoredProcedure;
+            //EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
+            //EweCommand.Parameters["@FormId"].Value = FormId;
 
 
-        //        EweConnection.Close();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        EweConnection.Close();
-        //        throw ex;
-        //    }
-        //    return IsSqlProj;
-        //}
+            //SqlDataAdapter EweDataAdapter = new SqlDataAdapter(EweCommand);
+
+            //bool IsSqlProj = false;
+            //try
+            //    {
+            //    object issqlprj = EweDataAdapter.SelectCommand.ExecuteScalar();
+
+            //    if (issqlprj != DBNull.Value)
+            //        {
+            //        IsSqlProj = Convert.ToBoolean(issqlprj);
+            //        }
+
+
+            //    EweConnection.Close();
+            //    }
+            //catch (Exception ex)
+            //    {
+            //    EweConnection.Close();
+            //    throw ex;
+            //    }
+
+            bool IsSqlProj = false;
+            Guid Id = new Guid(FormId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+                {
+
+
+                var Response = Context.SurveyMetaDatas.Single(x => x.SurveyId == Id);
+                if (Response != null)
+                    {
+                    IsSqlProj = (bool)Response.IsSQLProject;
+
+                    }
+
+                }
+            return IsSqlProj;
+            }
 
         /// <summary>
         /// Reads connection string from Datasource table

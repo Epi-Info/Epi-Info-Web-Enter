@@ -38,6 +38,7 @@ namespace Epi.Web.MVC.Utility
             surveyAnswerDTO.DateCreated = DateTime.Now;
             surveyAnswerDTO.SurveyId = surveyId;
             surveyAnswerDTO.Status = (int)Constant.Status.InProgress;
+            surveyAnswerDTO.RecordSourceId = 1;
             if (IsEditMode)
                 {
                       surveyAnswerDTO.ParentRecordId = RelateResponseId;
