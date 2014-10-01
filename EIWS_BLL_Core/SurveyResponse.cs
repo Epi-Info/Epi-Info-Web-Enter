@@ -39,6 +39,7 @@ namespace Epi.Web.BLL
            if (ResponseExists)
                {
                result = this.SurveyResponseDao.GetSurveyResponse(Criteria.SurveyAnswerIdList, Criteria.UserPublishKey);
+              
                }
            else 
                {
@@ -302,7 +303,7 @@ namespace Epi.Web.BLL
             foreach (var Obj in pValue)
             {
                 string ParentId = SurveyResponseDao.GetResponseParentId(Obj.ResponseId);
-                if (!string.IsNullOrEmpty(ParentId) && Status == 2)
+                if (!string.IsNullOrEmpty(ParentId) && ParentId != Guid.Empty.ToString() && Status == 2)
                 {
                     //read the child 
 

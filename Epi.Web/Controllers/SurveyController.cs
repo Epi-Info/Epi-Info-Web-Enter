@@ -67,12 +67,18 @@ namespace Epi.Web.MVC.Controllers
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")] 
         public ActionResult Index(string responseId, int PageNumber = 1, string Edit = "", string FormValuesHasChanged = "")
         {
+       
+            
             SetGlobalVariable();
 
             //For child to read Data from parent
             SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
             SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId);
             SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
+            //Update Status
+            SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = responseId });
+            SurveyAnswerRequest.Criteria.StatusId = 1;
+            _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
 
             try
             {
@@ -211,6 +217,10 @@ namespace Epi.Web.MVC.Controllers
             SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(surveyAnswerModel.ResponseId);
             SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
 
+            //Update Status
+            SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = surveyAnswerModel.ResponseId });
+            SurveyAnswerRequest.Criteria.StatusId = 2;
+            _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
 
             SetGlobalVariable();
 
@@ -851,7 +861,7 @@ namespace Epi.Web.MVC.Controllers
 
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
-
+            SARequest.Criteria.StatusId = 2;
             _isurveyFacade.UpdateResponseStatus(SARequest);
 
             FormsAuthentication.SignOut();
