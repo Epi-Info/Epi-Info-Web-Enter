@@ -52,6 +52,7 @@ namespace Epi.Web.BLL
                SurveyAnswerCriteria.SurveyAnswerIdList.Add(Criteria.SurveyAnswerIdList[0]);
                SurveyAnswerCriteria.PageSize = 1;
                SurveyAnswerCriteria.PageNumber = 1;
+               SurveyAnswerCriteria.IsSqlProject = Criteria.IsSqlProject;
                result = this.SurveyResponseDao.GetFormResponseByFormId(SurveyAnswerCriteria);
 
                var DataList = result[0].SqlData.ToList();
