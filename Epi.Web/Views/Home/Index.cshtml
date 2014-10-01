@@ -295,7 +295,7 @@
 
             $.ajax({
                 //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
-                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField
                 + ReadSearchFields(),
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
@@ -359,7 +359,7 @@
 
             $("button[class*='metro-tile']").removeClass('metro-set');
             $(FieldId).addClass('metro-set');
-            ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid= " + ResultUrl;
+            ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + "?formid=" + ResultUrl;
             ReadResponse(ActionUrl);
         }
         else {
