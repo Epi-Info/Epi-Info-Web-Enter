@@ -736,8 +736,11 @@ namespace Epi.Web.WCF.SurveyService
                 result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(criteria));
                 //Query The number of records
 
-                result.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
-                result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
+                //result.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
+                //result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
+
+                result.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria);
+                result.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria);
 
                 //Get form info 
                 Epi.Web.Enter.Interfaces.DataInterface.IFormInfoDao surveyInfoDao = new EF.EntityFormInfoDao();
@@ -1029,8 +1032,12 @@ namespace Epi.Web.WCF.SurveyService
             SurveyAnswerResponse.SurveyResponseList = Mapper.ToDataTransferObject(SurveyResponseBOList);
             //Query The number of records
 
-            SurveyAnswerResponse.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
-            SurveyAnswerResponse.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria.SurveyId);
+            //SurveyAnswerResponse.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
+            //SurveyAnswerResponse.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria);
+
+            SurveyAnswerResponse.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria);
+            SurveyAnswerResponse.NumberOfResponses = Implementation.GetNumberOfResponses(pRequest.Criteria);
+
             return SurveyAnswerResponse;
             }
         public OrganizationResponse GetUserOrganizations(OrganizationRequest request)

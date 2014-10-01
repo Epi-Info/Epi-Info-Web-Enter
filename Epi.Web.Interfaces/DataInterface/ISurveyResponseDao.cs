@@ -96,6 +96,9 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          List<SurveyResponseBO> GetFormResponseByFormId(string FormId,int PageNumber, int PageSize);
          List<SurveyResponseBO> GetFormResponseByFormId(SurveyAnswerCriteria criteria);
          int GetFormResponseCount(string FormId);
+
+         int GetFormResponseCount(SurveyAnswerCriteria Criteria);
+
          string GetResponseParentId(string ResponseId);
          SurveyResponseBO GetSingleResponse(string ResponseId);
 

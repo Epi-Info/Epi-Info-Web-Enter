@@ -749,7 +749,7 @@ namespace Epi.Web.EF
 
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
-           
+
             IsSqlProject = IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
 
             if (IsSqlProject)
@@ -768,7 +768,8 @@ namespace Epi.Web.EF
                 string EI7Query;
                 if (!criteria.GetAllColumns)
                 {
-                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria);
+                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber);
+                    
                 }
                 else
                 {
@@ -818,9 +819,9 @@ namespace Epi.Web.EF
                     result.Add(SurveyResponseBO);
                 }
 
-                SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
+                //SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
 
-                result = result.Skip((criteria.PageNumber - 1) * criteria.PageSize).Take(criteria.PageSize).ToList();
+                //result = result.Skip((criteria.PageNumber - 1) * criteria.PageSize).Take(criteria.PageSize).ToList();
                 //SurveyResponseBO.SqlResponseDataBO.SqlData = DataRows;
             }
             else
@@ -868,7 +869,8 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string BuildEI7Query(string FormId, string SortOrder, string Sortfield, string EI7Connectionstring, string SearchCriteria = "")
+        private string BuildEI7Query(string FormId, string SortOrder, string Sortfield, string EI7Connectionstring, string SearchCriteria = "", bool IsReadingResponseCount = false,
+            int PageSize = 1, int PageNumber = 1)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
@@ -923,7 +925,9 @@ namespace Epi.Web.EF
 
             StringBuilder stringBuilder = new StringBuilder();
             StringBuilder tableNameBuilder = new StringBuilder();
-            stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
+            StringBuilder pagingQueryBuilder = new StringBuilder();
+
+            StringBuilder cteSelectBuilder = new StringBuilder();
 
             StringBuilder sortBuilder = new StringBuilder(" ORDER BY ");
             if (Sortfield != null && SortOrder != null)
@@ -932,16 +936,21 @@ namespace Epi.Web.EF
             }
             else
             {
-                sortBuilder.Append(EweDS.Tables[0].Rows[0][1] + "." + EweDS.Tables[0].Rows[0][0]);
+                sortBuilder.Append(EweDS.Tables[0].Rows[0]["ColumnName"]);
             }
 
+
+            stringBuilder.Append(" SELECT ROW_NUMBER() OVER( " + sortBuilder.ToString() + ") RowNumber, " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId,");
+            cteSelectBuilder.Append(" RowNumber, GlobalRecordId,");
             // Builds the select part of the query.
             foreach (DataRow row in EweDS.Tables[0].Rows)
             {
-                stringBuilder.Append(row[1] + "." + row[0] + ", ");
+                stringBuilder.Append(row["TableName"] + "." + row["ColumnName"] + ", ");
+                cteSelectBuilder.Append(row["ColumnName"] + ", ");
 
             }
             stringBuilder.Remove(stringBuilder.Length - 2, 1);
+            cteSelectBuilder.Remove(cteSelectBuilder.Length - 2, 1);
 
             stringBuilder.Append(" FROM ");
             //Following code gives distinct data values.
@@ -954,20 +963,55 @@ namespace Epi.Web.EF
             {
                 if (i + 1 < TableNames.Rows.Count)
                 {
-                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1][0]);
-                    stringBuilder.Append(" ON " + TableNames.Rows[0][0] + ".GlobalRecordId =" + TableNames.Rows[i + 1][0] + ".GlobalRecordId");
+                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["ColumnName"]);
+                    stringBuilder.Append(" ON " + TableNames.Rows[0]["ColumnName"] + ".GlobalRecordId =" + TableNames.Rows[i + 1]["ColumnName"] + ".GlobalRecordId");
 
                 }
             }
 
             if (SearchCriteria.Length > 0)
             {
-                stringBuilder.Append(" WHERE " + SearchCriteria);
+                SearchCriteria = " WHERE " + SearchCriteria;
             }
 
-            stringBuilder.Append(sortBuilder.ToString());
 
-            return stringBuilder.ToString();
+            pagingQueryBuilder.Append("WITH CTE AS (" + stringBuilder.ToString() + SearchCriteria + ")");
+
+            if (IsReadingResponseCount)
+            {
+                pagingQueryBuilder.Append(" SELECT COUNT(*) AS RESPONSECOUNT FROM CTE");
+                //return pagingQueryBuilder.ToString();
+            }
+            else
+            {
+                pagingQueryBuilder.Append(" SELECT " + cteSelectBuilder.ToString() + " FROM CTE");
+            }
+
+
+            StringBuilder whereClause = new StringBuilder(" WHERE 1=1");
+
+            //if (SearchCriteria.Length > 0)
+            //{
+            //    whereClause.Append(" WHERE " + SearchCriteria);
+            //}
+            //else
+            //{
+            //    whereClause.Append(" WHERE  1 = 1 ");
+            //}
+
+
+            pagingQueryBuilder.Append(whereClause);
+
+            if (!IsReadingResponseCount)
+            {
+                pagingQueryBuilder.Append(" AND RowNumber between " + (((PageNumber * PageSize) - (PageSize)) + 1) + " AND " + ((PageNumber * (PageSize))));
+                pagingQueryBuilder.Append(sortBuilder.ToString());
+            }
+
+
+
+
+            return pagingQueryBuilder.ToString();
         }
 
 
@@ -1177,7 +1221,7 @@ namespace Epi.Web.EF
         /// <param name="FormId"></param>
         /// <returns></returns>
         private bool IsEISQLProject(string FormId)
-            {
+        {
             //SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
 
             //EweConnection.Open();
@@ -1213,19 +1257,19 @@ namespace Epi.Web.EF
             Guid Id = new Guid(FormId);
 
             using (var Context = DataObjectFactory.CreateContext())
-                {
+            {
 
 
                 var Response = Context.SurveyMetaDatas.Single(x => x.SurveyId == Id);
                 if (Response != null)
-                    {
+                {
                     IsSqlProj = (bool)Response.IsSQLProject;
 
-                    }
-
                 }
-            return IsSqlProj;
+
             }
+            return IsSqlProj;
+        }
 
         /// <summary>
         /// Reads connection string from Datasource table
@@ -1298,7 +1342,32 @@ namespace Epi.Web.EF
             //If SqlProject read responses from property SqlProjectResponsesCount.
             if (IsSqlProject)
             {
-                ResponseCount = SqlProjectResponsesCount;
+                //ResponseCount = SqlProjectResponsesCount;
+
+
+                string tableName = ReadEI7DatabaseName(FormId);
+
+                string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
+
+                SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
+
+                string EI7Query = BuildEI7Query(FormId, null, null, EI7ConnectionString, "", true);
+
+                SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
+                EI7Command.CommandType = CommandType.Text;
+
+                EI7Connection.Open();
+
+                try
+                {
+                    ResponseCount = (int)EI7Command.ExecuteScalar();
+                    EI7Connection.Close();
+                }
+                catch (Exception)
+                {
+                    EI7Connection.Close();
+                    throw;
+                }
             }
             else
             {
@@ -1627,7 +1696,7 @@ namespace Epi.Web.EF
                     result.Add(SurveyResponseBO);
                 }
 
-                SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
+                //SqlProjectResponsesCount = EI7DS.Tables[0].Rows.Count;
 
                 //result = result.Skip((Criteria.PageNumber - 1) * Criteria.PageSize).Take(Criteria.PageSize).ToList();
                 //SurveyResponseBO.SqlResponseDataBO.SqlData = DataRows;
@@ -1764,6 +1833,72 @@ namespace Epi.Web.EF
 
         }
 
+
+
+        public int GetFormResponseCount(SurveyAnswerCriteria Criteria)
+        {
+            int ResponseCount = 0;
+
+            //If SqlProject read responses from property SqlProjectResponsesCount.
+            if (IsSqlProject)
+            {
+                //ResponseCount = SqlProjectResponsesCount;
+
+
+                string tableName = ReadEI7DatabaseName(Criteria.SurveyId);
+
+                string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
+
+                SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
+
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true);
+
+                SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
+                EI7Command.CommandType = CommandType.Text;
+
+                EI7Connection.Open();
+
+                try
+                {
+                    ResponseCount = (int)EI7Command.ExecuteScalar();
+                    EI7Connection.Close();
+                }
+                catch (Exception)
+                {
+                    EI7Connection.Close();
+                    throw;
+                }
+            }
+            else
+            {
+
+
+                try
+                {
+
+                    Guid Id = new Guid(Criteria.SurveyId);
+
+                    using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId > 1);
+                        ResponseCount = SurveyResponseList.Count();
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+
+
+            }
+            return ResponseCount;
+
+
+
+        }
     }
 
 

@@ -134,6 +134,25 @@ namespace Epi.Web.BLL
             return result;
         }
 
+        public int GetNumberOfPages(SurveyAnswerCriteria Criteria)
+        {
+            //int PageSize;
+            if (Criteria.IsMobile)
+            {
+                Criteria.PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE_Mobile"]);
+            }
+            else
+            {
+                Criteria.PageSize = Int32.Parse(ConfigurationManager.AppSettings["RESPONSE_PAGE_SIZE"]);
+            }
+            int result = this.SurveyResponseDao.GetFormResponseCount(Criteria);
+            if (Criteria.PageSize > 0)
+            {
+                result = (result + Criteria.PageSize - 1) / Criteria.PageSize;
+            }
+            return result;
+        }
+
         //Validate User
         public bool ValidateUser(UserAuthenticationRequestBO PassCodeBoObj)
         {
@@ -398,6 +417,14 @@ namespace Epi.Web.BLL
         {
 
             int result = this.SurveyResponseDao.GetFormResponseCount(FormId);
+
+            return result;
+        }
+
+        public int GetNumberOfResponses(SurveyAnswerCriteria Criteria)
+        {
+
+            int result = this.SurveyResponseDao.GetFormResponseCount(Criteria);
 
             return result;
         }
