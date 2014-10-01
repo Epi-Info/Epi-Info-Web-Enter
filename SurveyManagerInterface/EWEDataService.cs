@@ -1316,10 +1316,11 @@ namespace Epi.Web.WCF.SurveyService
                 //response.SurveyResponseList.Add(Mapper.ToDataTransferObject(SurveyResponse));
 
                 Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
-                List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ResponseId);
+                //List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ResponseId);
 
+                List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetSurveyResponseById(request.Criteria);
 
-                List<SurveyResponseBO> ResultList = Implementation.UpdateSurveyResponse(SurveyResponseBOList, 2);
+                List<SurveyResponseBO> ResultList = Implementation.UpdateSurveyResponse(SurveyResponseBOList, request.Criteria.StatusId);
                          
                 }
             catch (Exception ex)
