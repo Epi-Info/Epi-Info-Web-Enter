@@ -1300,6 +1300,7 @@ namespace Epi.Web.MVC.Controllers
 
                 FormResponseReq.Criteria.PageNumber = 1;
                 FormResponseReq.Criteria.UserId = UserId;
+                FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetResponsesByRelatedFormId(FormResponseReq);
 
                 //Setting Resposes List

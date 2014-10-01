@@ -96,5 +96,8 @@ namespace Epi.Web.Enter.Common.Criteria
 
        [DataMember]
        public string SearchCriteria { get; set; }
+
+        [DataMember]
+       public bool IsSqlProject { get; set; }
     }
 }
