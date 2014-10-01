@@ -876,7 +876,7 @@ namespace Epi.Web.EF
             //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
 
             EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
-            EweCommand.Parameters["@FormId"].Value = FormId;
+            EweCommand.Parameters["@FormId"].Value = FormId.Trim();
 
             EweCommand.CommandType = CommandType.StoredProcedure;
             //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
@@ -984,7 +984,7 @@ namespace Epi.Web.EF
             //Stored procedure that goes queries ResponseDisplaySettings and new table SurveyResonpseTranslate(skinny table) for a given FormId
 
             EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
-            EweCommand.Parameters["@FormId"].Value = SurveyId;
+            EweCommand.Parameters["@FormId"].Value = SurveyId.Trim();
 
             EweCommand.CommandType = CommandType.StoredProcedure;
             //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
@@ -1086,7 +1086,7 @@ namespace Epi.Web.EF
             SqlCommand EweCommand = new SqlCommand("usp_GetResponseAllFieldsInfo", EweConnection);//Gets all the fields for given survey.
 
             EweCommand.Parameters.Add("@FormId", SqlDbType.VarChar);
-            EweCommand.Parameters["@FormId"].Value = SurveyId;
+            EweCommand.Parameters["@FormId"].Value = SurveyId.Trim();
 
             EweCommand.CommandType = CommandType.StoredProcedure;
             //EweCommand.CreateParameter(  EweCommand.Parameters.Add(new SqlParameter("FormId"), FormId);
