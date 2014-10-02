@@ -75,14 +75,29 @@ namespace Epi.Web.MVC.Controllers
             SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
             SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId);
             SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
-            //Update Status
-            SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = responseId });
-            SurveyAnswerRequest.Criteria.StatusId = 1;
-            _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
+            string RelateSurveyId = "";
 
             try
             {
                 List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
+
+
+                if (Session["RequestedViewId"] != null)
+                    {
+                    int RequestedViewId = int.Parse(Session["RequestedViewId"].ToString());
+                      RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == RequestedViewId).FormId;
+                    }
+                
+                //Update Status
+                SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = responseId });
+                SurveyAnswerRequest.Criteria.StatusId = 1;
+                SurveyAnswerRequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+                if (!string.IsNullOrEmpty(RelateSurveyId))
+                    {
+                SurveyAnswerRequest.Criteria.SurveyId = RelateSurveyId;
+                    }
+                _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
+
                 string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                 ViewBag.Version = version;
                 ViewBag.Edit = Edit;
@@ -95,8 +110,7 @@ namespace Epi.Web.MVC.Controllers
                 SurveyAnswerDTO surveyAnswerDTO = new SurveyAnswerDTO();
                 if (Session["RequestedViewId"]!=null)
                     {
-                int RequestedViewId = int.Parse(Session["RequestedViewId"].ToString());
-                string RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == RequestedViewId).FormId;
+               
                       surveyAnswerDTO = GetSurveyAnswer(responseId, RelateSurveyId);
                     }
                 else{
