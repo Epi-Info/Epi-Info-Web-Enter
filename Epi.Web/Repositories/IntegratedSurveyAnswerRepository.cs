@@ -771,6 +771,38 @@ namespace Epi.Web.MVC.Repositories
 
 
                }
-   
+
+           public bool HasResponse(string SurveyId, string ResponseId)
+               {
+               try
+                   {
+
+                   return _iDataService.HasResponse(SurveyId, ResponseId);
+
+                   }
+               catch (FaultException<CustomFaultException> cfe)
+                   {
+                   throw cfe;
+                   }
+               catch (FaultException fe)
+                   {
+                   throw fe;
+                   }
+               catch (CommunicationException ce)
+                   {
+                   throw ce;
+                   }
+               catch (TimeoutException te)
+                   {
+                   throw te;
+                   }
+               catch (Exception ex)
+                   {
+                   throw ex;
+
+                   }
+
+
+               }
     }
 }

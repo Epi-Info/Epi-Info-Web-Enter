@@ -136,7 +136,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 ClosingDate = pBO.ClosingDate,
                 IsDraftMode = pBO.IsDraftMode,
                 StartDate = pBO.StartDate,
-
+                IsSqlProject =pBO.IsSqlProject,
                 UserPublishKey = pBO.UserPublishKey
 
 

@@ -130,6 +130,8 @@ namespace Epi.Web.MVC.Controllers
                 
                 // SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(surveyAnswerDTO.SurveyId);
                 SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyAnswerDTO.SurveyId);
+                Session["IsSqlProject"] = surveyInfoModel.IsSqlProject;
+
                 PreValidationResultEnum ValidationTest = PreValidateResponse(Mapper.ToSurveyAnswerModel(surveyAnswerDTO), surveyInfoModel);
                 if (PageNumber == 0)
                 {
@@ -927,9 +929,16 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public JsonResult HasResponse(string SurveyId, int ViewId, string ResponseId)
         {
-            List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
-            bool HasResponse = false;
-            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
+
+            bool IsSqlProject =(bool) Session["IsSqlProject"];
+            
+             bool HasResponse = false;
+
+             if (!IsSqlProject)
+                 {
+           List<FormsHierarchyDTO> FormsHierarchy = new List<FormsHierarchyDTO>();
+           FormsHierarchy = GetFormsHierarchy();
+           bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
             if (IsMobileDevice == false)
             {
                 IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
@@ -948,13 +957,18 @@ namespace Epi.Web.MVC.Controllers
 
             int ResponseCount = GetResponseCount(FormsHierarchy, ViewId, ResponseId);
 
-            if (ResponseCount > 0)
-            {
+                    if (ResponseCount > 0)
+                    {
 
 
-                HasResponse = true;
-            }
-
+                        HasResponse = true;
+                     }
+                 }
+             else
+                 {
+                 // Get child count from Sql
+                 HasResponse = _isurveyFacade.HasResponse(  SurveyId,  ResponseId);
+                 }
 
 
             return Json(HasResponse);

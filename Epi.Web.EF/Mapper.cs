@@ -34,7 +34,7 @@ namespace Epi.Web.EF
             result.DateCreated = entity.DateCreated;
             result.IsDraftMode = entity.IsDraftMode;
             result.StartDate = entity.StartDate;
-
+            result.IsSqlProject = (bool) entity.IsSQLProject;
             if (entity.UserPublishKey != null)
             {
                 // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;

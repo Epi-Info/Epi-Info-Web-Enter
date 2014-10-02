@@ -26,7 +26,7 @@ namespace Epi.Web.MVC.Models
         private int _SurveyType;
         private string _IsDraftModeStyleClass;
         private Guid _UserPublishKey;
-
+        private bool _IsSqlProject;
         public string SurveyId
         {
             get { return _SurveyId; }
@@ -85,7 +85,11 @@ namespace Epi.Web.MVC.Models
             get { return _IsSuccess; }
             set { _IsSuccess = value; }
         }
-
+        public bool IsSqlProject
+         {
+         get { return _IsSqlProject; }
+         set { _IsSqlProject = value; }
+        }
         public DateTime ClosingDate
         {
             get { return _ClosingDate; }
