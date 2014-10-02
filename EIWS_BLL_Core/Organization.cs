@@ -22,16 +22,16 @@ namespace Epi.Web.BLL
 
         public OrganizationBO GetOrganizationByKey(string OrganizationKey)
         {
-             OrganizationBO result =  GetOrganizationObjByKey(OrganizationKey);
-             return result;
+            OrganizationBO result = GetOrganizationObjByKey(OrganizationKey);
+            return result;
         }
         public OrganizationBO GetOrganizationByOrgId(int OrganizationId)
-            {
+        {
             OrganizationBO result = this.OrganizationDao.GetOrganizationByOrgId(OrganizationId); ;
             return result;
-            }
+        }
 
-      
+
         public List<OrganizationBO> GetOrganizationKey(string OrganizationName)
         {
 
@@ -40,7 +40,7 @@ namespace Epi.Web.BLL
             {
 
                 _result.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(_result.OrganizationKey);
-            
+
             }
 
             return result;
@@ -62,75 +62,75 @@ namespace Epi.Web.BLL
             OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
 
             this.OrganizationDao.InsertOrganization(OrganizationBO);
-             
+
         }
-        public void InsertOrganizationInfo (OrganizationBO OrganizationBO , UserBO UserBO )
-            {
+        public void InsertOrganizationInfo(OrganizationBO OrganizationBO, UserBO UserBO)
+        {
             bool success;
             OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
 
             // Check if the user Exists
             var User = this.OrganizationDao.GetUserByEmail(UserBO);
             if (User != null)
-                {
+            {
                 if (string.IsNullOrEmpty(User.EmailAddress))
-                    {
+                {
                     UserBO.ResetPassword = true;
-                   success =  this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
-                  
-                   if (success)
-                       {
-                       List<string> EmailList = new List<string>();
-                       EmailList.Add(UserBO.UserName);
-                       Email email = new Email();
-
-                       StringBuilder Body = new StringBuilder();
-                        Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrganizationBO.Organization);
-                       Body.Append("Organization Name:" + OrganizationBO.Organization + "\nOrganization Key: " + OrganizationBO.OrganizationKey);
-                       Body.Append("\nPlease click the link below to launch the Visualization Dashboard and log in with your email and temporary password. You will then be asked to create a new password.");
-                       Body.Append("\n" + ConfigurationManager.AppSettings["BaseURL"]);
-                       Body.Append("\n\nPlease follow the steps below in order to start publishing  forms to the web.");
-                       Body.Append("\n\tStep 1:Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
-                       Body.Append("\n\tStep 2:On the Main Menu, click on “Tools” and select “Options”");
-                       Body.Append("\n\tStep 3:On the Options dialog, click on the “Web Survey” Tab.");
-                       Body.Append("\n\tStep 4:On the Web Survey tab, enter the following information.");
-
-                       Body.Append("\n\t\t-Endpoint Address:" + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
-                       Body.Append("\n\t\t-Binding Protocol:" + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
-
-                       Body.Append("\n\tStep 5:Click “OK’ button.");
-                       Body.Append("\n\tOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
-                       Body.Append("\n\nPlease contact the system administrator " + UserBO.UserName + " for any questions.");
-                       Body.Append("\n\nThank you.");
-
-                       email.Body = Body.ToString();
-
-                     
-
-                       success = SendEmail(email, Constant.EmailCombinationEnum.InsertOrganization);
-
-
-                       }
-                    }
+                    success = this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
+                }
 
                 else
-                    {
-                    success = this.OrganizationDao.InsertOrganization(OrganizationBO, User.UserId,UserBO.Role);
-
-                    }
-                }
-            else
                 {
-                success = this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
+                    success = this.OrganizationDao.InsertOrganization(OrganizationBO, User.UserId, UserBO.Role);
 
                 }
             }
+            else
+            {
+                success = this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
+
+            }
+
+            if (success)
+            {
+                List<string> EmailList = new List<string>();
+                EmailList.Add(UserBO.UserName);
+                Email email = new Email();
+
+                StringBuilder Body = new StringBuilder();
+                Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrganizationBO.Organization);
+                Body.Append("Organization Name:" + OrganizationBO.Organization + "\nOrganization Key: " + OrganizationBO.OrganizationKey);
+                Body.Append("\nPlease click the link below to launch the Visualization Dashboard and log in with your email and temporary password. You will then be asked to create a new password.");
+                Body.Append("\n" + ConfigurationManager.AppSettings["BaseURL"]);
+                Body.Append("\n\nPlease follow the steps below in order to start publishing  forms to the web.");
+                Body.Append("\n\tStep 1:Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
+                Body.Append("\n\tStep 2:On the Main Menu, click on “Tools” and select “Options”");
+                Body.Append("\n\tStep 3:On the Options dialog, click on the “Web Survey” Tab.");
+                Body.Append("\n\tStep 4:On the Web Survey tab, enter the following information.");
+
+                Body.Append("\n\t\t-Endpoint Address:" + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
+                Body.Append("\n\t\t-Binding Protocol:" + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
+
+                Body.Append("\n\tStep 5:Click “OK’ button.");
+                Body.Append("\n\tOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
+                Body.Append("\n\nPlease contact the system administrator " + UserBO.UserName + " for any questions.");
+                Body.Append("\n\nThank you.");
+
+                email.Body = Body.ToString();
+                email.To = new List<string>();
+                email.To.Add(UserBO.EmailAddress);
+
+                success = SendEmail(email, Constant.EmailCombinationEnum.InsertOrganization);
+
+
+            }
+        }
         public void UpdateOrganizationInfo(OrganizationBO OrganizationBO)
         {
-           bool success;
+            bool success;
             OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
-           success= this.OrganizationDao.UpdateOrganization(OrganizationBO);
-           
+            success = this.OrganizationDao.UpdateOrganization(OrganizationBO);
+
         }
 
 
@@ -162,7 +162,7 @@ namespace Epi.Web.BLL
         /// <param name="key"></param>
         /// <param name="organizationName"></param>
         /// <returns></returns>
-        public bool OrganizationNameExists(string organizationName,string key, string operation)
+        public bool OrganizationNameExists(string organizationName, string key, string operation)
         {
 
             bool orgExists = false;
@@ -173,7 +173,7 @@ namespace Epi.Web.BLL
             {
                 if (oBo.Organization.ToLower() == organizationName.ToLower())
                 {
-                   orgExists = true;     
+                    orgExists = true;
                 }
             }
 
@@ -188,7 +188,7 @@ namespace Epi.Web.BLL
                 }
             }
 
-          
+
 
             return orgExists;
         }
@@ -200,34 +200,34 @@ namespace Epi.Web.BLL
             return result;
         }
 
-        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId , int UserRole)
-            {
+        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId, int UserRole)
+        {
 
             List<OrganizationBO> result = this.OrganizationDao.GetOrganizationInfoByUserId(UserId, UserRole);
             return result;
-            }
+        }
         private bool SendEmail(Email email, Constant.EmailCombinationEnum Combination)
-            {
+        {
 
-             
+
 
             switch (Combination)
-                {
-               
+            {
+
                 case Constant.EmailCombinationEnum.InsertOrganization:
                     email.Subject = "An Epi Web Enter account has been created for your organization.";
-              
+
                     break;
-              
+
                 default:
                     break;
-                }
+            }
 
             email.Body = email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
 
-            }
+        }
     }
 }
