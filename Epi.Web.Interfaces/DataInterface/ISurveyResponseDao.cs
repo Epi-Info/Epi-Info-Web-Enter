@@ -117,5 +117,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
 
          void InsertResponseXml(ResponseXmlBO item);
          bool ISResponseExists(Guid ResponseId);
+
+         bool ISResponseExists(SurveyAnswerCriteria Criteria);
     }
 }

@@ -1020,7 +1020,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string BuildEI7ResponseQuery(string ResponseId, string SurveyId, string SortOrder, string Sortfield, string EI7Connectionstring, bool IsChild = false)
+        private string BuildEI7ResponseQuery(string ResponseId, string SurveyId, string SortOrder, string Sortfield, string EI7Connectionstring, bool IsUsedForCount = false)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
@@ -1075,24 +1075,35 @@ namespace Epi.Web.EF
 
             StringBuilder stringBuilder = new StringBuilder();
             StringBuilder tableNameBuilder = new StringBuilder();
-            stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
-
             StringBuilder sortBuilder = new StringBuilder(" ORDER BY ");
-            if (Sortfield != null && SortOrder != null)
+            if (IsUsedForCount)
             {
-                sortBuilder.Append(Sortfield + " " + SortOrder);
+                stringBuilder.Append(" SELECT COUNT(*) ,");
             }
             else
             {
-                sortBuilder.Append(EweDS.Tables[0].Rows[0][1] + "." + EweDS.Tables[0].Rows[0][0]);
-            }
+                stringBuilder.Append(" SELECT " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId,");
+                if (Sortfield != null && SortOrder != null)
+                {
+                    sortBuilder.Append(Sortfield + " " + SortOrder);
+                }
+                else
+                {
+                    sortBuilder.Append(EweDS.Tables[0].Rows[0][1] + "." + EweDS.Tables[0].Rows[0][0]);
+                }
+                // Builds the select part of the query.
+                foreach (DataRow row in EweDS.Tables[0].Rows)
+                {
+                    stringBuilder.Append(row[1] + "." + row[0] + ", ");
 
-            // Builds the select part of the query.
-            foreach (DataRow row in EweDS.Tables[0].Rows)
-            {
-                stringBuilder.Append(row[1] + "." + row[0] + ", ");
-
+                }
             }
+            
+
+
+
+
+
             stringBuilder.Remove(stringBuilder.Length - 2, 1);
 
             stringBuilder.Append(" FROM ");
@@ -1114,6 +1125,12 @@ namespace Epi.Web.EF
 
             stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0][4] + " ON " + EweDS.Tables[0].Rows[0][1] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0][4] + ".GlobalRecordId");
             stringBuilder.Append(" WHERE " + EweDS.Tables[0].Rows[0][4] + ".FKEY ='" + ResponseId + "'");
+
+            if (IsUsedForCount)
+            {
+                return stringBuilder.ToString();
+            }
+
 
             return stringBuilder.Append(sortBuilder.ToString()).ToString();
         }
@@ -1312,6 +1329,7 @@ namespace Epi.Web.EF
         public bool ISResponseExists(Guid ResponseId)
         {
             bool Exists = false;
+
             try
             {
 
@@ -1327,13 +1345,72 @@ namespace Epi.Web.EF
                     }
 
                 }
-                return Exists;
 
             }
             catch (Exception ex)
             {
                 throw (ex);
             }
+            return Exists;
+        }
+
+        public bool ISResponseExists(SurveyAnswerCriteria Criteria)
+        {
+            bool Exists = false;
+            if (IsSqlProject)
+            {
+                string tableName = ReadEI7DatabaseName(Criteria.SurveyAnswerIdList[0]);
+
+                string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
+
+                SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
+
+                string EI7Query = BuildEI7ResponseQuery(Criteria.SurveyAnswerIdList[0], Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, true);
+
+                SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
+                EI7Command.CommandType = CommandType.Text;
+
+               
+                EI7Connection.Open();
+
+                try
+                {
+                    object count = EI7Command.ExecuteScalar();
+
+                    EI7Connection.Close();
+                }
+                catch (Exception)
+                {
+                    EI7Connection.Close();
+                    throw;
+                }
+
+            }
+            else
+            {
+                try
+                {
+
+
+
+                    using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.ResponseId == new Guid(Criteria.SurveyAnswerIdList[0]));
+                        if (SurveyResponseList.Count() > 0)
+                        {
+                            Exists = true;
+                        }
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+            }
+            return Exists;
         }
         public int GetFormResponseCount(string FormId)
         {
