@@ -1357,6 +1357,7 @@ namespace Epi.Web.EF
         public bool ISResponseExists(SurveyAnswerCriteria Criteria)
         {
             bool Exists = false;
+            IsSqlProject = IsEISQLProject(Criteria.SurveyId);
             if (IsSqlProject)
             {
                 string tableName = ReadEI7DatabaseName(Criteria.SurveyAnswerIdList[0]);
@@ -1417,6 +1418,7 @@ namespace Epi.Web.EF
             int ResponseCount = 0;
 
             //If SqlProject read responses from property SqlProjectResponsesCount.
+            IsSqlProject = IsEISQLProject(FormId);
             if (IsSqlProject)
             {
                 //ResponseCount = SqlProjectResponsesCount;
@@ -1717,7 +1719,7 @@ namespace Epi.Web.EF
         {
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
 
-            IsSqlProject = Criteria.IsSqlProject; //IsEISQLProject(Criteria.SurveyId);//Checks to see if current form is SqlProject
+            IsSqlProject = IsEISQLProject(Criteria.SurveyId);//Checks to see if current form is SqlProject
 
             if (IsSqlProject)
             {
@@ -1917,6 +1919,7 @@ namespace Epi.Web.EF
             int ResponseCount = 0;
 
             //If SqlProject read responses from property SqlProjectResponsesCount.
+            IsSqlProject = IsEISQLProject(Criteria.SurveyId);
             if (IsSqlProject)
             {
                 //ResponseCount = SqlProjectResponsesCount;
