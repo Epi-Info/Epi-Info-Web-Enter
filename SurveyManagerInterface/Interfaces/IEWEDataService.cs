@@ -110,6 +110,9 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         void UpdateResponseStatus(SurveyAnswerRequest Request);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        bool HasResponse(string SurveyId, string ResponseId);
     }
 
 }

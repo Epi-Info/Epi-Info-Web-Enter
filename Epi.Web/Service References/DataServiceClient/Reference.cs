@@ -126,6 +126,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/UpdateResponseStatus", ReplyAction="http://tempuri.org/IEWEDataService/UpdateResponseStatusResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/UpdateResponseStatusCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         void UpdateResponseStatus(Epi.Web.Enter.Common.Message.SurveyAnswerRequest Request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/HasResponse", ReplyAction="http://tempuri.org/IEWEDataService/HasResponseResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/HasResponseCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        bool HasResponse(string SurveyId, string ResponseId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -261,6 +265,10 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public void UpdateResponseStatus(Epi.Web.Enter.Common.Message.SurveyAnswerRequest Request) {
             base.Channel.UpdateResponseStatus(Request);
+        }
+        
+        public bool HasResponse(string SurveyId, string ResponseId) {
+            return base.Channel.HasResponse(SurveyId, ResponseId);
         }
     }
 }

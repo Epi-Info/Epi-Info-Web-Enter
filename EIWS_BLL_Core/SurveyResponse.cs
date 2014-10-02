@@ -607,5 +607,15 @@ namespace Epi.Web.BLL
             return ResponseXml;
             }
 
+
+        public bool HasResponse(string SurveyId, string ResponseId)
+            {
+            SurveyAnswerCriteria SurveyAnswerCriteria = new SurveyAnswerCriteria();
+            SurveyAnswerCriteria.SurveyId = SurveyId;
+            SurveyAnswerCriteria.SurveyAnswerIdList = new List<string>();
+            SurveyAnswerCriteria.SurveyAnswerIdList.Add(ResponseId);
+
+            return this.SurveyResponseDao.ISResponseExists(SurveyAnswerCriteria);
+            }
     }
 }

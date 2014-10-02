@@ -1337,5 +1337,14 @@ namespace Epi.Web.WCF.SurveyService
             
             
             }
+
+        public bool HasResponse(string SurveyId, string ResponseId) 
+            {
+            Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = new EF.EntitySurveyResponseDao();
+            Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+
+            return Implementation.HasResponse( SurveyId,   ResponseId);
+            
+            }
     }
 }

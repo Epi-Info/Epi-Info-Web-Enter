@@ -376,5 +376,9 @@ namespace Epi.Web.MVC.Facade
             _iSurveyAnswerRepository.UpdateResponseStatus(Request);
             
             }
+        public bool HasResponse(string SurveyId, string ResponseId) {
+
+           return _iSurveyAnswerRepository.HasResponse(SurveyId, ResponseId);
+            }
     }
 }
