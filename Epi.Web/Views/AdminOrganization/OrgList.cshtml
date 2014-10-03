@@ -42,7 +42,7 @@
     <div style="clear:both;"></div>
 
     <div id="adminpaging">
-		<div style="float:left;">
+		<div>
 			@*@Html.ActionLink("Add New Organization","OrgInfo","AdminOrganization")*@
              @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgkey = -1, iseditmode = false }, null)	
 		</div>
@@ -84,7 +84,7 @@
 		
 		</tbody>
 	</table>
-    </div>
+    
     <div style="clear:both; visibility:collapse;"></div>
 </div><!--End Content Div-->
 @*

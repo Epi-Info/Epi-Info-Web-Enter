@@ -47,7 +47,7 @@
  </script>
 	
 	<div id="userwelcome">
-		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
+		Welcome <strong>First Name</strong>&nbsp; | &nbsp; 
 	  @*  <a href="#">Log Out</a>*@
 	  
 	  @Html.ActionLink("My Forms", "Index", "Home", null, null) &nbsp; | &nbsp;
@@ -84,7 +84,7 @@
     </div>
 
     <div id="adminpaging">
-		<div >
+		<div style="float:right;" >
 			
            @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, null)
     
