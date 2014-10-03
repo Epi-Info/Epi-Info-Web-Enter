@@ -136,7 +136,9 @@ namespace Epi.Web.MVC.Controllers
                 Session["RootResponseId"] = EditForm;
 
                 Session["IsEditMode"] = true;
+        
                 Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm, Session["RootFormId"].ToString());
+                   
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
@@ -302,6 +304,7 @@ namespace Epi.Web.MVC.Controllers
         [Authorize]
         public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield)//List<FormInfoModel> ModelList, string formid)
         {
+            Session["RootFormId"] = formid;
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
             var model = new FormResponseInfoModel();
