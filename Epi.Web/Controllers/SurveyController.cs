@@ -933,11 +933,12 @@ namespace Epi.Web.MVC.Controllers
             bool IsSqlProject =(bool) Session["IsSqlProject"];
             
              bool HasResponse = false;
-
+             List<FormsHierarchyDTO> FormsHierarchy = new List<FormsHierarchyDTO>();
+             FormsHierarchy = GetFormsHierarchy();
+             var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == ViewId);
              if (!IsSqlProject)
                  {
-           List<FormsHierarchyDTO> FormsHierarchy = new List<FormsHierarchyDTO>();
-           FormsHierarchy = GetFormsHierarchy();
+         
            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
             if (IsMobileDevice == false)
             {
@@ -946,14 +947,14 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //1-Get the child Id
             //SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest)
-            SurveyInfoRequest SurveyInfoRequest = new Enter.Common.Message.SurveyInfoRequest();
-            SurveyInfoResponse SurveyInfoResponse = new Enter.Common.Message.SurveyInfoResponse();
-            SurveyInfoDTO SurveyInfoDTO = new Enter.Common.DTO.SurveyInfoDTO();
-            SurveyInfoDTO.SurveyId = SurveyId;
-            SurveyInfoDTO.ViewId = ViewId;
-            SurveyInfoRequest.SurveyInfoList.Add(SurveyInfoDTO);
-            SurveyInfoResponse = _isurveyFacade.GetChildFormInfo(SurveyInfoRequest);
-            var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == ViewId);
+            //SurveyInfoRequest SurveyInfoRequest = new Enter.Common.Message.SurveyInfoRequest();
+            //SurveyInfoResponse SurveyInfoResponse = new Enter.Common.Message.SurveyInfoResponse();
+            //SurveyInfoDTO SurveyInfoDTO = new Enter.Common.DTO.SurveyInfoDTO();
+            //SurveyInfoDTO.SurveyId = SurveyId;
+            //SurveyInfoDTO.ViewId = ViewId;
+            //SurveyInfoRequest.SurveyInfoList.Add(SurveyInfoDTO);
+            //SurveyInfoResponse = _isurveyFacade.GetChildFormInfo(SurveyInfoRequest);
+           
 
             int ResponseCount = GetResponseCount(FormsHierarchy, ViewId, ResponseId);
 
@@ -967,7 +968,9 @@ namespace Epi.Web.MVC.Controllers
              else
                  {
                  // Get child count from Sql
-                 HasResponse = _isurveyFacade.HasResponse(  SurveyId,  ResponseId);
+               //  HasResponse = _isurveyFacade.HasResponse(  SurveyId,  ResponseId);
+
+                 HasResponse = _isurveyFacade.HasResponse(RelateSurveyId.ToString(), ResponseId);
                  }
 
 
