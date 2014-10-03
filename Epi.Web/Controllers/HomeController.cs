@@ -136,9 +136,7 @@ namespace Epi.Web.MVC.Controllers
                 Session["RootResponseId"] = EditForm;
 
                 Session["IsEditMode"] = true;
-        
                 Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm, Session["RootFormId"].ToString());
-                   
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
@@ -329,7 +327,7 @@ namespace Epi.Web.MVC.Controllers
 
             StringBuilder searchBuilder = new StringBuilder();
 
-            if (Collection["col1"] == null)
+            if (Collection["col1"] == null || Collection["col1"] == "undefined")
             {
                 return "";
             }
@@ -484,8 +482,12 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseReq.Criteria.PageNumber = PageNumber;
                 FormResponseReq.Criteria.UserId = UserId;
                 FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
+                //if (Session["SearchCriteria"] != null)
+                //{
+                //    FormResponseInfoModel.SearchModel = (SeachBoxModel)Session["SearchCriteria"];
+                //}
                 FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
-
+               // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
                 PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
 
                 if (sort.Length > 0)
