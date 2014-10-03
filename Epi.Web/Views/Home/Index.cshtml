@@ -98,23 +98,25 @@
             $(this).addClass('metro-set');
             $("#right").show();
             //alert('1');
-            $.ajax({
-                url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-FormId'),
-                type: 'GET',
-                contentType: 'application/json; charset=utf-8',
-                //data: JSON.stringify(model),
-                success: successFunc,
-                error: errorFunc
-            });
-            $.ajaxSetup({ cache: false });
+            //            $.ajax({
+            //                url: '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $(this).attr('data-FormId'),
+            //                type: 'GET',
+            //                contentType: 'application/json; charset=utf-8',
+            //                //data: JSON.stringify(model),
+            //                success: successFunc,
+            //                error: errorFunc
+            //            });
+            //            $.ajaxSetup({ cache: false });
 
-            function successFunc(data, status) {
-                $('#right').html(data);
-            }
+            //            function successFunc(data, status) {
+            //                $('#right').html(data);
+            //            }
 
-            function errorFunc() {
-                alert('error');
-            }
+            //            function errorFunc() {
+            //                alert('error');
+            //            }
+
+            ReadResponses($(this).attr('data-FormId'), 1, '', '');
             //return page to the top when a form is selected if the list of forms is too long.
             $("html, body").animate({ scrollTop: 0 }, "slow");
             return false;
