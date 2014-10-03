@@ -34,7 +34,7 @@ namespace Epi.Web.BLL
 
             //Check if this Response exists in EWE DataBase
         Guid Id = new Guid(Criteria.SurveyAnswerIdList[0]);
-        bool ResponseExists = this.SurveyResponseDao.ISResponseExists(Criteria);
+        bool ResponseExists = this.SurveyResponseDao.ISResponseExists(Id);
            List<SurveyResponseBO> result = new List<SurveyResponseBO>();
            if (ResponseExists)
                {
@@ -615,7 +615,7 @@ namespace Epi.Web.BLL
             SurveyAnswerCriteria.SurveyAnswerIdList = new List<string>();
             SurveyAnswerCriteria.SurveyAnswerIdList.Add(ResponseId);
 
-            return this.SurveyResponseDao.ISResponseExists(SurveyAnswerCriteria);
+            return this.SurveyResponseDao.HasResponse(SurveyAnswerCriteria);
             }
     }
 }
