@@ -1078,7 +1078,7 @@ namespace Epi.Web.EF
             StringBuilder sortBuilder = new StringBuilder(" ORDER BY ");
             if (IsUsedForCount)
             {
-                stringBuilder.Append(" SELECT COUNT(*) ,");
+                stringBuilder.Append(" SELECT COUNT(*), ");
             }
             else
             {
@@ -1354,13 +1354,13 @@ namespace Epi.Web.EF
             return Exists;
         }
 
-        public bool ISResponseExists(SurveyAnswerCriteria Criteria)
+        public bool HasResponse(SurveyAnswerCriteria Criteria)
         {
             bool Exists = false;
             IsSqlProject = IsEISQLProject(Criteria.SurveyId);
             if (IsSqlProject)
             {
-                string tableName = ReadEI7DatabaseName(Criteria.SurveyAnswerIdList[0]);
+                string tableName = ReadEI7DatabaseName(Criteria.SurveyId);
 
                 string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.LastIndexOf('=')) + "=" + tableName;
 
@@ -1371,20 +1371,27 @@ namespace Epi.Web.EF
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
 
-               
+
                 EI7Connection.Open();
 
                 try
                 {
-                    object count = EI7Command.ExecuteScalar();
+                    int count = (int)EI7Command.ExecuteScalar();
 
                     EI7Connection.Close();
+                    if (count > 0)
+                    {
+                        Exists = true;
+                    }
+
+
                 }
                 catch (Exception)
                 {
                     EI7Connection.Close();
                     throw;
                 }
+
 
             }
             else
