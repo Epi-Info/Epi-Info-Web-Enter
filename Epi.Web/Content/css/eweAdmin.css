@@ -87,7 +87,7 @@
 .userorg { float:left;}
 .userorg select {width:200px;}
 
-#adminpaging { float:right; margin-bottom:15px;} 
+#adminpaging { margin-bottom:15px;} 
 
 .datagrid table 
 { 
