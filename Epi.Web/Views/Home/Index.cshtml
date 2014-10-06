@@ -93,9 +93,17 @@
 
         $("button[class*='metro-tile']").click(function (e) {
             e.preventDefault();
-            SetSettingButtonValue($(this).attr('data-FormId'));
+            //alert('@Model.SelectedForm');
+            //alert($(this).attr('data-FormId'));
+           // SetSettingButtonValue($(this).attr('data-FormId'));
+            SetSettingButtonValue('@Model.SelectedForm');
             $("button[class*='metro-tile']").removeClass('metro-set');
+            if('@Model.SelectedForm' == ""){
             $(this).addClass('metro-set');
+            }
+            else{
+             $('#'+'@Model.SelectedForm').addClass('metro-set');
+            }
             $("#right").show();
             //alert('1');
             //            $.ajax({
@@ -320,7 +328,7 @@
         $("#dropdown-1").change(function () {
 
             var OrgId = $("#dropdown-2").val();
-
+           
             FilterRecords(this, OrgId);
             //FilterRecordsByOrg(OrgId);
             $("#right").hide();
@@ -332,6 +340,7 @@
         });
 
         $("#dropdown-2").change(function () {
+            
             var src = $(this).val();
 
             FilterRecordsByOrg(src);
@@ -549,7 +558,7 @@ function SaveSettings() {
 //CancelChange
 	function CancelChange() 
 	{
-	   
+	    //alert();
 		var ActionUrl = '@Url.Action("ReadResponseInfo","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
 		ReadResponse(ActionUrl);
 		$('#dropdown-1').focus();
