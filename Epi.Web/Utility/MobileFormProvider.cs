@@ -759,7 +759,7 @@ namespace Epi.Web.MVC.Utility
             RelateButton.InputFieldfontstyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
             RelateButton.InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
             RelateButton.InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value;
-            RelateButton.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+            //RelateButton.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value); as is done in FormProvider class.
             RelateButton.IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList");
             RelateButton.IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList");
             RelateButton.IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList");

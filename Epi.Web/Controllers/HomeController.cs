@@ -323,48 +323,56 @@ namespace Epi.Web.MVC.Controllers
         {
             FormCollection Collection = new FormCollection(nameValueCollection);
 
-            
+
 
             StringBuilder searchBuilder = new StringBuilder();
 
-            if (Collection["col1"] == null || Collection["col1"] == "undefined")
-            {
-                return "";
-            }
+            if (ValidateSearchFields(Collection))
+            {           
 
-            if (Collection["col1"].Length > 0 && Collection["val1"].Length > 0)
-            {
-                searchBuilder.Append(Collection["col1"] + "='" + Collection["val1"] + "'");
-                SearchModel.SearchCol1 = Collection["col1"];
-                SearchModel.Value1 = Collection["val1"];
+                if (Collection["col1"].Length > 0 && Collection["val1"].Length > 0)
+                {
+                    searchBuilder.Append(Collection["col1"] + "='" + Collection["val1"] + "'");
+                    SearchModel.SearchCol1 = Collection["col1"];
+                    SearchModel.Value1 = Collection["val1"];
+                }
+                if (Collection["col2"].Length > 0 && Collection["val2"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col2"] + "='" + Collection["val2"] + "'");
+                    SearchModel.SearchCol2 = Collection["col2"];
+                    SearchModel.Value2 = Collection["val2"];
+                }
+                if (Collection["col3"].Length > 0 && Collection["val3"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col3"] + "='" + Collection["val3"] + "'");
+                    SearchModel.SearchCol3 = Collection["col3"];
+                    SearchModel.Value3 = Collection["val3"];
+                }
+                if (Collection["col4"].Length > 0 && Collection["val4"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col4"] + "='" + Collection["val4"] + "'");
+                    SearchModel.SearchCol4 = Collection["col4"];
+                    SearchModel.Value4 = Collection["val4"];
+                }
+                if (Collection["col5"].Length > 0 && Collection["val5"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col5"] + "='" + Collection["val5"] + "'");
+                    SearchModel.SearchCol5 = Collection["col5"];
+                    SearchModel.Value5 = Collection["val5"];
+                }
             }
-            if (Collection["col2"].Length > 0 && Collection["val2"].Length > 0)
-            {
-                searchBuilder.Append(" AND " + Collection["col2"] + "='" + Collection["val2"] + "'");
-                SearchModel.SearchCol2 = Collection["col2"];
-                SearchModel.Value2 = Collection["val2"];
-            }
-            if (Collection["col3"].Length > 0 && Collection["val3"].Length > 0)
-            {
-                searchBuilder.Append(" AND " + Collection["col3"] + "='" + Collection["val3"] + "'");
-                SearchModel.SearchCol3 = Collection["col3"];
-                SearchModel.Value3 = Collection["val3"];
-            }
-            if (Collection["col4"].Length > 0 && Collection["val4"].Length > 0)
-            {
-                searchBuilder.Append(" AND " + Collection["col4"] + "='" + Collection["val4"] + "'");
-                SearchModel.SearchCol4 = Collection["col4"];
-                SearchModel.Value4 = Collection["val4"];
-            } 
-            if (Collection["col5"].Length > 0 && Collection["val5"].Length > 0)
-            {
-                searchBuilder.Append(" AND " + Collection["col5"] + "='" + Collection["val5"] + "'");
-                SearchModel.SearchCol5 = Collection["col5"];
-                SearchModel.Value5 = Collection["val5"];
-            }
-
 
             return searchBuilder.ToString();
+        }
+
+        private bool ValidateSearchFields(FormCollection Collection)
+        {
+            if (string.IsNullOrEmpty(Collection["col1"]) || Collection["col1"] == "undefined" ||
+               string.IsNullOrEmpty(Collection["val1"]) || Collection["val1"] == "undefined")
+            {
+                return false;
+            }
+            return true;
         }
 
         private void PopulateDropDownlist(out List<SelectListItem> SearchColumns, string SelectedValue, List<KeyValuePair<int, string>> Columns)
@@ -475,7 +483,7 @@ namespace Epi.Web.MVC.Controllers
 
                 // Setting  Column Name  List
                 FormResponseInfoModel.Columns = Columns;
-                
+
 
                 //Getting Resposes
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
@@ -487,7 +495,7 @@ namespace Epi.Web.MVC.Controllers
                 //    FormResponseInfoModel.SearchModel = (SeachBoxModel)Session["SearchCriteria"];
                 //}
                 FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
-               // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
+                // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
                 PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
 
                 if (sort.Length > 0)
@@ -621,9 +629,9 @@ namespace Epi.Web.MVC.Controllers
         private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId, string FormId)
         {
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
-            int   UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
-            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId,UserId).SurveyResponseList[0];
+            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId, UserId).SurveyResponseList[0];
 
             return result;
 
