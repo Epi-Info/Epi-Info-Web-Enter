@@ -95,14 +95,15 @@
             e.preventDefault();
             //alert('@Model.SelectedForm');
             //alert($(this).attr('data-FormId'));
-           // SetSettingButtonValue($(this).attr('data-FormId'));
-            SetSettingButtonValue('@Model.SelectedForm');
+            
             $("button[class*='metro-tile']").removeClass('metro-set');
-            if('@Model.SelectedForm' == ""){
-            $(this).addClass('metro-set');
+            if ('@Model.SelectedForm' == "") {
+                SetSettingButtonValue($(this).attr('data-FormId'));
+                $(this).addClass('metro-set');
             }
-            else{
-             $('#'+'@Model.SelectedForm').addClass('metro-set');
+            else {
+                SetSettingButtonValue('@Model.SelectedForm');
+                $('#' + '@Model.SelectedForm').addClass('metro-set');
             }
             $("#right").show();
             //alert('1');
@@ -328,7 +329,7 @@
         $("#dropdown-1").change(function () {
 
             var OrgId = $("#dropdown-2").val();
-           
+
             FilterRecords(this, OrgId);
             //FilterRecordsByOrg(OrgId);
             $("#right").hide();
@@ -340,7 +341,7 @@
         });
 
         $("#dropdown-2").change(function () {
-            
+
             var src = $(this).val();
 
             FilterRecordsByOrg(src);
