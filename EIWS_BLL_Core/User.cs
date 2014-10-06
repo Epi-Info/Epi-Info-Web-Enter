@@ -35,12 +35,12 @@ namespace Epi.Web.BLL
             return UserResponseBO;
         }
         public bool GetExistingUser(UserBO User)
-            {
+        {
             bool Exists = false;
             Exists = UserDao.GetExistingUser(User);
 
             return Exists;
-            }
+        }
         private string ReadSalt()
         {
             return ConfigurationManager.AppSettings["KeyForUserPasswordSalt"];
@@ -55,9 +55,9 @@ namespace Epi.Web.BLL
             return UserResponseBO;
         }
 
-        public bool UpdateUser(UserBO User,OrganizationBO OrgBO)
+        public bool UpdateUser(UserBO User, OrganizationBO OrgBO)
         {
-        bool success = false;
+            bool success = false;
             switch (User.Operation)
             {
                 case Constant.OperationMode.UpdatePassword:
@@ -81,7 +81,7 @@ namespace Epi.Web.BLL
                     string salt = PasswordHasher.CreateSalt(User.UserName);
 
                     User.PasswordHash = PasswordHasher.HashPassword(salt, password);
-                      success = UserDao.UpdateUserPassword(User);
+                    success = UserDao.UpdateUserPassword(User);
 
                     if (success)
                     {
@@ -108,16 +108,16 @@ namespace Epi.Web.BLL
                 case Constant.OperationMode.UpdateUserInfo:
                     success = UserDao.UpdateUserInfo(User, OrgBO);
                     if (success)
-                        {
+                    {
                         List<string> EmailList = new List<string>();
                         EmailList.Add(User.UserName);
                         Email email = new Email();
-                          success = SendEmail(email, Constant.EmailCombinationEnum.UpdateUserInfo);
-                  
+                        success = SendEmail(email, Constant.EmailCombinationEnum.UpdateUserInfo);
 
-                        }
-                      return success;
-                    
+
+                    }
+                    return success;
+
                 default:
                     break;
             }
@@ -127,7 +127,7 @@ namespace Epi.Web.BLL
         private bool SendEmail(Email email, Constant.EmailCombinationEnum Combination)
         {
 
-         //   Epi.Web.Enter.Common.Email.Email Email = new Web.Common.Email.Email();
+            //   Epi.Web.Enter.Common.Email.Email Email = new Web.Common.Email.Email();
 
             switch (Combination)
             {
@@ -145,7 +145,7 @@ namespace Epi.Web.BLL
                     break;
                 case Constant.EmailCombinationEnum.InsertUser:
                     email.Subject = "Epi Web Enter account.";
-                
+
                     break;
                 default:
                     break;
@@ -159,50 +159,53 @@ namespace Epi.Web.BLL
         }
 
         public UserBO GetUserByEmail(UserBO User)
-            {
+        {
             UserBO UserResponseBO;
 
             UserResponseBO = UserDao.GetUserByEmail(User);
 
             return UserResponseBO;
-            }
+        }
 
         public List<UserBO> GetUsersByOrgId(int OrgId)
-            {
+        {
             List<UserBO> List = new List<UserBO>();
             List = UserDao.GetUserByOrgId(OrgId);
             return List;
-            }
+        }
 
         public UserBO GetUserByUserIdAndOrgId(UserBO UserBO, OrganizationBO OrgBO)
-            {
+        {
             UserBO UserResponseBO;
 
             UserResponseBO = UserDao.GetUserByUserIdAndOrgId(UserBO, OrgBO);
 
             return UserResponseBO;
-            }
+        }
         public bool SetUserInfo(UserBO UserBO, OrganizationBO OrgBO)
-            {
+        {
             bool success;
-             string KeyForUserPasswordSalt = ReadSalt();
-                    PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
-                    string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
-                    UserBO.ResetPassword = true;
-                    UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
+            string KeyForUserPasswordSalt = ReadSalt();
+            PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+            string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
+            UserBO.ResetPassword = true;
+            UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
             success = UserDao.InsertUser(UserBO, OrgBO);
             if (success)
-                {
-                
+            {
+
                 List<string> EmailList = new List<string>();
                 EmailList.Add(UserBO.UserName);
                 Email email = new Email();
-                email.Body = "Your account has now been created for" + OrgBO.Organization + "/n" + "Please click the link below to launch Epi Web Enter." + "/n" + ConfigurationManager.AppSettings["BaseURL"] + "/nThank you"; 
+                email.Body = "Your account has now been created for" + OrgBO.Organization + "/n" + "Email: " + UserBO.EmailAddress + " Password: PassWord1" +
+                    "/n" + "Please click the link below to launch Epi Web Enter." + "/n" + ConfigurationManager.AppSettings["BaseURL"] + "/nThank you";
+                email.To = new List<string>();
+                email.To.Add(UserBO.EmailAddress);
                 success = SendEmail(email, Constant.EmailCombinationEnum.InsertUser);
 
 
-                }
-            return success;
             }
+            return success;
+        }
     }
 }
