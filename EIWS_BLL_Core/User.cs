@@ -107,15 +107,17 @@ namespace Epi.Web.BLL
 
                 case Constant.OperationMode.UpdateUserInfo:
                     success = UserDao.UpdateUserInfo(User, OrgBO);
-                    if (success)
-                    {
-                        List<string> EmailList = new List<string>();
-                        EmailList.Add(User.UserName);
-                        Email email = new Email();
-                        success = SendEmail(email, Constant.EmailCombinationEnum.UpdateUserInfo);
+                    //if (success)
+                    //{
+                    //    //List<string> EmailList = new List<string>();
+                    //    //EmailList.Add(User.EmailAddress);
+                    //    Email email = new Email();
+                    //    email.To = new List<string>();
+                    //    email.To.Add(User.EmailAddress);
+                    //    success = SendEmail(email, Constant.EmailCombinationEnum.UpdateUserInfo);
 
 
-                    }
+                    //}
                     return success;
 
                 default:
@@ -133,11 +135,11 @@ namespace Epi.Web.BLL
             {
                 case Constant.EmailCombinationEnum.ResetPassword:
                     email.Subject = "Your Epi Web Enter Password";
-                    email.Body = string.Format("You recently accessed our Forgot Password service for  Epi Web Enter. \n \n Your new temporary password is: {0}\n \n If you have not accessed password help, please contact the administrator. \n \n Please click the link below and log in with your temporary password. You will then be asked to create a new password.", email.Password);
+                    email.Body = string.Format("You recently accessed our Forgot Password service for  Epi Web Enter. \n \n Your new temporary password is: {0}\n \n If you have not accessed password help, please contact the administrator. \n \nLog in with your temporary password. You will then be asked to create a new password.", email.Password);
                     break;
                 case Constant.EmailCombinationEnum.PasswordChanged:
                     email.Subject = "Your Epi Web Enter Password has been updated";
-                    email.Body = " You recently updated your password for Epi Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n Please click the link below to launch Epi Web Enter.";
+                    email.Body = " You recently updated your password for Epi Web Enter. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n ";
                     break;
                 case Constant.EmailCombinationEnum.UpdateUserInfo:
                     email.Subject = "Your Epi Web Enter Account info has been updated";
@@ -151,7 +153,7 @@ namespace Epi.Web.BLL
                     break;
             }
 
-            email.Body = email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
+            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"];
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
@@ -197,8 +199,8 @@ namespace Epi.Web.BLL
                 List<string> EmailList = new List<string>();
                 EmailList.Add(UserBO.UserName);
                 Email email = new Email();
-                email.Body = "Your account has now been created for" + OrgBO.Organization + "/n" + "Email: " + UserBO.EmailAddress + " Password: PassWord1" +
-                    "/n" + "Please click the link below to launch Epi Web Enter." + "/n" + ConfigurationManager.AppSettings["BaseURL"] + "/nThank you";
+                email.Body = "Your account has now been created for " + OrgBO.Organization + "\n" + "Email: " + UserBO.EmailAddress + "\n" + "Password: PassWord1";// +
+                  //  "\n" + "Please click the link below to launch Epi Web Enter." + "\n" + ConfigurationManager.AppSettings["BaseURL"] + "\nThank you";
                 email.To = new List<string>();
                 email.To.Add(UserBO.EmailAddress);
                 success = SendEmail(email, Constant.EmailCombinationEnum.InsertUser);

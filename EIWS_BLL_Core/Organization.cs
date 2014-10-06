@@ -7,6 +7,7 @@ using Epi.Web.Enter.Common.Criteria;
 using System.Configuration;
 using Epi.Web.Enter.Common.Constants;
 using Epi.Web.Enter.Common.Email;
+using Epi.Web.Enter.Common.Security;
 
 namespace Epi.Web.BLL
 {
@@ -98,6 +99,12 @@ namespace Epi.Web.BLL
             }
             else
             {
+                string KeyForUserPasswordSalt = ConfigurationManager.AppSettings["KeyForUserPasswordSalt"];
+                PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+                string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
+                UserBO.ResetPassword = true;
+                UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
+
                 success = this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
                 if (success)
                 {
@@ -121,12 +128,13 @@ namespace Epi.Web.BLL
                 else
                 {
                     Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrganizationBO.Organization);
+                    Body.Append("\nEmail: " + UserBO.EmailAddress + "\nPassword: PassWord1");
                     Body.Append("\nOrganization Key: " + OrgKey);
                     Body.Append("\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password.");
                     //Add email and temporary password for new user. 
                 }
                 
-                Body.Append("\n" + ConfigurationManager.AppSettings["BaseURL"]);
+                //Body.Append("\n" + ConfigurationManager.AppSettings["BaseURL"]);
 
                 if (InsertStatus == InsertCombination.NewUserNewOrg)
                 {
@@ -252,7 +260,7 @@ namespace Epi.Web.BLL
                     break;
             }
 
-            email.Body = email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
+            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"]; //email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
