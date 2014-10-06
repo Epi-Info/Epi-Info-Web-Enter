@@ -123,6 +123,7 @@ namespace Epi.Web.BLL
                     Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrganizationBO.Organization);
                     Body.Append("\nOrganization Key: " + OrgKey);
                     Body.Append("\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password.");
+                    //Add email and temporary password for new user. 
                 }
                 
                 Body.Append("\n" + ConfigurationManager.AppSettings["BaseURL"]);

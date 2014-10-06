@@ -969,7 +969,7 @@ namespace Epi.Web.EF
                 }
             }
 
-            if (SearchCriteria.Length > 0)
+            if (SearchCriteria != null && SearchCriteria.Length > 0)
             {
                 SearchCriteria = " WHERE " + SearchCriteria;
             }
