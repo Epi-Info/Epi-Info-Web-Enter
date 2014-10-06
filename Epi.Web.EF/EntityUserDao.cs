@@ -28,7 +28,7 @@ namespace Epi.Web.EF
         }
 
         public bool GetExistingUser(UserBO User)
-            {
+        {
             var Context = DataObjectFactory.CreateContext();
             var UserQuery = from user in Context.Users
                             where user.UserName == User.UserName && user.LastName == User.LastName && user.EmailAddress == User.EmailAddress
@@ -36,12 +36,12 @@ namespace Epi.Web.EF
             bool Result = false;
 
             foreach (var user in UserQuery)
-                {
+            {
                 Result = true;
-                }
+            }
 
             return Result;
-            }
+        }
 
         public bool UpdateUser(UserBO User)
         {
@@ -71,29 +71,29 @@ namespace Epi.Web.EF
 
         public bool InsertUser(UserBO User, OrganizationBO OrgBO)
         {
-        try
+            try
             {
 
- 
-            using (var Context = DataObjectFactory.CreateContext())
+
+                using (var Context = DataObjectFactory.CreateContext())
                 {
-                var Org  = Context.Organizations.Where(x => x.OrganizationId == OrgBO.OrganizationId).Single();
-          
-                Context.Organizations.Attach(Org);
-                Context.Users.AddObject(Mapper.ToUserEntity(User));
+                    var Org = Context.Organizations.Where(x => x.OrganizationId == OrgBO.OrganizationId).Single();
+
+                    Context.Organizations.Attach(Org);
+                    Context.Users.AddObject(Mapper.ToUserEntity(User));
 
 
-                UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(User, OrgBO);
-               Context.UserOrganizations.AddObject(UserOrganizationEntity);
-                
+                    UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(User, OrgBO);
+                    Context.UserOrganizations.AddObject(UserOrganizationEntity);
 
-                Context.SaveChanges();
+
+                    Context.SaveChanges();
                 }
-            return true;
+                return true;
             }
-        catch (Exception ex)
+            catch (Exception ex)
             {
-            throw (ex);
+                throw (ex);
             }
         }
         public UserBO GetUserByUserId(UserBO User)
@@ -113,7 +113,7 @@ namespace Epi.Web.EF
             return null;
         }
         public UserBO GetUserByUserIdAndOrgId(UserBO User, OrganizationBO OrgBO)
-            {
+        {
 
             var Context = DataObjectFactory.CreateContext();
             var UserQuery = from Users in Context.Users
@@ -122,33 +122,33 @@ namespace Epi.Web.EF
             UserBO Result = new UserBO();
 
             foreach (var user in UserQuery)
-                {
+            {
                 Result = Mapper.MapToUserBO(user);
 
                 var _User = Context.UserOrganizations.Where(x => x.UserID == user.UserID && x.OrganizationID == OrgBO.OrganizationId).Single();
                 Result.IsActive = _User.Active;
                 Result.Role = _User.RoleId;
 
-                }
+            }
             return Result;
 
 
-            }
+        }
         public UserBO GetCurrentUser(int UserId)
-            {
+        {
             UserBO Result = new UserBO();
             using (var Context = DataObjectFactory.CreateContext())
-                {
+            {
 
                 Result = Mapper.MapToUserBO(Context.Users.Single(x => x.UserID == UserId));
 
 
-                }
+            }
 
 
 
             return Result;
-            }
+        }
 
         public bool UpdateUserPassword(UserBO User)
         {
@@ -169,61 +169,61 @@ namespace Epi.Web.EF
             }
         }
 
-        public bool UpdateUserInfo(UserBO User , OrganizationBO OrgBO)
+        public bool UpdateUserInfo(UserBO User, OrganizationBO OrgBO)
         {
-    
-        try
+
+            try
             {
-            using (var Context = DataObjectFactory.CreateContext())
+                using (var Context = DataObjectFactory.CreateContext())
                 {
-               
 
-                User user = Context.Users.First(x => x.UserID == User.UserId);
-               // user.UserName = User.UserName;
-                user.EmailAddress = User.EmailAddress;
-                user.FirstName = User.FirstName;
-                user.LastName = User.LastName ;
 
-                UserOrganization UserOrganization = Context.UserOrganizations.First(x=>x.OrganizationID == OrgBO.OrganizationId && x.UserID == User.UserId);
-                UserOrganization.RoleId = User.Role;
-                UserOrganization.Active = User.IsActive;
+                    User user = Context.Users.First(x => x.UserID == User.UserId);
+                    // user.UserName = User.UserName;
+                    user.EmailAddress = User.EmailAddress;
+                    user.FirstName = User.FirstName;
+                    user.LastName = User.LastName;
 
-                Context.SaveChanges();
-                    
-               
-                
+                    UserOrganization UserOrganization = Context.UserOrganizations.First(x => x.OrganizationID == OrgBO.OrganizationId && x.UserID == User.UserId);
+                    UserOrganization.RoleId = User.Role;
+                    UserOrganization.Active = User.IsActive;
+
+                    Context.SaveChanges();
+
+
+
                 }
-            return true;
+                return true;
             }
-        catch (Exception ex)
+            catch (Exception ex)
             {
-            throw (ex);
+                throw (ex);
             }
 
         }
 
         public List<UserBO> GetUserByFormId(string FormId)
-            {
+        {
             Guid id = new Guid(FormId);
             List<UserBO> UserList = new List<UserBO>();
             UserBO UserBO = new UserBO();
             using (var Context = DataObjectFactory.CreateContext())
-                {
+            {
                 SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
 
                 IEnumerable<User> Users = SelectedUserQuery.Users;
                 foreach (User user in Users)
-                    {
+                {
 
                     UserList.Add(Mapper.MapToUserBO(user));
-                    }
                 }
+            }
             return UserList;
 
-            }
+        }
 
         public UserBO GetUserByEmail(UserBO User)
-            {
+        {
             var Context = DataObjectFactory.CreateContext();
             var UserQuery = from Users in Context.Users
                             where Users.EmailAddress == User.EmailAddress
@@ -231,67 +231,68 @@ namespace Epi.Web.EF
             UserBO Result = new UserBO();
 
             foreach (var user in UserQuery)
-                {
+            {
                 Result = Mapper.MapToUserBO(user);
                 return Result;
-                }
+            }
 
             return null;
-            }
+        }
 
-        public  List<UserBO> GetUserByOrgId(int OrgId) {
+        public List<UserBO> GetUserByOrgId(int OrgId)
+        {
 
-        List<UserBO> UserList = new List<UserBO>();
-        using (var Context = DataObjectFactory.CreateContext())
+            List<UserBO> UserList = new List<UserBO>();
+            using (var Context = DataObjectFactory.CreateContext())
             {
-            var SelectedUserQuery = from UserOrg in Context.UserOrganizations
-                                    join user in Context.Users on UserOrg.UserID equals user.UserID
-                                    where UserOrg.OrganizationID == OrgId
-                                    select user;
-            foreach (var user in SelectedUserQuery)
+                var SelectedUserQuery = from UserOrg in Context.UserOrganizations
+                                        join user in Context.Users on UserOrg.UserID equals user.UserID
+                                        where UserOrg.OrganizationID == OrgId
+                                        select user;
+                foreach (var user in SelectedUserQuery)
                 {
-                var UserBO = Mapper.MapToUserBO(user);
-                var User =  Context.UserOrganizations.Where(x => x.UserID == user.UserID && x.OrganizationID == OrgId).Single();
-                UserBO.IsActive = User.Active;
-                UserBO.Role = User.RoleId;
-                UserList.Add(UserBO);
+                    var UserBO = Mapper.MapToUserBO(user);
+                    var User = Context.UserOrganizations.Where(x => x.UserID == user.UserID && x.OrganizationID == OrgId).Single();
+                    UserBO.IsActive = User.Active;
+                    UserBO.Role = User.RoleId;
+                    UserList.Add(UserBO);
                 }
             }
 
-     
 
-        return UserList;
-        
-            }
 
-        public int GetUserHighestRole(int UserId) 
-            {
+            return UserList;
+
+        }
+
+        public int GetUserHighestRole(int UserId)
+        {
             int HighestRole = 0;
 
             try
-                {
+            {
                 using (var Context = DataObjectFactory.CreateContext())
-                    {
-
-
-                    var Rows = Context.UserOrganizations.Where(x => x.UserID ==  UserId);
-                    HighestRole =Rows.Max(x => x.RoleId);
-                    
-
-                    }
-               
-                }
-            catch (Exception ex)
                 {
-                throw (ex);
+
+
+                    var Rows = Context.UserOrganizations.Where(x => x.UserID == UserId);
+                    HighestRole = Rows.Max(x => x.RoleId);
+
+
                 }
+
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
 
 
             return HighestRole;
-            
-            
-            }
- 
-       
+
+
+        }
+
+
     }
 }
