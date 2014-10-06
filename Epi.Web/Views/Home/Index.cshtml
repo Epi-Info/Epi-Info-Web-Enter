@@ -93,17 +93,29 @@
 
         $("button[class*='metro-tile']").click(function (e) {
             e.preventDefault();
-            //alert('@Model.SelectedForm');
-            //alert($(this).attr('data-FormId'));
-            
-            $("button[class*='metro-tile']").removeClass('metro-set');
+
             if ('@Model.SelectedForm' == "") {
+                $("button[class*='metro-tile']").removeClass('metro-set');
                 SetSettingButtonValue($(this).attr('data-FormId'));
                 $(this).addClass('metro-set');
+                ReadResponses($(this).attr('data-FormId'), 1, '', '');
             }
             else {
-                SetSettingButtonValue('@Model.SelectedForm');
-                $('#' + '@Model.SelectedForm').addClass('metro-set');
+                if ($("#FORM_SELECTED_HIDDEN").val() == "") {
+                    $("button[class*='metro-tile']").removeClass('metro-set');
+                    SetSettingButtonValue('@Model.SelectedForm');
+                    $('#' + '@Model.SelectedForm').addClass('metro-set');
+                    $("#FORM_SELECTED_HIDDEN").val('@Model.SelectedForm');
+                    ReadResponses('@Model.SelectedForm', 1, '', '');
+                } else 
+                {
+                    $("button[class*='metro-tile']").removeClass('metro-set');
+                    SetSettingButtonValue($(this).attr('data-FormId'));
+                    $(this).addClass('metro-set');
+                    $("#FORM_SELECTED_HIDDEN").val('');
+                    ReadResponses($(this).attr('data-FormId'), 1, '', '');
+                }
+
             }
             $("#right").show();
             //alert('1');
@@ -125,7 +137,7 @@
             //                alert('error');
             //            }
 
-            ReadResponses($(this).attr('data-FormId'), 1, '', '');
+//            ReadResponses($(this).attr('data-FormId'), 1, '', '');
             //return page to the top when a form is selected if the list of forms is too long.
             $("html, body").animate({ scrollTop: 0 }, "slow");
             return false;
@@ -690,6 +702,7 @@ function SaveSettings() {
 			 </div>
 <input id="FORM_ID_HIDDEN" type="hidden" />
 <input id="FORM_MODE_HIDDEN" type="hidden" />
+<input id="FORM_SELECTED_HIDDEN" type="hidden" />
 
 @*</div>  
   </div> *@ 
