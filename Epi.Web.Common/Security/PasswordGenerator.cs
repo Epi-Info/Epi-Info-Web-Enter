@@ -7,18 +7,18 @@ using System.Configuration;
 
 namespace Epi.Web.Enter.Common.Security
 {
- public class PasswordGenerator
+    public class PasswordGenerator
     {
         public PasswordGenerator()
         {
-            this.Minimum = DefaultMinimum =  Convert.ToInt32(ConfigurationManager.AppSettings["PasswordMinimumLength"]);
-            this.Maximum = DefaultMaximum =  Convert.ToInt32(ConfigurationManager.AppSettings["PasswordMaximumLength"]);
-            this.ConsecutiveCharacters =  Convert.ToBoolean(ConfigurationManager.AppSettings["ConsecutiveCharacters"]); //false;
-            this.RepeatCharacters =  Convert.ToBoolean(ConfigurationManager.AppSettings["RepeatCharacters"]);	//= true;
+            this.Minimum = DefaultMinimum = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordMinimumLength"]);
+            this.Maximum = DefaultMaximum = Convert.ToInt32(ConfigurationManager.AppSettings["PasswordMaximumLength"]);
+            this.ConsecutiveCharacters = Convert.ToBoolean(ConfigurationManager.AppSettings["ConsecutiveCharacters"]); //false;
+            this.RepeatCharacters = Convert.ToBoolean(ConfigurationManager.AppSettings["RepeatCharacters"]);	//= true;
             this.Symbols = ConfigurationManager.AppSettings["Symbols"].ToString();
-            this.UseSymbols =  Convert.ToBoolean(ConfigurationManager.AppSettings["UseSymbols"]); //= false;
-            this.UseNumeric =  Convert.ToBoolean(ConfigurationManager.AppSettings["UseNumbers"]); //= false;
-            this.UseLowerCase =  Convert.ToBoolean(ConfigurationManager.AppSettings["UseLowerCase"]);
+            this.UseSymbols = Convert.ToBoolean(ConfigurationManager.AppSettings["UseSymbols"]); //= false;
+            this.UseNumeric = Convert.ToBoolean(ConfigurationManager.AppSettings["UseNumbers"]); //= false;
+            this.UseLowerCase = Convert.ToBoolean(ConfigurationManager.AppSettings["UseLowerCase"]);
             this.UseUpperCase = Convert.ToBoolean(ConfigurationManager.AppSettings["UseUpperCase"]);
             this.Exclusions = null;
 
@@ -273,5 +273,5 @@ namespace Epi.Web.Enter.Common.Security
 
         string passwordArrary = "";
     }
-  }
+}
 

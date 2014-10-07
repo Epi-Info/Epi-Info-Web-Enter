@@ -41,6 +41,15 @@ namespace Epi.Web.BLL
 
             return Exists;
         }
+
+        public bool IsUserExistsInOrganizaion(UserBO User, OrganizationBO OrgBO)
+        {
+            bool Exists = false;
+            Exists = UserDao.IsUserExistsInOrganizaion(User, OrgBO);
+
+            return Exists;
+        }
+
         private string ReadSalt()
         {
             return ConfigurationManager.AppSettings["KeyForUserPasswordSalt"];
@@ -186,27 +195,46 @@ namespace Epi.Web.BLL
         }
         public bool SetUserInfo(UserBO UserBO, OrganizationBO OrgBO)
         {
+            //UserBO ExistingUser; //= GetUser(UserBO);
+            //ExistingUser = UserDao.GetUserByEmail(UserBO);
+            //ExistingUser.Role = UserDao.GetUserHighestRole(ExistingUser.UserId);
+
             bool success;
-            string KeyForUserPasswordSalt = ReadSalt();
-            PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
-            string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
-            UserBO.ResetPassword = true;
-            UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
-            success = UserDao.InsertUser(UserBO, OrgBO);
-            if (success)
+            if (UserBO.UserName == null)
             {
+                string KeyForUserPasswordSalt = ReadSalt();
+                PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
+                string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
+                UserBO.ResetPassword = true;
+                PasswordGenerator PassGen = new PasswordGenerator();
+                string tempPassword = PassGen.Generate();
+                UserBO.PasswordHash = PasswordHasher.HashPassword(salt, tempPassword);// "PassWord1");
+                //UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
+                success = UserDao.InsertUser(UserBO, OrgBO);
+                StringBuilder Body = new StringBuilder();
+                if (success)
+                {
 
-                List<string> EmailList = new List<string>();
-                EmailList.Add(UserBO.UserName);
-                Email email = new Email();
-                email.Body = "Your account has now been created for " + OrgBO.Organization + "\n" + "Email: " + UserBO.EmailAddress + "\n" + "Password: PassWord1";// +
-                  //  "\n" + "Please click the link below to launch Epi Web Enter." + "\n" + ConfigurationManager.AppSettings["BaseURL"] + "\nThank you";
-                email.To = new List<string>();
-                email.To.Add(UserBO.EmailAddress);
-                success = SendEmail(email, Constant.EmailCombinationEnum.InsertUser);
-
-
+                    List<string> EmailList = new List<string>();
+                    EmailList.Add(UserBO.UserName);
+                    Email email = new Email();
+                    Body.Append("Your account has now been created for " + OrgBO.Organization + "\n" + "Email: " + UserBO.EmailAddress + "\n" + "Password: " + tempPassword);// +
+                    email.To = new List<string>();
+                    email.To.Add(UserBO.EmailAddress);
+                    email.Body = Body.ToString();
+                    success = SendEmail(email, Constant.EmailCombinationEnum.InsertUser);
+                }
             }
+            else
+            {
+                //UserBO.Role = UserBO.Role;
+                //UserBO.IsActive = UserBO.IsActive;
+                success = UserDao.UpdateUserOrganization(UserBO, OrgBO);
+            }
+
+
+
+            
             return success;
         }
     }

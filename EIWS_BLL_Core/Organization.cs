@@ -79,6 +79,7 @@ namespace Epi.Web.BLL
             InsertCombination InsertStatus = new InsertCombination();
             // Check if the user Exists
             var User = this.OrganizationDao.GetUserByEmail(UserBO);
+            string tempPassword = string.Empty;
             if (User != null)
             {
                 if (string.IsNullOrEmpty(User.EmailAddress))
@@ -103,7 +104,9 @@ namespace Epi.Web.BLL
                 PasswordHasher PasswordHasher = new Web.Enter.Common.Security.PasswordHasher(KeyForUserPasswordSalt);
                 string salt = PasswordHasher.CreateSalt(UserBO.EmailAddress);
                 UserBO.ResetPassword = true;
-                UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
+                PasswordGenerator PassGen = new PasswordGenerator();
+                tempPassword = PassGen.Generate();
+                UserBO.PasswordHash = PasswordHasher.HashPassword(salt, tempPassword);// "PassWord1");
 
                 success = this.OrganizationDao.InsertOrganization(OrganizationBO, UserBO);
                 if (success)
@@ -128,7 +131,7 @@ namespace Epi.Web.BLL
                 else
                 {
                     Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrganizationBO.Organization);
-                    Body.Append("\nEmail: " + UserBO.EmailAddress + "\nPassword: PassWord1");
+                    Body.Append("\nEmail: " + UserBO.EmailAddress + "\nPassword: " + tempPassword);
                     Body.Append("\nOrganization Key: " + OrgKey);
                     Body.Append("\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password.");
                     //Add email and temporary password for new user. 
