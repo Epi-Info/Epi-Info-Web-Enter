@@ -234,10 +234,10 @@ namespace Epi.Web.MVC.Controllers
             SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(surveyAnswerModel.ResponseId);
             SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
 
-            //Update Status
-            SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = surveyAnswerModel.ResponseId });
-            SurveyAnswerRequest.Criteria.StatusId = 2;
-            _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
+            ////Update Status
+            //SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = surveyAnswerModel.ResponseId });
+            //SurveyAnswerRequest.Criteria.StatusId = 2;
+            //_isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
 
             SetGlobalVariable();
 
@@ -290,13 +290,13 @@ namespace Epi.Web.MVC.Controllers
 
                         form = SetLists(form);
 
-                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, true, PageNumber, UserId);
+                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
 
 
                         if (!string.IsNullOrEmpty(this.Request.Form["is_save_action"]) && this.Request.Form["is_save_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                         {
 
-
+                             
                             form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
                             form = SetLists(form);
                             TempData["Width"] = form.Width + 5;
@@ -310,7 +310,7 @@ namespace Epi.Web.MVC.Controllers
                         else if (!string.IsNullOrEmpty(this.Request.Form["Go_Home_action"]) && this.Request.Form["Go_Home_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                         {
 
-
+                           IsSaved = true;
                             form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
                             form = SetLists(form);
                             TempData["Width"] = form.Width + 5;
@@ -324,7 +324,7 @@ namespace Epi.Web.MVC.Controllers
                         }
                         else if (!string.IsNullOrEmpty(this.Request.Form["Go_One_Level_Up_action"]) && this.Request.Form["Go_One_Level_Up_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                         {
-
+                            IsSaved = true;
                             string RelateParentId = "";
                             form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
                             form = SetLists(form);
@@ -924,6 +924,12 @@ namespace Epi.Web.MVC.Controllers
 
             //Session["RelateButtonWasClicked"] = "true";
             //4-returen response id to client
+            //Update Status
+            SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+            SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(ResponseId);
+            SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+            SurveyAnswerRequest.Criteria.StatusId = 2;
+            _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
 
             return ChildResponseId;
         }
