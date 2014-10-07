@@ -459,8 +459,8 @@ namespace Epi.Web.EF
             UserInfo.LastName = User.LastName;
             UserInfo.FirstName = User.FirstName;
             UserInfo.PhoneNumber = User.PhoneNumber;
-            UserInfo.ResetPassword = false;
-            UserInfo.PasswordHash = "PassWord1";
+            UserInfo.ResetPassword = User.ResetPassword; //false;
+            UserInfo.PasswordHash = User.PasswordHash; //"PassWord1";
             UserOrganization.User = UserInfo;
 
 
@@ -497,7 +497,7 @@ namespace Epi.Web.EF
         {
             UserOrganization UserOrganization = new UserOrganization();
             UserOrganization.Active = User.IsActive;
-            // UserOrganization.UserID = User.UserId;
+            UserOrganization.UserID = User.UserId;
             UserOrganization.RoleId = User.Role;
             UserOrganization.OrganizationID = Organization.OrganizationId;
 
