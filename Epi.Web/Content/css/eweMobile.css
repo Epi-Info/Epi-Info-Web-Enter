@@ -545,7 +545,7 @@ a.next
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-active-defrecord, .ui-btn-active, .ui-btn-hover-defrecord, .ui-btn-hover-defsettings, .ui-btn-active-defsettings
+button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-active-defrecord, .ui-btn-active, .ui-btn-hover-defrecord, .ui-btn-hover-defsettings, .ui-btn-active-defsettings, .ui-btn-up-defbtn:hover, .ui-btn-hover-defbtn:hover, .ui-btn-up-defbtn:active, .ui-btn-hover-defbtn:active, .ui-btn-up-defsearch:active, .ui-btn-hover-defsearch:active, .ui-btn-up-defsearch:hover, .ui-btn-hover-defsearch:hover
 {
     background-color: #ffc000 !important; 
     -webkit-tap-highlight-color:rgba(0,0,0,0.5);
@@ -589,6 +589,52 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
    /* border: none !important; padding: 0px !important;*/
     text-align:left;
 }
+.ui-btn-up-defbtn, .ui-btn-hover-defbtn
+{
+    cursor: pointer; 
+    vertical-align:middle;
+    color:#fff;
+    border: 1px solid #1f3b53;
+    background: #5c53ac;
+    font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    width: 80px;
+   display:inline-block !important;
+    margin:0 10px 0 0;
+    padding:0;
+}
+.ui-btn-up-defsearch, .ui-btn-hover-defsearch
+{
+    cursor: pointer; 
+    vertical-align:middle;
+    color:#fff;
+    border: 1px solid #1f3b53;
+    background: #5c53ac;
+    font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+     background-image: url('../images/search-find.png');
+    background-repeat: no-repeat; 
+    background-position: 8px center;
+    background-size: 18px;
+    width: 180px;
+    height: 35px;
+    text-align:left;
+    
+}
+
+#searchbox
+{
+    margin:10px 0;
+    background: none repeat scroll 0 0 #e4ffb7;
+    border: 1px solid #74b700;
+    padding: 10px;
+}
+.searchrow
+{
+    padding:8px 0;
+    border-bottom: 1px dashed #c4c4c4;
+}
+
+#tableSort .ui-select {width:180px; }
+
 
 #addnew .ui-btn-inner {border: none !important; padding:  5px 6px 5px 40px !important;}
 
