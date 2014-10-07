@@ -26,22 +26,23 @@ namespace Epi.Web.EF
         public List<OrganizationBO> GetOrganizationKeys(string OrganizationName)
         {
 
-           List<OrganizationBO> OrganizationBO = new  List<OrganizationBO>();
-            try{
-           using (var Context = DataObjectFactory.CreateContext())
-           {
-               var Query = from response in Context.Organizations
-                           where response.Organization1 == OrganizationName
-                           select response;
+            List<OrganizationBO> OrganizationBO = new List<OrganizationBO>();
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                    var Query = from response in Context.Organizations
+                                where response.Organization1 == OrganizationName
+                                select response;
 
-               var DataRow = Query;
-             foreach(var Row in DataRow)
-               {
+                    var DataRow = Query;
+                    foreach (var Row in DataRow)
+                    {
 
-                 OrganizationBO.Add(Mapper.Map(Row));
-               
-               }
-           }
+                        OrganizationBO.Add(Mapper.Map(Row));
+
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -55,22 +56,23 @@ namespace Epi.Web.EF
         {
 
             List<OrganizationBO> OrganizationBO = new List<OrganizationBO>();
-            try{
-            using (var Context = DataObjectFactory.CreateContext())
+            try
             {
-               var Query = (from response in Context.Organizations
-                            
-                       select response);
-
-                
-                var DataRow = Query.Distinct();
-                foreach (var Row in DataRow)
+                using (var Context = DataObjectFactory.CreateContext())
                 {
+                    var Query = (from response in Context.Organizations
 
-                    OrganizationBO.Add(Mapper.Map(Row));
+                                 select response);
 
+
+                    var DataRow = Query.Distinct();
+                    foreach (var Row in DataRow)
+                    {
+
+                        OrganizationBO.Add(Mapper.Map(Row));
+
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -80,26 +82,28 @@ namespace Epi.Web.EF
         }
 
 
-        public  OrganizationBO  GetOrganizationInfoByKey(string key)
+        public OrganizationBO GetOrganizationInfoByKey(string key)
         {
 
-             OrganizationBO OrganizationBO = new  OrganizationBO ();
-            try{
-            using (var Context = DataObjectFactory.CreateContext())
+            OrganizationBO OrganizationBO = new OrganizationBO();
+            try
             {
-                var Query = (from response in Context.Organizations
-                             where response.OrganizationKey ==  key
-                             select response);
-                if (Query.Count() > 0)
+                using (var Context = DataObjectFactory.CreateContext())
                 {
-                    OrganizationBO = Mapper.Map(Query.SingleOrDefault());
-                   
+                    var Query = (from response in Context.Organizations
+                                 where response.OrganizationKey == key
+                                 select response);
+                    if (Query.Count() > 0)
+                    {
+                        OrganizationBO = Mapper.Map(Query.SingleOrDefault());
+
+                    }
+                    else
+                    {
+                        return null;
+                    }
+
                 }
-                else {
-                    return null;
-                }
-                 
-            }
             }
             catch (Exception ex)
             {
@@ -111,22 +115,23 @@ namespace Epi.Web.EF
         {
 
             List<OrganizationBO> OrganizationBO = new List<OrganizationBO>();
-            try{
-            using (var Context = DataObjectFactory.CreateContext())
+            try
             {
-                var Query = (from response in Context.Organizations
-
-                             select response );//{response.Organization1 }).Distinct();
-
-
-                var DataRow = Query.Distinct() ;
-                foreach (var Row in DataRow)
+                using (var Context = DataObjectFactory.CreateContext())
                 {
+                    var Query = (from response in Context.Organizations
 
-                    OrganizationBO.Add(Mapper.Map(Row.Organization1));
+                                 select response);//{response.Organization1 }).Distinct();
 
+
+                    var DataRow = Query.Distinct();
+                    foreach (var Row in DataRow)
+                    {
+
+                        OrganizationBO.Add(Mapper.Map(Row.Organization1));
+
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -140,23 +145,24 @@ namespace Epi.Web.EF
         {
 
             List<OrganizationBO> OrganizationBO = new List<OrganizationBO>();
-            try{
-            using (var Context = DataObjectFactory.CreateContext())
+            try
             {
-                var Query = (from response in Context.Organizations
-                             where response.OrganizationKey == gOrgKeyEncrypted && response.IsEnabled == true
-
-                             select response);
-
-                
-                var DataRow = Query;
-                foreach (var Row in DataRow)
+                using (var Context = DataObjectFactory.CreateContext())
                 {
+                    var Query = (from response in Context.Organizations
+                                 where response.OrganizationKey == gOrgKeyEncrypted && response.IsEnabled == true
 
-                    OrganizationBO.Add(Mapper.Map(Row));
+                                 select response);
 
+
+                    var DataRow = Query;
+                    foreach (var Row in DataRow)
+                    {
+
+                        OrganizationBO.Add(Mapper.Map(Row));
+
+                    }
                 }
-            }
             }
             catch (Exception ex)
             {
@@ -172,22 +178,23 @@ namespace Epi.Web.EF
         /// Following insert, Organization object will contain the new identifier.
         /// </remarks>  
         /// <param name="Organization">Organization.</param>
-        public  void InsertOrganization(OrganizationBO Organization)
+        public void InsertOrganization(OrganizationBO Organization)
         {
-            try{
-            using (var Context = DataObjectFactory.CreateContext())
+            try
             {
-                Organization OrganizationEntity = Mapper.ToEF(Organization);
-                Context.AddToOrganizations(OrganizationEntity);
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                    Organization OrganizationEntity = Mapper.ToEF(Organization);
+                    Context.AddToOrganizations(OrganizationEntity);
 
-                Context.SaveChanges();
-            }
+                    Context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
                 throw (ex);
             }
-             
+
         }
         /// <summary>
         /// Inserts a new Organization. 
@@ -196,53 +203,54 @@ namespace Epi.Web.EF
         /// Following insert, Organization object will contain the new identifier.
         /// </remarks>  
         /// <param name="Organization">Organization.</param>
-        public bool InsertOrganization(OrganizationBO Organization,UserBO User)
-            {
+        public bool InsertOrganization(OrganizationBO Organization, UserBO User)
+        {
             try
-                {
+            {
 
                 UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(Organization.IsEnabled, User, Organization);
-                  using (var Context = DataObjectFactory.CreateContext())
-                      {
-
-                      Context.AddToUserOrganizations(UserOrganizationEntity);
-
-                      Context.SaveChanges();
-                      return true;
-                      }
-
-                }
-            catch (Exception ex)
+                using (var Context = DataObjectFactory.CreateContext())
                 {
-                throw (ex);
+
+                    Context.AddToUserOrganizations(UserOrganizationEntity);
+                    //Context.AddToUsers(User);
+
+                    Context.SaveChanges();
+                    return true;
                 }
 
             }
-        public bool InsertOrganization(OrganizationBO Organization, int UserId,int RoleId)
+            catch (Exception ex)
             {
+                throw (ex);
+            }
+
+        }
+        public bool InsertOrganization(OrganizationBO Organization, int UserId, int RoleId)
+        {
             try
-                {
+            {
 
 
                 UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(Organization.IsEnabled, UserId, RoleId, Organization);
                 using (var Context = DataObjectFactory.CreateContext())
-                    {
+                {
 
                     Context.AddToUserOrganizations(UserOrganizationEntity);
 
                     Context.SaveChanges();
                     return true;
-                    }
-
-                }
-            catch (Exception ex)
-                {
-                throw (ex);
                 }
 
             }
-        public UserBO GetUserByEmail(UserBO User)
+            catch (Exception ex)
             {
+                throw (ex);
+            }
+
+        }
+        public UserBO GetUserByEmail(UserBO User)
+        {
             var Context = DataObjectFactory.CreateContext();
             var UserQuery = from Users in Context.Users
                             where Users.EmailAddress == User.EmailAddress
@@ -250,42 +258,43 @@ namespace Epi.Web.EF
             UserBO Result = new UserBO();
 
             foreach (var user in UserQuery)
-                {
+            {
                 Result = Mapper.MapToUserBO(user);
                 return Result;
-                }
+            }
 
             return null;
-            }
+        }
         /// <summary>
         /// Updates a Organization.
         /// </summary>
         /// <param name="Organization">Organization.</param>
         public bool UpdateOrganization(OrganizationBO Organization)
         {
-       
-        ////Update Survey
-            try{
-            using (var Context = DataObjectFactory.CreateContext())
-            {
-                var Query = from response in Context.Organizations
-                            where response.OrganizationKey == Organization.OrganizationKey
-                            select response;
 
-                var DataRow = Query.Single();
-                DataRow.Organization1 = Organization.Organization;
-              
-                DataRow.IsEnabled =  Organization.IsEnabled ;
-                Context.SaveChanges();
-                return true;
-            }
+            ////Update Survey
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                    var Query = from response in Context.Organizations
+                                where response.OrganizationKey == Organization.OrganizationKey
+                                select response;
+
+                    var DataRow = Query.Single();
+                    DataRow.Organization1 = Organization.Organization;
+
+                    DataRow.IsEnabled = Organization.IsEnabled;
+                    Context.SaveChanges();
+                    return true;
+                }
             }
             catch (Exception ex)
             {
                 throw (ex);
             }
         }
-     
+
         //public UserAuthenticationResponseBO GetAuthenticationResponse(UserAuthenticationRequestBO UserAuthenticationRequestBO)
         //{
 
@@ -317,95 +326,97 @@ namespace Epi.Web.EF
         /// Deletes a Organization
         /// </summary>
         /// <param name="Organization">Organization.</param>
-        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId,int UserRole) 
-            {
+        public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId, int UserRole)
+        {
             List<OrganizationBO> result = new List<OrganizationBO>();
 
 
             try
-                {
+            {
                 using (var Context = DataObjectFactory.CreateContext())
-                    {
-                 
-                    if(UserRole == 3){
-                       var Query = from OrganizationTable in Context.Organizations
-                                
-                                select  OrganizationTable;
-                       var DataRow = Query.Distinct();
-                       foreach (var Row in DataRow)
-                           {
-
-                           result.Add(Mapper.Map(Row));
-
-                           }
-
-                       return result;
-                        }
-                    else{
-                       var  Query = from OrganizationTable in Context.Organizations
-                                from UserOrganizationTable in Context.UserOrganizations
-
-                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && UserOrganizationTable.UserID == UserId  
-                                select OrganizationTable;
-
-                       var DataRow = Query;
-                       foreach (var Row in DataRow)
-                           {
-
-                           result.Add(Mapper.Map(Row));
-
-                           }
-
-                       return result;
-                        
-                        }
-
-                  
-                    }
-                }
-            catch (Exception ex)
                 {
-                throw (ex);
+
+                    if (UserRole == 3)
+                    {
+                        var Query = from OrganizationTable in Context.Organizations
+
+                                    select OrganizationTable;
+                        var DataRow = Query.Distinct();
+                        foreach (var Row in DataRow)
+                        {
+
+                            result.Add(Mapper.Map(Row));
+
+                        }
+
+                        return result;
+                    }
+                    else
+                    {
+                        var Query = from OrganizationTable in Context.Organizations
+                                    from UserOrganizationTable in Context.UserOrganizations
+
+                                    where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && UserOrganizationTable.UserID == UserId
+                                    select OrganizationTable;
+
+                        var DataRow = Query;
+                        foreach (var Row in DataRow)
+                        {
+
+                            result.Add(Mapper.Map(Row));
+
+                        }
+
+                        return result;
+
+                    }
+
+
                 }
-            
-            
             }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+
+        }
 
         public void DeleteOrganization(OrganizationBO Organization)
         {
 
-           //Delete Survey
-       
-       }
-        public OrganizationBO GetOrganizationByOrgId(int OrganizationId) 
-            {
-            OrganizationBO   OrganizationBO = new  OrganizationBO ();
+            //Delete Survey
+
+        }
+        public OrganizationBO GetOrganizationByOrgId(int OrganizationId)
+        {
+            OrganizationBO OrganizationBO = new OrganizationBO();
             try
-                {
+            {
                 using (var Context = DataObjectFactory.CreateContext())
-                    {
+                {
                     var Query = from response in Context.Organizations
                                 where response.OrganizationId == OrganizationId
                                 select response;
 
                     if (Query.Count() > 0)
-                        {
+                    {
                         OrganizationBO = Mapper.Map(Query.SingleOrDefault());
 
-                        }
-                    else
-                        {
-                        return null;
-                        }
-                    
                     }
+                    else
+                    {
+                        return null;
+                    }
+
                 }
-            catch (Exception ex)
-                {
-                throw (ex);
-                }
-            return OrganizationBO;
-            
             }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return OrganizationBO;
+
+        }
     }
 }

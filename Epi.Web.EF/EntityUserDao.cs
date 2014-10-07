@@ -294,5 +294,35 @@ namespace Epi.Web.EF
         }
 
 
+
+
+        public bool UpdateUserOrganization(UserBO User, OrganizationBO OrgBO)
+        {
+            UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(User, OrgBO);
+            using (var Context = DataObjectFactory.CreateContext())
+            {
+                Context.AddToUserOrganizations(UserOrganizationEntity);
+                Context.SaveChanges();
+
+                return true;
+            }
+        }
+
+
+        public bool IsUserExistsInOrganizaion(UserBO User, OrganizationBO OrgBO)
+        {
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from userorganization in Context.UserOrganizations
+                            where userorganization.UserID == User.UserId && userorganization.OrganizationID == OrgBO.OrganizationId
+                            select userorganization;
+            bool Result = false;
+
+            foreach (var user in UserQuery)
+            {
+                Result = true;
+            }
+
+            return Result;
+        }
     }
 }
