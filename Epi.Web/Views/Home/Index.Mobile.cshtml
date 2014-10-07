@@ -52,9 +52,11 @@
      <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; margin-top:15px;">
             <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="e" onchange="FilterRecords(this);">
                @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
-                <option value="1">Organization 1</option>        
-                <option value="2">Organization 2</option>
-                <option value="3" selected="selected">Organization 3</option>
+                           @foreach(var item in Model.OrganizationList){
+				            <option value="@item.OrganizationId">@item.Organization</option>
+                               }
+				
+				            @*	<option value="3">Last Saved Forms First</option>*@
             </select>
         
             <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="e" onchange="FilterRecords(this);">
