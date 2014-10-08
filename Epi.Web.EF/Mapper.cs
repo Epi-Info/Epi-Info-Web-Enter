@@ -23,7 +23,7 @@ namespace Epi.Web.EF
 
             result.SurveyId = entity.SurveyId.ToString();
             result.SurveyName = entity.SurveyName;
-            result.SurveyNumber = entity.SurveyNumber;
+            result.SurveyNumber = entity.SurveyNumber; 
             result.XML = entity.TemplateXML;
             result.IntroductionText = entity.IntroductionText;
             result.ExitText = entity.ExitText;
@@ -497,7 +497,6 @@ namespace Epi.Web.EF
         {
             UserOrganization UserOrganization = new UserOrganization();
             UserOrganization.Active = User.IsActive;
-            UserOrganization.UserID = User.UserId;
             UserOrganization.RoleId = User.Role;
             UserOrganization.OrganizationID = Organization.OrganizationId;
 

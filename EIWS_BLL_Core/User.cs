@@ -212,7 +212,7 @@ namespace Epi.Web.BLL
                 //UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
                 success = UserDao.InsertUser(UserBO, OrgBO);
                 StringBuilder Body = new StringBuilder();
-                if (success)
+                if (success) 
                 {                
                     Email email = new Email();
                     Body.Append("Your account has now been created for " + OrgBO.Organization + "\n" + "Email: " + UserBO.EmailAddress + "\n" + "Password: " + tempPassword);// +
