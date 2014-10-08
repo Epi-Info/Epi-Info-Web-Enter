@@ -206,7 +206,7 @@ namespace Epi.Web.Enter.Common.Xml
                             if (Field.Attribute("Name").Value == pair.Key)
                                 {
 
-                                child.InnerText = pair.Value;
+                                child.InnerText =GetControlValue(pair.Value,Field.Attribute("FieldTypeId").Value);
                                 break;
                                 }
                             else
@@ -219,6 +219,72 @@ namespace Epi.Web.Enter.Common.Xml
                     }
                 }
             return PageRoot ;  
+            }
+
+        private string GetControlValue(string value, string Type)
+            {
+            string ControlValue = value;
+            
+                switch (Type)
+                    {
+                    case "1": // textbox
+                      
+                        break;
+
+                    case "2"://Label/Title
+                       
+                        break;
+                    case "3"://Label
+                        
+                        break;
+                    case "4"://MultiLineTextBox
+                         
+                        break;
+                    case "5"://NumericTextBox
+                        
+                        break;
+
+                    case "7":// 7 DatePicker
+                         DateTime DateTime = new DateTime();
+                        DateTime.TryParse(value, out DateTime);
+                        ControlValue = DateTime.Date.Month + "/" + DateTime.Date.Day + "/" + DateTime.Date.Year;
+                        break;
+                    case "8": //TimePicker
+                         DateTime Time = new DateTime();
+                         DateTime.TryParse(value, out Time);
+                         ControlValue = Time.TimeOfDay.ToString();
+                        break;
+                    case "10"://CheckBox
+                        if (value.ToUpper() == "TRUE")
+                            {
+                            ControlValue = "Yes";
+                            }
+                        else {
+                              ControlValue = "No";
+                            }
+                        break;
+
+                    case "11"://DropDown Yes/No
+                         
+                        break;
+                    case "12"://RadioList
+                         
+                        break;
+                    case "17"://DropDown LegalValues
+
+                        break;
+                    case "18"://DropDown Codes
+
+                        break;
+                    case "19"://DropDown CommentLegal
+
+                        break;
+                    case "21"://GroupBox
+                        break;
+                    }
+
+                return ControlValue;
+                 
             }
         public void SetRequiredList(XElement _Fields)
             {
