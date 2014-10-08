@@ -118,8 +118,6 @@ namespace Epi.Web.BLL
             var OrgKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(OrganizationBO.OrganizationKey);
             if (success && InsertStatus != InsertCombination.None)
             {
-                List<string> EmailList = new List<string>();
-                EmailList.Add(UserBO.UserName);
                 Email email = new Email();
 
                 StringBuilder Body = new StringBuilder();
@@ -136,7 +134,7 @@ namespace Epi.Web.BLL
                     Body.Append("\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password.");
                     //Add email and temporary password for new user. 
                 }
-                
+
                 //Body.Append("\n" + ConfigurationManager.AppSettings["BaseURL"]);
 
                 if (InsertStatus == InsertCombination.NewUserNewOrg)
