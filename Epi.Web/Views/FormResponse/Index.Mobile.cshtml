@@ -140,7 +140,16 @@ var pageId = $('#hidPageNumber').val();
             return QueryString;
         }
 </script>
-
+<script>
+    $(document).ready(function () {
+        $("#btnsearch").click(function () {
+            $("#searchbox").toggle();
+        });
+    });
+</script>
+<style>
+ui-icon-arrow-u {margin:11px 8px !important}
+</style>
 <div id="pageHeader">
     <div id="pageTitle">
         <h2>
@@ -218,14 +227,31 @@ var pageId = $('#hidPageNumber').val();
                     }
                     <div style="clear: both;"></div>
                 </div>
-                <div id="editsettings">
+                <div id="editsettings" style="">
                     @if (Model.FormInfoModel.IsSQLProject)
                     {
-                    <button id="btnsearch" type="submit" data-theme="defsearch">Search</button> 
+                    <button id="btnsearch" data-theme="defsearch">Search</button> 
                     }
                 </div>
+                
+                <div id="tableSort" style="vertical-align:middle; margin-bottom: 20px; min-width: 300px;">
+                         <select id="columns" data-inline="true" data-theme="e">
+			                    @*<option value="0" selected="selected">Sort by:</option>*@
+                                @foreach (var item in Model.Columns)
+                                {
+				                <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                                }
+			              </select>
+                        @*<a href="index.html" id="SortASC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Ascending.png" style="width:20px; vertical-align:middle;"/></a>
+                        <a href="index.html" id="SortDESC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Descending.png" style="width:20px; vertical-align:middle;"/></a>*@
+                        
+                        
+                        <button id="SortASC"  data-role="button" data-theme="submit2"  data-inline="true">&#x25BC;</button>
+                        <button id="SortDESC" data-role="button" data-theme="submit2"  data-inline="true">&#x25B2;</button>
+                       
+                    </div>
                  <div style="clear: both;"></div>
-                <div id="searchbox" style="">
+                <div id="searchbox" style="display:none;">
                     <div class="searchrow">
                         <select><option>Select</option></select>
                         <input type="text" id="val1" />
@@ -274,22 +300,7 @@ var pageId = $('#hidPageNumber').val();
                     
                     <div style="clear: both; margin-bottom: 10px;">
                     </div>
-                     <div id="tableSort" style="vertical-align:middle; margin-bottom: 20px;">
-                         <select id="columns" style="width: 172px;" data-inline="true">
-			                                    @*<option value="0" selected="selected">Sort by:</option>*@
-                                               @foreach (var item in Model.Columns)
-                                               {
-				                                <option value="@item.Value.ToString()">@item.Value.ToString()</option>
-                                               }
-			                                </select>
-                        @* <select style="vertical-align:middle;">
-
-                            <option>Sort by</option>
-                            <option>Column1</option>
-                        </select>*@
-                        <button id="SortASC" data-theme="submit2" data-inline="true" type="submit" >Asc</button>
-                        <button id="SortDESC" data-theme="submit2" data-inline="true" type="submit" >Des</button>
-                    </div>
+                     
                     <div id="recordstable">
                         @if (Model.ResponsesList.Count > 0)
                             {
