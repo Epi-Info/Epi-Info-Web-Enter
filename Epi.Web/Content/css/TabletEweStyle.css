@@ -26,6 +26,9 @@
     #resetpwd .ui-btn-up-submit2, #resetpwd .ui-btn-hover-submit2{width: 80px;  display:inline-block;}
     #resetpwd .ui-btn-inner {font-size:9pt; padding:3px 4px;}
     #pwdpolicy {float: left; font-size: 12pt; display:inline-block; width: 90%; padding: 0px 5px 10px 20px; border:1px solid #4d74a4; background:#e1eef4; margin:20px 0px 0 0; }
+    #editsettings {float:left; margin-top: -8px !important;}
+    #tableSort {float:right; text-align:right;}
+    .ui-btn-up-defsearch, .ui-btn-hover-defsearch {padding:4px 0 2px 0;}
 }
 
 @media screen and (min-width: 599px) and (max-width: 800px) 
