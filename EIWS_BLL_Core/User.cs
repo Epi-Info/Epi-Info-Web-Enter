@@ -162,7 +162,7 @@ namespace Epi.Web.BLL
                     break;
             }
 
-            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"];
+            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\nThank you.";
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
@@ -213,10 +213,7 @@ namespace Epi.Web.BLL
                 success = UserDao.InsertUser(UserBO, OrgBO);
                 StringBuilder Body = new StringBuilder();
                 if (success)
-                {
-
-                    List<string> EmailList = new List<string>();
-                    EmailList.Add(UserBO.UserName);
+                {                
                     Email email = new Email();
                     Body.Append("Your account has now been created for " + OrgBO.Organization + "\n" + "Email: " + UserBO.EmailAddress + "\n" + "Password: " + tempPassword);// +
                     email.To = new List<string>();
@@ -230,11 +227,28 @@ namespace Epi.Web.BLL
                 //UserBO.Role = UserBO.Role;
                 //UserBO.IsActive = UserBO.IsActive;
                 success = UserDao.UpdateUserOrganization(UserBO, OrgBO);
+                if (success)
+                {
+                    Email email = new Email();
+
+                    StringBuilder Body = new StringBuilder();
+
+                    Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrgBO.Organization);
+                    // var OrgKey = OrgBO.OrganizationKey;
+                    var OrgKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(OrgBO.OrganizationKey);
+                    Body.Append("\nOrganization Key: " + OrgKey);
+                    email.Body = Body.ToString();
+                    email.To = new List<string>();
+                    email.To.Add(UserBO.EmailAddress);
+
+                    success = SendEmail(email, Constant.EmailCombinationEnum.InsertUser);
+                }
+
             }
 
 
 
-            
+
             return success;
         }
     }
