@@ -155,7 +155,6 @@ namespace Epi.Web.BLL
                     Body.Append("\n\nPlease contact the system administrator " + UserBO.UserName + " for any questions.");
                 }
 
-                Body.Append("\n\nThank you.");
 
                 email.Body = Body.ToString();
                 email.To = new List<string>();
@@ -263,7 +262,7 @@ namespace Epi.Web.BLL
                     break;
             }
 
-            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"]; //email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
+            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you."; //email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
