@@ -20,7 +20,7 @@ namespace Epi.Web.WCF.SurveyService
     public class EWEDataService : IEWEDataService
     {
 
-        // Session state variables
+        // Session state variables 
         private string _accessToken;
         //private ShoppingCart _shoppingCart;
         private string _userName;
