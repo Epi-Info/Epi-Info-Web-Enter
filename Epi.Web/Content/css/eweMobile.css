@@ -521,7 +521,7 @@ a.next
  
  #editsettings 
  {
-     float:left; text-align: left; margin-top: 8px;
+      text-align: left; margin-top: 8px;
  }
  
  h2.surveyTitle 
@@ -614,11 +614,13 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
     background-repeat: no-repeat; 
     background-position: 8px center;
     background-size: 18px;
-    width: 180px;
+    width: 110px;
     height: 35px;
     text-align:left;
     
 }
+
+
 
 #searchbox
 {
@@ -633,10 +635,13 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
     border-bottom: 1px dashed #c4c4c4;
 }
 
-#tableSort .ui-select {width:180px; }
-
+#tableSort .ui-select {display:inline-block !important; margin: auto 0px !important; }
+#tableSort .ui-select .ui-btn { width:150px;margin: auto 0px !important; }
+#tableSort .ui-btn-icon-notext {margin:auto 0px; }
+#tableSort .ui-btn-up-submit2, .ui-btn-hover-submit2 {padding:0 !important;}
 
 #addnew .ui-btn-inner {border: none !important; padding:  5px 6px 5px 40px !important;}
+
 
 #addnew
  {
