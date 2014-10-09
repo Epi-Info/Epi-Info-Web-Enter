@@ -609,7 +609,7 @@
         <Function Name="usp_soft_delete_Epi7_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="IsResponsePresent" Type="bit" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -704,7 +704,7 @@
           <FunctionImport Name="usp_soft_delete_Epi7_record">
             <Parameter Name="ResponseId" Mode="In" Type="Guid" />
             <Parameter Name="SurveyId" Mode="In" Type="Guid" />
-            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+            <Parameter Name="IsResponsePresent" Mode="In" Type="Boolean" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="lk_Status">
