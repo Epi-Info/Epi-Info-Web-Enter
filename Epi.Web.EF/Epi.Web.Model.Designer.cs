@@ -567,8 +567,8 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="responseId">No Metadata Documentation available.</param>
         /// <param name="surveyId">No Metadata Documentation available.</param>
-        /// <param name="statusId">No Metadata Documentation available.</param>
-        public int usp_soft_delete_Epi7_record(Nullable<global::System.Guid> responseId, Nullable<global::System.Guid> surveyId, Nullable<global::System.Int32> statusId)
+        /// <param name="isResponsePresent">No Metadata Documentation available.</param>
+        public int usp_soft_delete_Epi7_record(Nullable<global::System.Guid> responseId, Nullable<global::System.Guid> surveyId, Nullable<global::System.Boolean> isResponsePresent)
         {
             ObjectParameter responseIdParameter;
             if (responseId.HasValue)
@@ -590,17 +590,17 @@ namespace Epi.Web.EF
                 surveyIdParameter = new ObjectParameter("SurveyId", typeof(global::System.Guid));
             }
     
-            ObjectParameter statusIdParameter;
-            if (statusId.HasValue)
+            ObjectParameter isResponsePresentParameter;
+            if (isResponsePresent.HasValue)
             {
-                statusIdParameter = new ObjectParameter("StatusId", statusId);
+                isResponsePresentParameter = new ObjectParameter("IsResponsePresent", isResponsePresent);
             }
             else
             {
-                statusIdParameter = new ObjectParameter("StatusId", typeof(global::System.Int32));
+                isResponsePresentParameter = new ObjectParameter("IsResponsePresent", typeof(global::System.Boolean));
             }
     
-            return base.ExecuteFunction("usp_soft_delete_Epi7_record", responseIdParameter, surveyIdParameter, statusIdParameter);
+            return base.ExecuteFunction("usp_soft_delete_Epi7_record", responseIdParameter, surveyIdParameter, isResponsePresentParameter);
         }
 
         #endregion

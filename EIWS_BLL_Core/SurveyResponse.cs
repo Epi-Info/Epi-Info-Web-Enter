@@ -620,7 +620,10 @@ namespace Epi.Web.BLL
 
         public void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO)
             {
-
+            if(SurveyResponseBO.Status == 1)
+                {
+                SurveyResponseBO.Status = 2;
+                }
 
             this.SurveyResponseDao.UpdateRecordStatus(SurveyResponseBO);
             }
