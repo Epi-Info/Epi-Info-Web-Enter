@@ -2169,8 +2169,8 @@ namespace Epi.Web.EF
                             {
                             Guid NewId = new Guid(Obj.ResponseId);
 
-                            
-                            Obj.Status = 0;
+
+                            Obj.Status = SurveyResponse.Status;
                             UpdateSurveyResponse(Obj);
 
                             Context.usp_soft_delete_Epi7_record(new Guid(Obj.ResponseId), new Guid(Obj.SurveyId), Obj.Status);
@@ -2181,8 +2181,8 @@ namespace Epi.Web.EF
 
                         }
                         }else{
-                      
-                        Context.usp_soft_delete_Epi7_record(new Guid(SurveyResponse.ResponseId), new Guid(SurveyResponse.SurveyId), 0);
+
+                        Context.usp_soft_delete_Epi7_record(new Guid(SurveyResponse.ResponseId), new Guid(SurveyResponse.SurveyId), SurveyResponse.Status);
                         Context.SaveChanges();
                         }
 

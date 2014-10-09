@@ -1075,11 +1075,13 @@ namespace Epi.Web.WCF.SurveyService
         Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
         Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
         List<SurveyResponseBO> SurveyAnswerList = new List<SurveyResponseBO>();
-        SurveyAnswerList = Implementation.GetResponsesHierarchyIdsByRootId(pRequest.RequestId.ToString());
+        SurveyAnswerList = Implementation.GetResponsesHierarchyIdsByRootId(pRequest.Criteria.SurveyAnswerIdList[0].ToString());
 
         foreach (var response in SurveyAnswerList)
             {
-            Implementation.UpdateRecordStatus(Mapper.ToBusinessObject(Mapper.ToDataTransferObject(response), pRequest.Criteria.UserId));
+            var obj = Mapper.ToBusinessObject(Mapper.ToDataTransferObject(response), pRequest.Criteria.UserId);
+            obj.Status = pRequest.Criteria.StatusId;
+            Implementation.UpdateRecordStatus(obj);
 
             }
              
