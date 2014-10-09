@@ -339,7 +339,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyMetaData_Organization">
-          <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1" />
+          <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Organization">
@@ -481,7 +483,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserOrganization_Organization">
-          <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1" />
+          <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserOrganization" Type="OSELS_EWEModel.Store.UserOrganization" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Organization">
@@ -547,6 +551,16 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_add_Epi7DB_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StatusId" Type="varchar" Mode="In" />
+          <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="FirstSaveLogonName" Type="varchar" Mode="In" />
+          <Parameter Name="FirstSaveTime" Type="datetime" Mode="In" />
+          <Parameter Name="LastSaveLogonName" Type="varchar" Mode="In" />
+          <Parameter Name="LastSaveTime" Type="datetime" Mode="In" />
+          <Parameter Name="ParentRecordId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Epi7DBName" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_AddDatasource" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DatasourceServerName" Type="nvarchar" Mode="In" />
           <Parameter Name="DatabaseType" Type="varchar" Mode="In" />
@@ -557,7 +571,7 @@
           <Parameter Name="Password" Type="varchar" Mode="In" />
         </Function>
         <Function Name="usp_create_epi7_sql_statements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="xml" Type="xml" Mode="In" />
+          <Parameter Name="PageXml" Type="xml" Mode="In" />
           <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="ResponseId" Type="varchar" Mode="In" />
           <Parameter Name="InsertText" Type="varchar(max)" Mode="InOut" />
@@ -566,7 +580,7 @@
         <Function Name="usp_create_epi7_sql_statements_driver__" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="usp_create_epi7_sql_statements_driver  " Schema="dbo">
           <Parameter Name="xml" Type="xml" Mode="In" />
           <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
-          <Parameter Name="ResponseId" Type="varchar" Mode="In" />
+          <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="Mode" Type="varchar" Mode="In" />
           <Parameter Name="Epi7DBName" Type="varchar" Mode="In" />
         </Function>
@@ -591,6 +605,11 @@
         </Function>
         <Function Name="usp_IsSQLProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FormId" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_soft_delete_Epi7_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
         </Function>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -682,6 +701,11 @@
             <End Role="SurveyResponse" EntitySet="SurveyResponses" />
             <End Role="SurveyResponseTracking" EntitySet="SurveyResponseTrackings" />
           </AssociationSet>
+          <FunctionImport Name="usp_soft_delete_Epi7_record">
+            <Parameter Name="ResponseId" Mode="In" Type="Guid" />
+            <Parameter Name="SurveyId" Mode="In" Type="Guid" />
+            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="lk_Status">
           <Key>
@@ -1265,6 +1289,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_soft_delete_Epi7_record" FunctionName="OSELS_EWEModel.Store.usp_soft_delete_Epi7_record" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

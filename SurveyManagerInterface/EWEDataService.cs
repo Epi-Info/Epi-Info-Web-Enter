@@ -814,17 +814,45 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
                 foreach (var response in pRequest.SurveyAnswerList)
-                {
-                    if (pRequest.Criteria.IsEditMode)
                     {
-                        Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
-                    }
+                    if (pRequest.Criteria.IsSqlProject)
+                        {
+                        if (pRequest.Criteria.IsEditMode)
+                            {
+                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                            }
+                        else
+                            {
+                            if(pRequest.Criteria.IsDeleteMode)
+                                {
+                                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                                } 
+                            else
+                                {
+                                //do status Update
+                                var obj = Mapper.ToBusinessObject(response, pRequest.Criteria.UserId);
+                                obj.SurveyId = pRequest.Criteria.SurveyId;
+                                Implementation.UpdateRecordStatus(obj);
+                                }
+                       
+                            }
+                        }
                     else
-                    {
-                        Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                        {
+                         if (pRequest.Criteria.IsEditMode)
+                            {
+                                Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                            }
+                            else
+                            {
+                         
+                                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                            } 
+                        
+                        
+                        
+                        }
                     }
-
-                }
 
                 return result;
                 //return null;

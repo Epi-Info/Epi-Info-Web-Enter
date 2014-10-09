@@ -1067,5 +1067,23 @@ namespace Epi.Web.WCF.SurveyService
 
          return true;
              }
+
+        public  void SetSurveyAnswerStatus(SurveyAnswerRequest pRequest)
+            {
+        SurveyAnswerResponse SurveyAnswerResponse = new SurveyAnswerResponse();
+        Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+        Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+        Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+        List<SurveyResponseBO> SurveyAnswerList = new List<SurveyResponseBO>();
+        SurveyAnswerList = Implementation.GetResponsesHierarchyIdsByRootId(pRequest.RequestId.ToString());
+
+        foreach (var response in SurveyAnswerList)
+            {
+            Implementation.UpdateRecordStatus(Mapper.ToBusinessObject(Mapper.ToDataTransferObject(response), pRequest.Criteria.UserId));
+
+            }
+             
+             
+             }
     }
 }
