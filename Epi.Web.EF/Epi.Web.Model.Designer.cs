@@ -561,6 +561,47 @@ namespace Epi.Web.EF
     
             return base.ExecuteFunction("usp_AddDatasource", datasourceServerNameParameter, databaseTypeParameter, initialCatalogParameter, persistSecurityInfoParameter, databaseUserIDParameter, surveyIDParameter, passwordParameter);
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        /// <param name="responseId">No Metadata Documentation available.</param>
+        /// <param name="surveyId">No Metadata Documentation available.</param>
+        /// <param name="statusId">No Metadata Documentation available.</param>
+        public int usp_soft_delete_Epi7_record(Nullable<global::System.Guid> responseId, Nullable<global::System.Guid> surveyId, Nullable<global::System.Int32> statusId)
+        {
+            ObjectParameter responseIdParameter;
+            if (responseId.HasValue)
+            {
+                responseIdParameter = new ObjectParameter("ResponseId", responseId);
+            }
+            else
+            {
+                responseIdParameter = new ObjectParameter("ResponseId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter surveyIdParameter;
+            if (surveyId.HasValue)
+            {
+                surveyIdParameter = new ObjectParameter("SurveyId", surveyId);
+            }
+            else
+            {
+                surveyIdParameter = new ObjectParameter("SurveyId", typeof(global::System.Guid));
+            }
+    
+            ObjectParameter statusIdParameter;
+            if (statusId.HasValue)
+            {
+                statusIdParameter = new ObjectParameter("StatusId", statusId);
+            }
+            else
+            {
+                statusIdParameter = new ObjectParameter("StatusId", typeof(global::System.Int32));
+            }
+    
+            return base.ExecuteFunction("usp_soft_delete_Epi7_record", responseIdParameter, surveyIdParameter, statusIdParameter);
+        }
 
         #endregion
 

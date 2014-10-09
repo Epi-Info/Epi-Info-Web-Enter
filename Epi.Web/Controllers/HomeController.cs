@@ -401,7 +401,8 @@ namespace Epi.Web.MVC.Controllers
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             string Id = Session["UserId"].ToString();
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id);
-
+            SARequest.Criteria.IsSqlProject = (bool)Session["IsSqlProject"];
+            SARequest.Criteria.SurveyId = Session["RootFormId"].ToString();
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);
@@ -490,6 +491,7 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseReq.Criteria.PageNumber = PageNumber;
                 FormResponseReq.Criteria.UserId = UserId;
                 FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
+                Session["IsSqlProject"] = FormSettingResponse.FormInfo.IsSQLProject;
                 //if (Session["SearchCriteria"] != null)
                 //{
                 //    FormResponseInfoModel.SearchModel = (SeachBoxModel)Session["SearchCriteria"];

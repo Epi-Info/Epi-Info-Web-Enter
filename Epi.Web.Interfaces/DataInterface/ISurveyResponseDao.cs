@@ -121,5 +121,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
         //bool ISResponseExists(SurveyAnswerCriteria Criteria);
 
          bool HasResponse(SurveyAnswerCriteria Criteria);
+
+         void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO);
     }
 }
