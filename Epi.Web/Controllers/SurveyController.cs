@@ -853,6 +853,8 @@ namespace Epi.Web.MVC.Controllers
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SARequest.Criteria.IsEditMode = this.IsEditMode;
+            SARequest.Criteria.IsDeleteMode = true;
+            SARequest.Criteria.IsSqlProject = (bool)Session["IsSqlProject"];
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(Session["RootFormId"]);//string.Empty
@@ -867,6 +869,9 @@ namespace Epi.Web.MVC.Controllers
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SARequest.Criteria.IsEditMode = false;
+            SARequest.Criteria.IsDeleteMode = true;
+            SARequest.Criteria.IsSqlProject = (bool)Session["IsSqlProject"];
+            SARequest.Criteria.SurveyId = Session["RootFormId"].ToString();
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(Session["RootFormId"]);//string.Empty

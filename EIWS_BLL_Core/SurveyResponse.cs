@@ -617,5 +617,12 @@ namespace Epi.Web.BLL
 
             return this.SurveyResponseDao.HasResponse(SurveyAnswerCriteria);
             }
+
+        public void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO)
+            {
+
+
+            this.SurveyResponseDao.UpdateRecordStatus(SurveyResponseBO);
+            }
     }
 }

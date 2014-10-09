@@ -245,14 +245,26 @@ namespace Epi.Web.Enter.Common.Xml
                         break;
 
                     case "7":// 7 DatePicker
+                        if (!string.IsNullOrEmpty(value))
+                            {
                          DateTime DateTime = new DateTime();
                         DateTime.TryParse(value, out DateTime);
                         ControlValue = DateTime.Date.Month + "/" + DateTime.Date.Day + "/" + DateTime.Date.Year;
+                         }
+                        else {
+                            ControlValue = value;
+                            }
                         break;
                     case "8": //TimePicker
-                         DateTime Time = new DateTime();
-                         DateTime.TryParse(value, out Time);
-                         ControlValue = Time.TimeOfDay.ToString();
+                        if (!string.IsNullOrEmpty(value))
+                            {
+                            DateTime Time = new DateTime();
+                            DateTime.TryParse(value, out Time);
+                            ControlValue = Time.TimeOfDay.ToString();
+                            }
+                        else {
+                            ControlValue = value;
+                            }
                         break;
                     case "10"://CheckBox
                         if (value.ToUpper() == "TRUE")

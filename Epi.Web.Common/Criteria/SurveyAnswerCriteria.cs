@@ -99,5 +99,7 @@ namespace Epi.Web.Enter.Common.Criteria
 
         [DataMember]
        public bool IsSqlProject { get; set; }
+        [DataMember]
+        public bool IsDeleteMode { get; set; }
     }
 }
