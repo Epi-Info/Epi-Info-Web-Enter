@@ -512,12 +512,7 @@ namespace Epi.Web.MVC.Controllers
 
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
-                if (sortfield.Length > 0)
-                {
-                    SortColumnList(sortfield, FormResponseInfoModel);
-                }
-
-
+                
                 //var ResponseTableList ; //= FormSettingResponse.FormSetting.DataRows;
                 //Setting Resposes List
                 List<ResponseModel> ResponseList = new List<ResponseModel>();
@@ -564,20 +559,6 @@ namespace Epi.Web.MVC.Controllers
             PopulateDropDownlist(out FormResponseInfoModel.SearchColumns5, FormResponseInfoModel.SearchModel.SearchCol5, list);
         }
 
-        private void SortColumnList(string sortfield, FormResponseInfoModel FormResponseInfoModel)
-        {
-            KeyValuePair<int, string> Column = Columns.Single(col => col.Value == sortfield);
-
-            Columns.Remove(Columns.Single(c => c.Key == Column.Key));
-
-            KeyValuePair<int, string> Column1 = new KeyValuePair<int, string>(0, Column.Value);
-
-            Columns.Add(Column1);
-
-            Columns.Sort(Compare);
-
-            FormResponseInfoModel.Columns = Columns;
-        }
 
         private ResponseModel ConvertRowToModel(SurveyAnswerDTO item, List<KeyValuePair<int, string>> Columns)
         {
