@@ -1268,6 +1268,12 @@ namespace Epi.Web.MVC.Controllers
                         {
                             //    //ExecuteRecordAfterCheckCode(form, surveyInfoModel, SurveyAnswer, responseId, i, UserId);
                             // _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, Obj.ResponseId, form, SurveyAnswer, IsSubmited, true, i, UserId);
+                        //Update Status
+                        SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+                        SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(Obj.ResponseId);
+                        SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Obj.ResponseId });
+                        SurveyAnswerRequest.Criteria.StatusId = 2;
+                        _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
                         }
                         // create my list of objects 
 
@@ -1275,6 +1281,7 @@ namespace Epi.Web.MVC.Controllers
                     ListSurveyAnswerDTO.Add(SurveyAnswer);
                 }
             }
+           
         Exit:
             return result;
 
