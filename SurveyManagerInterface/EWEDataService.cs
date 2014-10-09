@@ -832,6 +832,7 @@ namespace Epi.Web.WCF.SurveyService
                                 //do status Update
                                 var obj = Mapper.ToBusinessObject(response, pRequest.Criteria.UserId);
                                 obj.SurveyId = pRequest.Criteria.SurveyId;
+                                obj.Status = 0;
                                 Implementation.UpdateRecordStatus(obj);
                                 }
                        
