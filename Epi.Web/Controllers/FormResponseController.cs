@@ -18,6 +18,7 @@ using Epi.Web.Enter.Common.Message;
 using Epi.Web.MVC.Utility;
 using Epi.Web.Enter.Common.DTO;
 using System.Web.Configuration;
+using System.Text;
 namespace Epi.Web.MVC.Controllers
 {
     [Authorize]
@@ -33,6 +34,7 @@ namespace Epi.Web.MVC.Controllers
         private int NumberOfPages = -1;
         private int NumberOfResponses = -1;
         private bool IsEditMode;
+        private string Sort, SortField;
         public FormResponseController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
@@ -293,9 +295,28 @@ namespace Epi.Web.MVC.Controllers
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
             Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
             Columns.Sort(Compare);
-
+            FormResponseInfoModel.SearchModel = new SeachBoxModel();
             // Setting  Column Name  List
             FormResponseInfoModel.Columns = Columns;
+            FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
+            //if (Session["SearchCriteria"] != null)
+            //{
+            //    FormResponseInfoModel.SearchModel = (SeachBoxModel)Session["SearchCriteria"];
+            //}
+            FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
+
+            // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
+            PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
+
+            if (Sort != null && Sort.Length > 0)
+            {
+                FormResponseReq.Criteria.SortOrder = Sort;
+            }
+            if (SortField != null && SortField.Length > 0)
+            {
+                FormResponseReq.Criteria.Sortfield = SortField;
+            }
+
 
             //Getting Resposes
             SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
@@ -323,8 +344,88 @@ namespace Epi.Web.MVC.Controllers
             FormResponseInfoModel.NumberOfPages = FormResponseList.NumberOfPages;
             FormResponseInfoModel.PageSize = FormResponseList.PageSize;
             FormResponseInfoModel.NumberOfResponses = FormResponseList.NumberOfResponses;
+            FormResponseInfoModel.sortfield = SortField;
+            FormResponseInfoModel.sortOrder = Sort;
             FormResponseInfoModel.CurrentPage = PageNumber;
             return FormResponseInfoModel;
+        }
+
+        private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SeachBoxModel SearchModel, FormResponseInfoModel Model)
+        {
+            FormCollection Collection = new FormCollection(nameValueCollection);
+
+
+
+            StringBuilder searchBuilder = new StringBuilder();
+
+            Sort = Collection["sort"];
+            SortField = Collection["sortfield"];
+
+            if (ValidateSearchFields(Collection))
+            {
+
+                if (Collection["col1"].Length > 0 && Collection["val1"].Length > 0)
+                {
+                    searchBuilder.Append(Collection["col1"] + "='" + Collection["val1"] + "'");
+                    SearchModel.SearchCol1 = Collection["col1"];
+                    SearchModel.Value1 = Collection["val1"];
+                }
+                if (Collection["col2"].Length > 0 && Collection["val2"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col2"] + "='" + Collection["val2"] + "'");
+                    SearchModel.SearchCol2 = Collection["col2"];
+                    SearchModel.Value2 = Collection["val2"];
+                }
+                if (Collection["col3"].Length > 0 && Collection["val3"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col3"] + "='" + Collection["val3"] + "'");
+                    SearchModel.SearchCol3 = Collection["col3"];
+                    SearchModel.Value3 = Collection["val3"];
+                }
+                if (Collection["col4"].Length > 0 && Collection["val4"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col4"] + "='" + Collection["val4"] + "'");
+                    SearchModel.SearchCol4 = Collection["col4"];
+                    SearchModel.Value4 = Collection["val4"];
+                }
+                if (Collection["col5"].Length > 0 && Collection["val5"].Length > 0)
+                {
+                    searchBuilder.Append(" AND " + Collection["col5"] + "='" + Collection["val5"] + "'");
+                    SearchModel.SearchCol5 = Collection["col5"];
+                    SearchModel.Value5 = Collection["val5"];
+                }
+            }
+
+            return searchBuilder.ToString();
+        }
+
+        private bool ValidateSearchFields(FormCollection Collection)
+        {
+            if (string.IsNullOrEmpty(Collection["col1"]) || Collection["col1"] == "undefined" ||
+               string.IsNullOrEmpty(Collection["val1"]) || Collection["val1"] == "undefined")
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void PopulateDropDownlist(out List<SelectListItem> SearchColumns, string SelectedValue, List<KeyValuePair<int, string>> Columns)
+        {
+            SearchColumns = new List<SelectListItem>();
+            foreach (var item in Columns)
+            {
+                SelectListItem newSelectListItem = new SelectListItem { Text = item.Value, Value = item.Value, Selected = item.Value == SelectedValue };
+                SearchColumns.Add(newSelectListItem);
+            }
+        }
+
+        private void PopulateDropDownlists(FormResponseInfoModel FormResponseInfoModel, List<KeyValuePair<int, string>> list)
+        {
+            PopulateDropDownlist(out FormResponseInfoModel.SearchColumns1, FormResponseInfoModel.SearchModel.SearchCol1, list);
+            PopulateDropDownlist(out FormResponseInfoModel.SearchColumns2, FormResponseInfoModel.SearchModel.SearchCol2, list);
+            PopulateDropDownlist(out FormResponseInfoModel.SearchColumns3, FormResponseInfoModel.SearchModel.SearchCol3, list);
+            PopulateDropDownlist(out FormResponseInfoModel.SearchColumns4, FormResponseInfoModel.SearchModel.SearchCol4, list);
+            PopulateDropDownlist(out FormResponseInfoModel.SearchColumns5, FormResponseInfoModel.SearchModel.SearchCol5, list);
         }
 
         private int Compare(KeyValuePair<int, string> a, KeyValuePair<int, string> b)
@@ -745,7 +846,15 @@ namespace Epi.Web.MVC.Controllers
                 List<ResponseModel> ResponseList = new List<ResponseModel>();
                 foreach (var item in FormResponseList.SurveyResponseList)
                 {
-                    ResponseList.Add(SurveyResponseXML.ConvertXMLToModel(item, Columns));
+                    //ResponseList.Add(SurveyResponseXML.ConvertXMLToModel(item, Columns));
+                    if (item.SqlData != null)
+                    {
+                        ResponseList.Add(ConvertRowToModel(item, Columns));
+                    }
+                    else
+                    {
+                        ResponseList.Add(SurveyResponseXML.ConvertXMLToModel(item, Columns));
+                    }
                 }
 
                 FormResponseInfoModel.ResponsesList = ResponseList;
