@@ -40,6 +40,29 @@ var pageId = $('#hidPageNumber').val();
         var homePageUrl = '@Url.Action("Index", "FormResponse", new { formid = @Model.FormInfoModel.FormId, ViewId = @Model.ViewId, Pagenumber = 1 })';
         window.location.href = homePageUrl + searchQString + "&sort=" + Sort + "&sortfield=" + SortField;
     });
+
+    $(document).delegate("a[name='lnkPager']", 'click', function (e) {
+        e.preventDefault();
+
+        var sortOrder = $(this).attr('data-sort');
+        var sortField = $(this).attr('data-sortfield');
+        var searchQString = ReadSearchFields();
+        var Url = $(this).attr('href');
+
+        if (sortOrder == undefined) {
+            sortOrder = '';
+        }
+
+        if (sortField == undefined) {
+            sortField = '';
+        }
+
+        // var Url = '@Url.Action("Index", "FormResponse", new { formid = @Model.FormInfoModel.FormId, ViewId = @Model.ViewId, Pagenumber = @Model.CurrentPage })';
+        Url = Url + searchQString; // +"&sort=" + sortOrder + "&sortfield=" + sortField;
+        window.location.href = Url;
+
+    });
+
     $(document).delegate("button[name='SortDESC']", 'click', function (e) {
 //    $(document).on("click", "button[id='SortDESC']", function (e) {
         e.preventDefault();
