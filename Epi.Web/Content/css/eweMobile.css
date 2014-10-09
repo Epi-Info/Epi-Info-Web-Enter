@@ -31,7 +31,7 @@ body
  {
     padding: 0.5em;
     border-bottom: 1px solid #abafbc;
-    background: #222222 url('../images/header_bg.png') repeat; 
+    background: #2f6fa3;
  }
  
 #header h1
@@ -174,14 +174,15 @@ body
 
 .metro-design {
 	
-	background-color: #2878EC;
-	border-color: #2878EC;
+	background-color: #4d75a4;
+	border-color: #4d75a4;
 }
 
 .metro-collect {
 	
-	background-color: #6CB71E;
-	border-color: #6CB71E;
+	background-color: #bed6fa;
+	border-color: #bed6fa;
+	color:#3f3f3f;
 }
 
 .metro-set {
@@ -361,11 +362,11 @@ a.next
     vertical-align:middle;
     text-decoration: none;
     text-shadow:none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+   /* box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
     -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
     -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
     -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
- }
+*/ }
  
  .ui-btn-up-submit2, .ui-btn-hover-submit2
  {
@@ -375,7 +376,7 @@ a.next
     color:#fff !important;
      padding:0 0 0 5px !important;
     vertical-align:middle;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+   /* box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
     -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
     -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
     -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);

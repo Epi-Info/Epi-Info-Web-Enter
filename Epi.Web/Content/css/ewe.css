@@ -28,8 +28,8 @@ body
  {
     padding: 0.5em;
     border-bottom: 1px solid #abafbc;
-    background: #4d75a4;/* url('../images/header_bg.png') repeat;*/
-     background-image: linear-gradient(to bottom, #4e75a5, #4d75a4);
+    background: #2f6fa3;/* url('../images/header_bg.png') repeat;*/
+     background-image: linear-gradient(to bottom, #2f6fa3, #2f6fa3css3-metro-dropdown);
     -webkit-box-shadow: 0 -1px 0 rgba(77, 117, 164, 0.8) inset;
     -moz-box-shadow: 0 -1px 0 rgba(77, 117, 164,.8) inset;
     box-shadow: 0 -1px 0 rgba(77, 117, 164, 0.8) inset;
@@ -239,8 +239,8 @@ div.recordcontentdiv
         padding: 10px 0px 10px 10px;/*10px;*/
         border: 1px solid #c2c2c2;
         display: table-cell;
-        background-image: url(../images/leftbk2.png);
-        background-repeat:repeat-y;
+        background-image: url(../images/leftbk23.png);
+        background-repeat:repeat;
         min-height: 550px;
     }
     
@@ -399,7 +399,7 @@ button.search
     /*width: 110px;*/
     height: 35px;
     padding: 4px 12px 4px 30px;
-    background-color: #74b700 !important;
+    background-color: #5c53ac !important;
 }
  
  #infobox1
@@ -672,14 +672,15 @@ button.paging img
 
 .metro-design {
 	
-	background-color: #2878EC;
-	border-color: #2878EC;
+	background-color: #4d75a4;
+	border-color: #4d75a4;
 }
 
 .metro-collect {
 	
-	background-color: #6CB71E;
-	border-color: #6CB71E;
+	background-color: #bed6fa;
+	border-color: #bed6fa;
+	color:#3f3f3f;
 }
 
 .metro-set {
@@ -714,7 +715,7 @@ button.paging img
 :root .css3-metro-dropdown::after,
 :root .css3-metro-dropdown select
 {
-    color: #fff;
+    color: #3f3f3f;
      cursor:pointer;
 }
  
@@ -723,7 +724,7 @@ button.paging img
 :root .css3-metro-dropdown::after
 {
     display: block;
-    background: #d8512b;
+    background: #c2cff2;
    
    
 }
