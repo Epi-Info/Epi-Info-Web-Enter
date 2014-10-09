@@ -2110,6 +2110,7 @@ namespace Epi.Web.EF
 
                 try
                 {
+                if (!string.IsNullOrEmpty(EI7Query))
                     ResponseCount = (int)EI7Command.ExecuteScalar();
                     EI7Connection.Close();
                 }
@@ -2173,8 +2174,8 @@ namespace Epi.Web.EF
                             Obj.Status = SurveyResponse.Status;
                             UpdateSurveyResponse(Obj);
 
-                            Context.usp_soft_delete_Epi7_record(new Guid(Obj.ResponseId), new Guid(Obj.SurveyId), Obj.Status);
-                            Context.SaveChanges();
+                            //Context.usp_soft_delete_Epi7_record(new Guid(Obj.ResponseId), new Guid(Obj.SurveyId), Obj.Status);
+                            //Context.SaveChanges();
                              
                             }
 
