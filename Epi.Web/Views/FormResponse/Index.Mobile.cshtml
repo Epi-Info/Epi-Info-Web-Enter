@@ -289,15 +289,8 @@ var pageId = $('#hidPageNumber').val();
                         <div style="clear: both;">
                         </div>
                     </div>
-                    <div id="editsettings" style="">
-                        @if (Model.FormInfoModel.IsSQLProject)
-                        {
-                            <button id="btnsearch" data-theme="defsearch" onclick="" type="button">
-                                Search</button> 
-                        }
-                    </div>
                     <div id="tableSort" style="vertical-align: middle; margin-bottom: 20px; min-width: 300px;">
-                        <select id="columns" data-inline="true" data-theme="e">
+                        <select id="columns" data-inline="true" data-theme="submit2">
                             @*<option value="0" selected="selected">Sort by:</option>*@
                             @foreach (var item in Model.Columns)
                             {
@@ -315,9 +308,17 @@ var pageId = $('#hidPageNumber').val();
                         <a href="index.html" id="SortDESC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Descending.png" style="width:20px; vertical-align:middle;"/></a>*@
                         @*<button data-role="button" data-theme="submit2" name="SortASC"  onclick="" type="submit">
                             ASC</button>*@
-                            <button type="button" data-theme="defbtn" name="SortASC">ASC</button>
-                        <button type="button" data-theme="defbtn" name="SortDESC">DESC</button>
+                            <button type="button" data-theme="submit2" data-inline="true" name="SortASC">&#x25B2;</button>
+                        <button type="button" data-theme="submit2" data-inline="true" name="SortDESC">&#x25BC;</button>
                     </div>
+                    <div id="editsettings" style="">
+                        @if (Model.FormInfoModel.IsSQLProject)
+                        {
+                            <button id="btnsearch" data-theme="defsearch" onclick="" type="button">
+                                Search</button> 
+                        }
+                    </div>
+                    
                     <div style="clear: both;">
                     </div>
                     <div id="searchbox" style="display: none;">
