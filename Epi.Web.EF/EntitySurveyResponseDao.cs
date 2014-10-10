@@ -2183,7 +2183,7 @@ namespace Epi.Web.EF
                         }
                         }else{
 
-                        Context.usp_soft_delete_Epi7_record(new Guid(SurveyResponse.ResponseId), new Guid(SurveyResponse.SurveyId),true);
+                        Context.usp_soft_delete_Epi7_record(new Guid(SurveyResponse.ResponseId), new Guid(SurveyResponse.SurveyId),false);
                         Context.SaveChanges();
                         }
 
