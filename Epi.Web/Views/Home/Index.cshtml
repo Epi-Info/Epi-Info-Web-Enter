@@ -93,11 +93,12 @@
 
         $("button[class*='metro-tile']").click(function (e) {
             e.preventDefault();
-
+//            debugger;
             if ('@Model.SelectedForm' == "") {
                 $("button[class*='metro-tile']").removeClass('metro-set');
                 SetSettingButtonValue($(this).attr('data-FormId'));
                 $(this).addClass('metro-set');
+                ResetSearchFields();
                 ReadResponses($(this).attr('data-FormId'), 1, '', '');
             }
             else {
@@ -107,12 +108,13 @@
                     $('#' + '@Model.SelectedForm').addClass('metro-set');
                     $("#FORM_SELECTED_HIDDEN").val('@Model.SelectedForm');
                     ReadResponses('@Model.SelectedForm', 1, '', '');
-                } else 
-                {
+                } else {
+
                     $("button[class*='metro-tile']").removeClass('metro-set');
                     SetSettingButtonValue($(this).attr('data-FormId'));
                     $(this).addClass('metro-set');
                     $("#FORM_SELECTED_HIDDEN").val('');
+                    ResetSearchFields();
                     ReadResponses($(this).attr('data-FormId'), 1, '', '');
                 }
 
@@ -137,7 +139,7 @@
             //                alert('error');
             //            }
 
-//            ReadResponses($(this).attr('data-FormId'), 1, '', '');
+            //            ReadResponses($(this).attr('data-FormId'), 1, '', '');
             //return page to the top when a form is selected if the list of forms is too long.
             $("html, body").animate({ scrollTop: 0 }, "slow");
             return false;
@@ -155,6 +157,19 @@
             var col5 = $("#SearchModel_SearchCol5").val();
             var val5 = $("#SearchModel_Value5").val();
             return "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5;
+        }
+
+        function ResetSearchFields() {
+            $("#SearchModel_SearchCol1").val('');
+            $("#SearchModel_Value1").val('');
+            $("#SearchModel_SearchCol2").val('');
+            $("#SearchModel_Value2").val('');
+            $("#SearchModel_SearchCol3").val('');
+            $("#SearchModel_Value3").val('');
+            $("#SearchModel_SearchCol4").val('');
+            $("#SearchModel_Value4").val('');
+            $("#SearchModel_SearchCol5").val('');
+            $("#SearchModel_Value5").val('');
         }
 
         $(document).on("click", "button[name='Search']", function (e) {
@@ -237,7 +252,8 @@
             var pageNumber = $('#hidPageNumber').val();
             var Sort = 'ASC';
             var SortField = $("#columns").val(); // 'PetsName';
-
+            $("#FORM_SORTORDER_HIDDEN").val(Sort);
+            $("#FORM_SORTFIELD_HIDDEN").val(SortField);
             ReadResponses(formid, 1, Sort, SortField);
 
             //            $.ajax({
@@ -267,6 +283,8 @@
             var pageNumber = $('#hidPageNumber').val();
             var Sort = 'DESC';
             var SortField = $("#columns").val(); // 'PetsName';
+            $("#FORM_SORTORDER_HIDDEN").val(Sort);
+            $("#FORM_SORTFIELD_HIDDEN").val(SortField);
             ReadResponses(formid, 1, Sort, SortField);
 
             //            $.ajax({
@@ -315,7 +333,7 @@
         });
 
         function ReadResponses(formid, pagenumber, sortOrder, sortField) {
-
+//            debugger;
             $.ajax({
                 //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
                 url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField
@@ -704,7 +722,9 @@ function SaveSettings() {
 <input id="FORM_ID_HIDDEN" type="hidden" />
 <input id="FORM_MODE_HIDDEN" type="hidden" />
 <input id="FORM_SELECTED_HIDDEN" type="hidden" />
-
+<input id="FORM_SEARCH_HIDDEN" type="hidden" />
+<input id="FORM_SORTORDER_HIDDEN" type="hidden" />
+<input id="FORM_SORTFIELD_HIDDEN" type="hidden" />
 @*</div>  
   </div> *@ 
 		 

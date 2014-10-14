@@ -20,7 +20,7 @@ namespace Epi.Web.MVC.Models
         public string ParentResponseId;
         public string sortOrder;
         public string sortfield;
-        public SeachBoxModel SearchModel;
+        public SearchBoxModel SearchModel;
         public List<SelectListItem> SearchColumns1;
         public List<SelectListItem> SearchColumns2;
         public List<SelectListItem> SearchColumns3;
