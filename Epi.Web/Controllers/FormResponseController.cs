@@ -143,7 +143,7 @@ namespace Epi.Web.MVC.Controllers
 
                            ResponseInfoModel.FormInfoModel.FormName = SurveyModel.Form.SurveyInfo.SurveyName.ToString();
                            ResponseInfoModel.FormInfoModel.FormId = SurveyModel.Form.SurveyInfo.SurveyId.ToString();
-                           ResponseInfoModel.ParentResponseId = SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0;
+                           ResponseInfoModel.ParentResponseId = responseid;//SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0;
                            ResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
                     }
                    else
