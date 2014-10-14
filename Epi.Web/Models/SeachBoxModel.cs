@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Epi.Web.MVC.Models
 {
-    public class SeachBoxModel
+    public class SearchBoxModel
     {
 
         public string SearchCol1 { get; set; }

@@ -302,7 +302,33 @@ namespace Epi.Web.MVC.Controllers
         [Authorize]
         public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield)//List<FormInfoModel> ModelList, string formid)
         {
+		//Code added to retain Search Starts
+            if (Session["RootFormId"] != null && Session["RootFormId"].ToString() == formid)
+            {
+                if (Session["SortOrder"] != null && 
+                    !string.IsNullOrEmpty(Session["SortOrder"].ToString()) &&
+                    string.IsNullOrEmpty(sort))
+                {
+                    sort = Session["SortOrder"].ToString();
+                }
+
+                if (Session["SortField"] != null &&
+                    !string.IsNullOrEmpty(Session["SortField"].ToString()) &&
+                    string.IsNullOrEmpty(sortfield))
+                {
+                    sortfield = Session["SortField"].ToString();
+                }
+                Session["SortOrder"] = sort;
+                Session["SortField"] = sortfield;
+            }
+            else
+            {
+                Session.Remove("SortOrder");
+                Session.Remove("SortField");
+            }
+		//Code added to retain Search Ends.
             Session["RootFormId"] = formid;
+            
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
             var model = new FormResponseInfoModel();
@@ -319,7 +345,7 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
-        private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SeachBoxModel SearchModel, FormResponseInfoModel Model)
+        private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SearchBoxModel SearchModel, FormResponseInfoModel Model)
         {
             FormCollection Collection = new FormCollection(nameValueCollection);
 
@@ -328,7 +354,7 @@ namespace Epi.Web.MVC.Controllers
             StringBuilder searchBuilder = new StringBuilder();
 
             if (ValidateSearchFields(Collection))
-            {           
+            {
 
                 if (Collection["col1"].Length > 0 && Collection["val1"].Length > 0)
                 {
@@ -466,7 +492,7 @@ namespace Epi.Web.MVC.Controllers
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
-            FormResponseInfoModel.SearchModel = new SeachBoxModel();
+            FormResponseInfoModel.SearchModel = new SearchBoxModel();
             SurveyResponseXML SurveyResponseXML = new SurveyResponseXML();
             if (!string.IsNullOrEmpty(SurveyId))
             {
@@ -492,12 +518,26 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseReq.Criteria.UserId = UserId;
                 FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
                 Session["IsSqlProject"] = FormSettingResponse.FormInfo.IsSQLProject;
+
                 //if (Session["SearchCriteria"] != null)
                 //{
-                //    FormResponseInfoModel.SearchModel = (SeachBoxModel)Session["SearchCriteria"];
+                //    FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchCriteria"];
                 //}
-                FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
-                // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
+				// Following code retain search starts
+                if (Session["SearchCriteria"] != null &&
+                    !string.IsNullOrEmpty(Session["SearchCriteria"].ToString()) &&
+                    (Request.QueryString["col1"] == null || Request.QueryString["col1"] == "undefined"))
+                {
+                    FormResponseReq.Criteria.SearchCriteria = Session["SearchCriteria"].ToString();
+                    FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchModel"]; 
+                }
+                else
+                {
+                    FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
+                    Session["SearchModel"] = FormResponseInfoModel.SearchModel; 
+                    Session["SearchCriteria"] = FormResponseReq.Criteria.SearchCriteria;
+                }
+				// Following code retain search ends
                 PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
 
                 if (sort.Length > 0)
@@ -512,7 +552,7 @@ namespace Epi.Web.MVC.Controllers
 
                 SurveyAnswerResponse FormResponseList = _isurveyFacade.GetFormResponseList(FormResponseReq);
 
-                
+
                 //var ResponseTableList ; //= FormSettingResponse.FormSetting.DataRows;
                 //Setting Resposes List
                 List<ResponseModel> ResponseList = new List<ResponseModel>();
