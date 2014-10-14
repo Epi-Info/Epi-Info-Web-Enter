@@ -663,7 +663,8 @@ namespace Epi.Web.MVC.Controllers
 
                 Columns = FormSettingResponse.FormSetting.FormControlNameList.ToList();
                 // Get Additional Metadata columns 
-
+                if (!FormSettingResponse.FormInfo.IsSQLProject)
+                    {
                 var MetaDataColumns = Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
                 Dictionary<int, string> Columndictionary = TempColumns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
@@ -678,7 +679,7 @@ namespace Epi.Web.MVC.Controllers
                 }
 
                 Columns.Sort(Compare);
-
+                    }
 
                 Dictionary<int, string> dictionary1 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
