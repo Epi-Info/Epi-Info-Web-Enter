@@ -5,7 +5,7 @@
 <div class="divcontents">
     @foreach (var item in Model)
     {
-        var divClass = "metro-tile ";
+        var divClass = "metro-tile " + " Org-" + item.OrganizationId + " metro-tile2 ";
 
         if (item.IsOwner)
         {
