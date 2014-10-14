@@ -155,14 +155,14 @@ namespace Epi.Web.BLL
                     email.Body = " You account info has been updated in Epi Web Enter system.";
                     break;
                 case Constant.EmailCombinationEnum.InsertUser:
-                    email.Subject = "Epi Web Enter account.";
+                    email.Subject = "An Epi Web Enter account has been created for your organization.";
 
                     break;
                 default:
                     break;
             }
 
-            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\nThank you.";
+            //email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\nThank you.";
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
@@ -212,10 +212,31 @@ namespace Epi.Web.BLL
                 //UserBO.PasswordHash = PasswordHasher.HashPassword(salt, "PassWord1");
                 success = UserDao.InsertUser(UserBO, OrgBO);
                 StringBuilder Body = new StringBuilder();
-                if (success) 
-                {                
+                var OrgKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(OrgBO.OrganizationKey);
+                if (success)
+                {
                     Email email = new Email();
-                    Body.Append("Your account has now been created for " + OrgBO.Organization + "\n" + "Email: " + UserBO.EmailAddress + "\n" + "Password: " + tempPassword);// +
+                    Body.Append("Welcome to Epi Web Enter. \nYour account has now been created for " + OrgBO.Organization + ".");
+                    Body.Append("\n\nEmail: " + UserBO.EmailAddress + "\nPassword: " + tempPassword);
+                    Body.Append("\nOrganization Key: " + OrgKey);
+                    Body.Append("\n\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
+                    //Add email and temporary password for new user. 
+
+
+
+                    Body.Append("\n\nPlease follow the steps below in order to start publishing forms to the web using Epi Info™ 7.");
+                    Body.Append("\n\tStep 1: Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
+                    Body.Append("\n\tStep 2: On the Main Menu, click on “Tools” and select “Options”");
+                    Body.Append("\n\tStep 3: On the Options dialog, click on the “Web Survey” Tab.");
+                    Body.Append("\n\tStep 4: On the Web Survey tab, enter the following information.");
+
+                    Body.Append("\n\t\t-Endpoint Address:" + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
+                    Body.Append("\n\t\t-Binding Protocol:" + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
+
+                    Body.Append("\n\tStep 5:Click “OK’ button.");
+                    Body.Append("\nOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
+                    Body.Append("\n\nPlease contact the system administrator " + UserBO.UserName + " for any questions.");
+
                     email.To = new List<string>();
                     email.To.Add(UserBO.EmailAddress);
                     email.Body = Body.ToString();
@@ -233,10 +254,11 @@ namespace Epi.Web.BLL
 
                     StringBuilder Body = new StringBuilder();
 
-                    Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrgBO.Organization);
+                    Body.Append("Welcome to Epi Web Enter. \nYour account has now been created for " + OrgBO.Organization + ".");
                     // var OrgKey = OrgBO.OrganizationKey;
                     var OrgKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(OrgBO.OrganizationKey);
-                    Body.Append("\nOrganization Key: " + OrgKey);
+                    Body.Append("\n\nOrganization Key: " + OrgKey);
+                    Body.Append("\n\nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you.");
                     email.Body = Body.ToString();
                     email.To = new List<string>();
                     email.To.Add(UserBO.EmailAddress);
