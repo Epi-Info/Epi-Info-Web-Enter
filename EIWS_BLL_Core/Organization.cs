@@ -123,15 +123,16 @@ namespace Epi.Web.BLL
                 StringBuilder Body = new StringBuilder();
                 if (InsertStatus == InsertCombination.ExistingUserNewOrg)
                 {
-                    Body.Append("Your account has now been created for " + OrganizationBO.Organization);
+                    Body.Append("Your account has now been created for " + OrganizationBO.Organization + ".\n");
                     Body.Append("\nOrganization Key: " + OrgKey);
+                    Body.Append("\n\nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you.");
                 }
                 else
                 {
-                    Body.Append("Welcome to Epi Web Enter.  Your account has now been created for " + OrganizationBO.Organization);
-                    Body.Append("\nEmail: " + UserBO.EmailAddress + "\nPassword: " + tempPassword);
+                    Body.Append("Welcome to Epi Web Enter. \nYour account has now been created for " + OrganizationBO.Organization + ".");
+                    Body.Append("\n\nEmail: " + UserBO.EmailAddress + "\nPassword: " + tempPassword);
                     Body.Append("\nOrganization Key: " + OrgKey);
-                    Body.Append("\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password.");
+                    Body.Append("\n\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
                     //Add email and temporary password for new user. 
                 }
 
@@ -139,17 +140,17 @@ namespace Epi.Web.BLL
 
                 if (InsertStatus == InsertCombination.NewUserNewOrg)
                 {
-                    Body.Append("\n\nPlease follow the steps below in order to start publishing  forms to the web.");
-                    Body.Append("\n\tStep 1:Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
-                    Body.Append("\n\tStep 2:On the Main Menu, click on “Tools” and select “Options”");
-                    Body.Append("\n\tStep 3:On the Options dialog, click on the “Web Survey” Tab.");
-                    Body.Append("\n\tStep 4:On the Web Survey tab, enter the following information.");
+                    Body.Append("\n\nPlease follow the steps below in order to start publishing forms to the web using Epi Info™ 7.");
+                    Body.Append("\n\tStep 1: Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
+                    Body.Append("\n\tStep 2: On the Main Menu, click on “Tools” and select “Options”");
+                    Body.Append("\n\tStep 3: On the Options dialog, click on the “Web Survey” Tab.");
+                    Body.Append("\n\tStep 4: On the Web Survey tab, enter the following information.");
 
                     Body.Append("\n\t\t-Endpoint Address:" + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
                     Body.Append("\n\t\t-Binding Protocol:" + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
 
                     Body.Append("\n\tStep 5:Click “OK’ button.");
-                    Body.Append("\n\tOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
+                    Body.Append("\nOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
                     Body.Append("\n\nPlease contact the system administrator " + UserBO.UserName + " for any questions.");
                 }
 
@@ -260,7 +261,8 @@ namespace Epi.Web.BLL
                     break;
             }
 
-            email.Body = email.Body.ToString() + " \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you."; //email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
+            email.Body = email.Body.ToString();
+            //+" \n \nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you."; //email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
             email.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
 
             return Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(email);
