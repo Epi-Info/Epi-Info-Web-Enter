@@ -13,15 +13,14 @@
 
     $(function () {
 
-                $("#dropdown-1").change(function () {
+        $("#dropdown-1").change(function () {
+            FilterRecords(this);
+            // $("#right").hide();
+            // $("button[class*='metro-tile']").removeClass('metro-set');
+            //$("button:visible").triggerHandler('click');
+        });
 
-                    FilterRecords(this);
-                   // $("#right").hide();
-                   // $("button[class*='metro-tile']").removeClass('metro-set');
-                    //$("button:visible").triggerHandler('click');
-                });
-
-          
+       
         //$("button:visible").triggerHandler('click');
 
     });
@@ -50,7 +49,7 @@
         
 <div id="content" style="margin-bottom:200px; padding:5px;">
      <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; margin-top:15px;">
-            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="submit2" onchange="FilterRecords(this);">
+            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="submit2" onchange="FilterRecordsByOrgMobile(this);">
                @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
                            @foreach(var item in Model.OrganizationList){
 				            <option value="@item.OrganizationId">@item.Organization</option>
