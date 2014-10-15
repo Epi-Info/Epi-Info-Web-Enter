@@ -323,7 +323,7 @@ namespace Epi.Web.MVC.Controllers
             FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
             Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
             Columns.Sort(Compare);
-            FormResponseInfoModel.SearchModel = new SeachBoxModel();
+            FormResponseInfoModel.SearchModel = new SearchBoxModel();
             // Setting  Column Name  List
             FormResponseInfoModel.Columns = Columns;
             FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
@@ -379,7 +379,7 @@ namespace Epi.Web.MVC.Controllers
             return FormResponseInfoModel;
         }
 
-        private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SeachBoxModel SearchModel, FormResponseInfoModel Model)
+        private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SearchBoxModel SearchModel, FormResponseInfoModel Model)
         {
             FormCollection Collection = new FormCollection(nameValueCollection);
 
