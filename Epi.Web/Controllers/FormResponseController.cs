@@ -35,6 +35,7 @@ namespace Epi.Web.MVC.Controllers
         private int NumberOfResponses = -1;
         private bool IsEditMode;
         private string Sort, SortField;
+        private bool IsNewRequest = true; //Added for retain search and sort
         public FormResponseController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
@@ -53,7 +54,12 @@ namespace Epi.Web.MVC.Controllers
 
             if (ViewId == 0)
             {
-
+				//Following code checks if request is for new or selected form.
+                if (Session["RootFormId"]!= null &&
+                    Session["RootFormId"].ToString() == formid)
+                {
+                    IsNewRequest = false;
+                }
 
                 Session["RootFormId"] = formid;
                 Session.Remove("RootResponseId");
@@ -95,26 +101,17 @@ namespace Epi.Web.MVC.Controllers
                 //SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
 
                 if (!string.IsNullOrEmpty(responseid))
-               {
+                {
                     SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseid);
                     SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
 
                     SurveyModel.FormResponseInfoModel.ParentResponseId = responseid;
-                 }
-
-               // --------------------------------------
- 
-                //SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseid);
-                //SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
-
-                
-              // --------------------------------------
-
+                }
 
                 if (RelateSurveyId.ResponseIds.Count() > 0)
                 {
-                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
-              
+
+                    Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
                     var form = _isurveyFacade.GetSurveyFormData(RelateSurveyId.ResponseIds[0].SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
                     SurveyModel.Form = form;
                     if (string.IsNullOrEmpty(responseid))
@@ -132,31 +129,25 @@ namespace Epi.Web.MVC.Controllers
                 }
                 else
                 {
-                FormResponseInfoModel ResponseInfoModel = new FormResponseInfoModel();
-                if (SurveyModel.FormResponseInfoModel.ResponsesList.Count() > 0 )
+                    FormResponseInfoModel ResponseInfoModel = new FormResponseInfoModel();
+                    if (SurveyModel.FormResponseInfoModel.ResponsesList.Count() > 0)
                     {
-                    Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0, RelateSurveyId.FormId);
- 
-                           ResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseid);
-
-                           SurveyModel.Form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
-
-                           ResponseInfoModel.FormInfoModel.FormName = SurveyModel.Form.SurveyInfo.SurveyName.ToString();
-                           ResponseInfoModel.FormInfoModel.FormId = SurveyModel.Form.SurveyInfo.SurveyId.ToString();
-                           ResponseInfoModel.ParentResponseId = responseid;//SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0;
-                           ResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
+                        Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0, RelateSurveyId.FormId);
+                        ResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, responseid);
+                        SurveyModel.Form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
+                        ResponseInfoModel.FormInfoModel.FormName = SurveyModel.Form.SurveyInfo.SurveyName.ToString();
+                        ResponseInfoModel.FormInfoModel.FormId = SurveyModel.Form.SurveyInfo.SurveyId.ToString();
+                        ResponseInfoModel.ParentResponseId = responseid;//SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0;
+                        ResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
                     }
-                   else
+                    else
                     {
-
-                            var form1 = _isurveyFacade.GetSurveyInfoModel(RelateSurveyId.FormId);
-                            ResponseInfoModel.FormInfoModel.FormName = form1.SurveyName.ToString();
-                            ResponseInfoModel.FormInfoModel.FormId = form1.SurveyId.ToString();
-                            ResponseInfoModel.ParentResponseId = responseid;
-                       }
-
+                        var form1 = _isurveyFacade.GetSurveyInfoModel(RelateSurveyId.FormId);
+                        ResponseInfoModel.FormInfoModel.FormName = form1.SurveyName.ToString();
+                        ResponseInfoModel.FormInfoModel.FormId = form1.SurveyId.ToString();
+                        ResponseInfoModel.ParentResponseId = responseid;
+                    }
                     SurveyModel.FormResponseInfoModel = ResponseInfoModel;
-             
 
                 }
                 SurveyModel.FormResponseInfoModel.ViewId = ViewId;
@@ -332,7 +323,49 @@ namespace Epi.Web.MVC.Controllers
             //{
             //    FormResponseInfoModel.SearchModel = (SeachBoxModel)Session["SearchCriteria"];
             //}
-            FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
+            //FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
+
+//Following code retains the search and sort criteria for already selected form. 
+            if (!IsNewRequest)
+            {
+                if (Session["SortOrder"] != null &&
+                        !string.IsNullOrEmpty(Session["SortOrder"].ToString()) &&
+                    string.IsNullOrEmpty(Request.QueryString["sort"]))
+                {
+                    Sort = Session["SortOrder"].ToString();
+                }
+                else
+                {
+                    Sort = Request.QueryString["sort"];
+                    Session["SortOrder"] = Sort;
+                }
+
+                if (Session["SortField"] != null &&
+                       !string.IsNullOrEmpty(Session["SortField"].ToString()) &&
+                   string.IsNullOrEmpty(Request.QueryString["sortfield"]))
+                {
+                    SortField = Session["SortField"].ToString();
+                }
+                else
+                {
+                    SortField = Request.QueryString["sortfield"];
+                    Session["SortField"] = SortField;
+                }
+            }
+
+            if (!IsNewRequest && Session["SearchCriteria"] != null &&
+                    !string.IsNullOrEmpty(Session["SearchCriteria"].ToString()) &&
+                    (Request.QueryString["col1"] == null || Request.QueryString["col1"] == "undefined"))
+            {
+                FormResponseReq.Criteria.SearchCriteria = Session["SearchCriteria"].ToString();
+                FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchModel"];
+            }
+            else
+            {
+                FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
+                Session["SearchModel"] = FormResponseInfoModel.SearchModel;
+                Session["SearchCriteria"] = FormResponseReq.Criteria.SearchCriteria;
+            }
 
             // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
             PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
@@ -341,6 +374,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 FormResponseReq.Criteria.SortOrder = Sort;
             }
+
             if (SortField != null && SortField.Length > 0)
             {
                 FormResponseReq.Criteria.Sortfield = SortField;
@@ -387,8 +421,11 @@ namespace Epi.Web.MVC.Controllers
 
             StringBuilder searchBuilder = new StringBuilder();
 
-            Sort = Collection["sort"];
-            SortField = Collection["sortfield"];
+
+            //SortField = Collection[""];
+
+
+            
 
             if (ValidateSearchFields(Collection))
             {
@@ -777,7 +814,7 @@ namespace Epi.Web.MVC.Controllers
             result = SurveyAnswerResponse.SurveyResponseList[0].ResponseId.ToString();
             return result;
         }
-        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId,string formid ="")
+        private Epi.Web.Enter.Common.DTO.SurveyAnswerDTO GetSurveyAnswer(string responseId, string formid = "")
         {
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
 
@@ -785,14 +822,14 @@ namespace Epi.Web.MVC.Controllers
             string FormId = Session["RootFormId"].ToString();
             string Id = Session["UserId"].ToString();
             if (string.IsNullOrEmpty(formid))
-                {
-           
-            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId, SurveyHelper.GetDecryptUserId(Id)).SurveyResponseList[0];
-                }
-            else{
+            {
+                result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId, SurveyHelper.GetDecryptUserId(Id)).SurveyResponseList[0];
+            }
+            else
+            {
 
-            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, formid, SurveyHelper.GetDecryptUserId(Id)).SurveyResponseList[0]; 
-                }
+                result = _isurveyFacade.GetSurveyAnswerResponse(responseId, formid, SurveyHelper.GetDecryptUserId(Id)).SurveyResponseList[0];
+            }
             return result;
 
         }
