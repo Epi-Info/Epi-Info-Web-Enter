@@ -955,6 +955,7 @@ namespace Epi.Web.MVC.Controllers
         {
 
             FormsAuthentication.SignOut();
+            this.Session.Clear();
             return RedirectToAction("Index", "Login");
 
 
