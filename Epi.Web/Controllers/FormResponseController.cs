@@ -353,9 +353,12 @@ namespace Epi.Web.MVC.Controllers
                 }
             }
 
-            if (!IsNewRequest && Session["SearchCriteria"] != null &&
-                    !string.IsNullOrEmpty(Session["SearchCriteria"].ToString()) &&
-                    (Request.QueryString["col1"] == null || Request.QueryString["col1"] == "undefined"))
+            if (    !IsNewRequest && 
+                    Session["SearchCriteria"] != null && !string.IsNullOrEmpty(Session["SearchCriteria"].ToString()) && 
+                    (Request.QueryString["reset"] == null)
+                
+                )
+                    //(Request.QueryString["col1"] == null || Request.QueryString["col1"] == "undefined") &&
             {
                 FormResponseReq.Criteria.SearchCriteria = Session["SearchCriteria"].ToString();
                 FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchModel"];

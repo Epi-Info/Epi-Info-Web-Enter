@@ -80,6 +80,7 @@ namespace Epi.Web.MVC.Controllers
                 FormModel.SelectedForm = surveyid;
                 Session["UserFirstName"] = result.User.FirstName;
                 Session["UserLastName"] = result.User.LastName;
+                Session["RootFormId"] = null;
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 
 
@@ -302,10 +303,10 @@ namespace Epi.Web.MVC.Controllers
         [Authorize]
         public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield)//List<FormInfoModel> ModelList, string formid)
         {
-		//Code added to retain Search Starts
+            //Code added to retain Search Starts
             if (Session["RootFormId"] != null && Session["RootFormId"].ToString() == formid)
             {
-                if (Session["SortOrder"] != null && 
+                if (Session["SortOrder"] != null &&
                     !string.IsNullOrEmpty(Session["SortOrder"].ToString()) &&
                     string.IsNullOrEmpty(sort))
                 {
@@ -318,17 +319,26 @@ namespace Epi.Web.MVC.Controllers
                 {
                     sortfield = Session["SortField"].ToString();
                 }
+
+                //if (Session["PageNumber"] != null &&
+                //    !string.IsNullOrEmpty(Session["PageNumber"].ToString()) )
+                //{
+                //    page = Convert.ToInt16(Session["PageNumber"].ToString());
+                //}
+
                 Session["SortOrder"] = sort;
                 Session["SortField"] = sortfield;
+                //Session["PageNumber"] = page;
             }
             else
             {
                 Session.Remove("SortOrder");
                 Session.Remove("SortField");
+                Session.Remove("PageNumber");
             }
-		//Code added to retain Search Ends.
+            //Code added to retain Search Ends.
             Session["RootFormId"] = formid;
-            
+            //Session["PageNumber"] = page;
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
             var model = new FormResponseInfoModel();
@@ -523,21 +533,21 @@ namespace Epi.Web.MVC.Controllers
                 //{
                 //    FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchCriteria"];
                 //}
-				// Following code retain search starts
+                // Following code retain search starts
                 if (Session["SearchCriteria"] != null &&
                     !string.IsNullOrEmpty(Session["SearchCriteria"].ToString()) &&
                     (Request.QueryString["col1"] == null || Request.QueryString["col1"] == "undefined"))
                 {
                     FormResponseReq.Criteria.SearchCriteria = Session["SearchCriteria"].ToString();
-                    FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchModel"]; 
+                    FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchModel"];
                 }
                 else
                 {
                     FormResponseReq.Criteria.SearchCriteria = CreateSearchCriteria(Request.QueryString, FormResponseInfoModel.SearchModel, FormResponseInfoModel);
-                    Session["SearchModel"] = FormResponseInfoModel.SearchModel; 
+                    Session["SearchModel"] = FormResponseInfoModel.SearchModel;
                     Session["SearchCriteria"] = FormResponseReq.Criteria.SearchCriteria;
                 }
-				// Following code retain search ends
+                // Following code retain search ends
                 PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
 
                 if (sort.Length > 0)
@@ -704,22 +714,22 @@ namespace Epi.Web.MVC.Controllers
                 Columns = FormSettingResponse.FormSetting.FormControlNameList.ToList();
                 // Get Additional Metadata columns 
                 if (!FormSettingResponse.FormInfo.IsSQLProject)
-                    {
-                var MetaDataColumns = Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
-                Dictionary<int, string> Columndictionary = TempColumns.ToDictionary(pair => pair.Key, pair => pair.Value);
-
-                foreach (var item in MetaDataColumns)
                 {
+                    var MetaDataColumns = Epi.Web.MVC.Constants.Constant.MetaDaTaColumnNames();
+                    Dictionary<int, string> Columndictionary = TempColumns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
-                    if (!Columndictionary.ContainsValue(item))
+                    foreach (var item in MetaDataColumns)
                     {
-                        Columns.Add(new KeyValuePair<int, string>(Columns.Count() + 1, item));
+
+                        if (!Columndictionary.ContainsValue(item))
+                        {
+                            Columns.Add(new KeyValuePair<int, string>(Columns.Count() + 1, item));
+                        }
+
                     }
 
+                    Columns.Sort(Compare);
                 }
-
-                Columns.Sort(Compare);
-                    }
 
                 Dictionary<int, string> dictionary1 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
