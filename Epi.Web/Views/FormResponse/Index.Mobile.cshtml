@@ -26,6 +26,19 @@ var pageId = $('#hidPageNumber').val();
         return "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5;
     }
 
+    function ResetSearchFields() {
+        $("#SearchModel_SearchCol1").val('');
+        $("#SearchModel_Value1").val('');
+        $("#SearchModel_SearchCol2").val('');
+        $("#SearchModel_Value2").val('');
+        $("#SearchModel_SearchCol3").val('');
+        $("#SearchModel_Value3").val('');
+        $("#SearchModel_SearchCol4").val('');
+        $("#SearchModel_Value4").val('');
+        $("#SearchModel_SearchCol5").val('');
+        $("#SearchModel_Value5").val('');
+    }
+
     //    function ReadSortInfo() {
     //        var Sort = 'ASC';
     //        var SortField = $("#columns").val();
@@ -86,10 +99,10 @@ var pageId = $('#hidPageNumber').val();
     $(document).delegate("button[name='ResetSearch']", 'click', function (e) {
         //$(document).on("click", "button[name='Search']", function (e) {
         e.preventDefault();
-
-        var searchQString = ReadSearchFields();
+        ResetSearchFields();
+        var searchQString = "&reset=true"
         var homePageUrl = '@Url.Action("Index", "FormResponse", new { formid = @Model.FormInfoModel.FormId, ViewId = @Model.ViewId, Pagenumber = @Model.CurrentPage })';
-        window.location.href = homePageUrl;
+        window.location.href = homePageUrl + searchQString;
 
     });
 
