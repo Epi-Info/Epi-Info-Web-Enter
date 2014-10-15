@@ -108,12 +108,15 @@
                     $('#' + '@Model.SelectedForm').addClass('metro-set');
                     $("#FORM_SELECTED_HIDDEN").val('@Model.SelectedForm');
                     ReadResponses('@Model.SelectedForm', 1, '', '');
-                } else {
+                   
+                    //test 
+                } 
+                else {
 
                     $("button[class*='metro-tile']").removeClass('metro-set');
                     SetSettingButtonValue($(this).attr('data-FormId'));
                     $(this).addClass('metro-set');
-                    $("#FORM_SELECTED_HIDDEN").val('');
+                  //  $("#FORM_SELECTED_HIDDEN").val('');
                     ResetSearchFields();
                     ReadResponses($(this).attr('data-FormId'), 1, '', '');
                 }
