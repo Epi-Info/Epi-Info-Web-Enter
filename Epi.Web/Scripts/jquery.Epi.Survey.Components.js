@@ -27,7 +27,7 @@ function FilterRecords(ctrl , OrgId ) {
 }
 
 function FilterRecordsByOrg(src) {
-    //alert(src);
+    //alert("src" + src);
     $("button[class*='metro-tile']").addClass('NotSelectedOrg');
     $(".metro-tile2").hide();
     $(".Org-" + src.toString()).show();
@@ -38,12 +38,12 @@ function FilterRecordsByOrg(src) {
 }
 
 function FilterRecordsByOrgMobile(ctrl) {
-    var src = $(ctrl).val();
+   
     //alert(src);
     $("button[class*='metro-tile']").addClass('NotSelectedOrg');
     $(".metro-tile2").hide();
-    $(".Org-" + src.toString()).show();
-    $(".Org-" + src.toString()).removeClass('NotSelectedOrg');
+    $(".Org-" + ctrl.toString()).show();
+    $(".Org-" + ctrl.toString()).removeClass('NotSelectedOrg');
     $("#right").hide();
     $("button[class*='metro-tile']").removeClass('metro-set');
 }

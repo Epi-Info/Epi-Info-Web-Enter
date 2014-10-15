@@ -15,6 +15,7 @@
 
         $("#dropdown-1").change(function () {
             FilterRecords(this);
+            
             // $("#right").hide();
             // $("button[class*='metro-tile']").removeClass('metro-set');
             //$("button:visible").triggerHandler('click');
@@ -24,10 +25,19 @@
         //$("button:visible").triggerHandler('click');
 
     });
+    $(document).ready(function () {
+     
+       // alert('@Model.OrganizationList[0].OrganizationId');
+        FilterRecordsByOrgMobile('@Model.OrganizationList[0].OrganizationId');
 
-
-    
+    });
+    function FilterFormRecords(ctrl) 
+   {
+       var src = $(ctrl).val();
+        FilterRecordsByOrgMobile(src);
+    }
 </script>
+
 <style>
 
 #leftarrangeby .ui-select {display:inline-block !important;}
@@ -49,7 +59,7 @@
         
 <div id="content" style="margin-bottom:200px; padding:5px;">
      <div id="leftarrangeby" style="vertical-align:middle; font-size:10pt !important; margin-top:15px;">
-            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="submit2" onchange="FilterRecordsByOrgMobile(this);">
+            <select name="dropdown-2" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="submit2" onchange="FilterFormRecords(this);">
                @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
                            @foreach(var item in Model.OrganizationList){
 				            <option value="@item.OrganizationId">@item.Organization</option>
@@ -58,7 +68,7 @@
 				            @*	<option value="3">Last Saved Forms First</option>*@
             </select>
         
-            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="submit2" onchange="FilterRecords(this);">
+            <select name="dropdown-1" style="vertical-align:middle; font-size:10pt !important; display:inline-block;" data-theme="submit2" onchange="FilterRecords(this,$('#dropdown-2').val());">
                @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
                 <option value="1">My Forms</option>        
                 <option value="2">Forms Assigned to Me</option>
