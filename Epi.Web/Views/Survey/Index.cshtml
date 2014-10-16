@@ -218,7 +218,6 @@ function showResponse() {
 	                "text": 'Don\'t Save',
 	                "click": function () {
 
-
 	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
 	                    //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
 	                    $.ajax({
@@ -307,7 +306,7 @@ function showResponse() {
 	        if ('@Model.Form.StatusId' == '1') { //if clicking the save button for the first time
 	            $('#successContent').show();
 	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
- 
+
 
 	        }
 	        else {
@@ -513,7 +512,6 @@ else
 
 
 function ReadResponse(ViewId) {
-
 
     var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
