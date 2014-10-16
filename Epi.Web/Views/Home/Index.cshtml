@@ -99,7 +99,7 @@
                 SetSettingButtonValue($(this).attr('data-FormId'));
                 $(this).addClass('metro-set');
                 ResetSearchFields();
-                 ReadResponses($(this).attr('data-FormId'), 1, '', '');
+                ReadResponses($(this).attr('data-FormId'), 1, '', '');
             }
             else {
                 if ($("#FORM_SELECTED_HIDDEN").val() == "") {
@@ -108,15 +108,15 @@
                     $('#' + '@Model.SelectedForm').addClass('metro-set');
                     $("#FORM_SELECTED_HIDDEN").val('@Model.SelectedForm');
                     ReadResponses('@Model.SelectedForm', '@Session["PageNumber"]', '', '');
-                   
+
                     //test 
-                } 
+                }
                 else {
 
                     $("button[class*='metro-tile']").removeClass('metro-set');
                     SetSettingButtonValue($(this).attr('data-FormId'));
                     $(this).addClass('metro-set');
-                  //  $("#FORM_SELECTED_HIDDEN").val('');
+                    //  $("#FORM_SELECTED_HIDDEN").val('');
                     ResetSearchFields();
                     ReadResponses($(this).attr('data-FormId'), 1, '', '');
                 }
@@ -157,7 +157,6 @@
             var pageNumber = $('#hidPageNumber').val();
             var Sort = 'ASC';
             var SortField = $("#columns").val(); // 'PetsName';
-
             ReadResponses(formid, 1, Sort, SortField);
 
             //            $.ajax({
@@ -310,7 +309,7 @@
 
         });
 
-        
+
 
 
         $("#dropdown-1").change(function () {
@@ -360,7 +359,7 @@
             $(FieldId).addClass('metro-set');
             //ActionUrl = '@Url.Action("ReadSortedResponseInfo","Home")' + "?formid=" + ResultUrl + "&page=1";
             //            ReadResponse(ActionUrl);
-            ReadResponses(ResultUrl, 1, '', '');
+            //ReadResponses(ResultUrl, 1, '', '');
         }
         else {
 
@@ -455,7 +454,6 @@
         $("#SearchModel_Value5").val('');
     }
     function ReadResponses(formid, pagenumber, sortOrder, sortField) {
-        //            debugger;
         $.ajax({
             //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
             url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField
