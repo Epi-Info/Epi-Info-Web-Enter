@@ -434,7 +434,7 @@ namespace Epi.Web.MVC.Utility
             RadioList.fontstyle = _FieldTypeID.Attribute("PromptFontStyle").Value;
             RadioList.fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value);
             RadioList.fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value;
-            RadioList.IsRequired =  GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList");//bool.Parse(_FieldTypeID.Attribute("IsRequired").Value);
+            RadioList.Required =  GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList");//bool.Parse(_FieldTypeID.Attribute("IsRequired").Value);
             RadioList.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
 
             RadioList.Value = _ControlValue;
@@ -484,7 +484,7 @@ namespace Epi.Web.MVC.Utility
                  MobileNumericTextBox.fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value);
                  MobileNumericTextBox.fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value;
                  MobileNumericTextBox.IsRequired = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList");//bool.Parse(_FieldTypeID.Attribute("IsRequired").Value);
-                 MobileNumericTextBox.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+                 MobileNumericTextBox.ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
                  MobileNumericTextBox.Lower = _FieldTypeID.Attribute("Lower").Value;
                  MobileNumericTextBox.Upper = _FieldTypeID.Attribute("Upper").Value;
                  MobileNumericTextBox.Value = _ControlValue;
@@ -546,7 +546,7 @@ namespace Epi.Web.MVC.Utility
                 fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value),
                 fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value,
                 IsRequired = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList"),//bool.Parse(_FieldTypeID.Attribute("IsRequired").Value),
-                IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
+                ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
                 IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList"),
                 IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList"),
                 IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList"),
@@ -618,7 +618,7 @@ namespace Epi.Web.MVC.Utility
                   TextBox.fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value);
                   TextBox.fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value;
                   TextBox.IsRequired = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList");// bool.Parse(_FieldTypeID.Attribute("IsRequired").Value);
-                  TextBox.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+                  TextBox.ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
                   TextBox.MaxLength = int.Parse(_FieldTypeID.Attribute("MaxLength").Value);
                   TextBox.IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList");
                   TextBox.IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList");
@@ -792,7 +792,7 @@ namespace Epi.Web.MVC.Utility
                 fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value),
                 fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value,
                 IsRequired =GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList"),// bool.Parse(_FieldTypeID.Attribute("IsRequired").Value),
-                IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
+                ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
                 ShowEmptyOption = true,
                 SelectType = FieldTypeId,
                 SelectedValue = _ControlValue,

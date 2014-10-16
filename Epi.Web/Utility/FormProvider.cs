@@ -544,7 +544,7 @@ namespace Epi.Web.MVC.Utility
                 RadioList.fontSize = double.Parse(_FieldTypeID.Attribute("PromptFontSize").Value);
                 RadioList.fontfamily = _FieldTypeID.Attribute("PromptFontFamily").Value;
                // RadioList.IsRequired = bool.Parse(_FieldTypeID.Attribute("IsRequired").Value);
-                RadioList.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+                RadioList.ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
                 RadioList.InputFieldfontstyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
                 RadioList.InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
                 RadioList.InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value;
@@ -599,7 +599,7 @@ namespace Epi.Web.MVC.Utility
                // IsRequired = bool.Parse(_FieldTypeID.Attribute("IsRequired").Value),
                 IsRequired = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList"),
                 Required = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList"),
-                IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
+                ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
                 Lower = _FieldTypeID.Attribute("Lower").Value,
                 Upper = _FieldTypeID.Attribute("Upper").Value,
                 Value = _ControlValue,
@@ -669,7 +669,7 @@ namespace Epi.Web.MVC.Utility
                 IsRequired = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList"),
                 Required = GetRequiredControlState(form.RequiredFieldsList.ToString(), _FieldTypeID.Attribute("Name").Value, "RequiredFieldsList"),
                 
-                IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
+                ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
                 IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList"),
                 IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList"),
                 IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList"),
@@ -717,7 +717,7 @@ namespace Epi.Web.MVC.Utility
                 InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value),
                 InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value,
 
-                IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
+                ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value),
                 MaxLength = int.Parse(_FieldTypeID.Attribute("MaxLength").Value),
                 IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList"),
                 IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList"),
@@ -903,7 +903,7 @@ namespace Epi.Web.MVC.Utility
                     DropDown.InputFieldfontstyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
                     DropDown.InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
                     DropDown.InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value;
-                    DropDown.IsReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
+                    DropDown.ReadOnly = bool.Parse(_FieldTypeID.Attribute("IsReadOnly").Value);
                     DropDown.ShowEmptyOption = true;
                     DropDown.SelectType=FieldTypeId;
                     DropDown.SelectedValue = _ControlValue;
