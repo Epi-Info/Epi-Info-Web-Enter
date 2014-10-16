@@ -2039,12 +2039,12 @@ namespace Epi.Web.EF
                 var Query = from response in Context.SurveyResponses
                             where response.ResponseId == Id
                             select response;
-
-                var DataRow = Query.Single();
-                DataRow.StatusId = 2;
-
-                Context.SaveChanges();
-
+                if (Query.Count() > 0)
+                    {
+                      var DataRow = Query.Single();
+                      DataRow.StatusId = 2;
+                      Context.SaveChanges();
+                    }
             }
 
         }
