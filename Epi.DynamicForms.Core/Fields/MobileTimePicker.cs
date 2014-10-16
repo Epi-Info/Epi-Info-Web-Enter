@@ -103,21 +103,29 @@ namespace MvcDynamicForms.Fields
                 txt.Attributes.Add("data-prompt-position", "topLeft:15");
             }
 
+            //if (ReadOnly)
+            //    {
+            //    txt.Attributes.Add("disabled", "disabled");
+            //    }
+            if (ReadOnly || _IsDisabled)
+                {
+                var scriptReadOnlyText = new TagBuilder("script");
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
+                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+                }
 
-
-
-          //  txt.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
             txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
 
             txt.MergeAttributes(_inputHtmlAttributes);
             html.Append(txt.ToString(TagRenderMode.SelfClosing));
-            // If readonly then add the following jquery script to make the field disabled 
-            if (ReadOnly)
-            {
-                var scriptReadOnlyText = new TagBuilder("script");
-                scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
-                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
-            }
+
+            //if (ReadOnly)
+            //{
+            //    var scriptReadOnlyText = new TagBuilder("script");
+            //    scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+            //    html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+            //}
             //if (!string.IsNullOrEmpty(Pattern))
             //{
             //    // adding scripts for date picker
