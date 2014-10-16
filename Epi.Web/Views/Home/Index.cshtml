@@ -99,7 +99,7 @@
                 SetSettingButtonValue($(this).attr('data-FormId'));
                 $(this).addClass('metro-set');
                 ResetSearchFields();
-                ReadResponses($(this).attr('data-FormId'), 1, '', '');
+                 ReadResponses($(this).attr('data-FormId'), 1, '', '');
             }
             else {
                 if ($("#FORM_SELECTED_HIDDEN").val() == "") {
@@ -364,7 +364,7 @@
         }
         else {
 
-            $("button:visible").triggerHandler('click');
+          //  $("button:visible").triggerHandler('click');
 
         }
         //Use of Organization filter
