@@ -76,24 +76,37 @@ namespace MvcDynamicForms.Fields
                 IsHighlightedStyle = "background-color:yellow";
             }*/
 
-            if (_IsDisabled)
-            {
-                txt.Attributes.Add("disabled", "disabled");
-            }
+            //if (_IsDisabled)
+            //{
+            //    txt.Attributes.Add("disabled", "disabled");
+            //}
             txt.Attributes.Add("class", GetControlClass(Value));
             txt.Attributes.Add("data-prompt-position", "topLeft:15");
             //txt.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
 
             txt.Attributes.Add("style", "" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
+            //if (ReadOnly)
+            //    {
+                
+            //    txt.Attributes.Add("disabled", "disabled");
+            //    }
+            if (ReadOnly || _IsDisabled)
+                {
+                var scriptReadOnlyText = new TagBuilder("script");
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
+                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+                }
 
             txt.MergeAttributes(_inputHtmlAttributes);
             html.Append(txt.ToString(TagRenderMode.SelfClosing));
-            // If readonly then add the following jquery script to make the field disabled 
+
             if (ReadOnly)
             {
-                var scriptReadOnlyText = new TagBuilder("script");
-                scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
-                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+                //var scriptReadOnlyText = new TagBuilder("script");
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                //html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+         
             }
             // adding scripts for date picker
             //var scriptDatePicker = new TagBuilder("script");
