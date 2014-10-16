@@ -817,12 +817,12 @@ namespace Epi.Web.WCF.SurveyService
                     {
                     if (pRequest.Criteria.IsSqlProject)
                         {
-                        if (pRequest.Criteria.IsEditMode)
-                            {
-                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
-                            }
-                        else
-                            {
+                        //if (pRequest.Criteria.IsEditMode)
+                        //    {
+                        //    Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                        //    }
+                        //else
+                        //    {
                             if(pRequest.Criteria.IsDeleteMode)
                                 {
                                 Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
@@ -836,7 +836,7 @@ namespace Epi.Web.WCF.SurveyService
                                 Implementation.UpdateRecordStatus(obj);
                                 }
                        
-                            }
+                           // }
                         }
                     else
                         {
