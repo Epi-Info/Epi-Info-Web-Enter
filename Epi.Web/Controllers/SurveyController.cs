@@ -401,6 +401,7 @@ namespace Epi.Web.MVC.Controllers
                             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
                             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
                             SARequest.Criteria.IsEditMode = this.IsEditMode;
+                            SARequest.Criteria.IsSqlProject = (bool)Session["IsSqlProject"];
                             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
                             return RedirectToRoute(new { Controller = "FormResponse", Action = "Index", formid = Session["RootFormId"].ToString(), ViewId = 0 });
 
