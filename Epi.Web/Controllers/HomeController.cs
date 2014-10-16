@@ -80,7 +80,7 @@ namespace Epi.Web.MVC.Controllers
                 FormModel.SelectedForm = surveyid;
                 Session["UserFirstName"] = result.User.FirstName;
                 Session["UserLastName"] = result.User.LastName;
-                Session["RootFormId"] = null;
+
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 
 
@@ -102,6 +102,15 @@ namespace Epi.Web.MVC.Controllers
                 //}
                 bool IsMobileDevice = false;
                 IsMobileDevice = this.Request.Browser.IsMobileDevice;
+                if (IsMobileDevice) // Because mobile doesn't need RootFormId until button click. 
+                {
+                    Session["RootFormId"] = null;
+                    Session["PageNumber"] = null;
+                    Session["SortOrder"] = null;
+                    Session["SortField"] = null;
+                    Session["SearchCriteria"] = null;
+                    Session["SearchModel"] = null;
+                }
                 Omniture OmnitureObj = Epi.Web.MVC.Utility.OmnitureHelper.GetSettings(SurveyMode, IsMobileDevice);
 
                 ViewBag.Omniture = OmnitureObj;
@@ -336,9 +345,9 @@ namespace Epi.Web.MVC.Controllers
                 Session.Remove("SortField");
                 Session.Remove("PageNumber");
             }
-            //Code added to retain Search Ends.
+            //Code added to retain Search Ends. 
             Session["RootFormId"] = formid;
-            //Session["PageNumber"] = page;
+            Session["PageNumber"] = page;
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
             var model = new FormResponseInfoModel();
