@@ -848,11 +848,16 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Delete(string ResponseId, string surveyid)
         {
-
+           
+ 
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             string Id = Session["UserId"].ToString();
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Id);
+            SARequest.Criteria.IsEditMode = false;
+            SARequest.Criteria.IsDeleteMode = false;
+            SARequest.Criteria.IsSqlProject = (bool)Session["IsSqlProject"];
+            SARequest.Criteria.SurveyId = Session["RootFormId"].ToString();
 
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
@@ -869,6 +874,9 @@ namespace Epi.Web.MVC.Controllers
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             SARequest.Criteria.IsEditMode = false;
+            SARequest.Criteria.IsDeleteMode = false;
+            SARequest.Criteria.IsSqlProject = (bool)Session["IsSqlProject"];
+            SARequest.Criteria.SurveyId = Session["RootFormId"].ToString();
             SurveyAnswerResponse SAResponse = _isurveyFacade.DeleteResponse(SARequest);
 
             return Json(string.Empty);//string.Empty
