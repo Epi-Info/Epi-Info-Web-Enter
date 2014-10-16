@@ -369,7 +369,7 @@ namespace Epi.Web.MVC.Controllers
                 Session["SearchModel"] = FormResponseInfoModel.SearchModel;
                 Session["SearchCriteria"] = FormResponseReq.Criteria.SearchCriteria;
             }
-
+            Session["PageNumber"] = PageNumber;
             // Session["SearchCriteria"] = FormResponseInfoModel.SearchModel;
             PopulateDropDownlists(FormResponseInfoModel, FormSettingResponse.FormSetting.FormControlNameList.ToList());
 
@@ -848,8 +848,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult Delete(string ResponseId, string surveyid)
         {
-           
- 
+
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
             string Id = Session["UserId"].ToString();
