@@ -393,16 +393,19 @@ var pageId = $('#hidPageNumber').val();
                     }
                          @if (Model.FormInfoModel.IsSQLProject && Model.SearchModel.SearchCol1 != null)
                          {
-                            <div id="searchmsg" style="display:block;"><h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px; color:#794800; ">Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;<button type="button " data-theme="defbtn" name="ResetSearch">
-                            Reset</button></h4></div>
+                            <div id="searchmsg" style="display:block;">
+                                <h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px; color:#794800; ">Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
+                                    <button type="button " data-theme="defbtnreset" name="ResetSearch" style="float:right;">Reset</button>
+                                    <div style="clear: both;"></div>
+                                </h4>
+                            </div>
                           }
                     <div id="addnew">
                         <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
                             Add New Record
                         </button>
                     </div>
-                    <div style="clear: both;">
-                    </div>
+                    <div style="clear: both;"></div>
                 </div>
                 <div style="clear: both">
                 </div>
