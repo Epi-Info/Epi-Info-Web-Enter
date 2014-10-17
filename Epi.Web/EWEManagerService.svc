@@ -1,1 +1,1 @@
-﻿<%@ServiceHost Service="Epi.Web.Enter.WCF.SurveyService.EWEManagerService"%>
+﻿<%@ServiceHost Service="Epi.Web.WCF.SurveyService.EWEManagerService"%>
