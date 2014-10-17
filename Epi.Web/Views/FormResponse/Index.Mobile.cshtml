@@ -325,37 +325,37 @@ var pageId = $('#hidPageNumber').val();
                         <div style="clear: both;">
                         </div>
                     </div>
-                    <div id="tableSort" style="vertical-align: middle; margin-bottom: 20px; min-width: 300px;">
-                        <select id="columns" data-inline="true" data-theme="submit2">
-                            @*<option value="0" selected="selected">Sort by:</option>*@
-                            @foreach (var item in Model.Columns)
-                            {
-                                if (@item.Value.ToString() == @Model.sortfield)
+                    @if (Model.FormInfoModel.IsSQLProject)
+                    {
+                        <div id="tableSort" style="vertical-align: middle; margin-bottom: 20px; min-width: 300px;">
+                            <select id="columns" data-inline="true" data-theme="submit2">
+                                @*<option value="0" selected="selected">Sort by:</option>*@
+                                @foreach (var item in Model.Columns)
                                 {
-                                <option value="@item.Value.ToString()" selected= selected >@item.Value.ToString()</option>
+                                    if (@item.Value.ToString() == @Model.sortfield)
+                                    {
+                                    <option value="@item.Value.ToString()" selected= selected >@item.Value.ToString()</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@item.Value.ToString()" >@item.Value.ToString()</option>
+                                    }
                                 }
-                                else
-                                {
-                                <option value="@item.Value.ToString()" >@item.Value.ToString()</option>
-                                }
-                            }
-                        </select>
-                        @*<a href="index.html" id="SortASC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Ascending.png" style="width:20px; vertical-align:middle;"/></a>
+                            </select>
+                            @*<a href="index.html" id="SortASC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Ascending.png" style="width:20px; vertical-align:middle;"/></a>
                         <a href="index.html" id="SortDESC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Descending.png" style="width:20px; vertical-align:middle;"/></a>*@
-                        @*<button data-role="button" data-theme="submit2" name="SortASC"  onclick="" type="submit">
+                            @*<button data-role="button" data-theme="submit2" name="SortASC"  onclick="" type="submit">
                             ASC</button>*@
-                        <button type="button" data-theme="submit2" data-inline="true" name="SortASC">
-                            &#x25B2;</button>
-                        <button type="button" data-theme="submit2" data-inline="true" name="SortDESC">
-                            &#x25BC;</button>
-                    </div>
-                    <div id="editsettings" style="">
-                        @if (Model.FormInfoModel.IsSQLProject)
-                        {
+                            <button type="button" data-theme="submit2" data-inline="true" name="SortASC">
+                                &#x25B2;</button>
+                            <button type="button" data-theme="submit2" data-inline="true" name="SortDESC">
+                                &#x25BC;</button>
+                        </div>
+                        <div id="editsettings" style="">
                             <button id="btnsearch" data-theme="defsearch" onclick="" type="button">
-                                Search</button> 
+                                Search</button>
+                        </div>
                         }
-                    </div>
                     <div style="clear: both;">
                     </div>
                     @if (Model.SearchModel != null)
@@ -391,21 +391,25 @@ var pageId = $('#hidPageNumber').val();
                                 Reset</button>
                         </div>
                     }
-                         @if (Model.FormInfoModel.IsSQLProject && Model.SearchModel.SearchCol1 != null)
-                         {
-                            <div id="searchmsg" style="display:block;">
-                                <h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px; color:#794800; ">Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
-                                    <button type="button " data-theme="defbtnreset" name="ResetSearch" style="float:right;">Reset</button>
-                                    <div style="clear: both;"></div>
-                                </h4>
-                            </div>
-                          }
+                    @if (Model.FormInfoModel.IsSQLProject && Model.SearchModel.SearchCol1 != null)
+                    {
+                        <div id="searchmsg" style="display: block;">
+                            <h4 style="margin: 2px 0 20px 0; background: #ffdead; padding: 5px; color: #794800;">
+                                Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
+                                <button type="button " data-theme="defbtnreset" name="ResetSearch" style="float: right;">
+                                    Reset</button>
+                                <div style="clear: both;">
+                                </div>
+                            </h4>
+                        </div>
+                    }
                     <div id="addnew">
                         <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
                             Add New Record
                         </button>
                     </div>
-                    <div style="clear: both;"></div>
+                    <div style="clear: both;">
+                    </div>
                 </div>
                 <div style="clear: both">
                 </div>
