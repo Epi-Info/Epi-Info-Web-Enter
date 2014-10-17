@@ -178,8 +178,12 @@
     <div style="clear: both; margin-bottom: 10px; padding: 10px 0 0;">
      @if (Model.FormInfoModel.IsSQLProject && Model.SearchModel.SearchCol1 != null)
     {
-        <div id="searchmsg" style="display:block;"><h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px; color:#794800; ">Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;<button class="default" name="ResetSearch">
-        Reset</button></h4></div>
+        <div id="searchmsg" style="display:block;">
+            <h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px 5px 8px 5px; color:#794800; ">
+                Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
+                <button class="default" name="ResetSearch" style="float:right;">Reset Search</button>
+            </h4>
+        </div>
          }
         <div id="NumberOfRecords" style="float: left;">
             <div>
