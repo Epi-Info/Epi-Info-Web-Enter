@@ -546,7 +546,7 @@ a.next
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-active-defrecord, .ui-btn-active, .ui-btn-hover-defrecord, .ui-btn-hover-defsettings, .ui-btn-active-defsettings, .ui-btn-up-defbtn:hover, .ui-btn-hover-defbtn:hover, .ui-btn-up-defbtn:active, .ui-btn-hover-defbtn:active, .ui-btn-up-defsearch:active, .ui-btn-hover-defsearch:active, .ui-btn-up-defsearch:hover, .ui-btn-hover-defsearch:hover
+button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-active-defrecord, .ui-btn-active, .ui-btn-hover-defrecord, .ui-btn-hover-defsettings, .ui-btn-active-defsettings, .ui-btn-up-defbtn:hover, .ui-btn-hover-defbtn:hover, .ui-btn-up-defbtn:active, .ui-btn-hover-defbtn:active, .ui-btn-up-defsearch:active, .ui-btn-hover-defsearch:active, .ui-btn-up-defsearch:hover, .ui-btn-hover-defsearch:hover, .ui-btn-up-defsearch:hover, .ui-btn-up-defsearch:active
 {
     background-color: #ffc000 !important; 
     -webkit-tap-highlight-color:rgba(0,0,0,0.5);
@@ -598,7 +598,7 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
     border: 1px solid #1f3b53;
     background: #5c53ac;
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    width: 80px;
+    width: 90px;
    display:inline-block !important;
     margin:0 10px 0 0;
     padding:0;
@@ -974,7 +974,7 @@ a.backlink
 /*.mobileheader{display:inline-block; width:45%; font-weight: 600; font-family: "Segoe UI Light", Tahoma, Geneva, Verdana, sans-serif;}
 .mobilevalue{display:inline; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}*/
 .mobileheader{width:45%; font-weight: 600; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; float: left; overflow: hidden; text-overflow: ellipsis;}
-.mobilevalue{font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; float: left; width:50%;}
+.mobilevalue{font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; float: left; width:50%; word-break: break-all; word-wrap: break-word;}
 .mobilewrap{ display:block; padding:8px; border-top: 1px solid #ccc; border-left:1px solid #ccc; border-right:1px solid #ccc;}
 #recordstable li:nth-of-type(even) { background: #e0ebfc; }
 #recordstable ul { margin:0; padding:0}
