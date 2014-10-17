@@ -621,7 +621,20 @@ button.default:hover, button.default:active, .ui-btn-up-default:active, .ui-btn-
     
 }
 
-
+.ui-btn-up-defbtnreset, .ui-btn-hover-defbtnreset
+{
+    cursor: pointer; 
+    vertical-align:middle;
+    float:right;
+    color:#fff;
+    border: 1px solid #1f3b53;
+    background: #5c53ac;
+    font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    width: 80px;
+   display:inline-block !important;
+    margin:0 10px 0 0;
+    padding:0;
+}
 
 #searchbox
 {
