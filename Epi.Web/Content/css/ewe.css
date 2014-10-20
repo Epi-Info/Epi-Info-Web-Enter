@@ -136,14 +136,14 @@ bottom: 100px;
  #prev
  {
  float: left;
- width: 33%;
+ width: 28%;
  vertical-align:middle;
  }
 
 #savediv
  {
  float: left;
- width: 33%;
+ width: 42%;
  margin: auto;
  vertical-align:middle;
  }
@@ -151,7 +151,7 @@ bottom: 100px;
 #next
  {
  float: right;
- width: 33%;
+ width: 28%;
  vertical-align:middle;
  }
 
@@ -355,7 +355,7 @@ div.recordcontentdiv
      margin: 0 0 0em 0;
  }
 
-button.default, #recordstable a
+button.default, #recordstable a, a.returnto
 {
     margin: 0 auto; 
     cursor: pointer; 
@@ -366,6 +366,8 @@ button.default, #recordstable a
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+a.returnto {font-size:11pt; float:left; background: #00B050; padding: 5px 10px; text-decoration: none; font-weight: bold;}
+
  #recordstable a 
  {
     width: 80px;
@@ -374,7 +376,7 @@ button.default, #recordstable a
     text-decoration: none;
  }
 
-button.default:hover, button.default:active
+button.default:hover, button.default:active, a.returnto: hover, a.returnto:active
  {
     background-color: #ffc000; 
  }
