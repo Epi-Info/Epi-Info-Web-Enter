@@ -224,7 +224,7 @@ namespace Epi.Web.MVC.Controllers
 
             //var Form_Has_Changed = this.Request.Form["Form_Has_Changed"].ToString();
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                ViewBag.Version = version;
+            ViewBag.Version = version;
 
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 
@@ -889,6 +889,7 @@ namespace Epi.Web.MVC.Controllers
             _isurveyFacade.UpdateResponseStatus(SARequest);
 
             FormsAuthentication.SignOut();
+            this.Session.Clear();
             return RedirectToAction("Index", "Login");
 
 
