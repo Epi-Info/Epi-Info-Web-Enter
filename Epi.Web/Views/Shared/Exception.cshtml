@@ -18,7 +18,6 @@
                 padding-right: 10px;"/>
        @System.Configuration.ConfigurationManager.AppSettings["SURVEY_NOT_EXISTS"]
 
-       @Html.ActionLink("Click here to go Home", "Index","Home", null, null)
       @* @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, null)*@
         @*<p>@TempData["exc"]</p>
         <br>
@@ -27,6 +26,10 @@
           <p>@TempData["exc2"]</p>*@
 </div>
 
+<div id="relatenav" style="padding-bottom:10px; display: inline-block; margin: 10px;">
+       @Html.ActionLink("Return to Home", "Index", "Home", null, new { @class = "returnto" })
+</div>
+   
 
 
 </div>
