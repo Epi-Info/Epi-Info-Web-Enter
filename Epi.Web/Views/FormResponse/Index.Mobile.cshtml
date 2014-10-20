@@ -419,7 +419,7 @@ var pageId = $('#hidPageNumber').val();
                     <div id="recordstable">
                         @if (Model.ResponsesList.Count > 0)
                         {
-                            if (Model.ViewId == 0)
+                            if (Model.NumberOfPages > 1 && Model.ViewId == 0)
                             {
                             <div id='pager1'>
                                 @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
@@ -464,7 +464,7 @@ var pageId = $('#hidPageNumber').val();
                             }
                             @Html.Raw("</ul>")
 
-                            if (Model.ViewId == 0)
+                            if (Model.NumberOfPages > 1 && Model.ViewId == 0)
                             {
                             <div id='pager2'>
                                 @*Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
