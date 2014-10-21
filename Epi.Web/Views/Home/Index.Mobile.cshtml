@@ -1,6 +1,6 @@
 ﻿@model Epi.Web.MVC.Models.FormModel
 @{
-    ViewBag.Title = "Epi Web Enter - My Forms"; //+ " - " +
+    ViewBag.Title = "Epi Web Enter - Home"; //+ " - " +
        // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
 }
 
@@ -46,7 +46,7 @@
 </style>
  
 <div id="pageHeader">
-  	<div id="pageTitle"><h2>My Forms</h2></div>
+  	<div id="pageTitle"><h2>Home</h2></div>
    	<div id="userwelcome">Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
   @*  <a href="#">Log Out</a>*@
   @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
