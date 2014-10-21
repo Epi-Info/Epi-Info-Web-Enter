@@ -108,9 +108,8 @@ function showResponse() {
 	    // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
 	    //$("#Savebutton").tooltip();
-
-
-
+	 
+	 
 
 	    $("#dialog").dialog({
 	        autoOpen: false,
@@ -161,7 +160,7 @@ function showResponse() {
 	            },
 	            "class": 'dialogbtn'
 	        }]
-
+  
 
 	    });
 	    // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
@@ -289,6 +288,14 @@ function showResponse() {
 	        width: 300,
 	        modal: true
 	    });
+
+
+
+	    if ("@Model.RelatedButtonWasClicked" != "") {
+
+	        ReadRelatedResponse('@Model.RelatedButtonWasClicked');
+	    }
+
 
 	    var responseUrl = GetRedirectionUrl();
 	    $('#url').val(responseUrl);
@@ -483,6 +490,7 @@ function ReplaceString(string){
 	 });
 });
 function OpenRelateNavigationDialog() {
+     
     $("#RelateNavigation").dialog("open");
 }
 function CloseRelateNavigationDialog() {
@@ -496,9 +504,13 @@ function NavigateToChild(ViewId) {
     var temp = HasResponse(ViewId);
     if (temp) 
     {
-      
-        ReadResponse(ViewId);
-       
+        //if (!$('#FormHasChanged').val()) {
+            ReadResponse(ViewId);
+//        } else {
+//          alert("Form data has changed. Please click the save button.....");
+//        
+//        }
+
     }
 else 
     {
@@ -509,33 +521,66 @@ else
 
 }
 
+function ReadRelatedResponse(ViewId) {
 
+        var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
+        $.ajax({
+            url: signoutUrl,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify(model),
+            async: false,
+            success: successFunc,
+            Error: errorFunc
+        });
+      
+         
+        function successFunc(data) {
+            $('#RelateButtonWasClicked_Temp').val(ViewId)
+            $('#RelateButtonWasClicked').val(ViewId);
+            $('#RelateNavigation').html(data);
+            OpenRelateNavigationDialog();
+           
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+}
 function ReadResponse(ViewId) {
 
-    var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
+//    var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
-    $.ajax({
-        url: signoutUrl,
-        type: 'GET',
-        contentType: 'application/json; charset=utf-8',
-        //data: JSON.stringify(model),
-        async: false,
-        success: successFunc,
-        Error: errorFunc
-    });
-  
-     
-    function successFunc(data) {
-    
-        $('#RelateNavigation').html(data);
-        OpenRelateNavigationDialog();
-       
-    }
+//    $.ajax({
+//        url: signoutUrl,
+//        type: 'GET',
+//        contentType: 'application/json; charset=utf-8',
+//        //data: JSON.stringify(model),
+//        async: false,
+//        success: successFunc,
+//        Error: errorFunc
+//    });
+//  
+//     
+//    function successFunc(data) {
+//    
+//        $('#RelateNavigation').html(data);
+//        OpenRelateNavigationDialog();
+//       
+//    }
 
-    function errorFunc() {
-        alert('error');
-    }
+//    function errorFunc() {
+//        alert('error');
+    //    }
+
+   
+    $("#myform")[0].Click_Related_Form.value = ViewId;
+
+    $("#myform")[0].action = window.location.href;
+
+
+    $('#myform').submit();
 
 }
 
@@ -788,6 +833,7 @@ function GoHome()
 		<input type="hidden"  name="is_goto_action" value="false" />
         <input type="hidden"  name="Get_Child_action" value="false" />
         <input type="hidden"  name="Go_Home_action" value="false" />
+         <input type="hidden"  name="Click_Related_Form" value="false" />
     
           <input type="hidden"  name="Go_One_Level_Up_action" value="false" />
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 

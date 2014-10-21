@@ -6,11 +6,12 @@ using MvcDynamicForms;
 namespace Epi.Web.MVC.Models
     {
     public class SurveyModel
-        {
+        { 
         private Form _Form;
         private List<RelateModel> _RelateModel;
         private FormResponseInfoModel _FormResponseInfoModel;
         private int _RequestedViewId;
+        private string _RelatedButtonWasClicked;
         public Form Form
             {
             get { return _Form; }
@@ -30,6 +31,11 @@ namespace Epi.Web.MVC.Models
             {
             get { return _RequestedViewId; }
             set { _RequestedViewId = value; }
+            }
+        public string RelatedButtonWasClicked
+            {
+            get { return _RelatedButtonWasClicked; }
+            set { _RelatedButtonWasClicked = value; }
             }
         }
     }
