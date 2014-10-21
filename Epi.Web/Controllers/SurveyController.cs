@@ -273,7 +273,7 @@ namespace Epi.Web.MVC.Controllers
                     case PreValidationResultEnum.Success:
                     default:
 
-
+                      
                         //Update Survey Model Start
                         MvcDynamicForms.Form form = UpDateSurveyModel(surveyInfoModel, IsMobileDevice, FormValuesHasChanged, SurveyAnswer);
                         //Update Survey Model End
@@ -428,7 +428,7 @@ namespace Epi.Web.MVC.Controllers
                             return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
 
                         }
-
+                        
                         else if (form.Validate(form.RequiredFieldsList))
                         {
                             if (!string.IsNullOrEmpty(Submitbutton) || !string.IsNullOrEmpty(CloseButton) || (!string.IsNullOrEmpty(this.Request.Form["is_save_action_Mobile"]) && this.Request.Form["is_save_action_Mobile"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase)))
@@ -511,7 +511,10 @@ namespace Epi.Web.MVC.Controllers
                                 SurveyModel SurveyModel = new SurveyModel();
                                 SurveyModel.Form = form;
                                 SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
-
+                                if (!string.IsNullOrEmpty(this.Request.Form["Click_Related_Form"].ToString()))
+                                    {
+                                    SurveyModel.RelatedButtonWasClicked = this.Request.Form["Click_Related_Form"].ToString();
+                                    }
                                 return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
                             }
 
@@ -1446,67 +1449,73 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
 
         public ActionResult ReadResponseInfo(string SurveyId, int ViewId, string ResponseId, string CurrentPage)//List<FormInfoModel> ModelList, string formid)
+       // public ActionResult ReadResponseInfo( string ResponseId)//List<FormInfoModel> ModelList, string formid)
         {
-
-            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
-            Session["CurrentFormId"] = SurveyId;
-            int PageNumber = int.Parse(CurrentPage);
-            bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
-            if (IsMobileDevice == false)
+        //var temp = SurveyModel;
+        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+        int PageNumber = int.Parse(CurrentPage);
+      
+         
+        Session["CurrentFormId"] = SurveyId;
+       
+        bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
+        if (IsMobileDevice == false)
             {
 
-                //  var model = new FormResponseInfoModel();
-                List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
-                int RequestedViewId;
-                RequestedViewId = ViewId;
-                //form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
-                //form = SetLists(form);
-                //TempData["Width"] = form.Width + 5;
-                Session["RequestedViewId"] = RequestedViewId;
-                SurveyModel SurveyModel = new SurveyModel();
+            //  var model = new FormResponseInfoModel();
+            List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
+            int RequestedViewId;
+            RequestedViewId = ViewId;
+            //form = SaveCurrentForm(form, surveyInfoModel, SurveyAnswer, responseId, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged, PageNumber);
+            //form = SetLists(form);
+            //TempData["Width"] = form.Width + 5;
+            Session["RequestedViewId"] = RequestedViewId;
+            SurveyModel SurveyModel = new SurveyModel();
 
-                // SurveyModel.RequestedViewId = 10;
-                //  SurveyModel.Form = OldSurveyModel.Form;
-                SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, SurveyId);
-                SurveyModel.RequestedViewId = RequestedViewId;
-
-
-                var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == ViewId);
-
-                SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
+            // SurveyModel.RequestedViewId = 10;
+            //  SurveyModel.Form = OldSurveyModel.Form;
+            SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, SurveyId);
+            SurveyModel.RequestedViewId = RequestedViewId;
 
 
-                SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, ResponseId);
-                SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
+            var RelateSurveyId = FormsHierarchy.Single(x => x.ViewId == ViewId);
 
-                SurveyAnswerDTO surveyAnswerDTO = new SurveyAnswerDTO();
+            SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
 
-                if (RelateSurveyId.ResponseIds.Count > 0)
+
+            SurveyModel.FormResponseInfoModel = GetFormResponseInfoModel(RelateSurveyId.FormId, ResponseId);
+            SurveyModel.FormResponseInfoModel.NumberOfResponses = SurveyModel.FormResponseInfoModel.ResponsesList.Count();
+
+            SurveyAnswerDTO surveyAnswerDTO = new SurveyAnswerDTO();
+
+            if (RelateSurveyId.ResponseIds.Count > 0)
                 {
 
-                    surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
-                    SurveyModel.Form = _isurveyFacade.GetSurveyFormData(RelateSurveyId.ResponseIds[0].SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
+                surveyAnswerDTO = GetSurveyAnswer(RelateSurveyId.ResponseIds[0].ResponseId);
+                SurveyModel.Form = _isurveyFacade.GetSurveyFormData(RelateSurveyId.ResponseIds[0].SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
                 }
-                else
-                {
-                    surveyAnswerDTO = GetSurveyAnswer(SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0, RelateSurveyId.FormId);
-                    SurveyModel.Form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
-                }
-
-                //SurveyModel.Form = form;
-
-
-                //  model = GetFormResponseInfoModel(formid, page);
-
-
-                return PartialView("ListResponses", SurveyModel);
-            }
             else
-            {
-                //return View("ListResponses", SurveyModel); string formid, int pagenumber = 1
-                return RedirectToAction("Index", "RelatedResponse", new { SurveyId = SurveyId, ViewId = ViewId, ResponseId = ResponseId, CurrentPage = CurrentPage });
-                //return RedirectToAction("FormResponse");
+                {
+                surveyAnswerDTO = GetSurveyAnswer(SurveyModel.FormResponseInfoModel.ResponsesList[0].Column0, RelateSurveyId.FormId);
+                SurveyModel.Form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, 1, surveyAnswerDTO, IsMobileDevice, null);
+                }
+
+            //SurveyModel.Form = form;
+
+
+            //  model = GetFormResponseInfoModel(formid, page);
+
+
+            return PartialView("ListResponses", SurveyModel);
             }
+        else
+            {
+            //return View("ListResponses", SurveyModel); string formid, int pagenumber = 1
+            return RedirectToAction("Index", "RelatedResponse", new { SurveyId = SurveyId, ViewId = ViewId, ResponseId = ResponseId, CurrentPage = CurrentPage });
+            //return RedirectToAction("FormResponse");
+            }
+           
+        
         }
 
     }
