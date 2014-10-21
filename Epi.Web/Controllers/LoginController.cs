@@ -175,7 +175,7 @@ namespace Epi.Web.MVC.Controllers
                 ModelState.AddModelError("", "Passwords do not match. Please try again.");
                 return View("ResetPassword", Model);
             }
-        
+
             if (!ValidatePassword(Model))
             {
                 ModelState.AddModelError("", "Password is not strong enough. Please try again.");
@@ -198,42 +198,52 @@ namespace Epi.Web.MVC.Controllers
             else
             {
                 formId = ReturnUrl.Substring(0, ReturnUrl.IndexOf('/'));
-                pageNumber = ReturnUrl.Substring(ReturnUrl.LastIndexOf('/')+1);
+                pageNumber = ReturnUrl.Substring(ReturnUrl.LastIndexOf('/') + 1);
             }
 
-
-            Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(UserName, Password);
-
-            if (result.UserIsValid)
+            try
             {
-                if (result.User.ResetPassword)
+                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(UserName, Password);
+                if (result.UserIsValid)
                 {
-                    UserResetPasswordModel  model = new UserResetPasswordModel();
-                    model.UserName = UserName;
-                    model.FirstName = result.User.FirstName;
-                    model.LastName = result.User.LastName;
-                    ReadPasswordPolicy(model);
-                    return ResetPassword(model);
+                    if (result.User.ResetPassword)
+                    {
+                        UserResetPasswordModel model = new UserResetPasswordModel();
+                        model.UserName = UserName;
+                        model.FirstName = result.User.FirstName;
+                        model.LastName = result.User.LastName;
+                        ReadPasswordPolicy(model);
+                        return ResetPassword(model);
+                    }
+                    else
+                    {
+
+                        FormsAuthentication.SetAuthCookie(UserName, false);
+                        string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
+                        Session["UserId"] = UserId;
+                        Session["UserHighestRole"] = result.User.Role;
+                        return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
+                        //return Redirect(ReturnUrl);
+                    }
                 }
                 else
                 {
-
-                    FormsAuthentication.SetAuthCookie(UserName, false);
-                    string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
-                    Session["UserId"] = UserId;
-                    Session["UserHighestRole"] = result.User.Role;
-                    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
-                    //return Redirect(ReturnUrl);
+                    ModelState.AddModelError("", "The email or password you entered is incorrect.");
+                    return View();
                 }
             }
-            else
+            catch (Exception)
             {
                 ModelState.AddModelError("", "The email or password you entered is incorrect.");
                 return View();
+                throw;
             }
+
+
+            
         }
 
-        private bool ValidatePassword(UserResetPasswordModel Model) 
+        private bool ValidatePassword(UserResetPasswordModel Model)
         {
             //int minLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMinimumLength"]);
             //int maxLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMaximumLength"]);
@@ -317,7 +327,7 @@ namespace Epi.Web.MVC.Controllers
             return System.Text.RegularExpressions.Regex.IsMatch(password, @"[" + ConfigurationManager.AppSettings["Symbols"].Replace(" ", "") + "]");
         }
 
-        private void ReadPasswordPolicy(UserResetPasswordModel Model) 
+        private void ReadPasswordPolicy(UserResetPasswordModel Model)
         {
             Model.MinimumLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMinimumLength"]);
             Model.MaximumLength = Convert.ToInt16(ConfigurationManager.AppSettings["PasswordMaximumLength"]);
