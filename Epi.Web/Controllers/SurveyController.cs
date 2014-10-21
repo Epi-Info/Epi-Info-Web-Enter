@@ -885,6 +885,7 @@ namespace Epi.Web.MVC.Controllers
 
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
+            SARequest.Criteria.SurveyAnswerIdList.Add(Session["RootResponseId"].ToString());
             SARequest.Criteria.StatusId = 2;
             _isurveyFacade.UpdateResponseStatus(SARequest);
 
