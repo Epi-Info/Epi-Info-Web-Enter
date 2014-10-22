@@ -123,7 +123,10 @@ namespace Epi.Web.MVC.Controllers
             catch (Exception ex)
             {
                 Epi.Web.Utility.ExceptionMessage.SendLogMessage(ex, this.HttpContext);
-                return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE);
+                ExceptionModel ExModel = new ExceptionModel();
+                ExModel.ExceptionDetail = ex.StackTrace;
+                ExModel.Message = ex.Message;
+                return View(Epi.Web.MVC.Constants.Constant.EXCEPTION_PAGE, ExModel);
             }
         }
 
