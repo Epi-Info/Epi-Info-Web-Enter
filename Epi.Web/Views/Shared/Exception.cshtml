@@ -13,24 +13,17 @@
     </div>*@
 </div>
 <div id="content" style="min-height: 375px;">
-<div id="attention" style="margin: 10px">
-            <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle;
+    <div id="attention" style="margin: 10px">
+        <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle;
                 padding-right: 10px;"/>
-       @System.Configuration.ConfigurationManager.AppSettings["SURVEY_NOT_EXISTS"]
-
-      @* @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, null)*@
-        @*<p>@TempData["exc"]</p>
+        @System.Configuration.ConfigurationManager.AppSettings["SURVEY_NOT_EXISTS"]
+        @* @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, null)*@ @*<p>@TempData["exc"]</p>
         <br>
          <p>@TempData["exc1"]</p>
          <br>
           <p>@TempData["exc2"]</p>*@
+    </div>
+    <div id="relatenav" style="padding-bottom: 10px; display: inline-block; margin: 10px;">
+        @Html.ActionLink("Return to Home", "Index", "Home", new { surveyid = Session["SelectedFormId"] }, new { @class = "returnto" })
+    </div>
 </div>
-
-<div id="relatenav" style="padding-bottom:10px; display: inline-block; margin: 10px;">
-       @Html.ActionLink("Return to Home", "Index", "Home", null, new { @class = "returnto" })
-</div>
-   
-
-
-</div>
-

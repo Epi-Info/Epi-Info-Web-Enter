@@ -346,6 +346,7 @@ namespace Epi.Web.MVC.Controllers
                 Session.Remove("PageNumber");
             }
             //Code added to retain Search Ends. 
+            Session["SelectedFormId"] = formid;
             Session["RootFormId"] = formid;
             Session["PageNumber"] = page;
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
