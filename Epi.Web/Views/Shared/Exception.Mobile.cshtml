@@ -2,7 +2,13 @@
     ViewBag.Title = "Exception.Mobile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<script>
+    $(document).ready(function () {
+        $("#showhide").click(function () {
+            $("#errorDetails").toggle();
+        });
+    });
+</script>
 <div id="attention" style="margin: 10px">
     <div class="image">
             <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle;
@@ -18,3 +24,8 @@
 <div id="relatenav" style="padding-bottom:10px; display: inline-block; margin: 10px;">
        @Html.ActionLink("Return to Home", "Index", "FormResponse", new { formid = Session["RootFormId"], Pagenumber = Session["Pagenumber"] }, new { @class = "returnto" })
 </div>
+
+<div style="margin: 10px"><a id="showhide" href="#">Show/Hide Details</a></div>
+ <div id="errorDetails" style="border:1px solid #ffca0a; margin:20px 0.5em 10px; padding: 10px;display:none;">
+        
+    </div>
