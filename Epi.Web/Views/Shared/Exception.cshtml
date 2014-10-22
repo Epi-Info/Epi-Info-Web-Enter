@@ -2,6 +2,14 @@
     ViewBag.Title = "Exception";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script>
+    $(document).ready(function () {
+        $("#showhide").click(function () {
+            $("#errorDetails").toggle();
+        });
+    });
+</script>
 <div id="pageHeader">
     <div id="pageTitle">
         <h2>
@@ -17,13 +25,18 @@
         <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle;
                 padding-right: 10px;"/>
         @System.Configuration.ConfigurationManager.AppSettings["SURVEY_NOT_EXISTS"]
+        <div style="float:right;"><a id="showhide"href="#">Show/Hide Details</a></div>
         @* @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, null)*@ @*<p>@TempData["exc"]</p>
         <br>
          <p>@TempData["exc1"]</p>
          <br>
           <p>@TempData["exc2"]</p>*@
     </div>
+    <div style="clear:both;"></div>
     <div id="relatenav" style="padding-bottom: 10px; display: inline-block; margin: 10px;">
         @Html.ActionLink("Return to Home", "Index", "Home", new { surveyid = Session["RootFormId"] }, new { @class = "returnto" })
+    </div>
+    <div id="errorDetails" style="border:1px solid #ffca0a; margin:20px 0.5em 10px; padding: 10px;display:none;">
+        
     </div>
 </div>
