@@ -16,5 +16,5 @@
     
 </div>
 <div id="relatenav" style="padding-bottom:10px; display: inline-block; margin: 10px;">
-       @Html.ActionLink("Return to Home", "Index", "Home", new { surveyid = Session["SelectedFormId"] }, new { @class = "returnto" })
+       @Html.ActionLink("Return to Home", "Index", "FormResponse", new { formid = Session["RootFormId"], Pagenumber = Session["Pagenumber"] }, new { @class = "returnto" })
 </div>
