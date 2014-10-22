@@ -54,8 +54,8 @@ namespace Epi.Web.MVC.Controllers
                 ViewBag.Version = version;
                
                // string _connectionString = ConfigurationManager.AppSettings["TEST_CONNECTION_STRING"];
-                string connectionStringName = "EIWSADO";
-
+                //string connectionStringName = "EIWSADO";
+                string connectionStringName = "EWEADO";
                 //Decrypt connection string here
                 string _connectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString);
           
