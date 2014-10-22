@@ -385,10 +385,13 @@ namespace Epi.Web.MVC.Controllers
                         else if (!string.IsNullOrEmpty(this.Request.Form["Read_Response_action"]) && this.Request.Form["Read_Response_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
                         {
 
+                        //Update Status
+                            SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = surveyAnswerModel.ResponseId });
+                            SurveyAnswerRequest.Criteria.StatusId = 2;
+                           _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
                             int RequestedViewId = int.Parse(this.Request.Form["Requested_View_Id"]);
                             // return RedirectToRoute(new { Controller = "RelatedResponse", Action = "Index", SurveyId = form.SurveyInfo.SurveyId, ViewId = RequestedViewId, ResponseId = responseId, CurrentPage = 1 });
-
-                            return RedirectToRoute(new { Controller = "FormResponse", Action = "Index", formid = form.SurveyInfo.SurveyId, ViewId = RequestedViewId, responseid = responseId, Pagenumber = 1 });
+                           return RedirectToRoute(new { Controller = "FormResponse", Action = "Index", formid = form.SurveyInfo.SurveyId, ViewId = RequestedViewId, responseid = responseId, Pagenumber = 1 });
 
                         }
 
@@ -1280,6 +1283,7 @@ namespace Epi.Web.MVC.Controllers
                             SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(Obj.ResponseId);
                             SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Obj.ResponseId });
                             SurveyAnswerRequest.Criteria.StatusId = 2;
+                            SurveyAnswerRequest.Criteria.UserId = UserId;
                             _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
                         }
                         // create my list of objects 
