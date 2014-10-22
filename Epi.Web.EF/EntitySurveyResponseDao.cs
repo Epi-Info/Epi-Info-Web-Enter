@@ -1107,8 +1107,8 @@ namespace Epi.Web.EF
             // Builds the select part of the query.
             foreach (DataRow row in EweDS.Tables[0].Rows)
             {
-                stringBuilder.Append(row["TableName"] + "." + row["ColumnName"] + ", ");
-                cteSelectBuilder.Append(row["ColumnName"] + ", ");
+                stringBuilder.Append(row["TableName"] + ".[" + row["ColumnName"] + "], ");
+                cteSelectBuilder.Append("[" + row["ColumnName"] + "], ");
 
             }
             stringBuilder.Remove(stringBuilder.Length - 2, 1);
