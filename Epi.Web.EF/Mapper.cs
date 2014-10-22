@@ -291,7 +291,16 @@ namespace Epi.Web.EF
         {
 
             SurveyResponse SurveyResponse = new SurveyResponse();
-
+            Guid RelateParentId = Guid.Empty;
+            if (!string.IsNullOrEmpty(pBO.RelateParentId)  )
+                {
+                  RelateParentId = new Guid(pBO.RelateParentId);
+                }
+            Guid ParentRecordId = Guid.Empty ;
+            if (!string.IsNullOrEmpty(pBO.ParentRecordId))
+                {
+                 ParentRecordId = new Guid(pBO.ParentRecordId);
+                }
             SurveyResponse.SurveyId = new Guid(pBO.SurveyId);
             SurveyResponse.ResponseId = new Guid(pBO.ResponseId);
             SurveyResponse.ResponseXML = pBO.XML;
@@ -302,11 +311,11 @@ namespace Epi.Web.EF
             SurveyResponse.DateCreated = pBO.DateCreated;
             SurveyResponse.IsDraftMode = pBO.IsDraftMode;
             SurveyResponse.RecordSourceId = pBO.RecrodSourceId;
-            if (!string.IsNullOrEmpty(pBO.RelateParentId))
+            if (!string.IsNullOrEmpty(pBO.RelateParentId) && RelateParentId!= Guid.Empty)
             {
                 SurveyResponse.RelateParentId = new Guid(pBO.RelateParentId);
             }
-            if (!string.IsNullOrEmpty(pBO.ParentRecordId))
+            if (!string.IsNullOrEmpty(pBO.ParentRecordId) && ParentRecordId != Guid.Empty)
             {
                 SurveyResponse.ParentRecordId = new Guid(pBO.ParentRecordId);
             }
