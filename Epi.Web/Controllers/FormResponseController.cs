@@ -181,11 +181,11 @@ namespace Epi.Web.MVC.Controllers
 				string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
 				return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
 			}
-			else
-			{
-				Session["IsEditMode"] = false;
+            //else
+            //{
+            //    Session["IsEditMode"] = false;
 
-			}
+			//}
 			int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 			if (!string.IsNullOrEmpty(EditForm))
 			{
