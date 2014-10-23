@@ -122,7 +122,7 @@ namespace Epi.Web.Utility
                         + "Request Method:\n" + (Context.Request).HttpMethod + "\n\n\n";
                 }
                 pMessage += "Inner Exception :\n" + exc.InnerException + ";" +
-                            "Exception StackTrace:\n" + exc.StackTrace;
+                            "Exception StackTrace:\n" + exc.StackTrace + "\n\n\n";
 
                 if (!string.IsNullOrEmpty(Context.Session["UserFirstName"].ToString()))
                 {
