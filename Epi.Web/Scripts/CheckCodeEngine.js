@@ -491,9 +491,24 @@ CCE_Context.prototype.getValue = function (pName)
                         
                 }
             }
-            else 
-            {
-                return cce_Symbol.Value;
+            else {
+                switch (cce_Symbol.Type) {
+
+                    case "checkbox":
+                        if (cce_Symbol.Value == "No") {
+                            return false;
+                        }
+                        else {
+                            return true;
+                        }
+
+
+                    default:
+
+                        return cce_Symbol.Value;
+
+                }
+                
             }
         }
         else 
