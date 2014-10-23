@@ -13,7 +13,7 @@
  
 	
 	<div id="userwelcome">
-		Welcome <strong>First Name</strong>&nbsp; | &nbsp;
+		Welcome <strong>@Session["UserFirstName"] @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
 	  
 	  @Html.ActionLink("Home", "Index", "Home", null, null) &nbsp; | &nbsp;
