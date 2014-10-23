@@ -295,7 +295,8 @@ namespace Epi.Web.MVC.Controllers
 
                         form = SetLists(form);
 
-                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
+                         _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
+                        
 
 
                         if (!string.IsNullOrEmpty(this.Request.Form["is_save_action"]) && this.Request.Form["is_save_action"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase))
@@ -517,12 +518,21 @@ namespace Epi.Web.MVC.Controllers
                                 form.StatusId = SurveyAnswer.Status;
                                 SurveyModel SurveyModel = new SurveyModel();
                                 SurveyModel.Form = form;
+                               
+
                                 SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
                                 if (!string.IsNullOrEmpty(this.Request.Form["Click_Related_Form"].ToString()))
-                                {
+                                    {
+
                                     SurveyModel.RelatedButtonWasClicked = this.Request.Form["Click_Related_Form"].ToString();
-                                }
-                                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
+                                    return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
+                                    }
+                                else 
+                                    {
+                                    return RedirectToAction("Index", "Survey", new { RequestId = form.ResponseId, PageNumber = form.CurrentPage });
+                                    }
+                              //  return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
+                               
                             }
 
                         }
