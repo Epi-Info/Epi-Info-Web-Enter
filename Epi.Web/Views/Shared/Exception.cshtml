@@ -24,7 +24,8 @@
     <div id="attention" style="margin: 10px">
         <img src="@Url.Content("~/Content/images/sign_warning.png")" alt="" style="vertical-align: middle;
                 padding-right: 10px;"/>
-        @System.Configuration.ConfigurationManager.AppSettings["SURVEY_NOT_EXISTS"]
+        @*@System.Configuration.ConfigurationManager.AppSettings["SURVEY_NOT_EXISTS"]*@
+        @System.Configuration.ConfigurationManager.AppSettings["UNKNOWN_ERROR_MESSAGE"]
         <div style="float: right;">
             <a id="showhide" href="#">Show/Hide Details</a></div>
         @* @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, null)*@ @*<p>@TempData["exc"]</p>
