@@ -495,11 +495,11 @@ CCE_Context.prototype.getValue = function (pName)
                 switch (cce_Symbol.Type) {
 
                     case "checkbox":
-                        if (cce_Symbol.Value == "No") {
-                            return false;
+                        if (cce_Symbol.Value == "Yes") {
+                            return true;
                         }
                         else {
-                            return true;
+                            return false;
                         }
 
 
