@@ -12,7 +12,7 @@ namespace MvcDynamicForms.Fields
     {
 
          public override string RenderHtml()
-         {
+         { 
              var html = new StringBuilder();
              var inputName = _form.FieldPrefix + _key;
              string ErrorStyle = string.Empty;
@@ -94,10 +94,10 @@ namespace MvcDynamicForms.Fields
              }
 
 
-             if (_IsDisabled)
-             {
-                 txt.Attributes.Add("disabled", "disabled");
-             }
+            //if (_IsDisabled)
+            //{
+            //    txt.Attributes.Add("disabled", "disabled");
+            //}
             // txt.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
            //  txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + ";color:#111; background-color:white" + ";width:" + _ControlWidth.ToString() + "px");
 
@@ -108,12 +108,13 @@ namespace MvcDynamicForms.Fields
              html.Append(txt.ToString(TagRenderMode.SelfClosing));
 
              // If readonly then add the following jquery script to make the field disabled 
-             if (ReadOnly)
-             {
-                 var scriptReadOnlyText = new TagBuilder("script");
-                 scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
-                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
-             }
+            if (ReadOnly || _IsDisabled)
+                {
+                var scriptReadOnlyText = new TagBuilder("script");
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
+                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+                }
 
              //prevent text box control to submit on enter click
              var scriptBuilder = new TagBuilder("script");

@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Epi.Core.EnterInterpreter;
 namespace MvcDynamicForms.Fields
-{
+{ 
     /// <summary>
     /// Represents a datepicker whichis is a textbox and the datepicker.
     /// </summary>
@@ -71,10 +71,10 @@ namespace MvcDynamicForms.Fields
                 IsHighlightedStyle = "background-color:yellow";
             }
              
-            if (_IsDisabled)
-            {
-                txt.Attributes.Add("disabled", "disabled");
-            }
+            //if (_IsDisabled)
+            //{
+            //    txt.Attributes.Add("disabled", "disabled");
+            //}
             txt.Attributes.Add("class", GetControlClass(Value));
 
             string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
@@ -84,12 +84,13 @@ namespace MvcDynamicForms.Fields
             html.Append(txt.ToString(TagRenderMode.SelfClosing));
 
             // If readonly then add the following jquery script to make the field disabled 
-            if (ReadOnly)
-            {
+            if (ReadOnly || _IsDisabled)
+                {
                 var scriptReadOnlyText = new TagBuilder("script");
-                scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
-            }
+                }
             // adding scripts for date picker
             var scriptDatePicker = new TagBuilder("script");
             //scriptDatePicker.InnerHtml = "$(function() { $('#" + inputName + "').datepicker({changeMonth: true,changeYear: true});});";

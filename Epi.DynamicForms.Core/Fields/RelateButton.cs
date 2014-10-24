@@ -8,7 +8,7 @@ namespace MvcDynamicForms.Fields
     {
     [Serializable]
     public class RelateButton : InputField
-        {
+        { 
         new private string _promptClass = "MvcDynamicCommandButtonPrompt";
         public string RelatedViewId;
         public override string RenderHtml()

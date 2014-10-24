@@ -13,7 +13,7 @@ namespace MvcDynamicForms.Fields
     public class MobileTimePicker : TimePickerField
     {
         public override string RenderHtml()
-        {
+        { 
             var html = new StringBuilder();
             var inputName = _form.FieldPrefix + _key;
             string ErrorStyle = string.Empty;
@@ -83,10 +83,10 @@ namespace MvcDynamicForms.Fields
                 IsHighlightedStyle = "background-color:yellow";
             }*/
 
-            if (_IsDisabled)
-            {
-                txt.Attributes.Add("disabled", "disabled");
-            }
+            //if (_IsDisabled)
+            //{
+            //    txt.Attributes.Add("disabled", "disabled");
+            //}
             //todo: add validation
             //txt.Attributes.Add("class", GetControlClass(Value));
 
