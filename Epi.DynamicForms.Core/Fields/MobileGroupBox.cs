@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 
 namespace MvcDynamicForms.Fields
-{
+{ 
       [Serializable]
     public class MobileGroupBox : Field
     {

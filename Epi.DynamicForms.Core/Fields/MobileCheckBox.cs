@@ -5,7 +5,7 @@ using System.Text;
 using System.Web.Mvc;
 using Epi.Core.EnterInterpreter;
 namespace MvcDynamicForms.Fields
-{
+{ 
     /// <summary>
     /// Represents a single html checkbox input field.
     /// </summary>
@@ -168,17 +168,19 @@ namespace MvcDynamicForms.Fields
             //StringBuilder StyleValues = new StringBuilder();
             //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
             //prompt.Attributes.Add("style", StyleValues.ToString());
-            //if (_IsDisabled)
+            //if (ReadOnly)
             //{
-            //    prompt.Attributes.Add("style", "color:#b3b3b3");
+            //    var scriptReadOnlyText = new TagBuilder("script");
+            //    scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+            //    html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
             //}
-            html.Append(prompt.ToString());
-            if (ReadOnly)
-            {
+            if (ReadOnly || _IsDisabled)
+                {
                 var scriptReadOnlyText = new TagBuilder("script");
-                scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
-            }
+                }
 
             // hidden input (so that value is posted when checkbox is unchecked)
             var hdn = new TagBuilder("input");
