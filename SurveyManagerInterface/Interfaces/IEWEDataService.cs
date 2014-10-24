@@ -92,6 +92,9 @@ namespace Epi.Web.WCF.SurveyService
         OrganizationResponse GetUserOrganizations(OrganizationRequest OrgRequest);
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
+        OrganizationResponse GetAdminOrganizations(OrganizationRequest OrgRequest);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
         OrganizationResponse GetOrganizationInfo(OrganizationRequest OrgRequest);
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]

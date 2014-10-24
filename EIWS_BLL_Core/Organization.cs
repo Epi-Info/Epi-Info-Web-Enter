@@ -245,6 +245,13 @@ namespace Epi.Web.BLL
             List<OrganizationBO> result = this.OrganizationDao.GetOrganizationInfoByUserId(UserId, UserRole);
             return result;
         }
+
+        public List<OrganizationBO> GetOrganizationInfoForAdmin(int UserId, int UserRole)
+        {
+
+            List<OrganizationBO> result = this.OrganizationDao.GetOrganizationInfoForAdmin(UserId, UserRole);
+            return result;
+        }
         private bool SendEmail(Email email, Constant.EmailCombinationEnum Combination)
         {
 
