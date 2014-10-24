@@ -14,7 +14,7 @@ namespace MvcDynamicForms.Fields
     public class TextArea : TextField
     {
         public override string RenderHtml()
-        {
+        { 
             var html = new StringBuilder();
             var inputName = _form.FieldPrefix + _key;
             string ErrorStyle = string.Empty;
@@ -75,10 +75,10 @@ namespace MvcDynamicForms.Fields
                 IsHighlightedStyle = "background-color:yellow";
             }
              
-            if (_IsDisabled)
-            {
-                txt.Attributes.Add("disabled", "disabled");
-            }
+            //if (_IsDisabled)
+            //{
+            //    txt.Attributes.Add("disabled", "disabled");
+            //}
             string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
             txt.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ";height:" + _ControlHeight.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + ";" + InputFieldStyle);            
             txt.MergeAttributes(_inputHtmlAttributes);
@@ -86,10 +86,11 @@ namespace MvcDynamicForms.Fields
 
 
             // If readonly then add the following jquery script to make the field disabled 
-            if (ReadOnly)
+            if (ReadOnly || _IsDisabled)
             {
                 var scriptReadOnlyText = new TagBuilder("script");
-                scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
             }
 

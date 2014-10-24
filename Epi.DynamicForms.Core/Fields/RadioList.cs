@@ -15,7 +15,7 @@ namespace MvcDynamicForms.Fields
     /// </summary>
     [Serializable]
     public class RadioList : OrientableField
-    {
+    { 
         private string _ChoicesList;
 
         public string ChoicesList

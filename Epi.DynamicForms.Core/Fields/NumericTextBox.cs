@@ -13,7 +13,7 @@ namespace MvcDynamicForms.Fields
     public class NumericTextBox : NumericTextField
     {
         public override string RenderHtml()
-        {
+        { 
             var html = new StringBuilder();
             var inputName = _form.FieldPrefix + _key;
             string ErrorStyle = string.Empty;
@@ -58,12 +58,10 @@ namespace MvcDynamicForms.Fields
                 IsHighlightedStyle = "background-color:yellow";
             }
              
-            if (_IsDisabled)
-            {
-                txt.Attributes.Add("disabled", "disabled");
-            }
-            
-            
+            //if (_IsDisabled)
+            //{
+            //    txt.Attributes.Add("disabled", "disabled");
+            //}
             
             // txt.Attributes.Add("value", Value);
             ////////////Check code start//////////////////
@@ -100,12 +98,13 @@ namespace MvcDynamicForms.Fields
                 html.Append(scriptMaskedInput.ToString(TagRenderMode.Normal));
             }
             // If readonly then add the following jquery script to make the field disabled 
-            if (ReadOnly)
-            {
+            if (ReadOnly || _IsDisabled)
+                {
                 var scriptReadOnlyText = new TagBuilder("script");
-                scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                //scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
+                scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
-            }
+                }
 
             //prevent numeric text box control to submit on enter click
             var scriptBuilder = new TagBuilder("script");
