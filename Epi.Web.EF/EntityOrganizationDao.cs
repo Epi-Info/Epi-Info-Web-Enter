@@ -382,6 +382,66 @@ namespace Epi.Web.EF
 
         }
 
+
+        public List<OrganizationBO> GetOrganizationInfoForAdmin(int UserId, int UserRole)
+        {
+            List<OrganizationBO> result = new List<OrganizationBO>();
+
+
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                    if (UserRole == 3)
+                    {
+                        var Query = from OrganizationTable in Context.Organizations
+
+                                    select OrganizationTable;
+                        var DataRow = Query.Distinct();
+                        foreach (var Row in DataRow)
+                        {
+
+                            result.Add(Mapper.Map(Row));
+
+                        }
+
+                        return result;
+                    }
+                    else
+                    {
+                        var Query = from OrganizationTable in Context.Organizations
+                                    from UserOrganizationTable in Context.UserOrganizations
+
+                                    where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && 
+                                    UserOrganizationTable.UserID == UserId &&
+                                    UserOrganizationTable.RoleId == 2 &&
+                                    UserOrganizationTable.Active == true
+                                    select OrganizationTable;
+
+                        var DataRow = Query;
+                        foreach (var Row in DataRow)
+                        {
+
+                            result.Add(Mapper.Map(Row));
+
+                        }
+
+                        return result;
+
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+
+        }
+
         public void DeleteOrganization(OrganizationBO Organization)
         {
 

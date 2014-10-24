@@ -78,6 +78,7 @@ namespace Epi.Web.MVC.Controllers
                 FormModel.UserFirstName = result.User.FirstName;
                 FormModel.UserLastName = result.User.LastName;
                 FormModel.SelectedForm = surveyid;
+                Session["UserEmailAddress"] = result.User.EmailAddress;
                 Session["UserFirstName"] = result.User.FirstName;
                 Session["UserLastName"] = result.User.LastName;
 

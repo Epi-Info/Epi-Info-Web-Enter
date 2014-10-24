@@ -86,6 +86,8 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
 
 
          List<OrganizationBO> GetOrganizationInfoByUserId(int UserId, int UserRole);
+
+         List<OrganizationBO> GetOrganizationInfoForAdmin(int UserId, int UserRole);
          bool InsertOrganization(OrganizationBO Organization,UserBO User);
          UserBO GetUserByEmail(UserBO User);
          bool InsertOrganization(OrganizationBO Organization, int UserId,int RoleId);
