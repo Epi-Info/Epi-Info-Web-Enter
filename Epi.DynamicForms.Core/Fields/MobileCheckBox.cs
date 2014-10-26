@@ -174,6 +174,7 @@ namespace MvcDynamicForms.Fields
             //    scriptReadOnlyText.InnerHtml = "$(function(){$('#" + inputName + "').attr('disabled','disabled')});";
             //    html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
             //}
+            html.Append(prompt.ToString());
             if (ReadOnly || _IsDisabled)
                 {
                 var scriptReadOnlyText = new TagBuilder("script");
