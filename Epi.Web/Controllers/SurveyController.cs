@@ -521,7 +521,7 @@ namespace Epi.Web.MVC.Controllers
                                
 
                                 SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
-                                if (!string.IsNullOrEmpty(this.Request.Form["Click_Related_Form"].ToString()))
+                                if (this.Request.Form["Click_Related_Form"]!= null)
                                     {
 
                                     SurveyModel.RelatedButtonWasClicked = this.Request.Form["Click_Related_Form"].ToString();

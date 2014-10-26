@@ -2378,12 +2378,16 @@ function CCE_HasFormValuesChanged()
                         else {
                             CurrentValue = "No";
                         }
-                        if (symbol_value.toString() == "true" || symbol_value.toString() == "yes") {
+                        
+                        if (symbol_value  == "true" || symbol_value  == "yes") {
                             symbol_value = "Yes";
                         }
-                        if (symbol_value.toString() == "false" || symbol_value.toString() == "no") {
+                        // if (symbol_value == "false" || symbol_value == "no")
+                       else
+                         {
                             symbol_value = "No";
                         }
+                         
                     }
                     else 
                     {
