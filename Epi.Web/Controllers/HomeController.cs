@@ -350,7 +350,7 @@ namespace Epi.Web.MVC.Controllers
                 Session.Remove("PageNumber");
             }
             //Code added to retain Search Ends. 
-           
+
             Session["RootFormId"] = formid;
             Session["PageNumber"] = page;
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
@@ -754,7 +754,12 @@ namespace Epi.Web.MVC.Controllers
 
 
                 Columns = FormSettingResponse.FormSetting.AssignedUserList.ToList();
-                Columns.Sort(Compare);
+                if (Columns.Exists(col => col.Value == Session["UserEmailAddress"].ToString()))
+                {
+                    Columns.Remove(Columns.First(u => u.Value == Session["UserEmailAddress"].ToString()));
+                }
+
+                //Columns.Sort(Compare);
 
                 Dictionary<int, string> dictionary2 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
@@ -765,7 +770,12 @@ namespace Epi.Web.MVC.Controllers
 
 
                 Columns = FormSettingResponse.FormSetting.UserList.ToList();
-                Columns.Sort(Compare);
+
+                if (Columns.Exists(col => col.Value == Session["UserEmailAddress"].ToString()))
+                {
+                    Columns.Remove(Columns.First(u => u.Value == Session["UserEmailAddress"].ToString()));
+                }
+                //Columns.Sort(Compare);
 
                 Dictionary<int, string> dictionary3 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
 
