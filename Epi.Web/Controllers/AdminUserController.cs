@@ -134,7 +134,7 @@ namespace Epi.Web.MVC.Controllers
 
                 OrganizationRequest Request = new OrganizationRequest();
                 Request.UserId = UserId;
-                Request.UserRole = 2;
+                Request.UserRole = Convert.ToInt16(Session["UserHighestRole"].ToString());
                 OrganizationResponse Organizations = _isurveyFacade.GetAdminOrganizations(Request);
                 List<OrganizationModel> OrgListModel = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
                 UserOrgModel.OrgList = OrgListModel;

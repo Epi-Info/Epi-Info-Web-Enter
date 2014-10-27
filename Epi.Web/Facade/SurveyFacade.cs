@@ -37,7 +37,7 @@ namespace Epi.Web.MVC.Facade
         private SurveyResponseXML _surveyResponseXML;
 
         private FormInfoDTO _FormInfoDTO;
- 
+
         /// <summary>
         /// Injectinting ISurveyInfoRepository through Constructor
         /// </summary>
@@ -45,7 +45,7 @@ namespace Epi.Web.MVC.Facade
         public SurveyFacade(ISurveyInfoRepository iSurveyInfoRepository, ISurveyAnswerRepository iSurveyResponseRepository,
                                   Epi.Web.Enter.Common.Message.SurveyInfoRequest surveyInfoRequest, Epi.Web.Enter.Common.Message.SurveyAnswerRequest surveyResponseRequest,
                                   Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
-                                   SurveyResponseXML surveyResponseXML, UserAuthenticationRequest surveyAuthenticationRequest, Epi.Web.Enter.Common.DTO.PassCodeDTO PassCodeDTO, FormInfoDTO FormInfoDTO )
+                                   SurveyResponseXML surveyResponseXML, UserAuthenticationRequest surveyAuthenticationRequest, Epi.Web.Enter.Common.DTO.PassCodeDTO PassCodeDTO, FormInfoDTO FormInfoDTO)
         {
             _iSurveyInfoRepository = iSurveyInfoRepository;
             _iSurveyAnswerRepository = iSurveyResponseRepository;
@@ -56,8 +56,8 @@ namespace Epi.Web.MVC.Facade
             _surveyAuthenticationRequest = surveyAuthenticationRequest;
             _PassCodeDTO = PassCodeDTO;
             _FormInfoDTO = FormInfoDTO;
-          
-            
+
+
         }
 
         /// <summary>
@@ -70,46 +70,46 @@ namespace Epi.Web.MVC.Facade
         /// <returns></returns>
         public MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice, List<SurveyAnswerDTO> _SurveyAnswerDTOList = null)
         {
-        List<SurveyInfoDTO>  List = new List<SurveyInfoDTO>();
+            List<SurveyInfoDTO> List = new List<SurveyInfoDTO>();
 
-        if (_SurveyAnswerDTOList != null)
-                {
+            if (_SurveyAnswerDTOList != null)
+            {
                 foreach (var item in _SurveyAnswerDTOList)
-                    {
+                {
                     Epi.Web.Enter.Common.Message.SurveyInfoRequest request = new SurveyInfoRequest();
                     request.Criteria.SurveyIdList.Add(item.SurveyId);
                     Epi.Web.Enter.Common.DTO.SurveyInfoDTO _SurveyInfoDTO = SurveyHelper.GetSurveyInfoDTO(request, _iSurveyInfoRepository, item.SurveyId);
                     List.Add(_SurveyInfoDTO);
-                    }
                 }
+            }
             //Get the SurveyInfoDTO
             Epi.Web.Enter.Common.DTO.SurveyInfoDTO surveyInfoDTO = SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest, _iSurveyInfoRepository, surveyId);
             MvcDynamicForms.Form form = null;
 
             if (IsMobileDevice)
-                {
+            {
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyInfoList = List;
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
                 form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
             }
             else
             {
-               Epi.Web.MVC.Utility.FormProvider.SurveyInfoList = List;
-               Epi.Web.MVC.Utility.FormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
-               form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
+                Epi.Web.MVC.Utility.FormProvider.SurveyInfoList = List;
+                Epi.Web.MVC.Utility.FormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
+                form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
             }
             return form;
         }
-      
+
         /// <summary>
         /// This method accepts a surveyId and responseId and creates the first survey response entry
         /// </summary>
         /// <param name="SurveyId"></param>
         /// <returns></returns>
-        public Epi.Web.Enter.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId ="",bool IsEditMode = false)
+        public Epi.Web.Enter.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId = "", bool IsEditMode = false)
         {
 
-        return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository, UserId, IsChild, RelateResponseId, IsEditMode);
+            return SurveyHelper.CreateSurveyResponse(surveyId, responseId, _surveyAnswerRequest, _surveyAnswerDTO, _surveyResponseXML, _iSurveyAnswerRepository, UserId, IsChild, RelateResponseId, IsEditMode);
         }
 
 
@@ -132,7 +132,7 @@ namespace Epi.Web.MVC.Facade
 
         public SurveyInfoModel GetSurveyInfoModel(string surveyId)
         {
-        _surveyInfoRequest.Criteria.SurveyIdList.Clear();
+            _surveyInfoRequest.Criteria.SurveyIdList.Clear();
             _surveyInfoRequest.Criteria.SurveyIdList.Add(surveyId);
             SurveyInfoResponse surveyInfoResponse = _iSurveyInfoRepository.GetSurveyInfo(_surveyInfoRequest);
             SurveyInfoModel s = Mapper.ToSurveyInfoModel(surveyInfoResponse.SurveyInfoList[0]);
@@ -146,7 +146,7 @@ namespace Epi.Web.MVC.Facade
         /// </summary>
         /// <param name="ResponseId"></param>
         /// <returns></returns>
-        public SurveyAnswerResponse GetSurveyAnswerResponse(string responseId,string FormId ="",int UserId = 0)
+        public SurveyAnswerResponse GetSurveyAnswerResponse(string responseId, string FormId = "", int UserId = 0)
         {
             _surveyAnswerRequest.Criteria.SurveyAnswerIdList.Clear();
             _surveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(responseId);
@@ -268,70 +268,84 @@ namespace Epi.Web.MVC.Facade
             return _iSurveyAnswerRepository.UpdateUser(request);
         }
 
-        public FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq) {
+        public FormSettingResponse SaveSettings(FormSettingRequest FormSettingReq)
+        {
 
-        FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.SaveSettings(FormSettingReq);
+            FormSettingResponse FormSettingResponse = _iSurveyAnswerRepository.SaveSettings(FormSettingReq);
 
-        return FormSettingResponse;
+            return FormSettingResponse;
 
-            
-            
-            }
 
-        public SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest) 
-            {
+
+        }
+
+        public SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest)
+        {
 
             SurveyInfoResponse SurveyInfoResponse = _iSurveyInfoRepository.GetFormChildInfo(SurveyInfoRequest);
             return SurveyInfoResponse;
-            }
-        public FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest) {
+        }
+        public FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest)
+        {
 
 
-        FormsHierarchyResponse FormsHierarchyResponse = _iSurveyInfoRepository.GetFormsHierarchy(FormsHierarchyRequest);
+            FormsHierarchyResponse FormsHierarchyResponse = _iSurveyInfoRepository.GetFormsHierarchy(FormsHierarchyRequest);
             return FormsHierarchyResponse;
-            
-            }
-        public SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest) {
 
-        SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.GetSurveyAnswerHierarchy(pRequest);
+        }
+        public SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest)
+        {
 
-        return SurveyAnswerResponse;
-            }
+            SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.GetSurveyAnswerHierarchy(pRequest);
+
+            return SurveyAnswerResponse;
+        }
 
         public SurveyAnswerResponse GetAncestorResponses(SurveyAnswerRequest pRequest)
-            {
+        {
             SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.GetSurveyAnswerAncestor(pRequest);
 
             return SurveyAnswerResponse;
-            
-            }
-        public SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq) 
-            {
+
+        }
+        public SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq)
+        {
 
             SurveyAnswerResponse SurveyAnswerResponse = _iSurveyAnswerRepository.GetResponsesByRelatedFormId(FormResponseReq);
 
             return SurveyAnswerResponse;
-            
-            
-            
-            }
 
-        public void DeleteResponseXml(SurveyAnswerRequest FormResponseReq) 
-            {
+
+
+        }
+
+        public void DeleteResponseXml(SurveyAnswerRequest FormResponseReq)
+        {
 
             _iSurveyAnswerRepository.DeleteResponseXml(FormResponseReq);
-            
-            
-            }
-        public OrganizationResponse GetUserOrganizations(OrganizationRequest OrgRequest) 
-            {
+
+
+        }
+        public OrganizationResponse GetUserOrganizations(OrganizationRequest OrgRequest)
+        {
             OrganizationResponse OrganizationResponse = new OrganizationResponse();
             OrganizationResponse = _iSurveyAnswerRepository.GetUserOrganizations(OrgRequest);
 
             return OrganizationResponse;
-            
-            
-            }
+
+
+        }
+
+
+        public OrganizationResponse GetOrganizationsByUserId(OrganizationRequest OrgRequest)
+        {
+            OrganizationResponse OrganizationResponse = new OrganizationResponse();
+            OrganizationResponse = _iSurveyAnswerRepository.GetOrganizationsByUserId(OrgRequest);
+
+            return OrganizationResponse;
+
+
+        }
 
         public OrganizationResponse GetAdminOrganizations(OrganizationRequest OrgRequest)
         {
@@ -345,50 +359,51 @@ namespace Epi.Web.MVC.Facade
         public OrganizationResponse GetOrganizationInfo(OrganizationRequest OrgRequest)
         {
 
-        OrganizationResponse OrganizationResponse = new OrganizationResponse();
-        OrganizationResponse = _iSurveyAnswerRepository.GetOrganizationInfo(OrgRequest);
+            OrganizationResponse OrganizationResponse = new OrganizationResponse();
+            OrganizationResponse = _iSurveyAnswerRepository.GetOrganizationInfo(OrgRequest);
 
-        return OrganizationResponse;
-           }
+            return OrganizationResponse;
+        }
         public OrganizationResponse SetOrganization(OrganizationRequest Request)
-            {
+        {
 
             OrganizationResponse OrganizationResponse = new OrganizationResponse();
             OrganizationResponse = _iSurveyAnswerRepository.SetOrganization(Request);
 
             return OrganizationResponse;
-            
-            }
+
+        }
         public OrganizationResponse GetOrganizationUsers(OrganizationRequest OrgRequest)
-            {
+        {
             OrganizationResponse OrganizationResponse = new OrganizationResponse();
             OrganizationResponse = _iSurveyAnswerRepository.GetOrganizationUsers(OrgRequest);
 
             return OrganizationResponse;
 
 
-            }
+        }
         public UserResponse GetUserInfo(UserRequest Request)
-            {
+        {
             UserResponse UserResponse = new UserResponse();
             UserResponse = _iSurveyAnswerRepository.GetUserInfo(Request);
             return UserResponse;
-            }
+        }
         public UserResponse SetUserInfo(UserRequest Request)
-            {
+        {
             UserResponse UserResponse = new UserResponse();
             UserResponse = _iSurveyAnswerRepository.SetUserInfo(Request);
             return UserResponse;
-            }
+        }
 
-        public void UpdateResponseStatus(SurveyAnswerRequest Request) 
-            { 
+        public void UpdateResponseStatus(SurveyAnswerRequest Request)
+        {
             _iSurveyAnswerRepository.UpdateResponseStatus(Request);
-            
-            }
-        public bool HasResponse(string SurveyId, string ResponseId) {
 
-           return _iSurveyAnswerRepository.HasResponse(SurveyId, ResponseId);
-            }
+        }
+        public bool HasResponse(string SurveyId, string ResponseId)
+        {
+
+            return _iSurveyAnswerRepository.HasResponse(SurveyId, ResponseId);
+        }
     }
 }

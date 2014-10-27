@@ -10,7 +10,7 @@ namespace Epi.Web.MVC.Repositories.Core
     /// SurveyResponse Repository interface.
     /// Derives from standard IRepository of SurveyResponseResponse. Adds a method GetSurveyResponse .
     /// </summary>
-    public interface ISurveyAnswerRepository: IRepository<Epi.Web.Enter.Common.Message.SurveyAnswerResponse>
+    public interface ISurveyAnswerRepository : IRepository<Epi.Web.Enter.Common.Message.SurveyAnswerResponse>
     {
         SurveyAnswerResponse GetSurveyAnswer(SurveyAnswerRequest pRequest);
         SurveyAnswerResponse SaveSurveyAnswer(SurveyAnswerRequest pRequest);
@@ -34,6 +34,8 @@ namespace Epi.Web.MVC.Repositories.Core
         SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq);
 
         SurveyAnswerResponse DeleteResponseXml(SurveyAnswerRequest FormResponseReq);
+
+        OrganizationResponse GetOrganizationsByUserId(OrganizationRequest OrgRequest);
 
         OrganizationResponse GetUserOrganizations(OrganizationRequest OrgRequest);
 
