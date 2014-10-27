@@ -396,8 +396,15 @@ namespace Epi.Web.EF
                     if (UserRole == 3)
                     {
                         var Query = from OrganizationTable in Context.Organizations
+                                    from UserOrganizationTable in Context.UserOrganizations
 
+                                    where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId &&
+                                    UserOrganizationTable.UserID == UserId &&
+                                    UserOrganizationTable.RoleId >= 2 &&
+                                    UserOrganizationTable.Active == true &&
+                                    OrganizationTable.IsEnabled == true
                                     select OrganizationTable;
+
                         var DataRow = Query.Distinct();
                         foreach (var Row in DataRow)
                         {
@@ -410,24 +417,25 @@ namespace Epi.Web.EF
                     }
                     else
                     {
-                        var Query = from OrganizationTable in Context.Organizations
-                                    from UserOrganizationTable in Context.UserOrganizations
+                    var Query = from OrganizationTable in Context.Organizations
+                                from UserOrganizationTable in Context.UserOrganizations
 
-                                    where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId && 
-                                    UserOrganizationTable.UserID == UserId &&
-                                    UserOrganizationTable.RoleId == 2 &&
-                                    UserOrganizationTable.Active == true
-                                    select OrganizationTable;
+                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId &&
+                                UserOrganizationTable.UserID == UserId &&
+                                UserOrganizationTable.RoleId == 2 &&
+                                UserOrganizationTable.Active == true &&
+                                OrganizationTable.IsEnabled == true
+                                select OrganizationTable;
 
-                        var DataRow = Query;
-                        foreach (var Row in DataRow)
-                        {
+                    var DataRow = Query.Distinct();
+                    foreach (var Row in DataRow)
+                    {
 
-                            result.Add(Mapper.Map(Row));
+                        result.Add(Mapper.Map(Row));
 
-                        }
+                    }
 
-                        return result;
+                    return result;
 
                     }
 
