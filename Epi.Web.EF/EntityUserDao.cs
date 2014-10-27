@@ -278,7 +278,7 @@ namespace Epi.Web.EF
                 {
 
 
-                    var Rows = Context.UserOrganizations.Where(x => x.UserID == UserId);
+                    var Rows = Context.UserOrganizations.Where(x => x.UserID == UserId && x.Active == true && x.Organization.IsEnabled == true);
                     HighestRole = Rows.Max(x => x.RoleId);
 
 
