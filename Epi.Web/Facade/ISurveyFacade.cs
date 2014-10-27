@@ -12,13 +12,13 @@ namespace Epi.Web.MVC.Facade
     {
 
         MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice, List<SurveyAnswerDTO> _SurveyAnswerDTOList = null);
-        Epi.Web.Enter.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId="",bool IsEditMode = false);
-        void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel, string responseId, MvcDynamicForms.Form form, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved, int PageNumber,int UserId);
-        
+        Epi.Web.Enter.Common.DTO.SurveyAnswerDTO CreateSurveyAnswer(string surveyId, string responseId, int UserId, bool IsChild = false, string RelateResponseId = "", bool IsEditMode = false);
+        void UpdateSurveyResponse(SurveyInfoModel surveyInfoModel, string responseId, MvcDynamicForms.Form form, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsSubmited, bool IsSaved, int PageNumber, int UserId);
+
         SurveyInfoModel GetSurveyInfoModel(string surveyId);
         List<FormInfoModel> GetFormsInfoModelList(FormsInfoRequest formReq);
 
-        SurveyAnswerResponse GetSurveyAnswerResponse(string responseId,string FormId="",int UserId = 0);
+        SurveyAnswerResponse GetSurveyAnswerResponse(string responseId, string FormId = "", int UserId = 0);
         UserAuthenticationResponse ValidateUser(string userName, string password);
         void UpdatePassCode(string responseId, string passcode);
         UserAuthenticationResponse GetAuthenticationResponse(string responseId);
@@ -37,7 +37,7 @@ namespace Epi.Web.MVC.Facade
         SurveyInfoResponse GetChildFormInfo(SurveyInfoRequest SurveyInfoRequest);
         FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest);
         SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
-    
+
         SurveyAnswerResponse GetAncestorResponses(SurveyAnswerRequest pRequest);
 
         SurveyAnswerResponse GetResponsesByRelatedFormId(SurveyAnswerRequest FormResponseReq);
@@ -45,6 +45,7 @@ namespace Epi.Web.MVC.Facade
 
         void DeleteResponseXml(SurveyAnswerRequest FormResponseReq);
 
+        OrganizationResponse GetOrganizationsByUserId(OrganizationRequest Request);
         OrganizationResponse GetUserOrganizations(OrganizationRequest Request);
 
         OrganizationResponse GetAdminOrganizations(OrganizationRequest Request);

@@ -536,6 +536,38 @@ namespace Epi.Web.MVC.Repositories
 
         }
 
+        public OrganizationResponse GetOrganizationsByUserId(OrganizationRequest OrgReq)
+        {
+
+            try
+            {
+
+                OrganizationResponse result = _iDataService.GetOrganizationsByUserId(OrgReq);
+                return result;
+            }
+            catch (FaultException<CustomFaultException> cfe)
+            {
+                throw cfe;
+            }
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            catch (CommunicationException ce)
+            {
+                throw ce;
+            }
+            catch (TimeoutException te)
+            {
+                throw te;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+
+        }
 
         public OrganizationResponse GetUserOrganizations(OrganizationRequest OrgReq)
         {
