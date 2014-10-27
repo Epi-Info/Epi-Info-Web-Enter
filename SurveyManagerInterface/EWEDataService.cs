@@ -1205,7 +1205,7 @@ namespace Epi.Web.WCF.SurveyService
 
                     //    Implementation.UpdateOrganizationInfo(Organization);
                     // response.Message = "Successfully added organization Key";
-                    if (Implementation.OrganizationNameExists(Organization.Organization, Organization.OrganizationKey, "Create"))
+                    if (Implementation.OrganizationNameExists(Organization.Organization, Organization.OrganizationKey, "Update"))
                     {
                         response.Message = "Exists";
                     }
