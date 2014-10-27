@@ -128,6 +128,10 @@ namespace Epi.Web.BLL
             {
 
                 FormInfoBO FormInfoBO = this.FormInfoDao.GetFormByFormId(FormId);
+                if (!string.IsNullOrEmpty(FormInfoBO.ParentId))
+                {
+                    return;
+                }
                 UserBO UserBO = this.UserDao.GetCurrentUser(FormInfoBO.UserId);
                 List<string> UsersEmail = new List<string>();
                 List<string> CurrentUsersEmail = new List<string>();

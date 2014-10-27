@@ -23,7 +23,7 @@ namespace Epi.Web.EF
 
             result.SurveyId = entity.SurveyId.ToString();
             result.SurveyName = entity.SurveyName;
-            result.SurveyNumber = entity.SurveyNumber; 
+            result.SurveyNumber = entity.SurveyNumber;
             result.XML = entity.TemplateXML;
             result.IntroductionText = entity.IntroductionText;
             result.ExitText = entity.ExitText;
@@ -34,7 +34,7 @@ namespace Epi.Web.EF
             result.DateCreated = entity.DateCreated;
             result.IsDraftMode = entity.IsDraftMode;
             result.StartDate = entity.StartDate;
-            result.IsSqlProject = (bool) entity.IsSQLProject;
+            result.IsSqlProject = (bool)entity.IsSQLProject;
             if (entity.UserPublishKey != null)
             {
                 // result.UserPublishKey = (Guid)entity.UserPublishKey.Value;
@@ -60,7 +60,7 @@ namespace Epi.Web.EF
                 OrganizationId = entity.OrganizationId,
                 IsDraftMode = entity.IsDraftMode,
                 UserId = entity.OwnerId,
-
+                ParentId = (entity.ParentId != null) ? entity.ParentId.ToString() : ""
 
             };
         }
@@ -292,15 +292,15 @@ namespace Epi.Web.EF
 
             SurveyResponse SurveyResponse = new SurveyResponse();
             Guid RelateParentId = Guid.Empty;
-            if (!string.IsNullOrEmpty(pBO.RelateParentId)  )
-                {
-                  RelateParentId = new Guid(pBO.RelateParentId);
-                }
-            Guid ParentRecordId = Guid.Empty ;
+            if (!string.IsNullOrEmpty(pBO.RelateParentId))
+            {
+                RelateParentId = new Guid(pBO.RelateParentId);
+            }
+            Guid ParentRecordId = Guid.Empty;
             if (!string.IsNullOrEmpty(pBO.ParentRecordId))
-                {
-                 ParentRecordId = new Guid(pBO.ParentRecordId);
-                }
+            {
+                ParentRecordId = new Guid(pBO.ParentRecordId);
+            }
             SurveyResponse.SurveyId = new Guid(pBO.SurveyId);
             SurveyResponse.ResponseId = new Guid(pBO.ResponseId);
             SurveyResponse.ResponseXML = pBO.XML;
@@ -311,7 +311,7 @@ namespace Epi.Web.EF
             SurveyResponse.DateCreated = pBO.DateCreated;
             SurveyResponse.IsDraftMode = pBO.IsDraftMode;
             SurveyResponse.RecordSourceId = pBO.RecrodSourceId;
-            if (!string.IsNullOrEmpty(pBO.RelateParentId) && RelateParentId!= Guid.Empty)
+            if (!string.IsNullOrEmpty(pBO.RelateParentId) && RelateParentId != Guid.Empty)
             {
                 SurveyResponse.RelateParentId = new Guid(pBO.RelateParentId);
             }
