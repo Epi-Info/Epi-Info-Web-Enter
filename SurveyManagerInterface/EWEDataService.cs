@@ -1069,6 +1069,44 @@ namespace Epi.Web.WCF.SurveyService
 
             return SurveyAnswerResponse;
         }
+
+        public OrganizationResponse GetOrganizationsByUserId(OrganizationRequest request)
+        {
+
+            try
+            {
+                Epi.Web.Enter.Interfaces.DataInterfaces.IOrganizationDao IOrganizationDao = new EF.EntityOrganizationDao();
+                Epi.Web.BLL.Organization Implementation = new Epi.Web.BLL.Organization(IOrganizationDao);
+                // Transform SurveyInfo data transfer object to SurveyInfo business object
+                OrganizationBO Organization = Mapper.ToBusinessObject(request.Organization);
+                var response = new OrganizationResponse(request.RequestId);
+
+
+                if (!ValidRequest(request, response, Validate.All))
+                    return response;
+
+                List<OrganizationBO> ListOrganizationBO = Implementation.GetOrganizationsByUserId(request.UserId);
+                response.OrganizationList = new List<OrganizationDTO>();
+                foreach (OrganizationBO Item in ListOrganizationBO)
+                {
+                    (response.OrganizationList).Add(Mapper.ToDataTransferObjects(Item));
+
+                }
+                return response;
+            }
+
+
+            catch (Exception ex)
+            {
+                CustomFaultException customFaultException = new CustomFaultException();
+                customFaultException.CustomMessage = ex.Message;
+                customFaultException.Source = ex.Source;
+                customFaultException.StackTrace = ex.StackTrace;
+                customFaultException.HelpLink = ex.HelpLink;
+                throw new FaultException<CustomFaultException>(customFaultException);
+            }
+
+        }
         public OrganizationResponse GetUserOrganizations(OrganizationRequest request)
         {
 
