@@ -51,10 +51,16 @@ namespace Epi.Web.EF
 
                     SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
 
-                    IEnumerable<User> Users = SelectedUserQuery.Users;
-                    foreach (User user in Users)
-                    {
+                    var query = (from user in SelectedUserQuery.Users
+                                join userorg in Context.UserOrganizations
+                            on user.UserID equals userorg.UserID
+                                where userorg.Active == true
+                               // orderby user.UserName
+                                select user).Distinct().OrderBy(user => user.UserName) ;
 
+                    // IEnumerable<User> Users = SelectedUserQuery.Users;
+                    foreach (var user in query)
+                    {
                         SelectedUsers.Add(user.UserID, user.UserName);
                     }
 
@@ -64,8 +70,12 @@ namespace Epi.Web.EF
                     //    }
 
 
-                    var UserQuery = from user in Context.Users
-                                    select user;
+                    var UserQuery = (from user in Context.Users
+                                    join userorg in Context.UserOrganizations
+                                    on user.UserID equals userorg.UserID 
+                                    where userorg.Active == true
+                                    //orderby user.UserName
+                                     select user).Distinct().OrderBy(user => user.UserName);
 
 
 
@@ -206,7 +216,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     List<string> Columns = (from c in Context.SurveyMetaDataTransforms
-                                            where c.SurveyId == Id && 
+                                            where c.SurveyId == Id &&
                                             (c.FieldTypeId != 2 && c.FieldTypeId != 20 && c.FieldTypeId != 3 && c.FieldTypeId != 17 && c.FieldTypeId != 21) //filter non-data fields.
                                             select c.FieldName).ToList();
                     return Columns;
