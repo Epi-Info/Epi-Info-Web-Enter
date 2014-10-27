@@ -323,7 +323,7 @@ namespace Epi.Web.EF
         //}
 
         /// <summary>
-        /// Deletes a Organization
+        /// Reads a Organization
         /// </summary>
         /// <param name="Organization">Organization.</param>
         public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId, int UserRole)
@@ -381,8 +381,7 @@ namespace Epi.Web.EF
 
 
         }
-
-
+        
         public List<OrganizationBO> GetOrganizationInfoForAdmin(int UserId, int UserRole)
         {
             List<OrganizationBO> result = new List<OrganizationBO>();
@@ -417,25 +416,25 @@ namespace Epi.Web.EF
                     }
                     else
                     {
-                    var Query = from OrganizationTable in Context.Organizations
-                                from UserOrganizationTable in Context.UserOrganizations
+                        var Query = from OrganizationTable in Context.Organizations
+                                    from UserOrganizationTable in Context.UserOrganizations
 
-                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId &&
-                                UserOrganizationTable.UserID == UserId &&
-                                UserOrganizationTable.RoleId == 2 &&
-                                UserOrganizationTable.Active == true &&
-                                OrganizationTable.IsEnabled == true
-                                select OrganizationTable;
+                                    where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId &&
+                                    UserOrganizationTable.UserID == UserId &&
+                                    UserOrganizationTable.RoleId == 2 &&
+                                    UserOrganizationTable.Active == true &&
+                                    OrganizationTable.IsEnabled == true
+                                    select OrganizationTable;
 
-                    var DataRow = Query.Distinct();
-                    foreach (var Row in DataRow)
-                    {
+                        var DataRow = Query.Distinct();
+                        foreach (var Row in DataRow)
+                        {
 
-                        result.Add(Mapper.Map(Row));
+                            result.Add(Mapper.Map(Row));
 
-                    }
+                        }
 
-                    return result;
+                        return result;
 
                     }
 
@@ -449,6 +448,50 @@ namespace Epi.Web.EF
 
 
         }
+
+        public List<OrganizationBO> GetOrganizationsByUserId(int UserId)
+        {
+            List<OrganizationBO> result = new List<OrganizationBO>();
+
+
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+
+                    var Query = from OrganizationTable in Context.Organizations
+                                from UserOrganizationTable in Context.UserOrganizations
+
+                                where UserOrganizationTable.OrganizationID == OrganizationTable.OrganizationId &&
+                                UserOrganizationTable.UserID == UserId &&
+                                UserOrganizationTable.Active == true &&
+                                OrganizationTable.IsEnabled == true
+                                select OrganizationTable;
+
+                    var DataRow = Query;
+                    foreach (var Row in DataRow)
+                    {
+
+                        result.Add(Mapper.Map(Row));
+
+                    }
+
+                    return result;
+
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+
+        }
+
 
         public void DeleteOrganization(OrganizationBO Organization)
         {
