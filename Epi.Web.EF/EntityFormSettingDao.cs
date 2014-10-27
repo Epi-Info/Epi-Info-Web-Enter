@@ -38,7 +38,7 @@ namespace Epi.Web.EF
 
                     }
 
-
+                    
 
 
                     //var SelectedUserQuery = from FormInfo in Context.SurveyMetaDatas
@@ -51,10 +51,13 @@ namespace Epi.Web.EF
 
                     SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
 
+                    var SelectedOrgId = SelectedUserQuery.OrganizationId;
+
                     var query = (from user in SelectedUserQuery.Users
                                 join userorg in Context.UserOrganizations
                             on user.UserID equals userorg.UserID
-                                where userorg.Active == true
+                                where userorg.Active == true &&
+                                userorg.OrganizationID == SelectedOrgId
                                // orderby user.UserName
                                 select user).Distinct().OrderBy(user => user.UserName) ;
 
@@ -72,8 +75,9 @@ namespace Epi.Web.EF
 
                     var UserQuery = (from user in Context.Users
                                     join userorg in Context.UserOrganizations
-                                    on user.UserID equals userorg.UserID 
-                                    where userorg.Active == true
+                                    on user.UserID equals userorg.UserID
+                                     where userorg.Active == true &&
+                                 userorg.OrganizationID == SelectedOrgId
                                     //orderby user.UserName
                                      select user).Distinct().OrderBy(user => user.UserName);
 
