@@ -239,6 +239,15 @@ namespace Epi.Web.BLL
             return result;
         }
 
+
+
+        public List<OrganizationBO> GetOrganizationsByUserId(int UserId)
+        {
+
+            List<OrganizationBO> result = this.OrganizationDao.GetOrganizationsByUserId(UserId);
+            return result;
+        }
+
         public List<OrganizationBO> GetOrganizationInfoByUserId(int UserId, int UserRole)
         {
 
