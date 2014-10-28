@@ -525,7 +525,8 @@ namespace Epi.Web.MVC.Controllers
                                     {
 
                                     SurveyModel.RelatedButtonWasClicked = this.Request.Form["Click_Related_Form"].ToString();
-                                    return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
+                                   // return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
+                                    return RedirectToAction("Index", "Survey", new { RequestId = form.ResponseId, PageNumber = form.CurrentPage });
                                     }
                                 else 
                                     {
