@@ -24,9 +24,18 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public ActionResult UserList()
         {
-            UserOrgModel UserOrgModel = GetUserInfoList();
+            int OrgId = -1;
+            if (Session["CurrentOrgId"] != null)
+            {
+                OrgId = int.Parse(Session["CurrentOrgId"].ToString());
+            }
+            UserOrgModel UserOrgModel = GetUserInfoList(OrgId);
             UserOrgModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
-            Session["CurrentOrgId"] = UserOrgModel.OrgList[0].OrganizationId;
+            if (Session["CurrentOrgId"] == null)
+            {
+                Session["CurrentOrgId"] = UserOrgModel.OrgList[0].OrganizationId;
+            }
+            
             return View("UserList", UserOrgModel);
         }
 
@@ -59,7 +68,7 @@ namespace Epi.Web.MVC.Controllers
         [HttpPost]
         public ActionResult UserInfo(UserModel UserModel)
         {
-            UserOrgModel UserOrgModel = GetUserInfoList();
+            UserOrgModel UserOrgModel = new UserOrgModel();
             UserResponse Response = new UserResponse();
             UserRequest Request = new UserRequest();
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
@@ -77,7 +86,7 @@ namespace Epi.Web.MVC.Controllers
 
                         Request.CurrentUser = UserId;
                         Response = _isurveyFacade.SetUserInfo(Request);
-                        UserOrgModel = GetUserInfoList();
+                        UserOrgModel = GetUserInfoList(Request.CurrentOrg);
                         UserOrgModel.Message = "User information for " + UserModel.FirstName + " " + UserModel.LastName + " has been updated. ";
                     }
                     else
@@ -90,7 +99,7 @@ namespace Epi.Web.MVC.Controllers
 
                         Request.CurrentUser = UserId;
                         Response = _isurveyFacade.SetUserInfo(Request);
-                        UserOrgModel = GetUserInfoList();
+                        UserOrgModel = GetUserInfoList(Request.CurrentOrg);
                         UserOrgModel.Message = "User " + UserModel.FirstName + " " + UserModel.LastName + " has been added. ";
                     }
 
