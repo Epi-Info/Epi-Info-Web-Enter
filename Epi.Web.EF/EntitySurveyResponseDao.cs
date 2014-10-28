@@ -14,7 +14,7 @@ using Epi.Web.Enter.Common.Extension;
 using System.Data;
 using System.Data.SqlClient;
 namespace Epi.Web.EF
-{
+{ 
     /// <summary>
     /// Entity Framework implementation of the ISurveyResponseDao interface.
     /// </summary> 
@@ -62,7 +62,7 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                        result.Add(Mapper.Map(Context.SurveyResponses.FirstOrDefault(x => x.ResponseId == Id)));
+                    result.Add(Mapper.Map(Context.SurveyResponses.FirstOrDefault(x => x.ResponseId == Id)));
                     }
                 }
             }
@@ -473,7 +473,7 @@ namespace Epi.Web.EF
 
                     var DataRow = Query.Single();
 
-                    if (!string.IsNullOrEmpty(SurveyResponse.RelateParentId))
+                    if (!string.IsNullOrEmpty(SurveyResponse.RelateParentId) && SurveyResponse.RelateParentId != Guid.Empty.ToString())
                     {
                         DataRow.RelateParentId = new Guid(SurveyResponse.RelateParentId);
                     }
@@ -580,9 +580,17 @@ namespace Epi.Web.EF
 
                             User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
 
+                            if (User == null)
+                                {
+                                var ResponseXml = Context.ResponseXmls.FirstOrDefault(x => x.ResponseId == new Guid(SurveyResponse.ResponseId));
+                                User = Context.Users.FirstOrDefault(x => x.UserID == ResponseXml.UserId);
+                              }
+
+
                             SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == NewId);
                             Response.Users.Remove(User);
-
+                           
+                            
                             Context.SurveyResponses.DeleteObject(Response);
 
                             Context.SaveChanges();
