@@ -142,6 +142,7 @@
           <xs:element minOccurs="0" name="DateCompleted" type="xs:dateTime" />
           <xs:element minOccurs="0" name="GetAllColumns" type="xs:boolean" />
           <xs:element minOccurs="0" name="IncludeOrderStatistics" type="xs:boolean" />
+          <xs:element minOccurs="0" name="IsDeleteMode" type="xs:boolean" />
           <xs:element minOccurs="0" name="IsEditMode" type="xs:boolean" />
           <xs:element minOccurs="0" name="IsMobile" type="xs:boolean" />
           <xs:element minOccurs="0" name="IsSqlProject" type="xs:boolean" />
