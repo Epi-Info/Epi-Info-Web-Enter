@@ -30,7 +30,7 @@ namespace Epi.Web.MVC.Controllers
     [Authorize]
     public class SurveyController : Controller
     {
-
+          
 
 
 
@@ -521,7 +521,7 @@ namespace Epi.Web.MVC.Controllers
                                
 
                                 SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
-                                if (this.Request.Form["Click_Related_Form"]!= null)
+                                if ( this.Request.Form["Click_Related_Form"] != null)
                                     {
 
                                     SurveyModel.RelatedButtonWasClicked = this.Request.Form["Click_Related_Form"].ToString();
@@ -1298,6 +1298,7 @@ namespace Epi.Web.MVC.Controllers
                             SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Obj.ResponseId });
                             SurveyAnswerRequest.Criteria.StatusId = 2;
                             SurveyAnswerRequest.Criteria.UserId = UserId;
+                            SurveyAnswerRequest.Criteria.SurveyId = form.SurveyInfo.SurveyId;
                             _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
                         }
                         // create my list of objects 
