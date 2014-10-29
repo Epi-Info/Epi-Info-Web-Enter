@@ -50,13 +50,14 @@
 
                         //    url: 'Home/Delete/'+ $("#exitdialog").data('ResponseId') + '/' + '@ViewBag.UserId',
                         url: '@Url.Action("Delete","Home")' + '?ResponseId=' + $("#exitdialog").data('ResponseId'),
-                        type: 'POST',
+                        type: 'POST', 
+                        cache: false,
                         contentType: 'application/json; charset=utf-8',
                         success: successFunc,
                         error: errorFunc
                     });
 
-                    $.ajaxSetup({ cache: false });
+//                    $.ajaxSetup({ cache: false });
 
                     function successFunc(data, status) {
                         $("#exitdialog").dialog("close");
@@ -202,13 +203,14 @@
             $.ajax({
                 url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField
                 + "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5,
+                cache: false,
                 type: 'GET',
                 contentType: 'application/json; charset=utf-8',
                 //data: JSON.stringify(model),
                 success: successFunc,
                 error: errorFunc
             });
-            $.ajaxSetup({ cache: false });
+//            $.ajaxSetup({ cache: false });
 
             function successFunc(data, status) {
                 $('#right').html(data);
@@ -458,13 +460,14 @@
             //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
             url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField
                 + ReadSearchFields(),
+           cache: false,
             type: 'GET',
             contentType: 'application/json; charset=utf-8',
             //data: JSON.stringify(model),
             success: successFunc
         });
 
-        $.ajaxSetup({ cache: false });
+//        $.ajaxSetup({ cache: false });
 
         function successFunc(data, status) {
             $('#right').html(data);
@@ -486,12 +489,13 @@ function ReadResponse(ActionUrl) {
 		$.ajax({
 			url: ActionUrl,
 			type: 'GET',
+			cache: false,
 			contentType: 'application/json; charset=utf-8',
 			//data: JSON.stringify(model),
 			success: successFunc,
 			Error: errorFunc
 		});
-		$.ajaxSetup({ cache: false });
+//		$.ajaxSetup({ cache: false });
 
 		function successFunc(data, status) {
 		    $('#right').html(data);
@@ -510,12 +514,13 @@ function ReadResponse(ActionUrl) {
 		 $.ajax({
 			 url: ActionUrl,
 			 type: 'GET',
+			 cache: false,
 			 contentType: 'application/json; charset=utf-8',
 			 //data: JSON.stringify(model),
 			 success: successFunc,
 			 Error: errorFunc
 		 });
-		 $.ajaxSetup({ cache: false });
+//		 $.ajaxSetup({ cache: false });
 
 		 function successFunc(data, status) {
 		     $('#right').html(data);
@@ -548,6 +553,7 @@ function SaveSettings() {
 	                $.ajax({
 		                url: ActionUrl,
 		                type: 'POST',
+		                cache: false,
 		                //contentType: 'application/json; charset=utf-8',
 		                data: _form,
 		                dataType: "html",
@@ -562,7 +568,7 @@ function SaveSettings() {
 		        }
 
  
-	$.ajaxSetup({ cache: false });
+//	$.ajaxSetup({ cache: false });
 
 	function successFunc(data, status) {
 	    $('#right').html(data);
