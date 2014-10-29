@@ -1659,32 +1659,27 @@ function CCE_Days(pValue1, pValue2)
     return result;
 }
 /////////////////Simple  Dialogbox //////////////////////
-function CCE_ContextOpenMobileSimpleDialogBox(Title,Prompt,id) 
-{
-        var passcode1 = '@Model.PassCode';
-   
-     
-                         $('#'+ id).simpledialog({
-                'mode' : 'blank',
-                'headerText' : Title,
-                'headerClose' : true,
-                'dialogAllow' : true,
-                'useDialogForceTrue': true, 
-                'useDialogForceFalse': false,
+function CCE_ContextOpenMobileSimpleDialogBox(Title, Prompt, id) {
+    //var passcode1 = '@Model.PassCode';
 
-                'prompt': Title,
-                'forceInput': false,
-                'useModal':true,
-                'buttons' : {
-                              'OK': {
-                                click: function () {
-                                  $('#dialogoutput').text('OK');
-                                }
-                              }
-                       
-                            },
-                       'fullHTML': "<div id='SimpleDialogBox' title='"+ Title +"'><p><label id='SimpleDialogBoxPrempt'>"+ Prompt +"</label></p><p style='text-align:right;'><button  id='SimpleDialogBoxButton' type='button' style='width:100%;'onclick='CCE_CloseMobileSimpleDialogBox("+ id.toString() +");'>Ok</button></p></div>"
-                  })
+    $(this).simpledialog({
+        'mode': 'blank',
+        'prompt': false,
+        'forceInput': false,
+        'useModal': true,
+        'buttons': {
+            'OK': {
+                click: function () {
+                    $('#dialogoutput').text('OK');
+                }
+            }
+
+        },
+        'fullHTML': "<div id='SimpleDialogBox1' title='" + Title + "'><p><label id='SimpleDialogBoxPrempt'>" + Prompt + "</label></p><p style='text-align:right;'> <a class='login'   style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Ok</a></p></div>"
+
+    });
+
+
  
  
 }
