@@ -628,26 +628,55 @@ namespace Epi.Web.MVC.Controllers
 
 			return Response; 
 		}
-		private string GetColumnValue(SurveyAnswerDTO item, string columnName)
-		{
-			string ColumnValue = "";
-			switch (columnName)
-			{
-				case "UserEmail":
-					ColumnValue = item.UserEmail;
-					break;
-				case "DateUpdated":
-					ColumnValue = item.DateUpdated.ToString();
-					break;
-				case "DateCreated":
-					ColumnValue = item.DateCreated.ToString();
-					break;
-				case "IsDraftMode":
-					ColumnValue = item.IsDraftMode.ToString();
-					break;
-			}
-			return ColumnValue;
-		}
+        //private string GetColumnValue(SurveyAnswerDTO item, string columnName)
+        //{
+        //    string ColumnValue = "";
+        //    switch (columnName)
+        //    {
+        //        case "UserEmail":
+        //            ColumnValue = item.UserEmail;
+        //            break;
+        //        case "DateUpdated":
+        //            ColumnValue = item.DateUpdated.ToString();
+        //            break;
+        //        case "DateCreated":
+        //            ColumnValue = item.DateCreated.ToString();
+        //            break;
+        //        case "IsDraftMode":
+        //            ColumnValue = item.IsDraftMode.ToString();
+        //            break;
+        //    }
+        //    return ColumnValue;
+        //}
+        private string GetColumnValue(SurveyAnswerDTO item, string columnName)
+        {
+            string ColumnValue = "";
+            switch (columnName)
+            {
+                case "_UserEmail":
+                    ColumnValue = item.UserEmail;
+                    break;
+                case "_DateUpdated":
+                    ColumnValue = item.DateUpdated.ToString();
+                    break;
+                case "_DateCreated":
+                    ColumnValue = item.DateCreated.ToString();
+                    break;
+                case "IsDraftMode":
+                case "_Mode":
+                    if (item.IsDraftMode.ToString().ToUpper() == "TRUE")
+                    {
+                        ColumnValue = "Staging";
+                    }
+                    else
+                    {
+                        ColumnValue = "Production";
+
+                    }
+                    break;
+            }
+            return ColumnValue;
+        }
 
 
 		private string CreateResponseDocument(XDocument pMetaData, string pXML)
