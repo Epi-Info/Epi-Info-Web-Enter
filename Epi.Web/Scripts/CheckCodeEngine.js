@@ -548,7 +548,7 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
 
                     if (eval(document.getElementById("IsMobile"))) {
                         var FormatedDate;
-                        var date = new Date();
+                        var date = new Date(pValue);
                         FormatedDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
                         cce_Symbol.Value = FormatedDate;
                         $(Jquery).val(FormatedDate);
