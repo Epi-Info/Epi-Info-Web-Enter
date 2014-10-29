@@ -39,7 +39,10 @@ namespace Epi.Core.EnterInterpreter.Rules
             {
                 pJavaScriptBuilder.Append("sub_");
                 pJavaScriptBuilder.Append(this.Identifier.ToLower());
-                pJavaScriptBuilder.AppendLine("();");
+
+                pJavaScriptBuilder.AppendLine("(id);");
+
+
             }
 
 

@@ -28,8 +28,8 @@ namespace Epi.Core.EnterInterpreter.Rules
             }
         }
 
-        
-       /// <summary>
+
+        /// <summary>
         /// performs execute command
         /// </summary>
         /// <returns>object</returns>
@@ -58,7 +58,9 @@ namespace Epi.Core.EnterInterpreter.Rules
 
             pJavaScriptBuilder.Append("function sub_");
             pJavaScriptBuilder.Append(this.Identifier.ToLower());
-            pJavaScriptBuilder.AppendLine("(){");
+            pJavaScriptBuilder.AppendLine("(id){");
+
+
 
             if (this.Statements != null)
             {
