@@ -143,7 +143,7 @@ namespace Epi.Web.MVC.Controllers
                     //Session["RootResponseId"] = responseId;
                     if (IsMobileDevice == false)
                         {
-                        Session["RootFormId"] = surveyAnswerDTO.SurveyId;
+                        Session["RootFormId"] = FormsHierarchy[0].FormId;
                         }
                     }
 
