@@ -69,7 +69,21 @@ namespace Epi.Web.MVC.Controllers
         {
         try
             {
-            SurveyModel SurveyModel = IndexGet(responseId, PageNumber, Edit);
+            SurveyModel SurveyModel = new SurveyModel();
+            if (Session["IsEditMode"]!=null)
+                {
+
+                   bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
+                
+                }
+            if (IsEditMode)
+                {
+                 SurveyModel = IndexGet(responseId, PageNumber, "Edit");
+                }
+            else{
+                SurveyModel = IndexGet(responseId, PageNumber, "");
+                
+                }
 
            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
             }
