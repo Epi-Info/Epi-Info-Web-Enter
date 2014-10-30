@@ -1664,6 +1664,9 @@ function CCE_ContextOpenMobileSimpleDialogBox(Title, Prompt, id) {
 
     $(this).simpledialog({
         'mode': 'blank',
+                'dialogAllow' : true,
+                'useDialogForceTrue': true, 
+                'useDialogForceFalse': false,
         'prompt': false,
         'forceInput': false,
         'useModal': true,
