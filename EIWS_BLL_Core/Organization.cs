@@ -164,11 +164,10 @@ namespace Epi.Web.BLL
 
             }
         }
-        public void UpdateOrganizationInfo(OrganizationBO OrganizationBO)
+        public bool UpdateOrganizationInfo(OrganizationBO OrganizationBO)
         {
-            bool success;
             OrganizationBO.OrganizationKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(OrganizationBO.OrganizationKey);
-            success = this.OrganizationDao.UpdateOrganization(OrganizationBO);
+            return this.OrganizationDao.UpdateOrganization(OrganizationBO);
 
         }
 
