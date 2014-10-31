@@ -222,6 +222,7 @@ namespace Epi.Web.EF
                     List<string> Columns = (from c in Context.SurveyMetaDataTransforms
                                             where c.SurveyId == Id &&
                                             (c.FieldTypeId != 2 && c.FieldTypeId != 20 && c.FieldTypeId != 3 && c.FieldTypeId != 17 && c.FieldTypeId != 21) //filter non-data fields.
+                                            orderby c.FieldName
                                             select c.FieldName).ToList();
                     return Columns;
                 }
