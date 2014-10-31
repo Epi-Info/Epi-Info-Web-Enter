@@ -216,6 +216,7 @@ namespace Epi.Web.MVC.Controllers
                 try
                 {
                     SurveyAnswer.XML = SurveyResponseXML.CreateResponseDocument(xdoc, SurveyAnswer.XML);
+                    Session["RequiredList"] = SurveyResponseXML._RequiredList;
                     //SurveyAnswer.XML = Epi.Web.MVC.Utility.SurveyHelper.CreateResponseDocument(xdoc, SurveyAnswer.XML, RequiredList);
                     this.RequiredList = SurveyResponseXML._RequiredList;
                     form.RequiredFieldsList = this.RequiredList;
@@ -248,6 +249,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 SurveyAnswer.XML = SurveyResponseXML.CreateResponseDocument(xdoc, SurveyAnswer.XML);//, RequiredList);
                 this.RequiredList = SurveyResponseXML._RequiredList;
+                Session["RequiredList"] = SurveyResponseXML._RequiredList;
                 form.RequiredFieldsList = RequiredList;
                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
             }
