@@ -166,7 +166,9 @@
 			</li>
 			<li>
            
-               <label class="accountlabel"  id="Activelabel"> @Html.CheckBoxFor(m => m.IsOrgEnabled , new { @checked = "checked" }) Organization is Enabled</label> 
+               <label class="accountlabel"  id="Activelabel"> @Html.CheckBoxFor(m => m.IsOrgEnabled , new { @checked = "checked" }) 
+               Organization is Enabled</label> 
+               @Html.ValidationMessageFor(m => m.IsOrgEnabled, null, new { @class = "required" })
                
 			</li>
 			 
