@@ -121,11 +121,22 @@ namespace Epi.Web.MVC.Controllers
                     OrgListModel OrgListModel = new OrgListModel();
                     OrgListModel.OrganizationList = Model;
                     OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " has been updated.";
-                    if (Result.Message.ToUpper() != "EXISTS")
+                    if (Result.Message.ToUpper() != "EXISTS" && Result.Message.ToUpper() != "ERROR")
                     {
 
                         OrgListModel.Message = "Organization " + OrgAdminInfoModel.OrgName + " has been updated.";
                         return View("OrgList", OrgListModel);
+                    }
+                    else if (Result.Message.ToUpper() == "ERROR")
+                    {
+                        OrgAdminInfoModel OrgInfo = new OrgAdminInfoModel();
+                        Request.Organization.OrganizationKey = GetOrgKey(url); ;
+
+                        Organizations = _isurveyFacade.GetOrganizationInfo(Request);
+                        OrgInfo = Mapper.ToOrgAdminInfoModel(Organizations);
+                        OrgInfo.IsEditMode = true;
+                        ModelState.AddModelError("IsOrgEnabled", "Organization for the super admin cannot be deactivated.");
+                        return View("OrgInfo", OrgInfo);
                     }
                     else
                     {

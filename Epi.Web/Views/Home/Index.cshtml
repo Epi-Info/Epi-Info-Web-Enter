@@ -50,14 +50,14 @@
 
                         //    url: 'Home/Delete/'+ $("#exitdialog").data('ResponseId') + '/' + '@ViewBag.UserId',
                         url: '@Url.Action("Delete","Home")' + '?ResponseId=' + $("#exitdialog").data('ResponseId'),
-                        type: 'POST', 
+                        type: 'POST',
                         cache: false,
                         contentType: 'application/json; charset=utf-8',
                         success: successFunc,
                         error: errorFunc
                     });
 
-//                    $.ajaxSetup({ cache: false });
+                    //                    $.ajaxSetup({ cache: false });
 
                     function successFunc(data, status) {
                         $("#exitdialog").dialog("close");
@@ -156,8 +156,10 @@
             $("#right").show();
             var formid = $('#hidFormId').val();
             var pageNumber = $('#hidPageNumber').val();
-            var Sort = 'ASC';
-            var SortField = $("#columns").val(); // 'PetsName';
+            //            Sort = 'ASC';
+            //            SortField = $("#columns").val(); // 'PetsName';
+            var Sort = $("#FORM_SORTORDER_HIDDEN").val();
+            var SortField = $("#FORM_SORTFIELD_HIDDEN").val();
             ReadResponses(formid, 1, Sort, SortField);
 
             //            $.ajax({
@@ -186,8 +188,8 @@
             $("#right").show();
             var formid = $('#hidFormId').val();
             var pageNumber = $('#hidPageNumber').val();
-            var Sort = 'ASC';
-            var SortField = $("#columns").val();
+            var Sort = ''; // $("#FORM_SORTORDER_HIDDEN").val();
+            var SortField = ''; //$("#FORM_SORTFIELD_HIDDEN").val();
 
             var col1 = '';
             var val1 = '';
@@ -210,7 +212,7 @@
                 success: successFunc,
                 error: errorFunc
             });
-//            $.ajaxSetup({ cache: false });
+            //            $.ajaxSetup({ cache: false });
 
             function successFunc(data, status) {
                 $('#right').html(data);
