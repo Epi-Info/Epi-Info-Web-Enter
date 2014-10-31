@@ -141,6 +141,7 @@ namespace Epi.Web.MVC.Controllers
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             Session["FormValuesHasChanged"] = "";
+            
             if (!string.IsNullOrEmpty(EditForm))
             {
                 //if (!string.IsNullOrEmpty(surveyid))
@@ -151,6 +152,7 @@ namespace Epi.Web.MVC.Controllers
 
                 Session["IsEditMode"] = true;
                 Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm, Session["RootFormId"].ToString());
+                Session["RequestedViewId"] = surveyAnswerDTO.ViewId;
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
@@ -186,6 +188,7 @@ namespace Epi.Web.MVC.Controllers
             Session["RootFormId"] = AddNewFormId;
             Session["RootResponseId"] = ResponseID;
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId);
+          
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
 
             // set the survey answer to be production or test 
@@ -255,7 +258,7 @@ namespace Epi.Web.MVC.Controllers
             }
 
             SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
-
+            Session["RequestedViewId"] = SurveyAnswer.ViewId;
             ///////////////////////////// Execute - Record Before - End//////////////////////
             //string page;
             // return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });
