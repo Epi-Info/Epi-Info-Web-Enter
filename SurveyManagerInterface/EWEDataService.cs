@@ -814,46 +814,46 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
                 Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
                 foreach (var response in pRequest.SurveyAnswerList)
-                    {
+                {
                     if (pRequest.Criteria.IsSqlProject)
-                        {
+                    {
                         if (pRequest.Criteria.IsEditMode)
-                            {
+                        {
                             Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
-                            }
+                        }
                         else
+                        {
+                            if (pRequest.Criteria.IsDeleteMode)
                             {
-                            if(pRequest.Criteria.IsDeleteMode)
-                                {
                                 Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
-                                } 
+                            }
                             else
-                                {
+                            {
                                 //do status Update
                                 var obj = Mapper.ToBusinessObject(response, pRequest.Criteria.UserId);
                                 obj.SurveyId = pRequest.Criteria.SurveyId;
                                 obj.Status = 0;
                                 Implementation.UpdateRecordStatus(obj);
-                                }
-                       
                             }
-                        }
-                    else
-                        {
-                         if (pRequest.Criteria.IsEditMode)
-                            {
-                                Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
-                            }
-                            else
-                            {
-                         
-                                Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
-                            } 
-                        
-                        
-                        
+
                         }
                     }
+                    else
+                    {
+                        if (pRequest.Criteria.IsEditMode)
+                        {
+                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                        }
+                        else
+                        {
+
+                            Implementation.DeleteSurveyResponse(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                        }
+
+
+
+                    }
+                }
 
                 return result;
                 //return null;
@@ -1251,8 +1251,17 @@ namespace Epi.Web.WCF.SurveyService
                     {
 
 
-                        Implementation.UpdateOrganizationInfo(Organization);
-                        response.Message = "Successfully added organization Key";
+                        var success = Implementation.UpdateOrganizationInfo(Organization);
+                        if (success)
+                        {
+                            response.Message = "Successfully added organization Key";
+                        }
+                        else
+                        {
+                            response.Message = "Error";
+                            return response;
+                        }
+
                     }
                 }
                 else if (request.Action.ToUpper() == "INSERT")
@@ -1394,7 +1403,7 @@ namespace Epi.Web.WCF.SurveyService
                         //OrgBo.OrganizationId = request.CurrentOrg; // User is added to the current organization
                         OrganizationBO OrganizationBO = Implementation1.GetOrganizationByOrgId(request.CurrentOrg);
                         Implementation.SetUserInfo(UserBO, OrganizationBO);
-                        response.Message = "Success"; 
+                        response.Message = "Success";
                     }
                     else
                     {
