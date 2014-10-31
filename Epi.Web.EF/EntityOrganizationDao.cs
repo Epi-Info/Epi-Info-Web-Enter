@@ -277,12 +277,26 @@ namespace Epi.Web.EF
             {
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                    var Query = from response in Context.Organizations
-                                where response.OrganizationKey == Organization.OrganizationKey
-                                select response;
+                    var Query = from org in Context.Organizations
+                                where org.OrganizationKey == Organization.OrganizationKey
+                                select org;
+
+                    var SuperAdminChkQry = from usrorg in Context.UserOrganizations
+                                            join org in Context.Organizations
+                                            on usrorg.OrganizationID equals org.OrganizationId
+                                           where org.OrganizationKey == Organization.OrganizationKey && usrorg.RoleId > 2
+                                           select usrorg;
 
                     var DataRow = Query.Single();
+
+                    var SuperAdminRow = SuperAdminChkQry.FirstOrDefault();
+
                     DataRow.Organization1 = Organization.Organization;
+
+                    if (SuperAdminRow != null && DataRow.IsEnabled != Organization.IsEnabled)
+                    {
+                        return false;
+                    }
 
                     DataRow.IsEnabled = Organization.IsEnabled;
                     Context.SaveChanges();
@@ -381,7 +395,7 @@ namespace Epi.Web.EF
 
 
         }
-        
+
         public List<OrganizationBO> GetOrganizationInfoForAdmin(int UserId, int UserRole)
         {
             List<OrganizationBO> result = new List<OrganizationBO>();
