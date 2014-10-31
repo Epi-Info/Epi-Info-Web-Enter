@@ -862,8 +862,16 @@ namespace Epi.Web.WCF.SurveyService
 
                     else
                     {
-                        Implementation.UpdateOrganizationInfo(Organization);
-                        response.Message = "Successfully Updated organization Key";
+                        var success = Implementation.UpdateOrganizationInfo(Organization);
+                        if (success)
+                        {
+                            response.Message = "Successfully added organization Key";
+                        }
+                        else
+                        {
+                            response.Message = "Error";
+                            return response;
+                        }
                     }
                     
                     return response;
