@@ -143,8 +143,8 @@ namespace Epi.Web.BLL
                     Body.Append("\n\nPlease follow the steps below in order to start publishing forms to the web using Epi Info™ 7.");
                     Body.Append("\n\tStep 1: Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
                     Body.Append("\n\tStep 2: On the Main Menu, click on “Tools” and select “Options”");
-                    Body.Append("\n\tStep 3: On the Options dialog, click on the “Web Survey” Tab.");
-                    Body.Append("\n\tStep 4: On the Web Survey tab, enter the following information.");
+                    Body.Append("\n\tStep 3: On the Options dialog, click on the “Web Enter” Tab.");
+                    Body.Append("\n\tStep 4: On the Web Enter tab, enter the following information.");
 
                     Body.Append("\n\t\t-Endpoint Address:" + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
                     Body.Append("\n\t\t-Binding Protocol:" + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
