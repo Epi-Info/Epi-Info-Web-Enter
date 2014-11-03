@@ -417,6 +417,15 @@ $(document).ready(function () {
         SignOutAndRedirect(signoutUrl, homePageUrl);
         }*/
     });
+    $("#Close1").click(function (e) {
+        e.preventDefault();
+        CCE_HasFormValuesChanged();
+        if ($('#FormHasChanged').val() == 'True') {
+            $("#exitdialog").dialog("open");
+        } else {
+            DeleteRecord();
+        }
+    });
 
 
     /*Open the modal popup on link click*/
