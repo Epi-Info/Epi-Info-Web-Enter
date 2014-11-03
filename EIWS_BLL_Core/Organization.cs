@@ -123,16 +123,16 @@ namespace Epi.Web.BLL
                 StringBuilder Body = new StringBuilder();
                 if (InsertStatus == InsertCombination.ExistingUserNewOrg)
                 {
-                    Body.Append("Your account has now been created for " + OrganizationBO.Organization + ".\n");
+                    Body.Append("Your account has now been created for organization - " + OrganizationBO.Organization + ".\n");
                     Body.Append("\nOrganization Key: " + OrgKey);
-                    Body.Append("\n\nPlease click the link below to launch Epi Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you.");
+                    Body.Append("\n\nPlease click the link below to launch Epi Info™ Web Enter. \n" + ConfigurationManager.AppSettings["BaseURL"] + "\n\nThank you.");
                 }
                 else
                 {
-                    Body.Append("Welcome to Epi Web Enter. \nYour account has now been created for " + OrganizationBO.Organization + ".");
+                    Body.Append("Welcome to Epi Info™ Web Enter. \nYour account has now been created for oganization - " + OrganizationBO.Organization + ".");
                     Body.Append("\n\nEmail: " + UserBO.EmailAddress + "\nPassword: " + tempPassword);
                     Body.Append("\nOrganization Key: " + OrgKey);
-                    Body.Append("\n\nPlease click the link below to launch the Epi Web Enter and log in with your email and temporary password. You will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
+                    Body.Append("\n\nPlease click the link below to launch the Epi Info™ Web Enter and log in with your email and temporary password. You will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
                     //Add email and temporary password for new user. 
                 }
 
@@ -151,7 +151,7 @@ namespace Epi.Web.BLL
 
                     Body.Append("\n\tStep 5:Click “OK’ button.");
                     Body.Append("\nOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
-                    Body.Append("\n\nPlease contact the system administrator " + UserBO.UserName + " for any questions.");
+                    Body.Append("\n\nPlease contact the system administrator for any questions.");
                 }
 
 
@@ -269,7 +269,7 @@ namespace Epi.Web.BLL
             {
 
                 case Constant.EmailCombinationEnum.InsertOrganization:
-                    email.Subject = "An Epi Web Enter account has been created for your organization.";
+                    email.Subject = "An Epi Info Web Enter account has been created for your organization.";
 
                     break;
                 default:
