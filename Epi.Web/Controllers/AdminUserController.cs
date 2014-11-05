@@ -99,6 +99,13 @@ namespace Epi.Web.MVC.Controllers
 
                         Request.CurrentUser = UserId;
                         Response = _isurveyFacade.SetUserInfo(Request);
+
+                        if (Response.Message.ToUpper() == "EXISTS" )
+                        {
+                            ModelState.AddModelError("Email", "Error occurred. User already exists for this organization.");
+                            return View("UserInfo", UserModel);
+                        }
+
                         UserOrgModel = GetUserInfoList(Request.CurrentOrg);
                         UserOrgModel.Message = "User " + UserModel.FirstName + " " + UserModel.LastName + " has been added. ";
                     }
