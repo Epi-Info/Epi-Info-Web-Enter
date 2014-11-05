@@ -57,7 +57,7 @@
                             * Email:</label>
                             @if (disable_attr)
                             {
-                                @Html.TextBoxFor(m => m.Email, new { @class = "Account", @disabled = "disabled" })
+                                @Html.TextBoxFor(m => m.Email, new { @class = "Account", @readonly = "readonly" })
                             }
                             else
                             {
@@ -104,7 +104,7 @@
                   new List<Object>{
                        new { value = 1, text = "User"  },
                        new { value = 2 , text = "Organization Admin" },
-                       //new { value = 3 , text = "Admin"}
+                       new { value = 3 , text = "Admin"}
                     },
                   "value",
                   "text",
@@ -128,18 +128,22 @@
 
 })
                             }
+                            @Html.HiddenFor(model => model.Role, new { id = "Role_Hidden" })
                         </li>
                         <li></li>
                         <li>
                             <label class="accountlabel" id="Activelabel">
                             @if (disable_attr)
                             {
-                              @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked", @disabled = "disabled" })   
+                              @*@Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @disabled = "disabled" })*@   
+                                 @Html.DisplayFor(model => model.IsActive)
+    @Html.HiddenFor(model => model.IsActive)
                             }
                             else
                             {
-                                     @Html.CheckBoxFor(m => m.IsActive, new { @checked = "checked" })
+                                     @Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked" })
                             }
+                                @Html.HiddenFor(model => model.IsActive, new { id = "IsActive_Hidden" })
                                 User is Active</label>
                         </li>
                         <li></li>
