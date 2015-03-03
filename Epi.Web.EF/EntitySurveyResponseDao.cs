@@ -265,7 +265,7 @@ namespace Epi.Web.EF
 
         //    return result;
         //}
-        public List<SurveyResponseBO> GetSurveyResponse(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted, int pStatusId = -1, int PageNumber = -1, int PageSize = -1)
+        public List<SurveyResponseBO> GetSurveyResponse(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted,bool IsDraftMode = false, int pStatusId = -1, int PageNumber = -1, int PageSize = -1)
         {
             List<SurveyResponseBO> Finalresult = new List<SurveyResponseBO>();
             IEnumerable<SurveyResponseBO> result;
@@ -303,7 +303,7 @@ namespace Epi.Web.EF
                     {
                         var Context = DataObjectFactory.CreateContext();
                         Guid Id = new Guid(pSurveyId);
-                        responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id).ToList();
+                        responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id && x.StatusId != 4 && x.IsDraftMode == IsDraftMode).ToList();
 
 
 
@@ -384,11 +384,11 @@ namespace Epi.Web.EF
         }
 
 
-        public List<SurveyResponseBO> GetSurveyResponseSize(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted, int pStatusId = -1, int PageNumber = -1, int PageSize = -1, int ResponseMaxSize = -1)
+        public List<SurveyResponseBO> GetSurveyResponseSize(List<string> SurveyAnswerIdList, string pSurveyId, DateTime pDateCompleted, bool IsDraftMode = false, int pStatusId = -1, int PageNumber = -1, int PageSize = -1, int ResponseMaxSize = -1)
         {
 
 
-            List<SurveyResponseBO> resultRows = GetSurveyResponse(SurveyAnswerIdList, pSurveyId, pDateCompleted, pStatusId, PageNumber, PageSize);
+            List<SurveyResponseBO> resultRows = GetSurveyResponse(SurveyAnswerIdList, pSurveyId, pDateCompleted,IsDraftMode ,pStatusId, PageNumber, PageSize);
 
 
             return resultRows;
