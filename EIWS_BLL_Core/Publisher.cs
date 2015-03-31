@@ -217,7 +217,7 @@ namespace Epi.Web.BLL
                                 BO.IsDraftMode = pRequestMessage.IsDraftMode;
                                 BO.StartDate = pRequestMessage.StartDate;
                                 BO.ViewId = pRequestMessage.ViewId;
-                                BO.ParentId = pRequestMessage.ParentId;
+                                //BO.ParentId = pRequestMessage.ParentId;// Removed parent Id for the first step of publish
                                 BO.OwnerId = pRequestMessage.OwnerId;
                                 BO.IsSqlProject = pRequestMessage.IsSqlProject;
                                
@@ -492,6 +492,7 @@ namespace Epi.Web.BLL
             SurveyIds.Add(_ViewId, ParentId);
 
             }
+
            
             foreach(var ViewId in this.ViewIds )
                 {
