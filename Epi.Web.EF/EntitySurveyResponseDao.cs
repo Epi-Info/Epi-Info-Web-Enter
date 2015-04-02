@@ -13,6 +13,7 @@ using Epi.Web.Enter.Common.Criteria;
 using Epi.Web.Enter.Common.Extension;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 namespace Epi.Web.EF
 { 
     /// <summary>
@@ -776,12 +777,12 @@ namespace Epi.Web.EF
                 string EI7Query;
                 if (!criteria.GetAllColumns)
                 {
-                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber);
+                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber,false,"", criteria.UserId);
 
                 }
                 else
                 {
-                    EI7Query = BuildEI7ResponseAllFieldsQuery(criteria.SurveyAnswerIdList[0].ToString(), criteria.SurveyId, EI7ConnectionString);
+                    EI7Query = BuildEI7ResponseAllFieldsQuery(criteria.SurveyAnswerIdList[0].ToString(), criteria.SurveyId, EI7ConnectionString,criteria.UserId);
                 }
                 if (EI7Query == string.Empty)
                 {
@@ -1039,7 +1040,8 @@ namespace Epi.Web.EF
             int PageSize = 1,
             int PageNumber = 1,
             bool IsChild = false,
-            string ResponseId = "")
+            string ResponseId = "",
+            int UserId = -1)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
@@ -1078,6 +1080,7 @@ namespace Epi.Web.EF
             try
             {
                 eI7CommandExecuteScalar = EI7Command.ExecuteScalar();
+                
             }
             catch (Exception ex)
             {
@@ -1141,6 +1144,17 @@ namespace Epi.Web.EF
             stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
 
             stringBuilder.Append(" WHERE RECSTATUS = 1 ");
+            //  User filter Start 
+
+            if (ConfigurationManager.AppSettings["FilterByUser"].ToUpper() =="TRUE")
+            {
+               
+                stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].SurveyResponseUser on SurveyResponse.ResponseId =SurveyResponseUser.ResponseId");
+                stringBuilder.Append(" Where " + "UserId =" + UserId +")");
+            }
+            //User filter End 
 
             if (SearchCriteria != null && SearchCriteria.Length > 0)
             {
@@ -1307,7 +1321,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="FormId"></param>
         /// <returns></returns>
-        private string BuildEI7ResponseAllFieldsQuery(string ResponseId, string SurveyId, string EI7Connectionstring)
+        private string BuildEI7ResponseAllFieldsQuery(string ResponseId, string SurveyId, string EI7Connectionstring,int UserId)
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
