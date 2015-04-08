@@ -1146,7 +1146,7 @@ namespace Epi.Web.EF
             stringBuilder.Append(" WHERE RECSTATUS = 1 ");
             //  User filter Start 
 
-            if (ConfigurationManager.AppSettings["FilterByUser"].ToUpper() =="TRUE")
+            if (ConfigurationManager.AppSettings["FilterByUser"].ToUpper() == "TRUE" && UserId != -1)
             {
                
                 stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
