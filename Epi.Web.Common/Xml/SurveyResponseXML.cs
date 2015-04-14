@@ -113,6 +113,7 @@ namespace Epi.Web.Enter.Common.Xml
             if (CurrentPage != 0)
                 {
                 PageRoot.SetAttribute("PageNumber", CurrentPage.ToString());
+                PageRoot.SetAttribute("MetaDataPageId", Pageid.ToString()); 
                 PageRoot.SetAttribute("PageId", Pageid); 
                 xml.AppendChild(PageRoot);
                 }
