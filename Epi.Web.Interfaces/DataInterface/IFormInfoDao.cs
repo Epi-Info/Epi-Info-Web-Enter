@@ -11,7 +11,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
          List<FormInfoBO> GetFormInfo(int UserId);
          FormInfoBO GetFormByFormId(string FormId, bool GetXml, int UserId);
          FormInfoBO GetFormByFormId(string FormId);
-
+         bool GetEwavLiteToggleSwitch(string FormId, int UserId);
 
         }
     }

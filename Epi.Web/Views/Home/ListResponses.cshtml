@@ -10,12 +10,25 @@
             $("#searchbox").toggle();
         });
     });
+
+    function openEWAVLiteURL()
+    {
+        window.open('@System.Configuration.ConfigurationManager.AppSettings["EWAVLiteBaseURL"]?userid=006fea9c-708f-4eed-94d4-b025d81ed36b&datasourceid=@Model.FormInfoModel.FormId');
+    }
+
 </script>
 <div id="editsettings">
     @if (Model.FormInfoModel.IsSQLProject)
     {
-        <button id="btnsearch" onclick="" class="default search" type="button">
+        <button id="btnsearch" onclick="openEWAVLiteURL()" class="default search" type="button">
             Search</button> 
+    }
+    @if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
+    {
+        
+        <button id="btnEwavLite" onclick="openEWAVLiteURL()" class="default search" type="button">
+            Launch Analytics
+        </button>
     }
     @if (Model.FormInfoModel.IsOwner || (Session["UsertRole"].ToString() == "2" && Model.FormInfoModel.IsShared))
     {

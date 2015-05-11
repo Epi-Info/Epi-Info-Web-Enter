@@ -23,6 +23,7 @@ namespace Epi.Web.Enter.Common.DTO
         private bool _IsShareable;
         private bool _IsShared;
         private bool _ShowAllRecords;
+        private bool _ewavLiteToggleSwitch;
         [DataMember]
         public bool ShowAllRecords
         {
@@ -110,5 +111,11 @@ namespace Epi.Web.Enter.Common.DTO
              get { return _IsShared; }
              set { _IsShared = value; }
          }
+        [DataMember]
+        public bool EwavLiteToggleSwitch
+        {
+            get { return _ewavLiteToggleSwitch; }
+            set { _ewavLiteToggleSwitch = value; }
+        }
     }
 }

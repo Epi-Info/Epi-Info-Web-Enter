@@ -355,7 +355,14 @@ var pageId = $('#hidPageNumber').val();
                             <button id="btnsearch" data-theme="defsearch" onclick="" type="button">
                                 Search</button>
                         </div>
+                        if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
+                        {
+                            <button id="btnEwavLite" data-theme="defsearch" onclick="" type="button">
+                                Launch Analytics
+                            </button>
                         }
+                    }
+                        
                     <div style="clear: both;">
                     </div>
                     @if (Model.SearchModel != null)
