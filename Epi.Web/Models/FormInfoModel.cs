@@ -27,6 +27,7 @@ namespace Epi.Web.MVC.Models
             set { _ShowAllRecords = value; }
         }
 
+        private bool _ewavLiteToggleSwitch;
 
         public bool IsSQLProject
         {
@@ -97,5 +98,10 @@ namespace Epi.Web.MVC.Models
            get { return _IsShared; }
            set { _IsShared = value; }
        }
+        public bool EwavLiteToggleSwitch
+        {
+            get { return _ewavLiteToggleSwitch; }
+            set { _ewavLiteToggleSwitch = value; }
+        }
     }
 }

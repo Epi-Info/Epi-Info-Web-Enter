@@ -6,37 +6,44 @@ using Epi.Web.Enter.Common.BusinessObject;
 using Epi.Web.Enter.Common.Criteria;
 
 using Epi.Web.Enter.Interfaces.DataInterface;
+using System.Configuration;
 namespace Epi.Web.BLL
+{
+    public class FormInfo
     {
-   public class FormInfo
-        {
-       private IFormInfoDao FormInfoDao;
+        private IFormInfoDao FormInfoDao;
 
- 
 
-        public FormInfo( IFormInfoDao pSurveyInfoDao)
+
+        public FormInfo(IFormInfoDao pSurveyInfoDao)
         {
-        this.FormInfoDao = pSurveyInfoDao;
+            this.FormInfoDao = pSurveyInfoDao;
         }
 
         public List<FormInfoBO> GetFormsInfo(int UserId)
-            {
+        {
             //Owner Forms
             List<FormInfoBO> result = this.FormInfoDao.GetFormInfo(UserId);
 
-           
+
 
             return result;
-            }
+        }
 
         public FormInfoBO GetFormInfoByFormId(string FormId, bool GetXml, int UserId)
-            {
+        {
             //Owner Forms
-            FormInfoBO result = this.FormInfoDao.GetFormByFormId(FormId,GetXml,UserId);
+            FormInfoBO result = this.FormInfoDao.GetFormByFormId(FormId, GetXml, UserId);
 
+            if (ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && result.IsSQLProject)
+            {
+                bool toggleSwitchValue = this.FormInfoDao.GetEwavLiteToggleSwitch(FormId, UserId);
+
+                result.EwavLiteToggleSwitch = toggleSwitchValue;
+            }
 
 
             return result;
-            }
         }
     }
+}

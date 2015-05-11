@@ -30,6 +30,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
             get { return _ShowAllRecords; }
             set { _ShowAllRecords = value; }
         }
+        private bool _ewavLiteToggleSwitch;
         [DataMember]
         public string FormId
         {
@@ -104,6 +105,12 @@ namespace Epi.Web.Enter.Common.BusinessObject
         {
             get { return _ParentId; }
             set { _ParentId = value; }
+        }
+        [DataMember]
+        public bool EwavLiteToggleSwitch
+        {
+            get { return _ewavLiteToggleSwitch; }
+            set { _ewavLiteToggleSwitch = value; }
         }
 
         public bool IsSQLProject
