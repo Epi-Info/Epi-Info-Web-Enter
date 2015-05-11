@@ -32,7 +32,11 @@ namespace Epi.Web.MVC.Models
                 UserId = FormInfoDTO.UserId,
                 IsOwner = FormInfoDTO.IsOwner,
                 OwnerFName =FormInfoDTO.OwnerFName,
-                OwnerLName = FormInfoDTO.OwnerLName
+                OwnerLName = FormInfoDTO.OwnerLName,
+                IsShareable =FormInfoDTO.IsShareable,
+                IsShared = FormInfoDTO.IsShared,
+                ShowAllRecords= FormInfoDTO.ShowAllRecords
+
             };
         }
 

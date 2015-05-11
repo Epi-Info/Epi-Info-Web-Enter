@@ -18,6 +18,15 @@ namespace Epi.Web.MVC.Models
         private string _OwnerLName;
         private string _OwnerFName;
         private bool _isSQLProject;
+        private bool _IsShareable;
+        private bool _IsShared;
+        private bool _ShowAllRecords;
+        public bool ShowAllRecords
+        {
+            get { return _ShowAllRecords; }
+            set { _ShowAllRecords = value; }
+        }
+
 
         public bool IsSQLProject
         {
@@ -77,6 +86,16 @@ namespace Epi.Web.MVC.Models
            get { return _OwnerFName; }
            set { _OwnerFName = value; }
            }
+       public bool IsShareable
+       {
+           get { return _IsShareable; }
+           set { _IsShareable = value; }
+       }
 
+       public bool IsShared
+       {
+           get { return _IsShared; }
+           set { _IsShared = value; }
+       }
     }
 }

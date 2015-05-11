@@ -13,7 +13,14 @@
         }
         else
         {
-            divClass += "metro-collect ";
+            if (item.IsShared)
+            {
+                divClass += " metro-design-Shared";
+            }
+            else
+            {
+                divClass += " metro-collect ";
+            }
         }
 
         if (item.IsDraftMode)

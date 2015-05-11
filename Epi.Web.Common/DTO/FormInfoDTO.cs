@@ -20,6 +20,15 @@ namespace Epi.Web.Enter.Common.DTO
         private string _OwnerLName;
         private string _OwnerFName;
         private bool _isSQLProject;
+        private bool _IsShareable;
+        private bool _IsShared;
+        private bool _ShowAllRecords;
+        [DataMember]
+        public bool ShowAllRecords
+        {
+            get { return _ShowAllRecords; }
+            set { _ShowAllRecords = value; }
+        }
         [DataMember]
         public string FormId
         {
@@ -89,5 +98,17 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _isSQLProject; }
             set { _isSQLProject = value; }
         }
+         [DataMember]
+        public bool IsShareable
+        {
+            get { return _IsShareable; }
+            set { _IsShareable = value; }
+        }
+        [DataMember]
+         public bool IsShared
+         {
+             get { return _IsShared; }
+             set { _IsShared = value; }
+         }
     }
 }

@@ -23,7 +23,7 @@ namespace Epi.Web.EF
     {
 
         private int sqlProjectResponsesCount;
-
+        bool ShowAllRecords;
         /// <summary>
         /// Reads Number of responses for SqlProject
         /// </summary>
@@ -409,7 +409,15 @@ namespace Epi.Web.EF
             {
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                    SurveyResponse SurveyResponseEntity = Mapper.ToEF(SurveyResponse);
+                    SurveyResponse SurveyResponseEntity = new EF.SurveyResponse();
+                    var _UserOrg  = Context.UserOrganizations.Where(x => x.UserID == SurveyResponse.UserId).First();
+                    if (_UserOrg  != null)
+                    {
+                        SurveyResponseEntity = Mapper.ToEF(SurveyResponse, _UserOrg.OrganizationID);
+                    }
+                    else {
+                         SurveyResponseEntity = Mapper.ToEF(SurveyResponse);
+                    }
                     //SurveyResponseEntity.Users.Add(new User { UserID = 2 });
                     User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
                     SurveyResponseEntity.Users.Add(User);
@@ -760,6 +768,8 @@ namespace Epi.Web.EF
 
 
             IsSqlProject = IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
+            
+              ShowAllRecords = this.ShowAll(criteria.SurveyId,criteria.UserId);
 
             if (IsSqlProject)
             {
@@ -777,7 +787,7 @@ namespace Epi.Web.EF
                 string EI7Query;
                 if (!criteria.GetAllColumns)
                 {
-                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber,false,"", criteria.UserId);
+                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber, false, "", criteria.UserId, criteria.IsShareable, criteria.UserOrganizationId, ShowAllRecords);
 
                 }
                 else
@@ -844,9 +854,25 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                     {
+                        IEnumerable<SurveyResponse> SurveyResponseList;
+                        if (criteria.IsShareable && !ShowAllRecords)
+                        {
+                            //Shareable
+                            SurveyResponseList = Context.SurveyResponses.ToList().Where(
+                                x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                      && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                      && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                       .OrderByDescending(x => x.DateUpdated);
+                          
 
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
-
+                        }
+                        else
+                        {
+                        
+                         SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
+                        
+                        
+                        }
                         SurveyResponseList = SurveyResponseList.Skip((criteria.PageNumber - 1) * criteria.PageSize).Take(criteria.PageSize);
 
 
@@ -1041,7 +1067,12 @@ namespace Epi.Web.EF
             int PageNumber = 1,
             bool IsChild = false,
             string ResponseId = "",
-            int UserId = -1)
+            int UserId = -1,
+            bool IsShareable = false,
+            int UserOrgId = -1,
+            bool ShowAllRecords = false
+
+            )
         {
             SqlConnection EweConnection = new SqlConnection(DataObjectFactory.EWEADOConnectionString);
             EweConnection.Open();
@@ -1146,14 +1177,34 @@ namespace Epi.Web.EF
             stringBuilder.Append(" WHERE RECSTATUS = 1 ");
             //  User filter Start 
 
-            if (ConfigurationManager.AppSettings["FilterByUser"].ToUpper() == "TRUE" && UserId != -1)
+           // if (ConfigurationManager.AppSettings["FilterByUser"].ToUpper() == "TRUE" && UserId != -1)
+            //{
+            //    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+            //    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+            //    stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].SurveyResponseUser on SurveyResponse.ResponseId =SurveyResponseUser.ResponseId");
+            //    stringBuilder.Append(" Where " + "UserId =" + UserId +")");
+            //}
+           
+            if (IsShareable )
             {
-               
-                stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
-                stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
-                stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].SurveyResponseUser on SurveyResponse.ResponseId =SurveyResponseUser.ResponseId");
-                stringBuilder.Append(" Where " + "UserId =" + UserId +")");
+                if (!ShowAllRecords)
+                {
+                    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                    //stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].SurveyResponseUser on SurveyResponse.ResponseId =SurveyResponseUser.ResponseId and SurveyResponse.SurveyId ='" + FormId+"'");
+                    //stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].UserOrganization on UserOrganization.UserID = SurveyResponseUser.UserId");
+                    //stringBuilder.Append(" Where " + "UserOrganization.OrganizationID =" + UserOrgId + ")");
+                    stringBuilder.Append(" Where " + "OrganizationId =" + UserOrgId + " And SurveyId ='" + FormId + "')");
+                }
+                else {
+
+                    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                    stringBuilder.Append(" Where  SurveyId ='" + FormId + "')");
+                
+                }
             }
+
             //User filter End 
 
             if (SearchCriteria != null && SearchCriteria.Length > 0)
@@ -1549,7 +1600,7 @@ namespace Epi.Web.EF
 
                 //string EI7Query = BuildEI7ResponseQuery(Criteria.SurveyAnswerIdList[0], Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, true);
 
-                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", true, 1, 1, true, Criteria.SurveyAnswerIdList[0]);
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", true, 1, 1, true, Criteria.SurveyAnswerIdList[0],Criteria.UserId,Criteria.IsShareable,Criteria.UserOrganizationId);
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
@@ -1926,7 +1977,9 @@ namespace Epi.Web.EF
 
                 //string EI7Query = BuildEI7ResponseQuery(ResponseId, Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString);
 
-                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", false, 1, 1, true, ResponseId);
+              //  string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", false, 1, 1, true, ResponseId);
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", false, 1, 1, true, ResponseId, -1, Criteria.IsShareable, Criteria.UserOrganizationId, ShowAllRecords);
+
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
@@ -1984,7 +2037,17 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                        result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
+                        //result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
+
+                        if (Criteria.IsShareable && !ShowAllRecords)
+                        {
+                            result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId && x.OrganizationId == Criteria.UserOrganizationId )).OrderBy(x => x.DateCreated).ToList();
+                        }
+                        else
+                        {
+                            result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
+                            
+                        }
 
                     }
 
@@ -2123,7 +2186,7 @@ namespace Epi.Web.EF
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
 
-                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true);
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true, -1, -1, false, "", -1, Criteria.IsShareable, Criteria.UserOrganizationId, ShowAllRecords);
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
@@ -2150,11 +2213,23 @@ namespace Epi.Web.EF
                 {
 
                     Guid Id = new Guid(Criteria.SurveyId);
-
+                     IEnumerable<SurveyResponse> SurveyResponseList;
                     using (var Context = DataObjectFactory.CreateContext())
                     {
-
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId > 1);
+                        if(Criteria.IsShareable && !ShowAllRecords)
+                        {
+                         SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id 
+                             && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
+                             && x.StatusId > 1 
+                             && x.OrganizationId == Criteria.UserOrganizationId);
+                        }
+                        else
+                        {
+                        
+                          SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId > 1);
+                        
+                        
+                        }
                         ResponseCount = SurveyResponseList.Count();
 
                     }
@@ -2220,6 +2295,31 @@ namespace Epi.Web.EF
 
 
             }
+
+
+
+        public bool ShowAll(string  FormId, int UserId) 
+        {
+            bool ShowAll = false;
+            Guid Id = new Guid(FormId);
+             using (var Context = DataObjectFactory.CreateContext())
+                {
+                    var FormInfo = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id ).First();
+
+
+                    if (FormInfo.OwnerId == UserId && (bool)FormInfo.ShowAllRecords)
+                 {
+
+                     ShowAll = true;
+                 }
+               }
+
+
+            return ShowAll;
+        
+        
+        
+        }
 
         }
 }

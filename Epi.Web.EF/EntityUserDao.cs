@@ -165,7 +165,7 @@ namespace Epi.Web.EF
                 return true;
 
             }
-            catch (Exception)
+            catch (Exception ex )
             {
 
                 return false;
@@ -328,5 +328,28 @@ namespace Epi.Web.EF
 
             return Result;
         }
-    }
+
+        public List<UserBO> GetAdminsBySelectedOrgs(FormSettingBO FormSettingBO, string formId)
+           {
+             
+              List<UserBO> AdminList = new List<UserBO>();
+              using (var Context = DataObjectFactory.CreateContext())
+              {
+                  foreach (var item in FormSettingBO.SelectedOrgList)
+                  {
+                      int OrgId = int.Parse(item.Value);
+
+                      var users = Context.UserOrganizations.Where(x => x.RoleId == 2 && x.OrganizationID == OrgId && x.Active == true);
+
+                      foreach (var user in users)
+                      {
+                          AdminList.Add(Mapper.MapToUserBO(user.User, user.RoleId));
+                      }
+
+                  }
+              }
+                  return AdminList;
+             }
+
+}
 }

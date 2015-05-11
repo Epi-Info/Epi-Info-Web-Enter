@@ -94,5 +94,11 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _IsActive; }
             set { _IsActive = value; }
             }
+        private int _UserHighestRole;
+        public int UserHighestRole
+        {
+            get { return _UserHighestRole; }
+            set { _UserHighestRole = value; }
+        }
     }
 }

@@ -103,5 +103,17 @@ namespace Epi.Web.Enter.Common.Criteria
         public bool IsDeleteMode { get; set; }
         [DataMember]
         public bool IsDraftMode { get; set; }
+
+        [DataMember]
+        public bool IsShareable { get; set; }
+        [DataMember]
+        public int UserOrganizationId { get; set; }
+
+        [DataMember]
+        public bool ShowAllRecords
+        {
+            get;
+            set;
+        }
     }
 }

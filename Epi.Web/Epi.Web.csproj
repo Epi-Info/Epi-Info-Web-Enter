@@ -319,6 +319,7 @@
     <Content Include="Content\images\Close.png" />
     <Content Include="Content\images\collectlegend.png" />
     <Content Include="Content\images\collectlegend1.png" />
+    <Content Include="Content\images\collectlegend2.png" />
     <Content Include="Content\images\delset.png" />
     <Content Include="Content\images\designlegend.png" />
     <Content Include="Content\images\designlegend1.png" />

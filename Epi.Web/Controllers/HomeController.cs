@@ -527,7 +527,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
                 FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
-
+               
                 //Populating the request
 
                 FormSettingReq.FormInfo.FormId = SurveyId;
@@ -540,14 +540,19 @@ namespace Epi.Web.MVC.Controllers
                 // Setting  Column Name  List
                 FormResponseInfoModel.Columns = Columns;
 
-
-                //Getting Resposes
+                FormResponseInfoModel.FormInfoModel.IsShared = FormSettingResponse.FormInfo.IsShared;
+                FormResponseInfoModel.FormInfoModel.IsShareable = FormSettingResponse.FormInfo.IsShareable; 
+                // Set User Role 
+                SetUserRole(UserId, FormSettingResponse.FormInfo.OrganizationId);
+              
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
                 FormResponseReq.Criteria.PageNumber = PageNumber;
                 FormResponseReq.Criteria.UserId = UserId;
                 FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
+                FormResponseReq.Criteria.IsShareable = FormSettingResponse.FormInfo.IsShareable;
+                FormResponseReq.Criteria.UserOrganizationId = FormSettingResponse.FormInfo.OrganizationId;
                 Session["IsSqlProject"] = FormSettingResponse.FormInfo.IsSQLProject;
-
+                Session["IsOwner"] = FormSettingResponse.FormInfo.IsOwner;
                 //if (Session["SearchCriteria"] != null)
                 //{
                 //    FormResponseInfoModel.SearchModel = (SearchBoxModel)Session["SearchCriteria"];
@@ -617,6 +622,18 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.CurrentPage = PageNumber;
             }
             return FormResponseInfoModel;
+        }
+
+        private void SetUserRole(int UserId, int OrgId)
+        {
+            UserRequest UserRequest = new UserRequest();
+            UserRequest.Organization.OrganizationId = OrgId;
+            UserRequest.User.UserId = UserId;
+            var UserRes = _isurveyFacade.GetUserInfo(UserRequest);
+            if (UserRes.User.Count() > 0)
+            {
+                Session["UsertRole"] = UserRes.User[0].Role;
+            }
         }
 
         private void PopulateDropDownlists(FormResponseInfoModel FormResponseInfoModel, List<KeyValuePair<int, string>> list)
@@ -786,9 +803,15 @@ namespace Epi.Web.MVC.Controllers
 
                 Model.UserList = dictionary3;
 
+                Columns = FormSettingResponse.FormSetting.AvailableOrgList.ToList();
+                Dictionary<int, string> dictionary4 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
+                Model.AvailableOrgList = dictionary4;
 
+                Columns = FormSettingResponse.FormSetting.SelectedOrgList.ToList();
+                Dictionary<int, string> dictionary5 = Columns.ToDictionary(pair => pair.Key, pair => pair.Value);
+                Model.SelectedOrgList = dictionary5;
 
-
+                Model.IsShareable = FormSettingResponse.FormInfo.IsShareable; 
                 Model.IsDraftMode = FormSettingResponse.FormInfo.IsDraftMode;
                 Model.FormOwnerFirstName = FormSettingResponse.FormInfo.OwnerFName;
                 Model.FormOwnerLastName = FormSettingResponse.FormInfo.OwnerLName;
@@ -816,8 +839,11 @@ namespace Epi.Web.MVC.Controllers
                 FormSetting.FormId = Form.FormId;
                 FormSetting.ColumnNameList = GetDictionary(this.Request.Form["SelectedColumns_" + Form.FormId]);
                 FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
+                FormSetting.SelectedOrgList = GetDictionary(this.Request.Form["SelectedOrg"]);
+                FormSetting.IsShareable = GetFormMode(this.Request.Form["IsShareable"]);
                 FormSettingReq.FormSetting.Add(FormSetting);
                 FormSettingReq.FormInfo.IsDraftMode = GetFormMode(this.Request.Form["Mode"]);
+                
             }
             FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
 
