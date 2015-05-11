@@ -17,7 +17,7 @@
         <button id="btnsearch" onclick="" class="default search" type="button">
             Search</button> 
     }
-    @if (Model.FormInfoModel.IsOwner)
+    @if (Model.FormInfoModel.IsOwner || (Session["UsertRole"].ToString() == "2" && Model.FormInfoModel.IsShared))
     {
         <span>&nbsp;&nbsp;</span>
         <button id="btneditsettings" onclick="GetSettings()" class="default settings" type="button">

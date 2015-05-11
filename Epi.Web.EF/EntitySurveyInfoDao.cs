@@ -356,6 +356,7 @@ namespace Epi.Web.EF
                 Row.IsSQLProject = SurveyInfo.IsSqlProject;
                 Row.TemplateXML = SurveyInfo.XML;
                 Row.IsDraftMode = SurveyInfo.IsDraftMode;
+                Row.IsShareable = SurveyInfo.IsShareable;
                     Context.SaveChanges();
                 }
 

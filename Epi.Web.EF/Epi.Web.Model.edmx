@@ -4,123 +4,83 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="OSELS_EWEModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-        <EntityContainer Name="OSELS_EWEModelStoreContainer">
-          <EntitySet Name="EIDatasource" EntityType="OSELS_EWEModel.Store.EIDatasource" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="lk_RecordSource" EntityType="OSELS_EWEModel.Store.lk_RecordSource" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="lk_Status" EntityType="OSELS_EWEModel.Store.lk_Status" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="lk_SurveyType" EntityType="OSELS_EWEModel.Store.lk_SurveyType" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Organization" EntityType="OSELS_EWEModel.Store.Organization" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ResponseDisplaySettings" EntityType="OSELS_EWEModel.Store.ResponseDisplaySettings" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ResponseXml" EntityType="OSELS_EWEModel.Store.ResponseXml" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="Role" EntityType="OSELS_EWEModel.Store.Role" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyMetaData" EntityType="OSELS_EWEModel.Store.SurveyMetaData" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyMetaDataTransform" EntityType="OSELS_EWEModel.Store.SurveyMetaDataTransform" store:Type="Tables" store:Schema="dbo" store:Name="SurveyMetaDataTransform">
-            <DefiningQuery>SELECT 
-      [SurveyMetaDataTransform].[SurveyId] AS [SurveyId], 
-      [SurveyMetaDataTransform].[TableName] AS [TableName], 
-      [SurveyMetaDataTransform].[BaseTableName] AS [BaseTableName], 
-      [SurveyMetaDataTransform].[PageId] AS [PageId], 
-      [SurveyMetaDataTransform].[FieldName] AS [FieldName], 
-      [SurveyMetaDataTransform].[FieldTypeId] AS [FieldTypeId]
-      FROM [dbo].[SurveyMetaDataTransform] AS [SurveyMetaDataTransform]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="SurveyMetaDataUser" EntityType="OSELS_EWEModel.Store.SurveyMetaDataUser" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyMetaDataView" EntityType="OSELS_EWEModel.Store.SurveyMetaDataView" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyResponse" EntityType="OSELS_EWEModel.Store.SurveyResponse" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyResponseTracking" EntityType="OSELS_EWEModel.Store.SurveyResponseTracking" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="SurveyResponseUser" EntityType="OSELS_EWEModel.Store.SurveyResponseUser" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="sysdiagrams" EntityType="OSELS_EWEModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="User" EntityType="OSELS_EWEModel.Store.User" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="UserOrganization" EntityType="OSELS_EWEModel.Store.UserOrganization" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Datasource_SurveyMetaData" Association="OSELS_EWEModel.Store.FK_Datasource_SurveyMetaData">
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-            <End Role="EIDatasource" EntitySet="EIDatasource" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ResponseGridcolumns_SurveyMetaData" Association="OSELS_EWEModel.Store.FK_ResponseGridcolumns_SurveyMetaData">
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-            <End Role="ResponseDisplaySettings" EntitySet="ResponseDisplaySettings" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaData_lk_SurveyType" Association="OSELS_EWEModel.Store.FK_SurveyMetaData_lk_SurveyType">
-            <End Role="lk_SurveyType" EntitySet="lk_SurveyType" />
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaData_Organization" Association="OSELS_EWEModel.Store.FK_SurveyMetaData_Organization">
-            <End Role="Organization" EntitySet="Organization" />
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaData_SurveyMetaData1" Association="OSELS_EWEModel.Store.FK_SurveyMetaData_SurveyMetaData1">
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-            <End Role="SurveyMetaData1" EntitySet="SurveyMetaData" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaDataTransform_SurveyMetaData" Association="OSELS_EWEModel.Store.FK_SurveyMetaDataTransform_SurveyMetaData">
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-            <End Role="SurveyMetaDataTransform" EntitySet="SurveyMetaDataTransform" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaDataUser_SurveyMetaData" Association="OSELS_EWEModel.Store.FK_SurveyMetaDataUser_SurveyMetaData">
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-            <End Role="SurveyMetaDataUser" EntitySet="SurveyMetaDataUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaDataUser_User" Association="OSELS_EWEModel.Store.FK_SurveyMetaDataUser_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="SurveyMetaDataUser" EntitySet="SurveyMetaDataUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponse_lk_Status" Association="OSELS_EWEModel.Store.FK_SurveyResponse_lk_Status">
-            <End Role="lk_Status" EntitySet="lk_Status" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponse_SurveyMetaData" Association="OSELS_EWEModel.Store.FK_SurveyResponse_SurveyMetaData">
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponse_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponse_SurveyResponse">
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-            <End Role="SurveyResponse1" EntitySet="SurveyResponse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponseTracking_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponseTracking_SurveyResponse">
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-            <End Role="SurveyResponseTracking" EntitySet="SurveyResponseTracking" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponseUser_SurveyResponse" Association="OSELS_EWEModel.Store.FK_SurveyResponseUser_SurveyResponse">
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-            <End Role="SurveyResponseUser" EntitySet="SurveyResponseUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponseUser_User" Association="OSELS_EWEModel.Store.FK_SurveyResponseUser_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="SurveyResponseUser" EntitySet="SurveyResponseUser" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserOrganization_Organization" Association="OSELS_EWEModel.Store.FK_UserOrganization_Organization">
-            <End Role="Organization" EntitySet="Organization" />
-            <End Role="UserOrganization" EntitySet="UserOrganization" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserOrganization_Role" Association="OSELS_EWEModel.Store.FK_UserOrganization_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="UserOrganization" EntitySet="UserOrganization" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserOrganization_User" Association="OSELS_EWEModel.Store.FK_UserOrganization_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserOrganization" EntitySet="UserOrganization" />
-          </AssociationSet>
-        </EntityContainer>
+    <Schema Namespace="OSELS_EWEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityType Name="EIDatasource">
           <Key>
             <PropertyRef Name="DatasourceID" />
           </Key>
-          <Property Name="DatasourceID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DatasourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DatasourceServerName" Type="varchar" MaxLength="300" />
-          <Property Name="DatabaseType" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="DatabaseType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="InitialCatalog" Type="varchar" MaxLength="300" />
           <Property Name="PersistSecurityInfo" Type="varchar" MaxLength="50" />
           <Property Name="SurveyId" Type="uniqueidentifier" />
           <Property Name="DatabaseUserID" Type="varchar" MaxLength="200" />
           <Property Name="Password" Type="varchar" MaxLength="200" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorDate" />
+          </Key>
+          <Property Name="ErrorDate" Type="datetime" Nullable="false" />
+          <Property Name="SurveyId" Type="uniqueidentifier" />
+          <Property Name="ResponseId" Type="uniqueidentifier" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="ERROR_NUMBER" Type="int" />
+          <Property Name="ERROR_MESSAGE" Type="nvarchar" MaxLength="4000" />
+          <Property Name="ERROR_SEVERITY" Type="int" />
+          <Property Name="ERROR_STATE" Type="int" />
+          <Property Name="ERROR_PROCEDURE" Type="nvarchar" MaxLength="1128" />
+          <Property Name="ERROR_LINE" Type="int" />
+          <Property Name="ErrorText" Type="nvarchar(max)" />
+          <Property Name="ErrorText2" Type="nvarchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="familyset">
+          <Key>
+            <PropertyRef Name="SurveyId" />
+            <PropertyRef Name="OwnerId" />
+            <PropertyRef Name="SurveyTypeId" />
+            <PropertyRef Name="ClosingDate" />
+            <PropertyRef Name="SurveyName" />
+            <PropertyRef Name="TemplateXML" />
+            <PropertyRef Name="UserPublishKey" />
+            <PropertyRef Name="TemplateXMLSize" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="OrganizationId" />
+            <PropertyRef Name="IsDraftMode" />
+            <PropertyRef Name="StartDate" />
+          </Key>
+          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OwnerId" Type="int" Nullable="false" />
+          <Property Name="SurveyNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="SurveyTypeId" Type="int" Nullable="false" />
+          <Property Name="ClosingDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="SurveyName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="OrganizationName" Type="nvarchar" MaxLength="500" />
+          <Property Name="DepartmentName" Type="nvarchar" MaxLength="500" />
+          <Property Name="IntroductionText" Type="nvarchar(max)" />
+          <Property Name="TemplateXML" Type="xml" Nullable="false" />
+          <Property Name="ExitText" Type="nvarchar(max)" />
+          <Property Name="UserPublishKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TemplateXMLSize" Type="bigint" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="OrganizationId" Type="int" Nullable="false" />
+          <Property Name="IsDraftMode" Type="bit" Nullable="false" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ParentId" Type="uniqueidentifier" />
+          <Property Name="ViewId" Type="int" />
+          <Property Name="IsSQLProject" Type="bit" />
+        </EntityType>
         <EntityType Name="lk_RecordSource">
           <Key>
             <PropertyRef Name="RecordSourceId" />
           </Key>
           <Property Name="RecordSourceId" Type="int" Nullable="false" />
-          <Property Name="RecordSource" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="RecordSource" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="RecordSourceDescription" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="lk_Status">
@@ -128,7 +88,7 @@
             <PropertyRef Name="StatusId" />
           </Key>
           <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" Nullable="false" MaxLength="20" />
+          <Property Name="Status" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="lk_SurveyType">
           <Key>
@@ -141,9 +101,9 @@
           <Key>
             <PropertyRef Name="OrganizationId" />
           </Key>
-          <Property Name="OrganizationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="OrganizationKey" Type="nvarchar" Nullable="false" MaxLength="500" />
-          <Property Name="Organization" Type="nvarchar" Nullable="false" MaxLength="400" />
+          <Property Name="OrganizationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrganizationKey" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Organization" Type="nvarchar" MaxLength="400" Nullable="false" />
           <Property Name="IsEnabled" Type="bit" Nullable="false" />
           <Property Name="IsHostOrganization" Type="bit" Nullable="false" />
         </EntityType>
@@ -153,7 +113,7 @@
             <PropertyRef Name="ColumnName" />
           </Key>
           <Property Name="FormId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ColumnName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="ColumnName" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="SortOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ResponseXml">
@@ -169,9 +129,9 @@
           <Key>
             <PropertyRef Name="RoleID" />
           </Key>
-          <Property Name="RoleID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleValue" Type="int" Nullable="false" />
-          <Property Name="RoleDescription" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="RoleDescription" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyMetaData">
           <Key>
@@ -181,8 +141,8 @@
           <Property Name="OwnerId" Type="int" Nullable="false" />
           <Property Name="SurveyNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="SurveyTypeId" Type="int" Nullable="false" />
-          <Property Name="ClosingDate" Type="datetime2" Nullable="false" />
-          <Property Name="SurveyName" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="ClosingDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="SurveyName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="OrganizationName" Type="nvarchar" MaxLength="500" />
           <Property Name="DepartmentName" Type="nvarchar" MaxLength="500" />
           <Property Name="IntroductionText" Type="nvarchar(max)" />
@@ -190,17 +150,26 @@
           <Property Name="ExitText" Type="nvarchar(max)" />
           <Property Name="UserPublishKey" Type="uniqueidentifier" Nullable="false" />
           <Property Name="TemplateXMLSize" Type="bigint" Nullable="false" />
-          <Property Name="DateCreated" Type="datetime2" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="OrganizationId" Type="int" Nullable="false" />
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
-          <Property Name="StartDate" Type="datetime2" Nullable="false" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="ParentId" Type="uniqueidentifier" />
           <Property Name="ViewId" Type="int" />
           <Property Name="IsSQLProject" Type="bit" />
+          <Property Name="IsShareable" Type="bit" />
+          <Property Name="ShowAllRecords" Type="bit" />
+        </EntityType>
+        <EntityType Name="SurveyMetadataOrganization">
+          <Key>
+            <PropertyRef Name="SurveyId" />
+            <PropertyRef Name="OrganizationId" />
+          </Key>
+          <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganizationId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-      warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
+warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SurveyMetaDataTransform">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -209,10 +178,10 @@
             <PropertyRef Name="FieldTypeId" />
           </Key>
           <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="TableName" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="TableName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="BaseTableName" Type="nvarchar" MaxLength="500" />
           <Property Name="PageId" Type="int" />
-          <Property Name="FieldName" Type="nvarchar" Nullable="false" MaxLength="500" />
+          <Property Name="FieldName" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="FieldTypeId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyMetaDataUser">
@@ -228,7 +197,7 @@
             <PropertyRef Name="SurveyId" />
           </Key>
           <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="ViewTableName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="ViewTableName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="SurveyResponse">
           <Key>
@@ -236,18 +205,19 @@
           </Key>
           <Property Name="ResponseId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="SurveyId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="DateUpdated" Type="datetime2" Nullable="false" />
-          <Property Name="DateCompleted" Type="datetime2" />
+          <Property Name="DateUpdated" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DateCompleted" Type="datetime2" Precision="7" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="ResponseXML" Type="xml" Nullable="false" />
           <Property Name="ResponsePasscode" Type="nvarchar" MaxLength="30" />
           <Property Name="ResponseXMLSize" Type="bigint" />
-          <Property Name="DateCreated" Type="datetime2" Nullable="false" />
+          <Property Name="DateCreated" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="IsDraftMode" Type="bit" Nullable="false" />
           <Property Name="IsLocked" Type="bit" Nullable="false" />
           <Property Name="ParentRecordId" Type="uniqueidentifier" />
           <Property Name="RelateParentId" Type="uniqueidentifier" />
           <Property Name="RecordSourceId" Type="int" />
+          <Property Name="OrganizationId" Type="int" />
         </EntityType>
         <EntityType Name="SurveyResponseTracking">
           <Key>
@@ -269,9 +239,9 @@
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
@@ -279,14 +249,14 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PasswordHash" Type="varchar(max)" Nullable="false" />
           <Property Name="ResetPassword" Type="bit" Nullable="false" />
-          <Property Name="EmailAddress" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="UserOrganization">
           <Key>
@@ -298,11 +268,24 @@
           <Property Name="RoleId" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ErrorLogSorted">
+          <Key>
+            <PropertyRef Name="ErrorDate" />
+          </Key>
+          <Property Name="ErrorDate" Type="datetime" Nullable="false" />
+          <Property Name="SurveyId" Type="uniqueidentifier" />
+          <Property Name="ResponseId" Type="uniqueidentifier" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="ErrorText" Type="nvarchar(max)" />
+          <Property Name="ErrorText2" Type="nvarchar(max)" />
+        </EntityType>
         <Association Name="FK_Datasource_SurveyMetaData">
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="0..1">
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="EIDatasource" Type="OSELS_EWEModel.Store.EIDatasource" Multiplicity="*" />
+          <End Role="EIDatasource" Type="Self.EIDatasource" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyMetaData">
               <PropertyRef Name="SurveyId" />
@@ -313,10 +296,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ResponseGridcolumns_SurveyMetaData">
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="1">
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="ResponseDisplaySettings" Type="OSELS_EWEModel.Store.ResponseDisplaySettings" Multiplicity="*" />
+          <End Role="ResponseDisplaySettings" Type="Self.ResponseDisplaySettings" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyMetaData">
               <PropertyRef Name="SurveyId" />
@@ -327,8 +310,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyMetaData_lk_SurveyType">
-          <End Role="lk_SurveyType" Type="OSELS_EWEModel.Store.lk_SurveyType" Multiplicity="1" />
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="*" />
+          <End Role="lk_SurveyType" Type="Self.lk_SurveyType" Multiplicity="1" />
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="lk_SurveyType">
               <PropertyRef Name="SurveyTypeId" />
@@ -338,23 +321,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SurveyMetaData_Organization">
-          <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Organization">
-              <PropertyRef Name="OrganizationId" />
-            </Principal>
-            <Dependent Role="SurveyMetaData">
-              <PropertyRef Name="OrganizationId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SurveyMetaData_SurveyMetaData1">
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="0..1" />
-          <End Role="SurveyMetaData1" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="*" />
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="0..1" />
+          <End Role="SurveyMetaData1" Type="Self.SurveyMetaData" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyMetaData">
               <PropertyRef Name="SurveyId" />
@@ -364,11 +333,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyMetadataOrganization_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="SurveyMetadataOrganization" Type="Self.SurveyMetadataOrganization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="OrganizationId" />
+            </Principal>
+            <Dependent Role="SurveyMetadataOrganization">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyMetadataOrganization_SurveyMetaData">
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="1" />
+          <End Role="SurveyMetadataOrganization" Type="Self.SurveyMetadataOrganization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SurveyMetaData">
+              <PropertyRef Name="SurveyId" />
+            </Principal>
+            <Dependent Role="SurveyMetadataOrganization">
+              <PropertyRef Name="SurveyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyMetaDataTransform_SurveyMetaData">
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="1">
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="SurveyMetaDataTransform" Type="OSELS_EWEModel.Store.SurveyMetaDataTransform" Multiplicity="*" />
+          <End Role="SurveyMetaDataTransform" Type="Self.SurveyMetaDataTransform" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyMetaData">
               <PropertyRef Name="SurveyId" />
@@ -379,10 +372,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyMetaDataUser_SurveyMetaData">
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="1">
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="SurveyMetaDataUser" Type="OSELS_EWEModel.Store.SurveyMetaDataUser" Multiplicity="*" />
+          <End Role="SurveyMetaDataUser" Type="Self.SurveyMetaDataUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyMetaData">
               <PropertyRef Name="SurveyId" />
@@ -393,8 +386,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyMetaDataUser_User">
-          <End Role="User" Type="OSELS_EWEModel.Store.User" Multiplicity="1" />
-          <End Role="SurveyMetaDataUser" Type="OSELS_EWEModel.Store.SurveyMetaDataUser" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SurveyMetaDataUser" Type="Self.SurveyMetaDataUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -405,8 +398,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponse_lk_Status">
-          <End Role="lk_Status" Type="OSELS_EWEModel.Store.lk_Status" Multiplicity="1" />
-          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="*" />
+          <End Role="lk_Status" Type="Self.lk_Status" Multiplicity="1" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="lk_Status">
               <PropertyRef Name="StatusId" />
@@ -416,11 +409,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SurveyResponse_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="OrganizationId" />
+            </Principal>
+            <Dependent Role="SurveyResponse">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_SurveyResponse_SurveyMetaData">
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.Store.SurveyMetaData" Multiplicity="1">
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="*" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyMetaData">
               <PropertyRef Name="SurveyId" />
@@ -431,8 +436,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponse_SurveyResponse">
-          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="0..1" />
-          <End Role="SurveyResponse1" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="*" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="0..1" />
+          <End Role="SurveyResponse1" Type="Self.SurveyResponse" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyResponse">
               <PropertyRef Name="ResponseId" />
@@ -443,10 +448,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponseTracking_SurveyResponse">
-          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="1">
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="SurveyResponseTracking" Type="OSELS_EWEModel.Store.SurveyResponseTracking" Multiplicity="0..1" />
+          <End Role="SurveyResponseTracking" Type="Self.SurveyResponseTracking" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="SurveyResponse">
               <PropertyRef Name="ResponseId" />
@@ -457,10 +462,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponseUser_SurveyResponse">
-          <End Role="SurveyResponse" Type="OSELS_EWEModel.Store.SurveyResponse" Multiplicity="1">
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="SurveyResponseUser" Type="OSELS_EWEModel.Store.SurveyResponseUser" Multiplicity="*" />
+          <End Role="SurveyResponseUser" Type="Self.SurveyResponseUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SurveyResponse">
               <PropertyRef Name="ResponseId" />
@@ -471,8 +476,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SurveyResponseUser_User">
-          <End Role="User" Type="OSELS_EWEModel.Store.User" Multiplicity="1" />
-          <End Role="SurveyResponseUser" Type="OSELS_EWEModel.Store.SurveyResponseUser" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SurveyResponseUser" Type="Self.SurveyResponseUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -483,10 +488,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserOrganization_Organization">
-          <End Role="Organization" Type="OSELS_EWEModel.Store.Organization" Multiplicity="1">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="UserOrganization" Type="OSELS_EWEModel.Store.UserOrganization" Multiplicity="*" />
+          <End Role="UserOrganization" Type="Self.UserOrganization" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Organization">
               <PropertyRef Name="OrganizationId" />
@@ -497,8 +502,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserOrganization_Role">
-          <End Role="Role" Type="OSELS_EWEModel.Store.Role" Multiplicity="1" />
-          <End Role="UserOrganization" Type="OSELS_EWEModel.Store.UserOrganization" Multiplicity="*" />
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserOrganization" Type="Self.UserOrganization" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="RoleID" />
@@ -509,8 +514,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserOrganization_User">
-          <End Role="User" Type="OSELS_EWEModel.Store.User" Multiplicity="1" />
-          <End Role="UserOrganization" Type="OSELS_EWEModel.Store.UserOrganization" Multiplicity="*" />
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UserOrganization" Type="Self.UserOrganization" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -520,7 +525,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -577,7 +582,7 @@
           <Parameter Name="InsertText" Type="varchar(max)" Mode="InOut" />
           <Parameter Name="UpdateText" Type="varchar(max)" Mode="InOut" />
         </Function>
-        <Function Name="usp_create_epi7_sql_statements_driver__" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" StoreFunctionName="usp_create_epi7_sql_statements_driver  " Schema="dbo">
+        <Function Name="usp_create_epi7_sql_statements_driver__" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" StoreFunctionName="usp_create_epi7_sql_statements_driver  ">
           <Parameter Name="xml" Type="xml" Mode="In" />
           <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
@@ -594,6 +599,7 @@
           <Parameter Name="FormId" Type="varchar" Mode="In" />
           <Parameter Name="ViewTableName" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_GetErrorInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="usp_GetFormFieldsInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FormId" Type="varchar" Mode="In" />
         </Function>
@@ -606,11 +612,190 @@
         <Function Name="usp_IsSQLProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FormId" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_log_to_errorlog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="Comment" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorText" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorText2" Type="varchar" Mode="In" />
+          <Parameter Name="ErrorNumber" Type="int" Mode="In" />
+          <Parameter Name="ErrorSeverity" Type="int" Mode="In" />
+          <Parameter Name="ErrorState" Type="int" Mode="In" />
+          <Parameter Name="ErrorProcedure" Type="nvarchar" Mode="In" />
+          <Parameter Name="ErrorLine" Type="int" Mode="In" />
+          <Parameter Name="ErrorMessage" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_process_sql_server_project_response" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ResponseXML" Type="xml" Mode="In" />
+          <Parameter Name="IsSQLProject" Type="bit" Mode="In" />
+          <Parameter Name="IsDraftMode" Type="bit" Mode="In" />
+          <Parameter Name="StatusId" Type="int" Mode="In" />
+          <Parameter Name="IsSQLResponse" Type="bit" Mode="In" />
+          <Parameter Name="FirstSaveLogonName" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="usp_soft_delete_Epi7_record" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ResponseId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="SurveyId" Type="uniqueidentifier" Mode="In" />
           <Parameter Name="IsResponsePresent" Type="bit" Mode="In" />
         </Function>
+        <EntityContainer Name="OSELS_EWEModelStoreContainer">
+          <EntitySet Name="EIDatasource" EntityType="Self.EIDatasource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lk_RecordSource" EntityType="Self.lk_RecordSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lk_Status" EntityType="Self.lk_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="lk_SurveyType" EntityType="Self.lk_SurveyType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponseDisplaySettings" EntityType="Self.ResponseDisplaySettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponseXml" EntityType="Self.ResponseXml" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyMetaData" EntityType="Self.SurveyMetaData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyMetadataOrganization" EntityType="Self.SurveyMetadataOrganization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyMetaDataUser" EntityType="Self.SurveyMetaDataUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyMetaDataView" EntityType="Self.SurveyMetaDataView" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyResponseTracking" EntityType="Self.SurveyResponseTracking" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyResponseUser" EntityType="Self.SurveyResponseUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserOrganization" EntityType="Self.UserOrganization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ErrorLog].[ErrorDate] AS [ErrorDate], 
+[ErrorLog].[SurveyId] AS [SurveyId], 
+[ErrorLog].[ResponseId] AS [ResponseId], 
+[ErrorLog].[Comment] AS [Comment], 
+[ErrorLog].[ERROR_NUMBER] AS [ERROR_NUMBER], 
+[ErrorLog].[ERROR_MESSAGE] AS [ERROR_MESSAGE], 
+[ErrorLog].[ERROR_SEVERITY] AS [ERROR_SEVERITY], 
+[ErrorLog].[ERROR_STATE] AS [ERROR_STATE], 
+[ErrorLog].[ERROR_PROCEDURE] AS [ERROR_PROCEDURE], 
+[ErrorLog].[ERROR_LINE] AS [ERROR_LINE], 
+[ErrorLog].[ErrorText] AS [ErrorText], 
+[ErrorLog].[ErrorText2] AS [ErrorText2]
+FROM [dbo].[ErrorLog] AS [ErrorLog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="familyset" EntityType="Self.familyset" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[familyset].[SurveyId] AS [SurveyId], 
+[familyset].[OwnerId] AS [OwnerId], 
+[familyset].[SurveyNumber] AS [SurveyNumber], 
+[familyset].[SurveyTypeId] AS [SurveyTypeId], 
+[familyset].[ClosingDate] AS [ClosingDate], 
+[familyset].[SurveyName] AS [SurveyName], 
+[familyset].[OrganizationName] AS [OrganizationName], 
+[familyset].[DepartmentName] AS [DepartmentName], 
+[familyset].[IntroductionText] AS [IntroductionText], 
+[familyset].[TemplateXML] AS [TemplateXML], 
+[familyset].[ExitText] AS [ExitText], 
+[familyset].[UserPublishKey] AS [UserPublishKey], 
+[familyset].[TemplateXMLSize] AS [TemplateXMLSize], 
+[familyset].[DateCreated] AS [DateCreated], 
+[familyset].[OrganizationId] AS [OrganizationId], 
+[familyset].[IsDraftMode] AS [IsDraftMode], 
+[familyset].[StartDate] AS [StartDate], 
+[familyset].[ParentId] AS [ParentId], 
+[familyset].[ViewId] AS [ViewId], 
+[familyset].[IsSQLProject] AS [IsSQLProject]
+FROM [dbo].[familyset] AS [familyset]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="SurveyMetaDataTransform" EntityType="Self.SurveyMetaDataTransform" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[SurveyMetaDataTransform].[SurveyId] AS [SurveyId], 
+[SurveyMetaDataTransform].[TableName] AS [TableName], 
+[SurveyMetaDataTransform].[BaseTableName] AS [BaseTableName], 
+[SurveyMetaDataTransform].[PageId] AS [PageId], 
+[SurveyMetaDataTransform].[FieldName] AS [FieldName], 
+[SurveyMetaDataTransform].[FieldTypeId] AS [FieldTypeId]
+FROM [dbo].[SurveyMetaDataTransform] AS [SurveyMetaDataTransform]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ErrorLogSorted" EntityType="Self.ErrorLogSorted" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ErrorLogSorted].[ErrorDate] AS [ErrorDate], 
+[ErrorLogSorted].[SurveyId] AS [SurveyId], 
+[ErrorLogSorted].[ResponseId] AS [ResponseId], 
+[ErrorLogSorted].[Comment] AS [Comment], 
+[ErrorLogSorted].[ErrorText] AS [ErrorText], 
+[ErrorLogSorted].[ErrorText2] AS [ErrorText2]
+FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Datasource_SurveyMetaData" Association="Self.FK_Datasource_SurveyMetaData">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="EIDatasource" EntitySet="EIDatasource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponseGridcolumns_SurveyMetaData" Association="Self.FK_ResponseGridcolumns_SurveyMetaData">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="ResponseDisplaySettings" EntitySet="ResponseDisplaySettings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetaData_lk_SurveyType" Association="Self.FK_SurveyMetaData_lk_SurveyType">
+            <End Role="lk_SurveyType" EntitySet="lk_SurveyType" />
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetaData_SurveyMetaData1" Association="Self.FK_SurveyMetaData_SurveyMetaData1">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="SurveyMetaData1" EntitySet="SurveyMetaData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetadataOrganization_Organization" Association="Self.FK_SurveyMetadataOrganization_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="SurveyMetadataOrganization" EntitySet="SurveyMetadataOrganization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetadataOrganization_SurveyMetaData" Association="Self.FK_SurveyMetadataOrganization_SurveyMetaData">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="SurveyMetadataOrganization" EntitySet="SurveyMetadataOrganization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetaDataTransform_SurveyMetaData" Association="Self.FK_SurveyMetaDataTransform_SurveyMetaData">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="SurveyMetaDataTransform" EntitySet="SurveyMetaDataTransform" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetaDataUser_SurveyMetaData" Association="Self.FK_SurveyMetaDataUser_SurveyMetaData">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="SurveyMetaDataUser" EntitySet="SurveyMetaDataUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetaDataUser_User" Association="Self.FK_SurveyMetaDataUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SurveyMetaDataUser" EntitySet="SurveyMetaDataUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponse_lk_Status" Association="Self.FK_SurveyResponse_lk_Status">
+            <End Role="lk_Status" EntitySet="lk_Status" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponse_Organization" Association="Self.FK_SurveyResponse_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponse_SurveyMetaData" Association="Self.FK_SurveyResponse_SurveyMetaData">
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponse_SurveyResponse" Association="Self.FK_SurveyResponse_SurveyResponse">
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End Role="SurveyResponse1" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponseTracking_SurveyResponse" Association="Self.FK_SurveyResponseTracking_SurveyResponse">
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End Role="SurveyResponseTracking" EntitySet="SurveyResponseTracking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponseUser_SurveyResponse" Association="Self.FK_SurveyResponseUser_SurveyResponse">
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+            <End Role="SurveyResponseUser" EntitySet="SurveyResponseUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponseUser_User" Association="Self.FK_SurveyResponseUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SurveyResponseUser" EntitySet="SurveyResponseUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOrganization_Organization" Association="Self.FK_UserOrganization_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="UserOrganization" EntitySet="UserOrganization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOrganization_Role" Association="Self.FK_UserOrganization_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserOrganization" EntitySet="UserOrganization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserOrganization_User" Association="Self.FK_UserOrganization_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserOrganization" EntitySet="UserOrganization" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -624,10 +809,6 @@
           <EntitySet Name="Users" EntityType="OSELS_EWEModel.User" />
           <AssociationSet Name="FK_SurveyMetaData_lk_SurveyType" Association="OSELS_EWEModel.FK_SurveyMetaData_lk_SurveyType">
             <End Role="lk_SurveyType" EntitySet="lk_SurveyType" />
-            <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyMetaData_Organization" Association="OSELS_EWEModel.FK_SurveyMetaData_Organization">
-            <End Role="Organization" EntitySet="Organizations" />
             <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
           </AssociationSet>
           <AssociationSet Name="SurveyMetaDataUser" Association="OSELS_EWEModel.SurveyMetaDataUser">
@@ -706,6 +887,41 @@
             <Parameter Name="SurveyId" Mode="In" Type="Guid" />
             <Parameter Name="IsResponsePresent" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <EntitySet Name="ErrorLogs" EntityType="OSELS_EWEModel.ErrorLog" />
+          <EntitySet Name="familysets" EntityType="OSELS_EWEModel.familyset" />
+          <EntitySet Name="ErrorLogSorteds" EntityType="OSELS_EWEModel.ErrorLogSorted" />
+          <FunctionImport Name="usp_GetErrorInfo" ReturnType="Collection(OSELS_EWEModel.usp_GetErrorInfo_Result)" />
+          <FunctionImport Name="usp_log_to_errorlog">
+            <Parameter Name="SurveyId" Mode="In" Type="Guid" />
+            <Parameter Name="ResponseId" Mode="In" Type="Guid" />
+            <Parameter Name="Comment" Mode="In" Type="String" />
+            <Parameter Name="ErrorText" Mode="In" Type="String" />
+            <Parameter Name="ErrorText2" Mode="In" Type="String" />
+            <Parameter Name="ErrorNumber" Mode="In" Type="Int32" />
+            <Parameter Name="ErrorSeverity" Mode="In" Type="Int32" />
+            <Parameter Name="ErrorState" Mode="In" Type="Int32" />
+            <Parameter Name="ErrorProcedure" Mode="In" Type="String" />
+            <Parameter Name="ErrorLine" Mode="In" Type="Int32" />
+            <Parameter Name="ErrorMessage" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_process_sql_server_project_response">
+            <Parameter Name="ResponseId" Mode="In" Type="Guid" />
+            <Parameter Name="SurveyId" Mode="In" Type="Guid" />
+            <Parameter Name="ResponseXML" Mode="In" Type="String" />
+            <Parameter Name="IsSQLProject" Mode="In" Type="Boolean" />
+            <Parameter Name="IsDraftMode" Mode="In" Type="Boolean" />
+            <Parameter Name="StatusId" Mode="In" Type="Int32" />
+            <Parameter Name="IsSQLResponse" Mode="In" Type="Boolean" />
+            <Parameter Name="FirstSaveLogonName" Mode="In" Type="String" />
+          </FunctionImport>
+          <AssociationSet Name="SurveyMetadataOrganization" Association="OSELS_EWEModel.SurveyMetadataOrganization">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponse_Organization" Association="OSELS_EWEModel.FK_SurveyResponse_Organization">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponses" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="lk_Status">
           <Key>
@@ -732,8 +948,9 @@
           <Property Name="Organization1" Type="String" Nullable="false" MaxLength="400" Unicode="true" FixedLength="false" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
           <Property Name="IsHostOrganization" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="SurveyMetaDatas" Relationship="OSELS_EWEModel.FK_SurveyMetaData_Organization" FromRole="Organization" ToRole="SurveyMetaData" />
           <NavigationProperty Name="UserOrganizations" Relationship="OSELS_EWEModel.FK_UserOrganization_Organization" FromRole="Organization" ToRole="UserOrganization" />
+          <NavigationProperty Name="SurveyMetaDatas" Relationship="OSELS_EWEModel.SurveyMetadataOrganization" FromRole="Organization" ToRole="SurveyMetaData" />
+          <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.FK_SurveyResponse_Organization" FromRole="Organization" ToRole="SurveyResponse" />
         </EntityType>
         <EntityType Name="SurveyMetaData">
           <Key>
@@ -743,7 +960,7 @@
           <Property Name="OwnerId" Type="Int32" Nullable="false" />
           <Property Name="SurveyNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="SurveyTypeId" Type="Int32" Nullable="false" />
-          <Property Name="ClosingDate" Type="DateTime" Nullable="false" />
+          <Property Name="ClosingDate" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="SurveyName" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="OrganizationName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="DepartmentName" Type="String" MaxLength="500" Unicode="true" FixedLength="false" />
@@ -752,12 +969,11 @@
           <Property Name="ExitText" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="UserPublishKey" Type="Guid" Nullable="false" />
           <Property Name="TemplateXMLSize" Type="Int64" Nullable="false" />
-          <Property Name="DateCreated" Type="DateTime" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="OrganizationId" Type="Int32" Nullable="false" />
           <Property Name="IsDraftMode" Type="Boolean" Nullable="false" />
-          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="lk_SurveyType" Relationship="OSELS_EWEModel.FK_SurveyMetaData_lk_SurveyType" FromRole="SurveyMetaData" ToRole="lk_SurveyType" />
-          <NavigationProperty Name="Organization" Relationship="OSELS_EWEModel.FK_SurveyMetaData_Organization" FromRole="SurveyMetaData" ToRole="Organization" />
           <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyMetaDataUser" FromRole="SurveyMetaData" ToRole="User" />
           <NavigationProperty Name="ResponseDisplaySettings" Relationship="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData" FromRole="SurveyMetaData" ToRole="ResponseDisplaySetting" />
           <Property Type="Guid" Name="ParentId" />
@@ -768,6 +984,9 @@
           <NavigationProperty Name="SurveyMetaDataTransforms" Relationship="OSELS_EWEModel.FK_SurveyMetaDataTransform_SurveyMetaData" FromRole="SurveyMetaData" ToRole="SurveyMetaDataTransform" />
           <NavigationProperty Name="EIDatasources" Relationship="OSELS_EWEModel.FK_Datasource_SurveyMetaData1" FromRole="SurveyMetaData" ToRole="EIDatasource" />
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" FromRole="SurveyMetaData" ToRole="SurveyResponse" />
+          <Property Name="IsShareable" Type="Boolean" />
+          <NavigationProperty Name="Organizations" Relationship="OSELS_EWEModel.SurveyMetadataOrganization" FromRole="SurveyMetaData" ToRole="Organization" />
+          <Property Name="ShowAllRecords" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -804,18 +1023,6 @@
             </Principal>
             <Dependent Role="SurveyMetaData">
               <PropertyRef Name="SurveyTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyMetaData_Organization">
-          <End Role="Organization" Type="OSELS_EWEModel.Organization" Multiplicity="1" />
-          <End Role="SurveyMetaData" Type="OSELS_EWEModel.SurveyMetaData" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Organization">
-              <PropertyRef Name="OrganizationId" />
-            </Principal>
-            <Dependent Role="SurveyMetaData">
-              <PropertyRef Name="OrganizationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -970,7 +1177,7 @@
             <PropertyRef Name="RecordSourceId" />
           </Key>
           <Property Type="Int32" Name="RecordSourceId" Nullable="false" />
-          <Property Type="String" Name="RecordSource" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="RecordSource" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="RecordSourceDescription" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Datasource_SurveyMetaData1">
@@ -991,13 +1198,13 @@
           </Key>
           <Property Type="Guid" Name="ResponseId" Nullable="false" />
           <Property Type="Guid" Name="SurveyId" Nullable="false" />
-          <Property Type="DateTime" Name="DateUpdated" Nullable="false" />
-          <Property Type="DateTime" Name="DateCompleted" />
+          <Property Type="DateTime" Name="DateUpdated" Nullable="false" Precision="7" />
+          <Property Type="DateTime" Name="DateCompleted" Precision="7" />
           <Property Type="Int32" Name="StatusId" Nullable="false" />
           <Property Type="String" Name="ResponseXML" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ResponsePasscode" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Type="Int64" Name="ResponseXMLSize" />
-          <Property Type="DateTime" Name="DateCreated" Nullable="false" />
+          <Property Type="DateTime" Name="DateCreated" Nullable="false" Precision="7" />
           <Property Type="Boolean" Name="IsDraftMode" Nullable="false" />
           <Property Type="Boolean" Name="IsLocked" Nullable="false" />
           <Property Type="Guid" Name="ParentRecordId" />
@@ -1009,6 +1216,8 @@
           <NavigationProperty Name="SurveyResponse2" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyResponse" FromRole="SurveyResponse1" ToRole="SurveyResponse" />
           <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="SurveyResponse" ToRole="User" />
           <NavigationProperty Name="SurveyResponseTracking" Relationship="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse" FromRole="SurveyResponse" ToRole="SurveyResponseTracking" />
+          <Property Name="OrganizationId" Type="Int32" />
+          <NavigationProperty Name="Organization" Relationship="OSELS_EWEModel.FK_SurveyResponse_Organization" FromRole="SurveyResponse" ToRole="Organization" />
         </EntityType>
         <Association Name="FK_SurveyResponse_lk_Status">
           <End Type="OSELS_EWEModel.lk_Status" Role="lk_Status" Multiplicity="1" />
@@ -1078,6 +1287,94 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ErrorLog">
+          <Key>
+            <PropertyRef Name="ErrorDate" />
+          </Key>
+          <Property Name="ErrorDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SurveyId" Type="Guid" />
+          <Property Name="ResponseId" Type="Guid" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ERROR_NUMBER" Type="Int32" />
+          <Property Name="ERROR_MESSAGE" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ERROR_SEVERITY" Type="Int32" />
+          <Property Name="ERROR_STATE" Type="Int32" />
+          <Property Name="ERROR_PROCEDURE" Type="String" MaxLength="1128" FixedLength="false" Unicode="true" />
+          <Property Name="ERROR_LINE" Type="Int32" />
+          <Property Name="ErrorText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorText2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="familyset">
+          <Key>
+            <PropertyRef Name="SurveyId" />
+            <PropertyRef Name="OwnerId" />
+            <PropertyRef Name="SurveyTypeId" />
+            <PropertyRef Name="ClosingDate" />
+            <PropertyRef Name="SurveyName" />
+            <PropertyRef Name="TemplateXML" />
+            <PropertyRef Name="UserPublishKey" />
+            <PropertyRef Name="TemplateXMLSize" />
+            <PropertyRef Name="DateCreated" />
+            <PropertyRef Name="OrganizationId" />
+            <PropertyRef Name="IsDraftMode" />
+            <PropertyRef Name="StartDate" />
+          </Key>
+          <Property Name="SurveyId" Type="Guid" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" Nullable="false" />
+          <Property Name="SurveyNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SurveyTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ClosingDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="SurveyName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DepartmentName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IntroductionText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TemplateXML" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ExitText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserPublishKey" Type="Guid" Nullable="false" />
+          <Property Name="TemplateXMLSize" Type="Int64" Nullable="false" />
+          <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="OrganizationId" Type="Int32" Nullable="false" />
+          <Property Name="IsDraftMode" Type="Boolean" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ParentId" Type="Guid" />
+          <Property Name="ViewId" Type="Int32" />
+          <Property Name="IsSQLProject" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ErrorLogSorted">
+          <Key>
+            <PropertyRef Name="ErrorDate" />
+          </Key>
+          <Property Name="ErrorDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="SurveyId" Type="Guid" />
+          <Property Name="ResponseId" Type="Guid" />
+          <Property Name="Comment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ErrorText2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="usp_GetErrorInfo_Result">
+          <Property Type="Int32" Name="ErrorNumber" Nullable="true" />
+          <Property Type="Int32" Name="ErrorSeverity" Nullable="true" />
+          <Property Type="Int32" Name="ErrorState" Nullable="true" />
+          <Property Type="String" Name="ErrorProcedure" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="ErrorLine" Nullable="true" />
+          <Property Type="String" Name="ErrorMessage" Nullable="true" MaxLength="4000" />
+        </ComplexType>
+        <Association Name="SurveyMetadataOrganization">
+          <End Type="OSELS_EWEModel.Organization" Role="Organization" Multiplicity="*" />
+          <End Type="OSELS_EWEModel.SurveyMetaData" Role="SurveyMetaData" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_SurveyResponse_Organization">
+          <End Type="OSELS_EWEModel.Organization" Role="Organization" Multiplicity="0..1" />
+          <End Type="OSELS_EWEModel.SurveyResponse" Role="SurveyResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="OrganizationId" />
+            </Principal>
+            <Dependent Role="SurveyResponse">
+              <PropertyRef Name="OrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1114,6 +1411,8 @@
           <EntitySetMapping Name="SurveyMetaDatas">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyMetaData">
               <MappingFragment StoreEntitySet="SurveyMetaData">
+                <ScalarProperty Name="ShowAllRecords" ColumnName="ShowAllRecords" />
+                <ScalarProperty Name="IsShareable" ColumnName="IsShareable" />
                 <ScalarProperty Name="IsSQLProject" ColumnName="IsSQLProject" />
                 <ScalarProperty Name="ViewId" ColumnName="ViewId" />
                 <ScalarProperty Name="ParentId" ColumnName="ParentId" />
@@ -1247,6 +1546,7 @@
           <EntitySetMapping Name="SurveyResponses">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyResponse">
               <MappingFragment StoreEntitySet="SurveyResponse">
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
                 <ScalarProperty Name="RecordSourceId" ColumnName="RecordSourceId" />
                 <ScalarProperty Name="RelateParentId" ColumnName="RelateParentId" />
                 <ScalarProperty Name="ParentRecordId" ColumnName="ParentRecordId" />
@@ -1290,6 +1590,84 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_soft_delete_Epi7_record" FunctionName="OSELS_EWEModel.Store.usp_soft_delete_Epi7_record" />
+          <EntitySetMapping Name="ErrorLogs">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.ErrorLog">
+              <MappingFragment StoreEntitySet="ErrorLog">
+                <ScalarProperty Name="ErrorText2" ColumnName="ErrorText2" />
+                <ScalarProperty Name="ErrorText" ColumnName="ErrorText" />
+                <ScalarProperty Name="ERROR_LINE" ColumnName="ERROR_LINE" />
+                <ScalarProperty Name="ERROR_PROCEDURE" ColumnName="ERROR_PROCEDURE" />
+                <ScalarProperty Name="ERROR_STATE" ColumnName="ERROR_STATE" />
+                <ScalarProperty Name="ERROR_SEVERITY" ColumnName="ERROR_SEVERITY" />
+                <ScalarProperty Name="ERROR_MESSAGE" ColumnName="ERROR_MESSAGE" />
+                <ScalarProperty Name="ERROR_NUMBER" ColumnName="ERROR_NUMBER" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+                <ScalarProperty Name="ErrorDate" ColumnName="ErrorDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="familysets">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.familyset">
+              <MappingFragment StoreEntitySet="familyset">
+                <ScalarProperty Name="IsSQLProject" ColumnName="IsSQLProject" />
+                <ScalarProperty Name="ViewId" ColumnName="ViewId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="IsDraftMode" ColumnName="IsDraftMode" />
+                <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="TemplateXMLSize" ColumnName="TemplateXMLSize" />
+                <ScalarProperty Name="UserPublishKey" ColumnName="UserPublishKey" />
+                <ScalarProperty Name="ExitText" ColumnName="ExitText" />
+                <ScalarProperty Name="TemplateXML" ColumnName="TemplateXML" />
+                <ScalarProperty Name="IntroductionText" ColumnName="IntroductionText" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="OrganizationName" ColumnName="OrganizationName" />
+                <ScalarProperty Name="SurveyName" ColumnName="SurveyName" />
+                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+                <ScalarProperty Name="SurveyTypeId" ColumnName="SurveyTypeId" />
+                <ScalarProperty Name="SurveyNumber" ColumnName="SurveyNumber" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ErrorLogSorteds">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.ErrorLogSorted">
+              <MappingFragment StoreEntitySet="ErrorLogSorted">
+                <ScalarProperty Name="ErrorText2" ColumnName="ErrorText2" />
+                <ScalarProperty Name="ErrorText" ColumnName="ErrorText" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ResponseId" ColumnName="ResponseId" />
+                <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+                <ScalarProperty Name="ErrorDate" ColumnName="ErrorDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetErrorInfo" FunctionName="OSELS_EWEModel.Store.usp_GetErrorInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OSELS_EWEModel.usp_GetErrorInfo_Result">
+                <ScalarProperty Name="ErrorNumber" ColumnName="ErrorNumber" />
+                <ScalarProperty Name="ErrorSeverity" ColumnName="ErrorSeverity" />
+                <ScalarProperty Name="ErrorState" ColumnName="ErrorState" />
+                <ScalarProperty Name="ErrorProcedure" ColumnName="ErrorProcedure" />
+                <ScalarProperty Name="ErrorLine" ColumnName="ErrorLine" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_log_to_errorlog" FunctionName="OSELS_EWEModel.Store.usp_log_to_errorlog" />
+          <FunctionImportMapping FunctionImportName="usp_process_sql_server_project_response" FunctionName="OSELS_EWEModel.Store.usp_process_sql_server_project_response" />
+          <AssociationSetMapping Name="SurveyMetadataOrganization" TypeName="OSELS_EWEModel.SurveyMetadataOrganization" StoreEntitySet="SurveyMetadataOrganization">
+            <EndProperty Name="SurveyMetaData">
+              <ScalarProperty Name="SurveyId" ColumnName="SurveyId" />
+            </EndProperty>
+            <EndProperty Name="Organization">
+              <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1306,11 +1684,12 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="Epi.Web.Model" ZoomLevel="67">
+      <Diagram Name="Epi.Web.Model" ZoomLevel="66">
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_Status" Width="1.5" PointX="9.625" PointY="5.625" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_SurveyType" Width="1.5" PointX="3.75" PointY="2.75" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="OSELS_EWEModel.Organization" Width="1.5" PointX="0.75" PointY="5.375" Height="2.3648893229166656" IsExpanded="true" />
@@ -1320,12 +1699,6 @@
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_lk_SurveyType" ManuallyRouted="false">
           <ConnectorPoint PointX="5.25" PointY="4.2689925130208328" />
           <ConnectorPoint PointX="6" PointY="4.2689925130208328" />
-        </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_Organization" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="6.6535953776041659" />
-          <ConnectorPoint PointX="3.1822941666666664" PointY="6.653595377604165" />
-          <ConnectorPoint PointX="3.3489608333333334" PointY="6.6535953776041659" />
-          <ConnectorPoint PointX="6" PointY="6.6535953776041659" />
         </AssociationConnector>
         <AssociationConnector Association="OSELS_EWEModel.SurveyMetaDataUser" ManuallyRouted="false">
           <ConnectorPoint PointX="6.21875" PointY="10.595520833333334" />
@@ -1396,11 +1769,16 @@
           <ConnectorPoint PointX="4.5" PointY="15.877271263020832" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaDataView" Width="2.625" PointX="14.875" PointY="10" Height="1.4033821614583388" />
-        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponseTracking" Width="1.5" PointX="14.5" PointY="2" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponseTracking" Width="2" PointX="14.5" PointY="2" Height="1.7879850260416674" />
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse" >
           <ConnectorPoint PointX="13.75" PointY="2.8939925130208337" />
           <ConnectorPoint PointX="14.5" PointY="2.8939925130208337" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="OSELS_EWEModel.ErrorLog" Width="1.5" PointX="10.375" PointY="9" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.familyset" Width="1.5" PointX="12.375" PointY="13" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.ErrorLogSorted" Width="1.5" PointX="3.375" PointY="12" />
+        <AssociationConnector Association="OSELS_EWEModel.SurveyMetadataOrganization" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_Organization" />
       </Diagram>
     </Diagrams>
   </Designer>

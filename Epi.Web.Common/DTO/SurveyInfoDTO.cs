@@ -27,7 +27,15 @@ namespace Epi.Web.Enter.Common.DTO
         private int _ViewId;
         private int _OwnerId;
         private bool _IsSqlProject;
+        private bool _IsShareable; 
         private string _DBConnectionString;
+        private bool _ShowAllRecords;
+        [DataMember]
+        public bool ShowAllRecords
+        {
+            get { return _ShowAllRecords; }
+            set { _ShowAllRecords = value; }
+        }
         [DataMember]
         public string SurveyId
         {
@@ -159,5 +167,11 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _DBConnectionString; }
             set { _DBConnectionString = value; }
             }
+          [DataMember]
+        public bool IsShareable
+        {
+            get { return _IsShareable; }
+            set { _IsShareable = value; }
+        }
     }
 }

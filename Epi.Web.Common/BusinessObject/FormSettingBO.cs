@@ -14,7 +14,9 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private Dictionary<int, string> _FormControlNameList;
         private Dictionary<int, string> _AssignedUserList;
         private Dictionary<int, string> _UserList;
-
+        private bool _IsShareable;
+        private Dictionary<int, string> _AvailableOrgList;
+        private Dictionary<int, string> _SelectedOrgList;
        
         [DataMember]
         public Dictionary<int, string> ColumnNameList
@@ -39,6 +41,23 @@ namespace Epi.Web.Enter.Common.BusinessObject
             set { _UserList = value; }
             }
 
+        public bool IsShareable
+        {
+            get { return _IsShareable; }
+            set { _IsShareable = value; }
+        }
+    
 
+
+        public Dictionary<int, string> AvailableOrgList
+        {
+            get { return _AvailableOrgList; }
+            set { _AvailableOrgList = value; }
+        }
+        public Dictionary<int, string> SelectedOrgList
+        {
+            get { return _SelectedOrgList; }
+            set { _SelectedOrgList = value; }
+        }
         }
     }

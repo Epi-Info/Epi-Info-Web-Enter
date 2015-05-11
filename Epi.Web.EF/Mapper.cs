@@ -70,7 +70,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="Result"></param>
         /// <param name="user"></param>
-        public static UserBO MapToUserBO(User user)
+        public static UserBO MapToUserBO(User user , int Role = 0)
         {
             UserBO Result = new UserBO();
             Result.UserId = user.UserID;
@@ -80,7 +80,7 @@ namespace Epi.Web.EF
             Result.LastName = user.LastName;
             Result.PhoneNumber = user.PhoneNumber;
             Result.ResetPassword = user.ResetPassword;
-
+            Result.Role = Role; 
 
             return Result;
         }
@@ -103,8 +103,18 @@ namespace Epi.Web.EF
             result.OrganizationId = entity.OrganizationId;
             result.IsDraftMode = entity.IsDraftMode;
             result.UserId = entity.OwnerId;
+
+            if (entity.IsShareable != null)
+            {
+            result.IsShareable = (bool)entity.IsShareable;
+            }
+            if (entity.ShowAllRecords != null)
+            {
+                result.ShowAllRecords = (bool)entity.ShowAllRecords;
+            }
             result.OwnerFName = UserEntity.FirstName;
             result.OwnerLName = UserEntity.LastName;
+           
             if (GetXml)
             {
                 result.Xml = entity.TemplateXML;
@@ -151,6 +161,8 @@ namespace Epi.Web.EF
             SurveyMetaData.OwnerId = businessobject.OwnerId;
             SurveyMetaData.ViewId = businessobject.ViewId;
             SurveyMetaData.IsSQLProject = businessobject.IsSqlProject;
+            SurveyMetaData.IsShareable = businessobject.IsShareable;
+            SurveyMetaData.ShowAllRecords = businessobject.ShowAllRecords;
             if (!string.IsNullOrEmpty(businessobject.ParentId))
             {
                 SurveyMetaData.ParentId = new Guid(businessobject.ParentId);
@@ -287,7 +299,7 @@ namespace Epi.Web.EF
         /// </summary>
         /// <param name="businessobject">A SurveyInfoBO business object.</param>
         /// <returns>A SurveyMetaData entity.</returns>
-        internal static SurveyResponse ToEF(SurveyResponseBO pBO)
+        internal static SurveyResponse ToEF(SurveyResponseBO pBO,int OrgId = -1)
         {
 
             SurveyResponse SurveyResponse = new SurveyResponse();
@@ -318,6 +330,10 @@ namespace Epi.Web.EF
             if (!string.IsNullOrEmpty(pBO.ParentRecordId) && ParentRecordId != Guid.Empty)
             {
                 SurveyResponse.ParentRecordId = new Guid(pBO.ParentRecordId);
+            }
+            if (OrgId != -1)
+            {
+                SurveyResponse.OrganizationId = OrgId;
             }
             return SurveyResponse;
         }

@@ -17,8 +17,10 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
 
        void UpDateFormMode(FormInfoBO FormInfoBO);
 
-       void UpDateAssignedUserList(FormSettingBO FormSettingBO, string FormId);
+       void UpDateSettingsList(FormSettingBO FormSettingBO, string FormId);
 
        List<string> GetAllColumnNames(string FormId);
+       Dictionary<int, string> GetOrgAdmins(Dictionary<int, string> SelectedOrgList);
+       List<UserBO> GetOrgAdminsByFormId(string FormId);
         }
     }

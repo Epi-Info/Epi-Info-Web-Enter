@@ -29,7 +29,15 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private int _ViewId;
         private int _OwnerId;
         private bool _IsSqlProject;
+        private bool _IsShareable; 
         private string _DBConnectionString;
+        private bool _ShowAllRecords;
+     
+        public bool ShowAllRecords
+        {
+            get { return _ShowAllRecords; }
+            set { _ShowAllRecords = value; }
+        }
         public string StatusText
         { 
             get { return _StatusText; }
@@ -128,6 +136,12 @@ namespace Epi.Web.Enter.Common.BusinessObject
         {
             get { return _IsDraftMode; }
             set { _IsDraftMode = value; }
+        }
+          [DataMember]
+        public bool IsShareable
+        {
+            get { return _IsShareable; }
+            set { _IsShareable = value; }
         }
 
 
