@@ -43,7 +43,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 ViewId = pDTO.ViewId,
                 IsShareable = pDTO.IsShareable,
                  ShowAllRecords = pDTO.ShowAllRecords
-                
+                 
                  
             };
             }
@@ -64,7 +64,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 OwnerFName = BO.OwnerFName,
                 OwnerLName = BO.OwnerLName, 
                 IsShareable = BO.IsShareable ,
-                IsShared = BO.IsShared
+                IsShared = BO.IsShared,
+                EwavLiteToggleSwitch = BO.EwavLiteToggleSwitch
 
             };
             }

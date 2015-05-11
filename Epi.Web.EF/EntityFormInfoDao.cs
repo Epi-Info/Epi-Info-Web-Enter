@@ -7,6 +7,8 @@ using System.Text;
 using Epi.Web.Enter.Common.BusinessObject;
 using Epi.Web.Enter.Common.Criteria;
 using Epi.Web.Enter.Interfaces.DataInterface;
+using System.Data.SqlClient;
+using System.Data;
 namespace Epi.Web.EF
     {
     public class EntityFormInfoDao: IFormInfoDao
@@ -242,5 +244,27 @@ namespace Epi.Web.EF
         return FormInfoBO;
             
             }
+
+        public bool GetEwavLiteToggleSwitch(string FormId, int UserId) 
+        {
+            string EWEConnectionString = DataObjectFactory.EWEADOConnectionString;
+            SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
+            EWEConnection.Open();
+            SqlCommand EWECommand = new SqlCommand(EWEConnectionString, EWEConnection);
+            EWECommand.CommandText = "usp_read_ewav_toggle_switch";
+            EWECommand.CommandType = CommandType.StoredProcedure;
+            EWECommand.Parameters.Add(new SqlParameter("FormId", FormId));
+            EWECommand.Parameters.Add(new SqlParameter("UserId", UserId));
+
+            object rows = EWECommand.ExecuteScalar();
+            EWEConnection.Close();
+            if ((int)rows >0)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
         }
     }

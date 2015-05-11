@@ -303,7 +303,7 @@ namespace Epi.Web.MVC.Controllers
 
 		public FormResponseInfoModel GetSurveyResponseInfoModel(string SurveyId, int PageNumber)
 		{
-
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
 			FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
 			SurveyAnswerRequest FormResponseReq = new SurveyAnswerRequest();
 			FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
@@ -313,7 +313,7 @@ namespace Epi.Web.MVC.Controllers
 			FormResponseReq.Criteria.PageNumber = PageNumber;
 			FormResponseReq.Criteria.IsMobile = true;
 			FormSettingReq.FormInfo.FormId = new Guid(SurveyId).ToString();
-
+            
 			//Getting Column Name  List
 			FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
 			Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
@@ -322,6 +322,7 @@ namespace Epi.Web.MVC.Controllers
 			// Setting  Column Name  List
 			FormResponseInfoModel.Columns = Columns;
 			FormResponseReq.Criteria.IsSqlProject = FormSettingResponse.FormInfo.IsSQLProject;
+            FormResponseReq.Criteria.UserId = UserId;
 			Session["IsSqlProject"] = FormSettingResponse.FormInfo.IsSQLProject;
 			//if (Session["SearchCriteria"] != null)
 			//{
