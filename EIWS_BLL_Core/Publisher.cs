@@ -193,36 +193,8 @@ namespace Epi.Web.BLL
                             try
                                 {
 
-                                Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO();
-
-                                BO.SurveyId = SurveyId.ToString();
-                                BO.ClosingDate = pRequestMessage.ClosingDate;
-
-                                BO.IntroductionText = pRequestMessage.IntroductionText;
-                                BO.ExitText = pRequestMessage.ExitText;
-                                BO.DepartmentName = pRequestMessage.DepartmentName;
-                                BO.OrganizationName = pRequestMessage.OrganizationName;
-
-                                BO.SurveyNumber = pRequestMessage.SurveyNumber;
-
-                                BO.XML = pRequestMessage.XML;
-
-                                BO.SurveyName = pRequestMessage.SurveyName;
-
-                                BO.SurveyType = pRequestMessage.SurveyType;
-                                BO.UserPublishKey = pRequestMessage.UserPublishKey;
-                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                                BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
-                                BO.IsDraftMode = pRequestMessage.IsDraftMode;
-                                BO.StartDate = pRequestMessage.StartDate;
-                                BO.ViewId = pRequestMessage.ViewId;
-                                //BO.ParentId = pRequestMessage.ParentId;// Removed parent Id for the first step of publish
-                                BO.OwnerId = pRequestMessage.OwnerId;
-                                BO.IsSqlProject = pRequestMessage.IsSqlProject;
-                               
-                                //Insert Survey MetaData
-                                this.SurveyInfoDao.InsertSurveyInfo(BO);
+                                    var BO = ToBusinessObject(pRequestMessage, SurveyId);
+                                    this.SurveyInfoDao.InsertSurveyInfo(BO);
                                 
                                 //Insert Connection string..
                                 if (pRequestMessage.IsSqlProject)
@@ -275,6 +247,39 @@ namespace Epi.Web.BLL
             return result;
             }
 
+        private static SurveyInfoBO ToBusinessObject(SurveyInfoBO pRequestMessage, Guid SurveyId)
+        {
+            Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO();
+            BO.SurveyId = SurveyId.ToString();
+            BO.ClosingDate = pRequestMessage.ClosingDate;
+
+            BO.IntroductionText = pRequestMessage.IntroductionText;
+            BO.ExitText = pRequestMessage.ExitText;
+            BO.DepartmentName = pRequestMessage.DepartmentName;
+            BO.OrganizationName = pRequestMessage.OrganizationName;
+
+            BO.SurveyNumber = pRequestMessage.SurveyNumber;
+
+            BO.XML = pRequestMessage.XML;
+
+            BO.SurveyName = pRequestMessage.SurveyName;
+
+            BO.SurveyType = pRequestMessage.SurveyType;
+            BO.UserPublishKey = pRequestMessage.UserPublishKey;
+            BO.OrganizationKey = pRequestMessage.OrganizationKey;
+            BO.OrganizationKey = pRequestMessage.OrganizationKey;
+            BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
+            BO.IsDraftMode = pRequestMessage.IsDraftMode;
+            BO.StartDate = pRequestMessage.StartDate;
+            BO.ViewId = pRequestMessage.ViewId;
+            //BO.ParentId = pRequestMessage.ParentId;// Removed parent Id for the first step of publish
+            BO.OwnerId = pRequestMessage.OwnerId;
+            BO.IsSqlProject = pRequestMessage.IsSqlProject;
+            BO.IsShareable = pRequestMessage.IsShareable;
+            //Insert Survey MetaData
+            return BO;
+        }
+
         private DbConnectionStringBO GetConnection(string ConnectionString)
             {
             DbConnectionStringBO DbConnectionStringBO = new Enter.Common.BusinessObject.DbConnectionStringBO();
@@ -310,33 +315,8 @@ namespace Epi.Web.BLL
                             try
                                 {
 
-                                Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO BO = new Epi.Web.Enter.Common.BusinessObject.SurveyInfoBO();
 
-                                BO.SurveyId = SurveyId.ToString();
-                                BO.ClosingDate = pRequestMessage.ClosingDate;
-
-                                BO.IntroductionText = pRequestMessage.IntroductionText;
-                                BO.ExitText = pRequestMessage.ExitText;
-                                BO.DepartmentName = pRequestMessage.DepartmentName;
-                                BO.OrganizationName = pRequestMessage.OrganizationName;
-
-                                BO.SurveyNumber = pRequestMessage.SurveyNumber;
-
-                                BO.XML = pRequestMessage.XML;
-
-                                BO.SurveyName = pRequestMessage.SurveyName;
-
-                                BO.SurveyType = pRequestMessage.SurveyType;
-                                BO.UserPublishKey = pRequestMessage.UserPublishKey;
-                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                                BO.OrganizationKey = pRequestMessage.OrganizationKey;
-                                BO.TemplateXMLSize = pRequestMessage.TemplateXMLSize;
-                                BO.IsDraftMode = pRequestMessage.IsDraftMode;
-                                BO.StartDate = pRequestMessage.StartDate;
-                                BO.OwnerId = pRequestMessage.OwnerId;
-                                 BO.IsSqlProject = pRequestMessage.IsSqlProject;
-                                
-                                this.SurveyInfoDao.UpdateSurveyInfo(BO);
+                                    this.SurveyInfoDao.UpdateSurveyInfo(ToBusinessObject(pRequestMessage, SurveyId));
                                 ////Insert Connection string..
                                 //DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
                                 //DbConnectionStringBO = GetConnection(pRequestMessage.DBConnectionString);
@@ -419,6 +399,7 @@ namespace Epi.Web.BLL
                     SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
                     SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
                     SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+                    SurveyInfoBO.IsShareable = pRequestMessage.IsShareable;
                     SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
                     SurveyRequestResultBO = RePublish(SurveyInfoBO);
                     }
@@ -429,6 +410,7 @@ namespace Epi.Web.BLL
                         SurveyInfoBO.ParentId = ParentId;
                         SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
                         SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+                        SurveyInfoBO.IsShareable = pRequestMessage.IsShareable;
                         SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
                       SurveyRequestResultBO = Publish(SurveyInfoBO);
                      
@@ -485,6 +467,7 @@ namespace Epi.Web.BLL
             SurveyInfoBO.ParentId = ParentId;
             SurveyInfoBO.OwnerId = pRequestMessage.OwnerId ;
             SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+            SurveyInfoBO.IsShareable = pRequestMessage.IsShareable;
             SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
             SurveyRequestResultBO = Publish(SurveyInfoBO);
            // ParentId = SurveyRequestResultBO.URL.Split('/').Last();

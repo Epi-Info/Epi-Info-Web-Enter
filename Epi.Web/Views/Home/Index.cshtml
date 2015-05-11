@@ -549,6 +549,8 @@ function SaveSettings() {
     if (validation) {
 	                $('.SelectedColumns option').prop('selected', true);
 	                $('#SelectedUser option').prop('selected', true);
+	                $('#SelectedOrg option').prop('selected', true);
+	                
 	                var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
 	                var _form = $("#formsList").serialize();
 	                //alert(form);
@@ -689,6 +691,7 @@ function SaveSettings() {
 			               @* <option value="0" selected="selected" disabled="disabled">Arrange by:</option>*@
 				            <option value="1">My Forms</option>
 				            <option value="2">Forms Assigned to Me</option>
+                            <option value="4">Forms Shared with Me</option>
 				            <option value="3" selected="selected">All Forms</option>
 				            @*	<option value="3">Last Saved Forms First</option>*@
 			            </select>
@@ -704,6 +707,12 @@ function SaveSettings() {
 			            <img alt="" src="~/Content/images/collectlegend1.png" align="middle" style="width: 16px;
 				            vertical-align: middle;" />
 			            Forms Assigned to Me</div>
+                    <div id="Div6" style="">
+                        <img alt="" src="~/Content/images/collectlegend2.png" align="middle" style="width: 16px;
+				            vertical-align: middle;" />
+                        Forms Shared with Me
+                    </div>
+                     
 		            <div id="Div4" style="">
 			            <img alt="" src="~/Content/images/prod1.png" align="middle" style="width: 16px;
 				            vertical-align: middle;" />

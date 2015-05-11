@@ -908,13 +908,15 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
                 Epi.Web.Enter.Interfaces.DataInterface.IFormInfoDao IFormInfoDao = entityDaoFactory.FormInfoDao;
                 Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao, IUserDao, IFormInfoDao);
-
-                foreach (var item in FormSettingReq.FormSetting)
+                if (FormSettingReq.FormSetting.Count() > 0)
                 {
-                    string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, item.ColumnNameList, item.AssignedUserList, item.FormId);
+                    foreach (var item in FormSettingReq.FormSetting)
+                    {
+                        SettingsImplementation.UpDateColumnNames(FormSettingReq.FormInfo.IsDraftMode, item);
 
+                    }
+                    string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting[0]);
                 }
-
                 return Response;
 
 

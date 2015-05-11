@@ -40,7 +40,10 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 OwnerId = pDTO.OwnerId,
                 DBConnectionString = pDTO.DBConnectionString,
                 IsSqlProject = pDTO.IsSqlProject,
-                ViewId = pDTO.ViewId
+                ViewId = pDTO.ViewId,
+                IsShareable = pDTO.IsShareable,
+                 ShowAllRecords = pDTO.ShowAllRecords
+                
                  
             };
             }
@@ -59,7 +62,9 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 UserId = BO.UserId,
                 IsOwner = BO.IsOwner,
                 OwnerFName = BO.OwnerFName,
-                OwnerLName = BO.OwnerLName
+                OwnerLName = BO.OwnerLName, 
+                IsShareable = BO.IsShareable ,
+                IsShared = BO.IsShared
 
             };
             }
@@ -268,6 +273,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 PasswordHash = User.PasswordHash,
                 ResetPassword = User.ResetPassword,
                 Role = User.Role,
+                UserHighestRole = User.UserHighestRole,
                 IsActive = User.IsActive,
                 Operation = (Constant.OperationMode)User.Operation
             };
@@ -319,7 +325,10 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 ColumnNameList = pBO.ColumnNameList,
                 FormControlNameList = pBO.FormControlNameList,
                 AssignedUserList = pBO.AssignedUserList,
-                UserList = pBO.UserList
+                UserList = pBO.UserList,
+                IsShareable = pBO.IsShareable,
+               AvailableOrgList = pBO.AvailableOrgList,
+               SelectedOrgList = pBO.SelectedOrgList
 
             };
             }
@@ -338,6 +347,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 PhoneNumber = result.PhoneNumber,
                 ResetPassword = result.ResetPassword,
                 Role = result.Role,
+                UserHighestRole = result.UserHighestRole,
                 Operation = Constant.OperationMode.NoChange,
                 EmailAddress = result.EmailAddress,
                 IsActive = result.IsActive
@@ -353,6 +363,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 LastName = result.LastName,
                 PhoneNumber = result.PhoneNumber,
                 Role = result.Role,
+                UserHighestRole = result.UserHighestRole,
                 IsActive = result.IsActive,
                 EmailAddress = result.EmailAddress
             };

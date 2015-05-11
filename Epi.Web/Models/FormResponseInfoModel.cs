@@ -9,6 +9,7 @@ namespace Epi.Web.MVC.Models
     public class FormResponseInfoModel
     {
         public FormInfoModel FormInfoModel;
+        public UserModel UserModel;
         public List<ResponseModel> ResponsesList;
         //public List<string> ColumnNames;
         public List<KeyValuePair<int, string>> Columns;

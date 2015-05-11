@@ -16,8 +16,15 @@ namespace Epi.Web.MVC.Models
         private Dictionary<int, string> _AssignedUserList;
         private Dictionary<int, string> _UserList;
         private string _FormId;
-       
-
+        private bool _IsShareable;
+        private Dictionary<int, string> _AvailableOrgList;
+        private Dictionary<int, string> _SelectedOrgList;
+        private bool _ShowAllRecords;
+        public bool ShowAllRecords
+        {
+            get { return _ShowAllRecords; }
+            set { _ShowAllRecords = value; }
+        }
         public Dictionary<int, string> FormControlNameList
             {
             get { return _FormControlNameList; }
@@ -70,5 +77,21 @@ namespace Epi.Web.MVC.Models
             get { return _FormId; }
             set { _FormId = value; }
             }
+        public bool IsShareable
+        {
+            get { return _IsShareable; }
+            set { _IsShareable = value; }
+        }
+
+        public Dictionary<int, string> AvailableOrgList
+        {
+            get { return _AvailableOrgList; }
+            set { _AvailableOrgList = value; }
+        }
+        public Dictionary<int, string> SelectedOrgList
+        {
+            get { return _SelectedOrgList; }
+            set { _SelectedOrgList = value; }
+        }
         }
     }

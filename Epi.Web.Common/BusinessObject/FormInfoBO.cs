@@ -20,7 +20,16 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private string _OwnerFName;
         private string _Xml;
         private string _ParentId;
-        private bool _isSQLProject;
+        private bool _IsSQLProject;
+        private bool _IsShareable;
+        private bool _IsShared;
+        private bool _ShowAllRecords;
+        [DataMember]
+        public bool ShowAllRecords
+        {
+            get { return _ShowAllRecords; }
+            set { _ShowAllRecords = value; }
+        }
         [DataMember]
         public string FormId
         {
@@ -99,8 +108,22 @@ namespace Epi.Web.Enter.Common.BusinessObject
 
         public bool IsSQLProject
         {
-            get { return _isSQLProject; }
-            set { _isSQLProject = value; }
+            get { return _IsSQLProject; }
+            set { _IsSQLProject = value; }
         }
+
+        
+        public bool IsShareable
+        {
+            get { return _IsShareable; }
+            set { _IsShareable = value; }
+        }
+
+        public bool IsShared
+        {
+            get { return _IsShared; }
+            set { _IsShared = value; }
+        }
+
     }
 }

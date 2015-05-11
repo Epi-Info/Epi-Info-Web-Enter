@@ -9,20 +9,30 @@ function FilterRecords(ctrl , OrgId ) {
     //$("#imagePreview").html(src ? "<img src='" + src + "'>" : "");
     if (src == 1) {
         $(".metro-collect").hide();
+        $(".metro-design-Shared").hide();
         $(".metro-design").show();
         
     }
 
     if (src == 2) {
         $(".metro-design").hide();
+        $(".metro-design-Shared").hide();
         $(".metro-collect").show();
          
     }
     if (src == 3) {
         $(".metro-design").show();
         $(".metro-collect").show();
-       
+        $(".metro-design-Shared").show();
     }
+    if(src==4){
+       
+        $(".metro-design-Shared").show();
+        $(".metro-design").hide();
+        $(".metro-collect").hide();
+    }
+
+
     $(".NotSelectedOrg").hide();
 }
 
