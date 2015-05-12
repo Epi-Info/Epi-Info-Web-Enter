@@ -18,9 +18,9 @@
 
 </script>
 <div id="editsettings">
-    @if (Model.FormInfoModel.IsSQLProject)
+    @if (Model.FormInfoModel.IsSQLProject) 
     {
-        <button id="btnsearch" onclick="openEWAVLiteURL()" class="default search" type="button">
+        <button id="btnsearch" onclick="" class="default search" type="button">
             Search</button> 
     }
     @if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
