@@ -17,7 +17,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private bool _IsShareable;
         private Dictionary<int, string> _AvailableOrgList;
         private Dictionary<int, string> _SelectedOrgList;
-       
+        private bool _IsDisabled;
         [DataMember]
         public Dictionary<int, string> ColumnNameList
             {
@@ -58,6 +58,12 @@ namespace Epi.Web.Enter.Common.BusinessObject
         {
             get { return _SelectedOrgList; }
             set { _SelectedOrgList = value; }
+        }
+
+        public bool IsDisabled
+        {
+            get { return _IsDisabled; }
+            set { _IsDisabled = value; }
         }
         }
     }

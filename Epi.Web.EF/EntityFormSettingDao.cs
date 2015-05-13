@@ -363,5 +363,30 @@ namespace Epi.Web.EF
         
         
         }
+
+        public void SoftDeleteForm( string FormId)
+        {
+            Guid Id = new Guid(FormId);
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                    var Query = from response in Context.SurveyMetaDatas
+                                where response.SurveyId == Id
+                                select response;
+
+                    var DataRow = Query.Single();
+                    DataRow.ParentId = Id;
+
+
+                    Context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        
+        }
     }
 }
