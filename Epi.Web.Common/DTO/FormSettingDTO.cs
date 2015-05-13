@@ -17,7 +17,7 @@ namespace Epi.Web.Enter.Common.DTO
         private Dictionary<int, string> _AvailableOrgList;
         private Dictionary<int, string> _SelectedOrgList;
         private bool _ShowAllRecords;
-    
+        private bool _IsDisabled;
         public bool ShowAllRecords
         {
             get { return _ShowAllRecords; }
@@ -66,6 +66,11 @@ namespace Epi.Web.Enter.Common.DTO
         {
             get { return _SelectedOrgList; }
             set { _SelectedOrgList = value; }
+        }
+        public bool IsDisabled
+        {
+            get { return _IsDisabled; }
+            set { _IsDisabled = value; }
         }
         }
     }

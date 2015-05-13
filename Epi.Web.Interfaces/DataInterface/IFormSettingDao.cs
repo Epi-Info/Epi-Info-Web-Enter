@@ -22,5 +22,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
        List<string> GetAllColumnNames(string FormId);
        Dictionary<int, string> GetOrgAdmins(Dictionary<int, string> SelectedOrgList);
        List<UserBO> GetOrgAdminsByFormId(string FormId);
+       void SoftDeleteForm(  string FormId);
         }
     }

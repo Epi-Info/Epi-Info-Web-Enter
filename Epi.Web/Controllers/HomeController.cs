@@ -841,6 +841,10 @@ namespace Epi.Web.MVC.Controllers
                 FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
                 FormSetting.SelectedOrgList = GetDictionary(this.Request.Form["SelectedOrg"]);
                 FormSetting.IsShareable = GetFormMode(this.Request.Form["IsShareable"]);
+                if (!string.IsNullOrEmpty(this.Request.Form["SoftDeleteForm"]) && this.Request.Form["SoftDeleteForm"].ToUpper() == "ON")
+                {
+                    FormSetting.IsDisabled = true;
+                }
                 FormSettingReq.FormSetting.Add(FormSetting);
                 FormSettingReq.FormInfo.IsDraftMode = GetFormMode(this.Request.Form["Mode"]);
                 
@@ -858,8 +862,13 @@ namespace Epi.Web.MVC.Controllers
 
             if (IsMobileDevice == false)
             {
-                return PartialView("ListResponses", model);
-
+                if (!string.IsNullOrEmpty(this.Request.Form["SoftDeleteForm"]) && this.Request.Form["SoftDeleteForm"].ToUpper() == "ON")
+                {
+                    return Json(null);
+                }
+                else {
+                    return PartialView("ListResponses", model);
+                }
             }
             else
             {
