@@ -534,48 +534,58 @@ function ReadResponse(ActionUrl) {
 		 }
 
 }
-function SaveSettings() {
+    function SaveSettings() {
 
-    var validation = true;
-    $('.SelectedColumns').each(function () {
+        var validation = true;
+        $('.SelectedColumns').each(function () {
 
-        if (this.length == 0)
-         {
-            validation = false;
-         }
-    });
+            if (this.length == 0)
+            {
+                validation = false;
+            }
+        });
 
-    //if ($('select.SelectedColumns option').length > 0) {
-    if (validation) {
-	                $('.SelectedColumns option').prop('selected', true);
-	                $('#SelectedUser option').prop('selected', true);
-	                $('#SelectedOrg option').prop('selected', true);
+        //if ($('select.SelectedColumns option').length > 0) {
+        if (validation) {
+            $('.SelectedColumns option').prop('selected', true);
+            $('#SelectedUser option').prop('selected', true);
+            $('#SelectedOrg option').prop('selected', true);
 	                
-	                var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
-	                var _form = $("#formsList").serialize();
-	                //alert(form);
-	                $.ajax({
-		                url: ActionUrl,
-		                type: 'POST',
-		                cache: false,
-		                //contentType: 'application/json; charset=utf-8',
-		                data: _form,
-		                dataType: "html",
-		                success: successFunc,
-		                Error: errorFunc
-                    });
+            var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+            var _form = $("#formsList").serialize();
+            //alert(form);
+            $.ajax({
+                url: ActionUrl,
+                type: 'POST',
+                cache: false,
+                //contentType: 'application/json; charset=utf-8',
+                data: _form,
+                dataType: "html",
+                success:  successFunc,
+                Error: errorFunc
+            });
 
-		        }
-		        else {
-		            alert('User should select at least one column for each form.');
-		            $('select.SelectedColumns option').focus();
-		        }
+        }
+        else {
+            alert('User should select at least one column for each form.');
+            $('select.SelectedColumns option').focus();
+        }
 
  
-//	$.ajaxSetup({ cache: false });
+        //	$.ajaxSetup({ cache: false });
 
-	function successFunc(data, status) {
-	    $('#right').html(data);
+        function successFunc(data, status) {
+            //  $('#right').html(data);
+            //alert(data);
+            if( data == "")
+            {
+                window.location.href = "Home";
+            }
+         else 
+             {
+                $('#right').html(data);
+              }
+	   
 	    $('#dropdown-1').focus();
 	    var FormId = $("#FORM_ID_HIDDEN").val();
 	    var FormMode = $("#FORM_MODE_HIDDEN").val();
@@ -594,6 +604,7 @@ function SaveSettings() {
 	                function errorFunc() {
 		                alert('error');
 	                }
+	                 
 //    }
 // else
 //     {

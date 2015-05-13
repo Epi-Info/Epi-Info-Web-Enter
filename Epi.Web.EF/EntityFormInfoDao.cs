@@ -31,7 +31,7 @@ namespace Epi.Web.EF
                       
 
 
-                       IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Select(x => x);
+                       IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null);
                        List<string> Assigned = new List<string>();
                       // Dictionary<int,string> Shared = new Dictionary<int,string>();
                        List<KeyValuePair<int, string>> Shared = new List<KeyValuePair<int, string>>();
@@ -84,7 +84,7 @@ namespace Epi.Web.EF
                                    join UserInfo in Context.Users
                                    on FormInfo.OwnerId equals UserInfo.UserID
                                    into temp
-                                  
+                                   where FormInfo.ParentId == null
                                    
                                    from UserInfo in temp.DefaultIfEmpty()
                                    select new { FormInfo, UserInfo }; 
@@ -94,8 +94,8 @@ namespace Epi.Web.EF
                             {
                             
                         FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo,item.UserInfo,false);
-                        if (string.IsNullOrEmpty(FormInfoBO.ParentId))
-                            {
+                        //if (string.IsNullOrEmpty(FormInfoBO.ParentId))
+                        //    {
                                
 
                             if(item.UserInfo.UserID == Id)
@@ -122,7 +122,7 @@ namespace Epi.Web.EF
                                 }
 
                            // FormList.Add(FormInfoBO);
-                               }
+                              // }
                             }
                          }
                 }

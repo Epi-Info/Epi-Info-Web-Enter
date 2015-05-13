@@ -139,6 +139,13 @@ namespace Epi.Web.BLL
             FormInfoBO.IsShareable = FormSettingDTO.IsShareable;
             this.FormSettingDao.UpDateColumnNames(FormSettingBO, FormSettingDTO.FormId);
             this.FormSettingDao.UpDateFormMode(FormInfoBO);
+            if (FormSettingDTO.IsDisabled)
+            {
+
+                this.FormSettingDao.SoftDeleteForm(FormSettingDTO.FormId);
+            
+            }
+
         }
         private void SendEmail(Dictionary<int, String> AssignedUserList, string FormId, List<UserBO> FormCurrentUsersList,bool ShareForm = false)
         {
