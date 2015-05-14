@@ -277,7 +277,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 Role = User.Role,
                 UserHighestRole = User.UserHighestRole,
                 IsActive = User.IsActive,
-                Operation = (Constant.OperationMode)User.Operation
+                Operation = (Constant.OperationMode)User.Operation,
+                UGuid = User.UGuid
             };
             }
 
@@ -353,7 +354,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 UserHighestRole = result.UserHighestRole,
                 Operation = Constant.OperationMode.NoChange,
                 EmailAddress = result.EmailAddress,
-                IsActive = result.IsActive
+                IsActive = result.IsActive,
+                UGuid = result.UGuid
             };
             }
         public static UserDTO ToDataTransferObject(UserBO result)
@@ -368,7 +370,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 Role = result.Role,
                 UserHighestRole = result.UserHighestRole,
                 IsActive = result.IsActive,
-                EmailAddress = result.EmailAddress
+                EmailAddress = result.EmailAddress,
+                UGuid = result.UGuid
             };
             }
         public static List<FormsHierarchyDTO> ToFormHierarchyDTO(List<FormsHierarchyBO> AllChildIDsList)

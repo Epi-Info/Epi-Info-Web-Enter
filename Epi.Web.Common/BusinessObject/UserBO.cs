@@ -101,5 +101,14 @@ namespace Epi.Web.Enter.Common.BusinessObject
             set { _UserHighestRole = value; }
         }
 
+        private Guid _UGuid;
+
+        public Guid UGuid
+        {
+            get { return _UGuid; }
+            set { _UGuid = value; }
+        }
+
+
     }
 }

@@ -5546,6 +5546,30 @@ namespace Epi.Web.EF
         private global::System.String _PhoneNumber;
         partial void OnPhoneNumberChanging(global::System.String value);
         partial void OnPhoneNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> UGuid
+        {
+            get
+            {
+                return _UGuid;
+            }
+            set
+            {
+                OnUGuidChanging(value);
+                ReportPropertyChanging("UGuid");
+                _UGuid = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UGuid");
+                OnUGuidChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _UGuid;
+        partial void OnUGuidChanging(Nullable<global::System.Guid> value);
+        partial void OnUGuidChanged();
 
         #endregion
 

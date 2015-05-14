@@ -80,8 +80,8 @@ namespace Epi.Web.EF
             Result.LastName = user.LastName;
             Result.PhoneNumber = user.PhoneNumber;
             Result.ResetPassword = user.ResetPassword;
-            Result.Role = Role; 
-
+            Result.Role = Role;
+            Result.UGuid = Guid.Parse(user.UGuid.ToString());
             return Result;
         }
 
@@ -466,7 +466,7 @@ namespace Epi.Web.EF
             UserEntity.PhoneNumber = User.PhoneNumber;
             UserEntity.ResetPassword = User.ResetPassword;
             UserEntity.PasswordHash = User.PasswordHash;
-
+            UserEntity.UGuid = User.UGuid;
             return UserEntity;
         }
 
