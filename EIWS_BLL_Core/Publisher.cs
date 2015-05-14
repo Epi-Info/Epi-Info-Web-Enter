@@ -276,6 +276,7 @@ namespace Epi.Web.BLL
             BO.OwnerId = pRequestMessage.OwnerId;
             BO.IsSqlProject = pRequestMessage.IsSqlProject;
             BO.IsShareable = pRequestMessage.IsShareable;
+            BO.ShowAllRecords = pRequestMessage.ShowAllRecords;
             //Insert Survey MetaData
             return BO;
         }
