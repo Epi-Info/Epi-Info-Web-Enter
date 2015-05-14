@@ -357,6 +357,7 @@ namespace Epi.Web.EF
                 Row.TemplateXML = SurveyInfo.XML;
                 Row.IsDraftMode = SurveyInfo.IsDraftMode;
                 Row.IsShareable = SurveyInfo.IsShareable;
+                Row.ShowAllRecords = SurveyInfo.ShowAllRecords;
                     Context.SaveChanges();
                 }
 
