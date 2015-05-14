@@ -100,5 +100,13 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _UserHighestRole; }
             set { _UserHighestRole = value; }
         }
+        private Guid _UGuid;
+
+        public Guid UGuid
+        {
+            get { return _UGuid; }
+            set { _UGuid = value; }
+        }
+
     }
 }

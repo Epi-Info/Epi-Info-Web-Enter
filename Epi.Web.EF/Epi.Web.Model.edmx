@@ -19,7 +19,7 @@
           <Property Name="Password" Type="varchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ErrorLog">
           <Key>
             <PropertyRef Name="ErrorDate" />
@@ -38,7 +38,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLog' does not have a primary ke
           <Property Name="ErrorText2" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="familyset">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -169,7 +169,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary k
           <Property Name="OrganizationId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SurveyMetaDataTransform">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -257,6 +257,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not ha
           <Property Name="ResetPassword" Type="bit" Nullable="false" />
           <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UGuid" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="UserOrganization">
           <Key>
@@ -269,7 +270,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not ha
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ErrorLogSorted">
           <Key>
             <PropertyRef Name="ErrorDate" />
@@ -406,18 +407,6 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a prim
             </Principal>
             <Dependent Role="SurveyResponse">
               <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyResponse_Organization">
-          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
-          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Organization">
-              <PropertyRef Name="OrganizationId" />
-            </Principal>
-            <Dependent Role="SurveyResponse">
-              <PropertyRef Name="OrganizationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -759,10 +748,6 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
             <End Role="lk_Status" EntitySet="lk_Status" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
           </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponse_Organization" Association="Self.FK_SurveyResponse_Organization">
-            <End Role="Organization" EntitySet="Organization" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-          </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_SurveyMetaData" Association="Self.FK_SurveyResponse_SurveyMetaData">
             <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
@@ -1013,6 +998,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <NavigationProperty Name="SurveyMetaDatas" Relationship="OSELS_EWEModel.SurveyMetaDataUser" FromRole="User" ToRole="SurveyMetaData" />
           <NavigationProperty Name="UserOrganizations" Relationship="OSELS_EWEModel.FK_UserOrganization_User" FromRole="User" ToRole="UserOrganization" />
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="User" ToRole="SurveyResponse" />
+          <Property Name="UGuid" Type="Guid" />
         </EntityType>
         <Association Name="FK_SurveyMetaData_lk_SurveyType">
           <End Role="lk_SurveyType" Type="OSELS_EWEModel.lk_SurveyType" Multiplicity="1" />
@@ -1450,6 +1436,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="OSELS_EWEModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UGuid" ColumnName="UGuid" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
