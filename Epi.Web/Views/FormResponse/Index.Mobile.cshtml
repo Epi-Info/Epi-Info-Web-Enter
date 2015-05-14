@@ -235,6 +235,10 @@ var pageId = $('#hidPageNumber').val();
 
         return QueryString;
     }
+    function openEWAVLiteURL()
+    {
+        window.open('@System.Configuration.ConfigurationManager.AppSettings["EWAVLiteBaseURL"]?userid=@Session["UGuid"]&datasourceid=@Model.FormInfoModel.FormId');
+    }
 </script>
 <script>
     $(document).ready(function () {
@@ -357,7 +361,7 @@ var pageId = $('#hidPageNumber').val();
                         </div>
                         if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
                         {
-                            <button id="btnEwavLite" data-theme="defsearch" onclick="" type="button">
+                            <button id="btnEwavLite" data-theme="defsearch" onclick="openEWAVLiteURL()" type="button">
                                 Launch Analytics
                             </button>
                         }

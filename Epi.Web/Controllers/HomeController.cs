@@ -81,6 +81,7 @@ namespace Epi.Web.MVC.Controllers
                 Session["UserEmailAddress"] = result.User.EmailAddress;
                 Session["UserFirstName"] = result.User.FirstName;
                 Session["UserLastName"] = result.User.LastName;
+                Session["UGuid"] = result.User.UGuid;
 
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 

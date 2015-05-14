@@ -73,8 +73,7 @@ namespace Epi.Web.EF
         {
             try
             {
-
-
+                User.UGuid = Guid.NewGuid();
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     var Org = Context.Organizations.Where(x => x.OrganizationId == OrgBO.OrganizationId).Single();
