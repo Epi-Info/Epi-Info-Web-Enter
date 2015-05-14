@@ -144,8 +144,9 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsDraftMode = pBO.IsDraftMode,
                 StartDate = pBO.StartDate,
                 IsSqlProject =pBO.IsSqlProject,
-                UserPublishKey = pBO.UserPublishKey
-
+                UserPublishKey = pBO.UserPublishKey,
+                IsShareable =pBO.IsShareable ,
+                ShowAllRecords =pBO.ShowAllRecords 
 
 
             };

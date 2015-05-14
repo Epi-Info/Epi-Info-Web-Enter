@@ -46,6 +46,8 @@ namespace Epi.Web.EF
             {
                 result.ViewId = (int)entity.ViewId;
             }
+            result.ShowAllRecords = (bool)entity.ShowAllRecords;
+            result.IsShareable = (bool)entity.IsShareable;
             return result;
         }
 
