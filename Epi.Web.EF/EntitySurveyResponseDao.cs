@@ -23,7 +23,7 @@ namespace Epi.Web.EF
     {
 
         private int sqlProjectResponsesCount;
-        bool ShowAllRecords;
+        int DataAccessRuleId;
         /// <summary>
         /// Reads Number of responses for SqlProject
         /// </summary>
@@ -768,8 +768,8 @@ namespace Epi.Web.EF
 
 
             IsSqlProject = IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
-            
-              ShowAllRecords = this.ShowAll(criteria.SurveyId,criteria.UserId);
+
+            DataAccessRuleId = this.ValidateDataAccessRule(criteria.SurveyId, criteria.UserId);
 
             if (IsSqlProject)
             {
@@ -787,7 +787,7 @@ namespace Epi.Web.EF
                 string EI7Query;
                 if (!criteria.GetAllColumns)
                 {
-                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber, false, "", criteria.UserId, criteria.IsShareable, criteria.UserOrganizationId, ShowAllRecords);
+                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber, false, "", criteria.UserId, criteria.IsShareable, criteria.UserOrganizationId, DataAccessRuleId);
 
                 }
                 else
@@ -855,7 +855,7 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                     {
                         IEnumerable<SurveyResponse> SurveyResponseList;
-                        if (criteria.IsShareable && !ShowAllRecords)
+                        if (criteria.IsShareable &&  DataAccessRuleId  == 1)
                         {
                             //Shareable
                             SurveyResponseList = Context.SurveyResponses.ToList().Where(
@@ -1070,7 +1070,7 @@ namespace Epi.Web.EF
             int UserId = -1,
             bool IsShareable = false,
             int UserOrgId = -1,
-            bool ShowAllRecords = false
+            int DataAccessRulrId = -1
 
             )
         {
@@ -1187,7 +1187,7 @@ namespace Epi.Web.EF
            
             if (IsShareable )
             {
-                if (!ShowAllRecords)
+                if (DataAccessRuleId != -1)
                 {
                     stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
                     stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
@@ -1978,7 +1978,7 @@ namespace Epi.Web.EF
                 //string EI7Query = BuildEI7ResponseQuery(ResponseId, Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString);
 
               //  string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", false, 1, 1, true, ResponseId);
-                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", false, 1, 1, true, ResponseId, -1, Criteria.IsShareable, Criteria.UserOrganizationId, ShowAllRecords);
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, "", false, 1, 1, true, ResponseId, -1, Criteria.IsShareable, Criteria.UserOrganizationId, DataAccessRuleId);
 
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
@@ -2039,7 +2039,7 @@ namespace Epi.Web.EF
 
                         //result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId)).OrderBy(x => x.DateCreated).ToList();
 
-                        if (Criteria.IsShareable && !ShowAllRecords)
+                        if (Criteria.IsShareable && DataAccessRuleId == 1)
                         {
                             result = Mapper.Map(Context.SurveyResponses.Where(x => x.RelateParentId == RId && x.SurveyId == SId && x.OrganizationId == Criteria.UserOrganizationId )).OrderBy(x => x.DateCreated).ToList();
                         }
@@ -2186,7 +2186,7 @@ namespace Epi.Web.EF
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
 
-                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true, -1, -1, false, "", -1, Criteria.IsShareable, Criteria.UserOrganizationId, ShowAllRecords);
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true, -1, -1, false, "", -1, Criteria.IsShareable, Criteria.UserOrganizationId, DataAccessRuleId);
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
@@ -2216,7 +2216,7 @@ namespace Epi.Web.EF
                      IEnumerable<SurveyResponse> SurveyResponseList;
                     using (var Context = DataObjectFactory.CreateContext())
                     {
-                        if(Criteria.IsShareable && !ShowAllRecords)
+                        if(Criteria.IsShareable &&  this.DataAccessRuleId == 1)
                         {
                          SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id 
                              && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
@@ -2298,24 +2298,24 @@ namespace Epi.Web.EF
 
 
 
-        public bool ShowAll(string  FormId, int UserId) 
+        public int ValidateDataAccessRule(string  FormId, int UserId) 
         {
-            bool ShowAll = false;
+            int RuleId = 0;
             Guid Id = new Guid(FormId);
              using (var Context = DataObjectFactory.CreateContext())
                 {
                     var FormInfo = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id ).First();
 
 
-                    if (FormInfo.OwnerId == UserId && (bool)FormInfo.ShowAllRecords)
-                 {
+                 //   if (FormInfo.OwnerId == UserId && (bool)FormInfo.ShowAllRecords)
+                 //{
 
-                     ShowAll = true;
-                 }
+                 //    ShowAll = true;
+                 //}
                }
 
 
-            return ShowAll;
+             return RuleId;
         
         
         

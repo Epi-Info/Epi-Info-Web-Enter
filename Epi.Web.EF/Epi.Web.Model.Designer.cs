@@ -35,6 +35,7 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponseTracking_SurveyResponse", "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.SurveyResponse), "SurveyResponseTracking", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.SurveyResponseTracking), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyMetadataOrganization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Organization), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData))]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.Organization), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_DataAccessRules", "DataAccessRule", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.DataAccessRule), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
 
 #endregion
 
@@ -389,6 +390,22 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<ErrorLogSorted> _ErrorLogSorteds;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DataAccessRule> DataAccessRules
+        {
+            get
+            {
+                if ((_DataAccessRules == null))
+                {
+                    _DataAccessRules = base.CreateObjectSet<DataAccessRule>("DataAccessRules");
+                }
+                return _DataAccessRules;
+            }
+        }
+        private ObjectSet<DataAccessRule> _DataAccessRules;
 
         #endregion
 
@@ -544,6 +561,14 @@ namespace Epi.Web.EF
         public void AddToErrorLogSorteds(ErrorLogSorted errorLogSorted)
         {
             base.AddObject("ErrorLogSorteds", errorLogSorted);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DataAccessRules EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDataAccessRules(DataAccessRule dataAccessRule)
+        {
+            base.AddObject("DataAccessRules", dataAccessRule);
         }
 
         #endregion
@@ -916,6 +941,137 @@ namespace Epi.Web.EF
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="DataAccessRule")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DataAccessRule : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DataAccessRule object.
+        /// </summary>
+        /// <param name="ruleId">Initial value of the RuleId property.</param>
+        public static DataAccessRule CreateDataAccessRule(global::System.Int32 ruleId)
+        {
+            DataAccessRule dataAccessRule = new DataAccessRule();
+            dataAccessRule.RuleId = ruleId;
+            return dataAccessRule;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 RuleId
+        {
+            get
+            {
+                return _RuleId;
+            }
+            set
+            {
+                if (_RuleId != value)
+                {
+                    OnRuleIdChanging(value);
+                    ReportPropertyChanging("RuleId");
+                    _RuleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("RuleId");
+                    OnRuleIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _RuleId;
+        partial void OnRuleIdChanging(global::System.Int32 value);
+        partial void OnRuleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RuleName
+        {
+            get
+            {
+                return _RuleName;
+            }
+            set
+            {
+                OnRuleNameChanging(value);
+                ReportPropertyChanging("RuleName");
+                _RuleName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RuleName");
+                OnRuleNameChanged();
+            }
+        }
+        private global::System.String _RuleName;
+        partial void OnRuleNameChanging(global::System.String value);
+        partial void OnRuleNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String RuleDescription
+        {
+            get
+            {
+                return _RuleDescription;
+            }
+            set
+            {
+                OnRuleDescriptionChanging(value);
+                ReportPropertyChanging("RuleDescription");
+                _RuleDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("RuleDescription");
+                OnRuleDescriptionChanged();
+            }
+        }
+        private global::System.String _RuleDescription;
+        partial void OnRuleDescriptionChanging(global::System.String value);
+        partial void OnRuleDescriptionChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyMetaData_DataAccessRules", "SurveyMetaData")]
+        public EntityCollection<SurveyMetaData> SurveyMetaDatas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "SurveyMetaData");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "SurveyMetaData", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -3785,24 +3941,24 @@ namespace Epi.Web.EF
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Boolean> ShowAllRecords
+        public Nullable<global::System.Int32> DataAccessRuleId
         {
             get
             {
-                return _ShowAllRecords;
+                return _DataAccessRuleId;
             }
             set
             {
-                OnShowAllRecordsChanging(value);
-                ReportPropertyChanging("ShowAllRecords");
-                _ShowAllRecords = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ShowAllRecords");
-                OnShowAllRecordsChanged();
+                OnDataAccessRuleIdChanging(value);
+                ReportPropertyChanging("DataAccessRuleId");
+                _DataAccessRuleId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DataAccessRuleId");
+                OnDataAccessRuleIdChanged();
             }
         }
-        private Nullable<global::System.Boolean> _ShowAllRecords;
-        partial void OnShowAllRecordsChanging(Nullable<global::System.Boolean> value);
-        partial void OnShowAllRecordsChanged();
+        private Nullable<global::System.Int32> _DataAccessRuleId;
+        partial void OnDataAccessRuleIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDataAccessRuleIdChanged();
 
         #endregion
 
@@ -4035,6 +4191,44 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Organization>("OSELS_EWEModel.SurveyMetadataOrganization", "Organization", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_SurveyMetaData_DataAccessRules", "DataAccessRule")]
+        public DataAccessRule DataAccessRule
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DataAccessRule>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "DataAccessRule").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DataAccessRule>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "DataAccessRule").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<DataAccessRule> DataAccessRuleReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<DataAccessRule>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "DataAccessRule");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<DataAccessRule>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "DataAccessRule", value);
                 }
             }
         }

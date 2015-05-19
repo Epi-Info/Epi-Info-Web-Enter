@@ -137,6 +137,7 @@ namespace Epi.Web.BLL
             FormInfoBO.FormId = FormSettingDTO.FormId;
             FormInfoBO.IsDraftMode = IsDraftMode;
             FormInfoBO.IsShareable = FormSettingDTO.IsShareable;
+            FormInfoBO.DataAccesRuleId = FormSettingDTO.SelectedDataAccessRule;
             this.FormSettingDao.UpDateColumnNames(FormSettingBO, FormSettingDTO.FormId);
             this.FormSettingDao.UpDateFormMode(FormInfoBO);
             if (FormSettingDTO.IsDisabled)

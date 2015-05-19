@@ -20,11 +20,11 @@ namespace Epi.Web.MVC.Models
         private bool _isSQLProject;
         private bool _IsShareable;
         private bool _IsShared;
-        private bool _ShowAllRecords;
-        public bool ShowAllRecords
+        private bool _DataAccessRuleId;
+        public bool DataAccessRuleId
         {
-            get { return _ShowAllRecords; }
-            set { _ShowAllRecords = value; }
+            get { return _DataAccessRuleId; }
+            set { _DataAccessRuleId = value; }
         }
 
         private bool _ewavLiteToggleSwitch;

@@ -23,12 +23,12 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private bool _IsSQLProject;
         private bool _IsShareable;
         private bool _IsShared;
-        private bool _ShowAllRecords;
+        private int _DataAccesRuleId ;
         [DataMember]
-        public bool ShowAllRecords
+        public int DataAccesRuleId
         {
-            get { return _ShowAllRecords; }
-            set { _ShowAllRecords = value; }
+            get { return _DataAccesRuleId; }
+            set { _DataAccesRuleId = value; }
         }
         private bool _ewavLiteToggleSwitch;
         [DataMember]

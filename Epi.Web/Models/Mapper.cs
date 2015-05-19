@@ -35,7 +35,7 @@ namespace Epi.Web.MVC.Models
                 OwnerLName = FormInfoDTO.OwnerLName,
                 IsShareable =FormInfoDTO.IsShareable,
                 IsShared = FormInfoDTO.IsShared,
-                ShowAllRecords= FormInfoDTO.ShowAllRecords,
+                DataAccessRuleId= FormInfoDTO.DataAccessRuleId,
                 EwavLiteToggleSwitch = FormInfoDTO.EwavLiteToggleSwitch
             };
         }

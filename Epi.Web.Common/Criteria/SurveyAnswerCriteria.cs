@@ -110,7 +110,7 @@ namespace Epi.Web.Enter.Common.Criteria
         public int UserOrganizationId { get; set; }
 
         [DataMember]
-        public bool ShowAllRecords
+        public int DataAccessRuleId
         {
             get;
             set;
