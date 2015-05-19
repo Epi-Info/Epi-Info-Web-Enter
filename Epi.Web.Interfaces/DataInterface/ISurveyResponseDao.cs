@@ -124,6 +124,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
 
          void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO);
 
-         bool ShowAll(string FormId,int UserId);
+         int ValidateDataAccessRule(string FormId,int UserId);
     }
 }

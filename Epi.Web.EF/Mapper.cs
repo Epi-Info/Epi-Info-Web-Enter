@@ -46,7 +46,7 @@ namespace Epi.Web.EF
             {
                 result.ViewId = (int)entity.ViewId;
             }
-            result.ShowAllRecords = (bool)entity.ShowAllRecords;
+            //result. = (bool)entity.ShowAllRecords;
             result.IsShareable = (bool)entity.IsShareable;
             return result;
         }
@@ -83,7 +83,10 @@ namespace Epi.Web.EF
             Result.PhoneNumber = user.PhoneNumber;
             Result.ResetPassword = user.ResetPassword;
             Result.Role = Role;
+            if (!string.IsNullOrEmpty(user.UGuid.ToString()))
+            {
             Result.UGuid = Guid.Parse(user.UGuid.ToString());
+            }
             return Result;
         }
 
@@ -110,9 +113,9 @@ namespace Epi.Web.EF
             {
             result.IsShareable = (bool)entity.IsShareable;
             }
-            if (entity.ShowAllRecords != null)
+            if (entity.DataAccessRuleId != null)
             {
-                result.ShowAllRecords = (bool)entity.ShowAllRecords;
+               // result. =  entity.DataAccessRuleId;
             }
             result.OwnerFName = UserEntity.FirstName;
             result.OwnerLName = UserEntity.LastName;
@@ -164,7 +167,7 @@ namespace Epi.Web.EF
             SurveyMetaData.ViewId = businessobject.ViewId;
             SurveyMetaData.IsSQLProject = businessobject.IsSqlProject;
             SurveyMetaData.IsShareable = businessobject.IsShareable;
-            SurveyMetaData.ShowAllRecords = businessobject.ShowAllRecords;
+          //  SurveyMetaData.DataAccessRuleId = businessobject.;
             if (!string.IsNullOrEmpty(businessobject.ParentId))
             {
                 SurveyMetaData.ParentId = new Guid(businessobject.ParentId);

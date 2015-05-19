@@ -18,7 +18,21 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private Dictionary<int, string> _AvailableOrgList;
         private Dictionary<int, string> _SelectedOrgList;
         private bool _IsDisabled;
+        private int _SelectedDataAccessRule;
+        private Dictionary<int, string> _DataAccessRuleIds;
+       
         [DataMember]
+        public Dictionary<int, string> DataAccessRuleIds
+        {
+            get { return _DataAccessRuleIds; }
+            set { _DataAccessRuleIds = value; }
+        }
+
+        public int SelectedDataAccessRule
+        {
+            get { return _SelectedDataAccessRule; }
+            set { _SelectedDataAccessRule = value; }
+        }
         public Dictionary<int, string> ColumnNameList
             {
             get { return _ColumnNameList; }

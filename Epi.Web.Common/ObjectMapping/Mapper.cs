@@ -42,7 +42,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsSqlProject = pDTO.IsSqlProject,
                 ViewId = pDTO.ViewId,
                 IsShareable = pDTO.IsShareable,
-                 ShowAllRecords = pDTO.ShowAllRecords,
+                 DataAccessRuleId = pDTO.DataAccessRuleId,
                 
                  
                  
@@ -146,7 +146,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsSqlProject =pBO.IsSqlProject,
                 UserPublishKey = pBO.UserPublishKey,
                 IsShareable =pBO.IsShareable ,
-                ShowAllRecords =pBO.ShowAllRecords 
+                DataAccessRuleId =pBO.DataAccessRuleId
 
 
             };
@@ -333,7 +333,9 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 IsShareable = pBO.IsShareable,
                AvailableOrgList = pBO.AvailableOrgList,
                SelectedOrgList = pBO.SelectedOrgList,
-               IsDisabled = pBO.IsDisabled 
+               IsDisabled = pBO.IsDisabled ,
+               DataAccessRuleIds = pBO.DataAccessRuleIds,
+               SelectedDataAccessRule= pBO.SelectedDataAccessRule
 
             };
             }

@@ -31,12 +31,12 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private bool _IsSqlProject;
         private bool _IsShareable; 
         private string _DBConnectionString;
-        private bool _ShowAllRecords;
-     
-        public bool ShowAllRecords
+        private int _DataAccessRuleId;
+
+        public int DataAccessRuleId
         {
-            get { return _ShowAllRecords; }
-            set { _ShowAllRecords = value; }
+            get { return _DataAccessRuleId; }
+            set { _DataAccessRuleId = value; }
         }
         public string StatusText
         { 
