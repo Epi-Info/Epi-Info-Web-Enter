@@ -818,6 +818,8 @@ namespace Epi.Web.MVC.Controllers
                 Model.FormOwnerLastName = FormSettingResponse.FormInfo.OwnerLName;
                 Model.FormName = FormSettingResponse.FormInfo.FormName;
                 Model.FormId = Item.FormId;
+                Model.DataAccessRuleIds = FormSettingResponse.FormSetting.DataAccessRuleIds;
+                Model.SelectedDataAccessRule = FormSettingResponse.FormSetting.SelectedDataAccessRule;
                 ModelList.Add(Model);
             }
             return PartialView("Settings", ModelList);
@@ -842,6 +844,7 @@ namespace Epi.Web.MVC.Controllers
                 FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
                 FormSetting.SelectedOrgList = GetDictionary(this.Request.Form["SelectedOrg"]);
                 FormSetting.IsShareable = GetFormMode(this.Request.Form["IsShareable"]);
+                FormSetting.SelectedDataAccessRule = int.Parse(this.Request.Form["DataAccessRuleId"]);
                 if (!string.IsNullOrEmpty(this.Request.Form["SoftDeleteForm"]) && this.Request.Form["SoftDeleteForm"].ToUpper() == "ON")
                 {
                     FormSetting.IsDisabled = true;

@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OSELS_EWEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="DataAccessRules">
+          <Key>
+            <PropertyRef Name="RuleId" />
+          </Key>
+          <Property Name="RuleId" Type="int" Nullable="false" />
+          <Property Name="RuleName" Type="varchar" MaxLength="150" />
+          <Property Name="RuleDescription" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="EIDatasource">
           <Key>
             <PropertyRef Name="DatasourceID" />
@@ -19,7 +27,7 @@
           <Property Name="Password" Type="varchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ErrorLog">
           <Key>
             <PropertyRef Name="ErrorDate" />
@@ -38,7 +46,7 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLog' does not have a p
           <Property Name="ErrorText2" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EWELiteIntegration.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="familyset">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -158,7 +166,7 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.familyset' does not have a 
           <Property Name="ViewId" Type="int" />
           <Property Name="IsSQLProject" Type="bit" />
           <Property Name="IsShareable" Type="bit" />
-          <Property Name="ShowAllRecords" Type="bit" />
+          <Property Name="DataAccessRuleId" Type="int" />
         </EntityType>
         <EntityType Name="SurveyMetadataOrganization">
           <Key>
@@ -169,7 +177,7 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.familyset' does not have a 
           <Property Name="OrganizationId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EWELiteIntegration.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SurveyMetaDataTransform">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -270,7 +278,7 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.SurveyMetaDataTransform' do
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ErrorLogSorted">
           <Key>
             <PropertyRef Name="ErrorDate" />
@@ -307,6 +315,18 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not ha
             </Principal>
             <Dependent Role="ResponseDisplaySettings">
               <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyMetaData_DataAccessRules">
+          <End Role="DataAccessRules" Type="Self.DataAccessRules" Multiplicity="0..1" />
+          <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataAccessRules">
+              <PropertyRef Name="RuleId" />
+            </Principal>
+            <Dependent Role="SurveyMetaData">
+              <PropertyRef Name="DataAccessRuleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -407,6 +427,18 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not ha
             </Principal>
             <Dependent Role="SurveyResponse">
               <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SurveyResponse_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="OrganizationId" />
+            </Principal>
+            <Dependent Role="SurveyResponse">
+              <PropertyRef Name="OrganizationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -630,6 +662,7 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not ha
           <Parameter Name="IsResponsePresent" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="OSELS_EWEModelStoreContainer">
+          <EntitySet Name="DataAccessRules" EntityType="Self.DataAccessRules" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EIDatasource" EntityType="Self.EIDatasource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lk_RecordSource" EntityType="Self.lk_RecordSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lk_Status" EntityType="Self.lk_Status" Schema="dbo" store:Type="Tables" />
@@ -716,6 +749,10 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
             <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
             <End Role="ResponseDisplaySettings" EntitySet="ResponseDisplaySettings" />
           </AssociationSet>
+          <AssociationSet Name="FK_SurveyMetaData_DataAccessRules" Association="Self.FK_SurveyMetaData_DataAccessRules">
+            <End Role="DataAccessRules" EntitySet="DataAccessRules" />
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
+          </AssociationSet>
           <AssociationSet Name="FK_SurveyMetaData_lk_SurveyType" Association="Self.FK_SurveyMetaData_lk_SurveyType">
             <End Role="lk_SurveyType" EntitySet="lk_SurveyType" />
             <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
@@ -746,6 +783,10 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_lk_Status" Association="Self.FK_SurveyResponse_lk_Status">
             <End Role="lk_Status" EntitySet="lk_Status" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SurveyResponse_Organization" Association="Self.FK_SurveyResponse_Organization">
+            <End Role="Organization" EntitySet="Organization" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_SurveyMetaData" Association="Self.FK_SurveyResponse_SurveyMetaData">
@@ -907,6 +948,11 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
             <End Role="Organization" EntitySet="Organizations" />
             <End Role="SurveyResponse" EntitySet="SurveyResponses" />
           </AssociationSet>
+          <EntitySet Name="DataAccessRules" EntityType="OSELS_EWEModel.DataAccessRule" />
+          <AssociationSet Name="FK_SurveyMetaData_DataAccessRules" Association="OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules">
+            <End Role="DataAccessRule" EntitySet="DataAccessRules" />
+            <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="lk_Status">
           <Key>
@@ -971,7 +1017,8 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" FromRole="SurveyMetaData" ToRole="SurveyResponse" />
           <Property Name="IsShareable" Type="Boolean" />
           <NavigationProperty Name="Organizations" Relationship="OSELS_EWEModel.SurveyMetadataOrganization" FromRole="SurveyMetaData" ToRole="Organization" />
-          <Property Name="ShowAllRecords" Type="Boolean" />
+          <Property Name="DataAccessRuleId" Type="Int32" />
+          <NavigationProperty Name="DataAccessRule" Relationship="OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules" FromRole="SurveyMetaData" ToRole="DataAccessRule" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1361,6 +1408,27 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DataAccessRule">
+          <Key>
+            <PropertyRef Name="RuleId" />
+          </Key>
+          <Property Name="RuleId" Type="Int32" Nullable="false" />
+          <Property Name="RuleName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="RuleDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="SurveyMetaDatas" Relationship="OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules" FromRole="DataAccessRule" ToRole="SurveyMetaData" />
+        </EntityType>
+        <Association Name="FK_SurveyMetaData_DataAccessRules">
+          <End Type="OSELS_EWEModel.DataAccessRule" Role="DataAccessRule" Multiplicity="0..1" />
+          <End Type="OSELS_EWEModel.SurveyMetaData" Role="SurveyMetaData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DataAccessRule">
+              <PropertyRef Name="RuleId" />
+            </Principal>
+            <Dependent Role="SurveyMetaData">
+              <PropertyRef Name="DataAccessRuleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1397,7 +1465,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <EntitySetMapping Name="SurveyMetaDatas">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyMetaData">
               <MappingFragment StoreEntitySet="SurveyMetaData">
-                <ScalarProperty Name="ShowAllRecords" ColumnName="ShowAllRecords" />
+                <ScalarProperty Name="DataAccessRuleId" ColumnName="DataAccessRuleId" />
                 <ScalarProperty Name="IsShareable" ColumnName="IsShareable" />
                 <ScalarProperty Name="IsSQLProject" ColumnName="IsSQLProject" />
                 <ScalarProperty Name="ViewId" ColumnName="ViewId" />
@@ -1655,6 +1723,15 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
               <ScalarProperty Name="OrganizationId" ColumnName="OrganizationId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="DataAccessRules">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.DataAccessRule">
+              <MappingFragment StoreEntitySet="DataAccessRules">
+                <ScalarProperty Name="RuleDescription" ColumnName="RuleDescription" />
+                <ScalarProperty Name="RuleName" ColumnName="RuleName" />
+                <ScalarProperty Name="RuleId" ColumnName="RuleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1766,6 +1843,8 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
         <EntityTypeShape EntityType="OSELS_EWEModel.ErrorLogSorted" Width="1.5" PointX="3.375" PointY="12" />
         <AssociationConnector Association="OSELS_EWEModel.SurveyMetadataOrganization" />
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_Organization" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.DataAccessRule" Width="1.5" PointX="18" PointY="7.5" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules" />
       </Diagram>
     </Diagrams>
   </Designer>

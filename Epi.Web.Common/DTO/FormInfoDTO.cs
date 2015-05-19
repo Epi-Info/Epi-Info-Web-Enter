@@ -22,13 +22,13 @@ namespace Epi.Web.Enter.Common.DTO
         private bool _isSQLProject;
         private bool _IsShareable;
         private bool _IsShared;
-        private bool _ShowAllRecords;
+        private bool _DataAccessRuleId;
         private bool _ewavLiteToggleSwitch;
         [DataMember]
-        public bool ShowAllRecords
+        public bool DataAccessRuleId
         {
-            get { return _ShowAllRecords; }
-            set { _ShowAllRecords = value; }
+            get { return _DataAccessRuleId; }
+            set { _DataAccessRuleId = value; }
         }
         [DataMember]
         public string FormId

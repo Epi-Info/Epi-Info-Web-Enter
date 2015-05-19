@@ -19,11 +19,18 @@ namespace Epi.Web.MVC.Models
         private bool _IsShareable;
         private Dictionary<int, string> _AvailableOrgList;
         private Dictionary<int, string> _SelectedOrgList;
-        private bool _ShowAllRecords;
-        public bool ShowAllRecords
+        private int _SelectedDataAccessRule;
+        private Dictionary<int, string> _DataAccessRuleIds;
+        public Dictionary<int, string> DataAccessRuleIds
         {
-            get { return _ShowAllRecords; }
-            set { _ShowAllRecords = value; }
+            get { return _DataAccessRuleIds; }
+            set { _DataAccessRuleIds = value; }
+        }
+
+        public int SelectedDataAccessRule
+        {
+            get { return _SelectedDataAccessRule; }
+            set { _SelectedDataAccessRule = value; }
         }
         public Dictionary<int, string> FormControlNameList
             {

@@ -22,6 +22,8 @@ namespace Epi.Web.EF
             Dictionary<int, string> SelectedUsers = new Dictionary<int, string>();
             Dictionary<int, string> AvailableOrgs = new Dictionary<int, string>();
             Dictionary<int, string> SelectedOrgs = new Dictionary<int, string>();
+            Dictionary<int, string> DataAccessRuleIds = new Dictionary<int, string>();
+            int selectedDataAccessRuleId ;
             try
             {
                 Guid id = new Guid(FormId);
@@ -111,11 +113,27 @@ namespace Epi.Web.EF
                                AvailableOrgs.Add(Org.OrganizationId, Org.Organization1);
                            }
                        }
+                       //// Select DataAccess Rule Ids  list 
+                     var MetaData = Context.SurveyMetaDatas.Where( a => a.SurveyId == id).Single();
+
+
+                      selectedDataAccessRuleId = int.Parse(MetaData.DataAccessRuleId.ToString()); 
+                       ////  Available DataAccess Rule Ids  list 
+
+                       IEnumerable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList();
+                       foreach (var Rule in RuleIDs)
+                       {
+
+                           DataAccessRuleIds.Add(Rule.RuleId, Rule.RuleName);
+                          
+                       }
                     FormSettingBO.ColumnNameList = ColumnNameList;
                     FormSettingBO.UserList = AvailableUsers;
                     FormSettingBO.AssignedUserList = SelectedUsers;
                     FormSettingBO.AvailableOrgList = AvailableOrgs;
                     FormSettingBO.SelectedOrgList = SelectedOrgs;
+                    FormSettingBO.DataAccessRuleIds = DataAccessRuleIds;
+                    FormSettingBO.SelectedDataAccessRule = selectedDataAccessRuleId;
                 }
             }
             catch (Exception ex)
@@ -181,7 +199,7 @@ namespace Epi.Web.EF
                     var DataRow = Query.Single();
                     DataRow.IsDraftMode = FormInfoBO.IsDraftMode;
                     DataRow.IsShareable = FormInfoBO.IsShareable;
-
+                    DataRow.DataAccessRuleId = FormInfoBO.DataAccesRuleId;
 
                     Context.SaveChanges();
                 }
