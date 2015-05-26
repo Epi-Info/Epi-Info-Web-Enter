@@ -47,7 +47,7 @@
                 <Button Content="Update Local Settings..." Height="23" HorizontalAlignment="Left" Margin="248,279,0,0" Name="UpdateConfigButton" VerticalAlignment="Top" Width="130" Click="UpdateConfigButton_Click" />
             </Grid>
         </GroupBox>
-        <GroupBox Height="198" HorizontalAlignment="Left" Margin="12,365,0,0" Name="groupBox2" VerticalAlignment="Top" Width="396" Grid.ColumnSpan="3" Background="#FFE7CDC1">
+        <GroupBox Height="198" HorizontalAlignment="Left" Margin="12,365,0,0" Name="groupBox2" VerticalAlignment="Top" Width="396" Grid.ColumnSpan="3" Background="#FFE7CDC1" Visibility="Hidden"><!--Hiding following section since Encyption utility will be doing the same thing.-->
             <GroupBox.Header>
         		<TextBlock Text="Encrypt Connection String" FontSize="13.333" FontWeight="Bold" ></TextBlock>    	
 			</GroupBox.Header>

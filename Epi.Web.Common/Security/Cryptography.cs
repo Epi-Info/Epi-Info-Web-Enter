@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using System.IO;
+using System.Configuration;
 
 namespace Epi.Web.Enter.Common.Security
 {
@@ -17,9 +18,9 @@ namespace Epi.Web.Enter.Common.Security
         /// </summary>
 
 
-        public const string passPhrase = "80787d6053694493be171dd712e51c61";
-        public const string saltValue = "476ba16073764022bc7f262c6d67ebef";
-        public const string initVector = "0f8f*d5bd&cb4~9f";
+        public static readonly string passPhrase = ConfigurationManager.AppSettings["KeyForConnectionStringPassphrase"]; //"80787d6053694493be171dd712e51c61";
+        public static readonly string saltValue = ConfigurationManager.AppSettings["KeyForConnectionStringSalt"]; //;"476ba16073764022bc7f262c6d67ebef";
+        public static readonly string initVector = ConfigurationManager.AppSettings["KeyForConnectionStringVector"];// "0f8f*d5bd&cb4~9f";
 
         /// <summary>
         /// Encryption
