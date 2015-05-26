@@ -23,6 +23,7 @@ namespace Epi.Web.EF
             Dictionary<int, string> AvailableOrgs = new Dictionary<int, string>();
             Dictionary<int, string> SelectedOrgs = new Dictionary<int, string>();
             Dictionary<int, string> DataAccessRuleIds = new Dictionary<int, string>();
+            Dictionary<string, string> DataAccessRuleDescription = new Dictionary<string, string>();
             int selectedDataAccessRuleId ;
             try
             {
@@ -125,6 +126,7 @@ namespace Epi.Web.EF
                        {
 
                            DataAccessRuleIds.Add(Rule.RuleId, Rule.RuleName);
+                           DataAccessRuleDescription.Add(Rule.RuleName, Rule.RuleDescription);
                           
                        }
                     FormSettingBO.ColumnNameList = ColumnNameList;
@@ -134,6 +136,7 @@ namespace Epi.Web.EF
                     FormSettingBO.SelectedOrgList = SelectedOrgs;
                     FormSettingBO.DataAccessRuleIds = DataAccessRuleIds;
                     FormSettingBO.SelectedDataAccessRule = selectedDataAccessRuleId;
+                    FormSettingBO.DataAccessRuleDescription = DataAccessRuleDescription;
                 }
             }
             catch (Exception ex)
