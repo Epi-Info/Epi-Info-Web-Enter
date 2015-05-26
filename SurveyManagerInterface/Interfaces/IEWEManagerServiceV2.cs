@@ -15,7 +15,8 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         void UpdateRecordStatus(SurveyAnswerRequest pRequestMessage);
-
-       
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        FormSettingResponse GetSettings(FormSettingRequest Request);
     }
 }

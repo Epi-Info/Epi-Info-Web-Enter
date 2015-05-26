@@ -769,7 +769,7 @@ namespace Epi.Web.EF
 
             IsSqlProject = IsEISQLProject(criteria.SurveyId);//Checks to see if current form is SqlProject
 
-            DataAccessRuleId = this.ValidateDataAccessRule(criteria.SurveyId, criteria.UserId);
+            DataAccessRuleId = this.GetDataAccessRule(criteria.SurveyId, criteria.UserId);
 
             if (IsSqlProject)
             {
@@ -851,18 +851,63 @@ namespace Epi.Web.EF
                 {
 
                     Guid Id = new Guid(criteria.SurveyId);
-
+                  
                     using (var Context = DataObjectFactory.CreateContext())
                     {
+                       
                         IEnumerable<SurveyResponse> SurveyResponseList;
-                        if (criteria.IsShareable &&  DataAccessRuleId  == 1)
+                        if (criteria.IsShareable )
                         {
                             //Shareable
-                            SurveyResponseList = Context.SurveyResponses.ToList().Where(
+                            switch (DataAccessRuleId) 
+                            {
+                                case 1: //   Organization users can only access the data of there organization
+                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
                                 x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
                                                       && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
                                                       && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                        .OrderByDescending(x => x.DateUpdated);
+                                    break;
+                                case 2:    // All users in host organization will have access to all data of all organizations  
+
+                                    // get All the users of Host organization
+                                    var Users = Context.UserOrganizations.Where(x => x.OrganizationID == criteria.UserOrganizationId && x.Active == true).ToList();
+                                    int Count = Users.Where(x => x.UserID == criteria.UserId).Count();
+                                    if ( Count > 0  )
+                                    {
+                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
+                                     x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                     && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                     && x.StatusId > 1  )
+                                                      .OrderByDescending(x => x.DateUpdated);
+                                    }
+                                    else
+                                    {
+                                    
+                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
+                                       x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                     && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                     && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                      .OrderByDescending(x => x.DateUpdated);
+                                    }
+                                    break;
+                                case 3: // All users of all organizations can access all data 
+                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
+                               x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                     && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                     && x.StatusId > 1  )
+                                                      .OrderByDescending(x => x.DateUpdated);
+                                    break;
+                                default :
+                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
+                                  x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                        && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                        && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                         .OrderByDescending(x => x.DateUpdated);
+                                    break;
+
+                            }
+                           
                           
 
                         }
@@ -1187,22 +1232,65 @@ namespace Epi.Web.EF
            
             if (IsShareable )
             {
-                if (DataAccessRuleId != -1)
-                {
-                    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
-                    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
-                    //stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].SurveyResponseUser on SurveyResponse.ResponseId =SurveyResponseUser.ResponseId and SurveyResponse.SurveyId ='" + FormId+"'");
-                    //stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].UserOrganization on UserOrganization.UserID = SurveyResponseUser.UserId");
-                    //stringBuilder.Append(" Where " + "UserOrganization.OrganizationID =" + UserOrgId + ")");
-                    stringBuilder.Append(" Where " + "OrganizationId =" + UserOrgId + " And SurveyId ='" + FormId + "')");
-                }
-                else {
+                //if (DataAccessRuleId != -1)
+                //{
+                //    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                //    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                //    //stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].SurveyResponseUser on SurveyResponse.ResponseId =SurveyResponseUser.ResponseId and SurveyResponse.SurveyId ='" + FormId+"'");
+                //    //stringBuilder.Append(" INNER JOIN [" + EweConnection.Database + "].[dbo].UserOrganization on UserOrganization.UserID = SurveyResponseUser.UserId");
+                //    //stringBuilder.Append(" Where " + "UserOrganization.OrganizationID =" + UserOrgId + ")");
+                //    stringBuilder.Append(" Where " + "OrganizationId =" + UserOrgId + " And SurveyId ='" + FormId + "')");
+                //}
+                //else {
 
-                    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
-                    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
-                    stringBuilder.Append(" Where  SurveyId ='" + FormId + "')");
+                //    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                //    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                //    stringBuilder.Append(" Where  SurveyId ='" + FormId + "')");
                 
-                }
+                //   }
+                  
+                            //Shareable
+                            switch (DataAccessRuleId) 
+                                {
+                                case 1: //   Organization users can only access the data of there organization
+                                     stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                                     stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                                     stringBuilder.Append(" Where " + "OrganizationId =" + UserOrgId + " And SurveyId ='" + FormId + "')");  
+                                    break;
+                                case 2:    // All users in host organization will have access to all data of all organizations  
+
+                                    // get All the users of Host organization
+                                    var Context = DataObjectFactory.CreateContext();
+                                    var Users = Context.UserOrganizations.Where(x => x.OrganizationID == UserOrgId && x.Active == true).ToList();
+                                    int Count = Users.Where(x => x.UserID ==  UserId).Count();
+                                    if ( Count > 0  )
+                                    {
+                                        stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                                        stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                                        stringBuilder.Append(" Where  SurveyId ='" + FormId + "')");
+                                    }
+                                    else
+                                    {
+                                        stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                                        stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                                        stringBuilder.Append(" Where " + "OrganizationId =" + UserOrgId + " And SurveyId ='" + FormId + "')");  
+                                     
+                                    }
+                                    break;
+                                case 3: // All users of all organizations can access all data 
+                                    stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                                    stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                                    stringBuilder.Append(" Where  SurveyId ='" + FormId + "')");
+                                    break;
+                                default :
+                                     stringBuilder.Append(" AND " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId in ");
+                                     stringBuilder.Append(" (Select SurveyResponse.ResponseId from [" + EweConnection.Database + "].[dbo].SurveyResponse");
+                                     stringBuilder.Append(" Where " + "OrganizationId =" + UserOrgId + " And SurveyId ='" + FormId + "')");  
+                                    break;
+
+                          
+                           
+                                    }
             }
 
             //User filter End 
@@ -2298,7 +2386,7 @@ namespace Epi.Web.EF
 
 
 
-        public int ValidateDataAccessRule(string  FormId, int UserId) 
+        public int GetDataAccessRule(string  FormId, int UserId) 
         {
             int RuleId = 0;
             Guid Id = new Guid(FormId);
@@ -2306,12 +2394,8 @@ namespace Epi.Web.EF
                 {
                     var FormInfo = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id ).First();
 
-
-                 //   if (FormInfo.OwnerId == UserId && (bool)FormInfo.ShowAllRecords)
-                 //{
-
-                 //    ShowAll = true;
-                 //}
+                    RuleId = int.Parse(FormInfo.DataAccessRuleId.ToString());
+               
                }
 
 

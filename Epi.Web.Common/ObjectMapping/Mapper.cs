@@ -335,8 +335,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                SelectedOrgList = pBO.SelectedOrgList,
                IsDisabled = pBO.IsDisabled ,
                DataAccessRuleIds = pBO.DataAccessRuleIds,
-               SelectedDataAccessRule= pBO.SelectedDataAccessRule
-
+               SelectedDataAccessRule= pBO.SelectedDataAccessRule,
+               DataAccessRuleDescription = pBO.DataAccessRuleDescription
             };
             }
 
