@@ -121,28 +121,31 @@
    
 
         <div id="ShareDiv">
-            @if (Model[0].IsShareable)
-                   {
-    
-                    <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select Data Access Rule:</p>
-                    <select name="DataAccessRuleId" id="DataAccessRuleId" onchange="">
-                        @foreach (var item in Model[0].DataAccessRuleIds)
-                            {
+            @*@if (Model[0].IsShareable)
+            {*@
 
-                                if (@item.Key == Model[0].SelectedDataAccessRule)
-                                {
-                                    <option value="@item.Key" selected="selected">@item.Value</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Key">@item.Value</option>
-                                }
-                            }
+                <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select Data Access Rule:</p>
+                <select name="DataAccessRuleId" id="DataAccessRuleId" onchange="">
+                    @foreach (var item in Model[0].DataAccessRuleIds)
+                    {
 
-                    </select>
+                        if (@item.Key == Model[0].SelectedDataAccessRule)
+                        {
+                            <option value="@item.Key" selected="selected">@item.Value</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
                     }
 
-    
+                </select>
+  @*}*@
+
+
+            <img src="~/Content/images/info.png" title="@Model[0].DataAccessRuleDescription" />
+        </div>
+
                 <br />
             <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Share Form with Organizations</p>
             <div id="OrgSelect">
@@ -311,7 +314,7 @@
 	function MakeShareable()
 	{
 	    var DropDownVal = $("#IsShareable").val();
-	 //   alert(DropDownVal);
+	  //alert(DropDownVal);
 	    if (DropDownVal != 0)
 	    {
 	        $('#ShareDiv').show();

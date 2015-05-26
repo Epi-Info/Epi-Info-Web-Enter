@@ -9,7 +9,7 @@ using System;
 namespace Epi.Web.Enter.Common.Message
     {
      [DataContract(Namespace = "http://www.yourcompany.com/types/")]
-   public class FormSettingRequest
+    public class FormSettingRequest : Epi.Web.Enter.Common.MessageBase.RequestBase
         {
        
           public FormSettingRequest()

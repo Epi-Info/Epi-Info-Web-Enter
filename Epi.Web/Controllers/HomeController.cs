@@ -820,6 +820,13 @@ namespace Epi.Web.MVC.Controllers
                 Model.FormId = Item.FormId;
                 Model.DataAccessRuleIds = FormSettingResponse.FormSetting.DataAccessRuleIds;
                 Model.SelectedDataAccessRule = FormSettingResponse.FormSetting.SelectedDataAccessRule;
+                var  DataAccessRuleDescription = "" ;
+                foreach (var item in FormSettingResponse.FormSetting.DataAccessRuleDescription)
+                {
+                    DataAccessRuleDescription = DataAccessRuleDescription + item.Key.ToString() + " : " + item.Value + "\n";
+                }
+
+                Model.DataAccessRuleDescription = DataAccessRuleDescription;
                 ModelList.Add(Model);
             }
             return PartialView("Settings", ModelList);

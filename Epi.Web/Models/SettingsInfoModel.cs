@@ -21,6 +21,13 @@ namespace Epi.Web.MVC.Models
         private Dictionary<int, string> _SelectedOrgList;
         private int _SelectedDataAccessRule;
         private Dictionary<int, string> _DataAccessRuleIds;
+        private string _DataAccessRuleDescription;
+        
+        public string  DataAccessRuleDescription
+        {
+            get { return _DataAccessRuleDescription; }
+            set { _DataAccessRuleDescription = value; }
+        }
         public Dictionary<int, string> DataAccessRuleIds
         {
             get { return _DataAccessRuleIds; }

@@ -124,6 +124,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
 
          void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO);
 
-         int ValidateDataAccessRule(string FormId,int UserId);
+         int GetDataAccessRule(string FormId,int UserId);
     }
 }

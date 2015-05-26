@@ -20,8 +20,14 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private bool _IsDisabled;
         private int _SelectedDataAccessRule;
         private Dictionary<int, string> _DataAccessRuleIds;
-       
-        [DataMember]
+        private Dictionary<string, string> _DataAccessRuleDescription;
+          [DataMember]
+        public Dictionary<string, string> DataAccessRuleDescription
+        {
+            get { return _DataAccessRuleDescription; }
+            set { _DataAccessRuleDescription = value; }
+        }
+        
         public Dictionary<int, string> DataAccessRuleIds
         {
             get { return _DataAccessRuleIds; }
