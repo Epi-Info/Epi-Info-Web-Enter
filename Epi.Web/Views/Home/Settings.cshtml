@@ -49,8 +49,8 @@
         </select>
         <br />
         <br />
-        <input type="checkbox" id="SoftDeleteForm" name="SoftDeleteForm"  onchange="DeleteFormWarning();" title="Disable Form"> Disable Form</input>
-       
+        <input type="checkbox" id="SoftDeleteForm" name="SoftDeleteForm" onchange="DeleteFormWarning();" title="Disable Form"> Disable Form</input>
+
         <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select up to 5 columns to display when viewing the list of records.</p>
         @foreach (var FormModel in Model)
         {
@@ -64,7 +64,7 @@
 
                         @foreach (var item in FormModel.FormControlNameList)
                         {
-                        <option value="@item.Value">@item.Value</option>
+                            <option value="@item.Value">@item.Value</option>
                         }
                     </select>
                 </div>
@@ -81,7 +81,7 @@
                     <select id="SelectedColumns_@FormModel.FormId" class="SelectedColumns" size="5" multiple="multiple" name="SelectedColumns_@FormModel.FormId">
                         @foreach (var item in FormModel.SelectedControlNameList)
                         {
-                        <option value="@item.Value">@item.Value</option>
+                            <option value="@item.Value">@item.Value</option>
                         }
                     </select>
                 </div>
@@ -106,47 +106,47 @@
         <select name="IsShareable" id="IsShareable" onchange="MakeShareable()">
             @if (!Model[0].IsShareable)
             {
-            <option value="0" selected="selected">Not Shareable</option>
-            <option value="1">Shareable</option>
+                <option value="0" selected="selected">Not Shareable</option>
+                <option value="1">Shareable</option>
             }
             else
             {
-            <option value="0">Not Shareable</option>
-            <option value="1" selected="selected">Shareable</option>
+                <option value="0">Not Shareable</option>
+                <option value="1" selected="selected">Shareable</option>
 
             }
         </select>
         <br />
-     
-   
+
+
 
         <div id="ShareDiv">
             @*@if (Model[0].IsShareable)
-            {*@
+                {*@
 
-                <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select Data Access Rule:</p>
-                <select name="DataAccessRuleId" id="DataAccessRuleId" onchange="">
-                    @foreach (var item in Model[0].DataAccessRuleIds)
+            <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select Data Access Rule:</p>
+            <select name="DataAccessRuleId" id="DataAccessRuleId" onchange="">
+                @foreach (var item in Model[0].DataAccessRuleIds)
+                {
+
+                    if (@item.Key == Model[0].SelectedDataAccessRule)
                     {
-
-                        if (@item.Key == Model[0].SelectedDataAccessRule)
-                        {
-                            <option value="@item.Key" selected="selected">@item.Value</option>
-                        }
-                        else
-                        {
-                            <option value="@item.Key">@item.Value</option>
-                        }
+                        <option value="@item.Key" selected="selected">@item.Value</option>
                     }
+                    else
+                    {
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                }
 
-                </select>
-  @*}*@
+            </select>
+            @*}*@
 
 
             <img src="~/Content/images/info.png" title="@Model[0].DataAccessRuleDescription" />
-        </div>
 
-                <br />
+
+            <br />
             <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Share Form with Organizations</p>
             <div id="OrgSelect">
                 <div id="available1">
@@ -155,9 +155,9 @@
                     <select id="Shared" size="10" multiple="multiple">
 
                         @foreach (var item in Model[0].AvailableOrgList)
-                            {
-                        <option value="@item.Key">@item.Value</option>
-                            }
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
                     </select>
                 </div>
                 <div id="swapbtn">
@@ -172,9 +172,9 @@
                     <br />
                     <select id="SelectedOrg" size="5" multiple="multiple" name="SelectedOrg">
                         @foreach (var item in Model[0].SelectedOrgList)
-                            {
-                        <option value="@item.Key">@item.Value</option>
-                            }
+                        {
+                            <option value="@item.Key">@item.Value</option>
+                        }
                     </select>
                 </div>
                 <div id="updown">
@@ -187,6 +187,7 @@
                 <div style="clear:both;"></div>
             </div>
         </div>
+    </div>
 
         @*  Share with organization End *@
 
