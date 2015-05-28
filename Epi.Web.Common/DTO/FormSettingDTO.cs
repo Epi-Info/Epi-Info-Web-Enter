@@ -7,7 +7,14 @@ namespace Epi.Web.Enter.Common.DTO
     {
   public   class FormSettingDTO
         {
-       
+
+
+
+      public  FormSettingDTO()
+      {
+          _SelectedDataAccessRule = 1;
+      }
+
         private Dictionary<int,string> _ColumnNameList;
         private Dictionary<int, string> _FormControlNameList;
         private Dictionary<int, string> _AssignedUserList;
@@ -18,7 +25,7 @@ namespace Epi.Web.Enter.Common.DTO
         private Dictionary<int, string> _SelectedOrgList;
         
         private bool _IsDisabled;
-        private int _SelectedDataAccessRule;
+        private int _SelectedDataAccessRule ;
         private Dictionary<int, string> _DataAccessRuleIds;
         private Dictionary<string, string> _DataAccessRuleDescription;
         public Dictionary<string, string> DataAccessRuleDescription

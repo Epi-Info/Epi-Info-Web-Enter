@@ -13,6 +13,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
    public  interface IFormSettingDao
         {
        FormSettingBO GetFormSettings(string FormId);
+       FormSettingBO GetFormSettings();
        void UpDateColumnNames(FormSettingBO FormSettingBO, string FormId);
 
        void UpDateFormMode(FormInfoBO FormInfoBO);

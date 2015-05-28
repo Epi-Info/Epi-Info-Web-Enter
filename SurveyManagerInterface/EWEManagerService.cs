@@ -979,7 +979,9 @@ namespace Epi.Web.WCF.SurveyService
              Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
              Epi.Web.BLL.User Implementation = new Epi.Web.BLL.User(IUserDao);
 
+             
              UserBO UserBO = Mapper.ToUserBO(request.User);
+              
 
              UserBO result = Implementation.GetUser(UserBO);
 

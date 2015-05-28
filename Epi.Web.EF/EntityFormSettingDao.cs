@@ -27,6 +27,7 @@ namespace Epi.Web.EF
             int selectedDataAccessRuleId ;
             try
             {
+                
                 Guid id = new Guid(FormId);
                 using (var Context = DataObjectFactory.CreateContext())
                 {
@@ -286,7 +287,40 @@ namespace Epi.Web.EF
                 throw (ex);
             }
         }
+        public   FormSettingBO GetFormSettings()
+        {
+             
+            FormSettingBO FormSettingBO = new FormSettingBO();
 
+            Dictionary<int, string> DataAccessRuleIds = new Dictionary<int, string>();
+            Dictionary<string, string> DataAccessRuleDescription = new Dictionary<string, string>();
+            int selectedDataAccessRuleId = -1; ;
+            var Context = DataObjectFactory.CreateContext();
+            try
+            {
+                ////  Available DataAccess Rule Ids  list 
+
+                IEnumerable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList();
+                foreach (var Rule in RuleIDs)
+                {
+
+                    DataAccessRuleIds.Add(Rule.RuleId, Rule.RuleName);
+                    DataAccessRuleDescription.Add(Rule.RuleName, Rule.RuleDescription);
+
+                }
+
+                FormSettingBO.SelectedDataAccessRule = selectedDataAccessRuleId;
+                FormSettingBO.DataAccessRuleDescription = DataAccessRuleDescription;
+                FormSettingBO.DataAccessRuleIds = DataAccessRuleIds;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+            return FormSettingBO;
+
+
+        }
         
         public List<string> GetAllColumnNames(string FormId)
         {

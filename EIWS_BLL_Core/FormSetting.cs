@@ -25,6 +25,11 @@ namespace Epi.Web.BLL
             this.UserDao = pUserDao;
             this.FormInfoDao = pFormInfoDao;
         }
+        public FormSetting(IFormSettingDao pFormSettingDao )
+        {
+            this.FormSettingDao = pFormSettingDao;
+            
+        }
 
         public FormSettingBO GetFormSettings(string FormId, string Xml)
         {
@@ -224,6 +229,12 @@ namespace Epi.Web.BLL
             {
                 throw ex;
             }
+        }
+
+        public FormSettingBO GetFormSettings()
+        {
+            FormSettingBO result = this.FormSettingDao.GetFormSettings();
+            return result;
         }
     }
 }
