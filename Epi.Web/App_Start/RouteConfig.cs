@@ -325,11 +325,12 @@ namespace Epi.Web.MVC
                   new { controller = "AdminUser", action = "UserInfo", userid = UrlParameter.Optional, iseditmode = UrlParameter.Optional, orgid = UrlParameter.Optional }
               ); // Parameter defaults
 
-            //routes.MapRoute(
-            //   "Default", // Route name
-            //   "{*url}", // URL with parameters
-            //   new { controller = "Home", action = "Default", id = UrlParameter.Optional }
-            //  );
+            routes.MapRoute(
+               "Default", // Route name
+               "{*url}", // URL with parameters
+               new { controller = "Login", action = "Index", id = UrlParameter.Optional }
+              );
+              
         }
     }
 }
