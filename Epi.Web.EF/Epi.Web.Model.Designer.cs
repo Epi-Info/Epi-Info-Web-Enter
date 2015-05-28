@@ -36,6 +36,11 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "SurveyMetadataOrganization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Organization), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData))]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyResponse_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.Organization), "SurveyResponse", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyResponse), true)]
 [assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_SurveyMetaData_DataAccessRules", "DataAccessRule", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Epi.Web.EF.DataAccessRule), "SurveyMetaData", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SurveyMetaData), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_Canvas__Datasource", "Datasource", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Datasource), "Canva", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Canva), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_Canvas_CreatorUser", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.User), "Canva", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Canva), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_Datasource_Organization", "Organization", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.Organization), "Datasource", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Datasource), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "FK_CanvasUser_User", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Epi.Web.EF.User), "SharedCanvas", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.SharedCanvas), true)]
+[assembly: EdmRelationshipAttribute("OSELS_EWEModel", "DatasourceUser", "Datasource", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.Datasource), "User", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Epi.Web.EF.User))]
 
 #endregion
 
@@ -406,6 +411,54 @@ namespace Epi.Web.EF
             }
         }
         private ObjectSet<DataAccessRule> _DataAccessRules;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Canva> Canvas
+        {
+            get
+            {
+                if ((_Canvas == null))
+                {
+                    _Canvas = base.CreateObjectSet<Canva>("Canvas");
+                }
+                return _Canvas;
+            }
+        }
+        private ObjectSet<Canva> _Canvas;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Datasource> Datasources
+        {
+            get
+            {
+                if ((_Datasources == null))
+                {
+                    _Datasources = base.CreateObjectSet<Datasource>("Datasources");
+                }
+                return _Datasources;
+            }
+        }
+        private ObjectSet<Datasource> _Datasources;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<SharedCanvas> SharedCanvases
+        {
+            get
+            {
+                if ((_SharedCanvases == null))
+                {
+                    _SharedCanvases = base.CreateObjectSet<SharedCanvas>("SharedCanvases");
+                }
+                return _SharedCanvases;
+            }
+        }
+        private ObjectSet<SharedCanvas> _SharedCanvases;
 
         #endregion
 
@@ -569,6 +622,30 @@ namespace Epi.Web.EF
         public void AddToDataAccessRules(DataAccessRule dataAccessRule)
         {
             base.AddObject("DataAccessRules", dataAccessRule);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Canvas EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToCanvas(Canva canva)
+        {
+            base.AddObject("Canvas", canva);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Datasources EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDatasources(Datasource datasource)
+        {
+            base.AddObject("Datasources", datasource);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the SharedCanvases EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSharedCanvases(SharedCanvas sharedCanvas)
+        {
+            base.AddObject("SharedCanvases", sharedCanvas);
         }
 
         #endregion
@@ -945,6 +1022,349 @@ namespace Epi.Web.EF
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="Canva")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Canva : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Canva object.
+        /// </summary>
+        /// <param name="canvasID">Initial value of the CanvasID property.</param>
+        /// <param name="canvasGUID">Initial value of the CanvasGUID property.</param>
+        /// <param name="canvasName">Initial value of the CanvasName property.</param>
+        /// <param name="userID">Initial value of the UserID property.</param>
+        /// <param name="createdDate">Initial value of the CreatedDate property.</param>
+        /// <param name="modifiedDate">Initial value of the ModifiedDate property.</param>
+        /// <param name="datasourceID">Initial value of the DatasourceID property.</param>
+        /// <param name="canvasContent">Initial value of the CanvasContent property.</param>
+        public static Canva CreateCanva(global::System.Int32 canvasID, global::System.Guid canvasGUID, global::System.String canvasName, global::System.Int32 userID, global::System.DateTime createdDate, global::System.DateTime modifiedDate, global::System.Int32 datasourceID, global::System.String canvasContent)
+        {
+            Canva canva = new Canva();
+            canva.CanvasID = canvasID;
+            canva.CanvasGUID = canvasGUID;
+            canva.CanvasName = canvasName;
+            canva.UserID = userID;
+            canva.CreatedDate = createdDate;
+            canva.ModifiedDate = modifiedDate;
+            canva.DatasourceID = datasourceID;
+            canva.CanvasContent = canvasContent;
+            return canva;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CanvasID
+        {
+            get
+            {
+                return _CanvasID;
+            }
+            set
+            {
+                if (_CanvasID != value)
+                {
+                    OnCanvasIDChanging(value);
+                    ReportPropertyChanging("CanvasID");
+                    _CanvasID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CanvasID");
+                    OnCanvasIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _CanvasID;
+        partial void OnCanvasIDChanging(global::System.Int32 value);
+        partial void OnCanvasIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid CanvasGUID
+        {
+            get
+            {
+                return _CanvasGUID;
+            }
+            set
+            {
+                OnCanvasGUIDChanging(value);
+                ReportPropertyChanging("CanvasGUID");
+                _CanvasGUID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CanvasGUID");
+                OnCanvasGUIDChanged();
+            }
+        }
+        private global::System.Guid _CanvasGUID;
+        partial void OnCanvasGUIDChanging(global::System.Guid value);
+        partial void OnCanvasGUIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CanvasName
+        {
+            get
+            {
+                return _CanvasName;
+            }
+            set
+            {
+                OnCanvasNameChanging(value);
+                ReportPropertyChanging("CanvasName");
+                _CanvasName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CanvasName");
+                OnCanvasNameChanged();
+            }
+        }
+        private global::System.String _CanvasName;
+        partial void OnCanvasNameChanging(global::System.String value);
+        partial void OnCanvasNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                OnUserIDChanging(value);
+                ReportPropertyChanging("UserID");
+                _UserID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UserID");
+                OnUserIDChanged();
+            }
+        }
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
+        partial void OnUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CanvasDescription
+        {
+            get
+            {
+                return _CanvasDescription;
+            }
+            set
+            {
+                OnCanvasDescriptionChanging(value);
+                ReportPropertyChanging("CanvasDescription");
+                _CanvasDescription = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("CanvasDescription");
+                OnCanvasDescriptionChanged();
+            }
+        }
+        private global::System.String _CanvasDescription;
+        partial void OnCanvasDescriptionChanging(global::System.String value);
+        partial void OnCanvasDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedDate
+        {
+            get
+            {
+                return _CreatedDate;
+            }
+            set
+            {
+                OnCreatedDateChanging(value);
+                ReportPropertyChanging("CreatedDate");
+                _CreatedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedDate");
+                OnCreatedDateChanged();
+            }
+        }
+        private global::System.DateTime _CreatedDate;
+        partial void OnCreatedDateChanging(global::System.DateTime value);
+        partial void OnCreatedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime ModifiedDate
+        {
+            get
+            {
+                return _ModifiedDate;
+            }
+            set
+            {
+                OnModifiedDateChanging(value);
+                ReportPropertyChanging("ModifiedDate");
+                _ModifiedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ModifiedDate");
+                OnModifiedDateChanged();
+            }
+        }
+        private global::System.DateTime _ModifiedDate;
+        partial void OnModifiedDateChanging(global::System.DateTime value);
+        partial void OnModifiedDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DatasourceID
+        {
+            get
+            {
+                return _DatasourceID;
+            }
+            set
+            {
+                OnDatasourceIDChanging(value);
+                ReportPropertyChanging("DatasourceID");
+                _DatasourceID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DatasourceID");
+                OnDatasourceIDChanged();
+            }
+        }
+        private global::System.Int32 _DatasourceID;
+        partial void OnDatasourceIDChanging(global::System.Int32 value);
+        partial void OnDatasourceIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String CanvasContent
+        {
+            get
+            {
+                return _CanvasContent;
+            }
+            set
+            {
+                OnCanvasContentChanging(value);
+                ReportPropertyChanging("CanvasContent");
+                _CanvasContent = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("CanvasContent");
+                OnCanvasContentChanged();
+            }
+        }
+        private global::System.String _CanvasContent;
+        partial void OnCanvasContentChanging(global::System.String value);
+        partial void OnCanvasContentChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Canvas__Datasource", "Datasource")]
+        public Datasource Datasource
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Datasource>("OSELS_EWEModel.FK_Canvas__Datasource", "Datasource").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Datasource>("OSELS_EWEModel.FK_Canvas__Datasource", "Datasource").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Datasource> DatasourceReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Datasource>("OSELS_EWEModel.FK_Canvas__Datasource", "Datasource");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Datasource>("OSELS_EWEModel.FK_Canvas__Datasource", "Datasource", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Canvas_CreatorUser", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_Canvas_CreatorUser", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_Canvas_CreatorUser", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_Canvas_CreatorUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("OSELS_EWEModel.FK_Canvas_CreatorUser", "User", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="DataAccessRule")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1065,6 +1485,519 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyMetaData>("OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules", "SurveyMetaData", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="Datasource")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Datasource : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Datasource object.
+        /// </summary>
+        /// <param name="datasourceID">Initial value of the DatasourceID property.</param>
+        /// <param name="organizationID">Initial value of the OrganizationID property.</param>
+        /// <param name="databaseType">Initial value of the DatabaseType property.</param>
+        /// <param name="eIWSDatasource">Initial value of the EIWSDatasource property.</param>
+        /// <param name="databaseObject">Initial value of the DatabaseObject property.</param>
+        /// <param name="active">Initial value of the active property.</param>
+        public static Datasource CreateDatasource(global::System.Int32 datasourceID, global::System.Int32 organizationID, global::System.String databaseType, global::System.Boolean eIWSDatasource, global::System.String databaseObject, global::System.Boolean active)
+        {
+            Datasource datasource = new Datasource();
+            datasource.DatasourceID = datasourceID;
+            datasource.OrganizationID = organizationID;
+            datasource.DatabaseType = databaseType;
+            datasource.EIWSDatasource = eIWSDatasource;
+            datasource.DatabaseObject = databaseObject;
+            datasource.active = active;
+            return datasource;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DatasourceID
+        {
+            get
+            {
+                return _DatasourceID;
+            }
+            set
+            {
+                if (_DatasourceID != value)
+                {
+                    OnDatasourceIDChanging(value);
+                    ReportPropertyChanging("DatasourceID");
+                    _DatasourceID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DatasourceID");
+                    OnDatasourceIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _DatasourceID;
+        partial void OnDatasourceIDChanging(global::System.Int32 value);
+        partial void OnDatasourceIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DatasourceName
+        {
+            get
+            {
+                return _DatasourceName;
+            }
+            set
+            {
+                OnDatasourceNameChanging(value);
+                ReportPropertyChanging("DatasourceName");
+                _DatasourceName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DatasourceName");
+                OnDatasourceNameChanged();
+            }
+        }
+        private global::System.String _DatasourceName;
+        partial void OnDatasourceNameChanging(global::System.String value);
+        partial void OnDatasourceNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OrganizationID
+        {
+            get
+            {
+                return _OrganizationID;
+            }
+            set
+            {
+                OnOrganizationIDChanging(value);
+                ReportPropertyChanging("OrganizationID");
+                _OrganizationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OrganizationID");
+                OnOrganizationIDChanged();
+            }
+        }
+        private global::System.Int32 _OrganizationID;
+        partial void OnOrganizationIDChanging(global::System.Int32 value);
+        partial void OnOrganizationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DatasourceServerName
+        {
+            get
+            {
+                return _DatasourceServerName;
+            }
+            set
+            {
+                OnDatasourceServerNameChanging(value);
+                ReportPropertyChanging("DatasourceServerName");
+                _DatasourceServerName = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DatasourceServerName");
+                OnDatasourceServerNameChanged();
+            }
+        }
+        private global::System.String _DatasourceServerName;
+        partial void OnDatasourceServerNameChanging(global::System.String value);
+        partial void OnDatasourceServerNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DatabaseType
+        {
+            get
+            {
+                return _DatabaseType;
+            }
+            set
+            {
+                OnDatabaseTypeChanging(value);
+                ReportPropertyChanging("DatabaseType");
+                _DatabaseType = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DatabaseType");
+                OnDatabaseTypeChanged();
+            }
+        }
+        private global::System.String _DatabaseType;
+        partial void OnDatabaseTypeChanging(global::System.String value);
+        partial void OnDatabaseTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String InitialCatalog
+        {
+            get
+            {
+                return _InitialCatalog;
+            }
+            set
+            {
+                OnInitialCatalogChanging(value);
+                ReportPropertyChanging("InitialCatalog");
+                _InitialCatalog = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("InitialCatalog");
+                OnInitialCatalogChanged();
+            }
+        }
+        private global::System.String _InitialCatalog;
+        partial void OnInitialCatalogChanging(global::System.String value);
+        partial void OnInitialCatalogChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PersistSecurityInfo
+        {
+            get
+            {
+                return _PersistSecurityInfo;
+            }
+            set
+            {
+                OnPersistSecurityInfoChanging(value);
+                ReportPropertyChanging("PersistSecurityInfo");
+                _PersistSecurityInfo = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("PersistSecurityInfo");
+                OnPersistSecurityInfoChanged();
+            }
+        }
+        private global::System.String _PersistSecurityInfo;
+        partial void OnPersistSecurityInfoChanging(global::System.String value);
+        partial void OnPersistSecurityInfoChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean EIWSDatasource
+        {
+            get
+            {
+                return _EIWSDatasource;
+            }
+            set
+            {
+                OnEIWSDatasourceChanging(value);
+                ReportPropertyChanging("EIWSDatasource");
+                _EIWSDatasource = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EIWSDatasource");
+                OnEIWSDatasourceChanged();
+            }
+        }
+        private global::System.Boolean _EIWSDatasource;
+        partial void OnEIWSDatasourceChanging(global::System.Boolean value);
+        partial void OnEIWSDatasourceChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Guid> EIWSSurveyId
+        {
+            get
+            {
+                return _EIWSSurveyId;
+            }
+            set
+            {
+                OnEIWSSurveyIdChanging(value);
+                ReportPropertyChanging("EIWSSurveyId");
+                _EIWSSurveyId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EIWSSurveyId");
+                OnEIWSSurveyIdChanged();
+            }
+        }
+        private Nullable<global::System.Guid> _EIWSSurveyId;
+        partial void OnEIWSSurveyIdChanging(Nullable<global::System.Guid> value);
+        partial void OnEIWSSurveyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DatabaseUserID
+        {
+            get
+            {
+                return _DatabaseUserID;
+            }
+            set
+            {
+                OnDatabaseUserIDChanging(value);
+                ReportPropertyChanging("DatabaseUserID");
+                _DatabaseUserID = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DatabaseUserID");
+                OnDatabaseUserIDChanged();
+            }
+        }
+        private global::System.String _DatabaseUserID;
+        partial void OnDatabaseUserIDChanging(global::System.String value);
+        partial void OnDatabaseUserIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Password
+        {
+            get
+            {
+                return _Password;
+            }
+            set
+            {
+                OnPasswordChanging(value);
+                ReportPropertyChanging("Password");
+                _Password = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Password");
+                OnPasswordChanged();
+            }
+        }
+        private global::System.String _Password;
+        partial void OnPasswordChanging(global::System.String value);
+        partial void OnPasswordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DatabaseObject
+        {
+            get
+            {
+                return _DatabaseObject;
+            }
+            set
+            {
+                OnDatabaseObjectChanging(value);
+                ReportPropertyChanging("DatabaseObject");
+                _DatabaseObject = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DatabaseObject");
+                OnDatabaseObjectChanged();
+            }
+        }
+        private global::System.String _DatabaseObject;
+        partial void OnDatabaseObjectChanging(global::System.String value);
+        partial void OnDatabaseObjectChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> SQLQuery
+        {
+            get
+            {
+                return _SQLQuery;
+            }
+            set
+            {
+                OnSQLQueryChanging(value);
+                ReportPropertyChanging("SQLQuery");
+                _SQLQuery = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SQLQuery");
+                OnSQLQueryChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _SQLQuery;
+        partial void OnSQLQueryChanging(Nullable<global::System.Boolean> value);
+        partial void OnSQLQueryChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String SQLText
+        {
+            get
+            {
+                return _SQLText;
+            }
+            set
+            {
+                OnSQLTextChanging(value);
+                ReportPropertyChanging("SQLText");
+                _SQLText = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("SQLText");
+                OnSQLTextChanged();
+            }
+        }
+        private global::System.String _SQLText;
+        partial void OnSQLTextChanging(global::System.String value);
+        partial void OnSQLTextChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean active
+        {
+            get
+            {
+                return _active;
+            }
+            set
+            {
+                OnactiveChanging(value);
+                ReportPropertyChanging("active");
+                _active = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("active");
+                OnactiveChanged();
+            }
+        }
+        private global::System.Boolean _active;
+        partial void OnactiveChanging(global::System.Boolean value);
+        partial void OnactiveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String portnumber
+        {
+            get
+            {
+                return _portnumber;
+            }
+            set
+            {
+                OnportnumberChanging(value);
+                ReportPropertyChanging("portnumber");
+                _portnumber = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("portnumber");
+                OnportnumberChanged();
+            }
+        }
+        private global::System.String _portnumber;
+        partial void OnportnumberChanging(global::System.String value);
+        partial void OnportnumberChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Canvas__Datasource", "Canva")]
+        public EntityCollection<Canva> Canvas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Canva>("OSELS_EWEModel.FK_Canvas__Datasource", "Canva");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Canva>("OSELS_EWEModel.FK_Canvas__Datasource", "Canva", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Datasource_Organization", "Organization")]
+        public Organization Organization
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_Datasource_Organization", "Organization").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_Datasource_Organization", "Organization").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Organization> OrganizationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Organization>("OSELS_EWEModel.FK_Datasource_Organization", "Organization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Organization>("OSELS_EWEModel.FK_Datasource_Organization", "Organization", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "DatasourceUser", "User")]
+        public EntityCollection<User> Users
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("OSELS_EWEModel.DatasourceUser", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("OSELS_EWEModel.DatasourceUser", "User", value);
                 }
             }
         }
@@ -2957,6 +3890,28 @@ namespace Epi.Web.EF
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Datasource_Organization", "Datasource")]
+        public EntityCollection<Datasource> Datasources
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Datasource>("OSELS_EWEModel.FK_Datasource_Organization", "Datasource");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Datasource>("OSELS_EWEModel.FK_Datasource_Organization", "Datasource", value);
+                }
+            }
+        }
 
         #endregion
 
@@ -3374,6 +4329,134 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserOrganization>("OSELS_EWEModel.FK_UserOrganization_Role", "UserOrganization", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="OSELS_EWEModel", Name="SharedCanvas")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class SharedCanvas : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new SharedCanvas object.
+        /// </summary>
+        /// <param name="canvasID">Initial value of the CanvasID property.</param>
+        /// <param name="userID">Initial value of the UserID property.</param>
+        public static SharedCanvas CreateSharedCanvas(global::System.Int32 canvasID, global::System.Int32 userID)
+        {
+            SharedCanvas sharedCanvas = new SharedCanvas();
+            sharedCanvas.CanvasID = canvasID;
+            sharedCanvas.UserID = userID;
+            return sharedCanvas;
+        }
+
+        #endregion
+
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 CanvasID
+        {
+            get
+            {
+                return _CanvasID;
+            }
+            set
+            {
+                if (_CanvasID != value)
+                {
+                    OnCanvasIDChanging(value);
+                    ReportPropertyChanging("CanvasID");
+                    _CanvasID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("CanvasID");
+                    OnCanvasIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _CanvasID;
+        partial void OnCanvasIDChanging(global::System.Int32 value);
+        partial void OnCanvasIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 UserID
+        {
+            get
+            {
+                return _UserID;
+            }
+            set
+            {
+                if (_UserID != value)
+                {
+                    OnUserIDChanging(value);
+                    ReportPropertyChanging("UserID");
+                    _UserID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserID");
+                    OnUserIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _UserID;
+        partial void OnUserIDChanging(global::System.Int32 value);
+        partial void OnUserIDChanged();
+
+        #endregion
+
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_CanvasUser_User", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_CanvasUser_User", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_CanvasUser_User", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("OSELS_EWEModel.FK_CanvasUser_User", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("OSELS_EWEModel.FK_CanvasUser_User", "User", value);
                 }
             }
         }
@@ -3959,6 +5042,30 @@ namespace Epi.Web.EF
         private Nullable<global::System.Int32> _DataAccessRuleId;
         partial void OnDataAccessRuleIdChanging(Nullable<global::System.Int32> value);
         partial void OnDataAccessRuleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> ShowAllRecords
+        {
+            get
+            {
+                return _ShowAllRecords;
+            }
+            set
+            {
+                OnShowAllRecordsChanging(value);
+                ReportPropertyChanging("ShowAllRecords");
+                _ShowAllRecords = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ShowAllRecords");
+                OnShowAllRecordsChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _ShowAllRecords;
+        partial void OnShowAllRecordsChanging(Nullable<global::System.Boolean> value);
+        partial void OnShowAllRecordsChanged();
 
         #endregion
 
@@ -5832,6 +6939,72 @@ namespace Epi.Web.EF
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SurveyResponse>("OSELS_EWEModel.SurveyResponseUser", "SurveyResponse", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_Canvas_CreatorUser", "Canva")]
+        public EntityCollection<Canva> Canvas
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Canva>("OSELS_EWEModel.FK_Canvas_CreatorUser", "Canva");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Canva>("OSELS_EWEModel.FK_Canvas_CreatorUser", "Canva", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "FK_CanvasUser_User", "SharedCanvas")]
+        public EntityCollection<SharedCanvas> SharedCanvases
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<SharedCanvas>("OSELS_EWEModel.FK_CanvasUser_User", "SharedCanvas");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<SharedCanvas>("OSELS_EWEModel.FK_CanvasUser_User", "SharedCanvas", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("OSELS_EWEModel", "DatasourceUser", "Datasource")]
+        public EntityCollection<Datasource> Datasources
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Datasource>("OSELS_EWEModel.DatasourceUser", "Datasource");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Datasource>("OSELS_EWEModel.DatasourceUser", "Datasource", value);
                 }
             }
         }

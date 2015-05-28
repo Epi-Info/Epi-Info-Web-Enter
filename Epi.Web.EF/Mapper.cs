@@ -167,6 +167,7 @@ namespace Epi.Web.EF
             SurveyMetaData.ViewId = businessobject.ViewId;
             SurveyMetaData.IsSQLProject = businessobject.IsSqlProject;
             SurveyMetaData.IsShareable = businessobject.IsShareable;
+            SurveyMetaData.DataAccessRuleId = businessobject.DataAccessRuleId;
           //  SurveyMetaData.DataAccessRuleId = businessobject.;
             if (!string.IsNullOrEmpty(businessobject.ParentId))
             {

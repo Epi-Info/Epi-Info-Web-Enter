@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="OSELS_EWEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Canvas">
+          <Key>
+            <PropertyRef Name="CanvasID" />
+          </Key>
+          <Property Name="CanvasID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CanvasGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CanvasName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="CanvasDescription" Type="varchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="DatasourceID" Type="int" Nullable="false" />
+          <Property Name="CanvasContent" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="DataAccessRules">
           <Key>
             <PropertyRef Name="RuleId" />
@@ -12,6 +26,35 @@
           <Property Name="RuleId" Type="int" Nullable="false" />
           <Property Name="RuleName" Type="varchar" MaxLength="150" />
           <Property Name="RuleDescription" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Datasource">
+          <Key>
+            <PropertyRef Name="DatasourceID" />
+          </Key>
+          <Property Name="DatasourceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DatasourceName" Type="nvarchar" MaxLength="300" />
+          <Property Name="OrganizationID" Type="int" Nullable="false" />
+          <Property Name="DatasourceServerName" Type="varchar" MaxLength="300" />
+          <Property Name="DatabaseType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InitialCatalog" Type="varchar" MaxLength="300" />
+          <Property Name="PersistSecurityInfo" Type="varchar" MaxLength="50" />
+          <Property Name="EIWSDatasource" Type="bit" Nullable="false" />
+          <Property Name="EIWSSurveyId" Type="uniqueidentifier" />
+          <Property Name="DatabaseUserID" Type="varchar" MaxLength="200" />
+          <Property Name="Password" Type="varchar" MaxLength="200" />
+          <Property Name="DatabaseObject" Type="varchar(max)" Nullable="false" />
+          <Property Name="SQLQuery" Type="bit" />
+          <Property Name="SQLText" Type="varchar(max)" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="portnumber" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="DatasourceUser">
+          <Key>
+            <PropertyRef Name="DatasourceID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="DatasourceID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EIDatasource">
           <Key>
@@ -27,7 +70,7 @@
           <Property Name="Password" Type="varchar" MaxLength="200" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ErrorLog">
           <Key>
             <PropertyRef Name="ErrorDate" />
@@ -46,7 +89,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLog' does not have a primary ke
           <Property Name="ErrorText2" Type="nvarchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.familyset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="familyset">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -141,6 +184,14 @@ warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary k
           <Property Name="RoleValue" Type="int" Nullable="false" />
           <Property Name="RoleDescription" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="SharedCanvases">
+          <Key>
+            <PropertyRef Name="CanvasID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="CanvasID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SurveyMetaData">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -166,6 +217,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary k
           <Property Name="ViewId" Type="int" />
           <Property Name="IsSQLProject" Type="bit" />
           <Property Name="IsShareable" Type="bit" />
+          <Property Name="ShowAllRecords" Type="bit" />
           <Property Name="DataAccessRuleId" Type="int" />
         </EntityType>
         <EntityType Name="SurveyMetadataOrganization">
@@ -177,7 +229,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.familyset' does not have a primary k
           <Property Name="OrganizationId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.SurveyMetaDataTransform' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SurveyMetaDataTransform">
           <Key>
             <PropertyRef Name="SurveyId" />
@@ -278,7 +330,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.SurveyMetaDataTransform' does not ha
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ErrorLogSorted">
           <Key>
             <PropertyRef Name="ErrorDate" />
@@ -290,6 +342,54 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a prim
           <Property Name="ErrorText" Type="nvarchar(max)" />
           <Property Name="ErrorText2" Type="nvarchar(max)" />
         </EntityType>
+        <Association Name="FK_Canvas _Datasource">
+          <End Role="Datasource" Type="Self.Datasource" Multiplicity="1" />
+          <End Role="Canvas" Type="Self.Canvas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datasource">
+              <PropertyRef Name="DatasourceID" />
+            </Principal>
+            <Dependent Role="Canvas">
+              <PropertyRef Name="DatasourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Canvas_CreatorUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Canvas" Type="Self.Canvas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Canvas">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CanvasUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SharedCanvases" Type="Self.SharedCanvases" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SharedCanvases">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Datasource_Organization">
+          <End Role="Organization" Type="Self.Organization" Multiplicity="1" />
+          <End Role="Datasource" Type="Self.Datasource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="OrganizationId" />
+            </Principal>
+            <Dependent Role="Datasource">
+              <PropertyRef Name="OrganizationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Datasource_SurveyMetaData">
           <End Role="SurveyMetaData" Type="Self.SurveyMetaData" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -301,6 +401,30 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a prim
             </Principal>
             <Dependent Role="EIDatasource">
               <PropertyRef Name="SurveyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DatasourceUser_Datasource">
+          <End Role="Datasource" Type="Self.Datasource" Multiplicity="1" />
+          <End Role="DatasourceUser" Type="Self.DatasourceUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datasource">
+              <PropertyRef Name="DatasourceID" />
+            </Principal>
+            <Dependent Role="DatasourceUser">
+              <PropertyRef Name="DatasourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DatasourceUser_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="DatasourceUser" Type="Self.DatasourceUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="DatasourceUser">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -427,18 +551,6 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a prim
             </Principal>
             <Dependent Role="SurveyResponse">
               <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SurveyResponse_Organization">
-          <End Role="Organization" Type="Self.Organization" Multiplicity="0..1" />
-          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Organization">
-              <PropertyRef Name="OrganizationId" />
-            </Principal>
-            <Dependent Role="SurveyResponse">
-              <PropertyRef Name="OrganizationId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -662,7 +774,10 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a prim
           <Parameter Name="IsResponsePresent" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="OSELS_EWEModelStoreContainer">
+          <EntitySet Name="Canvas" EntityType="Self.Canvas" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DataAccessRules" EntityType="Self.DataAccessRules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Datasource" EntityType="Self.Datasource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatasourceUser" EntityType="Self.DatasourceUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EIDatasource" EntityType="Self.EIDatasource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lk_RecordSource" EntityType="Self.lk_RecordSource" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="lk_Status" EntityType="Self.lk_Status" Schema="dbo" store:Type="Tables" />
@@ -671,6 +786,7 @@ warning 6002: The table/view 'OSELS_EWE.dbo.ErrorLogSorted' does not have a prim
           <EntitySet Name="ResponseDisplaySettings" EntityType="Self.ResponseDisplaySettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResponseXml" EntityType="Self.ResponseXml" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SharedCanvases" EntityType="Self.SharedCanvases" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyMetaData" EntityType="Self.SurveyMetaData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyMetadataOrganization" EntityType="Self.SurveyMetadataOrganization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyMetaDataUser" EntityType="Self.SurveyMetaDataUser" Schema="dbo" store:Type="Tables" />
@@ -741,9 +857,33 @@ FROM [dbo].[SurveyMetaDataTransform] AS [SurveyMetaDataTransform]</DefiningQuery
 [ErrorLogSorted].[ErrorText2] AS [ErrorText2]
 FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_Canvas _Datasource" Association="Self.FK_Canvas _Datasource">
+            <End Role="Datasource" EntitySet="Datasource" />
+            <End Role="Canvas" EntitySet="Canvas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Canvas_CreatorUser" Association="Self.FK_Canvas_CreatorUser">
+            <End Role="User" EntitySet="User" />
+            <End Role="Canvas" EntitySet="Canvas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CanvasUser_User" Association="Self.FK_CanvasUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SharedCanvases" EntitySet="SharedCanvases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Datasource_Organization" Association="Self.FK_Datasource_Organization">
+            <End Role="Organization" EntitySet="Organization" />
+            <End Role="Datasource" EntitySet="Datasource" />
+          </AssociationSet>
           <AssociationSet Name="FK_Datasource_SurveyMetaData" Association="Self.FK_Datasource_SurveyMetaData">
             <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
             <End Role="EIDatasource" EntitySet="EIDatasource" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DatasourceUser_Datasource" Association="Self.FK_DatasourceUser_Datasource">
+            <End Role="Datasource" EntitySet="Datasource" />
+            <End Role="DatasourceUser" EntitySet="DatasourceUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DatasourceUser_User" Association="Self.FK_DatasourceUser_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="DatasourceUser" EntitySet="DatasourceUser" />
           </AssociationSet>
           <AssociationSet Name="FK_ResponseGridcolumns_SurveyMetaData" Association="Self.FK_ResponseGridcolumns_SurveyMetaData">
             <End Role="SurveyMetaData" EntitySet="SurveyMetaData" />
@@ -783,10 +923,6 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_lk_Status" Association="Self.FK_SurveyResponse_lk_Status">
             <End Role="lk_Status" EntitySet="lk_Status" />
-            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SurveyResponse_Organization" Association="Self.FK_SurveyResponse_Organization">
-            <End Role="Organization" EntitySet="Organization" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
           </AssociationSet>
           <AssociationSet Name="FK_SurveyResponse_SurveyMetaData" Association="Self.FK_SurveyResponse_SurveyMetaData">
@@ -953,6 +1089,29 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
             <End Role="DataAccessRule" EntitySet="DataAccessRules" />
             <End Role="SurveyMetaData" EntitySet="SurveyMetaDatas" />
           </AssociationSet>
+          <EntitySet Name="Canvas" EntityType="OSELS_EWEModel.Canva" />
+          <EntitySet Name="Datasources" EntityType="OSELS_EWEModel.Datasource" />
+          <EntitySet Name="SharedCanvases" EntityType="OSELS_EWEModel.SharedCanvas" />
+          <AssociationSet Name="FK_Canvas__Datasource" Association="OSELS_EWEModel.FK_Canvas__Datasource">
+            <End Role="Datasource" EntitySet="Datasources" />
+            <End Role="Canva" EntitySet="Canvas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Canvas_CreatorUser" Association="OSELS_EWEModel.FK_Canvas_CreatorUser">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Canva" EntitySet="Canvas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Datasource_Organization" Association="OSELS_EWEModel.FK_Datasource_Organization">
+            <End Role="Organization" EntitySet="Organizations" />
+            <End Role="Datasource" EntitySet="Datasources" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CanvasUser_User" Association="OSELS_EWEModel.FK_CanvasUser_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SharedCanvas" EntitySet="SharedCanvases" />
+          </AssociationSet>
+          <AssociationSet Name="DatasourceUser" Association="OSELS_EWEModel.DatasourceUser">
+            <End Role="Datasource" EntitySet="Datasources" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="lk_Status">
           <Key>
@@ -982,6 +1141,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <NavigationProperty Name="UserOrganizations" Relationship="OSELS_EWEModel.FK_UserOrganization_Organization" FromRole="Organization" ToRole="UserOrganization" />
           <NavigationProperty Name="SurveyMetaDatas" Relationship="OSELS_EWEModel.SurveyMetadataOrganization" FromRole="Organization" ToRole="SurveyMetaData" />
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.FK_SurveyResponse_Organization" FromRole="Organization" ToRole="SurveyResponse" />
+          <NavigationProperty Name="Datasources" Relationship="OSELS_EWEModel.FK_Datasource_Organization" FromRole="Organization" ToRole="Datasource" />
         </EntityType>
         <EntityType Name="SurveyMetaData">
           <Key>
@@ -1019,6 +1179,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <NavigationProperty Name="Organizations" Relationship="OSELS_EWEModel.SurveyMetadataOrganization" FromRole="SurveyMetaData" ToRole="Organization" />
           <Property Name="DataAccessRuleId" Type="Int32" />
           <NavigationProperty Name="DataAccessRule" Relationship="OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules" FromRole="SurveyMetaData" ToRole="DataAccessRule" />
+          <Property Name="ShowAllRecords" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1046,6 +1207,9 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <NavigationProperty Name="UserOrganizations" Relationship="OSELS_EWEModel.FK_UserOrganization_User" FromRole="User" ToRole="UserOrganization" />
           <NavigationProperty Name="SurveyResponses" Relationship="OSELS_EWEModel.SurveyResponseUser" FromRole="User" ToRole="SurveyResponse" />
           <Property Name="UGuid" Type="Guid" />
+          <NavigationProperty Name="Canvas" Relationship="OSELS_EWEModel.FK_Canvas_CreatorUser" FromRole="User" ToRole="Canva" />
+          <NavigationProperty Name="SharedCanvases" Relationship="OSELS_EWEModel.FK_CanvasUser_User" FromRole="User" ToRole="SharedCanvas" />
+          <NavigationProperty Name="Datasources" Relationship="OSELS_EWEModel.DatasourceUser" FromRole="User" ToRole="Datasource" />
         </EntityType>
         <Association Name="FK_SurveyMetaData_lk_SurveyType">
           <End Role="lk_SurveyType" Type="OSELS_EWEModel.lk_SurveyType" Multiplicity="1" />
@@ -1429,6 +1593,107 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Canva">
+          <Key>
+            <PropertyRef Name="CanvasID" />
+          </Key>
+          <Property Name="CanvasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CanvasGUID" Type="Guid" Nullable="false" />
+          <Property Name="CanvasName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="CanvasDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DatasourceID" Type="Int32" Nullable="false" />
+          <Property Name="CanvasContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Datasource" Relationship="OSELS_EWEModel.FK_Canvas__Datasource" FromRole="Canva" ToRole="Datasource" />
+          <NavigationProperty Name="User" Relationship="OSELS_EWEModel.FK_Canvas_CreatorUser" FromRole="Canva" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Datasource">
+          <Key>
+            <PropertyRef Name="DatasourceID" />
+          </Key>
+          <Property Name="DatasourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatasourceName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="OrganizationID" Type="Int32" Nullable="false" />
+          <Property Name="DatasourceServerName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="DatabaseType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InitialCatalog" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PersistSecurityInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EIWSDatasource" Type="Boolean" Nullable="false" />
+          <Property Name="EIWSSurveyId" Type="Guid" />
+          <Property Name="DatabaseUserID" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="DatabaseObject" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SQLQuery" Type="Boolean" />
+          <Property Name="SQLText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="portnumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Canvas" Relationship="OSELS_EWEModel.FK_Canvas__Datasource" FromRole="Datasource" ToRole="Canva" />
+          <NavigationProperty Name="Organization" Relationship="OSELS_EWEModel.FK_Datasource_Organization" FromRole="Datasource" ToRole="Organization" />
+          <NavigationProperty Name="Users" Relationship="OSELS_EWEModel.DatasourceUser" FromRole="Datasource" ToRole="User" />
+        </EntityType>
+        <EntityType Name="SharedCanvas">
+          <Key>
+            <PropertyRef Name="CanvasID" />
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="CanvasID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="OSELS_EWEModel.FK_CanvasUser_User" FromRole="SharedCanvas" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Canvas__Datasource">
+          <End Type="OSELS_EWEModel.Datasource" Role="Datasource" Multiplicity="1" />
+          <End Type="OSELS_EWEModel.Canva" Role="Canva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Datasource">
+              <PropertyRef Name="DatasourceID" />
+            </Principal>
+            <Dependent Role="Canva">
+              <PropertyRef Name="DatasourceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Canvas_CreatorUser">
+          <End Type="OSELS_EWEModel.User" Role="User" Multiplicity="1" />
+          <End Type="OSELS_EWEModel.Canva" Role="Canva" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Canva">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Datasource_Organization">
+          <End Type="OSELS_EWEModel.Organization" Role="Organization" Multiplicity="1" />
+          <End Type="OSELS_EWEModel.Datasource" Role="Datasource" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Organization">
+              <PropertyRef Name="OrganizationId" />
+            </Principal>
+            <Dependent Role="Datasource">
+              <PropertyRef Name="OrganizationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CanvasUser_User">
+          <End Type="OSELS_EWEModel.User" Role="User" Multiplicity="1" />
+          <End Type="OSELS_EWEModel.SharedCanvas" Role="SharedCanvas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SharedCanvas">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DatasourceUser">
+          <End Type="OSELS_EWEModel.Datasource" Role="Datasource" Multiplicity="*" />
+          <End Type="OSELS_EWEModel.User" Role="User" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1465,6 +1730,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <EntitySetMapping Name="SurveyMetaDatas">
             <EntityTypeMapping TypeName="OSELS_EWEModel.SurveyMetaData">
               <MappingFragment StoreEntitySet="SurveyMetaData">
+                <ScalarProperty Name="ShowAllRecords" ColumnName="ShowAllRecords" />
                 <ScalarProperty Name="DataAccessRuleId" ColumnName="DataAccessRuleId" />
                 <ScalarProperty Name="IsShareable" ColumnName="IsShareable" />
                 <ScalarProperty Name="IsSQLProject" ColumnName="IsSQLProject" />
@@ -1732,6 +1998,59 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Canvas">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.Canva">
+              <MappingFragment StoreEntitySet="Canvas">
+                <ScalarProperty Name="CanvasContent" ColumnName="CanvasContent" />
+                <ScalarProperty Name="DatasourceID" ColumnName="DatasourceID" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CanvasDescription" ColumnName="CanvasDescription" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CanvasName" ColumnName="CanvasName" />
+                <ScalarProperty Name="CanvasGUID" ColumnName="CanvasGUID" />
+                <ScalarProperty Name="CanvasID" ColumnName="CanvasID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Datasources">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.Datasource">
+              <MappingFragment StoreEntitySet="Datasource">
+                <ScalarProperty Name="portnumber" ColumnName="portnumber" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="SQLText" ColumnName="SQLText" />
+                <ScalarProperty Name="SQLQuery" ColumnName="SQLQuery" />
+                <ScalarProperty Name="DatabaseObject" ColumnName="DatabaseObject" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DatabaseUserID" ColumnName="DatabaseUserID" />
+                <ScalarProperty Name="EIWSSurveyId" ColumnName="EIWSSurveyId" />
+                <ScalarProperty Name="EIWSDatasource" ColumnName="EIWSDatasource" />
+                <ScalarProperty Name="PersistSecurityInfo" ColumnName="PersistSecurityInfo" />
+                <ScalarProperty Name="InitialCatalog" ColumnName="InitialCatalog" />
+                <ScalarProperty Name="DatabaseType" ColumnName="DatabaseType" />
+                <ScalarProperty Name="DatasourceServerName" ColumnName="DatasourceServerName" />
+                <ScalarProperty Name="OrganizationID" ColumnName="OrganizationID" />
+                <ScalarProperty Name="DatasourceName" ColumnName="DatasourceName" />
+                <ScalarProperty Name="DatasourceID" ColumnName="DatasourceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SharedCanvases">
+            <EntityTypeMapping TypeName="OSELS_EWEModel.SharedCanvas">
+              <MappingFragment StoreEntitySet="SharedCanvases">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CanvasID" ColumnName="CanvasID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="DatasourceUser" TypeName="OSELS_EWEModel.DatasourceUser" StoreEntitySet="DatasourceUser">
+            <EndProperty Name="User">
+              <ScalarProperty Name="UserID" ColumnName="UserID" />
+            </EndProperty>
+            <EndProperty Name="Datasource">
+              <ScalarProperty Name="DatasourceID" ColumnName="DatasourceID" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1845,6 +2164,14 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_Organization" />
         <EntityTypeShape EntityType="OSELS_EWEModel.DataAccessRule" Width="1.5" PointX="18" PointY="7.5" />
         <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_DataAccessRules" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.Canva" Width="1.5" PointX="8.25" PointY="17.25" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.Datasource" Width="1.5" PointX="3" PointY="6" />
+        <EntityTypeShape EntityType="OSELS_EWEModel.SharedCanvas" Width="1.5" PointX="5.25" PointY="16.875" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_Canvas__Datasource" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_Canvas_CreatorUser" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_Datasource_Organization" />
+        <AssociationConnector Association="OSELS_EWEModel.FK_CanvasUser_User" />
+        <AssociationConnector Association="OSELS_EWEModel.DatasourceUser" />
       </Diagram>
     </Diagrams>
   </Designer>
