@@ -222,7 +222,7 @@ namespace Epi.Web.MVC.Controllers
                         string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
                         Session["UserId"] = UserId;
                         //Session["UsertRole"] = result.User.Role;
-                        Session["UserHighestRole"] = result.User.UserHighestRole ;
+                        Session["UserHighestRole"] = result.User.UserHighestRole;
                         return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
                         //return Redirect(ReturnUrl);
                     }
@@ -241,7 +241,7 @@ namespace Epi.Web.MVC.Controllers
             }
 
 
-            
+
         }
 
         private bool ValidatePassword(UserResetPasswordModel Model)
@@ -325,7 +325,26 @@ namespace Epi.Web.MVC.Controllers
 
         private bool HasSymbol(string password)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(password, @"[" + ConfigurationManager.AppSettings["Symbols"].Replace(" ", "") + "]");
+            bool result = false;
+
+            result = System.Text.RegularExpressions.Regex.IsMatch(password, @"[" + ConfigurationManager.AppSettings["Symbols"].Replace(" ", "") + "]");
+
+            if (result)//Validates if password has only allowed characters.
+            {
+                foreach (char character in password.ToCharArray())
+                {
+                    if (Char.IsPunctuation(character))
+                    {
+                        if (!System.Text.RegularExpressions.Regex.IsMatch(character.ToString(), @"[" + ConfigurationManager.AppSettings["Symbols"].Replace(" ", "") + "]"))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return result;
+
         }
 
         private void ReadPasswordPolicy(UserResetPasswordModel Model)
