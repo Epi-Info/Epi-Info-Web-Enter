@@ -320,7 +320,7 @@ namespace Epi.Web.MVC.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield)//List<FormInfoModel> ModelList, string formid)
+        public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield, int orgid)//List<FormInfoModel> ModelList, string formid)
         {
             //Code added to retain Search Starts
             if (Session["RootFormId"] != null && Session["RootFormId"].ToString() == formid)
@@ -362,8 +362,7 @@ namespace Epi.Web.MVC.Controllers
             bool IsMobileDevice = this.Request.Browser.IsMobileDevice;
 
             var model = new FormResponseInfoModel();
-
-            model = GetFormResponseInfoModel(formid, page, sort, sortfield);
+            model = GetFormResponseInfoModel(formid, page, sort, sortfield, orgid);
 
             if (IsMobileDevice == false)
             {
@@ -518,7 +517,7 @@ namespace Epi.Web.MVC.Controllers
         }
 
 
-        public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber, string sort = "", string sortfield = "")
+        public FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, int PageNumber, string sort = "", string sortfield = "" ,int orgid =-1)
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             FormResponseInfoModel FormResponseInfoModel = new FormResponseInfoModel();
@@ -544,7 +543,15 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.FormInfoModel.IsShared = FormSettingResponse.FormInfo.IsShared;
                 FormResponseInfoModel.FormInfoModel.IsShareable = FormSettingResponse.FormInfo.IsShareable; 
                 // Set User Role 
+                if (FormResponseInfoModel.FormInfoModel.IsShared)
+                {
+
+                    SetUserRole(UserId, orgid);
+                }
+                else
+                {
                 SetUserRole(UserId, FormSettingResponse.FormInfo.OrganizationId);
+                }
               
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
                 FormResponseReq.Criteria.PageNumber = PageNumber;

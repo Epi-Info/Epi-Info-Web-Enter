@@ -190,7 +190,7 @@
             var pageNumber = $('#hidPageNumber').val();
             var Sort = ''; // $("#FORM_SORTORDER_HIDDEN").val();
             var SortField = ''; //$("#FORM_SORTFIELD_HIDDEN").val();
-
+            var OrgId = $("#dropdown-2").val();
             var col1 = '';
             var val1 = '';
             var col2 = '';
@@ -203,7 +203,7 @@
             var val5 = '';
 
             $.ajax({
-                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField
+                url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=1&sort=" + Sort + "&sortfield=" + SortField + "&orgid=" + OrgId
                 + "&col1=" + col1 + "&val1=" + val1 + "&col2=" + col2 + "&val2=" + val2 + "&col3=" + col3 + "&val3=" + val3 + "&col4=" + col4 + "&val4=" + val4 + "&col5=" + col5 + "&val5=" + val5,
                 cache: false,
                 type: 'GET',
@@ -333,7 +333,7 @@
         $("#dropdown-2").change(function () {
 
             var src = $(this).val();
-
+            //alert(src);
             FilterRecordsByOrg(src);
             $("#dropdown-1").val('3');
         });
@@ -372,7 +372,7 @@
         }
         //Use of Organization filter
         var OrgId = $("#dropdown-2").val();
-
+      //  alert(OrgId);
         FilterRecordsByOrg(OrgId);
 
         $("#right").show();
@@ -458,9 +458,11 @@
         $("#SearchModel_Value5").val('');
     }
     function ReadResponses(formid, pagenumber, sortOrder, sortField) {
+        var OrgId = $("#dropdown-2").val();
+
         $.ajax({
             //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
-            url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField
+            url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField + '&orgid=' + OrgId
                 + ReadSearchFields(),
            cache: false,
             type: 'GET',
