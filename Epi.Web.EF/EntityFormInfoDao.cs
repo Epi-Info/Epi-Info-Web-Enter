@@ -111,6 +111,8 @@ namespace Epi.Web.EF
                                     if (SharedForms.Contains(FormInfoBO.FormId))
                                     {
                                         FormInfoBO.IsShared = true;
+                                        FormInfoBO.UserId = Id;
+                                        FormInfoBO.OrganizationId = Shared.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
                                         FormList.Add(FormInfoBO);
                                     }
                                     else if (Assigned.Contains(FormInfoBO.FormId))
