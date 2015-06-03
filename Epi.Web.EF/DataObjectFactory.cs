@@ -21,7 +21,7 @@ namespace Epi.Web.EF
             try
             {
                 //  string connectionStringName = ConfigurationManager.AppSettings.Get("ConnectionStringName");
-                string connectionStringName = "EIWSEntities";
+                string connectionStringName = "EWEEntities";
 
                 string EWEADOconnectionStringName = "EWEADO";
 

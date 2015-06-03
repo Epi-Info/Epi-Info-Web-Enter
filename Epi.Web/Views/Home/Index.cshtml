@@ -110,7 +110,7 @@
                     $("#FORM_SELECTED_HIDDEN").val('@Model.SelectedForm');
                     ReadResponses('@Model.SelectedForm', '@Session["PageNumber"]', '', '');
 
-                    //test 
+                    //test
                 }
                 else {
 
@@ -342,7 +342,7 @@
 
     });
 
-    
+
 
     $(document).ready(function () {
         // e.preventDefault();
@@ -356,24 +356,28 @@
             ResultUrl = Url;
 
         var FieldId = "#" + ResultUrl
-        //alert(ResultUrl);
+       
         if (ResultUrl.toUpperCase() != "HOME" && ResultUrl.toUpperCase() != "INDEX") {
-
+            
             $("button[class*='metro-tile']").removeClass('metro-set');
             $(FieldId).addClass('metro-set');
             //ActionUrl = '@Url.Action("ReadSortedResponseInfo","Home")' + "?formid=" + ResultUrl + "&page=1";
             //            ReadResponse(ActionUrl);
             //ReadResponses(ResultUrl, 1, '', '');
+            var OrgId = '@Session["SelectedOrgId"]';
+            FilterRecordsByOrg(OrgId);
         }
         else {
-
-          //  $("button:visible").triggerHandler('click');
+            
+            //  $("button:visible").triggerHandler('click');
+            var OrgId1 = $("#dropdown-2").val();
+            FilterRecordsByOrg(OrgId1);
 
         }
         //Use of Organization filter
-        var OrgId = $("#dropdown-2").val();
-      //  alert(OrgId);
-        FilterRecordsByOrg(OrgId);
+
+
+        $("#dropdown-2").val(@Session["SelectedOrgId"]);
 
         $("#right").show();
 
@@ -417,7 +421,7 @@
                 //'/Login';
 
                 //GetRedirectionUrl() + '/1';
-                //'~/Login/Index'; 
+                //'~/Login/Index';
 
 
             },
@@ -464,14 +468,14 @@
             //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
             url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField + '&orgid=' + OrgId
                 + ReadSearchFields(),
-           cache: false,
+            cache: false,
             type: 'GET',
             contentType: 'application/json; charset=utf-8',
             //data: JSON.stringify(model),
             success: successFunc
         });
 
-//        $.ajaxSetup({ cache: false });
+        //        $.ajaxSetup({ cache: false });
 
         function successFunc(data, status) {
             $('#right').html(data);
@@ -481,68 +485,65 @@
             alert('error');
         }
     }
-function ReadResponse(ActionUrl) {
+    function ReadResponse(ActionUrl) {
 
-		var Url = window.location.pathname;
-		var Formid = "";
-		if (Url.indexOf("/") != -1) 
-		{
-			Formid = Url.substring(Url.lastIndexOf("/") + 1);
-			SetSettingButtonValue(Formid);
-		}
-		$.ajax({
-			url: ActionUrl,
-			type: 'GET',
-			cache: false,
-			contentType: 'application/json; charset=utf-8',
-			//data: JSON.stringify(model),
-			success: successFunc,
-			Error: errorFunc
-		});
-//		$.ajaxSetup({ cache: false });
+        var Url = window.location.pathname;
+        var Formid = "";
+        if (Url.indexOf("/") != -1) {
+            Formid = Url.substring(Url.lastIndexOf("/") + 1);
+            SetSettingButtonValue(Formid);
+        }
+        $.ajax({
+            url: ActionUrl,
+            type: 'GET',
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify(model),
+            success: successFunc,
+            Error: errorFunc
+        });
+        //		$.ajaxSetup({ cache: false });
 
-		function successFunc(data, status) {
-		    $('#right').html(data);
-		   
-		}
+        function successFunc(data, status) {
+            $('#right').html(data);
 
-		function errorFunc() {
-			alert('error');
-		}
+        }
 
-	}
+        function errorFunc() {
+            alert('error');
+        }
 
-	function GetSettings() 
-	{
-		var ActionUrl = '@Url.Action("GetSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
-		 $.ajax({
-			 url: ActionUrl,
-			 type: 'GET',
-			 cache: false,
-			 contentType: 'application/json; charset=utf-8',
-			 //data: JSON.stringify(model),
-			 success: successFunc,
-			 Error: errorFunc
-		 });
-//		 $.ajaxSetup({ cache: false });
+    }
 
-		 function successFunc(data, status) {
-		     $('#right').html(data);
+    function GetSettings() {
+        var ActionUrl = '@Url.Action("GetSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+        $.ajax({
+            url: ActionUrl,
+            type: 'GET',
+            cache: false,
+            contentType: 'application/json; charset=utf-8',
+            //data: JSON.stringify(model),
+            success: successFunc,
+            Error: errorFunc
+        });
+        //		 $.ajaxSetup({ cache: false });
 
-		 }
+        function successFunc(data, status) {
+            $('#right').html(data);
 
-		 function errorFunc() {
-			 alert('error');
-		 }
+        }
 
-}
+        function errorFunc() {
+            alert('error');
+        }
+
+    }
     function SaveSettings() {
 
         var validation = true;
         $('.SelectedColumns').each(function () {
 
-            if (this.length == 0)
-            {
+            if (this.length == 0) {
                 validation = false;
             }
         });
@@ -552,7 +553,7 @@ function ReadResponse(ActionUrl) {
             $('.SelectedColumns option').prop('selected', true);
             $('#SelectedUser option').prop('selected', true);
             $('#SelectedOrg option').prop('selected', true);
-	                
+
             var ActionUrl = '@Url.Action("SaveSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
             var _form = $("#formsList").serialize();
             //alert(form);
@@ -563,7 +564,7 @@ function ReadResponse(ActionUrl) {
                 //contentType: 'application/json; charset=utf-8',
                 data: _form,
                 dataType: "html",
-                success:  successFunc,
+                success: successFunc,
                 Error: errorFunc
             });
 
@@ -573,67 +574,63 @@ function ReadResponse(ActionUrl) {
             $('select.SelectedColumns option').focus();
         }
 
- 
+
         //	$.ajaxSetup({ cache: false });
 
         function successFunc(data, status) {
             //  $('#right').html(data);
             //alert(data);
-            if( data == "")
-            {
+            if (data == "") {
                 window.location.href = "Home";
             }
-         else 
-             {
+            else {
                 $('#right').html(data);
-              }
-	   
-	    $('#dropdown-1').focus();
-	    var FormId = $("#FORM_ID_HIDDEN").val();
-	    var FormMode = $("#FORM_MODE_HIDDEN").val();
-
-        if(FormMode =="Production"){
-
-            $('#' + FormId).removeClass("metro-staging");
-            $('#' + FormId).addClass("metro-prod");
-        }
-	    if (FormMode =="Staging") {
-	        $('#' + FormId).removeClass("metro-prod")
-	        $('#' + FormId).addClass("metro-staging");
             }
-	}
 
-	                function errorFunc() {
-		                alert('error');
-	                }
-	                 
-//    }
-// else
-//     {
-//         alert('User should select at least one column.');
-//         $('select#SelectedColumns option').focus();
-//    }
-}
-//CancelChange
-	function CancelChange() 
-	{
-	    //alert();
-//		var ActionUrl = '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
-	    //		ReadResponse(ActionUrl);
-	    ReadResponses($("#FORM_ID_HIDDEN").val(), 1, '', '');
-		$('#dropdown-1').focus();
-	}
-	function SetSettingButtonValue(formid) 
-	{
-	    $("#FORM_ID_HIDDEN").val(formid);
-	   
-	}
+            $('#dropdown-1').focus();
+            var FormId = $("#FORM_ID_HIDDEN").val();
+            var FormMode = $("#FORM_MODE_HIDDEN").val();
 
-	function SetSettingMode() {
-	     
-	    $("#FORM_MODE_HIDDEN").val($('#FormMode').find(":selected").text());
+            if (FormMode == "Production") {
 
-	}
+                $('#' + FormId).removeClass("metro-staging");
+                $('#' + FormId).addClass("metro-prod");
+            }
+            if (FormMode == "Staging") {
+                $('#' + FormId).removeClass("metro-prod")
+                $('#' + FormId).addClass("metro-staging");
+            }
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+
+        //    }
+        // else
+        //     {
+        //         alert('User should select at least one column.');
+        //         $('select#SelectedColumns option').focus();
+        //    }
+    }
+    //CancelChange
+    function CancelChange() {
+        //alert();
+        //		var ActionUrl = '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+        //		ReadResponse(ActionUrl);
+        ReadResponses($("#FORM_ID_HIDDEN").val(), 1, '', '');
+        $('#dropdown-1').focus();
+    }
+    function SetSettingButtonValue(formid) {
+        $("#FORM_ID_HIDDEN").val(formid);
+
+    }
+
+    function SetSettingMode() {
+
+        $("#FORM_MODE_HIDDEN").val($('#FormMode').find(":selected").text());
+
+    }
 </script>
 <script>
 	$(document).ajaxStop(function () {

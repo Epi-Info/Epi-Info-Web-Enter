@@ -319,6 +319,7 @@ namespace Epi.Web.WCF.SurveyService
                 SurveyResponseBO SurveyResponse = Mapper.ToBusinessObject(request.SurveyAnswerList, request.Criteria.UserId)[0];
 
                 SurveyResponse.UserId = request.Criteria.UserId;
+                SurveyResponse.CurrentOrgId = request.Criteria.UserOrganizationId;
                 // Validate SurveyResponse business rules
 
                 if (request.Action != "Delete")

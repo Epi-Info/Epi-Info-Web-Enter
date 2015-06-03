@@ -36,6 +36,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
 
         public Dictionary<string, string> SqlData { get; set; }
         public int RecrodSourceId { get; set; }
+        public int CurrentOrgId { get; set; }
         public object Clone() 
             {
 

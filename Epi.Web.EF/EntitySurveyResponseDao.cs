@@ -410,10 +410,10 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     SurveyResponse SurveyResponseEntity = new EF.SurveyResponse();
-                    var _UserOrg  = Context.UserOrganizations.Where(x => x.UserID == SurveyResponse.UserId).First();
-                    if (_UserOrg  != null)
+                 //   var _UserOrg  = Context.UserOrganizations.Where(x => x.UserID == SurveyResponse.UserId).First();
+                    if (SurveyResponse.CurrentOrgId>0)
                     {
-                        SurveyResponseEntity = Mapper.ToEF(SurveyResponse, _UserOrg.OrganizationID);
+                        SurveyResponseEntity = Mapper.ToEF(SurveyResponse, SurveyResponse.CurrentOrgId);
                     }
                     else {
                          SurveyResponseEntity = Mapper.ToEF(SurveyResponse);
@@ -449,7 +449,7 @@ namespace Epi.Web.EF
             {
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                    SurveyResponse SurveyResponseEntity = Mapper.ToEF(SurveyResponse);
+                    SurveyResponse SurveyResponseEntity = Mapper.ToEF(SurveyResponse, SurveyResponse.CurrentOrgId);
                     User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
                     SurveyResponseEntity.Users.Add(User);
                     Context.AddToSurveyResponses(SurveyResponseEntity);
