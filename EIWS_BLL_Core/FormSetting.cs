@@ -31,9 +31,9 @@ namespace Epi.Web.BLL
             
         }
 
-        public FormSettingBO GetFormSettings(string FormId, string Xml)
+        public FormSettingBO GetFormSettings(string FormId, string Xml,int CurrentOrgId = -1)
         {
-            FormSettingBO result = this.FormSettingDao.GetFormSettings(FormId);
+            FormSettingBO result = this.FormSettingDao.GetFormSettings(FormId, CurrentOrgId);
             if (!string.IsNullOrEmpty(Xml))
             {
                 result.FormControlNameList = GetFormColumnNames(Xml, result.ColumnNameList);
