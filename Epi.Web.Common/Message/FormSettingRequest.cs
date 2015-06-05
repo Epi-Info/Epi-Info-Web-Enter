@@ -23,5 +23,8 @@ namespace Epi.Web.Enter.Common.Message
          public FormInfoDTO FormInfo;
          [DataMember]
          public bool GetXml;
+         [DataMember]
+         public int CurrentOrgId;
+
         }
     }
