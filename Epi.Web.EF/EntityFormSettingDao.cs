@@ -13,7 +13,7 @@ namespace Epi.Web.EF
 {
     public class EntityFormSettingDao : IFormSettingDao
     {
-        public FormSettingBO GetFormSettings(string FormId)
+        public FormSettingBO GetFormSettings(string FormId, int CurrentOrgId)
         {
 
             FormSettingBO FormSettingBO = new FormSettingBO();
@@ -57,8 +57,8 @@ namespace Epi.Web.EF
 
                     SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
 
-                    var SelectedOrgId = SelectedUserQuery.OrganizationId;
-
+                   // var SelectedOrgId = SelectedUserQuery.OrganizationId;
+                    var SelectedOrgId = CurrentOrgId;
                     var query = (from user in SelectedUserQuery.Users
                                 join userorg in Context.UserOrganizations
                             on user.UserID equals userorg.UserID

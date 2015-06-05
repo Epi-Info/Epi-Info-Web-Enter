@@ -743,6 +743,7 @@ namespace Epi.Web.MVC.Controllers
                 FormSettingReq.GetXml = true;
                 FormSettingReq.FormInfo.FormId = new Guid(Item.FormId).ToString();
                 FormSettingReq.FormInfo.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+                FormSettingReq.CurrentOrgId = int.Parse(Session["SelectedOrgId"].ToString());
                 //Getting Column Name  List
 
                 FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
