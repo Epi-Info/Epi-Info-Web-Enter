@@ -110,7 +110,7 @@ namespace Epi.Web.EF
                        IEnumerable<Organization> OrganizationList = Context.Organizations.ToList();
                        foreach (var Org in OrganizationList)
                        {
-                           if (!SelectedOrgs.ContainsValue(Org.Organization1) && Org.IsEnabled == true)
+                           if (!SelectedOrgs.ContainsValue(Org.Organization1) && Org.IsEnabled== true)
                            {
                                AvailableOrgs.Add(Org.OrganizationId, Org.Organization1);
                            }

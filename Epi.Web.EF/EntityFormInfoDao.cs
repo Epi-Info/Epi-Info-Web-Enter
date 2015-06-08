@@ -13,7 +13,7 @@ namespace Epi.Web.EF
     {
     public class EntityFormInfoDao: IFormInfoDao
         {
-        public List<FormInfoBO> GetFormInfo(int UserId)
+        public List<FormInfoBO> GetFormInfo(int UserId , int CurrentOrgId)
             {
         List<FormInfoBO> FormList = new List<FormInfoBO>();
         FormInfoBO FormInfoBO;
@@ -42,7 +42,8 @@ namespace Epi.Web.EF
                        //SurveyMetaData Response = Context.SurveyMetaDatas.First(x => x.SurveyId == Id);
                        //var _Org = new HashSet<int>(Response.Organizations.Select(x => x.OrganizationId));
                        //var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
-                       List<string> SharedForms = new List<string>();
+                       //List<string> SharedForms = new List<string>();
+                       List<KeyValuePair<int, string>> SharedForms = new List<KeyValuePair<int, string>>();
                        foreach (var form in AllForms)
                            {
                            if (form.Users.Contains(CurrentUser) )
@@ -75,7 +76,8 @@ namespace Epi.Web.EF
 
                            if (UserOrganizations.Where(x => x.OrganizationID == item.Key).Count()>0)
                            {
-                               SharedForms.Add(item.Value);
+                               KeyValuePair<int, string> Item = new KeyValuePair<int, string>(item.Key, item.Value);
+                               SharedForms.Add(Item);
                            }
                        }
 
@@ -108,11 +110,12 @@ namespace Epi.Web.EF
                                 {
 
                                 //Only Share or Assign
-                                    if (SharedForms.Contains(FormInfoBO.FormId))
+                                    if (SharedForms.Where(x=>x.Value == FormInfoBO.FormId).Count()>0)
                                     {
                                         FormInfoBO.IsShared = true;
                                         FormInfoBO.UserId = Id;
-                                        FormInfoBO.OrganizationId = Shared.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
+                                        //FormInfoBO.OrganizationId = Shared.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
+                                        FormInfoBO.OrganizationId = SharedForms.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
                                         FormList.Add(FormInfoBO);
                                     }
                                     else if (Assigned.Contains(FormInfoBO.FormId))

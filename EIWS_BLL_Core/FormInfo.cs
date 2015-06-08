@@ -20,10 +20,10 @@ namespace Epi.Web.BLL
             this.FormInfoDao = pSurveyInfoDao;
         }
 
-        public List<FormInfoBO> GetFormsInfo(int UserId)
+        public List<FormInfoBO> GetFormsInfo(int UserId, int CurrentOrgId)
         {
             //Owner Forms
-            List<FormInfoBO> result = this.FormInfoDao.GetFormInfo(UserId);
+            List<FormInfoBO> result = this.FormInfoDao.GetFormInfo(UserId, CurrentOrgId);
 
 
 
