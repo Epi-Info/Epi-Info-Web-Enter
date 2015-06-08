@@ -256,14 +256,18 @@ namespace Epi.Web.EF
             SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
             EWEConnection.Open();
             SqlCommand EWECommand = new SqlCommand(EWEConnectionString, EWEConnection);
-            EWECommand.CommandText = "usp_read_ewav_toggle_switch";
+            SqlDataAdapter DataAdapter = new SqlDataAdapter(EWECommand);
+            DataSet DS = new DataSet();
+            EWECommand.CommandText = "usp_read_canvases_for_lite";
             EWECommand.CommandType = CommandType.StoredProcedure;
             EWECommand.Parameters.Add(new SqlParameter("FormId", FormId));
             EWECommand.Parameters.Add(new SqlParameter("UserId", UserId));
 
-            object rows = EWECommand.ExecuteScalar();
+            DataAdapter.Fill(DS);
+
+            object numberOfRows = DS.Tables[0].Rows.Count;
             EWEConnection.Close();
-            if ((int)rows >0)
+            if ((int)numberOfRows >0)
             {
                 return true;
             }
