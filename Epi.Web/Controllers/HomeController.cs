@@ -503,6 +503,7 @@ namespace Epi.Web.MVC.Controllers
             FormsInfoRequest formReq = new FormsInfoRequest();
 
             formReq.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());//Hard coded user for now.
+            formReq.Criteria.CurrentOrgId = OrgID;
             // formReq.Criteria.UserId = UserId;
             //define filter criteria here.
             //define sorting criteria here.
@@ -537,6 +538,7 @@ namespace Epi.Web.MVC.Controllers
                 FormSettingReq.FormInfo.FormId = SurveyId;
                 FormSettingReq.FormInfo.UserId = UserId;
                 //Getting Column Name  List
+                FormSettingReq.CurrentOrgId = orgid;
                 FormSettingResponse FormSettingResponse = _isurveyFacade.GetFormSettings(FormSettingReq);
                 Columns = FormSettingResponse.FormSetting.ColumnNameList.ToList();
                 Columns.Sort(Compare);

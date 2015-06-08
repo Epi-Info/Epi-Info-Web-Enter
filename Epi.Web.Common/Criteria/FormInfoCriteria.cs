@@ -21,6 +21,9 @@ namespace Epi.Web.Enter.Common.Criteria
         [DataMember]
         public string FormName { get; set; }
 
+        [DataMember]
+        public int CurrentOrgId { get; set; }
+
 
         }
     }

@@ -8,7 +8,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
     {
     public interface IFormInfoDao
         {
-         List<FormInfoBO> GetFormInfo(int UserId);
+         List<FormInfoBO> GetFormInfo(int UserId , int CurrentOrgId);
          FormInfoBO GetFormByFormId(string FormId, bool GetXml, int UserId);
          FormInfoBO GetFormByFormId(string FormId);
          bool GetEwavLiteToggleSwitch(string FormId, int UserId);
