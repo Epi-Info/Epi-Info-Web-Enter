@@ -256,7 +256,7 @@
                 var gridColumns = new List<WebGridColumn>();
 
                 gridColumns.Add(webGrid.Column(header: "",
-                 format: (item) => new HtmlString("<button name='EditForm' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
+                 format: (item) => new HtmlString("<button name='EditForm' type='button' onclick ='CheckForConcurrency(this)'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'>Open</button> " +
                 "<button name='DeleteButton' type='submit'  class='default edit'  id='" + item.Column0 + "'value='" + item.Column0 + "'> Delete</button>"
                                                                                                        )));
                 if (Model.Columns.Count >= 1)

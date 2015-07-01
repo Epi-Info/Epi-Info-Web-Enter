@@ -65,7 +65,8 @@ namespace Epi.Web.MVC.Models
                 UserPublishKey = SurveyInfoDTO.UserPublishKey,
                 IsDraftMode = SurveyInfoDTO.IsDraftMode,
                 StartDate = SurveyInfoDTO.StartDate,
-                IsSqlProject = SurveyInfoDTO.IsSqlProject
+                IsSqlProject = SurveyInfoDTO.IsSqlProject,
+                FormOwnerId = SurveyInfoDTO.OwnerId
             };
 
         }

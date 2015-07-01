@@ -268,6 +268,7 @@ namespace Epi.Web.WCF.SurveyService
                 // result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria.SurveyAnswerIdList, pRequest.Criteria.UserPublishKey, pRequest.Criteria.SurveyId, SurveyInfoBOList));
 
                 result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetSurveyResponseById(pRequest.Criteria, SurveyInfoBOList));
+                result.FormInfo = Mapper.ToFormInfoDTO(SurveyInfoBO);
                 //SurveyResponseBO Request = new SurveyResponseBO();
 
                 //foreach (var item in pRequest.Criteria.SurveyAnswerIdList)
