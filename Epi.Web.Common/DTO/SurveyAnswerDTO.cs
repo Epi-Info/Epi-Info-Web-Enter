@@ -46,5 +46,11 @@ namespace Epi.Web.Enter.Common.DTO
 
         [DataMember]
         public int ViewId { get; set; }
+         [DataMember]
+        public int OwnerId
+        {
+            get;
+            set;
+        }
     }
 }

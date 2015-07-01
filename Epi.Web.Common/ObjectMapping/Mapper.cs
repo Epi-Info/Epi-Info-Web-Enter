@@ -70,6 +70,21 @@ namespace Epi.Web.Enter.Common.ObjectMapping
 
             };
             }
+        public static FormInfoDTO ToFormInfoDTO(SurveyInfoBO BO)
+        {
+            return new FormInfoDTO
+            {
+                IsSQLProject = BO.IsSqlProject,
+                FormId = BO.SurveyId,
+                FormNumber = BO.SurveyNumber,
+                FormName = BO.SurveyName,
+                OrganizationName = BO.OrganizationName,
+                OwnerId = BO.OwnerId,
+                IsDraftMode = BO.IsDraftMode
+              
+
+            };
+        }
 
 
         public static OrganizationBO ToBusinessObject(OrganizationDTO pDTO)

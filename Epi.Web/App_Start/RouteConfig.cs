@@ -89,6 +89,27 @@ namespace Epi.Web.MVC
                 new { controller = "Home", action = "Delete", ResponseId = UrlParameter.Optional }
             );
             routes.MapRoute
+    (
+        null, // Route name
+        "Home/CheckForConcurrency", // URL with parameters
+        new { controller = "Home", action = "CheckForConcurrency", responseid = UrlParameter.Optional }
+    ); // Param
+            
+
+    routes.MapRoute
+    (
+        null, // Route name
+        "Home/Notify", // URL with parameters
+        new { controller = "Home", action = "Notify", responseid = UrlParameter.Optional }
+    ); // Param
+              routes.MapRoute
+    (
+        null, // Route name
+        "Home/Unlock", // URL with parameters
+        new { controller = "Home", action = "Unlock", responseid = UrlParameter.Optional }
+    ); // Param
+            
+            routes.MapRoute
             (
                 null, // Route name
                 "FormResponse/Delete/{ResponseId}", // URL with parameters

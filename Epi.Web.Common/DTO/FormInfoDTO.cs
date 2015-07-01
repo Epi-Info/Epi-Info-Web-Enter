@@ -24,6 +24,7 @@ namespace Epi.Web.Enter.Common.DTO
         private bool _IsShared;
         private bool _DataAccessRuleId;
         private bool _ewavLiteToggleSwitch;
+        private int _OwnerId;
         [DataMember]
         public bool DataAccessRuleId
         {
@@ -116,6 +117,12 @@ namespace Epi.Web.Enter.Common.DTO
         {
             get { return _ewavLiteToggleSwitch; }
             set { _ewavLiteToggleSwitch = value; }
+        }
+        [DataMember]
+        public int OwnerId
+        {
+            get { return _OwnerId; }
+            set { _OwnerId = value; }
         }
     }
 }
