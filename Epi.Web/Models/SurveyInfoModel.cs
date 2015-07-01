@@ -27,6 +27,7 @@ namespace Epi.Web.MVC.Models
         private string _IsDraftModeStyleClass;
         private Guid _UserPublishKey;
         private bool _IsSqlProject;
+        private int _FormOwnerId;
         public string SurveyId
         {
             get { return _SurveyId; }
@@ -124,6 +125,12 @@ namespace Epi.Web.MVC.Models
         {
             get { return _IsDraftModeStyleClass; }
             set { _IsDraftModeStyleClass = value; }
+        }
+        
+        public int FormOwnerId
+        {
+            get { return _FormOwnerId; }
+            set { _FormOwnerId = value; }
         }
     }
 }

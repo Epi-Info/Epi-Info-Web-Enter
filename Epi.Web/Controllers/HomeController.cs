@@ -61,23 +61,9 @@ namespace Epi.Web.MVC.Controllers
                 //SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyid);
                 //  List<FormInfoModel> listOfformInfoModel = GetFormsInfoList(UserId1);
 
-                FormModel FormModel = new Models.FormModel();
-                FormModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
-                // Get OrganizationList
-                OrganizationRequest Request = new OrganizationRequest();
-                Request.UserId = UserId;
-                Request.UserRole = FormModel.UserHighestRole;
-                OrganizationResponse Organizations = _isurveyFacade.GetOrganizationsByUserId(Request);
-
-                FormModel.OrganizationList = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
-                //Get Forms
-                OrgnizationId = Organizations.OrganizationList[0].OrganizationId;
-                FormModel.FormList = GetFormsInfoList(UserId1, OrgnizationId);
-                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetUserInfo(UserId);
-
-                FormModel.UserFirstName = result.User.FirstName;
-                FormModel.UserLastName = result.User.LastName;
-                FormModel.SelectedForm = surveyid;
+                FormModel FormModel;
+                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result;
+                GetFormModel(surveyid, UserId, UserId1, out OrgnizationId, out FormModel, out result);
                 Session["UserEmailAddress"] = result.User.EmailAddress;
                 Session["UserFirstName"] = result.User.FirstName;
                 Session["UserLastName"] = result.User.LastName;
@@ -132,6 +118,27 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
+        private void GetFormModel(string surveyid, int UserId, Guid UserId1, out int OrgnizationId, out FormModel FormModel, out Epi.Web.Enter.Common.Message.UserAuthenticationResponse result)
+        {
+            FormModel = new Models.FormModel();
+            FormModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
+            // Get OrganizationList
+            OrganizationRequest Request = new OrganizationRequest();
+            Request.UserId = UserId;
+            Request.UserRole = FormModel.UserHighestRole;
+            OrganizationResponse Organizations = _isurveyFacade.GetOrganizationsByUserId(Request);
+
+            FormModel.OrganizationList = Mapper.ToOrganizationModelList(Organizations.OrganizationList);
+            //Get Forms
+            OrgnizationId = Organizations.OrganizationList[0].OrganizationId;
+            FormModel.FormList = GetFormsInfoList(UserId1, OrgnizationId);
+            result = _isurveyFacade.GetUserInfo(UserId);
+
+            FormModel.UserFirstName = result.User.FirstName;
+            FormModel.UserLastName = result.User.LastName;
+            FormModel.SelectedForm = surveyid;
+        }
+
         /// <summary>
         /// redirecting to Survey controller to action method Index
         /// </summary>
@@ -143,6 +150,10 @@ namespace Epi.Web.MVC.Controllers
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             Session["FormValuesHasChanged"] = "";
             
+            if(string.IsNullOrEmpty(EditForm) && Session["EditForm"]!=null){
+                EditForm = Session["EditForm"].ToString();
+            }
+
             if (!string.IsNullOrEmpty(EditForm))
             {
                 //if (!string.IsNullOrEmpty(surveyid))
@@ -153,6 +164,8 @@ namespace Epi.Web.MVC.Controllers
 
                 Session["IsEditMode"] = true;
                 Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm, Session["RootFormId"].ToString());
+
+               
                 Session["RequestedViewId"] = surveyAnswerDTO.ViewId;
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
@@ -714,8 +727,9 @@ namespace Epi.Web.MVC.Controllers
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO result = null;
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
-            result = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId, UserId).SurveyResponseList[0];
-
+            var SurveyAnswerResponse = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId, UserId);
+            result = SurveyAnswerResponse.SurveyResponseList[0];
+            result.OwnerId = SurveyAnswerResponse.FormInfo.OwnerId;
             return result;
 
         }
@@ -846,7 +860,72 @@ namespace Epi.Web.MVC.Controllers
             return PartialView("Settings", ModelList);
 
         }
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult CheckForConcurrency(String ResponseId) 
+        {
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResponseId, Session["RootFormId"].ToString());
+            Session["EditForm"] = ResponseId;
+            //Session[""]
+            return Json(surveyAnswerDTO);
+        
+        }
+        
+       [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Notify(String ResponseId) 
+        {
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            
+           //Get current user info
+            int CurrentOrgId = int.Parse(Session["SelectedOrgId"].ToString());
+            var UserInfo = _isurveyFacade.GetUserInfo(UserId);
+           //Get Organization admin info 
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResponseId, Session["RootFormId"].ToString());
+            SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyAnswerDTO.SurveyId);
 
+            var OwnerInfo = _isurveyFacade.GetUserInfo(surveyAnswerDTO.OwnerId); ;
+            
+
+                Epi.Web.Enter.Common.Email.Email EmilObj = new Enter.Common.Email.Email();
+                 //ResponseId;
+
+                EmilObj.Subject = "Record locked notification.";
+                EmilObj.Body = " A user was unable to edit/delete a Epi Info™ Web Enter recored. \n \n Please login to Epi Info™ Web Enter system to Unlock this record.\n \n Below are the needed info to unlock the record.\n \n Response id: " + ResponseId + "\n\n User email: " + UserInfo.User.EmailAddress+ "\n\n";
+                EmilObj.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
+                EmilObj.To =  new List<string>();
+                EmilObj.To.Add(OwnerInfo.User.EmailAddress);
+
+                var success = Epi.Web.Enter.Common.Email.EmailHandler.SendMessage(EmilObj);
+ 
+           
+            return Json(1);
+        
+        }
+        //Unlock
+
+       [HttpPost]
+       [AcceptVerbs(HttpVerbs.Post)]
+       public ActionResult Unlock(String ResponseId)
+       {
+           try
+           {
+               SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+               SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+               SurveyAnswerRequest.Criteria.StatusId = 2;
+               SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(ResponseId);
+               _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
+           }
+           catch (Exception ex)
+           {
+
+               return Json("Erorr");
+
+           }
+           return Json("Success");
+
+       }
         [HttpPost]
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSettings(string formid)
