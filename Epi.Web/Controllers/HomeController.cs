@@ -729,7 +729,7 @@ namespace Epi.Web.MVC.Controllers
             //responseId = TempData[Epi.Web.MVC.Constants.Constant.RESPONSE_ID].ToString();
             var SurveyAnswerResponse = _isurveyFacade.GetSurveyAnswerResponse(responseId, FormId, UserId);
             result = SurveyAnswerResponse.SurveyResponseList[0];
-            result.OwnerId = SurveyAnswerResponse.FormInfo.OwnerId;
+            result.FormOwnerId = SurveyAnswerResponse.FormInfo.OwnerId;
             return result;
 
         }
@@ -866,6 +866,7 @@ namespace Epi.Web.MVC.Controllers
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResponseId, Session["RootFormId"].ToString());
+            surveyAnswerDTO.LoggedInUserId = UserId;
             Session["EditForm"] = ResponseId;
             //Session[""]
             return Json(surveyAnswerDTO);
@@ -885,7 +886,7 @@ namespace Epi.Web.MVC.Controllers
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResponseId, Session["RootFormId"].ToString());
             SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyAnswerDTO.SurveyId);
 
-            var OwnerInfo = _isurveyFacade.GetUserInfo(surveyAnswerDTO.OwnerId); ;
+            var OwnerInfo = _isurveyFacade.GetUserInfo(surveyAnswerDTO.FormOwnerId); ;
             
 
                 Epi.Web.Enter.Common.Email.Email EmilObj = new Enter.Common.Email.Email();
