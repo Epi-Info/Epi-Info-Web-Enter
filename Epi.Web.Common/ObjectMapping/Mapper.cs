@@ -200,6 +200,7 @@ namespace Epi.Web.Enter.Common.ObjectMapping
             SurveyAnswerDTO.ViewId = pBO.ViewId;
             SurveyAnswerDTO.RelateParentId = pBO.RelateParentId;
             SurveyAnswerDTO.SqlData = pBO.SqlData;
+            SurveyAnswerDTO.LastActiveUserId = pBO.LastActiveUserId;
             if (pBO.ResponseHierarchyIds != null)
                 {
                 SurveyAnswerDTO.ResponseHierarchyIds = ToDataTransferObject(pBO.ResponseHierarchyIds);

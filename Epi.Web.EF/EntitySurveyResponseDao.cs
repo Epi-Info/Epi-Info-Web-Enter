@@ -53,7 +53,7 @@ namespace Epi.Web.EF
         {
 
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
-
+            var LastActiveUserId= -1 ;
             if (SurveyResponseIdList.Count > 0)
             {
                 foreach (string surveyResponseId in SurveyResponseIdList.Distinct())
@@ -62,8 +62,16 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                     {
+                        var Query = Context.ResponseXmls.FirstOrDefault(x => x.ResponseId == Id);
+                        if (Query != null)
+                        {
+                              LastActiveUserId = (int)Context.ResponseXmls.FirstOrDefault(x => x.ResponseId == Id).UserId;
+                        
+                        }
 
-                    result.Add(Mapper.Map(Context.SurveyResponses.FirstOrDefault(x => x.ResponseId == Id)));
+                        result.Add(Mapper.Map(Context.SurveyResponses.FirstOrDefault(x => x.ResponseId == Id),null,LastActiveUserId));
+
+                    
                     }
                 }
             }

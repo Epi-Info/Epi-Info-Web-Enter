@@ -33,7 +33,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         public bool IsNewRecord { get; set; }
         public List<SurveyResponseBO> ResponseHierarchyIds { get; set; }
         public int ViewId { get; set; }
-
+        public int LastActiveUserId { get; set; }
         public Dictionary<string, string> SqlData { get; set; }
         public int RecrodSourceId { get; set; }
         public int CurrentOrgId { get; set; }

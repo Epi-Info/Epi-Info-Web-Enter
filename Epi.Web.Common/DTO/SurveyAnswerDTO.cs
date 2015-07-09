@@ -35,6 +35,8 @@ namespace Epi.Web.Enter.Common.DTO
         [DataMember]
         public string UserEmail { get; set; }
         [DataMember]
+        public int LastActiveUserId { get; set; }
+        [DataMember]
         public string RelateParentId { get; set; }
         [DataMember]
         public int RecordSourceId { get; set; }
@@ -47,10 +49,16 @@ namespace Epi.Web.Enter.Common.DTO
         [DataMember]
         public int ViewId { get; set; }
          [DataMember]
-        public int OwnerId
+        public int FormOwnerId
         {
             get;
             set;
         }
+         [DataMember]
+         public int LoggedInUserId
+         {
+             get;
+             set;
+         }
     }
 }
