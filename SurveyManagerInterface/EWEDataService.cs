@@ -350,24 +350,34 @@ namespace Epi.Web.WCF.SurveyService
 
                         Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
                         List<SurveyResponseBO> SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
-                        //check if any orphan records exists 
-                        foreach (var item in SurveyResponseBOList)
+
+
+                        if (!request.SurveyAnswerList[0].RecoverLastRecordVersion)
                         {
-
-                            SurveyResponseBO SurveyResponseBO = Implementation.GetResponseXml(item.ResponseId);
-                            if (!string.IsNullOrEmpty(SurveyResponseBO.ResponseId))
+                        //check if any orphan records exists 
+                            foreach (var item in SurveyResponseBOList)
                             {
-                                SurveyResponseBO.UserId = request.Criteria.UserId;
-                                ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
-                                ResponseXmlBO.ResponseId = SurveyResponseBO.ResponseId;
-                                Implementation.DeleteResponseXml(ResponseXmlBO);
 
+                                SurveyResponseBO SurveyResponseBO = Implementation.GetResponseXml(item.ResponseId);
+                                if (!string.IsNullOrEmpty(SurveyResponseBO.ResponseId))
+                                {
+                                    SurveyResponseBO.UserId = request.Criteria.UserId;
+                                    ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
+                                    ResponseXmlBO.ResponseId = SurveyResponseBO.ResponseId;
+                                    Implementation.DeleteResponseXml(ResponseXmlBO);
+
+                                }
                             }
+
+                            SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
+                            response.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.InsertSurveyResponse(SurveyResponseBOList, request.Criteria.UserId));
                         }
-
-                        SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
-
-                        response.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.InsertSurveyResponse(SurveyResponseBOList, request.Criteria.UserId));
+                        else
+                        {
+                        
+                        
+                           response.SurveyResponseList=  Mapper.ToDataTransferObject(SurveyResponseBOList);
+                        }
                     }
                     else if (request.Action.Equals("CreateChild", StringComparison.OrdinalIgnoreCase))
                     {

@@ -60,5 +60,11 @@ namespace Epi.Web.Enter.Common.DTO
              get;
              set;
          }
+         [DataMember]
+         public bool RecoverLastRecordVersion
+         {
+             get;
+             set;
+         }
     }
 }
