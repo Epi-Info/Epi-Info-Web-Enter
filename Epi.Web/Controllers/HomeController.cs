@@ -167,7 +167,12 @@ namespace Epi.Web.MVC.Controllers
 
                
                 Session["RequestedViewId"] = surveyAnswerDTO.ViewId;
+                if (Session["RecoverLastRecordVersion"] != null)
+                {
+                surveyAnswerDTO.RecoverLastRecordVersion = bool.Parse(Session["RecoverLastRecordVersion"].ToString());
+                }
                 string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
+                Session["RecoverLastRecordVersion"] = false;
                 return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
             }
             else
@@ -908,7 +913,7 @@ namespace Epi.Web.MVC.Controllers
 
        [HttpPost]
        [AcceptVerbs(HttpVerbs.Post)]
-       public ActionResult Unlock(String ResponseId)
+       public ActionResult Unlock(String ResponseId, bool RecoverLastRecordVersion)
        {
            try
            {
@@ -916,6 +921,7 @@ namespace Epi.Web.MVC.Controllers
                SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
                SurveyAnswerRequest.Criteria.StatusId = 2;
                SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(ResponseId);
+               Session["RecoverLastRecordVersion"] = RecoverLastRecordVersion;
                _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
            }
            catch (Exception ex)

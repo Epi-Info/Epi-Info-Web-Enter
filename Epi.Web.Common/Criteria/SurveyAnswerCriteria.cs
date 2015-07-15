@@ -115,5 +115,6 @@ namespace Epi.Web.Enter.Common.Criteria
             get;
             set;
         }
+         
     }
 }
