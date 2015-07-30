@@ -567,15 +567,16 @@ namespace Epi.Web.MVC.Controllers
                 FormResponseInfoModel.FormInfoModel.IsShared = FormSettingResponse.FormInfo.IsShared;
                 FormResponseInfoModel.FormInfoModel.IsShareable = FormSettingResponse.FormInfo.IsShareable; 
                 // Set User Role 
-                if (FormResponseInfoModel.FormInfoModel.IsShared)
-                {
+                //if (FormResponseInfoModel.FormInfoModel.IsShared)
+                //{
 
-                    SetUserRole(UserId, orgid);
-                }
-                else
-                {
-                SetUserRole(UserId, FormSettingResponse.FormInfo.OrganizationId);
-                }
+                //    SetUserRole(UserId, orgid);
+                //}
+                //else
+                //{
+                //SetUserRole(UserId, FormSettingResponse.FormInfo.OrganizationId);
+                //}
+                SetUserRole(UserId, orgid);
               
                 FormResponseReq.Criteria.SurveyId = SurveyId.ToString();
                 FormResponseReq.Criteria.PageNumber = PageNumber;
