@@ -120,7 +120,12 @@ namespace Epi.Web.EF
                                     }
                                     else if (Assigned.Contains(FormInfoBO.FormId))
                                      {
-                                   FormInfoBO.IsOwner = false;
+                                      FormInfoBO.IsOwner = false;
+                                      var UserOrgId =this.GetUserOrganization(FormInfoBO.FormId, UserId);
+                                      if (UserOrgId > -1)
+                                        {
+                                          FormInfoBO.OrganizationId = this.GetUserOrganization(FormInfoBO.FormId, UserId);
+                                        }
                                    FormList.Add(FormInfoBO);
                                      }
                                    
@@ -141,6 +146,48 @@ namespace Epi.Web.EF
 
         return FormList;
             }
+
+        private int GetUserOrganization(string SurveyId, int UserId)
+        {
+            try
+            {
+               int OrgId = -1;
+                    using (var Context = DataObjectFactory.CreateContext())
+                    {
+
+                   
+
+                        // get UserOrganization
+                        var items = from UserOrgInfo in Context.UserOrganizations 
+                                    join OrgInfo in Context.Organizations on UserOrgInfo.OrganizationID equals OrgInfo.OrganizationId into temp
+                                   
+                                    where UserOrgInfo.UserID == UserId
+                                    
+                                    from query in temp.DefaultIfEmpty()
+                                    select new { query };
+                        foreach (var Item in items)
+                        {
+
+                            var OId = Item.query.SurveyMetaDatas.Where(x => x.SurveyId == new Guid(SurveyId));
+                            if (OId.Count()>0)
+                            {
+                                OrgId = Item.query.OrganizationId;
+                                break;
+                            }
+                        }
+
+
+                        //var OId = items.Where(x => x.query.SurveyMetaDatas.Where(z => z.SurveyId == new Guid(SurveyId)) == items1);
+
+                    }
+
+                return OrgId;
+             }
+            catch (Exception ex)
+                {
+                throw (ex);
+                }
+        }
 
         public FormInfoBO GetFormByFormId(string FormId, bool GetXml, int UserId)
             {
