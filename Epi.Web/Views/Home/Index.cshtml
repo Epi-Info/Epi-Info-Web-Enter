@@ -782,8 +782,15 @@
                     alert("This record is being edited by another user.");
                 }
                 else {
-                    UnLockRecordForEdit(obj.id,true);
 
+                    if (loggedInUserId != data.LastActiveUserId) {
+                        UnLockRecordForEdit(obj.id, false);
+                    }
+                    else
+                    {
+                        UnLockRecordForEdit(obj.id, true);
+
+                    }
 
                 }
                 //$("#ConcurrencyDialog").data('ResponseId', obj.id)

@@ -923,7 +923,7 @@ namespace Epi.Web.MVC.Controllers
                SurveyAnswerRequest.Criteria.StatusId = 2;
                SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(ResponseId);
                Session["RecoverLastRecordVersion"] = RecoverLastRecordVersion;
-               _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
+             //  _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
            }
            catch (Exception ex)
            {
