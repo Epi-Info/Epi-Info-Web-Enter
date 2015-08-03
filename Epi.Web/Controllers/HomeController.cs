@@ -52,7 +52,7 @@ namespace Epi.Web.MVC.Controllers
 
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             int OrgnizationId;
-
+            Session["EditForm"] = null;
 
             Guid UserId1 = new Guid();
             try
