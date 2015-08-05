@@ -123,7 +123,9 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          bool HasResponse(SurveyAnswerCriteria Criteria);
 
          void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO);
+         void UpdateRecordStatus(string ResponseId, int Status);
 
          int GetDataAccessRule(string FormId,int UserId);
+        
     }
 }
