@@ -2214,23 +2214,41 @@ namespace Epi.Web.EF
 
 
                 Context.ResponseXmls.DeleteObject(Response);
-
+                Context.SaveChanges();
 
                 //Update Status
-                var Query = from response in Context.SurveyResponses
-                            where response.ResponseId == Id
-                            select response;
-                if (Query.Count() > 0)
-                    {
-                      var DataRow = Query.Single();
-                      DataRow.StatusId = 2;
-                      Context.SaveChanges();
-                    }
+                //var Query = from response in Context.SurveyResponses
+                //            where response.ResponseId == Id
+                //            select response;
+                //if (Query.Count() > 0)
+                //    {
+                //      var DataRow = Query.Single();
+                //      DataRow.StatusId = 2;
+                //      Context.SaveChanges();
+                //    }
             }
 
         }
 
+        public void UpdateRecordStatus(string ResponseId, int Status) 
+        {
 
+            Guid Id = new Guid(ResponseId);
+
+            using (var Context = DataObjectFactory.CreateContext())
+            {
+              var Query = from response in Context.SurveyResponses
+                            where response.ResponseId == Id
+                            select response;
+                if (Query.Count() > 0)
+                {
+                    var DataRow = Query.Single();
+                    DataRow.StatusId = Status;
+                    Context.SaveChanges();
+                }
+            }
+        
+        }
 
 
         public void InsertResponseXml(ResponseXmlBO ResponseXmlBO)

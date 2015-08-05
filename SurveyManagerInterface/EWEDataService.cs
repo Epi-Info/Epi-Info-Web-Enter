@@ -353,28 +353,42 @@ namespace Epi.Web.WCF.SurveyService
 
 
                         if (!request.SurveyAnswerList[0].RecoverLastRecordVersion)
+                        // if we are not keeping the version of xml found currently in the SurveyResponse table (meaning getting the original copy form the ResponseXml table)
                         {
                         //check if any orphan records exists 
                             foreach (var item in SurveyResponseBOList)
                             {
 
                                 SurveyResponseBO SurveyResponseBO = Implementation.GetResponseXml(item.ResponseId);
+                                // before we delete the temp version we need to move it the SurveResponse table
+
                                 if (!string.IsNullOrEmpty(SurveyResponseBO.ResponseId))
                                 {
                                     SurveyResponseBO.UserId = request.Criteria.UserId;
                                     ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
                                     ResponseXmlBO.ResponseId = SurveyResponseBO.ResponseId;
-                                    Implementation.DeleteResponseXml(ResponseXmlBO);
+                                    // During the delete process below: 
+                                    //  1) Delete the record from ResponseXml table.
+                                    //  2) Update Record status in the SurveyResponse table which fires database triggers.
 
+                                   //    Implementation.DeleteResponseXml(ResponseXmlBO);
+                                    // Implementation.UpdateRecordStatus(ResponseXmlBO.ResponseId.ToString(), 2); 
+
+                                    //This will handle the status update and the swapping of the Xml
+                                    // but for this scenario I will keep the status unchanged 
+                                    Implementation.DeleteSurveyResponseInEditMode(SurveyResponseBO);
+                                   
+                                  
                                 }
                             }
 
                             SurveyResponseBOList = Implementation1.GetResponsesHierarchyIdsByRootId(request.SurveyAnswerList[0].ParentRecordId);
+                            // Inserting a temp xml to the ResponseXml table
                             response.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.InsertSurveyResponse(SurveyResponseBOList, request.Criteria.UserId));
                         }
                         else
                         {
-                        
+                        // load the version curently found the SurveyResponse tablt 
                         
                            response.SurveyResponseList=  Mapper.ToDataTransferObject(SurveyResponseBOList);
                         }
@@ -449,6 +463,7 @@ namespace Epi.Web.WCF.SurveyService
                                 ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
                                 ResponseXmlBO.ResponseId = item.ResponseId;
                                 Implementation.DeleteResponseXml(ResponseXmlBO);
+                                Implementation.UpdateRecordStatus(ResponseXmlBO.ResponseId.ToString(), 2); 
 
                             }
                             catch
@@ -831,7 +846,7 @@ namespace Epi.Web.WCF.SurveyService
                     {
                         if (pRequest.Criteria.IsEditMode)
                         {
-                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId),2);
                         }
                         else
                         {
@@ -854,7 +869,7 @@ namespace Epi.Web.WCF.SurveyService
                     {
                         if (pRequest.Criteria.IsEditMode)
                         {
-                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId));
+                            Implementation.DeleteSurveyResponseInEditMode(Mapper.ToBusinessObject(response, pRequest.Criteria.UserId),2);
                         }
                         else
                         {

@@ -345,7 +345,7 @@ namespace Epi.Web.BLL
 
             return result;
         }
-        public bool DeleteSurveyResponseInEditMode(SurveyResponseBO pValue)
+        public bool DeleteSurveyResponseInEditMode(SurveyResponseBO pValue,int Status = -1)
         {
             bool result = false;
             List<SurveyResponseBO> Children = this.GetResponsesHierarchyIdsByRootId(pValue.ResponseId);
@@ -370,7 +370,10 @@ namespace Epi.Web.BLL
                 ResponseXmlBO ResponseXmlBO = new ResponseXmlBO();
                 ResponseXmlBO.ResponseId = child.ResponseId;
                 this.SurveyResponseDao.DeleteResponseXml(ResponseXmlBO);
-
+                if (Status > -1)
+                {
+                    this.SurveyResponseDao.UpdateRecordStatus(ResponseXmlBO.ResponseId, Status);
+                }
             }
 
             result = true;
@@ -499,6 +502,11 @@ namespace Epi.Web.BLL
         {
 
             this.SurveyResponseDao.DeleteResponseXml(ResponseXmlBO);
+        }
+        public void UpdateRecordStatus(string ResponseId, int StatusId)
+        {
+
+            this.SurveyResponseDao.UpdateRecordStatus(ResponseId, StatusId);
         }
         public PreFilledAnswerResponse SetSurveyAnswer(PreFilledAnswerRequest request)
             {
