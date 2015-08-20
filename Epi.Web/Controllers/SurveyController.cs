@@ -244,7 +244,7 @@ namespace Epi.Web.MVC.Controllers
         //  [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         [ValidateAntiForgeryToken]
         //public ActionResult Index(SurveyInfoModel surveyInfoModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, int PageNumber = 1)
-        public ActionResult Index(SurveyAnswerModel surveyAnswerModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, string Close, string CloseButton, int PageNumber = 0, string Form_Has_Changed = "", string Requested_View_Id = "")
+        public ActionResult Index(SurveyAnswerModel surveyAnswerModel, string Submitbutton, string Savebutton, string ContinueButton, string PreviousButton, string Close, string CloseButton, int PageNumber = 0, string Form_Has_Changed = "", string Requested_View_Id = "" ,bool Log_Out = false)
         {
 
             //var Form_Has_Changed = this.Request.Form["Form_Has_Changed"].ToString();
@@ -490,8 +490,12 @@ namespace Epi.Web.MVC.Controllers
 
                                 if (!string.IsNullOrEmpty(CloseButton))
                                 {
-
+                                    if(!Log_Out){
                                     return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId });
+                                    }else{
+                                    return RedirectToAction("Index", "Post");
+                                    
+                                    }
                                 }
                                 else
                                 {
@@ -896,7 +900,7 @@ namespace Epi.Web.MVC.Controllers
 
         [HttpPost]
 
-        public ActionResult Delete(string ResponseId)//List<FormInfoModel> ModelList, string formid)
+        public ActionResult Delete(string responseid)//List<FormInfoModel> ModelList, string formid)
         {
             bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
 
@@ -935,7 +939,7 @@ namespace Epi.Web.MVC.Controllers
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
             SARequest.Criteria.SurveyAnswerIdList.Add(Session["RootResponseId"].ToString());
-            SARequest.Criteria.StatusId = 2;
+            SARequest.Criteria.StatusId = 1;
             _isurveyFacade.UpdateResponseStatus(SARequest);
 
             FormsAuthentication.SignOut();
