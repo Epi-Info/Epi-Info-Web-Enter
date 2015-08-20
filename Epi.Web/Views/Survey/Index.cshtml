@@ -31,177 +31,176 @@
  </script>  *@
 <script type="text/javascript">
 
-	 
-	/*Clicking the save button to save the survey*/
-	function Save() {
-	   
-   
-		var DisabledFieldsList = $('#DisabledFieldsList').val();
-		 
-		if (DisabledFieldsList.length > 0)
-		{
-		CCE_ProcessEnableAllControls(DisabledFieldsList) ;
-		}
-		//set the is_save_action hidden variable value to true to indicate that save button has been clicked
-       $("#myform")[0].is_save_action.value = 'true';
-		//set the action path of the current form so when it is submitted by clicking the save button it posts to the path 
-       $("#myform")[0].action = window.location.href;
-		//detach the validation engine as we don't want to validate data on save button click
-	//	$('#myform').validationEngine('detach');
-		//posting the form
-        
-       $('#myform').submit();
-		 
-        
-}
-function AddNewChild(ViewId) {
 
-    $("#myform")[0].Get_Child_action.value = 'true';
-  
-    $("#myform")[0].action = window.location.href;
+    /*Clicking the save button to save the survey*/
+    function Save() {
 
 
-    $('#myform').submit();
+        var DisabledFieldsList = $('#DisabledFieldsList').val();
 
-}
-function showResponse() {
- 
- 
- alert("Good");
- }
- function showRequest() {
+        if (DisabledFieldsList.length > 0) {
+            CCE_ProcessEnableAllControls(DisabledFieldsList);
+        }
+        //set the is_save_action hidden variable value to true to indicate that save button has been clicked
+        $("#myform")[0].is_save_action.value = 'true';
+        //set the action path of the current form so when it is submitted by clicking the save button it posts to the path
+        $("#myform")[0].action = window.location.href;
+        //detach the validation engine as we don't want to validate data on save button click
+        //	$('#myform').validationEngine('detach');
+        //posting the form
 
-
-     alert("Bad");
- }
-	/*Clicking the continue button*/
-
-	function Continue() {
-		//debugger;
-		var presentUrl;
-		var pageNumber;
-		var actionUrlC;
-		presentUrl = '@Url.Action("Index", "Survey")';
-		pageNumber = '@Model.Form.CurrentPage';
-		actionUrlC = processUrl(presentUrl, 'ContinueUrl', pageNumber);
-		$("#myform")[0].action = actionUrlC;
-		$("#myform").submit();
-		
-	}
-	
-	/*Clicking the previous button*/
-	function Previous() {
-		//debugger;
-		var presentUrl;
-		var pageNumber;
-		var actionUrlP;
-		presentUrl = '@Url.Action("Index", "Survey")';
-		pageNumber = '@Model.Form.CurrentPage';
-		actionUrlP = processUrl(presentUrl, 'PreviousUrl', pageNumber);
-		$("#myform")[0].action = actionUrlP;
-		$("#myform").submit();
-	}
+        $('#myform').submit();
 
 
+    }
+    function AddNewChild(ViewId) {
 
-	$(document).ready(function () {
-	    // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+        $("#myform")[0].Get_Child_action.value = 'true';
 
-	    //$("#Savebutton").tooltip();
-	 
-	 
+        $("#myform")[0].action = window.location.href;
 
-	    $("#dialog").dialog({
-	        autoOpen: false,
-	        show: "blind",
-	        hide: "blind",
-	        resizable: false,
-	        height: 420,
-	        modal: true
-	    });
 
-	    $("#VideoDialog").dialog({
-	        autoOpen: false,
-	        show: "blind",
-	        hide: "blind",
-	        resizable: false,
-	        height: 410,
-	        width: 500,
-	        modal: true
-	    });
-	    $("#RelateNavigation").dialog({
-	        autoOpen: false,
-	        show: "blind",
-	        hide: "blind",
-	        resizable: false,
-	        height: 410,
-	        width: 'auto',
-	        modal: true
-	    });
-	    // setup the dialog
-	    $("#TimeOutdialog").dialog({
-	        autoOpen: false,
-	        modal: true,
-	        width: 400,
-	        height: 160,
-	        closeOnEscape: false,
-	        draggable: false,
-	        resizable: false,
-	        /* buttons: {
+        $('#myform').submit();
+
+    }
+    function showResponse() {
+
+
+        alert("Good");
+    }
+    function showRequest() {
+
+
+        alert("Bad");
+    }
+    /*Clicking the continue button*/
+
+    function Continue() {
+        //debugger;
+        var presentUrl;
+        var pageNumber;
+        var actionUrlC;
+        presentUrl = '@Url.Action("Index", "Survey")';
+        pageNumber = '@Model.Form.CurrentPage';
+        actionUrlC = processUrl(presentUrl, 'ContinueUrl', pageNumber);
+        $("#myform")[0].action = actionUrlC;
+        $("#myform").submit();
+
+    }
+
+    /*Clicking the previous button*/
+    function Previous() {
+        //debugger;
+        var presentUrl;
+        var pageNumber;
+        var actionUrlP;
+        presentUrl = '@Url.Action("Index", "Survey")';
+        pageNumber = '@Model.Form.CurrentPage';
+        actionUrlP = processUrl(presentUrl, 'PreviousUrl', pageNumber);
+        $("#myform")[0].action = actionUrlP;
+        $("#myform").submit();
+    }
+
+
+
+    $(document).ready(function () {
+        // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
+
+        //$("#Savebutton").tooltip();
+
+
+
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            height: 420,
+            modal: true
+        });
+
+        $("#VideoDialog").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            height: 410,
+            width: 500,
+            modal: true
+        });
+        $("#RelateNavigation").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            height: 410,
+            width: 'auto',
+            modal: true
+        });
+        // setup the dialog
+        $("#TimeOutdialog").dialog({
+            autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 160,
+            closeOnEscape: false,
+            draggable: false,
+            resizable: false,
+            /* buttons: {
 	        'Continue Session': function () {
 	        $(this).dialog('close');
 	        }
 	        }*/
 
-	        buttons: [{
-	            "text": 'Continue Session',
-	            "click": function () {
-	                $(this).dialog('close');
-	            },
-	            "class": 'dialogbtn'
-	        }]
-  
-
-	    });
-	    // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
-	    var $countdown = $("#dialog-countdown");
-
-	    // start the idle timer plugin
-	    $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
-	        idleAfter: 900,
-	        pollingInterval: 2,
-	        keepAliveURL: 'keepalive.php',
-	        serverResponseEquals: 'OK',
-	        onTimeout: function () {
-	            //window.location = "timeout.htm";
-	            window.location = GetRedirectionUrl() + '/1';
-	            //'~/Login/Index'; 
+            buttons: [{
+                "text": 'Continue Session',
+                "click": function () {
+                    $(this).dialog('close');
+                },
+                "class": 'dialogbtn'
+            }]
 
 
-	        },
-	        onIdle: function () {
-	            $(this).dialog("open");
-	        },
-	        onCountdown: function (counter) {
-	            $countdown.html(counter); // update the counter
-	        }
-	    });
+        });
+        // cache a reference to the countdown element so we don't have to query the DOM for it on each ping.
+        var $countdown = $("#dialog-countdown");
 
-	    $(function () {
+        // start the idle timer plugin
+        $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
+            idleAfter: 900,
+            pollingInterval: 2,
+            keepAliveURL: 'keepalive.php',
+            serverResponseEquals: 'OK',
+            onTimeout: function () {
+                //window.location = "timeout.htm";
+                window.location = GetRedirectionUrl() + '/1';
+                //'~/Login/Index';
 
-	        $("#exitdialog").dialog({
-	            autoOpen: false,
-	            show: "blind",
-	            hide: "blind",
-	            resizable: false,
-	            height: 150,
-	            width: 420,
-	            modal: true,
-	            buttons: [{
 
-	                "text": 'Save',
-	                "click": function () {
-	                    //alert('@Model.Form.StatusId');
+            },
+            onIdle: function () {
+                $(this).dialog("open");
+            },
+            onCountdown: function (counter) {
+                $countdown.html(counter); // update the counter
+            }
+        });
+
+        $(function () {
+
+            $("#exitdialog").dialog({
+                autoOpen: false,
+                show: "blind",
+                hide: "blind",
+                resizable: false,
+                height: 150,
+                width: 420,
+                modal: true,
+                buttons: [{
+
+                    "text": 'Save',
+                    "click": function () {
+                        //alert('@Model.Form.StatusId');
 	                    $(this).dialog("close");
 	                    var input = $("<input>")
 					   .attr("type", "hidden")
@@ -218,319 +217,430 @@ function showResponse() {
 	                "click": function () {
 
 	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
+	                   // alert('Don\'t Save');
 	                    //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
-	                    $.ajax({
-	                        url: signoutUrl,
-	                        type: 'POST',
-	                        contentType: 'application/json; charset=utf-8',
-	                        //data: "{}",
-	                        dataType: "json",
-	                        //cache: false,
-	                        async: false,
-	                        success: successFunc,
-	                        error: errorFunc
-	                    });
-	                    function successFunc(data) {
-	                        $(this).dialog("close");
-	                        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
-	                        window.location.href = homePageUrl;
-	                    }
-	                    function errorFunc(data) {
-	                        alert('failed');
-	                    }
+                        $.ajax({
+                            url: signoutUrl,
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            //data: "{}",
+                            dataType: "json",
+                            cache: false,
+                            async: false,
+                            success: successFunc,
+                            error: errorFunc
+                        });
+                        function successFunc(data) {
+                            $(this).dialog("close");
+                            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
+                            window.location.href = homePageUrl;
+                        }
+                        function errorFunc(data) {
+                            alert('failed');
+                        }
 
-	                },
-	                "class": 'dialogbtn'
+                    },
+                    "class": 'dialogbtn'
 
-	            }, {
-	                "text": 'Cancel',
-	                "click": function () {
-	                    //alert('@Model.Form.StatusId');
-	                    $(this).dialog("close");
+                }, {
+                    "text": 'Cancel',
+                    "click": function () {
+                        //alert('@Model.Form.StatusId');
+                        $(this).dialog("close");
 
-	                },
-	                "class": 'dialogbtn'
+                    },
+                    "class": 'dialogbtn'
 
-	            }]
+                }]
 
-	        });
-	    });
-	    $("#SimpleDialogBox").dialog({
-	        autoOpen: false,
-	        show: "blind",
-	        hide: "blind",
-	        resizable: false,
-	        height: 140,
-	        width: 300,
-	        modal: true
+            });
+            ///////////////////////Exit and logOut dialog ///////////////////////////////////////////////
+            $("#exitAndLogoutdialog").dialog({
+                autoOpen: false,
+                show: "blind",
+                hide: "blind",
+                resizable: false,
+                height: 150,
+                width: 420,
+                modal: true,
+                buttons: [{
 
-	    });
-
-
-	    $("#DialogBox").dialog({
-	        autoOpen: false,
-	        show: "blind",
-	        hide: "blind",
-	        resizable: false,
-	        height: 135,
-	        width: 400,
-	        modal: true
-
-	    });
+                    "text": 'Save',
+                    "click": function () {
+                        $('#LogoutButtoneWasClicked').val(true);
+                        $(this).dialog("close");
+                        var input = $("<input>")
+					   .attr("type", "hidden")
+					   .attr("name", "CloseButton").val("CloseButton");
+                        $('#myform').append($(input));
+                        $("#myform").submit();
 
 
-	    $("#ErrordialogBox").dialog({
-	        autoOpen: false,
-	        show: "blind",
-	        hide: "blind",
-	        resizable: false,
-	        // height: 100,
-	        width: 300,
-	        modal: true
-	    });
+                    },
+                    "class": 'dialogbtn'
 
+                }, {
+                    "text": 'Don\'t Save',
+                    "click": function () {
 
+                        var signoutUrl = '@Url.Action("Delete", "Survey")';
+                        
+                        $.ajax({
+                            url: signoutUrl,
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            
+                            dataType: "json",
+                            cache: false,
+                            async: false,
+                            success: successFunc,
+                            error: errorFunc
+                        });
+                        function successFunc(data) {
+                            $(this).dialog("close");
+                            var signoutUrl = '@Url.Action("SignOut", "Post")';
+                            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+                            SignOutAndRedirect(signoutUrl, homePageUrl);
+                        }
+                        function errorFunc(data) {
+                            alert('failed');
+                        }
 
-	    if ("@Model.RelatedButtonWasClicked" != "") {
+                    },
+                    "class": 'dialogbtn'
 
-	        ReadRelatedResponse('@Model.RelatedButtonWasClicked');
-	    }
+                }, {
+                    "text": 'Cancel',
+                    "click": function () {
+                        //alert('@Model.Form.StatusId');
+                        $(this).dialog("close");
 
+                    },
+                    "class": 'dialogbtn'
 
-	    var responseUrl = GetRedirectionUrl();
-	    $('#url').val(responseUrl);
-	    var Subject = "Link for Survey: " + '@Model.Form.SurveyInfo.SurveyName';
-	    Subject = ReplaceString(Subject);
-	    $('#Subject').val(Subject);
+                }]
 
-
-	    var passcode = '@Model.Form.PassCode';
-	    $('#spPassCode').text(passcode);
-
-
-	    if ('@Model.Form.IsSaved' == 'True') {
-
-	        if ('@Model.Form.StatusId' == '1') { //if clicking the save button for the first time
-	            $('#successContent').show();
-	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
-
-
-	        }
-	        else {
-
-
-
-	            $('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
-	            $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/>  Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
-	        }
-
-	        return true;
-	    }
-
-	});
-
-
-
-
-
-$(document).ready(function () {
-
-
-    $('#maincontent').live("click", function () {
-        CCE_HasFormValuesChanged();
-    $('.RelateLink').click(function () {
-          Save();
+            });
         });
-    })
+        $("#SimpleDialogBox").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            height: 140,
+            width: 300,
+            modal: true
+
+        });
 
 
-    jQuery('a').click(function (event) {
-        CCE_HasFormValuesChanged();
-    });
+        $("#DialogBox").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            height: 135,
+            width: 400,
+            modal: true
 
-    $('input').change(function () {
-
-        CCE_HasFormValuesChanged();
-    });
-    $('textarea').change(function () {
-
-        CCE_HasFormValuesChanged();
-    });
-
-    $("#send").click(function () {
-
-        var emailAddress = $("#email").val();
-        var confirmemail = $("#confirmemail").val();
-        var redirectUrl = GetRedirectionUrl();
-        //var surveyName = $("#_surveyName").val();
+        });
 
 
-        var surveyName = '@Model.Form.SurveyInfo.SurveyName';
-
-        surveyName = ReplaceString(surveyName);
+        $("#ErrordialogBox").dialog({
+            autoOpen: false,
+            show: "blind",
+            hide: "blind",
+            resizable: false,
+            // height: 100,
+            width: 300,
+            modal: true
+        });
 
 
 
-        var passCode = $('#spPassCode').text();
-        var EmailSubject = $('#Subject').val();
-        EmailSubject = ReplaceString(EmailSubject);
+        if ("@Model.RelatedButtonWasClicked" != "") {
 
-        //url to post for email to be sent
-        var postUrl = '@Url.Action("Notify", "Post")';
-        if (ValidateEmail(emailAddress) && ValidateEmail(confirmemail)) {
-            if ($.trim(emailAddress) == $.trim(confirmemail)) {
-                //Call notify function to send notification
-                NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl, passCode, EmailSubject);
+            ReadRelatedResponse('@Model.RelatedButtonWasClicked');
+        }
 
-                //close the modal popup after processing
-                $("#dialog").dialog("close");
+
+        var responseUrl = GetRedirectionUrl();
+        $('#url').val(responseUrl);
+        var Subject = "Link for Survey: " + '@Model.Form.SurveyInfo.SurveyName';
+        Subject = ReplaceString(Subject);
+        $('#Subject').val(Subject);
+
+
+        var passcode = '@Model.Form.PassCode';
+        $('#spPassCode').text(passcode);
+
+
+        if ('@Model.Form.IsSaved' == 'True') {
+
+            if ('@Model.Form.StatusId' == '1') { //if clicking the save button for the first time
+                $('#successContent').show();
+                $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/> Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
+
+
             }
             else {
-                alert("The email address did not match.");
+
+
+
+                $('#successContent').show(); //in subsequest click we just show that the survey has been saved not the modal popup
+                $('#successContent').append('<div class="success"><img src="@Url.Content("~/Content/images/button_check.png")" style="vertical-align:middle; padding-right: 10px;" alt=""/>  Responses for Page  @Model.Form.CurrentPage have been saved.</div>')
             }
+
+            return true;
+        }
+
+    });
+
+
+
+
+
+    $(document).ready(function () {
+
+
+        $('#maincontent').live("click", function () {
+            CCE_HasFormValuesChanged();
+            $('.RelateLink').click(function () {
+                Save();
+            });
+        })
+
+
+        jQuery('a').click(function (event) {
+            CCE_HasFormValuesChanged();
+        });
+
+        $('input').change(function () {
+
+            CCE_HasFormValuesChanged();
+        });
+        $('textarea').change(function () {
+
+            CCE_HasFormValuesChanged();
+        });
+
+        $("#send").click(function () {
+
+            var emailAddress = $("#email").val();
+            var confirmemail = $("#confirmemail").val();
+            var redirectUrl = GetRedirectionUrl();
+            //var surveyName = $("#_surveyName").val();
+
+
+            var surveyName = '@Model.Form.SurveyInfo.SurveyName';
+
+            surveyName = ReplaceString(surveyName);
+
+
+
+            var passCode = $('#spPassCode').text();
+            var EmailSubject = $('#Subject').val();
+            EmailSubject = ReplaceString(EmailSubject);
+
+            //url to post for email to be sent
+            var postUrl = '@Url.Action("Notify", "Post")';
+            if (ValidateEmail(emailAddress) && ValidateEmail(confirmemail)) {
+                if ($.trim(emailAddress) == $.trim(confirmemail)) {
+                    //Call notify function to send notification
+                    NotifyByEmail(emailAddress, redirectUrl, surveyName, postUrl, passCode, EmailSubject);
+
+                    //close the modal popup after processing
+                    $("#dialog").dialog("close");
+                }
+                else {
+                    alert("The email address did not match.");
+                }
+
+            }
+            else {
+                // $('#email').after('<span class="error">Enter a valid email address.</span>');
+                alert('Enter a valid email address!');
+            }
+        });
+
+        /*Exit the survey */
+        $("#Close").click(function (e) {
+            e.preventDefault();
+             //alert('close')
+
+            CCE_HasFormValuesChanged();
+            if ($('#FormHasChanged').val() == 'True') {
+                $("#exitdialog").dialog("open");
+            } else {
+
+                //            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+                //            window.location.href = homePageUrl;
+                DeleteRecord();
+
+
+            }
+            //  if (!$("#exitdialog").dialog("open")) {
+            // var signoutUrl = '@Url.Action("SignOut", "Post")';
+
+            // var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId'; 'http://wwwn.cdc.gov/epiinfo/';
+            // SignOutAndRedirect(signoutUrl, homePageUrl);
+            //}
+        });
+        @*$("#LogOut").click(function (e) {
+        e.preventDefault();
+
+
+        CCE_HasFormValuesChanged();
+        if ($('#FormHasChanged').val() == 'True')
+        {
+            $("#exitdialog").dialog("open");
+        }
+        else
+        {
+            DeleteRecord();
+            var signoutUrl = '@Url.Action("SignOut", "Post")';
+            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+             SignOutAndRedirect(signoutUrl, homePageUrl);
+        }
+
+    });*@
+
+
+        $("a.item-link").click(function (event) {
+             event.preventDefault(); 
+             CCE_HasFormValuesChanged();
+                if ($('#FormHasChanged').val() == 'True') {
+                    $("#exitAndLogoutdialog").dialog("open");
+                }
+                else {
+                    
+                    DeleteRecord(true);
+                    
+                }
+           
+        });
+
+
+
+        $("#Close1").click(function (e) {
+          // alert('close1')
+            e.preventDefault();
+            CCE_HasFormValuesChanged();
+            if ($('#FormHasChanged').val() == 'True') {
+                $("#exitdialog").dialog("open");
+            } else {
+                DeleteRecord();
+            }
+        });
+
+
+        /*Open the modal popup on link click*/
+        $('#copy').click(function () {
+            $("#dialog").dialog("open");
+            $('#url').val(GetRedirectionUrl());
+            return false;
+        });
+
+
+
+    });
+
+    function DeleteRecord(Signout) {
+
+        var signoutUrl = '@Url.Action("Delete", "Survey")';
+        $.ajax({
+            url: signoutUrl,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            //data: "{}",
+            dataType: "json",
+            //cache: false,
+            async: false,
+            success: successFunc,
+            error: errorFunc
+        });
+        function successFunc(data) {
+            $(this).dialog("close");
+            
+            if (Signout) {
+               
+
+                var signoutUrl = '@Url.Action("SignOut", "Post")';
+                var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+                SignOutAndRedirect(signoutUrl, homePageUrl);
+            }else{
+                var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
+                   window.location.href = homePageUrl;
+              } 
+             
+        }
+        function errorFunc(data) {
+            alert('failed');
+        }
+    }
+    function updateXml(NameList, pValue) {
+
+
+        var UpdateUrl = '@Url.Action("UpdateResponseXml", "Survey")';
+        var NList = "";
+        for (var i = 0; i < NameList.length; i++) {
+            if (NList == "") {
+                NList = NameList[i]
+            } else {
+                NList = NList + "," + NameList[i];
+            }
+
+        }
+        UpdateResponse(UpdateUrl, NList, pValue, '@Model.Form.ResponseId');
+
+    }
+
+    function ReplaceString(string) {
+
+        return string.replace(/&amp;/g, "&").replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&quot;/g, "\"").replace(/&#39;/g, "'");
+    }
+
+    $(function () {
+        $('#myform').submit(function () {
+
+            var DisabledFieldsList = $('#DisabledFieldsList').val();
+            if (DisabledFieldsList.length > 0) {
+                CCE_ProcessEnableAllControls(DisabledFieldsList);
+            }
+            return true;
+        });
+    });
+    function OpenRelateNavigationDialog() {
+
+        $("#RelateNavigation").dialog("open");
+    }
+    function CloseRelateNavigationDialog() {
+
+        $("#RelateNavigation").dialog("close");
+    }
+    function NavigateToChild(ViewId) {
+
+        $('#RelateButtonWasClicked_Temp').val(ViewId)
+        $('#RelateButtonWasClicked').val(ViewId);
+        var temp = HasResponse(ViewId);
+        if (temp) {
+            //if (!$('#FormHasChanged').val()) {
+            ReadResponse(ViewId);
+            //        } else {
+            //          alert("Form data has changed. Please click the save button.....");
+            //
+            //        }
 
         }
         else {
-            // $('#email').after('<span class="error">Enter a valid email address.</span>');
-            alert('Enter a valid email address!');
+            // Save();//Save Current page.
+            AddNewChild(ViewId);
+            // AddChild(ViewId);
         }
-    });
-
-    /*Exit the survey */
-    $("#Close").click(function (e) {
-        e.preventDefault();
-        /// alert('@Model.Form.StatusId')
-        CCE_HasFormValuesChanged();
-        if ($('#FormHasChanged').val() == 'True') {
-            $("#exitdialog").dialog("open");
-        } else {
-
-            //            var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
-            //            window.location.href = homePageUrl;
-            DeleteRecord();
-           
-
-        }
-        /*  if (!$("#exitdialog").dialog("open")) {
-        var signoutUrl = '@Url.Action("SignOut", "Post")';
-        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId'; //'http://wwwn.cdc.gov/epiinfo/';
-        SignOutAndRedirect(signoutUrl, homePageUrl);
-        }*/
-    });
-    $("#Close1").click(function (e) {
-        e.preventDefault();
-        CCE_HasFormValuesChanged();
-        if ($('#FormHasChanged').val() == 'True') {
-            $("#exitdialog").dialog("open");
-        } else {
-            DeleteRecord();
-        }
-    });
-
-
-    /*Open the modal popup on link click*/
-    $('#copy').click(function () {
-        $("#dialog").dialog("open");
-        $('#url').val(GetRedirectionUrl());
-        return false;
-    });
-
-
-
-});
-
-function DeleteRecord() {
-
-    var signoutUrl = '@Url.Action("Delete", "Survey")';
-  
-    $.ajax({
-        url: signoutUrl,
-        type: 'POST',
-        contentType: 'application/json; charset=utf-8',
-        //data: "{}",
-        dataType: "json",
-        //cache: false,
-        async: false,
-        success: successFunc,
-        error: errorFunc
-    });
-    function successFunc(data) {
-        $(this).dialog("close");
-        // var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
-        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
-        window.location.href = homePageUrl;
-    }
-    function errorFunc(data) {
-        alert('failed');
-    }
-}
- function updateXml(NameList, pValue) {
- 
-   
-			var UpdateUrl = '@Url.Action("UpdateResponseXml", "Survey")';
-			var NList = "";
-			 for (var i = 0; i < NameList.length; i++) 
-		   {
-			   if (NList == ""){
-					NList = NameList[i]
-			   }else{
-				 NList = NList + "," +NameList[i];
-			   }
-		   
-		   }
-			UpdateResponse(UpdateUrl,NList, pValue,'@Model.Form.ResponseId');
-			
-			}
-
-function ReplaceString(string){
-
-  return string.replace( /&amp;/g,"&").replace(/&gt;/g ,">").replace( /&lt;/g,"<").replace(/&quot;/g, "\"").replace(/&#39;/g, "'");
-}
- 
- $(function() {
-	 $('#myform').submit( function() {
-		
-		var DisabledFieldsList = $('#DisabledFieldsList').val();
-		if (DisabledFieldsList.length > 0)
-		{
-		CCE_ProcessEnableAllControls(DisabledFieldsList) ;
-		}
-		 return true;
-	 });
-});
-function OpenRelateNavigationDialog() {
-     
-    $("#RelateNavigation").dialog("open");
-}
-function CloseRelateNavigationDialog() {
-
-    $("#RelateNavigation").dialog("close");
-}
-function NavigateToChild(ViewId) {
-     
-    $('#RelateButtonWasClicked_Temp').val(ViewId)
-    $('#RelateButtonWasClicked').val(ViewId);
-    var temp = HasResponse(ViewId);
-    if (temp) 
-    {
-        //if (!$('#FormHasChanged').val()) {
-            ReadResponse(ViewId);
-//        } else {
-//          alert("Form data has changed. Please click the save button.....");
-//        
-//        }
 
     }
-else 
-    {
-       // Save();//Save Current page.
-        AddNewChild(ViewId);
-       // AddChild(ViewId);
-    }
 
-}
-
-function ReadRelatedResponse(ViewId) {
+    function ReadRelatedResponse(ViewId) {
 
         var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
@@ -543,188 +653,185 @@ function ReadRelatedResponse(ViewId) {
             success: successFunc,
             Error: errorFunc
         });
-      
-         
+
+
         function successFunc(data) {
             $('#RelateButtonWasClicked_Temp').val(ViewId)
             $('#RelateButtonWasClicked').val(ViewId);
             $('#RelateNavigation').html(data);
             OpenRelateNavigationDialog();
-           
+
         }
 
         function errorFunc() {
             alert('error');
         }
-}
-function ReadResponse(ViewId) {
+    }
+    function ReadResponse(ViewId) {
 
-//    var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
+        //    var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
-//    $.ajax({
-//        url: signoutUrl,
-//        type: 'GET',
-//        contentType: 'application/json; charset=utf-8',
-//        //data: JSON.stringify(model),
-//        async: false,
-//        success: successFunc,
-//        Error: errorFunc
-//    });
-//  
-//     
-//    function successFunc(data) {
-//    
-//        $('#RelateNavigation').html(data);
-//        OpenRelateNavigationDialog();
-//       
-//    }
+        //    $.ajax({
+        //        url: signoutUrl,
+        //        type: 'GET',
+        //        contentType: 'application/json; charset=utf-8',
+        //        //data: JSON.stringify(model),
+        //        async: false,
+        //        success: successFunc,
+        //        Error: errorFunc
+        //    });
+        //
+        //
+        //    function successFunc(data) {
+        //
+        //        $('#RelateNavigation').html(data);
+        //        OpenRelateNavigationDialog();
+        //
+        //    }
 
-//    function errorFunc() {
-//        alert('error');
-    //    }
-
-   
-    $("#myform")[0].Click_Related_Form.value = ViewId;
-
-    $("#myform")[0].action = window.location.href;
+        //    function errorFunc() {
+        //        alert('error');
+        //    }
 
 
-    $('#myform').submit();
+        $("#myform")[0].Click_Related_Form.value = ViewId;
 
-}
+        $("#myform")[0].action = window.location.href;
 
-function AddChild(ViewId) {
 
-    $('#FormHasChanged').val('True') ;
-    var signoutUrl = '@Url.Action("AddChild", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
-   
-    $.ajax({
-        url: signoutUrl,
-        type: 'POST',
-        contentType: 'application/json; charset=utf-8',
-        //  data: $('#myform').serialize(),
-        //data:JSON.stringify(model),
-        dataType: "json",
-        //cache: false,
-        async: false,
-        success: successFunc,
-        error: errorFunc
-    });
-    function successFunc(data) {
-        //$(this).dialog("close");
-      
-        var tem = 'responseId =' + data;
+        $('#myform').submit();
+
+    }
+
+    function AddChild(ViewId) {
+
+        $('#FormHasChanged').val('True');
+        var signoutUrl = '@Url.Action("AddChild", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
+
+        $.ajax({
+            url: signoutUrl,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            //  data: $('#myform').serialize(),
+            //data:JSON.stringify(model),
+            dataType: "json",
+            //cache: false,
+            async: false,
+            success: successFunc,
+            error: errorFunc
+        });
+        function successFunc(data) {
+            //$(this).dialog("close");
+
+            var tem = 'responseId =' + data;
+            var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+            homePageUrl = homePageUrl.replace("RId", data.toString());
+
+            window.location.href = homePageUrl;
+        }
+        function errorFunc(data) {
+            alert('failed');
+        }
+
+
+    }
+    function GoHome() {
+
+
+        $("#myform")[0].Go_Home_action.value = 'true';
+
+        $("#myform")[0].action = window.location.href;
+
+
+        $('#myform').submit();
+
+    }
+
+    function GoOneLevelUp() {
+
+        $("#myform")[0].Go_One_Level_Up_action.value = 'true';
+
+        $("#myform")[0].action = window.location.href;
+
+
+        $('#myform').submit();
+
+    }
+
+    function OpenForm(ResponseId) {
         var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
-        homePageUrl = homePageUrl.replace("RId", data.toString());
-        
+        var Id = ResponseId;
+        homePageUrl = homePageUrl.replace("RId", Id.toString());
+
         window.location.href = homePageUrl;
     }
-    function errorFunc(data) {
-        alert('failed');
+    $(document).on("click", "button[name='EditForm']", function (e) {
+        //e.preventDefault();
+
+        var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
+        var Id = $(this).attr("value");
+        homePageUrl = homePageUrl.replace("RId", Id.toString());
+
+        window.location.href = homePageUrl;
+
+    });
+    $(document).on("click", "button[name='DeleteButton']", function (e) {
+        //e.preventDefault();
+        if (confirm('Are you sure you want to delete this record and all associated child records?')) {
+            var signoutUrl = '@Url.Action("DeleteBranch", "Survey", new { ResponseId = "RId" })';
+            var Id = $(this).attr("value");
+            signoutUrl = signoutUrl.replace("RId", Id.toString());
+
+
+
+            $.ajax({
+                url: signoutUrl,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                //data: "{}",
+                dataType: "json",
+                //cache: false,
+                async: false,
+                success: successFunc,
+                error: errorFunc
+            });
+        }
+        function successFunc(data) {
+            var BValue = $('#RelateButtonWasClicked_Temp').val();
+            $('#RelateButtonWasClicked').val(BValue)
+            $('#RelateButtonWasClicked_Temp').val("");
+            Save();
+
+        }
+        function errorFunc(data) {
+            alert('failed');
+        }
+
+    });
+
+    function HasResponse(ViewId) {
+        var signoutUrl = '@Url.Action("HasResponse", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId';
+        var HasResponse;
+        $.ajax({
+            url: signoutUrl,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            //data: "{}",
+            dataType: "json",
+            //cache: false,
+            async: false,
+            success: successFunc,
+            error: errorFunc
+        });
+        function successFunc(data) {
+            HasResponse = data
+        }
+        function errorFunc(data) {
+            alert('failed');
+        }
+        return HasResponse;
+
     }
-
-
-}
-function GoHome()
- {
-
-
-     $("#myform")[0].Go_Home_action.value = 'true';
-
-     $("#myform")[0].action = window.location.href;
-
-
-     $('#myform').submit();
-
- }
-
- function GoOneLevelUp() {
-
-     $("#myform")[0].Go_One_Level_Up_action.value = 'true';
-
-     $("#myform")[0].action = window.location.href;
-
-
-     $('#myform').submit();
- 
- }
-
- function OpenForm(ResponseId) {
-      var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
-     var Id = ResponseId;
-     homePageUrl = homePageUrl.replace("RId", Id.toString());
-
-     window.location.href = homePageUrl;
- }
- $(document).on("click", "button[name='EditForm']", function (e) {
-     //e.preventDefault();
-
-     var homePageUrl = '@Url.Action("Index", "Survey",new { responseId= "RId", PageNumber = "1" })';
-     var Id = $(this).attr("value");
-     homePageUrl = homePageUrl.replace("RId", Id.toString());
-
-     window.location.href = homePageUrl;
-
- });
- $(document).on("click", "button[name='DeleteButton']", function (e) {
-     //e.preventDefault();
-     if (confirm('Are you sure you want to delete this record and all associated child records?'))
-      {
-         var signoutUrl = '@Url.Action("DeleteBranch", "Survey", new { ResponseId = "RId" })';
-         var Id = $(this).attr("value");
-         signoutUrl = signoutUrl.replace("RId", Id.toString());
-
-
-
-         $.ajax({
-             url: signoutUrl,
-             type: 'POST',
-             contentType: 'application/json; charset=utf-8',
-             //data: "{}",
-             dataType: "json",
-             //cache: false,
-             async: false,
-             success: successFunc,
-             error: errorFunc
-         });
-     }
-     function successFunc(data) {
-         var BValue = $('#RelateButtonWasClicked_Temp').val();
-         $('#RelateButtonWasClicked').val(BValue)
-         $('#RelateButtonWasClicked_Temp').val("");
-         Save();
-
-     }
-     function errorFunc(data) {
-         alert('failed');
-     }
-
- });
-
- function HasResponse(ViewId)
-  {
-      var signoutUrl = '@Url.Action("HasResponse", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId';
-     var HasResponse;
-     $.ajax({
-         url: signoutUrl,
-         type: 'POST',
-         contentType: 'application/json; charset=utf-8',
-         //data: "{}",
-         dataType: "json",
-         //cache: false,
-         async: false,
-         success: successFunc,
-         error: errorFunc
-     });
-     function successFunc(data) {
-         HasResponse = data
-     }
-     function errorFunc(data) {
-         alert('failed');
-     }
-     return HasResponse;
-
- }
 </script>
 
  <div id="pageHeader">
@@ -734,7 +841,11 @@ function GoHome()
     
     Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	@*<a href="#">Log Out</a>*@
-	 @Html.ActionLink("Log Out", "LogOut", "Survey", null, null)	
+	@*@Html.ActionLink("Log Out", "LogOut", "Survey", null, null)*@
+
+    @Html.ActionLink("Log Out", "LogOut", "Survey", new { id = "LogOut", @class = "item-link" })
+
+    @*<button class="default exitsurvey" id="LogOut" type="submit"  name="LogOut" value="">Log Out</button>*@
 	</div>
 	<div style="clear:both;"></div>
 </div>  
@@ -848,6 +959,7 @@ function GoHome()
 	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
         <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
         <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
+     <input type="hidden" id="LogoutButtoneWasClicked" name="Log_Out" value="" /> 
 
       @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" /> 
 	    <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" /> 
@@ -975,6 +1087,23 @@ function GoHome()
 				   <button  id="stayBtn" type="button" class="login" style="width:140px; height:30px; margin-left:10px;" onclick="">Stay on this page</button>
 			   </p> -->
 		   </div>
+
+
+<div id="exitAndLogoutdialog" title="Exit Record">
+
+    @if (ViewBag.Edit == "Edit")
+    {
+
+
+        <p style="font-size:1.20em; font-weight:600;">Do you want to update the record before exiting?</p>
+    }
+    else
+    {
+        <p style="font-size:1.20em; font-weight:600;">Do you want to save the record before exiting?</p>
+
+    }
+
+</div>
 
             
 			 <div class="demo">
