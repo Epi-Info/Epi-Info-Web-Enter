@@ -154,7 +154,7 @@ namespace Epi.Web.MVC.Controllers
                 EditForm = Session["EditForm"].ToString();
             }
 
-            if (!string.IsNullOrEmpty(EditForm))
+            if (!string.IsNullOrEmpty(EditForm) && string.IsNullOrEmpty(AddNewFormId))
             {
                 //if (!string.IsNullOrEmpty(surveyid))
                 //{

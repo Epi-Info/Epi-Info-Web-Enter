@@ -370,13 +370,12 @@ namespace Epi.Web.WCF.SurveyService
                                     // During the delete process below: 
                                     //  1) Delete the record from ResponseXml table.
                                     //  2) Update Record status in the SurveyResponse table which fires database triggers.
-
-                                   //    Implementation.DeleteResponseXml(ResponseXmlBO);
-                                    // Implementation.UpdateRecordStatus(ResponseXmlBO.ResponseId.ToString(), 2); 
+                                     Implementation.DeleteResponseXml(ResponseXmlBO);
+                                     Implementation.UpdateRecordStatus(ResponseXmlBO.ResponseId.ToString(), 2); 
 
                                     //This will handle the status update and the swapping of the Xml
                                     // but for this scenario I will keep the status unchanged 
-                                    Implementation.DeleteSurveyResponseInEditMode(SurveyResponseBO);
+                                   // Implementation.DeleteSurveyResponseInEditMode(SurveyResponseBO);
                                    
                                   
                                 }
@@ -388,7 +387,7 @@ namespace Epi.Web.WCF.SurveyService
                         }
                         else
                         {
-                        // load the version curently found the SurveyResponse tablt 
+                        // load the version curently found the SurveyResponse table 
                         
                            response.SurveyResponseList=  Mapper.ToDataTransferObject(SurveyResponseBOList);
                         }
