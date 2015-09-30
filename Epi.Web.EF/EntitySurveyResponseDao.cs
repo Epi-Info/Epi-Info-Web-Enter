@@ -873,7 +873,7 @@ namespace Epi.Web.EF
                                     SurveyResponseList = Context.SurveyResponses.ToList().Where(
                                 x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
                                                       && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                                      && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                      && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                        .OrderByDescending(x => x.DateUpdated);
                                     break;
                                 case 2:    // All users in host organization will have access to all data of all organizations  
@@ -886,7 +886,7 @@ namespace Epi.Web.EF
                                     SurveyResponseList = Context.SurveyResponses.ToList().Where(
                                      x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
                                                      && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                                     && x.StatusId > 1  )
+                                                     && x.StatusId >= 1  )
                                                       .OrderByDescending(x => x.DateUpdated);
                                     }
                                     else
@@ -895,7 +895,7 @@ namespace Epi.Web.EF
                                     SurveyResponseList = Context.SurveyResponses.ToList().Where(
                                        x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
                                                      && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                                     && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                     && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                       .OrderByDescending(x => x.DateUpdated);
                                     }
                                     break;
@@ -903,14 +903,14 @@ namespace Epi.Web.EF
                                     SurveyResponseList = Context.SurveyResponses.ToList().Where(
                                x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
                                                      && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                                     && x.StatusId > 1  )
+                                                     && x.StatusId >= 1  )
                                                       .OrderByDescending(x => x.DateUpdated);
                                     break;
                                 default :
                                     SurveyResponseList = Context.SurveyResponses.ToList().Where(
                                   x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
                                                         && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                                        && x.StatusId > 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                        && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                          .OrderByDescending(x => x.DateUpdated);
                                     break;
 
@@ -922,7 +922,7 @@ namespace Epi.Web.EF
                         else
                         {
                         
-                         SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
+                         SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated);
                         
                         
                         }
@@ -2334,13 +2334,13 @@ namespace Epi.Web.EF
                         {
                          SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id 
                              && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
-                             && x.StatusId > 1 
+                             && x.StatusId >=1 
                              && x.OrganizationId == Criteria.UserOrganizationId);
                         }
                         else
                         {
                         
-                          SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId > 1);
+                          SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId >= 1);
                         
                         
                         }
