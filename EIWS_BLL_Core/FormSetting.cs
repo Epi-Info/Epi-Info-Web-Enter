@@ -98,6 +98,7 @@ namespace Epi.Web.BLL
            // FormSettingBO.ColumnNameList = FormSettingDTO.ColumnNameList;
             FormSettingBO.AssignedUserList = FormSettingDTO.AssignedUserList;
             FormSettingBO.SelectedOrgList = FormSettingDTO.SelectedOrgList;
+            FormSettingBO.DeleteDraftData = FormSettingDTO.DeleteDraftData;
             //FormInfoBO FormInfoBO = new FormInfoBO();
             //FormInfoBO.FormId = FormSettingDTO.FormId;
             //FormInfoBO.IsDraftMode =IsDraftMode;
@@ -110,6 +111,10 @@ namespace Epi.Web.BLL
                 Dictionary<int, string> AssignedOrgAdminList = this.FormSettingDao.GetOrgAdmins(FormSettingDTO.SelectedOrgList);// about to share with
                 List<UserBO> CurrentOrgAdminList = this.FormSettingDao.GetOrgAdminsByFormId(FormSettingDTO.FormId);// shared with 
                 this.FormSettingDao.UpDateSettingsList(FormSettingBO, FormSettingDTO.FormId);
+
+                // Clear all Draft records
+                this.FormSettingDao.DeleteDraftRecords(FormSettingDTO.FormId);
+
 
                List<UserBO> AdminList =  this.UserDao.GetAdminsBySelectedOrgs(FormSettingBO, FormSettingDTO.FormId);
 

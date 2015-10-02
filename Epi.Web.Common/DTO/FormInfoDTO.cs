@@ -25,6 +25,7 @@ namespace Epi.Web.Enter.Common.DTO
         private bool _DataAccessRuleId;
         private bool _ewavLiteToggleSwitch;
         private int _OwnerId;
+        private bool _HasDraftModeData;
         [DataMember]
         public bool DataAccessRuleId
         {
@@ -123,6 +124,13 @@ namespace Epi.Web.Enter.Common.DTO
         {
             get { return _OwnerId; }
             set { _OwnerId = value; }
+        }
+
+        [DataMember]
+        public bool HasDraftModeData
+        {
+            get { return _HasDraftModeData; }
+            set { _HasDraftModeData = value; }
         }
     }
 }

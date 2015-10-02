@@ -23,7 +23,7 @@ namespace Epi.Web.Enter.Common.DTO
         private bool _IsShareable;
         private Dictionary<int, string> _AvailableOrgList;
         private Dictionary<int, string> _SelectedOrgList;
-        
+        private bool _DeleteDraftData;
         private bool _IsDisabled;
         private int _SelectedDataAccessRule ;
         private Dictionary<int, string> _DataAccessRuleIds;
@@ -92,6 +92,12 @@ namespace Epi.Web.Enter.Common.DTO
         {
             get { return _IsDisabled; }
             set { _IsDisabled = value; }
+        }
+    
+        public bool DeleteDraftData
+        {
+            get { return _DeleteDraftData; }
+            set { _DeleteDraftData = value; }
         }
         }
     }

@@ -22,7 +22,7 @@ namespace Epi.Web.MVC.Models
         private int _SelectedDataAccessRule;
         private Dictionary<int, string> _DataAccessRuleIds;
         private string _DataAccessRuleDescription;
-        
+        private bool _HasDraftModeData;
         public string  DataAccessRuleDescription
         {
             get { return _DataAccessRuleDescription; }
@@ -106,6 +106,13 @@ namespace Epi.Web.MVC.Models
         {
             get { return _SelectedOrgList; }
             set { _SelectedOrgList = value; }
+        }
+
+        
+        public bool HasDraftModeData
+        {
+            get { return _HasDraftModeData; }
+            set { _HasDraftModeData = value; }
         }
         }
     }
