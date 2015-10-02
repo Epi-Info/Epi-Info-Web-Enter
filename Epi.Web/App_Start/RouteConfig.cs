@@ -108,13 +108,31 @@ namespace Epi.Web.MVC
         "Home/Unlock", // URL with parameters
         new { controller = "Home", action = "Unlock", responseid = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
     ); // Param
-            
+              routes.MapRoute
+                  (
+                      null, // Route name
+                      "FormResponse/Unlock/{ResponseId}/{RecoverLastRecordVersion}", // URL with parameters
+                      new { controller = "FormResponse", action = "Unlock", ResponseId = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
+                  ); // Param
+              routes.MapRoute
+                (
+                    null, // Route name
+                    "FormResponse/CheckForConcurrency/{ResponseId}", // URL with parameters
+                    new { controller = "FormResponse", action = "CheckForConcurrency", ResponseId = UrlParameter.Optional }
+                ); 
             routes.MapRoute
             (
                 null, // Route name
                 "FormResponse/Delete/{ResponseId}", // URL with parameters
                 new { controller = "FormResponse", action = "Delete", ResponseId = UrlParameter.Optional }
             );
+            /*routes.MapRoute
+               (
+                   null, // Route name
+                   "FormResponse/CheckForConcurrency", // URL with parameters
+                   new { controller = "FormResponse", action = "CheckForConcurrency", ResponseId = UrlParameter.Optional }
+               ); // Param*/
+           
             routes.MapRoute
            (
                null, // Route name

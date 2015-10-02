@@ -167,6 +167,10 @@ namespace Epi.Web.MVC.Controllers
 
 				return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = this.Request.Form["Parent_Response_Id"].ToString(), PageNumber = PNumber });
 			}
+            if (string.IsNullOrEmpty(EditForm) && Session["EditForm"] != null)
+            {
+                EditForm = Session["EditForm"].ToString();
+            }
 			bool IsEditMode = false;
 			if (!string.IsNullOrEmpty(EditForm))
 			{
@@ -178,6 +182,10 @@ namespace Epi.Web.MVC.Controllers
 				Session["IsEditMode"] = true;
 				IsEditMode = true;
 				Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
+                if (Session["RecoverLastRecordVersion"] != null)
+                {
+                    surveyAnswerDTO.RecoverLastRecordVersion = bool.Parse(Session["RecoverLastRecordVersion"].ToString());
+                }
 				string ChildRecordId = GetChildRecordId(surveyAnswerDTO);
 				return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ChildRecordId, PageNumber = 1, Edit = "Edit" });
 			}
@@ -1004,6 +1012,40 @@ namespace Epi.Web.MVC.Controllers
 
 
 		}
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult CheckForConcurrency(String ResponseId)
+        {
+            int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(ResponseId, Session["RootFormId"].ToString());
+            surveyAnswerDTO.LoggedInUserId = UserId;
+            Session["EditForm"] = ResponseId;
+            //Session[""]
+            return Json(surveyAnswerDTO);
+
+        }
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Unlock(String ResponseId, bool RecoverLastRecordVersion)
+        {
+            try
+            {
+                SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
+                SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
+                SurveyAnswerRequest.Criteria.StatusId = 2;
+                SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(ResponseId);
+                Session["RecoverLastRecordVersion"] = RecoverLastRecordVersion;
+                //  _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
+            }
+            catch (Exception ex)
+            {
+
+                return Json("Erorr");
+
+            }
+            return Json("Success");
+
+        }
 
 	}
 }
