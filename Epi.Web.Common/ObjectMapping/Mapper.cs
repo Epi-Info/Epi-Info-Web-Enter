@@ -66,7 +66,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 OwnerLName = BO.OwnerLName, 
                 IsShareable = BO.IsShareable ,
                 IsShared = BO.IsShared,
-                EwavLiteToggleSwitch = BO.EwavLiteToggleSwitch
+                EwavLiteToggleSwitch = BO.EwavLiteToggleSwitch,
+                HasDraftModeData = BO.HasDraftModeData 
 
             };
             }
@@ -352,7 +353,8 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                IsDisabled = pBO.IsDisabled ,
                DataAccessRuleIds = pBO.DataAccessRuleIds,
                SelectedDataAccessRule= pBO.SelectedDataAccessRule,
-               DataAccessRuleDescription = pBO.DataAccessRuleDescription
+               DataAccessRuleDescription = pBO.DataAccessRuleDescription,
+               DeleteDraftData = pBO.DeleteDraftData
             };
             }
 

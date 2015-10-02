@@ -854,6 +854,7 @@ namespace Epi.Web.MVC.Controllers
                 Model.FormId = Item.FormId;
                 Model.DataAccessRuleIds = FormSettingResponse.FormSetting.DataAccessRuleIds;
                 Model.SelectedDataAccessRule = FormSettingResponse.FormSetting.SelectedDataAccessRule;
+                Model.HasDraftModeData = FormSettingResponse.FormInfo.HasDraftModeData;
                 var  DataAccessRuleDescription = "" ;
                 foreach (var item in FormSettingResponse.FormSetting.DataAccessRuleDescription)
                 {
@@ -951,14 +952,19 @@ namespace Epi.Web.MVC.Controllers
                 FormSetting.ColumnNameList = GetDictionary(this.Request.Form["SelectedColumns_" + Form.FormId]);
                 FormSetting.AssignedUserList = GetDictionary(this.Request.Form["SelectedUser"]);
                 FormSetting.SelectedOrgList = GetDictionary(this.Request.Form["SelectedOrg"]);
-                FormSetting.IsShareable = GetFormMode(this.Request.Form["IsShareable"]);
+                FormSetting.IsShareable = GetBoolValue(this.Request.Form["IsShareable"]);
                 FormSetting.SelectedDataAccessRule = int.Parse(this.Request.Form["DataAccessRuleId"]);
+                
                 if (!string.IsNullOrEmpty(this.Request.Form["SoftDeleteForm"]) && this.Request.Form["SoftDeleteForm"].ToUpper() == "ON")
                 {
                     FormSetting.IsDisabled = true;
                 }
+                if (!string.IsNullOrEmpty(this.Request.Form["RemoveTestData"]) && this.Request.Form["RemoveTestData"].ToUpper() == "ON")
+                {
+                    FormSetting.DeleteDraftData = true;
+                }
                 FormSettingReq.FormSetting.Add(FormSetting);
-                FormSettingReq.FormInfo.IsDraftMode = GetFormMode(this.Request.Form["Mode"]);
+                FormSettingReq.FormInfo.IsDraftMode = GetBoolValue(this.Request.Form["Mode"]);
                 
             }
             FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
@@ -1003,21 +1009,22 @@ namespace Epi.Web.MVC.Controllers
             }
             return Dictionary;
         }
-        public bool GetFormMode(string Mode)
+        public bool GetBoolValue(string value)
         {
-            bool IsDraftMode = false;
-            if (!string.IsNullOrEmpty(Mode))
+            bool BoolValue = false;
+            if (!string.IsNullOrEmpty(value))
             {
-                int FormMode = int.Parse(Mode);
-                if (FormMode == 1)
+                int val = int.Parse(value);
+                if (val == 1)
                 {
-                    IsDraftMode = true;
+                    BoolValue = true;
                 }
             }
 
 
-            return IsDraftMode;
+            return BoolValue;
         }
+       
 
         private List<FormsHierarchyDTO> GetFormsHierarchy(string formid)
         {

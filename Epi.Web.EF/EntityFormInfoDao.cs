@@ -322,5 +322,34 @@ namespace Epi.Web.EF
             return false;
 
         }
+
+
+        public bool HasDraftRecords(string FormId) {
+
+            try
+            {
+
+                Guid Id = new Guid(FormId);
+                bool _HasDraftRecords = false;
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                    var DraftRecords = Context.SurveyResponses.Where(x => x.SurveyId == Id && x.IsDraftMode == true);
+                   if (DraftRecords.Count() > 0)
+                {
+                    _HasDraftRecords = true;
+                
+                }
+                }
+                
+                return _HasDraftRecords;
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+           
+        }
+
         }
     }

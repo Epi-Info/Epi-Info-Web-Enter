@@ -41,7 +41,7 @@ namespace Epi.Web.BLL
 
                 result.EwavLiteToggleSwitch = toggleSwitchValue;
             }
-
+            result.HasDraftModeData = this.FormInfoDao.HasDraftRecords(FormId);
 
             return result;
         }
