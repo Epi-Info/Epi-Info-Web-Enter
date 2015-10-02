@@ -21,6 +21,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private int _SelectedDataAccessRule;
         private Dictionary<int, string> _DataAccessRuleIds;
         private Dictionary<string, string> _DataAccessRuleDescription;
+        private bool _DeleteDraftData;
           [DataMember]
         public Dictionary<string, string> DataAccessRuleDescription
         {
@@ -84,6 +85,11 @@ namespace Epi.Web.Enter.Common.BusinessObject
         {
             get { return _IsDisabled; }
             set { _IsDisabled = value; }
+        }
+        public bool DeleteDraftData
+        {
+            get { return _DeleteDraftData; }
+            set { _DeleteDraftData = value; }
         }
         }
     }

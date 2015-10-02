@@ -443,5 +443,23 @@ namespace Epi.Web.EF
             }
         
         }
+
+        public void DeleteDraftRecords(string FormId)
+        {
+            Guid Id = new Guid(FormId);
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                   Context.SurveyResponses.Where(x => x.SurveyId == Id && x.IsDraftMode == true).ToList().ForEach(Context.SurveyResponses.DeleteObject); 
+                   Context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+        }
     }
 }

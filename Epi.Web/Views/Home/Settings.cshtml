@@ -47,9 +47,21 @@
 
             }
         </select>
+        @if(Model[0].HasDraftModeData)
+        {
+            <br />
+            <br />
+            <div>
+
+                <p style="margin-bottom: 4px; font-weight: bold; font-size: 0.9em;">Delete Staging records:</p>
+                <input type="checkbox" id="RemoveTestData" name="RemoveTestData" onclick="RemoveTestData()"  title="Delete"/> 
+                <label for="RemoveTestData">Delete</label>
+          </div>
+        }
         <br />
         <br />
-        <input type="checkbox" id="SoftDeleteForm" name="SoftDeleteForm" onchange="DeleteFormWarning();" title="Disable Form"> Disable Form</input>
+         <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Disable Form:</p>
+        <input type="checkbox" id="SoftDeleteForm" name="SoftDeleteForm" onchange="DeleteFormWarning();" title="Disable Form"> Disable</input>
 
         <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select up to 5 columns to display when viewing the list of records.</p>
         @foreach (var FormModel in Model)
@@ -343,5 +355,10 @@
         {
         alert("By selecting this option the form will be no longer available in the system.");
         }
+    }
+
+    function RemoveTestData() {
+
+
     }
 	</script>

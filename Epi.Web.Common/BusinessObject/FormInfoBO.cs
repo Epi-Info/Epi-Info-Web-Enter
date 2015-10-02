@@ -24,6 +24,7 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private bool _IsShareable;
         private bool _IsShared;
         private int _DataAccesRuleId ;
+        private bool _HasDraftModeData;
         [DataMember]
         public int DataAccesRuleId
         {
@@ -131,6 +132,11 @@ namespace Epi.Web.Enter.Common.BusinessObject
             get { return _IsShared; }
             set { _IsShared = value; }
         }
-
+        
+        public bool HasDraftModeData
+        {
+            get { return _HasDraftModeData; }
+            set { _HasDraftModeData = value; }
+        }
     }
 }
