@@ -183,6 +183,7 @@ namespace Epi.Web.MVC.Controllers
                     AdminInfo.EmailAddress = OrgAdminInfoModel.AdminEmail;
                     AdminInfo.Role = 2;
                     AdminInfo.PhoneNumber = "123456789";
+                    AdminInfo.UGuid = Guid.NewGuid();
                     Request.OrganizationAdminInfo = AdminInfo;
 
                     Request.UserRole = UserHighestRole;
