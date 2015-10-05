@@ -494,6 +494,7 @@ namespace Epi.Web.EF
             UserInfo.PhoneNumber = User.PhoneNumber;
             UserInfo.ResetPassword = User.ResetPassword; //false;
             UserInfo.PasswordHash = User.PasswordHash; //"PassWord1";
+            UserInfo.UGuid = User.UGuid;
             UserOrganization.User = UserInfo;
 
 
