@@ -113,8 +113,10 @@ namespace Epi.Web.BLL
                 this.FormSettingDao.UpDateSettingsList(FormSettingBO, FormSettingDTO.FormId);
 
                 // Clear all Draft records
+                if (FormSettingDTO.DeleteDraftData)
+                { 
                 this.FormSettingDao.DeleteDraftRecords(FormSettingDTO.FormId);
-
+                }
 
                List<UserBO> AdminList =  this.UserDao.GetAdminsBySelectedOrgs(FormSettingBO, FormSettingDTO.FormId);
 
