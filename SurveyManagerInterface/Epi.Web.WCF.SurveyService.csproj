@@ -53,10 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EWEDataService.cs" />
-    <Compile Include="EWEManagerServiceV2.cs" />
     <Compile Include="Interfaces\IEWEDataService.cs" />
     <Compile Include="Interfaces\IEWEManagerService.cs" />
-    <Compile Include="Interfaces\IEWEManagerServiceV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EWEManagerService.cs" />
   </ItemGroup>

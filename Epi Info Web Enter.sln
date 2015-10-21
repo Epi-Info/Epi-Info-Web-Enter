@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2D97BB9D-8A5E-4D42-9B43-C8677E570D8F}"
 	ProjectSection(SolutionItems) = preProject
@@ -38,7 +38,79 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.Test", "Epi.Web.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.CheckCodeEngine", "Epi.Web.CheckCodeEngine\Epi.Web.CheckCodeEngine.csproj", "{6B084882-EF4F-4CF0-85B1-1E8C357AE822}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{13F1AF55-209F-4F63-A9EC-104FB688602D}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 12
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs04
+		SccProjectUniqueName0 = Epi.Web.Common\\Epi.Web.Common.csproj
+		SccProjectName0 = Epi.Web.Common
+		SccAuxPath0 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath0 = Epi.Web.Common
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = Epi.Web.Interfaces\\Epi.Web.Interfaces.csproj
+		SccProjectName1 = Epi.Web.Interfaces
+		SccAuxPath1 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath1 = Epi.Web.Interfaces
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = Epi.Web.EF\\Epi.Web.EF.csproj
+		SccProjectName2 = Epi.Web.EF
+		SccAuxPath2 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath2 = Epi.Web.EF
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = EIWS_BLL_Core\\Epi.Web.BLL.csproj
+		SccProjectName3 = EIWS_BLL_Core
+		SccAuxPath3 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath3 = EIWS_BLL_Core
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = SurveyManagerInterface\\Epi.Web.WCF.SurveyService.csproj
+		SccProjectName4 = SurveyManagerInterface
+		SccAuxPath4 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath4 = SurveyManagerInterface
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName5 = Epi.Web.WCF.PublishServer\\Epi.Web.WCF.SurveyHost.csproj
+		SccProjectName5 = Epi.Web.WCF.PublishServer
+		SccAuxPath5 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath5 = Epi.Web.WCF.PublishServer
+		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName6 = Epi.Web.SurveyManager_Test\\Epi.Web.SurveyManager.Client.csproj
+		SccProjectName6 = Epi.Web.SurveyManager_Test
+		SccAuxPath6 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath6 = Epi.Web.SurveyManager_Test
+		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName7 = Epi.Web.CheckCodeEngine\\Epi.Web.CheckCodeEngine.csproj
+		SccProjectName7 = Epi.Web.CheckCodeEngine
+		SccAuxPath7 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath7 = Epi.Web.CheckCodeEngine
+		SccProvider7 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName8 = Epi.DynamicForms.Core\\Epi.Web.DynamicForms.Core.csproj
+		SccProjectName8 = Epi.DynamicForms.Core
+		SccAuxPath8 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath8 = Epi.DynamicForms.Core
+		SccProvider8 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName9 = Epi.Web\\Epi.Web.csproj
+		SccProjectName9 = Epi.Web
+		SccAuxPath9 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath9 = Epi.Web
+		SccProvider9 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName10 = Epi.Web.SurveyManager.Test\\Epi.Web.BLL.Test.csproj
+		SccProjectName10 = Epi.Web.SurveyManager.Test
+		SccAuxPath10 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath10 = Epi.Web.SurveyManager.Test
+		SccProvider10 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName11 = Epi.Web.Test\\Epi.Web.Test.csproj
+		SccProjectName11 = Epi.Web.Test
+		SccAuxPath11 = https://tfs.codeplex.com/tfs/tfs04
+		SccLocalPath11 = Epi.Web.Test
+		SccProvider11 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
