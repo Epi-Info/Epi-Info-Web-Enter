@@ -312,8 +312,16 @@ namespace Epi.Web.EF
                     {
                         var Context = DataObjectFactory.CreateContext();
                         Guid Id = new Guid(pSurveyId);
+                        if (pStatusId == 3)
+                        {
                         responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id && x.StatusId != 4 && x.IsDraftMode == IsDraftMode).ToList();
-
+                        }
+                        else
+                        {
+                        
+                        responseList = Context.SurveyResponses.Where(x => x.SurveyId == Id  && x.IsDraftMode == IsDraftMode).ToList();
+                        
+                        }
 
 
                     }

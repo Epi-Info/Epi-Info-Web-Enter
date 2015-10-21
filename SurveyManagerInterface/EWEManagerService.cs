@@ -1098,5 +1098,66 @@ namespace Epi.Web.WCF.SurveyService
              
              
              }
+
+        public void UpdateRecordStatus(SurveyAnswerRequest pRequestMessage)
+        {
+            try
+            {
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = new EF.EntitySurveyResponseDao();
+                Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao);
+                foreach (SurveyAnswerDTO DTO in pRequestMessage.SurveyAnswerList)
+                {
+                    Implementation.UpdateRecordStatus(Mapper.ToBusinessObject(DTO));
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+
+            }
+        }
+
+
+        public FormSettingResponse GetSettings(FormSettingRequest pRequest)
+        {
+            FormSettingResponse Response = new FormSettingResponse();
+            try
+            {
+                Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Enter.Interfaces.DataInterface.IFormSettingDao IFormSettingDao = entityDaoFactory.FormSettingDao;
+
+                if (!string.IsNullOrEmpty(pRequest.FormInfo.FormId))
+                {
+                    Epi.Web.Enter.Interfaces.DataInterface.IFormInfoDao FormInfoDao = entityDaoFactory.FormInfoDao;
+
+                    Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
+                    Epi.Web.BLL.FormInfo FormInfoImplementation = new Epi.Web.BLL.FormInfo(FormInfoDao);
+                    Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao, IUserDao, FormInfoDao);
+                    FormInfoBO FormInfoBO = FormInfoImplementation.GetFormInfoByFormId(pRequest.FormInfo.FormId, pRequest.GetXml, pRequest.FormInfo.UserId);
+                    Response.FormInfo = Mapper.ToFormInfoDTO(FormInfoBO);
+                    Response.FormSetting = Mapper.ToDataTransferObject(SettingsImplementation.GetFormSettings(pRequest.FormInfo.FormId.ToString(), FormInfoBO.Xml));
+                }
+                else
+                {
+                    Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao);
+                    Response.FormSetting = Mapper.ToDataTransferObject(SettingsImplementation.GetFormSettings());
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+
+
+            }
+
+            return Response;
+
+
+        }
     }
 }
