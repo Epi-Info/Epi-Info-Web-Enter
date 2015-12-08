@@ -1,6 +1,64 @@
 ﻿@{
     ViewBag.Title = "View.Mobile";
 }
+<script>
+
+    $(document).ready(function () {
+
+
+        $(".spinner").hide();
+
+        $("#send").click(function () {
+           // alert(1);
+            var emailAddress = $("#Email").val();
+
+            EmailSubject = "Test Email";
+
+            //url to post for email to be sent
+            var postUrl = '@Url.Action("Notify","EIWST")';
+            if (ValidateEmail(emailAddress)) {
+
+                    //Call notify function to send notification
+                SendEmail(emailAddress,  postUrl,  EmailSubject);
+
+            }
+            else {
+                // $('#email').after('<span class="error">Enter a valid email address.</span>');
+                alert('Enter a valid email address!');
+            }
+        });
+    });
+    function SendEmail(emailAddress, postUrl, emailSubject) {
+        //   alert(postUrl);
+        $("#send").attr('disabled', 'disabled');
+        $(".spinner").show();
+        var user =
+        {
+            'emailAddress': emailAddress,
+            'EmailSubject': emailSubject,
+            __RequestVerificationToken: $("input[name=__RequestVerificationToken]").val()
+        };
+
+        $.post(
+                postUrl,
+                user,
+                function (data) {
+                    if (data === true) {
+                        alert('An email has been sent.');
+                        $(".spinner").hide();
+                        $("#send").removeAttr('disabled');
+                    }
+                    else {
+                        alert('Failed to send email.' + '\n' + data);
+                        $(".spinner").hide();
+                        $("#send").removeAttr('disabled');
+                    }
+                },
+                'json'
+            );
+    }
+</script>
+
 @if (Model.IsManagerServiceTest)
     {
       <div id="header"><h1>Manager Service Test Results</h1></div>
@@ -61,8 +119,8 @@ else
                 &nbsp;
             <label id="EFTest" >@Model.EFTestStatus</label>
         </div> <br />
-        <div>
-            <label style="font-weight:normal !important;">Data Service Test: </label>
+        @*<div>
+            <label style="font-weight:normal !important;">Manager Service Test: </label>
               @if (@Model.STestStatus == "Success")
                 {
                   <img src="../../Content/images/button_check.png"  alt="" style="width:20px; vertical-align:text-top;"/>
@@ -84,7 +142,23 @@ else
              <p>@TempData["exc"]</p>
              <p>@TempData["exc1"]</p>
              <p>@TempData["exc2"]</p>
+        </div>*@
+        <div style="width:800px  ">
+
+            <label style="font-weight:normal !important;">Email Test: </label>
+            <input type="email" id="Email" name="Email" width="200" />
+
+            <input type="button" id="send" value="Send" name="send" />
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+
+            </div>
+
         </div>
+
+       
     </div>
 
 </div>

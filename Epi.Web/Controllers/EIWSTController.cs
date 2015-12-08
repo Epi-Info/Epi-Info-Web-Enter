@@ -152,7 +152,37 @@ namespace Epi.Web.MVC.Controllers
           
 
             }
+       // [AcceptVerbs(HttpVerbs.Post)]
+        //[ValidateAntiForgeryToken]
+        [HttpPost]
+        public JsonResult Notify(string emailAddress, string emailSubject)
+        {
+            string  message = "";
+            try
+            {
+                Epi.Web.Enter.Common.Email.Email EmailObj = new Epi.Web.Enter.Common.Email.Email();
+                EmailObj.Body = "Test email From EWE System.";
+                EmailObj.From = ConfigurationManager.AppSettings["EMAIL_FROM"].ToString();
+                EmailObj.Subject = emailSubject;
 
+                List<string> tempList = new List<string>();
+                tempList.Add(emailAddress);
+                EmailObj.To = tempList;
+                  message = Epi.Web.Enter.Common.Email.EmailHandler.SendNotification(EmailObj);
+                  if (message.Contains("Success"))
+                {
+                    return Json(true);
+                }
+                else
+                {
+                    return Json(message);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(message);
+            }
+        }
     }
      
 }
