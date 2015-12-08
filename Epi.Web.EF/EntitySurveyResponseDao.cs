@@ -1166,9 +1166,18 @@ namespace Epi.Web.EF
             SqlConnection EI7Connection = new SqlConnection(EI7Connectionstring);
 
             EI7Connection.Open();
+            SqlCommand EI7Command;
+            try
+            {
+                  EI7Command = new SqlCommand(" SELECT *  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" + EweDS.Tables[0].Rows[0][1] + "'", EI7Connection);
+            }
+            catch (Exception ex)
+            {
 
-            SqlCommand EI7Command = new SqlCommand(" SELECT *  FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '" + EweDS.Tables[0].Rows[0][1] + "'", EI7Connection);
-            object eI7CommandExecuteScalar;
+                throw ex;
+            }
+
+           object eI7CommandExecuteScalar;
             try
             {
                 eI7CommandExecuteScalar = EI7Command.ExecuteScalar();
@@ -1177,7 +1186,7 @@ namespace Epi.Web.EF
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
             if (EweDS == null || EweDS.Tables.Count == 0 || EweDS.Tables[0].Rows.Count == 0
@@ -1277,7 +1286,12 @@ namespace Epi.Web.EF
 
                                     // get All the users of Host organization
                                     var Context = DataObjectFactory.CreateContext();
-                                    var Users = Context.UserOrganizations.Where(x => x.OrganizationID == UserOrgId && x.Active == true).ToList();
+                                    
+                                    Guid FormGuid = new Guid(FormId);
+                                    var HostOrg = Context.SurveyMetaDatas.Where(x => x.SurveyId == FormGuid).SingleOrDefault().OrganizationId;
+
+                                    var Users = Context.UserOrganizations.Where(x => x.OrganizationID == HostOrg && x.Active == true).ToList();
+
                                     int Count = Users.Where(x => x.UserID ==  UserId).Count();
                                     if ( Count > 0  )
                                     {
@@ -2308,7 +2322,7 @@ namespace Epi.Web.EF
 
                 SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
 
-                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true, -1, -1, false, "", -1, Criteria.IsShareable, Criteria.UserOrganizationId, DataAccessRuleId);
+                string EI7Query = BuildEI7Query(Criteria.SurveyId, Criteria.SortOrder, Criteria.Sortfield, EI7ConnectionString, Criteria.SearchCriteria, true, -1, -1, false, "", Criteria.UserId, Criteria.IsShareable, Criteria.UserOrganizationId, DataAccessRuleId);
 
                 SqlCommand EI7Command = new SqlCommand(EI7Query, EI7Connection);
                 EI7Command.CommandType = CommandType.Text;
