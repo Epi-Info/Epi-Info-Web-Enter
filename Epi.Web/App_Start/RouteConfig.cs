@@ -183,7 +183,13 @@ namespace Epi.Web.MVC
                           "FormResponse/{formid}", // URL with parameters
                           new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional }
                       ); // Parameter defaults
-            
+
+            routes.MapRoute
+           (
+             null,                                              // Route name
+             "EIWST/Notify/{id}",                           // URL with parameters
+             new { controller = "EIWST", action = "Notify", id = "" }
+             );  // Parameter defaults
             routes.MapRoute
          (
              null, // Route name
