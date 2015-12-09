@@ -120,29 +120,25 @@ else
             <label id="EFTest" >@Model.EFTestStatus</label>
         </div> <br />
         @*<div>
-            <label style="font-weight:normal !important;">Manager Service Test: </label>
-              @if (@Model.STestStatus == "Success")
-                {
-                  <img src="../../Content/images/button_check.png"  alt="" style="width:20px; vertical-align:text-top;"/>
-                }
-               @if (@Model.STestStatus == "Error")
-                {
-                  <img src="../../Content/images/error1.png"  alt="" style="width:20px; vertical-align:text-top;"/>
-                } 
-               
-                  @if (@Model.STestStatus == "Incomplete")
-                {
-                  <img src="../../Content/images/sign_warning.png"  alt="" style="width:20px; vertical-align:text-top;"/>
-                } 
-                &nbsp;
-            <label id="DataServiceTest" >@Model.STestStatus</label>
-        </div> 
+        <label style="font-weight:normal !important;">Manager Service Test: </label>
+          @if (@Model.STestStatus == "Success")
+            {
+              <img src="../../Content/images/button_check.png"  alt="" style="width:20px; vertical-align:text-top;"/>
+            }
+           @if (@Model.STestStatus == "Error")
+            {
+              <img src="../../Content/images/error1.png"  alt="" style="width:20px; vertical-align:text-top;"/>
+            }
+
+              @if (@Model.STestStatus == "Incomplete")
+            {
+              <img src="../../Content/images/sign_warning.png"  alt="" style="width:20px; vertical-align:text-top;"/>
+            }
+            &nbsp;
+        <label id="DataServiceTest" >@Model.STestStatus</label>
+    </div>
+        *@
       
-        <div style="font-weight:normal !important;">
-             <p>@TempData["exc"]</p>
-             <p>@TempData["exc1"]</p>
-             <p>@TempData["exc2"]</p>
-        </div>*@
         <div style="width:800px  ">
 
             <label style="font-weight:normal !important;">Email Test: </label>
@@ -157,7 +153,11 @@ else
             </div>
 
         </div>
-
+        <div style="font-weight:normal !important;">
+            <p>@TempData["exc"]</p>
+            <p>@TempData["exc1"]</p>
+            <p>@TempData["exc2"]</p>
+        </div>
        
     </div>
 
