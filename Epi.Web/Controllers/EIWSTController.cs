@@ -122,31 +122,31 @@ namespace Epi.Web.MVC.Controllers
                 }
 
 
-            try
-                {
+            //try
+            //    {
 
              
              
-                SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(surveyid);
-                if (surveyInfoModel != null)
-                    {
-                    TestModel.STestStatus = TestResultEnum.Success.ToString();
-                    }
-                   return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, TestModel);
-                 }
-            catch (Exception ex)  
-                {
+            //    SurveyInfoModel surveyInfoModel = _isurveyFacade.GetSurveyInfoModel(surveyid);
+            //    if (surveyInfoModel != null)
+            //        {
+            //        TestModel.STestStatus = TestResultEnum.Success.ToString();
+            //        }
+            //       return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, TestModel);
+            //     }
+            //catch (Exception ex)  
+            //    {
                 
                
-                TestModel.STestStatus = TestResultEnum.Error.ToString();
+            //    TestModel.STestStatus = TestResultEnum.Error.ToString();
                 
-                TempData["exc"] = ex.Message.ToString();
-                TempData["exc1"] = ex.Source.ToString();
-                TempData["exc2"] = ex.StackTrace.ToString();
+            //    TempData["exc"] = ex.Message.ToString();
+            //    TempData["exc1"] = ex.Source.ToString();
+            //    TempData["exc2"] = ex.StackTrace.ToString();
 
-                return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, TestModel);
-                }
-
+            //    return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, TestModel);
+            //    }
+            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, TestModel);
 
 
           
