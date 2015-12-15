@@ -21,5 +21,7 @@ namespace Epi.Web.Enter.Common.Message
        public int CurrentUser;
        [DataMember]
        public int CurrentOrg;
+       [DataMember]
+       public bool IsAuthenticated;
         }
     }

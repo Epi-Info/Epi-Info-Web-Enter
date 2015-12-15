@@ -1056,7 +1056,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1075,7 +1075,7 @@ namespace Epi.Web.EF
                 {
                     OnCanvasIDChanging(value);
                     ReportPropertyChanging("CanvasID");
-                    _CanvasID = StructuralObject.SetValidValue(value);
+                    _CanvasID = StructuralObject.SetValidValue(value, "CanvasID");
                     ReportPropertyChanged("CanvasID");
                     OnCanvasIDChanged();
                 }
@@ -1100,7 +1100,7 @@ namespace Epi.Web.EF
             {
                 OnCanvasGUIDChanging(value);
                 ReportPropertyChanging("CanvasGUID");
-                _CanvasGUID = StructuralObject.SetValidValue(value);
+                _CanvasGUID = StructuralObject.SetValidValue(value, "CanvasGUID");
                 ReportPropertyChanged("CanvasGUID");
                 OnCanvasGUIDChanged();
             }
@@ -1124,7 +1124,7 @@ namespace Epi.Web.EF
             {
                 OnCanvasNameChanging(value);
                 ReportPropertyChanging("CanvasName");
-                _CanvasName = StructuralObject.SetValidValue(value, false);
+                _CanvasName = StructuralObject.SetValidValue(value, false, "CanvasName");
                 ReportPropertyChanged("CanvasName");
                 OnCanvasNameChanged();
             }
@@ -1148,7 +1148,7 @@ namespace Epi.Web.EF
             {
                 OnUserIDChanging(value);
                 ReportPropertyChanging("UserID");
-                _UserID = StructuralObject.SetValidValue(value);
+                _UserID = StructuralObject.SetValidValue(value, "UserID");
                 ReportPropertyChanged("UserID");
                 OnUserIDChanged();
             }
@@ -1172,7 +1172,7 @@ namespace Epi.Web.EF
             {
                 OnCanvasDescriptionChanging(value);
                 ReportPropertyChanging("CanvasDescription");
-                _CanvasDescription = StructuralObject.SetValidValue(value, true);
+                _CanvasDescription = StructuralObject.SetValidValue(value, true, "CanvasDescription");
                 ReportPropertyChanged("CanvasDescription");
                 OnCanvasDescriptionChanged();
             }
@@ -1196,7 +1196,7 @@ namespace Epi.Web.EF
             {
                 OnCreatedDateChanging(value);
                 ReportPropertyChanging("CreatedDate");
-                _CreatedDate = StructuralObject.SetValidValue(value);
+                _CreatedDate = StructuralObject.SetValidValue(value, "CreatedDate");
                 ReportPropertyChanged("CreatedDate");
                 OnCreatedDateChanged();
             }
@@ -1220,7 +1220,7 @@ namespace Epi.Web.EF
             {
                 OnModifiedDateChanging(value);
                 ReportPropertyChanging("ModifiedDate");
-                _ModifiedDate = StructuralObject.SetValidValue(value);
+                _ModifiedDate = StructuralObject.SetValidValue(value, "ModifiedDate");
                 ReportPropertyChanged("ModifiedDate");
                 OnModifiedDateChanged();
             }
@@ -1244,7 +1244,7 @@ namespace Epi.Web.EF
             {
                 OnDatasourceIDChanging(value);
                 ReportPropertyChanging("DatasourceID");
-                _DatasourceID = StructuralObject.SetValidValue(value);
+                _DatasourceID = StructuralObject.SetValidValue(value, "DatasourceID");
                 ReportPropertyChanged("DatasourceID");
                 OnDatasourceIDChanged();
             }
@@ -1268,7 +1268,7 @@ namespace Epi.Web.EF
             {
                 OnCanvasContentChanging(value);
                 ReportPropertyChanging("CanvasContent");
-                _CanvasContent = StructuralObject.SetValidValue(value, false);
+                _CanvasContent = StructuralObject.SetValidValue(value, false, "CanvasContent");
                 ReportPropertyChanged("CanvasContent");
                 OnCanvasContentChanged();
             }
@@ -1279,7 +1279,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -1385,7 +1384,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1404,7 +1403,7 @@ namespace Epi.Web.EF
                 {
                     OnRuleIdChanging(value);
                     ReportPropertyChanging("RuleId");
-                    _RuleId = StructuralObject.SetValidValue(value);
+                    _RuleId = StructuralObject.SetValidValue(value, "RuleId");
                     ReportPropertyChanged("RuleId");
                     OnRuleIdChanged();
                 }
@@ -1429,7 +1428,7 @@ namespace Epi.Web.EF
             {
                 OnRuleNameChanging(value);
                 ReportPropertyChanging("RuleName");
-                _RuleName = StructuralObject.SetValidValue(value, true);
+                _RuleName = StructuralObject.SetValidValue(value, true, "RuleName");
                 ReportPropertyChanged("RuleName");
                 OnRuleNameChanged();
             }
@@ -1453,7 +1452,7 @@ namespace Epi.Web.EF
             {
                 OnRuleDescriptionChanging(value);
                 ReportPropertyChanging("RuleDescription");
-                _RuleDescription = StructuralObject.SetValidValue(value, true);
+                _RuleDescription = StructuralObject.SetValidValue(value, true, "RuleDescription");
                 ReportPropertyChanged("RuleDescription");
                 OnRuleDescriptionChanged();
             }
@@ -1464,7 +1463,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -1526,7 +1524,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1545,7 +1543,7 @@ namespace Epi.Web.EF
                 {
                     OnDatasourceIDChanging(value);
                     ReportPropertyChanging("DatasourceID");
-                    _DatasourceID = StructuralObject.SetValidValue(value);
+                    _DatasourceID = StructuralObject.SetValidValue(value, "DatasourceID");
                     ReportPropertyChanged("DatasourceID");
                     OnDatasourceIDChanged();
                 }
@@ -1570,7 +1568,7 @@ namespace Epi.Web.EF
             {
                 OnDatasourceNameChanging(value);
                 ReportPropertyChanging("DatasourceName");
-                _DatasourceName = StructuralObject.SetValidValue(value, true);
+                _DatasourceName = StructuralObject.SetValidValue(value, true, "DatasourceName");
                 ReportPropertyChanged("DatasourceName");
                 OnDatasourceNameChanged();
             }
@@ -1594,7 +1592,7 @@ namespace Epi.Web.EF
             {
                 OnOrganizationIDChanging(value);
                 ReportPropertyChanging("OrganizationID");
-                _OrganizationID = StructuralObject.SetValidValue(value);
+                _OrganizationID = StructuralObject.SetValidValue(value, "OrganizationID");
                 ReportPropertyChanged("OrganizationID");
                 OnOrganizationIDChanged();
             }
@@ -1618,7 +1616,7 @@ namespace Epi.Web.EF
             {
                 OnDatasourceServerNameChanging(value);
                 ReportPropertyChanging("DatasourceServerName");
-                _DatasourceServerName = StructuralObject.SetValidValue(value, true);
+                _DatasourceServerName = StructuralObject.SetValidValue(value, true, "DatasourceServerName");
                 ReportPropertyChanged("DatasourceServerName");
                 OnDatasourceServerNameChanged();
             }
@@ -1642,7 +1640,7 @@ namespace Epi.Web.EF
             {
                 OnDatabaseTypeChanging(value);
                 ReportPropertyChanging("DatabaseType");
-                _DatabaseType = StructuralObject.SetValidValue(value, false);
+                _DatabaseType = StructuralObject.SetValidValue(value, false, "DatabaseType");
                 ReportPropertyChanged("DatabaseType");
                 OnDatabaseTypeChanged();
             }
@@ -1666,7 +1664,7 @@ namespace Epi.Web.EF
             {
                 OnInitialCatalogChanging(value);
                 ReportPropertyChanging("InitialCatalog");
-                _InitialCatalog = StructuralObject.SetValidValue(value, true);
+                _InitialCatalog = StructuralObject.SetValidValue(value, true, "InitialCatalog");
                 ReportPropertyChanged("InitialCatalog");
                 OnInitialCatalogChanged();
             }
@@ -1690,7 +1688,7 @@ namespace Epi.Web.EF
             {
                 OnPersistSecurityInfoChanging(value);
                 ReportPropertyChanging("PersistSecurityInfo");
-                _PersistSecurityInfo = StructuralObject.SetValidValue(value, true);
+                _PersistSecurityInfo = StructuralObject.SetValidValue(value, true, "PersistSecurityInfo");
                 ReportPropertyChanged("PersistSecurityInfo");
                 OnPersistSecurityInfoChanged();
             }
@@ -1714,7 +1712,7 @@ namespace Epi.Web.EF
             {
                 OnEIWSDatasourceChanging(value);
                 ReportPropertyChanging("EIWSDatasource");
-                _EIWSDatasource = StructuralObject.SetValidValue(value);
+                _EIWSDatasource = StructuralObject.SetValidValue(value, "EIWSDatasource");
                 ReportPropertyChanged("EIWSDatasource");
                 OnEIWSDatasourceChanged();
             }
@@ -1738,7 +1736,7 @@ namespace Epi.Web.EF
             {
                 OnEIWSSurveyIdChanging(value);
                 ReportPropertyChanging("EIWSSurveyId");
-                _EIWSSurveyId = StructuralObject.SetValidValue(value);
+                _EIWSSurveyId = StructuralObject.SetValidValue(value, "EIWSSurveyId");
                 ReportPropertyChanged("EIWSSurveyId");
                 OnEIWSSurveyIdChanged();
             }
@@ -1762,7 +1760,7 @@ namespace Epi.Web.EF
             {
                 OnDatabaseUserIDChanging(value);
                 ReportPropertyChanging("DatabaseUserID");
-                _DatabaseUserID = StructuralObject.SetValidValue(value, true);
+                _DatabaseUserID = StructuralObject.SetValidValue(value, true, "DatabaseUserID");
                 ReportPropertyChanged("DatabaseUserID");
                 OnDatabaseUserIDChanged();
             }
@@ -1786,7 +1784,7 @@ namespace Epi.Web.EF
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, true);
+                _Password = StructuralObject.SetValidValue(value, true, "Password");
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -1810,7 +1808,7 @@ namespace Epi.Web.EF
             {
                 OnDatabaseObjectChanging(value);
                 ReportPropertyChanging("DatabaseObject");
-                _DatabaseObject = StructuralObject.SetValidValue(value, false);
+                _DatabaseObject = StructuralObject.SetValidValue(value, false, "DatabaseObject");
                 ReportPropertyChanged("DatabaseObject");
                 OnDatabaseObjectChanged();
             }
@@ -1834,7 +1832,7 @@ namespace Epi.Web.EF
             {
                 OnSQLQueryChanging(value);
                 ReportPropertyChanging("SQLQuery");
-                _SQLQuery = StructuralObject.SetValidValue(value);
+                _SQLQuery = StructuralObject.SetValidValue(value, "SQLQuery");
                 ReportPropertyChanged("SQLQuery");
                 OnSQLQueryChanged();
             }
@@ -1858,7 +1856,7 @@ namespace Epi.Web.EF
             {
                 OnSQLTextChanging(value);
                 ReportPropertyChanging("SQLText");
-                _SQLText = StructuralObject.SetValidValue(value, true);
+                _SQLText = StructuralObject.SetValidValue(value, true, "SQLText");
                 ReportPropertyChanged("SQLText");
                 OnSQLTextChanged();
             }
@@ -1882,7 +1880,7 @@ namespace Epi.Web.EF
             {
                 OnactiveChanging(value);
                 ReportPropertyChanging("active");
-                _active = StructuralObject.SetValidValue(value);
+                _active = StructuralObject.SetValidValue(value, "active");
                 ReportPropertyChanged("active");
                 OnactiveChanged();
             }
@@ -1906,7 +1904,7 @@ namespace Epi.Web.EF
             {
                 OnportnumberChanging(value);
                 ReportPropertyChanging("portnumber");
-                _portnumber = StructuralObject.SetValidValue(value, true);
+                _portnumber = StructuralObject.SetValidValue(value, true, "portnumber");
                 ReportPropertyChanged("portnumber");
                 OnportnumberChanged();
             }
@@ -1917,7 +1915,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2031,7 +2028,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2050,7 +2047,7 @@ namespace Epi.Web.EF
                 {
                     OnDatasourceIDChanging(value);
                     ReportPropertyChanging("DatasourceID");
-                    _DatasourceID = StructuralObject.SetValidValue(value);
+                    _DatasourceID = StructuralObject.SetValidValue(value, "DatasourceID");
                     ReportPropertyChanged("DatasourceID");
                     OnDatasourceIDChanged();
                 }
@@ -2075,7 +2072,7 @@ namespace Epi.Web.EF
             {
                 OnDatasourceServerNameChanging(value);
                 ReportPropertyChanging("DatasourceServerName");
-                _DatasourceServerName = StructuralObject.SetValidValue(value, true);
+                _DatasourceServerName = StructuralObject.SetValidValue(value, true, "DatasourceServerName");
                 ReportPropertyChanged("DatasourceServerName");
                 OnDatasourceServerNameChanged();
             }
@@ -2099,7 +2096,7 @@ namespace Epi.Web.EF
             {
                 OnDatabaseTypeChanging(value);
                 ReportPropertyChanging("DatabaseType");
-                _DatabaseType = StructuralObject.SetValidValue(value, false);
+                _DatabaseType = StructuralObject.SetValidValue(value, false, "DatabaseType");
                 ReportPropertyChanged("DatabaseType");
                 OnDatabaseTypeChanged();
             }
@@ -2123,7 +2120,7 @@ namespace Epi.Web.EF
             {
                 OnInitialCatalogChanging(value);
                 ReportPropertyChanging("InitialCatalog");
-                _InitialCatalog = StructuralObject.SetValidValue(value, true);
+                _InitialCatalog = StructuralObject.SetValidValue(value, true, "InitialCatalog");
                 ReportPropertyChanged("InitialCatalog");
                 OnInitialCatalogChanged();
             }
@@ -2147,7 +2144,7 @@ namespace Epi.Web.EF
             {
                 OnPersistSecurityInfoChanging(value);
                 ReportPropertyChanging("PersistSecurityInfo");
-                _PersistSecurityInfo = StructuralObject.SetValidValue(value, true);
+                _PersistSecurityInfo = StructuralObject.SetValidValue(value, true, "PersistSecurityInfo");
                 ReportPropertyChanged("PersistSecurityInfo");
                 OnPersistSecurityInfoChanged();
             }
@@ -2171,7 +2168,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyIdChanging(value);
                 ReportPropertyChanging("SurveyId");
-                _SurveyId = StructuralObject.SetValidValue(value);
+                _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                 ReportPropertyChanged("SurveyId");
                 OnSurveyIdChanged();
             }
@@ -2195,7 +2192,7 @@ namespace Epi.Web.EF
             {
                 OnDatabaseUserIDChanging(value);
                 ReportPropertyChanging("DatabaseUserID");
-                _DatabaseUserID = StructuralObject.SetValidValue(value, true);
+                _DatabaseUserID = StructuralObject.SetValidValue(value, true, "DatabaseUserID");
                 ReportPropertyChanged("DatabaseUserID");
                 OnDatabaseUserIDChanged();
             }
@@ -2219,7 +2216,7 @@ namespace Epi.Web.EF
             {
                 OnPasswordChanging(value);
                 ReportPropertyChanging("Password");
-                _Password = StructuralObject.SetValidValue(value, true);
+                _Password = StructuralObject.SetValidValue(value, true, "Password");
                 ReportPropertyChanged("Password");
                 OnPasswordChanged();
             }
@@ -2230,7 +2227,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -2298,7 +2294,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2317,7 +2313,7 @@ namespace Epi.Web.EF
                 {
                     OnErrorDateChanging(value);
                     ReportPropertyChanging("ErrorDate");
-                    _ErrorDate = StructuralObject.SetValidValue(value);
+                    _ErrorDate = StructuralObject.SetValidValue(value, "ErrorDate");
                     ReportPropertyChanged("ErrorDate");
                     OnErrorDateChanged();
                 }
@@ -2342,7 +2338,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyIdChanging(value);
                 ReportPropertyChanging("SurveyId");
-                _SurveyId = StructuralObject.SetValidValue(value);
+                _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                 ReportPropertyChanged("SurveyId");
                 OnSurveyIdChanged();
             }
@@ -2366,7 +2362,7 @@ namespace Epi.Web.EF
             {
                 OnResponseIdChanging(value);
                 ReportPropertyChanging("ResponseId");
-                _ResponseId = StructuralObject.SetValidValue(value);
+                _ResponseId = StructuralObject.SetValidValue(value, "ResponseId");
                 ReportPropertyChanged("ResponseId");
                 OnResponseIdChanged();
             }
@@ -2390,7 +2386,7 @@ namespace Epi.Web.EF
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
+                _Comment = StructuralObject.SetValidValue(value, true, "Comment");
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -2414,7 +2410,7 @@ namespace Epi.Web.EF
             {
                 OnERROR_NUMBERChanging(value);
                 ReportPropertyChanging("ERROR_NUMBER");
-                _ERROR_NUMBER = StructuralObject.SetValidValue(value);
+                _ERROR_NUMBER = StructuralObject.SetValidValue(value, "ERROR_NUMBER");
                 ReportPropertyChanged("ERROR_NUMBER");
                 OnERROR_NUMBERChanged();
             }
@@ -2438,7 +2434,7 @@ namespace Epi.Web.EF
             {
                 OnERROR_MESSAGEChanging(value);
                 ReportPropertyChanging("ERROR_MESSAGE");
-                _ERROR_MESSAGE = StructuralObject.SetValidValue(value, true);
+                _ERROR_MESSAGE = StructuralObject.SetValidValue(value, true, "ERROR_MESSAGE");
                 ReportPropertyChanged("ERROR_MESSAGE");
                 OnERROR_MESSAGEChanged();
             }
@@ -2462,7 +2458,7 @@ namespace Epi.Web.EF
             {
                 OnERROR_SEVERITYChanging(value);
                 ReportPropertyChanging("ERROR_SEVERITY");
-                _ERROR_SEVERITY = StructuralObject.SetValidValue(value);
+                _ERROR_SEVERITY = StructuralObject.SetValidValue(value, "ERROR_SEVERITY");
                 ReportPropertyChanged("ERROR_SEVERITY");
                 OnERROR_SEVERITYChanged();
             }
@@ -2486,7 +2482,7 @@ namespace Epi.Web.EF
             {
                 OnERROR_STATEChanging(value);
                 ReportPropertyChanging("ERROR_STATE");
-                _ERROR_STATE = StructuralObject.SetValidValue(value);
+                _ERROR_STATE = StructuralObject.SetValidValue(value, "ERROR_STATE");
                 ReportPropertyChanged("ERROR_STATE");
                 OnERROR_STATEChanged();
             }
@@ -2510,7 +2506,7 @@ namespace Epi.Web.EF
             {
                 OnERROR_PROCEDUREChanging(value);
                 ReportPropertyChanging("ERROR_PROCEDURE");
-                _ERROR_PROCEDURE = StructuralObject.SetValidValue(value, true);
+                _ERROR_PROCEDURE = StructuralObject.SetValidValue(value, true, "ERROR_PROCEDURE");
                 ReportPropertyChanged("ERROR_PROCEDURE");
                 OnERROR_PROCEDUREChanged();
             }
@@ -2534,7 +2530,7 @@ namespace Epi.Web.EF
             {
                 OnERROR_LINEChanging(value);
                 ReportPropertyChanging("ERROR_LINE");
-                _ERROR_LINE = StructuralObject.SetValidValue(value);
+                _ERROR_LINE = StructuralObject.SetValidValue(value, "ERROR_LINE");
                 ReportPropertyChanged("ERROR_LINE");
                 OnERROR_LINEChanged();
             }
@@ -2558,7 +2554,7 @@ namespace Epi.Web.EF
             {
                 OnErrorTextChanging(value);
                 ReportPropertyChanging("ErrorText");
-                _ErrorText = StructuralObject.SetValidValue(value, true);
+                _ErrorText = StructuralObject.SetValidValue(value, true, "ErrorText");
                 ReportPropertyChanged("ErrorText");
                 OnErrorTextChanged();
             }
@@ -2582,7 +2578,7 @@ namespace Epi.Web.EF
             {
                 OnErrorText2Changing(value);
                 ReportPropertyChanging("ErrorText2");
-                _ErrorText2 = StructuralObject.SetValidValue(value, true);
+                _ErrorText2 = StructuralObject.SetValidValue(value, true, "ErrorText2");
                 ReportPropertyChanged("ErrorText2");
                 OnErrorText2Changed();
             }
@@ -2593,7 +2589,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2619,7 +2614,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2638,7 +2633,7 @@ namespace Epi.Web.EF
                 {
                     OnErrorDateChanging(value);
                     ReportPropertyChanging("ErrorDate");
-                    _ErrorDate = StructuralObject.SetValidValue(value);
+                    _ErrorDate = StructuralObject.SetValidValue(value, "ErrorDate");
                     ReportPropertyChanged("ErrorDate");
                     OnErrorDateChanged();
                 }
@@ -2663,7 +2658,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyIdChanging(value);
                 ReportPropertyChanging("SurveyId");
-                _SurveyId = StructuralObject.SetValidValue(value);
+                _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                 ReportPropertyChanged("SurveyId");
                 OnSurveyIdChanged();
             }
@@ -2687,7 +2682,7 @@ namespace Epi.Web.EF
             {
                 OnResponseIdChanging(value);
                 ReportPropertyChanging("ResponseId");
-                _ResponseId = StructuralObject.SetValidValue(value);
+                _ResponseId = StructuralObject.SetValidValue(value, "ResponseId");
                 ReportPropertyChanged("ResponseId");
                 OnResponseIdChanged();
             }
@@ -2711,7 +2706,7 @@ namespace Epi.Web.EF
             {
                 OnCommentChanging(value);
                 ReportPropertyChanging("Comment");
-                _Comment = StructuralObject.SetValidValue(value, true);
+                _Comment = StructuralObject.SetValidValue(value, true, "Comment");
                 ReportPropertyChanged("Comment");
                 OnCommentChanged();
             }
@@ -2735,7 +2730,7 @@ namespace Epi.Web.EF
             {
                 OnErrorTextChanging(value);
                 ReportPropertyChanging("ErrorText");
-                _ErrorText = StructuralObject.SetValidValue(value, true);
+                _ErrorText = StructuralObject.SetValidValue(value, true, "ErrorText");
                 ReportPropertyChanged("ErrorText");
                 OnErrorTextChanged();
             }
@@ -2759,7 +2754,7 @@ namespace Epi.Web.EF
             {
                 OnErrorText2Changing(value);
                 ReportPropertyChanging("ErrorText2");
-                _ErrorText2 = StructuralObject.SetValidValue(value, true);
+                _ErrorText2 = StructuralObject.SetValidValue(value, true, "ErrorText2");
                 ReportPropertyChanged("ErrorText2");
                 OnErrorText2Changed();
             }
@@ -2770,7 +2765,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -2818,7 +2812,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2837,7 +2831,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyIdChanging(value);
                     ReportPropertyChanging("SurveyId");
-                    _SurveyId = StructuralObject.SetValidValue(value);
+                    _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                     ReportPropertyChanged("SurveyId");
                     OnSurveyIdChanged();
                 }
@@ -2864,7 +2858,7 @@ namespace Epi.Web.EF
                 {
                     OnOwnerIdChanging(value);
                     ReportPropertyChanging("OwnerId");
-                    _OwnerId = StructuralObject.SetValidValue(value);
+                    _OwnerId = StructuralObject.SetValidValue(value, "OwnerId");
                     ReportPropertyChanged("OwnerId");
                     OnOwnerIdChanged();
                 }
@@ -2889,7 +2883,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyNumberChanging(value);
                 ReportPropertyChanging("SurveyNumber");
-                _SurveyNumber = StructuralObject.SetValidValue(value, true);
+                _SurveyNumber = StructuralObject.SetValidValue(value, true, "SurveyNumber");
                 ReportPropertyChanged("SurveyNumber");
                 OnSurveyNumberChanged();
             }
@@ -2915,7 +2909,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyTypeIdChanging(value);
                     ReportPropertyChanging("SurveyTypeId");
-                    _SurveyTypeId = StructuralObject.SetValidValue(value);
+                    _SurveyTypeId = StructuralObject.SetValidValue(value, "SurveyTypeId");
                     ReportPropertyChanged("SurveyTypeId");
                     OnSurveyTypeIdChanged();
                 }
@@ -2942,7 +2936,7 @@ namespace Epi.Web.EF
                 {
                     OnClosingDateChanging(value);
                     ReportPropertyChanging("ClosingDate");
-                    _ClosingDate = StructuralObject.SetValidValue(value);
+                    _ClosingDate = StructuralObject.SetValidValue(value, "ClosingDate");
                     ReportPropertyChanged("ClosingDate");
                     OnClosingDateChanged();
                 }
@@ -2969,7 +2963,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyNameChanging(value);
                     ReportPropertyChanging("SurveyName");
-                    _SurveyName = StructuralObject.SetValidValue(value, false);
+                    _SurveyName = StructuralObject.SetValidValue(value, false, "SurveyName");
                     ReportPropertyChanged("SurveyName");
                     OnSurveyNameChanged();
                 }
@@ -2994,7 +2988,7 @@ namespace Epi.Web.EF
             {
                 OnOrganizationNameChanging(value);
                 ReportPropertyChanging("OrganizationName");
-                _OrganizationName = StructuralObject.SetValidValue(value, true);
+                _OrganizationName = StructuralObject.SetValidValue(value, true, "OrganizationName");
                 ReportPropertyChanged("OrganizationName");
                 OnOrganizationNameChanged();
             }
@@ -3018,7 +3012,7 @@ namespace Epi.Web.EF
             {
                 OnDepartmentNameChanging(value);
                 ReportPropertyChanging("DepartmentName");
-                _DepartmentName = StructuralObject.SetValidValue(value, true);
+                _DepartmentName = StructuralObject.SetValidValue(value, true, "DepartmentName");
                 ReportPropertyChanged("DepartmentName");
                 OnDepartmentNameChanged();
             }
@@ -3042,7 +3036,7 @@ namespace Epi.Web.EF
             {
                 OnIntroductionTextChanging(value);
                 ReportPropertyChanging("IntroductionText");
-                _IntroductionText = StructuralObject.SetValidValue(value, true);
+                _IntroductionText = StructuralObject.SetValidValue(value, true, "IntroductionText");
                 ReportPropertyChanged("IntroductionText");
                 OnIntroductionTextChanged();
             }
@@ -3068,7 +3062,7 @@ namespace Epi.Web.EF
                 {
                     OnTemplateXMLChanging(value);
                     ReportPropertyChanging("TemplateXML");
-                    _TemplateXML = StructuralObject.SetValidValue(value, false);
+                    _TemplateXML = StructuralObject.SetValidValue(value, false, "TemplateXML");
                     ReportPropertyChanged("TemplateXML");
                     OnTemplateXMLChanged();
                 }
@@ -3093,7 +3087,7 @@ namespace Epi.Web.EF
             {
                 OnExitTextChanging(value);
                 ReportPropertyChanging("ExitText");
-                _ExitText = StructuralObject.SetValidValue(value, true);
+                _ExitText = StructuralObject.SetValidValue(value, true, "ExitText");
                 ReportPropertyChanged("ExitText");
                 OnExitTextChanged();
             }
@@ -3119,7 +3113,7 @@ namespace Epi.Web.EF
                 {
                     OnUserPublishKeyChanging(value);
                     ReportPropertyChanging("UserPublishKey");
-                    _UserPublishKey = StructuralObject.SetValidValue(value);
+                    _UserPublishKey = StructuralObject.SetValidValue(value, "UserPublishKey");
                     ReportPropertyChanged("UserPublishKey");
                     OnUserPublishKeyChanged();
                 }
@@ -3146,7 +3140,7 @@ namespace Epi.Web.EF
                 {
                     OnTemplateXMLSizeChanging(value);
                     ReportPropertyChanging("TemplateXMLSize");
-                    _TemplateXMLSize = StructuralObject.SetValidValue(value);
+                    _TemplateXMLSize = StructuralObject.SetValidValue(value, "TemplateXMLSize");
                     ReportPropertyChanged("TemplateXMLSize");
                     OnTemplateXMLSizeChanged();
                 }
@@ -3173,7 +3167,7 @@ namespace Epi.Web.EF
                 {
                     OnDateCreatedChanging(value);
                     ReportPropertyChanging("DateCreated");
-                    _DateCreated = StructuralObject.SetValidValue(value);
+                    _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                     ReportPropertyChanged("DateCreated");
                     OnDateCreatedChanged();
                 }
@@ -3200,7 +3194,7 @@ namespace Epi.Web.EF
                 {
                     OnOrganizationIdChanging(value);
                     ReportPropertyChanging("OrganizationId");
-                    _OrganizationId = StructuralObject.SetValidValue(value);
+                    _OrganizationId = StructuralObject.SetValidValue(value, "OrganizationId");
                     ReportPropertyChanged("OrganizationId");
                     OnOrganizationIdChanged();
                 }
@@ -3227,7 +3221,7 @@ namespace Epi.Web.EF
                 {
                     OnIsDraftModeChanging(value);
                     ReportPropertyChanging("IsDraftMode");
-                    _IsDraftMode = StructuralObject.SetValidValue(value);
+                    _IsDraftMode = StructuralObject.SetValidValue(value, "IsDraftMode");
                     ReportPropertyChanged("IsDraftMode");
                     OnIsDraftModeChanged();
                 }
@@ -3254,7 +3248,7 @@ namespace Epi.Web.EF
                 {
                     OnStartDateChanging(value);
                     ReportPropertyChanging("StartDate");
-                    _StartDate = StructuralObject.SetValidValue(value);
+                    _StartDate = StructuralObject.SetValidValue(value, "StartDate");
                     ReportPropertyChanged("StartDate");
                     OnStartDateChanged();
                 }
@@ -3279,7 +3273,7 @@ namespace Epi.Web.EF
             {
                 OnParentIdChanging(value);
                 ReportPropertyChanging("ParentId");
-                _ParentId = StructuralObject.SetValidValue(value);
+                _ParentId = StructuralObject.SetValidValue(value, "ParentId");
                 ReportPropertyChanged("ParentId");
                 OnParentIdChanged();
             }
@@ -3303,7 +3297,7 @@ namespace Epi.Web.EF
             {
                 OnViewIdChanging(value);
                 ReportPropertyChanging("ViewId");
-                _ViewId = StructuralObject.SetValidValue(value);
+                _ViewId = StructuralObject.SetValidValue(value, "ViewId");
                 ReportPropertyChanged("ViewId");
                 OnViewIdChanged();
             }
@@ -3327,7 +3321,7 @@ namespace Epi.Web.EF
             {
                 OnIsSQLProjectChanging(value);
                 ReportPropertyChanging("IsSQLProject");
-                _IsSQLProject = StructuralObject.SetValidValue(value);
+                _IsSQLProject = StructuralObject.SetValidValue(value, "IsSQLProject");
                 ReportPropertyChanged("IsSQLProject");
                 OnIsSQLProjectChanged();
             }
@@ -3338,7 +3332,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3366,7 +3359,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3385,7 +3378,7 @@ namespace Epi.Web.EF
                 {
                     OnRecordSourceIdChanging(value);
                     ReportPropertyChanging("RecordSourceId");
-                    _RecordSourceId = StructuralObject.SetValidValue(value);
+                    _RecordSourceId = StructuralObject.SetValidValue(value, "RecordSourceId");
                     ReportPropertyChanged("RecordSourceId");
                     OnRecordSourceIdChanged();
                 }
@@ -3410,7 +3403,7 @@ namespace Epi.Web.EF
             {
                 OnRecordSourceChanging(value);
                 ReportPropertyChanging("RecordSource");
-                _RecordSource = StructuralObject.SetValidValue(value, false);
+                _RecordSource = StructuralObject.SetValidValue(value, false, "RecordSource");
                 ReportPropertyChanged("RecordSource");
                 OnRecordSourceChanged();
             }
@@ -3434,7 +3427,7 @@ namespace Epi.Web.EF
             {
                 OnRecordSourceDescriptionChanging(value);
                 ReportPropertyChanging("RecordSourceDescription");
-                _RecordSourceDescription = StructuralObject.SetValidValue(value, true);
+                _RecordSourceDescription = StructuralObject.SetValidValue(value, true, "RecordSourceDescription");
                 ReportPropertyChanged("RecordSourceDescription");
                 OnRecordSourceDescriptionChanged();
             }
@@ -3445,7 +3438,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -3473,7 +3465,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3492,7 +3484,7 @@ namespace Epi.Web.EF
                 {
                     OnStatusIdChanging(value);
                     ReportPropertyChanging("StatusId");
-                    _StatusId = StructuralObject.SetValidValue(value);
+                    _StatusId = StructuralObject.SetValidValue(value, "StatusId");
                     ReportPropertyChanged("StatusId");
                     OnStatusIdChanged();
                 }
@@ -3517,7 +3509,7 @@ namespace Epi.Web.EF
             {
                 OnStatusChanging(value);
                 ReportPropertyChanging("Status");
-                _Status = StructuralObject.SetValidValue(value, false);
+                _Status = StructuralObject.SetValidValue(value, false, "Status");
                 ReportPropertyChanged("Status");
                 OnStatusChanged();
             }
@@ -3528,7 +3520,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3580,7 +3571,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3599,7 +3590,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyTypeIdChanging(value);
                     ReportPropertyChanging("SurveyTypeId");
-                    _SurveyTypeId = StructuralObject.SetValidValue(value);
+                    _SurveyTypeId = StructuralObject.SetValidValue(value, "SurveyTypeId");
                     ReportPropertyChanged("SurveyTypeId");
                     OnSurveyTypeIdChanged();
                 }
@@ -3624,7 +3615,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyTypeChanging(value);
                 ReportPropertyChanging("SurveyType");
-                _SurveyType = StructuralObject.SetValidValue(value, true);
+                _SurveyType = StructuralObject.SetValidValue(value, true, "SurveyType");
                 ReportPropertyChanged("SurveyType");
                 OnSurveyTypeChanged();
             }
@@ -3635,7 +3626,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3695,7 +3685,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3714,7 +3704,7 @@ namespace Epi.Web.EF
                 {
                     OnOrganizationIdChanging(value);
                     ReportPropertyChanging("OrganizationId");
-                    _OrganizationId = StructuralObject.SetValidValue(value);
+                    _OrganizationId = StructuralObject.SetValidValue(value, "OrganizationId");
                     ReportPropertyChanged("OrganizationId");
                     OnOrganizationIdChanged();
                 }
@@ -3739,7 +3729,7 @@ namespace Epi.Web.EF
             {
                 OnOrganizationKeyChanging(value);
                 ReportPropertyChanging("OrganizationKey");
-                _OrganizationKey = StructuralObject.SetValidValue(value, false);
+                _OrganizationKey = StructuralObject.SetValidValue(value, false, "OrganizationKey");
                 ReportPropertyChanged("OrganizationKey");
                 OnOrganizationKeyChanged();
             }
@@ -3763,7 +3753,7 @@ namespace Epi.Web.EF
             {
                 OnOrganization1Changing(value);
                 ReportPropertyChanging("Organization1");
-                _Organization1 = StructuralObject.SetValidValue(value, false);
+                _Organization1 = StructuralObject.SetValidValue(value, false, "Organization1");
                 ReportPropertyChanged("Organization1");
                 OnOrganization1Changed();
             }
@@ -3787,7 +3777,7 @@ namespace Epi.Web.EF
             {
                 OnIsEnabledChanging(value);
                 ReportPropertyChanging("IsEnabled");
-                _IsEnabled = StructuralObject.SetValidValue(value);
+                _IsEnabled = StructuralObject.SetValidValue(value, "IsEnabled");
                 ReportPropertyChanged("IsEnabled");
                 OnIsEnabledChanged();
             }
@@ -3811,7 +3801,7 @@ namespace Epi.Web.EF
             {
                 OnIsHostOrganizationChanging(value);
                 ReportPropertyChanging("IsHostOrganization");
-                _IsHostOrganization = StructuralObject.SetValidValue(value);
+                _IsHostOrganization = StructuralObject.SetValidValue(value, "IsHostOrganization");
                 ReportPropertyChanged("IsHostOrganization");
                 OnIsHostOrganizationChanged();
             }
@@ -3822,7 +3812,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -3944,7 +3933,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3963,7 +3952,7 @@ namespace Epi.Web.EF
                 {
                     OnFormIdChanging(value);
                     ReportPropertyChanging("FormId");
-                    _FormId = StructuralObject.SetValidValue(value);
+                    _FormId = StructuralObject.SetValidValue(value, "FormId");
                     ReportPropertyChanged("FormId");
                     OnFormIdChanged();
                 }
@@ -3990,7 +3979,7 @@ namespace Epi.Web.EF
                 {
                     OnColumnNameChanging(value);
                     ReportPropertyChanging("ColumnName");
-                    _ColumnName = StructuralObject.SetValidValue(value, false);
+                    _ColumnName = StructuralObject.SetValidValue(value, false, "ColumnName");
                     ReportPropertyChanged("ColumnName");
                     OnColumnNameChanged();
                 }
@@ -4015,7 +4004,7 @@ namespace Epi.Web.EF
             {
                 OnSortOrderChanging(value);
                 ReportPropertyChanging("SortOrder");
-                _SortOrder = StructuralObject.SetValidValue(value);
+                _SortOrder = StructuralObject.SetValidValue(value, "SortOrder");
                 ReportPropertyChanged("SortOrder");
                 OnSortOrderChanged();
             }
@@ -4026,7 +4015,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4096,7 +4084,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4115,7 +4103,7 @@ namespace Epi.Web.EF
                 {
                     OnResponseIdChanging(value);
                     ReportPropertyChanging("ResponseId");
-                    _ResponseId = StructuralObject.SetValidValue(value);
+                    _ResponseId = StructuralObject.SetValidValue(value, "ResponseId");
                     ReportPropertyChanged("ResponseId");
                     OnResponseIdChanged();
                 }
@@ -4140,7 +4128,7 @@ namespace Epi.Web.EF
             {
                 OnXmlChanging(value);
                 ReportPropertyChanging("Xml");
-                _Xml = StructuralObject.SetValidValue(value, false);
+                _Xml = StructuralObject.SetValidValue(value, false, "Xml");
                 ReportPropertyChanged("Xml");
                 OnXmlChanged();
             }
@@ -4164,7 +4152,7 @@ namespace Epi.Web.EF
             {
                 OnUserIdChanging(value);
                 ReportPropertyChanging("UserId");
-                _UserId = StructuralObject.SetValidValue(value);
+                _UserId = StructuralObject.SetValidValue(value, "UserId");
                 ReportPropertyChanged("UserId");
                 OnUserIdChanged();
             }
@@ -4188,7 +4176,7 @@ namespace Epi.Web.EF
             {
                 OnIsNewRecordChanging(value);
                 ReportPropertyChanging("IsNewRecord");
-                _IsNewRecord = StructuralObject.SetValidValue(value);
+                _IsNewRecord = StructuralObject.SetValidValue(value, "IsNewRecord");
                 ReportPropertyChanged("IsNewRecord");
                 OnIsNewRecordChanged();
             }
@@ -4199,7 +4187,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -4229,7 +4216,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4248,7 +4235,7 @@ namespace Epi.Web.EF
                 {
                     OnRoleIDChanging(value);
                     ReportPropertyChanging("RoleID");
-                    _RoleID = StructuralObject.SetValidValue(value);
+                    _RoleID = StructuralObject.SetValidValue(value, "RoleID");
                     ReportPropertyChanged("RoleID");
                     OnRoleIDChanged();
                 }
@@ -4273,7 +4260,7 @@ namespace Epi.Web.EF
             {
                 OnRoleValueChanging(value);
                 ReportPropertyChanging("RoleValue");
-                _RoleValue = StructuralObject.SetValidValue(value);
+                _RoleValue = StructuralObject.SetValidValue(value, "RoleValue");
                 ReportPropertyChanged("RoleValue");
                 OnRoleValueChanged();
             }
@@ -4297,7 +4284,7 @@ namespace Epi.Web.EF
             {
                 OnRoleDescriptionChanging(value);
                 ReportPropertyChanging("RoleDescription");
-                _RoleDescription = StructuralObject.SetValidValue(value, false);
+                _RoleDescription = StructuralObject.SetValidValue(value, false, "RoleDescription");
                 ReportPropertyChanged("RoleDescription");
                 OnRoleDescriptionChanged();
             }
@@ -4308,7 +4295,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4362,7 +4348,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4381,7 +4367,7 @@ namespace Epi.Web.EF
                 {
                     OnCanvasIDChanging(value);
                     ReportPropertyChanging("CanvasID");
-                    _CanvasID = StructuralObject.SetValidValue(value);
+                    _CanvasID = StructuralObject.SetValidValue(value, "CanvasID");
                     ReportPropertyChanged("CanvasID");
                     OnCanvasIDChanged();
                 }
@@ -4408,7 +4394,7 @@ namespace Epi.Web.EF
                 {
                     OnUserIDChanging(value);
                     ReportPropertyChanging("UserID");
-                    _UserID = StructuralObject.SetValidValue(value);
+                    _UserID = StructuralObject.SetValidValue(value, "UserID");
                     ReportPropertyChanged("UserID");
                     OnUserIDChanged();
                 }
@@ -4420,7 +4406,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -4510,7 +4495,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4529,7 +4514,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyIdChanging(value);
                     ReportPropertyChanging("SurveyId");
-                    _SurveyId = StructuralObject.SetValidValue(value);
+                    _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                     ReportPropertyChanged("SurveyId");
                     OnSurveyIdChanged();
                 }
@@ -4554,7 +4539,7 @@ namespace Epi.Web.EF
             {
                 OnOwnerIdChanging(value);
                 ReportPropertyChanging("OwnerId");
-                _OwnerId = StructuralObject.SetValidValue(value);
+                _OwnerId = StructuralObject.SetValidValue(value, "OwnerId");
                 ReportPropertyChanged("OwnerId");
                 OnOwnerIdChanged();
             }
@@ -4578,7 +4563,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyNumberChanging(value);
                 ReportPropertyChanging("SurveyNumber");
-                _SurveyNumber = StructuralObject.SetValidValue(value, true);
+                _SurveyNumber = StructuralObject.SetValidValue(value, true, "SurveyNumber");
                 ReportPropertyChanged("SurveyNumber");
                 OnSurveyNumberChanged();
             }
@@ -4602,7 +4587,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyTypeIdChanging(value);
                 ReportPropertyChanging("SurveyTypeId");
-                _SurveyTypeId = StructuralObject.SetValidValue(value);
+                _SurveyTypeId = StructuralObject.SetValidValue(value, "SurveyTypeId");
                 ReportPropertyChanged("SurveyTypeId");
                 OnSurveyTypeIdChanged();
             }
@@ -4626,7 +4611,7 @@ namespace Epi.Web.EF
             {
                 OnClosingDateChanging(value);
                 ReportPropertyChanging("ClosingDate");
-                _ClosingDate = StructuralObject.SetValidValue(value);
+                _ClosingDate = StructuralObject.SetValidValue(value, "ClosingDate");
                 ReportPropertyChanged("ClosingDate");
                 OnClosingDateChanged();
             }
@@ -4650,7 +4635,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyNameChanging(value);
                 ReportPropertyChanging("SurveyName");
-                _SurveyName = StructuralObject.SetValidValue(value, false);
+                _SurveyName = StructuralObject.SetValidValue(value, false, "SurveyName");
                 ReportPropertyChanged("SurveyName");
                 OnSurveyNameChanged();
             }
@@ -4674,7 +4659,7 @@ namespace Epi.Web.EF
             {
                 OnOrganizationNameChanging(value);
                 ReportPropertyChanging("OrganizationName");
-                _OrganizationName = StructuralObject.SetValidValue(value, true);
+                _OrganizationName = StructuralObject.SetValidValue(value, true, "OrganizationName");
                 ReportPropertyChanged("OrganizationName");
                 OnOrganizationNameChanged();
             }
@@ -4698,7 +4683,7 @@ namespace Epi.Web.EF
             {
                 OnDepartmentNameChanging(value);
                 ReportPropertyChanging("DepartmentName");
-                _DepartmentName = StructuralObject.SetValidValue(value, true);
+                _DepartmentName = StructuralObject.SetValidValue(value, true, "DepartmentName");
                 ReportPropertyChanged("DepartmentName");
                 OnDepartmentNameChanged();
             }
@@ -4722,7 +4707,7 @@ namespace Epi.Web.EF
             {
                 OnIntroductionTextChanging(value);
                 ReportPropertyChanging("IntroductionText");
-                _IntroductionText = StructuralObject.SetValidValue(value, true);
+                _IntroductionText = StructuralObject.SetValidValue(value, true, "IntroductionText");
                 ReportPropertyChanged("IntroductionText");
                 OnIntroductionTextChanged();
             }
@@ -4746,7 +4731,7 @@ namespace Epi.Web.EF
             {
                 OnTemplateXMLChanging(value);
                 ReportPropertyChanging("TemplateXML");
-                _TemplateXML = StructuralObject.SetValidValue(value, false);
+                _TemplateXML = StructuralObject.SetValidValue(value, false, "TemplateXML");
                 ReportPropertyChanged("TemplateXML");
                 OnTemplateXMLChanged();
             }
@@ -4770,7 +4755,7 @@ namespace Epi.Web.EF
             {
                 OnExitTextChanging(value);
                 ReportPropertyChanging("ExitText");
-                _ExitText = StructuralObject.SetValidValue(value, true);
+                _ExitText = StructuralObject.SetValidValue(value, true, "ExitText");
                 ReportPropertyChanged("ExitText");
                 OnExitTextChanged();
             }
@@ -4794,7 +4779,7 @@ namespace Epi.Web.EF
             {
                 OnUserPublishKeyChanging(value);
                 ReportPropertyChanging("UserPublishKey");
-                _UserPublishKey = StructuralObject.SetValidValue(value);
+                _UserPublishKey = StructuralObject.SetValidValue(value, "UserPublishKey");
                 ReportPropertyChanged("UserPublishKey");
                 OnUserPublishKeyChanged();
             }
@@ -4818,7 +4803,7 @@ namespace Epi.Web.EF
             {
                 OnTemplateXMLSizeChanging(value);
                 ReportPropertyChanging("TemplateXMLSize");
-                _TemplateXMLSize = StructuralObject.SetValidValue(value);
+                _TemplateXMLSize = StructuralObject.SetValidValue(value, "TemplateXMLSize");
                 ReportPropertyChanged("TemplateXMLSize");
                 OnTemplateXMLSizeChanged();
             }
@@ -4842,7 +4827,7 @@ namespace Epi.Web.EF
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -4866,7 +4851,7 @@ namespace Epi.Web.EF
             {
                 OnOrganizationIdChanging(value);
                 ReportPropertyChanging("OrganizationId");
-                _OrganizationId = StructuralObject.SetValidValue(value);
+                _OrganizationId = StructuralObject.SetValidValue(value, "OrganizationId");
                 ReportPropertyChanged("OrganizationId");
                 OnOrganizationIdChanged();
             }
@@ -4890,7 +4875,7 @@ namespace Epi.Web.EF
             {
                 OnIsDraftModeChanging(value);
                 ReportPropertyChanging("IsDraftMode");
-                _IsDraftMode = StructuralObject.SetValidValue(value);
+                _IsDraftMode = StructuralObject.SetValidValue(value, "IsDraftMode");
                 ReportPropertyChanged("IsDraftMode");
                 OnIsDraftModeChanged();
             }
@@ -4914,7 +4899,7 @@ namespace Epi.Web.EF
             {
                 OnStartDateChanging(value);
                 ReportPropertyChanging("StartDate");
-                _StartDate = StructuralObject.SetValidValue(value);
+                _StartDate = StructuralObject.SetValidValue(value, "StartDate");
                 ReportPropertyChanged("StartDate");
                 OnStartDateChanged();
             }
@@ -4938,7 +4923,7 @@ namespace Epi.Web.EF
             {
                 OnParentIdChanging(value);
                 ReportPropertyChanging("ParentId");
-                _ParentId = StructuralObject.SetValidValue(value);
+                _ParentId = StructuralObject.SetValidValue(value, "ParentId");
                 ReportPropertyChanged("ParentId");
                 OnParentIdChanged();
             }
@@ -4962,7 +4947,7 @@ namespace Epi.Web.EF
             {
                 OnViewIdChanging(value);
                 ReportPropertyChanging("ViewId");
-                _ViewId = StructuralObject.SetValidValue(value);
+                _ViewId = StructuralObject.SetValidValue(value, "ViewId");
                 ReportPropertyChanged("ViewId");
                 OnViewIdChanged();
             }
@@ -4986,7 +4971,7 @@ namespace Epi.Web.EF
             {
                 OnIsSQLProjectChanging(value);
                 ReportPropertyChanging("IsSQLProject");
-                _IsSQLProject = StructuralObject.SetValidValue(value);
+                _IsSQLProject = StructuralObject.SetValidValue(value, "IsSQLProject");
                 ReportPropertyChanged("IsSQLProject");
                 OnIsSQLProjectChanged();
             }
@@ -5010,7 +4995,7 @@ namespace Epi.Web.EF
             {
                 OnIsShareableChanging(value);
                 ReportPropertyChanging("IsShareable");
-                _IsShareable = StructuralObject.SetValidValue(value);
+                _IsShareable = StructuralObject.SetValidValue(value, "IsShareable");
                 ReportPropertyChanged("IsShareable");
                 OnIsShareableChanged();
             }
@@ -5034,7 +5019,7 @@ namespace Epi.Web.EF
             {
                 OnDataAccessRuleIdChanging(value);
                 ReportPropertyChanging("DataAccessRuleId");
-                _DataAccessRuleId = StructuralObject.SetValidValue(value);
+                _DataAccessRuleId = StructuralObject.SetValidValue(value, "DataAccessRuleId");
                 ReportPropertyChanged("DataAccessRuleId");
                 OnDataAccessRuleIdChanged();
             }
@@ -5058,7 +5043,7 @@ namespace Epi.Web.EF
             {
                 OnShowAllRecordsChanging(value);
                 ReportPropertyChanging("ShowAllRecords");
-                _ShowAllRecords = StructuralObject.SetValidValue(value);
+                _ShowAllRecords = StructuralObject.SetValidValue(value, "ShowAllRecords");
                 ReportPropertyChanged("ShowAllRecords");
                 OnShowAllRecordsChanged();
             }
@@ -5069,7 +5054,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5373,7 +5357,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5392,7 +5376,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyIdChanging(value);
                     ReportPropertyChanging("SurveyId");
-                    _SurveyId = StructuralObject.SetValidValue(value);
+                    _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                     ReportPropertyChanged("SurveyId");
                     OnSurveyIdChanged();
                 }
@@ -5419,7 +5403,7 @@ namespace Epi.Web.EF
                 {
                     OnTableNameChanging(value);
                     ReportPropertyChanging("TableName");
-                    _TableName = StructuralObject.SetValidValue(value, false);
+                    _TableName = StructuralObject.SetValidValue(value, false, "TableName");
                     ReportPropertyChanged("TableName");
                     OnTableNameChanged();
                 }
@@ -5444,7 +5428,7 @@ namespace Epi.Web.EF
             {
                 OnPageIdChanging(value);
                 ReportPropertyChanging("PageId");
-                _PageId = StructuralObject.SetValidValue(value);
+                _PageId = StructuralObject.SetValidValue(value, "PageId");
                 ReportPropertyChanged("PageId");
                 OnPageIdChanged();
             }
@@ -5470,7 +5454,7 @@ namespace Epi.Web.EF
                 {
                     OnFieldNameChanging(value);
                     ReportPropertyChanging("FieldName");
-                    _FieldName = StructuralObject.SetValidValue(value, false);
+                    _FieldName = StructuralObject.SetValidValue(value, false, "FieldName");
                     ReportPropertyChanged("FieldName");
                     OnFieldNameChanged();
                 }
@@ -5497,7 +5481,7 @@ namespace Epi.Web.EF
                 {
                     OnFieldTypeIdChanging(value);
                     ReportPropertyChanging("FieldTypeId");
-                    _FieldTypeId = StructuralObject.SetValidValue(value);
+                    _FieldTypeId = StructuralObject.SetValidValue(value, "FieldTypeId");
                     ReportPropertyChanged("FieldTypeId");
                     OnFieldTypeIdChanged();
                 }
@@ -5522,7 +5506,7 @@ namespace Epi.Web.EF
             {
                 OnBaseTableNameChanging(value);
                 ReportPropertyChanging("BaseTableName");
-                _BaseTableName = StructuralObject.SetValidValue(value, true);
+                _BaseTableName = StructuralObject.SetValidValue(value, true, "BaseTableName");
                 ReportPropertyChanged("BaseTableName");
                 OnBaseTableNameChanged();
             }
@@ -5533,7 +5517,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -5603,7 +5586,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5622,7 +5605,7 @@ namespace Epi.Web.EF
                 {
                     OnSurveyIdChanging(value);
                     ReportPropertyChanging("SurveyId");
-                    _SurveyId = StructuralObject.SetValidValue(value);
+                    _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                     ReportPropertyChanged("SurveyId");
                     OnSurveyIdChanged();
                 }
@@ -5647,7 +5630,7 @@ namespace Epi.Web.EF
             {
                 OnViewTableNameChanging(value);
                 ReportPropertyChanging("ViewTableName");
-                _ViewTableName = StructuralObject.SetValidValue(value, false);
+                _ViewTableName = StructuralObject.SetValidValue(value, false, "ViewTableName");
                 ReportPropertyChanged("ViewTableName");
                 OnViewTableNameChanged();
             }
@@ -5658,7 +5641,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -5698,7 +5680,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -5717,7 +5699,7 @@ namespace Epi.Web.EF
                 {
                     OnResponseIdChanging(value);
                     ReportPropertyChanging("ResponseId");
-                    _ResponseId = StructuralObject.SetValidValue(value);
+                    _ResponseId = StructuralObject.SetValidValue(value, "ResponseId");
                     ReportPropertyChanged("ResponseId");
                     OnResponseIdChanged();
                 }
@@ -5742,7 +5724,7 @@ namespace Epi.Web.EF
             {
                 OnSurveyIdChanging(value);
                 ReportPropertyChanging("SurveyId");
-                _SurveyId = StructuralObject.SetValidValue(value);
+                _SurveyId = StructuralObject.SetValidValue(value, "SurveyId");
                 ReportPropertyChanged("SurveyId");
                 OnSurveyIdChanged();
             }
@@ -5766,7 +5748,7 @@ namespace Epi.Web.EF
             {
                 OnDateUpdatedChanging(value);
                 ReportPropertyChanging("DateUpdated");
-                _DateUpdated = StructuralObject.SetValidValue(value);
+                _DateUpdated = StructuralObject.SetValidValue(value, "DateUpdated");
                 ReportPropertyChanged("DateUpdated");
                 OnDateUpdatedChanged();
             }
@@ -5790,7 +5772,7 @@ namespace Epi.Web.EF
             {
                 OnDateCompletedChanging(value);
                 ReportPropertyChanging("DateCompleted");
-                _DateCompleted = StructuralObject.SetValidValue(value);
+                _DateCompleted = StructuralObject.SetValidValue(value, "DateCompleted");
                 ReportPropertyChanged("DateCompleted");
                 OnDateCompletedChanged();
             }
@@ -5814,7 +5796,7 @@ namespace Epi.Web.EF
             {
                 OnStatusIdChanging(value);
                 ReportPropertyChanging("StatusId");
-                _StatusId = StructuralObject.SetValidValue(value);
+                _StatusId = StructuralObject.SetValidValue(value, "StatusId");
                 ReportPropertyChanged("StatusId");
                 OnStatusIdChanged();
             }
@@ -5838,7 +5820,7 @@ namespace Epi.Web.EF
             {
                 OnResponseXMLChanging(value);
                 ReportPropertyChanging("ResponseXML");
-                _ResponseXML = StructuralObject.SetValidValue(value, false);
+                _ResponseXML = StructuralObject.SetValidValue(value, false, "ResponseXML");
                 ReportPropertyChanged("ResponseXML");
                 OnResponseXMLChanged();
             }
@@ -5862,7 +5844,7 @@ namespace Epi.Web.EF
             {
                 OnResponsePasscodeChanging(value);
                 ReportPropertyChanging("ResponsePasscode");
-                _ResponsePasscode = StructuralObject.SetValidValue(value, true);
+                _ResponsePasscode = StructuralObject.SetValidValue(value, true, "ResponsePasscode");
                 ReportPropertyChanged("ResponsePasscode");
                 OnResponsePasscodeChanged();
             }
@@ -5886,7 +5868,7 @@ namespace Epi.Web.EF
             {
                 OnResponseXMLSizeChanging(value);
                 ReportPropertyChanging("ResponseXMLSize");
-                _ResponseXMLSize = StructuralObject.SetValidValue(value);
+                _ResponseXMLSize = StructuralObject.SetValidValue(value, "ResponseXMLSize");
                 ReportPropertyChanged("ResponseXMLSize");
                 OnResponseXMLSizeChanged();
             }
@@ -5910,7 +5892,7 @@ namespace Epi.Web.EF
             {
                 OnDateCreatedChanging(value);
                 ReportPropertyChanging("DateCreated");
-                _DateCreated = StructuralObject.SetValidValue(value);
+                _DateCreated = StructuralObject.SetValidValue(value, "DateCreated");
                 ReportPropertyChanged("DateCreated");
                 OnDateCreatedChanged();
             }
@@ -5934,7 +5916,7 @@ namespace Epi.Web.EF
             {
                 OnIsDraftModeChanging(value);
                 ReportPropertyChanging("IsDraftMode");
-                _IsDraftMode = StructuralObject.SetValidValue(value);
+                _IsDraftMode = StructuralObject.SetValidValue(value, "IsDraftMode");
                 ReportPropertyChanged("IsDraftMode");
                 OnIsDraftModeChanged();
             }
@@ -5958,7 +5940,7 @@ namespace Epi.Web.EF
             {
                 OnIsLockedChanging(value);
                 ReportPropertyChanging("IsLocked");
-                _IsLocked = StructuralObject.SetValidValue(value);
+                _IsLocked = StructuralObject.SetValidValue(value, "IsLocked");
                 ReportPropertyChanged("IsLocked");
                 OnIsLockedChanged();
             }
@@ -5982,7 +5964,7 @@ namespace Epi.Web.EF
             {
                 OnParentRecordIdChanging(value);
                 ReportPropertyChanging("ParentRecordId");
-                _ParentRecordId = StructuralObject.SetValidValue(value);
+                _ParentRecordId = StructuralObject.SetValidValue(value, "ParentRecordId");
                 ReportPropertyChanged("ParentRecordId");
                 OnParentRecordIdChanged();
             }
@@ -6006,7 +5988,7 @@ namespace Epi.Web.EF
             {
                 OnRelateParentIdChanging(value);
                 ReportPropertyChanging("RelateParentId");
-                _RelateParentId = StructuralObject.SetValidValue(value);
+                _RelateParentId = StructuralObject.SetValidValue(value, "RelateParentId");
                 ReportPropertyChanged("RelateParentId");
                 OnRelateParentIdChanged();
             }
@@ -6030,7 +6012,7 @@ namespace Epi.Web.EF
             {
                 OnRecordSourceIdChanging(value);
                 ReportPropertyChanging("RecordSourceId");
-                _RecordSourceId = StructuralObject.SetValidValue(value);
+                _RecordSourceId = StructuralObject.SetValidValue(value, "RecordSourceId");
                 ReportPropertyChanged("RecordSourceId");
                 OnRecordSourceIdChanged();
             }
@@ -6054,7 +6036,7 @@ namespace Epi.Web.EF
             {
                 OnOrganizationIdChanging(value);
                 ReportPropertyChanging("OrganizationId");
-                _OrganizationId = StructuralObject.SetValidValue(value);
+                _OrganizationId = StructuralObject.SetValidValue(value, "OrganizationId");
                 ReportPropertyChanged("OrganizationId");
                 OnOrganizationIdChanged();
             }
@@ -6065,7 +6047,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -6333,7 +6314,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6352,7 +6333,7 @@ namespace Epi.Web.EF
                 {
                     OnResponseIdChanging(value);
                     ReportPropertyChanging("ResponseId");
-                    _ResponseId = StructuralObject.SetValidValue(value);
+                    _ResponseId = StructuralObject.SetValidValue(value, "ResponseId");
                     ReportPropertyChanged("ResponseId");
                     OnResponseIdChanged();
                 }
@@ -6377,7 +6358,7 @@ namespace Epi.Web.EF
             {
                 OnIsSQLResponseChanging(value);
                 ReportPropertyChanging("IsSQLResponse");
-                _IsSQLResponse = StructuralObject.SetValidValue(value);
+                _IsSQLResponse = StructuralObject.SetValidValue(value, "IsSQLResponse");
                 ReportPropertyChanged("IsSQLResponse");
                 OnIsSQLResponseChanged();
             }
@@ -6401,7 +6382,7 @@ namespace Epi.Web.EF
             {
                 OnIsResponseinsertedToEpi7Changing(value);
                 ReportPropertyChanging("IsResponseinsertedToEpi7");
-                _IsResponseinsertedToEpi7 = StructuralObject.SetValidValue(value);
+                _IsResponseinsertedToEpi7 = StructuralObject.SetValidValue(value, "IsResponseinsertedToEpi7");
                 ReportPropertyChanged("IsResponseinsertedToEpi7");
                 OnIsResponseinsertedToEpi7Changed();
             }
@@ -6412,7 +6393,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -6484,7 +6464,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6501,7 +6481,7 @@ namespace Epi.Web.EF
             {
                 OnnameChanging(value);
                 ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
+                _name = StructuralObject.SetValidValue(value, false, "name");
                 ReportPropertyChanged("name");
                 OnnameChanged();
             }
@@ -6525,7 +6505,7 @@ namespace Epi.Web.EF
             {
                 Onprincipal_idChanging(value);
                 ReportPropertyChanging("principal_id");
-                _principal_id = StructuralObject.SetValidValue(value);
+                _principal_id = StructuralObject.SetValidValue(value, "principal_id");
                 ReportPropertyChanged("principal_id");
                 Onprincipal_idChanged();
             }
@@ -6551,7 +6531,7 @@ namespace Epi.Web.EF
                 {
                     Ondiagram_idChanging(value);
                     ReportPropertyChanging("diagram_id");
-                    _diagram_id = StructuralObject.SetValidValue(value);
+                    _diagram_id = StructuralObject.SetValidValue(value, "diagram_id");
                     ReportPropertyChanged("diagram_id");
                     Ondiagram_idChanged();
                 }
@@ -6576,7 +6556,7 @@ namespace Epi.Web.EF
             {
                 OnversionChanging(value);
                 ReportPropertyChanging("version");
-                _version = StructuralObject.SetValidValue(value);
+                _version = StructuralObject.SetValidValue(value, "version");
                 ReportPropertyChanged("version");
                 OnversionChanged();
             }
@@ -6600,7 +6580,7 @@ namespace Epi.Web.EF
             {
                 OndefinitionChanging(value);
                 ReportPropertyChanging("definition");
-                _definition = StructuralObject.SetValidValue(value, true);
+                _definition = StructuralObject.SetValidValue(value, true, "definition");
                 ReportPropertyChanged("definition");
                 OndefinitionChanged();
             }
@@ -6611,7 +6591,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
     }
     
     /// <summary>
@@ -6651,7 +6630,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -6670,7 +6649,7 @@ namespace Epi.Web.EF
                 {
                     OnUserIDChanging(value);
                     ReportPropertyChanging("UserID");
-                    _UserID = StructuralObject.SetValidValue(value);
+                    _UserID = StructuralObject.SetValidValue(value, "UserID");
                     ReportPropertyChanged("UserID");
                     OnUserIDChanged();
                 }
@@ -6695,7 +6674,7 @@ namespace Epi.Web.EF
             {
                 OnUserNameChanging(value);
                 ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, false);
+                _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                 ReportPropertyChanged("UserName");
                 OnUserNameChanged();
             }
@@ -6719,7 +6698,7 @@ namespace Epi.Web.EF
             {
                 OnFirstNameChanging(value);
                 ReportPropertyChanging("FirstName");
-                _FirstName = StructuralObject.SetValidValue(value, false);
+                _FirstName = StructuralObject.SetValidValue(value, false, "FirstName");
                 ReportPropertyChanged("FirstName");
                 OnFirstNameChanged();
             }
@@ -6743,7 +6722,7 @@ namespace Epi.Web.EF
             {
                 OnLastNameChanging(value);
                 ReportPropertyChanging("LastName");
-                _LastName = StructuralObject.SetValidValue(value, false);
+                _LastName = StructuralObject.SetValidValue(value, false, "LastName");
                 ReportPropertyChanged("LastName");
                 OnLastNameChanged();
             }
@@ -6767,7 +6746,7 @@ namespace Epi.Web.EF
             {
                 OnPasswordHashChanging(value);
                 ReportPropertyChanging("PasswordHash");
-                _PasswordHash = StructuralObject.SetValidValue(value, false);
+                _PasswordHash = StructuralObject.SetValidValue(value, false, "PasswordHash");
                 ReportPropertyChanged("PasswordHash");
                 OnPasswordHashChanged();
             }
@@ -6791,7 +6770,7 @@ namespace Epi.Web.EF
             {
                 OnResetPasswordChanging(value);
                 ReportPropertyChanging("ResetPassword");
-                _ResetPassword = StructuralObject.SetValidValue(value);
+                _ResetPassword = StructuralObject.SetValidValue(value, "ResetPassword");
                 ReportPropertyChanged("ResetPassword");
                 OnResetPasswordChanged();
             }
@@ -6815,7 +6794,7 @@ namespace Epi.Web.EF
             {
                 OnEmailAddressChanging(value);
                 ReportPropertyChanging("EmailAddress");
-                _EmailAddress = StructuralObject.SetValidValue(value, false);
+                _EmailAddress = StructuralObject.SetValidValue(value, false, "EmailAddress");
                 ReportPropertyChanged("EmailAddress");
                 OnEmailAddressChanged();
             }
@@ -6839,7 +6818,7 @@ namespace Epi.Web.EF
             {
                 OnPhoneNumberChanging(value);
                 ReportPropertyChanging("PhoneNumber");
-                _PhoneNumber = StructuralObject.SetValidValue(value, false);
+                _PhoneNumber = StructuralObject.SetValidValue(value, false, "PhoneNumber");
                 ReportPropertyChanged("PhoneNumber");
                 OnPhoneNumberChanged();
             }
@@ -6863,7 +6842,7 @@ namespace Epi.Web.EF
             {
                 OnUGuidChanging(value);
                 ReportPropertyChanging("UGuid");
-                _UGuid = StructuralObject.SetValidValue(value);
+                _UGuid = StructuralObject.SetValidValue(value, "UGuid");
                 ReportPropertyChanged("UGuid");
                 OnUGuidChanged();
             }
@@ -6874,7 +6853,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -7042,7 +7020,7 @@ namespace Epi.Web.EF
 
         #endregion
 
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7061,7 +7039,7 @@ namespace Epi.Web.EF
                 {
                     OnUserIDChanging(value);
                     ReportPropertyChanging("UserID");
-                    _UserID = StructuralObject.SetValidValue(value);
+                    _UserID = StructuralObject.SetValidValue(value, "UserID");
                     ReportPropertyChanged("UserID");
                     OnUserIDChanged();
                 }
@@ -7088,7 +7066,7 @@ namespace Epi.Web.EF
                 {
                     OnOrganizationIDChanging(value);
                     ReportPropertyChanging("OrganizationID");
-                    _OrganizationID = StructuralObject.SetValidValue(value);
+                    _OrganizationID = StructuralObject.SetValidValue(value, "OrganizationID");
                     ReportPropertyChanged("OrganizationID");
                     OnOrganizationIDChanged();
                 }
@@ -7113,7 +7091,7 @@ namespace Epi.Web.EF
             {
                 OnRoleIdChanging(value);
                 ReportPropertyChanging("RoleId");
-                _RoleId = StructuralObject.SetValidValue(value);
+                _RoleId = StructuralObject.SetValidValue(value, "RoleId");
                 ReportPropertyChanged("RoleId");
                 OnRoleIdChanged();
             }
@@ -7137,7 +7115,7 @@ namespace Epi.Web.EF
             {
                 OnActiveChanging(value);
                 ReportPropertyChanging("Active");
-                _Active = StructuralObject.SetValidValue(value);
+                _Active = StructuralObject.SetValidValue(value, "Active");
                 ReportPropertyChanged("Active");
                 OnActiveChanged();
             }
@@ -7148,7 +7126,6 @@ namespace Epi.Web.EF
 
         #endregion
 
-    
         #region Navigation Properties
     
         /// <summary>
@@ -7281,7 +7258,7 @@ namespace Epi.Web.EF
     [Serializable()]
     public partial class usp_GetErrorInfo_Result : ComplexObject
     {
-        #region Primitive Properties
+        #region Simple Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -7298,7 +7275,7 @@ namespace Epi.Web.EF
             {
                 OnErrorNumberChanging(value);
                 ReportPropertyChanging("ErrorNumber");
-                _ErrorNumber = StructuralObject.SetValidValue(value);
+                _ErrorNumber = StructuralObject.SetValidValue(value, "ErrorNumber");
                 ReportPropertyChanged("ErrorNumber");
                 OnErrorNumberChanged();
             }
@@ -7322,7 +7299,7 @@ namespace Epi.Web.EF
             {
                 OnErrorSeverityChanging(value);
                 ReportPropertyChanging("ErrorSeverity");
-                _ErrorSeverity = StructuralObject.SetValidValue(value);
+                _ErrorSeverity = StructuralObject.SetValidValue(value, "ErrorSeverity");
                 ReportPropertyChanged("ErrorSeverity");
                 OnErrorSeverityChanged();
             }
@@ -7346,7 +7323,7 @@ namespace Epi.Web.EF
             {
                 OnErrorStateChanging(value);
                 ReportPropertyChanging("ErrorState");
-                _ErrorState = StructuralObject.SetValidValue(value);
+                _ErrorState = StructuralObject.SetValidValue(value, "ErrorState");
                 ReportPropertyChanged("ErrorState");
                 OnErrorStateChanged();
             }
@@ -7370,7 +7347,7 @@ namespace Epi.Web.EF
             {
                 OnErrorProcedureChanging(value);
                 ReportPropertyChanging("ErrorProcedure");
-                _ErrorProcedure = StructuralObject.SetValidValue(value, true);
+                _ErrorProcedure = StructuralObject.SetValidValue(value, true, "ErrorProcedure");
                 ReportPropertyChanged("ErrorProcedure");
                 OnErrorProcedureChanged();
             }
@@ -7394,7 +7371,7 @@ namespace Epi.Web.EF
             {
                 OnErrorLineChanging(value);
                 ReportPropertyChanging("ErrorLine");
-                _ErrorLine = StructuralObject.SetValidValue(value);
+                _ErrorLine = StructuralObject.SetValidValue(value, "ErrorLine");
                 ReportPropertyChanged("ErrorLine");
                 OnErrorLineChanged();
             }
@@ -7418,7 +7395,7 @@ namespace Epi.Web.EF
             {
                 OnErrorMessageChanging(value);
                 ReportPropertyChanging("ErrorMessage");
-                _ErrorMessage = StructuralObject.SetValidValue(value, true);
+                _ErrorMessage = StructuralObject.SetValidValue(value, true, "ErrorMessage");
                 ReportPropertyChanged("ErrorMessage");
                 OnErrorMessageChanged();
             }
@@ -7433,5 +7410,4 @@ namespace Epi.Web.EF
 
     #endregion
 
-    
 }

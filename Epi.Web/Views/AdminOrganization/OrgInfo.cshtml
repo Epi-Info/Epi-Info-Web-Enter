@@ -108,7 +108,41 @@
 // 
 //        });
 //    });
-   
+    $(document).ready(function () {
+        $("#ConfirmAdminEmail").change(function () {
+        
+            var _ConfirmAdminEmail = $("#ConfirmAdminEmail").val();
+            var _AdminEmail = $("#persons").val();
+           
+            if (_ConfirmAdminEmail == _AdminEmail) {
+                
+
+                    var signoutUrl = '@Url.Action("GetUserInfoAD", "AdminOrganization")' + '?email=' + _ConfirmAdminEmail;
+
+                    $.ajax({
+                        url: signoutUrl,
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: "json",
+                        async: false,
+                        success: successFunc,
+                        error: errorFunc
+                    });
+
+
+                    function successFunc(data) {
+                        $("#AdminFirstName").val(data.FirstName);
+                        $("#AdminLastName").val(data.LastName);
+
+                    }
+                    function errorFunc() {
+                        alert('error');
+                    }
+       
+             }
+        });
+       
+    });
 
 
 </script>

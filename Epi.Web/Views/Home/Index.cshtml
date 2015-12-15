@@ -428,7 +428,9 @@
                     $.ajax({
                         url: ActionUrl,
                         type: 'POST',
-                        cache: false,
+                        dataType: "json",
+                        //cache: false,
+                        async: false,
                         contentType: 'application/json; charset=utf-8',
                         //data: JSON.stringify(model),
                         success: successFunc,
@@ -445,9 +447,9 @@
 
                     }
 
-                    function errorFunc() {
-                        alert('error');
-                    }
+                        function errorFunc() {
+                            alert('error');
+                        }
 
                 },
                 "class": 'dialogbtn'

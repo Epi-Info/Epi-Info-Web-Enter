@@ -328,6 +328,13 @@ namespace Epi.Web.MVC
               "AdminOrganization/AutoComplete", // URL with parameters
               new { controller = "AdminOrganization", action = "AutoComplete" }
           ); // Parameter defaults
+
+            routes.MapRoute
+       (
+           null, // Route name
+           "AdminOrganization/GetUserInfoAD", // URL with parameters
+           new { controller = "AdminOrganization", action = "GetUserInfoAD", email = UrlParameter.Optional }
+       ); // Parameter defaults
             routes.MapRoute
                  (
                      null, // Route name
@@ -348,7 +355,12 @@ namespace Epi.Web.MVC
                 ); // Parameter defaults
 
 
-
+            routes.MapRoute
+       (
+           null, // Route name
+           "AdminUser/GetUserInfoAD", // URL with parameters
+           new { controller = "AdminUser", action = "GetUserInfoAD", email = UrlParameter.Optional }
+       ); // Parameter defaults
            
             routes.MapRoute
             (
@@ -363,6 +375,7 @@ namespace Epi.Web.MVC
                   "AdminUser/UserList", // URL with parameters
                   new { controller = "AdminUser", action = "UserList" }
               ); // Parameter defaults
+        
             routes.MapRoute
               (
                   null, // Route name
