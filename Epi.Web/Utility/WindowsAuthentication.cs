@@ -65,17 +65,23 @@ namespace Epi.Web.MVC.Utility
         {
             using (HostingEnvironment.Impersonate())
             {
-                var context = new PrincipalContext(ContextType.Domain, Domain);
-                var userPrincipal = new UserPrincipal(context) { EmailAddress = UserEmail };
-                var searcher = new PrincipalSearcher { QueryFilter = userPrincipal };
-                var results = (UserPrincipal)searcher.FindOne();
-
-                if (results == null)
+                try
                 {
-                    return null;
-                }
+                    var context = new PrincipalContext(ContextType.Domain, Domain);
+                    var userPrincipal = new UserPrincipal(context) { EmailAddress = UserEmail };
+                    var searcher = new PrincipalSearcher { QueryFilter = userPrincipal };
+                    var results = (UserPrincipal)searcher.FindOne();
 
-                return results;
+                    if (results == null)
+                    {
+                        return null;
+                    }
+
+                    return results;
+                }catch (Exception){
+                
+                return null;
+                }
             }
         }
         public static String GetGroups(string _path, string _filterAttribute)
