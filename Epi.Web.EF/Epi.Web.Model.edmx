@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
   <!-- EF Runtime content -->
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="OSELS_EWEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="OSELS_EWEModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Canvas">
           <Key>
             <PropertyRef Name="CanvasID" />
@@ -774,30 +774,30 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not ha
           <Parameter Name="IsResponsePresent" Type="bit" Mode="In" />
         </Function>
         <EntityContainer Name="OSELS_EWEModelStoreContainer">
-          <EntitySet Name="Canvas" EntityType="Self.Canvas" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DataAccessRules" EntityType="Self.DataAccessRules" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Datasource" EntityType="Self.Datasource" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DatasourceUser" EntityType="Self.DatasourceUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EIDatasource" EntityType="Self.EIDatasource" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="lk_RecordSource" EntityType="Self.lk_RecordSource" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="lk_Status" EntityType="Self.lk_Status" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="lk_SurveyType" EntityType="Self.lk_SurveyType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ResponseDisplaySettings" EntityType="Self.ResponseDisplaySettings" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ResponseXml" EntityType="Self.ResponseXml" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SharedCanvases" EntityType="Self.SharedCanvases" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyMetaData" EntityType="Self.SurveyMetaData" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyMetadataOrganization" EntityType="Self.SurveyMetadataOrganization" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyMetaDataUser" EntityType="Self.SurveyMetaDataUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyMetaDataView" EntityType="Self.SurveyMetaDataView" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyResponseTracking" EntityType="Self.SurveyResponseTracking" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SurveyResponseUser" EntityType="Self.SurveyResponseUser" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserOrganization" EntityType="Self.UserOrganization" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="Canvas" EntityType="Self.Canvas" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DataAccessRules" EntityType="Self.DataAccessRules" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Datasource" EntityType="Self.Datasource" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="DatasourceUser" EntityType="Self.DatasourceUser" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="EIDatasource" EntityType="Self.EIDatasource" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="lk_RecordSource" EntityType="Self.lk_RecordSource" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="lk_Status" EntityType="Self.lk_Status" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="lk_SurveyType" EntityType="Self.lk_SurveyType" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ResponseDisplaySettings" EntityType="Self.ResponseDisplaySettings" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ResponseXml" EntityType="Self.ResponseXml" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SharedCanvases" EntityType="Self.SharedCanvases" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyMetaData" EntityType="Self.SurveyMetaData" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyMetadataOrganization" EntityType="Self.SurveyMetadataOrganization" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyMetaDataUser" EntityType="Self.SurveyMetaDataUser" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyMetaDataView" EntityType="Self.SurveyMetaDataView" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyResponseTracking" EntityType="Self.SurveyResponseTracking" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="SurveyResponseUser" EntityType="Self.SurveyResponseUser" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="UserOrganization" EntityType="Self.UserOrganization" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" store:Type="Tables" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
 [ErrorLog].[ErrorDate] AS [ErrorDate], 
 [ErrorLog].[SurveyId] AS [SurveyId], 
@@ -813,7 +813,7 @@ warning 6002: The table/view 'EWELiteIntegration.dbo.ErrorLogSorted' does not ha
 [ErrorLog].[ErrorText2] AS [ErrorText2]
 FROM [dbo].[ErrorLog] AS [ErrorLog]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="familyset" EntityType="Self.familyset" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="familyset" EntityType="Self.familyset" store:Type="Tables" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
 [familyset].[SurveyId] AS [SurveyId], 
 [familyset].[OwnerId] AS [OwnerId], 
@@ -837,7 +837,7 @@ FROM [dbo].[ErrorLog] AS [ErrorLog]</DefiningQuery>
 [familyset].[IsSQLProject] AS [IsSQLProject]
 FROM [dbo].[familyset] AS [familyset]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="SurveyMetaDataTransform" EntityType="Self.SurveyMetaDataTransform" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="SurveyMetaDataTransform" EntityType="Self.SurveyMetaDataTransform" store:Type="Tables" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
 [SurveyMetaDataTransform].[SurveyId] AS [SurveyId], 
 [SurveyMetaDataTransform].[TableName] AS [TableName], 
@@ -847,7 +847,7 @@ FROM [dbo].[familyset] AS [familyset]</DefiningQuery>
 [SurveyMetaDataTransform].[FieldTypeId] AS [FieldTypeId]
 FROM [dbo].[SurveyMetaDataTransform] AS [SurveyMetaDataTransform]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="ErrorLogSorted" EntityType="Self.ErrorLogSorted" store:Type="Views" store:Schema="dbo">
+          <EntitySet Name="ErrorLogSorted" EntityType="Self.ErrorLogSorted" store:Type="Views" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
 [ErrorLogSorted].[ErrorDate] AS [ErrorDate], 
 [ErrorLogSorted].[SurveyId] AS [SurveyId], 
@@ -961,8 +961,8 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="OSELS_EWEModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-        <EntityContainer Name="OSELS_EWEEntities" annotation:LazyLoadingEnabled="true">
+      <Schema Namespace="OSELS_EWEModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="OSELS_EWEEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="lk_Status" EntityType="OSELS_EWEModel.lk_Status" />
           <EntitySet Name="lk_SurveyType" EntityType="OSELS_EWEModel.lk_SurveyType" />
           <EntitySet Name="Organizations" EntityType="OSELS_EWEModel.Organization" />
@@ -1133,7 +1133,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <Key>
             <PropertyRef Name="OrganizationId" />
           </Key>
-          <Property Name="OrganizationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrganizationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="OrganizationKey" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="Organization1" Type="String" Nullable="false" MaxLength="400" Unicode="true" FixedLength="false" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
@@ -1187,7 +1187,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           </Key>
           <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
@@ -1195,7 +1195,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
@@ -1274,7 +1274,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <Key>
             <PropertyRef Name="RoleID" />
           </Key>
-          <Property Type="Int32" Name="RoleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="RoleID" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="Int32" Name="RoleValue" Nullable="false" />
           <Property Type="String" Name="RoleDescription" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="UserOrganizations" Relationship="OSELS_EWEModel.FK_UserOrganization_Role" FromRole="Role" ToRole="UserOrganization" />
@@ -1359,7 +1359,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <Key>
             <PropertyRef Name="DatasourceID" />
           </Key>
-          <Property Type="Int32" Name="DatasourceID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="DatasourceID" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="DatasourceServerName" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DatabaseType" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="InitialCatalog" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -1597,7 +1597,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <Key>
             <PropertyRef Name="CanvasID" />
           </Key>
-          <Property Name="CanvasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CanvasID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="CanvasGUID" Type="Guid" Nullable="false" />
           <Property Name="CanvasName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
@@ -1613,7 +1613,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <Key>
             <PropertyRef Name="DatasourceID" />
           </Key>
-          <Property Name="DatasourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DatasourceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="DatasourceName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="OrganizationID" Type="Int32" Nullable="false" />
           <Property Name="DatasourceServerName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
@@ -1698,7 +1698,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OSELS_EWEModelStoreContainer" CdmEntityContainer="OSELS_EWEEntities">
           <EntitySetMapping Name="lk_Status">
             <EntityTypeMapping TypeName="OSELS_EWEModel.lk_Status">
@@ -2056,7 +2056,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
@@ -2089,11 +2089,11 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
           <ConnectorPoint PointX="4.5" PointY="17.099435657552082" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.ResponseDisplaySetting" Width="1.5" PointX="6" PointY="1.125" Height="1.7879850260416674" />
-        <AssociationConnector Association="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_ResponseGridcolumns_SurveyMetaData">
           <ConnectorPoint PointX="6.2034615384615384" PointY="4" />
           <ConnectorPoint PointX="6.2034615384615384" PointY="2.9129850260416674" />
         </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaData_SurveyMetaData1">
           <ConnectorPoint PointX="6.5319230769230767" PointY="4" />
           <ConnectorPoint PointX="6.5319230769230767" PointY="3.75" />
           <ConnectorPoint PointX="6.9784615384615378" PointY="3.75" />
@@ -2102,49 +2102,49 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
         <EntityTypeShape EntityType="OSELS_EWEModel.ResponseXml" Width="1.5" PointX="8.375" PointY="0.75" Height="1.4033821614583317" />
         <EntityTypeShape EntityType="OSELS_EWEModel.Role" Width="1.5" PointX="0.875" PointY="11.875" Height="1.7879850260416728" />
         <EntityTypeShape EntityType="OSELS_EWEModel.UserOrganization" Width="1.5" PointX="0.75" PointY="9" Height="2.3648893229166674" />
-        <AssociationConnector Association="OSELS_EWEModel.FK_UserOrganization_Organization" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_UserOrganization_Organization">
           <ConnectorPoint PointX="1.5" PointY="7.9321907552083326" />
           <ConnectorPoint PointX="1.5" PointY="9" />
         </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.FK_UserOrganization_Role" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_UserOrganization_Role">
           <ConnectorPoint PointX="1.5625" PointY="11.875" />
           <ConnectorPoint PointX="1.5625" PointY="11.364889322916667" />
         </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.FK_UserOrganization_User" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_UserOrganization_User">
           <ConnectorPoint PointX="3.75" PointY="15.125" />
           <ConnectorPoint PointX="3.75" PointY="10.182444661458334" />
           <ConnectorPoint PointX="2.25" PointY="10.182444661458334" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaDataTransform" Width="3.25" PointX="6.5" PointY="12.625" Height="2.3648893229166656" />
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaDataTransform_SurveyMetaData" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyMetaDataTransform_SurveyMetaData">
           <ConnectorPoint PointX="7" PointY="10.595520833333334" />
           <ConnectorPoint PointX="7" PointY="12.625" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.EIDatasource" Width="1.5" PointX="14" PointY="5.25" Height="2.749492187500004" />
         <EntityTypeShape EntityType="OSELS_EWEModel.lk_RecordSource" Width="1.5" PointX="8.375" PointY="9.75" Height="1.4033821614583388" />
-        <AssociationConnector Association="OSELS_EWEModel.FK_Datasource_SurveyMetaData1" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_Datasource_SurveyMetaData1">
           <ConnectorPoint PointX="7.5" PointY="7.6413378906250014" />
           <ConnectorPoint PointX="13.205731666666667" PointY="7.6413378906250005" />
           <ConnectorPoint PointX="13.372398333333335" PointY="7.6413378906250014" />
           <ConnectorPoint PointX="14" PointY="7.6413378906250014" />
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponse" Width="1.5" PointX="12.25" PointY="0.5" Height="4.8648079427083326" />
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_lk_Status" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_lk_Status">
           <ConnectorPoint PointX="11.125" PointY="6.422841796875" />
           <ConnectorPoint PointX="12.765625" PointY="6.422841796875" />
           <ConnectorPoint PointX="12.765625" PointY="5.3648079427083326" />
         </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyMetaData">
           <ConnectorPoint PointX="7.5" PointY="4.6824039713541659" />
           <ConnectorPoint PointX="12.25" PointY="4.6824039713541659" />
         </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyResponse" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponse_SurveyResponse">
           <ConnectorPoint PointX="12.781923076923077" PointY="0.5" />
           <ConnectorPoint PointX="12.781923076923077" PointY="0.24999999999999956" />
           <ConnectorPoint PointX="13.228461538461538" PointY="0.24999999999999956" />
           <ConnectorPoint PointX="13.228461538461538" PointY="0.5" />
         </AssociationConnector>
-        <AssociationConnector Association="OSELS_EWEModel.SurveyResponseUser" >
+        <AssociationConnector Association="OSELS_EWEModel.SurveyResponseUser">
           <ConnectorPoint PointX="13.289065" PointY="5.3648079427083326" />
           <ConnectorPoint PointX="13.289065" PointY="15.877271263020832" />
           <ConnectorPoint PointX="6.302083333333333" PointY="15.877271263020832" />
@@ -2153,7 +2153,7 @@ FROM [dbo].[ErrorLogSorted] AS [ErrorLogSorted]</DefiningQuery>
         </AssociationConnector>
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyMetaDataView" Width="2.625" PointX="14.875" PointY="10" Height="1.4033821614583388" />
         <EntityTypeShape EntityType="OSELS_EWEModel.SurveyResponseTracking" Width="2" PointX="14.5" PointY="2" Height="1.7879850260416674" />
-        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse" >
+        <AssociationConnector Association="OSELS_EWEModel.FK_SurveyResponseTracking_SurveyResponse">
           <ConnectorPoint PointX="13.75" PointY="2.8939925130208337" />
           <ConnectorPoint PointX="14.5" PointY="2.8939925130208337" />
         </AssociationConnector>

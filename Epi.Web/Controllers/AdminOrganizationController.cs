@@ -268,5 +268,27 @@ namespace Epi.Web.MVC.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
 
         }
+        [HttpPost]
+        public JsonResult GetUserInfoAD(string email)
+        {
+
+            UserModel User = new UserModel();
+            var configuration = WebConfigurationManager.OpenWebConfiguration("/");
+            var authenticationSection = (AuthenticationSection)configuration.GetSection("system.web/authentication");
+            if (authenticationSection.Mode == AuthenticationMode.Windows)
+            {
+                var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+                var Domain = CurrentUserName.Split('\\')[0].ToString();
+                var UserAD = Utility.WindowsAuthentication.GetUserFromAd(email, Domain);
+                if (UserAD != null)
+                {
+                    User.LastName = UserAD.Surname;
+                    User.FirstName = UserAD.GivenName;
+                }
+            }
+            return Json(User);
+
+
+        }
     }
 }
