@@ -15,7 +15,7 @@ namespace Epi.Web.MVC.Models
         [Required]
         public string Password { get; set; }
 
-        [Compare("Password")]
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
         public string ConfirmPassword { get; set; }
 
         public string FirstName { get; set; }

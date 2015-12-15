@@ -13,10 +13,20 @@ using System.Reflection;
 using System.Diagnostics;
 using Epi.Web.Enter.Common.Constants;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Web.Configuration;
 using System.Configuration;
+using Epi.Web.Enter.Common.Message;
+using System.Web.Hosting;
+using Microsoft.AspNet.Identity;
+using System.Security.Principal;
+using System.Web.Hosting;
+using System.DirectoryServices.AccountManagement;
+using System.Security.Principal;
 
 namespace Epi.Web.MVC.Controllers
 {
+   
     public class LoginController : Controller
     {
         //declare SurveyTransactionObject object
@@ -32,6 +42,7 @@ namespace Epi.Web.MVC.Controllers
         }
 
         // GET: /Login/
+       
         [HttpGet]
         public ActionResult Index(string responseId, string ReturnUrl)
         {
@@ -44,9 +55,48 @@ namespace Epi.Web.MVC.Controllers
             //     string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
             //     //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
             //     ViewBag.SurveyId = SurveyId;
+            var configuration = WebConfigurationManager.OpenWebConfiguration("/");
+            var authenticationSection = (AuthenticationSection)configuration.GetSection("system.web/authentication");
+            if (authenticationSection.Mode == AuthenticationMode.Forms)
+            {
+                return View("Index");
+            }
+            else
+            {
+               var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+               try
+               {
+                    var UserAD = Utility.WindowsAuthentication.GetCurrentUserFromAd(CurrentUserName);
+                    // validate user in EWE system
+                    UserRequest User = new UserRequest();
+                    User.IsAuthenticated = true;
+                    User.User.EmailAddress = UserAD.EmailAddress;
+             
+                    UserResponse result = _isurveyFacade.GetUserInfo(User);
+                    if (result != null && result.User.Count() > 0)
+                    {
+                    FormsAuthentication.SetAuthCookie(CurrentUserName.Split('\\')[0].ToString(), false);
+                    string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User[0].UserId.ToString());
+                    Session["UserId"] = UserId;
+                    //Session["UsertRole"] = result.User.Role;
+                    Session["UserHighestRole"] = result.User[0].UserHighestRole;
+                    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
+                   } 
+                    else
+                    {
+                   
+                    return View("Index");
+                   }
+               } 
+                catch(Exception ){
+                
+                return View("Index");
+                }
+            }
 
-            return View("Index");
         }
+
+        
         [HttpPost]
 
         public ActionResult Index(UserLoginModel Model, string Action, string ReturnUrl)

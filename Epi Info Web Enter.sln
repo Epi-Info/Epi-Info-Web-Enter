@@ -26,15 +26,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.SurveyManager.Clien
 		{BEFC85E4-F3A3-4108-9575-4EF1A004364E} = {BEFC85E4-F3A3-4108-9575-4EF1A004364E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.BLL.Test", "Epi.Web.SurveyManager.Test\Epi.Web.BLL.Test.csproj", "{163A960D-721D-4C43-B4D9-66522FFA3BAE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.Common", "Epi.Web.Common\Epi.Web.Common.csproj", "{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.DynamicForms.Core", "Epi.DynamicForms.Core\Epi.Web.DynamicForms.Core.csproj", "{9624E64A-013F-41E8-84BA-C34EE744685E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.WCF.SurveyHost", "Epi.Web.WCF.PublishServer\Epi.Web.WCF.SurveyHost.csproj", "{BEFC85E4-F3A3-4108-9575-4EF1A004364E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.Test", "Epi.Web.Test\Epi.Web.Test.csproj", "{6F9325C1-4172-455D-9ADC-AC88F36408F6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epi.Web.CheckCodeEngine", "Epi.Web.CheckCodeEngine\Epi.Web.CheckCodeEngine.csproj", "{6B084882-EF4F-4CF0-85B1-1E8C357AE822}"
 EndProject
@@ -47,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{13F1AF
 EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 12
+		SccNumberOfProjects = 10
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs04
 		SccProjectUniqueName0 = Epi.Web.Common\\Epi.Web.Common.csproj
@@ -55,61 +51,51 @@ Global
 		SccAuxPath0 = https://tfs.codeplex.com/tfs/tfs04
 		SccLocalPath0 = Epi.Web.Common
 		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName1 = Epi.Web.Interfaces\\Epi.Web.Interfaces.csproj
-		SccProjectName1 = Epi.Web.Interfaces
+		SccProjectUniqueName1 = Epi.Web.EF\\Epi.Web.EF.csproj
+		SccProjectName1 = Epi.Web.EF
 		SccAuxPath1 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath1 = Epi.Web.Interfaces
+		SccLocalPath1 = Epi.Web.EF
 		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName2 = Epi.Web.EF\\Epi.Web.EF.csproj
-		SccProjectName2 = Epi.Web.EF
+		SccProjectUniqueName2 = EIWS_BLL_Core\\Epi.Web.BLL.csproj
+		SccProjectName2 = EIWS_BLL_Core
 		SccAuxPath2 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath2 = Epi.Web.EF
+		SccLocalPath2 = EIWS_BLL_Core
 		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName3 = EIWS_BLL_Core\\Epi.Web.BLL.csproj
-		SccProjectName3 = EIWS_BLL_Core
+		SccProjectUniqueName3 = SurveyManagerInterface\\Epi.Web.WCF.SurveyService.csproj
+		SccProjectName3 = SurveyManagerInterface
 		SccAuxPath3 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath3 = EIWS_BLL_Core
+		SccLocalPath3 = SurveyManagerInterface
 		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName4 = SurveyManagerInterface\\Epi.Web.WCF.SurveyService.csproj
-		SccProjectName4 = SurveyManagerInterface
+		SccProjectUniqueName4 = Epi.Web.WCF.PublishServer\\Epi.Web.WCF.SurveyHost.csproj
+		SccProjectName4 = Epi.Web.WCF.PublishServer
 		SccAuxPath4 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath4 = SurveyManagerInterface
+		SccLocalPath4 = Epi.Web.WCF.PublishServer
 		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName5 = Epi.Web.WCF.PublishServer\\Epi.Web.WCF.SurveyHost.csproj
-		SccProjectName5 = Epi.Web.WCF.PublishServer
+		SccProjectUniqueName5 = Epi.Web.SurveyManager_Test\\Epi.Web.SurveyManager.Client.csproj
+		SccProjectName5 = Epi.Web.SurveyManager_Test
 		SccAuxPath5 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath5 = Epi.Web.WCF.PublishServer
+		SccLocalPath5 = Epi.Web.SurveyManager_Test
 		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName6 = Epi.Web.SurveyManager_Test\\Epi.Web.SurveyManager.Client.csproj
-		SccProjectName6 = Epi.Web.SurveyManager_Test
+		SccProjectUniqueName6 = Epi.Web.CheckCodeEngine\\Epi.Web.CheckCodeEngine.csproj
+		SccProjectName6 = Epi.Web.CheckCodeEngine
 		SccAuxPath6 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath6 = Epi.Web.SurveyManager_Test
+		SccLocalPath6 = Epi.Web.CheckCodeEngine
 		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName7 = Epi.Web.CheckCodeEngine\\Epi.Web.CheckCodeEngine.csproj
-		SccProjectName7 = Epi.Web.CheckCodeEngine
+		SccProjectUniqueName7 = Epi.DynamicForms.Core\\Epi.Web.DynamicForms.Core.csproj
+		SccProjectName7 = Epi.DynamicForms.Core
 		SccAuxPath7 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath7 = Epi.Web.CheckCodeEngine
+		SccLocalPath7 = Epi.DynamicForms.Core
 		SccProvider7 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName8 = Epi.DynamicForms.Core\\Epi.Web.DynamicForms.Core.csproj
-		SccProjectName8 = Epi.DynamicForms.Core
+		SccProjectUniqueName8 = Epi.Web\\Epi.Web.csproj
+		SccProjectName8 = Epi.Web
 		SccAuxPath8 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath8 = Epi.DynamicForms.Core
+		SccLocalPath8 = Epi.Web
 		SccProvider8 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName9 = Epi.Web\\Epi.Web.csproj
-		SccProjectName9 = Epi.Web
+		SccProjectUniqueName9 = Epi.Web.Interfaces\\Epi.Web.Interfaces.csproj
+		SccProjectName9 = Epi.Web.Interfaces
 		SccAuxPath9 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath9 = Epi.Web
+		SccLocalPath9 = Epi.Web.Interfaces
 		SccProvider9 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName10 = Epi.Web.SurveyManager.Test\\Epi.Web.BLL.Test.csproj
-		SccProjectName10 = Epi.Web.SurveyManager.Test
-		SccAuxPath10 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath10 = Epi.Web.SurveyManager.Test
-		SccProvider10 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccProjectUniqueName11 = Epi.Web.Test\\Epi.Web.Test.csproj
-		SccProjectName11 = Epi.Web.Test
-		SccAuxPath11 = https://tfs.codeplex.com/tfs/tfs04
-		SccLocalPath11 = Epi.Web.Test
-		SccProvider11 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,12 +166,6 @@ Global
 		{13D8FD8D-1403-4C84-823A-1E27806CAC30}.Release|Mixed Platforms.Build.0 = Release|x86
 		{13D8FD8D-1403-4C84-823A-1E27806CAC30}.Release|x86.ActiveCfg = Release|x86
 		{13D8FD8D-1403-4C84-823A-1E27806CAC30}.Release|x86.Build.0 = Release|x86
-		{163A960D-721D-4C43-B4D9-66522FFA3BAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{163A960D-721D-4C43-B4D9-66522FFA3BAE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{163A960D-721D-4C43-B4D9-66522FFA3BAE}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{163A960D-721D-4C43-B4D9-66522FFA3BAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{163A960D-721D-4C43-B4D9-66522FFA3BAE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{163A960D-721D-4C43-B4D9-66522FFA3BAE}.Release|x86.ActiveCfg = Release|Any CPU
 		{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -216,12 +196,6 @@ Global
 		{BEFC85E4-F3A3-4108-9575-4EF1A004364E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BEFC85E4-F3A3-4108-9575-4EF1A004364E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BEFC85E4-F3A3-4108-9575-4EF1A004364E}.Release|x86.ActiveCfg = Release|Any CPU
-		{6F9325C1-4172-455D-9ADC-AC88F36408F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F9325C1-4172-455D-9ADC-AC88F36408F6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{6F9325C1-4172-455D-9ADC-AC88F36408F6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{6F9325C1-4172-455D-9ADC-AC88F36408F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F9325C1-4172-455D-9ADC-AC88F36408F6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{6F9325C1-4172-455D-9ADC-AC88F36408F6}.Release|x86.ActiveCfg = Release|Any CPU
 		{6B084882-EF4F-4CF0-85B1-1E8C357AE822}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B084882-EF4F-4CF0-85B1-1E8C357AE822}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B084882-EF4F-4CF0-85B1-1E8C357AE822}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

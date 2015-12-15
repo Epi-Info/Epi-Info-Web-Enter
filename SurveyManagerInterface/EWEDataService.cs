@@ -1375,8 +1375,15 @@ namespace Epi.Web.WCF.SurveyService
 
             UserBO UserBO = Mapper.ToUserBO(request.User);
             OrganizationBO OrgBO = Mapper.ToOrgBusinessObject(request.Organization);
-            UserBO result = Implementation.GetUserByUserIdAndOrgId(UserBO, OrgBO);
-
+            UserBO result = new UserBO();
+           if (!request.IsAuthenticated)
+            {
+              result = Implementation.GetUserByUserIdAndOrgId(UserBO, OrgBO);
+           }
+            else
+            {
+               result = Implementation.GetUserByEmail(UserBO);
+            }
 
 
             if (result != null)

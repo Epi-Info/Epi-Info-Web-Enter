@@ -5,6 +5,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+    $("#Email").change(function () {
+ 
+        var _Email = $("#Email").val();
+        var signoutUrl = '@Url.Action("GetUserInfoAD", "AdminUser")' + '?email=' + _Email;
+         
+        $.ajax({
+            url: signoutUrl,
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+             async: false,
+            success: successFunc,
+            error: errorFunc
+        });
+       
+
+        function successFunc(data) {
+            $("#FirstName").val(data.FirstName);
+            $("#LastName").val(data.LastName);
+
+        }
+        function errorFunc() {
+            alert('error');
+        }
+        
+
+    });
+
+    });
+
+
+</script>
 <div id="pageHeader">
     <div id="pageTitleAdmin">
         @*<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
