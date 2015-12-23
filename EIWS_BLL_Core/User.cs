@@ -175,6 +175,7 @@ namespace Epi.Web.BLL
             UserBO UserResponseBO;
 
             UserResponseBO = UserDao.GetUserByEmail(User);
+            if (UserResponseBO != null)
             UserResponseBO.UserHighestRole  = UserDao.GetUserHighestRole(UserResponseBO.UserId);
             return UserResponseBO;
         }
