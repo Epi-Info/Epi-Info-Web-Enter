@@ -543,5 +543,22 @@ namespace Epi.Web.EF
             return OrganizationBO;
 
         }
+
+        public bool IsUserExistsInOrganization(string OrgKey, int UserId)
+        {
+            var Context = DataObjectFactory.CreateContext();
+            var UserQuery = from userorganization in Context.UserOrganizations
+                            join organization in Context.Organizations on userorganization.OrganizationID equals organization.OrganizationId
+                            where userorganization.UserID == UserId && organization.OrganizationKey == OrgKey
+                            select userorganization;
+            bool Result = false;
+
+            foreach (var user in UserQuery)
+            {
+                Result = true;
+            }
+
+            return Result;
+        }
     }
 }

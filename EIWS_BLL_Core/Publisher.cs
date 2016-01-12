@@ -185,7 +185,7 @@ namespace Epi.Web.BLL
                     {
 
                     //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))
-                    if (ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+                        if (ValidateOrganizationKeyByUser(pRequestMessage.OrganizationKey, pRequestMessage.OwnerId))//EW-96
                         {
 
                         if (ValidateSurveyFields(pRequestMessage))
@@ -307,8 +307,8 @@ namespace Epi.Web.BLL
                 if (pRequestMessage != null)
                     {
 
-                    //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))
-                    if (ValidateOrganizationKey(pRequestMessage.OrganizationKey))
+                    //if (! string.IsNullOrEmpty(pRequestMessage.SurveyNumber)  &&  ValidateOrganizationKey(pRequestMessage.OrganizationKey))                    
+                        if (ValidateOrganizationKeyByUser(pRequestMessage.OrganizationKey,pRequestMessage.OwnerId))//EW-96
                         {
 
                         if (ValidateSurveyFields(pRequestMessage))
@@ -556,6 +556,21 @@ namespace Epi.Web.BLL
                 }
             }
             return List;
+        }
+
+        /// <summary>
+        /// validate the Organization key passed with the UserID  from database 
+        /// through EF
+        /// </summary>
+        /// <param name="OrganizationKey"></param>
+        /// /// <param name="UserID"></param>
+        /// <returns></returns>
+        private bool ValidateOrganizationKeyByUser(Guid gOrganizationKey,int UserID)
+        {
+            bool result;
+            string strOrgKeyEncrypted = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(gOrganizationKey.ToString());
+            result = this.OrganizationDao.IsUserExistsInOrganization(strOrgKeyEncrypted, UserID);
+            return result;
         }
       
     }
