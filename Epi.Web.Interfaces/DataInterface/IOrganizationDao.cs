@@ -101,5 +101,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          
 
          OrganizationBO GetOrganizationByOrgId(int OrganizationId);
+         bool IsUserExistsInOrganization(string OrgKey, int UserId);
     }
 }
