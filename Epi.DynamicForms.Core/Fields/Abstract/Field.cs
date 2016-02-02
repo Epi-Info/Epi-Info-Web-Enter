@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+ 
 namespace MvcDynamicForms.Fields
 {
     /// <summary>
@@ -79,16 +79,34 @@ namespace MvcDynamicForms.Fields
         public abstract string RenderHtml();
        
 
-        public double Top { get { return this._top; } set { this._top = value; } }
-        public double Left { get { return this._left; } set { this._left = value; } }
+        public double Top { 
+            
+            get {
+                 
+                 
+                return System.Math.Truncate(this._top); 
+            
+            } 
+            
+            set { this._top = System.Math.Truncate(value); } }
+        public double Left { 
+            get { return  System.Math.Truncate(this._left); } 
+            
+            set {
+                
+                 
+                this._left = System.Math.Truncate(value); 
+            
+            
+            } }
         public string CssClass { get { return this._cssClass; } set { this._cssClass = value; } }
         //_font
         public string fontfamily { get { return this._fontfamily; } set { this._fontfamily = value; } }
-        public double fontSize { get { return this._fontSize; } set { this._fontSize = value; } }
+        public double fontSize { get { return System.Math.Truncate(this._fontSize); } set { this._fontSize = System.Math.Truncate(value); } }
         public string fontstyle { get { return this._fontstyle; } set { this._fontstyle = value; } }
 
-        public double Width { get { return this._Width; } set { this._Width = value; } }
-        public double Height { get { return this._Height; } set { this._Height = value; } }
+        public double Width { get { return System.Math.Truncate(this._Width); } set { this._Width = System.Math.Truncate(value); } }
+        public double Height { get { return System.Math.Truncate(this._Height); } set { this._Height = System.Math.Truncate(value); } }
         public bool IsHidden { get { return this._IsHidden; } set { this._IsHidden = value; } }
         public bool IsHighlighted { get { return this._IsHighlighted; } set { this._IsHighlighted = value; } }
         public bool IsDisabled { get { return this._IsDisabled; } set { this._IsDisabled = value; } }
@@ -107,6 +125,11 @@ namespace MvcDynamicForms.Fields
             StringBuilder FontWeight = new StringBuilder();
             StringBuilder TextDecoration = new StringBuilder();
             StringBuilder CssStyles = new StringBuilder();
+
+            if (Top.IndexOf(",") >0)
+            Top =  Top.Remove(Top.IndexOf(","));
+            if (Left.IndexOf(",") > 0)
+            Left = Left.Remove(Left.IndexOf(","));
 
             char[] delimiterChars = { ' ', ',' };
             string[] Styles = ControlFontStyle.Split(delimiterChars);

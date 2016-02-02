@@ -151,9 +151,9 @@ namespace MvcDynamicForms.Fields
         public double PromptLeft { get { return this._Promptleft; } set { this._Promptleft = value; } }
 
         public double PromptWidth { get { return this._PromptWidth; } set { this._PromptWidth = value; } }
-        public double ControlWidth { get { return this._ControlWidth; } set { this._ControlWidth = value; } }
+        public double ControlWidth { get { return System.Math.Truncate(this._ControlWidth); } set { this._ControlWidth = System.Math.Truncate(value); } }
        
-        public double ControlHeight { get { return this._ControlHeight; } set { this._ControlHeight = value; } }
+        public double ControlHeight { get { return System.Math.Truncate(this._ControlHeight); } set { this._ControlHeight = System.Math.Truncate(value); } }
         public Boolean IsRequired { get { return this._IsRequired; } set {   this._IsRequired =value; } }
         public Boolean IsReadOnly { get { return this._IsReadOnly; } set {   this._IsReadOnly = value; }}
         public int MaxLength { get { return this._MaxLength; } set { this._MaxLength = value; } }
