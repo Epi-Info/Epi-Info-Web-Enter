@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Epi.Core.EnterInterpreter;
+using System.Globalization;
+using System.Threading;
 namespace MvcDynamicForms.Fields
 { 
     /// <summary>
@@ -118,6 +120,8 @@ namespace MvcDynamicForms.Fields
             {
                 scriptDatePicker.InnerHtml = "$('#" + inputName + "').datepicker({changeMonth: true,changeYear: true,yearRange:'" + MinYear + ":+" + MaxYear + "'});";
             }
+ 
+
              html.Append(scriptDatePicker.ToString(TagRenderMode.Normal));
 
             //prevent date picker control to submit on enter click
@@ -141,13 +145,13 @@ namespace MvcDynamicForms.Fields
 
         public string GetControlClass(string Value)
         {
-             
- 
+
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
             StringBuilder ControlClass = new StringBuilder();
 
             ControlClass.Append("validate[");
 
-
+          
             if ((!string.IsNullOrEmpty(GetRightDateFormat(Lower,Pattern).ToString()) && (!string.IsNullOrEmpty(GetRightDateFormat(Upper,Pattern).ToString()))))
             {
 
@@ -161,25 +165,50 @@ namespace MvcDynamicForms.Fields
 
                 }
                 ControlClass.Append("] text-input datepicker");
-
+                if (currentCulture.Name != "en-US")
+                {
+                    ControlClass.Append(" NewCulture");
+                }
                 return ControlClass.ToString();
 
             }
             else
             {
-                if (_IsRequired == true)
+                if (currentCulture.Name != "en-US")
                 {
-                   // ControlClass.Append("required,custom[date]] text-input datepicker");
-                    ControlClass.Append("required,custom[date]]  datepicker");
+                    if (_IsRequired == true)
+                    {
+                         
+                        ControlClass.Append("required,custom[date2]]  datepicker");
+                    }
+                    else
+                    {
+                        
+                        ControlClass.Append("custom[date2]]  datepicker");
+
+                    }
+
+                    ControlClass.Append(" NewCulture");
                 }
-                else
-                {
-                    //ControlClass.Append("custom[date]] text-input datepicker");
-                    ControlClass.Append("custom[date]]  datepicker");
+                else {
+
+                    if (_IsRequired == true)
+                    {
+                        ControlClass.Append("required,custom[date]] text-input datepicker");
+                        
+                    }
+                    else
+                    {
+                        ControlClass.Append("custom[date]] text-input datepicker");
+                        
+
+                    }
+
+                
                 }
                 return ControlClass.ToString();
             }
-         
+        
 
         }
 
