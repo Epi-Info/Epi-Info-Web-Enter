@@ -5,6 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
+
+<script>
+    $(document).ready(function () {
+
+        if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
+        {
+            var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
+            if (demosettings == true)
+            {
+                disableElements($('#adminpaging').children());
+            }
+        }
+    });
+    function disableElements(el) {
+        for (var i = 0; i < el.length; i++) {
+            el[i].disabled = true;
+
+            disableElements(el[i].children);
+        }
+    }
+</script>
+
 <div id="pageHeader">
     <div id="pageTitleAdmin">
         @if (Model.UserHighestRole == 3)
@@ -91,7 +113,22 @@
         </div>
         <div id="adminpaging">
             <div style="float: right;">
-                @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, null)
+                @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
+                {
+                    @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, null)
+                }
+                @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                {
+                    if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
+                    {
+                        @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, null)
+                    }
+                    else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+                    {
+                        // @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { disabled="disabled" })
+                        @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { onclick = "javascript:return false;" })
+                    }
+                }
             </div>
             @*<div style="float:right;">
 			<a href="#"><span>Previous</span></a>

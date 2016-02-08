@@ -37,6 +37,11 @@ namespace Epi.Web.MVC.Utility
             {
                 form.IsDraftModeStyleClass = "draft";
             }
+            if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+                {
+                    form.IsDraftModeStyleClass = "demo";
+                }
            
             string XML = form.SurveyInfo.XML;
            

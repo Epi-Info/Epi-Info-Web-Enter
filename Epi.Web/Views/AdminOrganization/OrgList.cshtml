@@ -44,7 +44,21 @@
     <div id="adminpaging">
 		<div>
 			@*@Html.ActionLink("Add New Organization","OrgInfo","AdminOrganization")*@
-             @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgkey = -1, iseditmode = false }, null)	
+            @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
+            {
+                @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgkey = -1, iseditmode = false }, null)
+            }
+            @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+            {
+                if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
+                {
+                    @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgkey = -1, iseditmode = false }, null)
+                }
+                else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+                {
+                    @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { onclick = "javascript:return false;" })
+                }
+            }
 		</div>
 		@*<div style="float:right;">
 			<a href="#"><span>Previous</span></a>
@@ -75,7 +89,21 @@
 				<td>@item.OrganizationKey</td>
 				<td>@item.IsEnabled</td>
                 <td><span > 
-                @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgkey = item.OrganizationKey, iseditmode = true }, null)	
+              @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
+              {
+                @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgkey = item.OrganizationKey, iseditmode = true }, null)
+              }
+            @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+            {
+                if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
+                {
+                    @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgkey = item.OrganizationKey, iseditmode = true }, null)
+                }
+                else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+                {
+                    @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { onclick = "javascript:return false;" })
+                }
+            }
                 </span>
                 
                 </td>
