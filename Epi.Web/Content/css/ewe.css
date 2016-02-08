@@ -1058,6 +1058,16 @@ margin-top: 100px;
 {
      background-image: none !important;
 }
+
+ .demo
+{
+   background-image:url('../images/Demo.png');
+    background-repeat:no-repeat;
+    background-position: center top;
+    background-size: 100%;
+    background-origin:content-box;
+    background-repeat:repeat-y;   
+}
  .errormsg
 {
     border: 1px solid #e6482d; 

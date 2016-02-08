@@ -100,6 +100,13 @@
         $("#myform")[0].action = actionUrlP;
         $("#myform").submit();
     }
+    function disableElements(el) {
+        for (var i = 0; i < el.length; i++) {
+            el[i].disabled = true;
+
+            disableElements(el[i].children);
+        }
+    }
 
 
 
@@ -107,8 +114,24 @@
         // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
         //$("#Savebutton").tooltip();
-
-
+        if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
+        {
+            var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
+            if (demosettings == true)
+            {
+                //$("#myform :input").attr("disabled", true);
+                // $("#myform :input:not([name=Submitbutton], [name=Savebutton])").prop("disabled", true);
+                //$("#Savebutton1").attr("disabled", false);
+                //$("#Close").attr("disabled", false);
+                //$("#PreviousButton").attr("disabled", false);
+                //$("#Savebutton2").attr("disabled", false);
+                //$("#Savebutton").attr("disabled", false);
+                //$("#Close1").attr("disabled", false);
+                //$("#ContinueButton").attr("disabled", false);
+                // $('input[type="text"], input[type="checkbox"], select').prop("disabled", true);
+                disableElements($('#epiform').children());
+            }
+        }
         
         var DateFormat = '@Model.CurrentCultureDateFormat'
         DateFormat = DateFormat.toLocaleLowerCase().toString()
@@ -951,62 +974,64 @@
 
 	
 		@Html.AntiForgeryToken() 
-			 
-		@Html.Raw(Model.Form.RenderHtml(true))
-		   
-		<input type="hidden"  id="HiddenFieldsList"  name="HiddenFieldsList" value="@Model.Form.HiddenFieldsList" />
-		<input type="hidden"  id="HighlightedFieldsList"  name="HighlightedFieldsList" value="@Model.Form.HighlightedFieldsList" />
-		<input type="hidden"  id="DisabledFieldsList"  name="DisabledFieldsList" value="@Model.Form.DisabledFieldsList" />
-		<input type="hidden"  id="RequiredFieldsList"  name="RequiredFieldsList" value="@Model.Form.RequiredFieldsList" />
-		<input type="hidden"  id="AssignList"  name="AssignList" value="@Model.Form.AssignList" />
-		<input type="hidden"  name="is_save_action" value="false" />
-		<input type="hidden"  name="is_goto_action" value="false" />
-        <input type="hidden"  name="Get_Child_action" value="false" />
-        <input type="hidden"  name="Go_Home_action" value="false" />
-         <input type="hidden"  name="Click_Related_Form" value="" />
-    
-          <input type="hidden"  name="Go_One_Level_Up_action" value="false" />
-	    <input type="hidden"  id="FormHasChanged"  name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" /> 
-        <input type="hidden"  id="RelateButtonWasClicked"  name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
-        <input type="hidden"  id="RelateButtonWasClicked_Temp"  name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" /> 
-     <input type="hidden" id="LogoutButtoneWasClicked" name="Log_Out" value="" /> 
+     <div id="epiform">
+         @Html.Raw(Model.Form.RenderHtml(true))
+     </div>
 
-      @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" /> 
-	    <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" /> 
-			 *@
-		<div id="nav">
-			<div id="prev" align="left">&nbsp;
-					@if (Model.Form.CurrentPage != 1)
-			   {  
-						<button class="default prev" id="PreviousButton" value="PreviousButton" onclick="Previous();"  name="PreviousButton"  type="button" > &nbsp; Previous</button>
+         <input type="hidden" id="HiddenFieldsList" name="HiddenFieldsList" value="@Model.Form.HiddenFieldsList" />
+         <input type="hidden" id="HighlightedFieldsList" name="HighlightedFieldsList" value="@Model.Form.HighlightedFieldsList" />
+         <input type="hidden" id="DisabledFieldsList" name="DisabledFieldsList" value="@Model.Form.DisabledFieldsList" />
+         <input type="hidden" id="RequiredFieldsList" name="RequiredFieldsList" value="@Model.Form.RequiredFieldsList" />
+         <input type="hidden" id="AssignList" name="AssignList" value="@Model.Form.AssignList" />
+         <input type="hidden" name="is_save_action" value="false" />
+         <input type="hidden" name="is_goto_action" value="false" />
+         <input type="hidden" name="Get_Child_action" value="false" />
+         <input type="hidden" name="Go_Home_action" value="false" />
+         <input type="hidden" name="Click_Related_Form" value="" />
+
+         <input type="hidden" name="Go_One_Level_Up_action" value="false" />
+         <input type="hidden" id="FormHasChanged" name="Form_Has_Changed" value="@Model.Form.FormValuesHasChanged" />
+         <input type="hidden" id="RelateButtonWasClicked" name="Requested_View_Id" value="@HttpContext.Current.Session["RequestedViewId"]" />
+         <input type="hidden" id="RelateButtonWasClicked_Temp" name="Requested_View_Id_Temp" value="@HttpContext.Current.Session["RequestedViewId"]" />
+         <input type="hidden" id="LogoutButtoneWasClicked" name="Log_Out" value="" />
+
+         @*  <input type="hidden"  id="Parent_Form_Id" name="Parent_Form_Id" value="" />
+            <input type="hidden"   id="Parent_Response_Id" name="Parent_Response_Id" value="" />
+         *@
+         <div id="nav">
+             <div id="prev" align="left">
+                 &nbsp;
+                 @if (Model.Form.CurrentPage != 1)
+			   {
+                     <button class="default prev" id="PreviousButton" value="PreviousButton" onclick="Previous();" name="PreviousButton" type="button"> &nbsp; Previous</button>
 			   }
-				</div>
+             </div>
 
-				<div id="savediv" align="center">
-					@*<button class="default save"  type="button" id ="Savebutton" onclick="Save();" name="Savebutton" value="save"> Save & Close</button>*@
-					<button class="default save" id ="Savebutton2" type="submit" onclick="Save();"  name="Savebutton" value="Submit"  style="margin-right:10px;">Save</button>
-					<button class="default save" id ="Savebutton" type="submit"  name="Submitbutton" value="Submit" style="width:126px;margin-right:10px;">Save & Close</button>
-                    <button class="default exitsurvey" id="Close1" type="submit"  name="Submitbutton" value="Submit" style="padding: 4px 6px 4px 6px !important;">Exit</button>  
-				</div>
-				 
-			  
-			@if (Model.Form.CurrentPage == Model.Form.NumberOfPages)
-	   {  
-				@*<div id="next" align="right"> 
-					<button class="default submits" type="submit"  name="Submitbutton" value="Submit" >Submit </button>
-				</div>*@
+             <div id="savediv" align="center">
+                 @*<button class="default save"  type="button" id ="Savebutton" onclick="Save();" name="Savebutton" value="save"> Save & Close</button>*@
+                 <button class="default save" id="Savebutton2" type="submit" onclick="Save();" name="Savebutton" value="Submit" style="margin-right:10px;">Save</button>
+                 <button class="default save" id="Savebutton" type="submit" name="Submitbutton" value="Submit" style="width:126px;margin-right:10px;">Save & Close</button>
+                 <button class="default exitsurvey" id="Close1" type="submit" name="Submitbutton" value="Submit" style="padding: 4px 6px 4px 6px !important;">Exit</button>
+             </div>
+
+
+             @if (Model.Form.CurrentPage == Model.Form.NumberOfPages)
+	   {
+                 @*<div id="next" align="right">
+                        <button class="default submits" type="submit"  name="Submitbutton" value="Submit" >Submit </button>
+                    </div>*@
 	   }
    else
 	   {
-				<div id="next" align="right">
-					<button class="default next"  name="ContinueButton" id="ContinueButton" onclick="Continue();" type="button" >Continue &nbsp; </button>
-				</div>						
+                 <div id="next" align="right">
+                     <button class="default next" name="ContinueButton" id="ContinueButton" onclick="Continue();" type="button">Continue &nbsp; </button>
+                 </div>
 	   }
 
-			</div>    
-		   
-	
- </div>	 @*End formdisplay Div *@  
+         </div>
+
+
+     </div>	 @*End formdisplay Div *@  
 
 	}@*End Form *@
 </div>@*End content Div *@
