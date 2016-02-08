@@ -12,6 +12,12 @@ namespace Epi.Web.MVC.Models
         private FormResponseInfoModel _FormResponseInfoModel;
         private int _RequestedViewId;
         private string _RelatedButtonWasClicked;
+        private string _CurrentCultureDateFormat;
+        public string CurrentCultureDateFormat
+        {
+            get { return _CurrentCultureDateFormat; }
+            set { _CurrentCultureDateFormat = value; }
+        }
         public Form Form
             {
             get { return _Form; }
