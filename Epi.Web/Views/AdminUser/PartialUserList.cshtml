@@ -22,7 +22,21 @@
                 <td>@user.Role</td>
                 <td>
                 <span >
-                    @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { userid = user.UserId, iseditmode = true , orgid = ViewBag.SelectedOrg }, null)	
+                    @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
+                    {
+                        @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { userid = user.UserId, iseditmode = true, orgid = ViewBag.SelectedOrg }, null)
+                    }
+                    @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                    {
+                        if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
+                        {
+                            @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { userid = user.UserId, iseditmode = true, orgid = ViewBag.SelectedOrg }, null)
+                        }
+                        else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+                        {
+                            @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { onclick = "javascript:return false;" })
+                        }
+                    }
                 </span>
                 </td> 
 

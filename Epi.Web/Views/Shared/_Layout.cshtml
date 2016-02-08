@@ -118,6 +118,16 @@
         <img alt="Epi Info 7 - Epi Web Enter" src="~/Content/images/epiIcon.png" />
         <h1>Epi Info™ Web Enter</h1>
     </div>
+    @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+    {
+        if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+        {
+            <div id="demoheader" style=" color:#bc0101 ;font-family: Calibri, Global User Interface;font-size: 12pt;font-weight:bold;">
+                This site is for demo purposes only. Some features may be disabled.
+            </div>
+        }
+    }
+    
     <div id="maincontent">  
         @RenderBody()
     </div>

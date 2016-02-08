@@ -39,7 +39,18 @@
                     <label for="Passcode" style="display: block;margin-top:10px;" >Password:</label>
                     @Html.PasswordFor(m => m.Password)
                     <p><button type="submit" value="Log in" class="default">Log In</button><br /><br />
-                    @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")</p>
+                        @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
+                        {
+                            @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")
+                        }
+                        @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                        {
+                            if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
+                            {
+                                @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")
+                            }
+                        }
+                        </p>
                 </div>
           } 
        
