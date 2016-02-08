@@ -108,10 +108,18 @@
 
         //$("#Savebutton").tooltip();
 
-        if ($(".NewCulture")[0]) {
-              $(".datepicker").datepicker("option", "dateFormat", "dd/mm/yy");
-        }
-     
+
+        
+        var DateFormat = '@Model.CurrentCultureDateFormat'
+        DateFormat = DateFormat.toLocaleLowerCase().toString()
+        
+        
+        $(".datepicker").datepicker("option", "dateFormat", DateFormat);
+        
+        
+          
+ 
+
         $("#dialog").dialog({
             autoOpen: false,
             show: "blind",
@@ -203,24 +211,24 @@
                     "text": 'Save',
                     "click": function () {
                         //alert('@Model.Form.StatusId');
-	                    $(this).dialog("close");
-	                    var input = $("<input>")
+                        $(this).dialog("close");
+                        var input = $("<input>")
 					   .attr("type", "hidden")
 					   .attr("name", "CloseButton").val("CloseButton");
-	                    $('#myform').append($(input));
-	                    $("#myform").submit();
+                        $('#myform').append($(input));
+                        $("#myform").submit();
 
 
-	                },
-	                "class": 'dialogbtn'
+                    },
+                    "class": 'dialogbtn'
 
-	            }, {
-	                "text": 'Don\'t Save',
-	                "click": function () {
+                }, {
+                    "text": 'Don\'t Save',
+                    "click": function () {
 
-	                    var signoutUrl = '@Url.Action("Delete", "Survey")';
-	                   // alert('Don\'t Save');
-	                    //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
+                        var signoutUrl = '@Url.Action("Delete", "Survey")';
+                        // alert('Don\'t Save');
+                        //  var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
                         $.ajax({
                             url: signoutUrl,
                             type: 'POST',
@@ -286,12 +294,12 @@
                     "click": function () {
 
                         var signoutUrl = '@Url.Action("Delete", "Survey")';
-                        
+
                         $.ajax({
                             url: signoutUrl,
                             type: 'POST',
                             contentType: 'application/json; charset=utf-8',
-                            
+
                             dataType: "json",
                             cache: false,
                             async: false,
@@ -468,7 +476,7 @@
         /*Exit the survey */
         $("#Close").click(function (e) {
             e.preventDefault();
-             //alert('close')
+            //alert('close')
 
             CCE_HasFormValuesChanged();
             if ($('#FormHasChanged').val() == 'True') {
@@ -509,23 +517,23 @@
 
 
         $("a.item-link").click(function (event) {
-             event.preventDefault(); 
-             CCE_HasFormValuesChanged();
-                if ($('#FormHasChanged').val() == 'True') {
-                    $("#exitAndLogoutdialog").dialog("open");
-                }
-                else {
-                    
-                    DeleteRecord(true);
-                    
-                }
-           
+            event.preventDefault();
+            CCE_HasFormValuesChanged();
+            if ($('#FormHasChanged').val() == 'True') {
+                $("#exitAndLogoutdialog").dialog("open");
+            }
+            else {
+
+                DeleteRecord(true);
+
+            }
+
         });
 
 
 
         $("#Close1").click(function (e) {
-          // alert('close1')
+            // alert('close1')
             e.preventDefault();
             CCE_HasFormValuesChanged();
             if ($('#FormHasChanged').val() == 'True') {
@@ -563,18 +571,18 @@
         });
         function successFunc(data) {
             $(this).dialog("close");
-            
+
             if (Signout) {
-               
+
 
                 var signoutUrl = '@Url.Action("SignOut", "Post")';
                 var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
                 SignOutAndRedirect(signoutUrl, homePageUrl);
-            }else{
+            } else {
                 var homePageUrl = '@Url.Action("Index", "Home")' + '/' + data;
-                   window.location.href = homePageUrl;
-              } 
-             
+                window.location.href = homePageUrl;
+            }
+
         }
         function errorFunc(data) {
             alert('failed');
