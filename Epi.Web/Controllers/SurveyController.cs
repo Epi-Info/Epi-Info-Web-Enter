@@ -25,6 +25,8 @@ using Epi.Web.Enter.Common.DTO;
 using Epi.Web.MVC.Utility;
 using System.Linq;
 using System.Web.Configuration;
+using System.Globalization;
+using System.Threading;
 namespace Epi.Web.MVC.Controllers
 {
     [Authorize]
@@ -69,7 +71,10 @@ namespace Epi.Web.MVC.Controllers
         {
         try
             {
+            CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
+            
             SurveyModel SurveyModel = new SurveyModel();
+
             if (Session["IsEditMode"]!=null)
                 {
 
@@ -84,7 +89,9 @@ namespace Epi.Web.MVC.Controllers
                 SurveyModel = IndexGet(responseId, PageNumber, "");
                 
                 }
-
+            string DateFormat = currentCulture.DateTimeFormat.ShortDatePattern;
+            DateFormat = DateFormat.Remove(DateFormat.IndexOf("y"),2);
+            SurveyModel.CurrentCultureDateFormat = DateFormat;
            return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
             }
             catch (Exception ex)
