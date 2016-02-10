@@ -403,7 +403,19 @@ button.search
     padding: 4px 12px 4px 30px;
     background-color: #5c53ac !important;
 }
- 
+
+button.analytics
+{
+    background-image: url('../images/graphs_icon.png');
+    background-repeat: no-repeat; 
+    background-size: 18px;
+    background-position: 8px center;
+    /*width: 110px;*/
+    height: 35px;
+    padding: 4px 12px 4px 30px;
+    background-color: #5c53ac !important;
+} 
+
  #infobox1
  {
     font-size: 10pt;
