@@ -76,9 +76,9 @@
 @*<script type="text/javascript" language="javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" language="javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>  *@
 <script type="text/javascript" language="javascript">
-//    $(document).ready(function () {
+    //    $(document).ready(function () {
 
-//        $('#persons').keyup(function () {
+    //        $('#persons').keyup(function () {
 
 //            var UpdateUrl = '@Url.Action("AutoComplete", "AdminOrganization")'+"?term=" + $('#persons').val()  ;
 
@@ -95,7 +95,7 @@
 //            });
 //            $.ajaxSetup({ cache: false });
 //            function successFunc(data) {
-//               
+//
 //                var availableTags = data;
 //                $('#persons').autocomplete({ source: availableTags });
 //            }
@@ -105,44 +105,62 @@
 
 
 
-// 
+//
 //        });
 //    });
     $(document).ready(function () {
+
+        if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
+        {
+            var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
+            if (demosettings == true)
+            {
+                //  disableElements($('#content').children());
+                $('[name="input"]').attr("disabled", true);
+                $('[name="input"]').attr("title", "This feature is not available in demo mode");
+            }
+        }
         $("#ConfirmAdminEmail").change(function () {
-        
+
             var _ConfirmAdminEmail = $("#ConfirmAdminEmail").val();
             var _AdminEmail = $("#persons").val();
-           
+
             if (_ConfirmAdminEmail == _AdminEmail) {
-                
+
 
                     var signoutUrl = '@Url.Action("GetUserInfoAD", "AdminOrganization")' + '?email=' + _ConfirmAdminEmail;
 
-                    $.ajax({
-                        url: signoutUrl,
-                        type: 'POST',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: "json",
-                        async: false,
-                        success: successFunc,
-                        error: errorFunc
-                    });
+                $.ajax({
+                    url: signoutUrl,
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: "json",
+                    async: false,
+                    success: successFunc,
+                    error: errorFunc
+                });
 
 
-                    function successFunc(data) {
-                        $("#AdminFirstName").val(data.FirstName);
-                        $("#AdminLastName").val(data.LastName);
+                function successFunc(data) {
+                    $("#AdminFirstName").val(data.FirstName);
+                    $("#AdminLastName").val(data.LastName);
 
-                    }
-                    function errorFunc() {
-                        alert('error');
-                    }
-       
-             }
+                }
+                function errorFunc() {
+                    alert('error');
+                }
+
+            }
         });
-       
+
     });
+    function disableElements(el) {
+        for (var i = 0; i < el.length; i++) {
+            el[i].disabled = true;
+
+            disableElements(el[i].children);
+        }
+    }
 
 
 </script>
@@ -243,11 +261,11 @@
         <div style="clear:both;"></div>
          @if (!Model.IsEditMode)
              {
-		     <input type="submit" value="Create" id="Create"/>
+		     <input type="submit" name="input" value="Create" id="Create"/>
              }
          else 
              { 
-              <input type="submit" value="Update" id="Update"/>
+              <input type="submit" name="input" value="Update" id="Update"/>
              
              }
 		@*<input type="button" onclick="Cancel();" value="Cancel"  style="margin-left:20px;"/>*@

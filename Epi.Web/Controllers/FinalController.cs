@@ -52,11 +52,11 @@ namespace Epi.Web.MVC.Controllers
                 {
                     surveyInfoModel.IsDraftModeStyleClass = "final";
                 }
-                if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
+               /* if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
                     if (ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
                     {
                         surveyInfoModel.IsDraftModeStyleClass = "demo";
-                    }
+                    }*/
                 bool IsMobileDevice = false;
                 IsMobileDevice = this.Request.Browser.IsMobileDevice;
                 Omniture OmnitureObj = Epi.Web.MVC.Utility.OmnitureHelper.GetSettings(SurveyMode, IsMobileDevice);

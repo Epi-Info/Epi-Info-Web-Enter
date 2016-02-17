@@ -46,8 +46,8 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public ActionResult Index(string responseId, string ReturnUrl)
         {
-            //string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            //ViewBag.Version = version;
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
 
             //   //get the responseId
             //    responseId = GetResponseId(ReturnUrl);

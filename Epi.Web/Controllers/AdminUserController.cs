@@ -10,6 +10,7 @@ using System.Web.Configuration;
 using Epi.Web.MVC.Models;
 using System.Text.RegularExpressions;
 using System.DirectoryServices.AccountManagement;
+using System.Reflection;
 namespace Epi.Web.MVC.Controllers
 {
     public class AdminUserController : Controller
@@ -25,6 +26,8 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public ActionResult UserList()
         {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
             int OrgId = -1;
             if (Session["CurrentOrgId"] != null)
             {
@@ -44,6 +47,8 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public ActionResult UserInfo(int userid, bool iseditmode, int orgid)
         {
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
             UserModel UserModel = new UserModel();
             UserRequest Request = new UserRequest();
             orgid = int.Parse(Session["CurrentOrgId"].ToString());
@@ -129,7 +134,8 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult GetUserList(int orgid)
         {
 
-
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
             OrganizationRequest Request = new OrganizationRequest();
             Request.Organization.OrganizationId = orgid;
             OrganizationResponse OrganizationUsers = _isurveyFacade.GetOrganizationUsers(Request);
