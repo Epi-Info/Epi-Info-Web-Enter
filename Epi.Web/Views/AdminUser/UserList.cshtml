@@ -14,7 +14,7 @@
             var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
             if (demosettings == true)
             {
-                disableElements($('#adminpaging').children());
+                //disableElements($('#adminpaging').children());
             }
         }
     });
@@ -125,8 +125,8 @@
                     }
                     else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
                     {
-                        // @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { disabled="disabled" })
-                        @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { onclick = "javascript:return false;" })
+                        //@Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { onclick = "javascript:return false;" })
+                        @Html.ActionLink("Add New User", "UserInfo", "AdminUser", new { userid = -1, iseditmode = false, orgid = ViewBag.SelectedOrg }, new { Class = "action", title = "Add a new user to an organisation." })
                     }
                 }
             </div>

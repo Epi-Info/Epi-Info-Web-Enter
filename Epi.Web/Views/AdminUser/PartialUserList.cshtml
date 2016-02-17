@@ -34,7 +34,8 @@
                         }
                         else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
                         {
-                            @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { onclick = "javascript:return false;" })
+                            // @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { onclick = "javascript:return false;" })
+                            @Html.ActionLink("Edit", "UserInfo", "AdminUser", new { userid = user.UserId, iseditmode = true, orgid = ViewBag.SelectedOrg }, new { Class = "action", title = "Modify or change an existing user's information and organisation details." })
                         }
                     }
                 </span>
@@ -45,3 +46,4 @@
             }
         </tbody>
     </table>
+
