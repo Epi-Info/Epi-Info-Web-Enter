@@ -56,7 +56,8 @@
                 }
                 else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
                 {
-                    @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { onclick = "javascript:return false;" })
+                    // @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { onclick = "javascript:return false;" })
+                    @Html.ActionLink("Add New Organization", "OrgInfo", "AdminOrganization", new { orgkey = -1, iseditmode = false }, new { Class = "action", title = "Add a new organisation." })
                 }
             }
 		</div>
@@ -101,7 +102,8 @@
                 }
                 else if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
                 {
-                    @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { onclick = "javascript:return false;" })
+                    // @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { onclick = "javascript:return false;" })
+                    @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgkey = item.OrganizationKey, iseditmode = true }, new { Class = "action", title = "Modify or change an existing user's information and organisation details." })
                 }
             }
                 </span>

@@ -122,9 +122,12 @@
     {
         if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
         {
-            <div id="demoheader" style=" color:#bc0101 ;font-family: Calibri, Global User Interface;font-size: 12pt;font-weight:bold;">
+            @*<div id="demoheader" style=" color:#bc0101 ; text-align:center ;font-family: Calibri, Global User Interface;font-size: 12pt;font-weight:bold;">*@
+        <p>
+
+       
                 This site is for demo purposes only. Some features may be disabled.
-            </div>
+           </p>
         }
     }
     

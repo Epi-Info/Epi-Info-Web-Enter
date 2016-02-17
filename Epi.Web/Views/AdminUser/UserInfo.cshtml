@@ -7,7 +7,26 @@
 <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
 
 <script type="text/javascript">
-    $( document ).ready(function() {
+    $(document).ready(function () {
+
+        function disableElements(el) {
+            for (var i = 0; i < el.length; i++) {
+                el[i].disabled = true;
+
+                disableElements(el[i].children);
+            }
+        }
+
+         if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
+        {
+            var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
+            if (demosettings == true)
+            {
+                // disableElements($('#content').children());
+                $('[name="input"]').attr("disabled", true);
+                $('[name="input"]').attr("title", "This feature is not available in demo mode");
+            }
+        }
     $("#Email").change(function () {
  
         var _Email = $("#Email").val();
@@ -193,11 +212,11 @@
                     </div>
                     @if (!@Model.IsEditMode)
                     {
-                        <input type="submit" value="Create" id="Create" />
+                        <input type="submit" name="input" value="Create" id="Create" />
                     }
                     else
                     { 
-                        <input type="submit" value="Update" id="Update" />
+                        <input type="submit" name="input" value="Update" id="Update" />
              
                     }
                     @*<input type="submit" value="Cancel"  style="margin-left:20px;"/>*@

@@ -233,11 +233,11 @@ namespace Epi.Web.MVC.Controllers
                             {
                             form.FormValuesHasChanged = Session["FormValuesHasChanged"].ToString();
                             }
-                        if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                       /* if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
                             if (ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
                             {
                                 form.IsDraftModeStyleClass = "demo";
-                            }
+                            }*/
                         form.RequiredFieldsList = this.RequiredList;
                         //passCode end
                         SurveyModel SurveyModel = new SurveyModel();

@@ -10,6 +10,7 @@ using Epi.Web.Enter.Common.DTO;
 using System.Web.Configuration;
 using Epi.Web.MVC.Models;
 using System.Text.RegularExpressions;
+using System.Reflection;
 namespace Epi.Web.MVC.Controllers
 {
     public class AdminOrganizationController : Controller
@@ -24,6 +25,8 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public ActionResult OrgList()
         {
+            string version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             int UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
             OrganizationRequest Request = new OrganizationRequest();
@@ -52,7 +55,8 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult OrgInfo(string orgkey, bool iseditmode)
         {
             OrgAdminInfoModel OrgInfo = new OrgAdminInfoModel();
-
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
             if (iseditmode)
             {
                 OrganizationRequest Request = new OrganizationRequest();
