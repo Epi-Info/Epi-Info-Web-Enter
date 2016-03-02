@@ -611,8 +611,10 @@ namespace Epi.Web.MVC.Utility
                 IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList"),
                 IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList"),
                 IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList"),
-                Pattern = _FieldTypeID.Attribute("Pattern").Value
-                
+                Pattern = _FieldTypeID.Attribute("Pattern").Value,
+                  InputFieldfontstyle = _FieldTypeID.Attribute("ControlFontStyle").Value,
+             InputFieldfontSize = double.Parse(_FieldTypeID.Attribute("ControlFontSize").Value),
+            InputFieldfontfamily = _FieldTypeID.Attribute("ControlFontFamily").Value
             };
             return NumericTextBox;
 
@@ -1156,8 +1158,19 @@ namespace Epi.Web.MVC.Utility
                 if (FunctionObject_A != null && !FunctionObject_A.IsNull())
                 {
                     JavaScript.AppendLine("$(document).ready(function () {");
-                    JavaScript.AppendLine("$('#myform').submit(function () {");
-                    JavaScript.AppendLine("page" + PageNumber + "_after();})");
+                    //JavaScript.AppendLine("$('#myform').submit(function () {");
+                  //  JavaScript.AppendLine("page" + PageNumber + "_after();})");
+                    JavaScript.AppendLine("$(\"[href]\").click(function(e) {");
+                    JavaScript.AppendLine("page" + PageNumber + "_after();  e.preventDefault(); })");
+
+                    JavaScript.AppendLine("$(\"#ContinueButton\").click(function(e) {");
+                    JavaScript.AppendLine("page" + PageNumber + "_after();  e.preventDefault(); })");
+
+                    JavaScript.AppendLine("$(\"#PreviousButton\").click(function(e) {");
+                    JavaScript.AppendLine("page" + PageNumber + "_after();  e.preventDefault(); })");
+                    
+
+
                     JavaScript.AppendLine("});");
 
                     JavaScript.Append("\n\nfunction page" + PageNumber);
