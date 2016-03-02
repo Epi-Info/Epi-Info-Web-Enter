@@ -655,7 +655,11 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                     cce_Symbol.Value = pValue;
 
                     break;
-
+                case "label": // lable
+                    Jquery = Jquery + '_fieldWrapper';
+                    $(Jquery).html(pValue);
+                    cce_Symbol.Value = pValue;
+                    break;
                 default:
                     $(Jquery).val(pValue);
                     cce_Symbol.Value = pValue;
@@ -1910,7 +1914,9 @@ function CCE_ContextOpenSimpleDialogBox(Title,Prompt,id)
         $('.ui-dialog-title').text(Title.toString());
         $('#SimpleDialogBoxPrempt').text(Prompt.toString());
         $('#SimpleDialogBoxButton').text('Ok');
-        $("#SimpleDialogBox").dialog("open");
+        setTimeout(function () {
+            $("#SimpleDialogBox").dialog("open");
+        }, 100);
      }else{
      
      CCE_ContextOpenMobileSimpleDialogBox(Title,Prompt,id) 
@@ -1931,8 +1937,10 @@ function CCE_ContextOpenDialogBox(Title,MaskOpt,Identifier,Prompt)
         $('#DialogBoxPrempt').text(Prompt.toString());
         $('#DialogBoxOkButton').text('Ok');
         $('#DialogBoxInput').datepicker( "hide" );
-         
-        $("#DialogBox").dialog("open");
+        
+        setTimeout(function () {
+            $("#DialogBox").dialog("open");
+        }, 100);
         $('#ui-timepicker-div').hide();
 
         if(CCE_GetMaskedPattern(MaskOpt.toLocaleString()).toString() != "")
