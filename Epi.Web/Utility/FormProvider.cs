@@ -211,7 +211,7 @@ namespace Epi.Web.MVC.Utility
                             case "17"://DropDown LegalValues
 
                                 string DropDownValues1 = "";
-                                DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value);
+                                DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value);
                                 var _DropDownSelectedValue1 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue1, DropDownValues1, 17, form));
                                 //                                             pName, pType, pSource
@@ -221,7 +221,7 @@ namespace Epi.Web.MVC.Utility
                             case "18"://DropDown Codes
 
                                 string DropDownValues2 = "";
-                                DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value);
+                                DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value,_FieldTypeID.Attribute("CodeColumnName").Value);
                                 var _DropDownSelectedValue2 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form));
                                 //                                             pName, pType, pSource
@@ -231,7 +231,7 @@ namespace Epi.Web.MVC.Utility
                             case "19"://DropDown CommentLegal
 
                                 string DropDownValues = "";
-                                DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value);
+                                DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value);
                                 var _DropDownSelectedValue = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue, DropDownValues, 19, form));
                                 //                                             pName, pType, pSource
@@ -379,21 +379,21 @@ namespace Epi.Web.MVC.Utility
 
                         case "17": //DropDown LegalValues
                             string DropDownValues1 = "";
-                            DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value);
+                            DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value);
                             var _DropDownSelectedValue1 = Value;
                             field = GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue1, DropDownValues1, 17, form);
                             break;
 
                         case "18": //DropDown Codes
                             string DropDownValues2 = "";
-                            DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value);
+                            DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value);
                             var _DropDownSelectedValue2 = Value;
                             field = GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form);
                             break;
 
                         case "19": //DropDown CommentLegal
                             string DropDownValues = "";
-                            DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value);
+                            DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value);
                             var _DropDownSelectedValue = Value;
                             field = GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue, DropDownValues, 19, form);
                             break;
@@ -936,7 +936,7 @@ namespace Epi.Web.MVC.Utility
             return DropDown;
         }
 
-        public static string GetDropDownValues(XDocument xdoc, string ControlName, string TableName)
+        public static string GetDropDownValues(XDocument xdoc, string ControlName, string TableName, string  CodeColumnName )
         {
             StringBuilder DropDownValues = new StringBuilder();
 
@@ -964,7 +964,7 @@ namespace Epi.Web.MVC.Utility
                     {
 
                        // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
-                        DropDownValues.Append(_SourceTableValue.FirstAttribute.Value.Trim());
+                        DropDownValues.Append(_SourceTableValue.Attribute(CodeColumnName).Value.Trim());
                         DropDownValues.Append("&#;");
                     }
                 }
