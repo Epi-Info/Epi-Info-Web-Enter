@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using System.Xml.XPath;
 using Epi.Core.EnterInterpreter;
+using System.Drawing;
 namespace Epi.Web.MVC.Utility
 {
     public static class FormProvider
@@ -964,7 +965,16 @@ namespace Epi.Web.MVC.Utility
                     {
 
                        // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
-                        DropDownValues.Append(_SourceTableValue.Attribute(CodeColumnName).Value.Trim());
+                        if (!string.IsNullOrEmpty(CodeColumnName))
+                        {
+                            DropDownValues.Append(_SourceTableValue.Attribute(CodeColumnName.ToLower()).Value.Trim());
+                        }
+                        else
+                        {
+                            DropDownValues.Append(_SourceTableValue.Attributes().FirstOrDefault().Value.Trim());
+
+
+                        }
                         DropDownValues.Append("&#;");
                     }
                 }
@@ -997,7 +1007,12 @@ namespace Epi.Web.MVC.Utility
                     GroupBox.IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList");
                     GroupBox.IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList");
                     GroupBox.IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList");
-                     
+                    if (_FieldTypeID.Attribute("BackgroundColor") != null)
+                    {
+                        var color = Color.FromArgb((int)(int.Parse(_FieldTypeID.Attribute("BackgroundColor").Value)) + unchecked((int)0xFF000000));
+                        string HexValue = string.Format("#{0:X2}{1:X2}{2:X2}", color.R, color.G, color.B);
+                        GroupBox.BackgroundColor = HexValue;
+                    }
 
 
                 
