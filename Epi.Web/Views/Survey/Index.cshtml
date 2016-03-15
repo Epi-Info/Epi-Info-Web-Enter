@@ -770,7 +770,7 @@
     }
     function GoHome() {
 
-
+       $('#myform').validationEngine('detach');
         $("#myform")[0].Go_Home_action.value = 'true';
 
         $("#myform")[0].action = window.location.href;
@@ -781,7 +781,7 @@
     }
 
     function GoOneLevelUp() {
-
+        $('#myform').validationEngine('detach');
         $("#myform")[0].Go_One_Level_Up_action.value = 'true';
 
         $("#myform")[0].action = window.location.href;
