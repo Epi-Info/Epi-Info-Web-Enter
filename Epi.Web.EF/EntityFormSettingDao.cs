@@ -8,7 +8,7 @@ using Epi.Web.Enter.Common;
 using Epi.Web.Enter.Common.Criteria;
 using Epi.Web.Enter.Interfaces.DataInterface;
 using Epi.Web.Enter.Common.BusinessObject;
-
+using Epi.Web.Enter.Common.Extension;
 namespace Epi.Web.EF
 {
     public class EntityFormSettingDao : IFormSettingDao
@@ -446,14 +446,60 @@ namespace Epi.Web.EF
 
         public void DeleteDraftRecords(string FormId)
         {
-            Guid Id = new Guid(FormId);
+            //Guid Id = new Guid(FormId);
             try
             {
+                //using (var Context = DataObjectFactory.CreateContext())
+                //{
+                //   Context.SurveyResponses.Where(x => x.SurveyId == Id && x.IsDraftMode == true).ToList().ForEach(Context.SurveyResponses.DeleteObject); 
+
+                //   Context.SaveChanges();
+                //}
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                   Context.SurveyResponses.Where(x => x.SurveyId == Id && x.IsDraftMode == true).ToList().ForEach(Context.SurveyResponses.DeleteObject); 
-                   Context.SaveChanges();
-                }
+                    List<SurveyResponseBO> SurveyResponses = new List<SurveyResponseBO>();
+                
+                    List<SurveyResponseBO> result = new List<SurveyResponseBO>();
+                   
+                    Guid formid = new Guid(FormId);
+
+                   
+                        SurveyResponses = Mapper.Map(Context.SurveyResponses.Where(x => x.SurveyId == formid && x.IsDraftMode == true));
+                        foreach (var SurveyResponse in SurveyResponses)
+                        {
+                                Guid Id = new Guid(SurveyResponse.ResponseId);
+                                result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1));
+                                foreach (var Obj in result)
+                                {
+
+                                    if (!string.IsNullOrEmpty(Obj.ResponseId))
+                                    {
+                                        Guid NewId = new Guid(Obj.ResponseId);
+
+                                        User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+
+                                        if (User == null)
+                                        {
+                                            var ResponseXml = Context.ResponseXmls.FirstOrDefault(x => x.ResponseId == new Guid(SurveyResponse.ResponseId));
+                                            User = Context.Users.FirstOrDefault(x => x.UserID == ResponseXml.UserId);
+                                        }
+
+
+                                        SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == NewId);
+                                        Response.Users.Remove(User);
+
+
+                                        Context.SurveyResponses.DeleteObject(Response);
+
+                                        Context.SaveChanges();
+                                    }
+
+
+                                }
+
+
+                    }
+                    }
             }
             catch (Exception ex)
             {
