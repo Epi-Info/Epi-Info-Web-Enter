@@ -28,7 +28,7 @@ body
  {
     padding: 0.5em;
     border-bottom: 1px solid #abafbc;
-    background: #2f6fa3;/* url('../images/header_bg.png') repeat;*/
+    background: #1d60ac ;/* url('../images/header_bg.png') repeat;*/
      background-image: linear-gradient(to bottom, #2f6fa3, #2f6fa3css3-metro-dropdown);
     -webkit-box-shadow: 0 -1px 0 rgba(77, 117, 164, 0.8) inset;
     -moz-box-shadow: 0 -1px 0 rgba(77, 117, 164,.8) inset;
@@ -38,6 +38,17 @@ body
     
  }
 
+input.createbtn {
+    background: #5c53ac none repeat scroll 0 0;
+    border: 1px solid #1f3b53;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    margin: 1px;
+    padding: 8px 14px;
+    text-decoration: none;
+}
 #header h1
  {
     padding: 0;
