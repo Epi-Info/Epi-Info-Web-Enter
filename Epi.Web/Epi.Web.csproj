@@ -56,7 +56,12 @@
       <HintPath>..\Epi.Web.EF\bin\Debug\Epi.Web.EF.dll</HintPath>
     </Reference>
     <Reference Include="Epi.Web.Enter.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\Epi.Web.Common\bin\Debug\Epi.Web.Enter.Common.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Epi.Web.Enter.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Epi.Web.Enter.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Epi.Web.Enter.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="EpiInfo.Plugin, Version=7.0.9.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -363,6 +368,7 @@
     <Content Include="Content\css\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\css\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\css\images\user.png" />
     <Content Include="Content\css\jqm-datebox.css" />
     <Content Include="Content\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\css\jquery.mobile.datebox-1.0.1.css" />
@@ -418,13 +424,17 @@
     <Content Include="Content\images\designlegend1.png" />
     <Content Include="Content\images\DRAFT.png" />
     <Content Include="Content\images\edit.png" />
+    <Content Include="Content\images\ei_logomark_wht_outln_350px.png" />
+    <Content Include="Content\images\ei_logomark_wht_outln_50px.png" />
     <Content Include="Content\images\epi.png" />
     <Content Include="Content\images\epiIcon.png" />
+    <Content Include="Content\images\epi_info_logo_01.png" />
     <Content Include="Content\images\error.png" />
     <Content Include="Content\images\error1.png" />
     <Content Include="Content\images\error2.png" />
     <Content Include="Content\images\footer_bar.png" />
     <Content Include="Content\images\go.png" />
+    <Content Include="Content\images\graphs_icon.png" />
     <Content Include="Content\images\header_bg.png" />
     <Content Include="Content\images\header_bg2.png" />
     <Content Include="Content\images\icn_alert_error.png" />
@@ -469,6 +479,7 @@
     <Content Include="Content\images\submit.png" />
     <Content Include="Content\images\toc.png" />
     <Content Include="Content\images\uplevel.png" />
+    <Content Include="Content\images\user.png" />
     <Content Include="Content\images\user12.png" />
     <Content Include="Content\images\video.png" />
     <Content Include="Content\images\warn.png" />
@@ -702,10 +713,6 @@
     <ProjectReference Include="..\Epi.Web.CheckCodeEngine\Epi.Web.CheckCodeEngine.csproj">
       <Project>{6B084882-EF4F-4CF0-85B1-1E8C357AE822}</Project>
       <Name>Epi.Web.CheckCodeEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Epi.Web.Interfaces\Epi.Web.Interfaces.csproj">
-      <Project>{B8AF69BD-3CE1-4AA5-875D-3FB87C7FCE44}</Project>
-      <Name>Epi.Web.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\SurveyManagerInterface\Epi.Web.WCF.SurveyService.csproj">
       <Project>{31F91938-2997-4650-8D36-71C845F1071D}</Project>
