@@ -5,6 +5,11 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
  <link href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("div#demoheader").css({ "margin": "-2px 0px 0px 10px" });
+    });
+    </script>
 <div id="pageHeader">
 	<div id="pageTitleAdmin">
 		<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>
@@ -13,21 +18,21 @@
 		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>
 
 	</div>
- 
-	
+
+
 	<div id="userwelcome">
 		Welcome <strong>@Session["UserFirstName"] @Session["UserLastName"]</strong>&nbsp; | &nbsp;
 	  @*  <a href="#">Log Out</a>*@
-	  
+
 	  @Html.ActionLink("Home", "Index", "Home", null, null) &nbsp; | &nbsp;
-	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
 	</div>
 	<div style="clear: both;"></div>
 </div>
 
-<div id="content" style="margin:15px 0 200px; padding-left: 10px; min-height: 375px;">
+<div id="content" style="margin:15px 0px 0px 0px; padding-left: 10px; min-height: 375px;">
 
-    <div id="formtitleadmin" style="display:block; ">
+    <div id="formtitleadmin" style="display:block; margin-bottom:25px">
         <h2 class="surveyTitle">Manage Organizations</h2>
     </div>
     <div style="clear:both;"></div>
@@ -36,7 +41,7 @@
     @if(!string.IsNullOrEmpty(Model.Message))
         {
           <div id="success" >
-           <span>@Model.Message</span>    
+           <span>@Model.Message</span>
           </div>
         }
     <div style="clear:both;"></div>
@@ -68,8 +73,8 @@
 		</div>*@
         <div style="clear:both;"></div>
 	</div>
-    
-    
+
+
 	    <table class="sortable">
 
 		<thead>
@@ -77,7 +82,7 @@
 				<th>Organization</th>
 				<th>Org Key</th>
 				<th>Active</th>
-                
+
 				<th>Actions</th>
 			</tr>
 		</thead>
@@ -89,7 +94,7 @@
 				<td>@item.Organization</td>
 				<td>@item.OrganizationKey</td>
 				<td>@item.IsEnabled</td>
-                <td><span > 
+                <td><span >
               @if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
               {
                 @Html.ActionLink("Edit", "OrgInfo", "AdminOrganization", new { orgkey = item.OrganizationKey, iseditmode = true }, null)
@@ -107,14 +112,14 @@
                 }
             }
                 </span>
-                
+
                 </td>
 			</tr>
             }
-		
+
 		</tbody>
 	</table>
-    
+
     <div style="clear:both; visibility:collapse;"></div>
 </div><!--End Content Div-->
 @*

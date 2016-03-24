@@ -41,8 +41,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Epi.Web.Enter.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Epi.Web.Enter.Common">
       <HintPath>..\Epi.Web\bin\Epi.Web.Enter.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

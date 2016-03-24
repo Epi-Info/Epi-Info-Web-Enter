@@ -109,7 +109,7 @@
 //        });
 //    });
     $(document).ready(function () {
-
+        $("div#demoheader").css({ "margin": "-2px 0px 0px 10px" });
         if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
         {
             var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
@@ -152,7 +152,7 @@
 
             }
         });
-
+        
     });
     function disableElements(el) {
         for (var i = 0; i < el.length; i++) {

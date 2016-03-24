@@ -38,6 +38,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Epi.Web.Enter.Common">
+      <HintPath>..\Epi.Web\bin\Epi.Web.Enter.Common.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -59,12 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BusinessInterface\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Epi.Web.Common\Epi.Web.Common.csproj">
-      <Project>{6E2F059B-C1CD-401F-8A63-DC2933CFB0D8}</Project>
-      <Name>Epi.Web.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
