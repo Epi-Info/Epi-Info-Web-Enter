@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
+        $("div#demoheader").css({ "margin": "-2px 0px 0px 10px" });
         function disableElements(el) {
             for (var i = 0; i < el.length; i++) {
                 el[i].disabled = true;
@@ -60,6 +60,7 @@
 
 </script>
 <div id="pageHeader">
+    
     <div id="pageTitleAdmin">
         @*<h2 class="adminnav">@Html.ActionLink("Organizations", "OrgList", "AdminOrganization", null, new { @class = "orgbtn" })</h2>&nbsp;&nbsp;
 		<h2 class="adminnav">@Html.ActionLink("Users", "UserList", "AdminUser", null, new { @class = "userbtn" })</h2>*@
@@ -73,17 +74,19 @@
     <div style="clear: both;">
     </div>
 </div>
-<div id="content" style="margin: 15px 0 200px; padding-left: 10px; min-height: 375px;">
+<div id="content" style="margin: 15px 0px 0px 0px; padding-left: 10px; min-height: 375px;">
     <div id="formtitle" style="display: block;">
         @if (Model.IsEditMode)
         {
             <h2 class="surveyTitle">
-                Edit Users</h2>
+                Edit Users
+            </h2>
         }
         else
         {
             <h2 class="surveyTitle">
-                Add Users</h2>
+                Add Users
+            </h2>
         }
     </div>
     <div style="clear: both;">

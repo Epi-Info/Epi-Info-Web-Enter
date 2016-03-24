@@ -6,7 +6,7 @@
   
   #header h1
  {
-   float:right;
+   
     margin: 7px 10px 0 0;
  }
  
@@ -14,13 +14,14 @@
  
  #header img 
  {
-    float:right;
+    
  }
   
   #pageTitleAdmin
  {
-    float: left;
+    float:left;
     margin-top: -57px;
+    margin-left:5px;
  }
  
  .orgbtn{background: url("../images/org12.png") no-repeat center; display: block; width: 40px; height: 40px; text-indent: -9999px; /* hides the link text */}
@@ -44,7 +45,7 @@
  
  #formtitleadmin 
  {
-    margin-top:-49px;
+    
     padding: 0 10px 1px 0;    
     display:inline-block;
     float:left;

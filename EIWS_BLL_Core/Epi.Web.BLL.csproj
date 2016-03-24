@@ -41,7 +41,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Epi.Web.Enter.Common">
-      <HintPath>..\Epi.Web.Common\bin\Debug\Epi.Web.Enter.Common.dll</HintPath>
+      <HintPath>..\Epi.Web\bin\Epi.Web.Enter.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Epi.Web.Enter.Interfaces">
+      <HintPath>..\Epi.Web\bin\Epi.Web.Enter.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -83,10 +86,6 @@
     <ProjectReference Include="..\Epi.Web.EF\Epi.Web.EF.csproj">
       <Project>{05A484AB-A555-4200-936B-BEC573285BCC}</Project>
       <Name>Epi.Web.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Epi.Web.Interfaces\Epi.Web.Interfaces.csproj">
-      <Project>{B8AF69BD-3CE1-4AA5-875D-3FB87C7FCE44}</Project>
-      <Name>Epi.Web.Interfaces</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

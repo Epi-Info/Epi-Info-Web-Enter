@@ -39,10 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Epi.Web.Enter.Common">
-      <HintPath>..\Epi.Web.Common\bin\Debug\Epi.Web.Enter.Common.dll</HintPath>
+      <HintPath>..\Epi.Web\bin\Epi.Web.Enter.Common.dll</HintPath>
     </Reference>
     <Reference Include="Epi.Web.Enter.Interfaces">
-      <HintPath>..\Epi.Web.Interfaces\bin\Debug\Epi.Web.Enter.Interfaces.dll</HintPath>
+      <HintPath>..\Epi.Web\bin\Epi.Web.Enter.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

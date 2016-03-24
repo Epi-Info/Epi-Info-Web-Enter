@@ -114,20 +114,21 @@
 </head>
 <body>    
 <div id="container">
-    <div id="header">
-        <img alt="Epi Info 7 - Epi Web Enter" src="~/Content/images/epiIcon.png" />
-        <h1>Epi Info™ Web Enter</h1>
+    <div id="header" style="height:50px">
+        <img style="float:right;margin:0px 5px 0px 0px" alt="Epi Info 7 - Epi Web Enter" src="~/Content/images/ei_logomark_wht_outln_50px.png" />
+        <h1 style="float:right;margin:10px 10px 0px 0px">Epi Info™ Web Enter</h1>
     </div>
     @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
     {
         if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
         {
-            @*<div id="demoheader" style=" color:#bc0101 ; text-align:center ;font-family: Calibri, Global User Interface;font-size: 12pt;font-weight:bold;">*@
+            <div id="demoheader" style="margin: -2px 0px 0px 150px; color:#ff333d  ; text-align:center ;font-family: Segoe UI,Tahoma,Geneva,Verdana,sans-serif;font-size: 10pt;font-weight:bold; position:absolute">
         <p>
 
        
                 This site is for demo purposes only. Some features may be disabled.
            </p>
+                </div>
         }
     }
     
