@@ -55,6 +55,20 @@ namespace Epi.Web.MVC.Controllers
             //     string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
             //     //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
             //     ViewBag.SurveyId = SurveyId;
+            if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+            {
+                var IsDemoMode = System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
+                string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt("1");
+                if (!string.IsNullOrEmpty(IsDemoMode) && IsDemoMode.ToUpper() == "TRUE")
+                {
+                  FormsAuthentication.SetAuthCookie("Guest@cdc.gov", false);
+                  
+                    Session["UserId"] = UserId;
+                    
+                    Session["UserHighestRole"] = 3;
+                    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
+                }
+            }
             var configuration = WebConfigurationManager.OpenWebConfiguration("/");
             var authenticationSection = (AuthenticationSection)configuration.GetSection("system.web/authentication");
             if (authenticationSection.Mode == AuthenticationMode.Forms)
