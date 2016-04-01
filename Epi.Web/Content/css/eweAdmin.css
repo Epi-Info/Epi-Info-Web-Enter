@@ -19,7 +19,8 @@
   
   #pageTitleAdmin
  {
-    float:left;
+    float:right;
+    margin-right:5px;
     margin-top: -57px;
     margin-left:5px;
  }
