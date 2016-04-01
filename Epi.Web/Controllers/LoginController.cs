@@ -48,7 +48,10 @@ namespace Epi.Web.MVC.Controllers
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
-
+            if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                Session["IsDemoMode"] = ConfigurationManager.AppSettings["IsDemoMode"].ToUpper();
+            else
+                Session["IsDemoMode"] = "null";
             //   //get the responseId
             //    responseId = GetResponseId(ReturnUrl);
             //    //get the surveyId
