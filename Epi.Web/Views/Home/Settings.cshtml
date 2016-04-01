@@ -346,18 +346,19 @@
 	  // alert('@Session["IsOwner"]'.toUpperCase())
 	    if ('@Session["UsertRole"]' == "2" && '@Session["IsOwner"]'.toUpperCase() == "FALSE") {
 	        $('#SupperAdminDiv').hide();
-	    }
-	    if(@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
-	    {
-	        var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
-	        if (demosettings == true)
+	    }	  	       	      
+	        if ('@Session["IsDemoMode"]' == "TRUE")
 	        {
 	            if ('@Session["IsOwner"]'.toUpperCase() == "TRUE") {
 	                disableElements($('#SupperAdminDiv').children());
 	                disableElements($('#UserSelect').children());
 	            }
-	        }
-	    }
+	            else
+	            {
+	                disableElements($('#UserSelect').children());
+                }
+
+	        }	    
 	});
 
     function disableElements(el) {

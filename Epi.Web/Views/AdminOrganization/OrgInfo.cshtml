@@ -82,44 +82,42 @@
 
 //            var UpdateUrl = '@Url.Action("AutoComplete", "AdminOrganization")'+"?term=" + $('#persons').val()  ;
 
-//            $.ajax({
-//                url: UpdateUrl,
-//                type: 'POST',
-//                contentType: 'application/json; charset=utf-8',
-//                //data: "{}",
-//                dataType: "json",
-//                //cache: false,
-//                async: false,
-//                success: successFunc,
-//                error: errorFunc
-//            });
-//            $.ajaxSetup({ cache: false });
-//            function successFunc(data) {
-//
-//                var availableTags = data;
-//                $('#persons').autocomplete({ source: availableTags });
-//            }
-//            function errorFunc(data) {
-//                alert('failed');
-//            }
+    //            $.ajax({
+    //                url: UpdateUrl,
+    //                type: 'POST',
+    //                contentType: 'application/json; charset=utf-8',
+    //                //data: "{}",
+    //                dataType: "json",
+    //                //cache: false,
+    //                async: false,
+    //                success: successFunc,
+    //                error: errorFunc
+    //            });
+    //            $.ajaxSetup({ cache: false });
+    //            function successFunc(data) {
+    //
+    //                var availableTags = data;
+    //                $('#persons').autocomplete({ source: availableTags });
+    //            }
+    //            function errorFunc(data) {
+    //                alert('failed');
+    //            }
 
 
 
-//
-//        });
-//    });
+    //
+    //        });
+    //    });
     $(document).ready(function () {
         $("div#demoheader").css({ "margin": "-2px 0px 0px 10px" });
-        if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"]!=null)
-        {
-            var demosettings = @System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
-            if (demosettings == true)
+       
+            if ('@Session["IsDemoMode"]' == "TRUE") 
             {
                 //  disableElements($('#content').children());
                 $('[name="input"]').attr("disabled", true);
                 $('[name="input"]').attr("title", "This feature is not available in demo mode");
             }
-        }
+
         $("#ConfirmAdminEmail").change(function () {
 
             var _ConfirmAdminEmail = $("#ConfirmAdminEmail").val();
@@ -152,7 +150,7 @@
 
             }
         });
-        
+
     });
     function disableElements(el) {
         for (var i = 0; i < el.length; i++) {
