@@ -506,8 +506,10 @@ namespace Epi.Web.BLL
 
                 int RelateViewId = 0;
                 int.TryParse(Item.Attribute("RelatedViewId").Value, out RelateViewId);
-
-                this.ViewIds.Add(RelateViewId, ViewId);
+                if (!this.ViewIds.ContainsKey(RelateViewId))
+                {
+                    this.ViewIds.Add(RelateViewId, ViewId);
+                }
                 }
 
           
