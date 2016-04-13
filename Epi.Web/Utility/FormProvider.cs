@@ -955,14 +955,16 @@ namespace Epi.Web.MVC.Utility
                     var _SourceTableValues = from _SourceTableValue in  _ControlValues.Descendants("Item")
                                            
                                              select _SourceTableValue;
-
+                    
                     foreach (var _SourceTableValue in _SourceTableValues)
                     {
 
                        // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
                         if (!string.IsNullOrEmpty(CodeColumnName))
                         {
-                            DropDownValues.Append(_SourceTableValue.Attribute(CodeColumnName.ToLower()).Value.Trim());
+                            string Xelement = _SourceTableValue.ToString().ToLower();
+                            XElement NewXElement =   XElement.Parse(Xelement);
+                            DropDownValues.Append(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim());
                         }
                         else
                         {
