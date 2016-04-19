@@ -25,17 +25,23 @@ namespace Epi.Web.EF
 
                     using (var Context = DataObjectFactory.CreateContext())
                         {
-                    
 
 
-                      
 
 
-                       IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null);
+                       User CurrentUser = Context.Users.Single(x => x.UserID == Id);
+
+                       //IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null );
+                       
+                   IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null && x.Users.Any(r=> r.UserID == CurrentUser.UserID)).Distinct();
+
+                       
+
+
                        List<string> Assigned = new List<string>();
                       // Dictionary<int,string> Shared = new Dictionary<int,string>();
                        List<KeyValuePair<int, string>> Shared = new List<KeyValuePair<int, string>>();
-                       User CurrentUser = Context.Users.Single(x => x.UserID == Id);
+                       
 
                         
                        var UserOrganizations = CurrentUser.UserOrganizations.Where(x=> x.RoleId == 2);
