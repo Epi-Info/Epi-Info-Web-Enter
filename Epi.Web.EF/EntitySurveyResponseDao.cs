@@ -1688,7 +1688,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
 
-                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.ResponseId == ResponseId);
+                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.Where(x => x.ResponseId == ResponseId);
                     if (SurveyResponseList.Count() > 0)
                     {
                         Exists = true;
