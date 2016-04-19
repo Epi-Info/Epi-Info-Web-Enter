@@ -472,7 +472,10 @@ namespace Epi.Web.BLL
             SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
             SurveyRequestResultBO = Publish(SurveyInfoBO);
            // ParentId = SurveyRequestResultBO.URL.Split('/').Last();
+            if (SurveyRequestResultBO.ViewIdAndFormIdList != null)
+            {
             ParentId = SurveyRequestResultBO.ViewIdAndFormIdList[_ViewId];
+                }
             SurveyIds.Add(_ViewId, ParentId);
 
             }

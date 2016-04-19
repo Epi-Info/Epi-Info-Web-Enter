@@ -525,6 +525,7 @@
                 "text": 'Continue Session',
                 "click": function () {
                     $(this).dialog('close');
+                    
                 },
                 "class": 'dialogbtn'
             }]
@@ -536,7 +537,7 @@
 
         // start the idle timer plugin
         $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
-            idleAfter: 900,
+            idleAfter:  840 ,// 900,
             pollingInterval: 2,
             keepAliveURL: 'keepalive.php',
             serverResponseEquals: 'OK',
@@ -552,6 +553,7 @@
             },
             onIdle: function () {
                 $(this).dialog("open");
+                
             },
             onCountdown: function (counter) {
                 $countdown.html(counter); // update the counter
@@ -559,7 +561,7 @@
         });
 
     });
-
+    
     function ReadSearchFields() {
         var col1 = $("#SearchModel_SearchCol1").val();
         var val1 = $("#SearchModel_Value1").val();
