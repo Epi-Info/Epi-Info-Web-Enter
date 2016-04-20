@@ -31,52 +31,16 @@ namespace Epi.Web.EF
 
                        User CurrentUser = Context.Users.Single(x => x.UserID == Id);
 
-                       //IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null );
                        
-                   IEnumerable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null && x.Users.Any(r=> r.UserID == CurrentUser.UserID)).Distinct();
-
-                       
-
-
-                       List<string> Assigned = new List<string>();
-                      // Dictionary<int,string> Shared = new Dictionary<int,string>();
-                       List<KeyValuePair<int, string>> Shared = new List<KeyValuePair<int, string>>();
-                       
-
-                        
                        var UserOrganizations = CurrentUser.UserOrganizations.Where(x=> x.RoleId == 2);
-                       //SurveyMetaData Response = Context.SurveyMetaDatas.First(x => x.SurveyId == Id);
-                       //var _Org = new HashSet<int>(Response.Organizations.Select(x => x.OrganizationId));
-                       //var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
-                       //List<string> SharedForms = new List<string>();
-                       List<KeyValuePair<int, string>> SharedForms = new List<KeyValuePair<int, string>>();
-                       foreach (var form in AllForms)
-                           {
-                           if (form.Users.Contains(CurrentUser) )
-                               {
-                                  Assigned.Add(form.SurveyId.ToString());
-                               }
+                        
+                       List<string> Assigned = GetAssignedForms(Context, CurrentUser);
 
-                           // checking if the form is shared with any organization
-                           SurveyMetaData Response = Context.SurveyMetaDatas.First(x => x.SurveyId == form.SurveyId);
-                           var _Org = new HashSet<int>(Response.Organizations.Select(x => x.OrganizationId));
-                           var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
-                           //if form is shared 
-                           if (Orgs.Count> 0)
-                           {
-                               foreach (var org in Orgs)
-                               {
-                                   KeyValuePair<int, string> Item = new KeyValuePair<int, string>(org.OrganizationId,form.SurveyId.ToString());
-                                  
-                                   Shared.Add(Item);
-                               }
-                              
-                              }
 
-                           
-                           }
+                       List<KeyValuePair<int, string>> Shared = GetSharedForms(CurrentOrgId, Context);
+                            
                         // find the forms that are shared with the current user 
-                      
+                       List<KeyValuePair<int, string>> SharedForms = new List<KeyValuePair<int, string>>();
                        foreach (var item in Shared)
                        {
 
@@ -152,6 +116,50 @@ namespace Epi.Web.EF
 
         return FormList;
             }
+
+        private static List<KeyValuePair<int, string>> GetSharedForms(int CurrentOrgId, OSELS_EWEEntities Context)
+        {
+            List<KeyValuePair<int, string>> Shared = new List<KeyValuePair<int, string>>();
+            IQueryable<SurveyMetaData> AllForms1 = Context.SurveyMetaDatas.Where(x => x.ParentId == null
+        && x.Organizations.Any(r => r.OrganizationId == CurrentOrgId)
+       ).Distinct();
+            foreach (var form in AllForms1)
+            {
+                // checking if the form is shared with any organization
+                SurveyMetaData Response = Context.SurveyMetaDatas.First(x => x.SurveyId == form.SurveyId);
+                var _Org = new HashSet<int>(Response.Organizations.Select(x => x.OrganizationId));
+                var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                //if form is shared 
+                if (Orgs.Count > 0)
+                {
+                    foreach (var org in Orgs)
+                    {
+                        KeyValuePair<int, string> Item = new KeyValuePair<int, string>(org.OrganizationId, form.SurveyId.ToString());
+
+                        Shared.Add(Item);
+                    }
+
+                }
+
+            }
+            return Shared;
+        }
+
+        private static List<string> GetAssignedForms(OSELS_EWEEntities Context, User CurrentUser)
+        {
+            List<string> Assigned = new List<string>();
+            IQueryable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null
+          && x.Users.Any(r => r.UserID == CurrentUser.UserID)
+         ).Distinct();
+            foreach (var form in AllForms)
+            {
+                if (form.Users.Contains(CurrentUser))
+                {
+                    Assigned.Add(form.SurveyId.ToString());
+                }
+            }
+            return Assigned;
+        }
 
         private int GetUserOrganization(string SurveyId, int UserId)
         {

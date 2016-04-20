@@ -469,8 +469,8 @@ namespace Epi.Web.EF
 
             using (var Context = DataObjectFactory.CreateContext())
                 {
-
-                result = Mapper.Map(Context.SurveyMetaDatas.Where(x => x.SurveyId == Id).Traverse(x => x.SurveyMetaData1));
+                    IQueryable<SurveyMetaData> Query = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id).Traverse(x => x.SurveyMetaData1).AsQueryable();
+                    result = Mapper.Map(Query);
 
 
  
