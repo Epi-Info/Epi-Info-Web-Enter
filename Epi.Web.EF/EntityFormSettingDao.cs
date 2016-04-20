@@ -107,7 +107,7 @@ namespace Epi.Web.EF
                        }
                        ////  Available Orgnization list 
 
-                       IEnumerable<Organization> OrganizationList = Context.Organizations.ToList();
+                       IQueryable<Organization> OrganizationList = Context.Organizations.ToList().AsQueryable();
                        foreach (var Org in OrganizationList)
                        {
                            if (!SelectedOrgs.ContainsValue(Org.Organization1) && Org.IsEnabled== true)
@@ -122,7 +122,7 @@ namespace Epi.Web.EF
                       selectedDataAccessRuleId = int.Parse(MetaData.DataAccessRuleId.ToString()); 
                        ////  Available DataAccess Rule Ids  list 
 
-                       IEnumerable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList();
+                       IQueryable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList().AsQueryable();
                        foreach (var Rule in RuleIDs)
                        {
 
@@ -300,7 +300,7 @@ namespace Epi.Web.EF
             {
                 ////  Available DataAccess Rule Ids  list 
 
-                IEnumerable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList();
+                IQueryable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList().AsQueryable();
                 foreach (var Rule in RuleIDs)
                 {
 
@@ -456,8 +456,8 @@ namespace Epi.Web.EF
 
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-
-                    result = Mapper.Map(Context.SurveyMetaDatas.Where(x => x.SurveyId == Id).Traverse(x => x.SurveyMetaData1));
+                    IQueryable<SurveyMetaData> Query = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id).Traverse(x => x.SurveyMetaData1).AsQueryable();
+                    result = Mapper.Map(Query);
 
 
 

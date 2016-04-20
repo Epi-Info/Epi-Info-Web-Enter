@@ -213,7 +213,7 @@ namespace Epi.Web.EF
             {
                 SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
 
-                IEnumerable<User> Users = SelectedUserQuery.Users;
+                IQueryable<User> Users = SelectedUserQuery.Users.AsQueryable();
                 foreach (User user in Users)
                 {
 

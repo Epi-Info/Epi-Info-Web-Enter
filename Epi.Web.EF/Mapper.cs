@@ -403,10 +403,10 @@ namespace Epi.Web.EF
 
 
 
-        internal static List<SurveyInfoBO> Map(IEnumerable<SurveyMetaData> iEnumerable)
+        internal static List<SurveyInfoBO> Map(IQueryable<SurveyMetaData> iQueryable)
         {
             List<SurveyInfoBO> result = new List<SurveyInfoBO>();
-            foreach (SurveyMetaData Obj in iEnumerable)
+            foreach (SurveyMetaData Obj in iQueryable )
             {
                 result.Add(Map(Obj));
 
@@ -417,7 +417,7 @@ namespace Epi.Web.EF
 
 
 
-        internal static List<SurveyResponseBO> Map(IEnumerable<SurveyResponse> entities)
+        internal static List<SurveyResponseBO> Map(IQueryable<SurveyResponse> entities)
         {
             List<SurveyResponseBO> result = new List<SurveyResponseBO>();
             foreach (SurveyResponse surveyResponse in entities)

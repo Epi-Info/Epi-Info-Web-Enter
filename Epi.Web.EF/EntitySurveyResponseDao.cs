@@ -595,7 +595,8 @@ namespace Epi.Web.EF
 
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1));
+                    IQueryable<SurveyResponse> Query = Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1).AsQueryable();
+                    result = Mapper.Map(Query);
                     foreach (var Obj in result)
                     {
 
@@ -650,7 +651,8 @@ namespace Epi.Web.EF
 
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1));
+                    IQueryable<SurveyResponse> Query = Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1).AsQueryable();
+                    result = Mapper.Map(Query);
                     foreach (var Obj in result)
                     {
                         parentRecordId = "";
@@ -754,7 +756,12 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
 
-                    IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
+                    IQueryable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id 
+                        //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
+                        //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true 
+                        && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                        && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                        && x.StatusId > 1).OrderByDescending(x => x.DateUpdated);
 
                     SurveyResponseList = SurveyResponseList.Skip((PageNumber - 1) * PageSize).Take(PageSize);
 
@@ -870,17 +877,20 @@ namespace Epi.Web.EF
                   
                     using (var Context = DataObjectFactory.CreateContext())
                     {
-                       
-                        IEnumerable<SurveyResponse> SurveyResponseList;
+
+                        IQueryable<SurveyResponse> SurveyResponseList;
                         if (criteria.IsShareable )
                         {
                             //Shareable
                             switch (DataAccessRuleId) 
                             {
                                 case 1: //   Organization users can only access the data of there organization
-                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
-                                x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                      && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                    SurveyResponseList = Context.SurveyResponses.Where(
+                                x => x.SurveyId == Id 
+                                                      //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                      //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                      && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                      && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                                       && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                        .OrderByDescending(x => x.DateUpdated);
                                     break;
@@ -891,34 +901,46 @@ namespace Epi.Web.EF
                                     int Count = Users.Where(x => x.UserID == criteria.UserId).Count();
                                     if ( Count > 0  )
                                     {
-                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
-                                     x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                     && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                    SurveyResponseList = Context.SurveyResponses.Where(
+                                     x => x.SurveyId == Id 
+                                                     //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                     //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                     && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                     && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                                      && x.StatusId >= 1  )
                                                       .OrderByDescending(x => x.DateUpdated);
                                     }
                                     else
                                     {
                                     
-                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
-                                       x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                     && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                    SurveyResponseList = Context.SurveyResponses.Where(
+                                       x => x.SurveyId == Id 
+                                                     //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                                     //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                                     && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                     && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                                      && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                       .OrderByDescending(x => x.DateUpdated);
                                     }
                                     break;
                                 case 3: // All users of all organizations can access all data 
-                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
-                               x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                     && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                    SurveyResponseList = Context.SurveyResponses.Where(
+                               x => x.SurveyId == Id 
+                                  // && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                  //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                  && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                                      && x.StatusId >= 1  )
                                                       .OrderByDescending(x => x.DateUpdated);
                                     break;
                                 default :
-                                    SurveyResponseList = Context.SurveyResponses.ToList().Where(
-                                  x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                        && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                                        && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                    SurveyResponseList = Context.SurveyResponses.Where(
+                                  x => x.SurveyId == Id 
+                                      //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                                      //  && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                      && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                     && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                          && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                          .OrderByDescending(x => x.DateUpdated);
                                     break;
 
@@ -929,14 +951,25 @@ namespace Epi.Web.EF
                         }
                         else
                         {
-                        
-                         SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated);
+
+                            //SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id
+                            // && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
+                            //    && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                            //    && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated); 
+
+                            SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id
+                            && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                               && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                               && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated); 
+
                         
                         
                         }
+                        
+                      
                         SurveyResponseList = SurveyResponseList.Skip((criteria.PageNumber - 1) * criteria.PageSize).Take(criteria.PageSize);
 
-
+                        
                         foreach (SurveyResponse Response in SurveyResponseList)
                         {
 
@@ -1756,7 +1789,7 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.ResponseId == new Guid(Criteria.SurveyAnswerIdList[0]));
+                        IQueryable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.Where(x => x.ResponseId == new Guid(Criteria.SurveyAnswerIdList[0]));
                         if (SurveyResponseList.Count() > 0)
                         {
                             Exists = true;
@@ -1819,7 +1852,11 @@ namespace Epi.Web.EF
                     using (var Context = DataObjectFactory.CreateContext())
                     {
 
-                        IEnumerable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId > 1);
+                        IQueryable<SurveyResponse> SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id 
+                           // && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
+                            && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                               
+                            && x.StatusId > 1);
                         ResponseCount = SurveyResponseList.Count();
 
                     }
@@ -1853,7 +1890,7 @@ namespace Epi.Web.EF
                 {
 
 
-                    SurveyResponse Response = Context.SurveyResponses.ToList().Where(x => x.ResponseId == Id).First();
+                    SurveyResponse Response = Context.SurveyResponses.Where(x => x.ResponseId == Id).First();
                     result = (Mapper.Map(Response));
 
 
@@ -1887,7 +1924,7 @@ namespace Epi.Web.EF
                 {
 
 
-                    SurveyResponse Response = Context.SurveyResponses.ToList().Where(x => x.ResponseId == Id).First();
+                    SurveyResponse Response = Context.SurveyResponses.Where(x => x.ResponseId == Id).First();
                     result = (Mapper.Map(Response));
 
                 }
@@ -1959,8 +1996,8 @@ namespace Epi.Web.EF
 
                 using (var Context = DataObjectFactory.CreateContext())
                 {
-
-                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).Traverse(x => x.SurveyResponse1));
+                    IQueryable<SurveyResponse> Query = Context.SurveyResponses.Where(x => x.ResponseId == Id).Traverse(x => x.SurveyResponse1).AsQueryable();
+                    result = Mapper.Map(Query);
 
 
 
@@ -1991,7 +2028,7 @@ namespace Epi.Web.EF
                 {
 
 
-                    var Response = Context.SurveyResponses.ToList().Where(x => x.ParentRecordId == Id);
+                    var Response = Context.SurveyResponses.Where(x => x.ParentRecordId == Id);
                     if (Response.Count() > 0)
                     {
                         result = (Mapper.Map(Response.Single()));
@@ -2026,8 +2063,9 @@ namespace Epi.Web.EF
 
                 using (var Context = DataObjectFactory.CreateContext())
                 {
+                    IQueryable<SurveyResponse> Query = Context.SurveyResponses.Where(x => x.ResponseId == Id).Traverse(x => Context.SurveyResponses.Where(y => x.RelateParentId == y.ResponseId)).AsQueryable();
 
-                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).Traverse(x => Context.SurveyResponses.Where(y => x.RelateParentId == y.ResponseId)));
+                    result = Mapper.Map(Query);
 
 
 
@@ -2349,20 +2387,26 @@ namespace Epi.Web.EF
                 {
 
                     Guid Id = new Guid(Criteria.SurveyId);
-                     IEnumerable<SurveyResponse> SurveyResponseList;
+                     IQueryable<SurveyResponse> SurveyResponseList;
                     using (var Context = DataObjectFactory.CreateContext())
                     {
                         if(Criteria.IsShareable &&  this.DataAccessRuleId == 1)
                         {
-                         SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id 
-                             && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
+                         SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id 
+                             //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true 
+                             && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                               
                              && x.StatusId >=1 
                              && x.OrganizationId == Criteria.UserOrganizationId);
                         }
                         else
                         {
                         
-                          SurveyResponseList = Context.SurveyResponses.ToList().Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId >= 1);
+                       //   SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true && x.StatusId >= 1);
+                            SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id 
+                                && ( x.ParentRecordId== null ||  x.ParentRecordId== Guid.Empty )  
+                                && x.StatusId >= 1);
+                        
                         
                         
                         }
@@ -2393,7 +2437,8 @@ namespace Epi.Web.EF
 
                 using (var Context = DataObjectFactory.CreateContext())
                     {
-                    result = Mapper.Map(Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1));
+                        IQueryable<SurveyResponse> Query = Context.SurveyResponses.Where(x => x.ResponseId == Id).OrderBy(x => x.DateCreated).Traverse(x => x.SurveyResponse1).AsQueryable();
+                        result = Mapper.Map(Query);
                     if (result.Count()>0)
                         {
                     foreach (var Obj in result)
