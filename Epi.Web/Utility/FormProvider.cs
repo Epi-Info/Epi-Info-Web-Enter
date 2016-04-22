@@ -958,13 +958,21 @@ namespace Epi.Web.MVC.Utility
                     
                     foreach (var _SourceTableValue in _SourceTableValues)
                     {
-
+                         
                        // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
-                        if (!string.IsNullOrEmpty(CodeColumnName))
+                        if (!string.IsNullOrEmpty(CodeColumnName)  )
                         {
                             string Xelement = _SourceTableValue.ToString().ToLower();
                             XElement NewXElement =   XElement.Parse(Xelement);
-                            DropDownValues.Append(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim());
+                            if (NewXElement.Attribute(CodeColumnName.ToLower()) != null)
+                            {
+                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim());
+                            }
+                            else {
+                                DropDownValues.Append(_SourceTableValue.Attributes().FirstOrDefault().Value.Trim());
+                              
+                            }
+                            
                         }
                         else
                         {
