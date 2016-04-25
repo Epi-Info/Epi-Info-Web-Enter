@@ -152,6 +152,8 @@ namespace Epi.Web.MVC.Models
                RelateModel RelateModel = new RelateModel();
                RelateModel.FormId = Obj.FormId;
                RelateModel.ViewId = Obj.ViewId;
+               RelateModel.IsSqlProject = Obj.IsSqlProject;
+               RelateModel.IsRoot = Obj.IsRoot;
                RelateModel.ResponseIds = Mapper.ToSurveyAnswerModel(Obj.ResponseIds);
              List.Add(RelateModel);
                }
@@ -287,5 +289,28 @@ namespace Epi.Web.MVC.Models
                 }
             return UserDTO;
             }
+
+        internal static SurveyInfoModel ToFormInfoModel(Enter.Common.DTO.SurveyInfoDTO SurveyInfoDTO)
+        {
+            return new SurveyInfoModel
+            {
+                SurveyId = SurveyInfoDTO.SurveyId,
+                SurveyNumber = SurveyInfoDTO.SurveyNumber,
+                SurveyName = SurveyInfoDTO.SurveyName,
+                OrganizationName = SurveyInfoDTO.OrganizationName,
+                DepartmentName = SurveyInfoDTO.DepartmentName,
+                IntroductionText = SurveyInfoDTO.IntroductionText,
+                ExitText = SurveyInfoDTO.ExitText,
+                XML = SurveyInfoDTO.XML,
+                IsSuccess = SurveyInfoDTO.IsSuccess,
+                SurveyType = SurveyInfoDTO.SurveyType,
+                ClosingDate = SurveyInfoDTO.ClosingDate,
+                UserPublishKey = SurveyInfoDTO.UserPublishKey,
+                IsDraftMode = SurveyInfoDTO.IsDraftMode,
+                StartDate = SurveyInfoDTO.StartDate,
+                IsSqlProject = SurveyInfoDTO.IsSqlProject,
+                FormOwnerId = SurveyInfoDTO.OwnerId
+            };
+        }
     }
 }

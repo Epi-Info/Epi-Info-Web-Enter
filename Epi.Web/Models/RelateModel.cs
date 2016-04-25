@@ -11,7 +11,7 @@ namespace Epi.Web.MVC.Models
         private List<SurveyAnswerModel> _ResponseIds;
         private bool _IsRoot;
         private int _ViewId;
-    
+        private bool _IsSqlProject;
         public string FormId
             {
             get { return _FormId; }
@@ -35,5 +35,10 @@ namespace Epi.Web.MVC.Models
             get { return _ViewId; }
             set { _ViewId = value; }
             }
+        public bool IsSqlProject
+        {
+            get { return _IsSqlProject; }
+            set { _IsSqlProject = value; }
+        }
         }
     }

@@ -62,32 +62,14 @@ namespace Epi.Web.MVC.Controllers
                 //  List<FormInfoModel> listOfformInfoModel = GetFormsInfoList(UserId1);
 
                 FormModel FormModel;
-                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result;
-                GetFormModel(surveyid, UserId, UserId1, out OrgnizationId, out FormModel, out result);
-                Session["UserEmailAddress"] = result.User.EmailAddress;
-                Session["UserFirstName"] = result.User.FirstName;
-                Session["UserLastName"] = result.User.LastName;
-                Session["UGuid"] = result.User.UGuid;
+               
+                GetFormModel(surveyid, UserId, UserId1, out OrgnizationId, out FormModel);
+                
              
                 System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(@"(\r\n|\r|\n)+");
 
 
-                //if (surveyInfoModel.IntroductionText != null)
-                //{
-                //    string introText = regex.Replace(surveyInfoModel.IntroductionText.Replace("  ", " &nbsp;"), "<br />");
-                //    surveyInfoModel.IntroductionText = MvcHtmlString.Create(introText).ToString();
-                //}
-
-                //if (surveyInfoModel.IsDraftMode)
-                //{
-                //    surveyInfoModel.IsDraftModeStyleClass = "draft";
-                //    SurveyMode = "draft";
-                //}
-                //else
-                //{
-                //    surveyInfoModel.IsDraftModeStyleClass = "final";
-                //    SurveyMode = "final";
-                //}
+                
                 bool IsMobileDevice = false;
                 IsMobileDevice = this.Request.Browser.IsMobileDevice;
                 if (IsMobileDevice) // Because mobile doesn't need RootFormId until button click. 
@@ -118,7 +100,7 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
-        private void GetFormModel(string surveyid, int UserId, Guid UserId1, out int OrgnizationId, out FormModel FormModel, out Epi.Web.Enter.Common.Message.UserAuthenticationResponse result)
+        private void GetFormModel(string surveyid, int UserId, Guid UserId1, out int OrgnizationId, out FormModel FormModel)
         {
             FormModel = new Models.FormModel();
             FormModel.UserHighestRole = int.Parse(Session["UserHighestRole"].ToString());
@@ -132,11 +114,12 @@ namespace Epi.Web.MVC.Controllers
             //Get Forms
             OrgnizationId = Organizations.OrganizationList[0].OrganizationId;
             FormModel.FormList = GetFormsInfoList(UserId1, OrgnizationId);
-            result = _isurveyFacade.GetUserInfo(UserId);
+            // Set user Info
 
-            FormModel.UserFirstName = result.User.FirstName;
-            FormModel.UserLastName = result.User.LastName;
+            FormModel.UserFirstName = Session["UserFirstName"].ToString();
+            FormModel.UserLastName = Session["UserLastName"].ToString();
             FormModel.SelectedForm = surveyid;
+             
         }
 
         /// <summary>
@@ -211,13 +194,12 @@ namespace Epi.Web.MVC.Controllers
 
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswer = _isurveyFacade.CreateSurveyAnswer(AddNewFormId, ResponseID.ToString(), UserId, false, "", false, CuurentOrgId);
           
-            SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
-
-            // set the survey answer to be production or test 
-            SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
-            XDocument xdoc = XDocument.Parse(surveyInfoModel.XML);
-
+           // SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId);
             MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice);
+            SurveyInfoModel surveyInfoModel = Mapper.ToFormInfoModel(form.SurveyInfo);
+            // set the survey answer to be production or test 
+            SurveyAnswer.IsDraftMode = form.SurveyInfo.IsDraftMode;
+            XDocument xdoc = XDocument.Parse(form.SurveyInfo.XML);
 
             var _FieldsTypeIDs = from _FieldTypeID in
                                      xdoc.Descendants("Field")
@@ -279,12 +261,12 @@ namespace Epi.Web.MVC.Controllers
                 _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, SurveyAnswer.ResponseId, form, SurveyAnswer, false, false, 0, SurveyHelper.GetDecryptUserId(Session["UserId"].ToString()));
             }
 
-            SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
-            Session["RequestedViewId"] = SurveyAnswer.ViewId;
+            //SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId, surveyInfoModel.SurveyId.ToString()).SurveyResponseList[0];
+           // Session["RequestedViewId"] = SurveyAnswer.ViewId;
             ///////////////////////////// Execute - Record Before - End//////////////////////
             //string page;
             // return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });
-            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResponseID, PageNumber = 1 });
+            return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, Epi.Web.MVC.Constants.Constant.SURVEY_CONTROLLER, new { responseid = ResponseID, PageNumber = 1, surveyid = surveyInfoModel.SurveyId });
             //}
             //catch (Exception ex)
             //{
@@ -1037,6 +1019,6 @@ namespace Epi.Web.MVC.Controllers
 
             return FormsHierarchyResponse.FormsHierarchy;
         }
-
+       
     }
 }

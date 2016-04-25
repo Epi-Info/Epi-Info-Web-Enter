@@ -13,6 +13,8 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private List<SurveyResponseBO> _ResponseIds;
         private bool _IsRoot;
         private int _ViewId;
+        private bool _IsSqlProject;
+        private SurveyInfoBO _SurveyInfo;
         [DataMember]
         public string FormId
             {
@@ -37,5 +39,19 @@ namespace Epi.Web.Enter.Common.BusinessObject
             get { return _ViewId; }
             set { _ViewId = value; }
             }
+        [DataMember]
+        public bool IsSqlProject
+        {
+            get { return _IsSqlProject; }
+            set { _IsSqlProject = value; }
+        }
+
+        [DataMember]
+        public SurveyInfoBO SurveyInfo
+        {
+            get { return _SurveyInfo; }
+            set { _SurveyInfo = value; }
+        
+        }
         }
     }
