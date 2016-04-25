@@ -8,6 +8,7 @@ using Epi.Web.MVC.Facade;
 using System.Collections.Generic;
 using Epi.Web.Enter.Common.Criteria;
 using Epi.Web.Enter.Common.DTO;
+using System.Linq;
 namespace Epi.Web.MVC.Facade
 {
     public class SurveyFacade : ISurveyFacade
@@ -37,7 +38,7 @@ namespace Epi.Web.MVC.Facade
         private SurveyResponseXML _surveyResponseXML;
 
         private FormInfoDTO _FormInfoDTO;
-
+       
         /// <summary>
         /// Injectinting ISurveyInfoRepository through Constructor
         /// </summary>
@@ -56,7 +57,7 @@ namespace Epi.Web.MVC.Facade
             _surveyAuthenticationRequest = surveyAuthenticationRequest;
             _PassCodeDTO = PassCodeDTO;
             _FormInfoDTO = FormInfoDTO;
-
+          
 
         }
 
@@ -68,10 +69,22 @@ namespace Epi.Web.MVC.Facade
         /// <param name="pageNumber"></param>
         /// <param name="surveyAnswerDTO"></param>
         /// <returns></returns>
-        public MvcDynamicForms.Form GetSurveyFormData(string surveyId, int pageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO, bool IsMobileDevice, List<SurveyAnswerDTO> _SurveyAnswerDTOList = null)
+        public MvcDynamicForms.Form GetSurveyFormData(
+            string surveyId,
+            int pageNumber,
+            Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
+            bool IsMobileDevice, 
+            List<SurveyAnswerDTO> _SurveyAnswerDTOList = null,
+            List<Epi.Web.Enter.Common.DTO.FormsHierarchyDTO> FormsHierarchyDTOList = null)
         {
             List<SurveyInfoDTO> List = new List<SurveyInfoDTO>();
 
+           
+            //Get the SurveyInfoDTO
+            Epi.Web.Enter.Common.DTO.SurveyInfoDTO surveyInfoDTO;
+            if (FormsHierarchyDTOList == null)
+            {
+            surveyInfoDTO =  SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest, _iSurveyInfoRepository, surveyId);
             if (_SurveyAnswerDTOList != null)
             {
                 foreach (var item in _SurveyAnswerDTOList)
@@ -82,9 +95,39 @@ namespace Epi.Web.MVC.Facade
                     List.Add(_SurveyInfoDTO);
                 }
             }
-            //Get the SurveyInfoDTO
-            Epi.Web.Enter.Common.DTO.SurveyInfoDTO surveyInfoDTO = SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest, _iSurveyInfoRepository, surveyId);
-            MvcDynamicForms.Form form = null;
+            }
+            
+            else
+            {
+                var SurveyInfoDTO = FormsHierarchyDTOList.First(x => x.FormId == surveyAnswerDTO.SurveyId);
+                surveyInfoDTO = SurveyInfoDTO.SurveyInfo;
+
+
+             
+                _SurveyAnswerDTOList = new List<SurveyAnswerDTO>();
+                _SurveyAnswerDTOList.Add(surveyAnswerDTO);
+
+                foreach (var item in FormsHierarchyDTOList)
+                {
+                    if (item.ResponseIds.Count() > 0)
+                    {
+                        var DTO = item.ResponseIds.FirstOrDefault(z => z.ResponseId == surveyAnswerDTO.RelateParentId);
+                        if (DTO != null && !_SurveyAnswerDTOList.Contains(DTO))
+
+                            _SurveyAnswerDTOList.Add(DTO);
+                        
+                    }
+                }
+
+                foreach (var item in _SurveyAnswerDTOList)
+                {
+                    var _SurveyInfoDTO = FormsHierarchyDTOList.FirstOrDefault(x => x.FormId == item.SurveyId);
+                    List.Add(_SurveyInfoDTO.SurveyInfo);
+                }
+                 
+                  
+            }
+                MvcDynamicForms.Form form = null;
 
             if (IsMobileDevice)
             {
@@ -120,8 +163,8 @@ namespace Epi.Web.MVC.Facade
             // 2 update the current survey response and save the response
 
             //// 1 Get the record for the current survey response
-            SurveyAnswerResponse surveyAnswerResponse = GetSurveyAnswerResponse(responseId);
-
+            SurveyAnswerResponse surveyAnswerResponse = new SurveyAnswerResponse();//GetSurveyAnswerResponse(responseId, surveyInfoModel.SurveyId.ToString());
+            surveyAnswerResponse.SurveyResponseList.Add(surveyAnswerDTO);
             ///2 Update the current survey response and save it
 
             SurveyHelper.UpdateSurveyResponse(surveyInfoModel, form, _surveyAnswerRequest, _surveyResponseXML, _iSurveyAnswerRepository, surveyAnswerResponse, responseId, surveyAnswerDTO, IsSubmited, IsSaved, PageNumber, UserId);

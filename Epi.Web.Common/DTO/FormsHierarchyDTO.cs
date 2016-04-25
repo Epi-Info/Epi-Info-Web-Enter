@@ -12,7 +12,9 @@ namespace Epi.Web.Enter.Common.DTO
         private string _FormId;
         private List<SurveyAnswerDTO> _ResponseIds;
         private bool _IsRoot;
+        private bool _IsSqlProject;
         private int _ViewId;
+        private SurveyInfoDTO _SurveyInfo;
         [DataMember]
         public string FormId
             {
@@ -37,5 +39,18 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _ViewId; }
             set { _ViewId = value; }
             }
+        [DataMember]
+        public bool IsSqlProject
+        {
+            get { return _IsSqlProject; }
+            set { _IsSqlProject = value; }
+        }
+        [DataMember]
+        public SurveyInfoDTO SurveyInfo
+        {
+            get { return _SurveyInfo; }
+            set { _SurveyInfo = value; }
+
+        }
         }
     }

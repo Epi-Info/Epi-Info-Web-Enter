@@ -97,6 +97,11 @@ namespace Epi.Web.MVC.Controllers
                     Session["UserId"] = UserId;
                     //Session["UsertRole"] = result.User.Role;
                     Session["UserHighestRole"] = result.User[0].UserHighestRole;
+
+                    Session["UserEmailAddress"] = result.User[0].EmailAddress;
+                    Session["UserFirstName"] = result.User[0].FirstName;
+                    Session["UserLastName"] = result.User[0].LastName;
+                    Session["UGuid"] = result.User[0].UGuid;
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
                    } 
                     else
@@ -290,6 +295,10 @@ namespace Epi.Web.MVC.Controllers
                         Session["UserId"] = UserId;
                         //Session["UsertRole"] = result.User.Role;
                         Session["UserHighestRole"] = result.User.UserHighestRole;
+                        Session["UserEmailAddress"] = result.User.EmailAddress;
+                        Session["UserFirstName"] = result.User.FirstName;
+                        Session["UserLastName"] = result.User.LastName;
+                        Session["UGuid"] = result.User.UGuid;
                         return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = formId });
                         //return Redirect(ReturnUrl);
                     }

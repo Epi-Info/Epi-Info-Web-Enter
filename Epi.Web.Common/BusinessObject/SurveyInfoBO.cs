@@ -32,7 +32,9 @@ namespace Epi.Web.Enter.Common.BusinessObject
         private bool _IsShareable; 
         private string _DBConnectionString;
         private int _DataAccessRuleId;
-
+        private bool _HasDraftModeData;
+        private bool _ewavLiteToggleSwitch;
+        private bool _IsShared;
         public int DataAccessRuleId
         {
             get { return _DataAccessRuleId; }
@@ -183,5 +185,23 @@ namespace Epi.Web.Enter.Common.BusinessObject
             get { return _DBConnectionString; }
             set { _DBConnectionString = value; }
             }
+         [DataMember]
+        public bool IsShared
+        {
+            get { return _IsShared; }
+            set { _IsShared = value; }
+        }
+         [DataMember]
+        public bool HasDraftModeData
+        {
+            get { return _HasDraftModeData; }
+            set { _HasDraftModeData = value; }
+        }
+         [DataMember]
+         public bool EwavLiteToggleSwitch
+         {
+             get { return _ewavLiteToggleSwitch; }
+             set { _ewavLiteToggleSwitch = value; }
+         }
     }
 }
