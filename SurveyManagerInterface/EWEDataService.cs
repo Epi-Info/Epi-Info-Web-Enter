@@ -1040,6 +1040,9 @@ namespace Epi.Web.WCF.SurveyService
                 FormsHierarchyBO FormsHierarchyBO = new FormsHierarchyBO();
                 FormsHierarchyBO.FormId = Item.FormId;
                 FormsHierarchyBO.ViewId = Item.ViewId;
+                FormsHierarchyBO.IsSqlProject = Item.IsSqlProject;
+                FormsHierarchyBO.IsRoot = Item.IsRoot;
+                FormsHierarchyBO.SurveyInfo = Item.SurveyInfo;
                 if (AllResponsesIDsList != null)
                 {
                     FormsHierarchyBO.ResponseIds = AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId).ToList();

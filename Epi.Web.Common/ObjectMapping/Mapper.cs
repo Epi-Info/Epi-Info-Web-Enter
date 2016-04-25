@@ -403,6 +403,9 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
                 FormsHierarchyDTO.FormId = Obj.FormId;
                 FormsHierarchyDTO.ViewId = Obj.ViewId;
+                FormsHierarchyDTO.IsSqlProject = Obj.IsSqlProject;
+                FormsHierarchyDTO.IsRoot = Obj.IsRoot;
+                FormsHierarchyDTO.SurveyInfo = Mapper.ToSurveyInfoDTO(Obj.SurveyInfo);
                 if (Obj.ResponseIds != null)
                     {
                     FormsHierarchyDTO.ResponseIds = ToSurveyAnswerDTO(Obj.ResponseIds);
@@ -411,6 +414,33 @@ namespace Epi.Web.Enter.Common.ObjectMapping
                 }
             return result;
             }
+
+        public static  SurveyInfoDTO ToSurveyInfoDTO(SurveyInfoBO SurveyInfoModel)
+        {
+            return new Epi.Web.Enter.Common.DTO.SurveyInfoDTO
+            {
+                SurveyId = SurveyInfoModel.SurveyId,
+                SurveyNumber = SurveyInfoModel.SurveyNumber,
+                SurveyName = SurveyInfoModel.SurveyName,
+                OrganizationName = SurveyInfoModel.OrganizationName,
+                DepartmentName = SurveyInfoModel.DepartmentName,
+                IntroductionText = SurveyInfoModel.IntroductionText,
+                ExitText = SurveyInfoModel.ExitText,
+                XML = SurveyInfoModel.XML,
+                IsShareable = SurveyInfoModel.IsShareable,
+                IsShared = SurveyInfoModel.IsShared,
+                IsSqlProject = SurveyInfoModel.IsSqlProject,
+                ClosingDate = SurveyInfoModel.ClosingDate,
+                UserPublishKey = SurveyInfoModel.UserPublishKey,
+                IsDraftMode = SurveyInfoModel.IsDraftMode,
+                StartDate = SurveyInfoModel.StartDate,
+                ViewId = SurveyInfoModel.ViewId,
+                OwnerId = SurveyInfoModel.OwnerId,
+                ParentId = SurveyInfoModel.ParentId,
+                HasDraftModeData = SurveyInfoModel.HasDraftModeData
+            };
+        }
+         
         public static SurveyResponseBO ToBusinessObject(string Xml, string SurveyId,string ParentRecordId,string ResponseId,int UserId)
             {
            
