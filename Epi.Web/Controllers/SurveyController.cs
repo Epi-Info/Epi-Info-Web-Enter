@@ -47,7 +47,7 @@ namespace Epi.Web.MVC.Controllers
         private string RootFormId = "";
         private string RootResponseId = "";
         private bool IsEditMode;
-        private List<SurveyAnswerDTO> ListSurveyAnswerDTO = new List<SurveyAnswerDTO>();
+       
         private int ReffererPageNum;
         List<KeyValuePair<int, string>> Columns = new List<KeyValuePair<int, string>>();
         public SurveyController(ISurveyFacade isurveyFacade)
@@ -479,21 +479,13 @@ namespace Epi.Web.MVC.Controllers
                                     }
                                 }
                                 this.UpdateStatus(form.ResponseId, form.SurveyInfo.SurveyId, 2);
-                                //SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
-                                //SurveyAnswerResponse Object = _isurveyFacade.GetSurveyAnswerHierarchy(SurveyAnswerRequest);
+                                 
                                 SurveyAnswerRequest SurveyAnswerRequest1 = new SurveyAnswerRequest();
                                 SurveyAnswerRequest1.Action = "DeleteResponseXml";
-                                var List = ListSurveyAnswerDTO.OrderByDescending(x => x.DateCreated);//.OrderBy(x => x.ParentRecordId);
-
-
-                                foreach (var Obj in List)
-                                {
-
-                                   // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId,Obj.SurveyId).SurveyResponseList[0];
-                                    SurveyAnswerDTO SurveyAnswer2 = FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == Obj.ResponseId);
-                                    SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(Obj.SurveyId, FormsHierarchy);
-                                    SurveyAnswerRequest1.SurveyAnswerList.Add(SurveyAnswer2);
-                                }
+                              
+                                var  List = FormsHierarchy.SelectMany(x => x.ResponseIds).OrderByDescending(x => x.DateCreated);
+                                SurveyAnswerRequest1.SurveyAnswerList = List.ToList();
+                             
 
                                 if (this.IsEditMode)
                                 {
@@ -1315,7 +1307,7 @@ namespace Epi.Web.MVC.Controllers
                         // create my list of objects 
 
                     }
-                    ListSurveyAnswerDTO.Add(SurveyAnswer);
+                   
                 }
             }
 
