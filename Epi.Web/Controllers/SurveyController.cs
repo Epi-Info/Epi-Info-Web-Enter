@@ -468,12 +468,17 @@ namespace Epi.Web.MVC.Controllers
                         {
                             if (!string.IsNullOrEmpty(Submitbutton) || !string.IsNullOrEmpty(CloseButton) || (!string.IsNullOrEmpty(this.Request.Form["is_save_action_Mobile"]) && this.Request.Form["is_save_action_Mobile"].ToString().Equals("true", StringComparison.OrdinalIgnoreCase)))
                             {
-                                KeyValuePair<string, int> ValidateValues = ValidateAll(form, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged);
-                                if (!string.IsNullOrEmpty(ValidateValues.Key) && !string.IsNullOrEmpty(ValidateValues.Value.ToString()))
-                                {
-                                    return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = ValidateValues.Key, PageNumber = ValidateValues.Value.ToString() });
-                                }
 
+                                KeyValuePair<string, int> ValidateValues = ValidateAll(form, UserId, IsSubmited, IsSaved, IsMobileDevice, FormValuesHasChanged);
+
+                              if (!string.IsNullOrEmpty(FormValuesHasChanged))
+                                {
+                                    if (!string.IsNullOrEmpty(ValidateValues.Key) && !string.IsNullOrEmpty(ValidateValues.Value.ToString()))
+                                    {
+                                        return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = ValidateValues.Key, PageNumber = ValidateValues.Value.ToString() });
+                                    }
+                                }
+                                this.UpdateStatus(form.ResponseId, form.SurveyInfo.SurveyId, 2);
                                 //SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
                                 //SurveyAnswerResponse Object = _isurveyFacade.GetSurveyAnswerHierarchy(SurveyAnswerRequest);
                                 SurveyAnswerRequest SurveyAnswerRequest1 = new SurveyAnswerRequest();
@@ -484,7 +489,8 @@ namespace Epi.Web.MVC.Controllers
                                 foreach (var Obj in List)
                                 {
 
-                                    SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId,Obj.SurveyId).SurveyResponseList[0];
+                                   // SurveyAnswerDTO SurveyAnswer2 = _isurveyFacade.GetSurveyAnswerResponse(Obj.ResponseId,Obj.SurveyId).SurveyResponseList[0];
+                                    SurveyAnswerDTO SurveyAnswer2 = FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == Obj.ResponseId);
                                     SurveyInfoModel surveyInfoModel2 = GetSurveyInfo(Obj.SurveyId, FormsHierarchy);
                                     SurveyAnswerRequest1.SurveyAnswerList.Add(SurveyAnswer2);
                                 }
@@ -1160,7 +1166,7 @@ namespace Epi.Web.MVC.Controllers
             return form;
         }
 
-        private MvcDynamicForms.Form UpDateSurveyModel(SurveyInfoModel surveyInfoModel, bool IsMobileDevice, string FormValuesHasChanged, SurveyAnswerDTO SurveyAnswer, bool IsSaveAndClose = false)
+        private MvcDynamicForms.Form UpDateSurveyModel(SurveyInfoModel surveyInfoModel, bool IsMobileDevice, string FormValuesHasChanged, SurveyAnswerDTO SurveyAnswer, bool IsSaveAndClose = false, List<FormsHierarchyDTO> FormsHierarchy = null)
         {
             MvcDynamicForms.Form form = new MvcDynamicForms.Form();
             int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
@@ -1196,7 +1202,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 if (ReffererPageNum != CurrentPageNum)
                 {
-                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, ReffererPageNum, SurveyAnswer, IsMobileDevice);
+                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, ReffererPageNum, SurveyAnswer, IsMobileDevice, null,   FormsHierarchy);
                     form.FormValuesHasChanged = FormValuesHasChanged;
                     if (IsMobileDevice)
                     {
@@ -1209,7 +1215,7 @@ namespace Epi.Web.MVC.Controllers
                 }
                 else
                 {
-                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice);
+                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice, null,   FormsHierarchy);
                     form.FormValuesHasChanged = FormValuesHasChanged;
                     if (IsMobileDevice)
                     {
@@ -1230,7 +1236,7 @@ namespace Epi.Web.MVC.Controllers
             else
             {
                 //get the survey form
-                form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice);
+                form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, GetSurveyPageNumber(SurveyAnswer.XML.ToString()), SurveyAnswer, IsMobileDevice, null, FormsHierarchy);
                 form.FormValuesHasChanged = FormValuesHasChanged;
                 form.ClearAllErrors();
                 if (ReffererPageNum == 0)
@@ -1276,7 +1282,7 @@ namespace Epi.Web.MVC.Controllers
 
         }
 
-        private KeyValuePair<string, int> ValidateAll(MvcDynamicForms.Form form, int UserId, bool IsSubmited, bool IsSaved, bool IsMobileDevice, string FormValuesHasChanged)
+        private KeyValuePair<string, int> ValidateAll(MvcDynamicForms.Form form, int UserId, bool IsSubmited, bool IsSaved, bool IsMobileDevice, string FormValuesHasChanged )
         {
             List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
             KeyValuePair<string, int> result = new KeyValuePair<string, int>();
@@ -1289,7 +1295,7 @@ namespace Epi.Web.MVC.Controllers
 
                     SurveyInfoModel surveyInfoModel = GetSurveyInfo(SurveyAnswer.SurveyId, FormsHierarchy);
                     SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
-                    form = UpDateSurveyModel(surveyInfoModel, IsMobileDevice, FormValuesHasChanged, SurveyAnswer, true);
+                    form = UpDateSurveyModel(surveyInfoModel, IsMobileDevice, FormValuesHasChanged, SurveyAnswer, true, FormsHierarchy);
 
                     for (int i = 1; i < form.NumberOfPages + 1; i++)
                     {
@@ -1305,15 +1311,7 @@ namespace Epi.Web.MVC.Controllers
                             result = new KeyValuePair<string, int>(Obj.ResponseId, i);
                             goto Exit;
                         }
-                        else
-                        {
-                            //    //ExecuteRecordAfterCheckCode(form, surveyInfoModel, SurveyAnswer, responseId, i, UserId);
-                            // _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, Obj.ResponseId, form, SurveyAnswer, IsSubmited, true, i, UserId);
-                            //Update Status
-                          
-
-                            this.UpdateStatus(Obj.ResponseId, form.SurveyInfo.SurveyId,2);
-                        }
+                        
                         // create my list of objects 
 
                     }

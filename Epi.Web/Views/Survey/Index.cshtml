@@ -852,18 +852,18 @@
  <div id="pageHeader">
 	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
   
-<div id="userwelcome">
+@*<div id="userwelcome">
     
-    Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
+    Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;*@
 	@*<a href="#">Log Out</a>*@
 	@*@Html.ActionLink("Log Out", "LogOut", "Survey", null, null)*@
 
-    @Html.ActionLink("Log Out", "LogOut", "Survey", new { id = "LogOut", @class = "item-link" })
+    @*@Html.ActionLink("Log Out", "LogOut", "Survey", new { id = "LogOut", @class = "item-link" })*@
 
     @*<button class="default exitsurvey" id="LogOut" type="submit"  name="LogOut" value="">Log Out</button>*@
-	</div>
-	<div style="clear:both;"></div>
-</div>  
+	@*</div>
+	<div style="clear:both;"></div>*@
+</div>   
 	
 
 <div id="content" class="recordcontentdiv" style="margin:0px auto;">
