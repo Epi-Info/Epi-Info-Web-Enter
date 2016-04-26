@@ -725,7 +725,8 @@ namespace Epi.Web.MVC.Utility
                 IsHidden = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HiddenFieldsList"),
                 IsHighlighted = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "HighlightedFieldsList"),
                 IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList"),
-                Value = _ControlValue
+                Value =  _ControlValue,
+                Response = _ControlValue
             };
 
             return TextBox;
