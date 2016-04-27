@@ -358,6 +358,7 @@
     <Content Include="Content\css\images\ui-icons_888888_256x240.png" />
     <Content Include="Content\css\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\css\images\user.png" />
+    <Content Include="Content\css\jloading-overlay.css" />
     <Content Include="Content\css\jqm-datebox.css" />
     <Content Include="Content\css\jquery-ui-1.8.16.custom.css" />
     <Content Include="Content\css\jquery.mobile.datebox-1.0.1.css" />
@@ -520,6 +521,7 @@
     <Content Include="Scripts\autoNumeric-1.7.4.js" />
     <Content Include="Scripts\CheckCodeEngine.js" />
     <Content Include="Scripts\idle-timer.js" />
+    <Content Include="Scripts\jloading-overlay.js" />
     <Content Include="Scripts\jqm-datebox.core.js" />
     <Content Include="Scripts\jqm-datebox.mode.flipbox.js" />
     <Content Include="Scripts\jqm-docs.js" />

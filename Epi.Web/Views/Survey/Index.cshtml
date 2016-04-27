@@ -108,22 +108,59 @@
         }
     }
 
+    function ShowSppiner() {
+        
+        if (open) {
+            $('BODY').jLoadingOverlay('close');
+            open = false;
+        }
+        else {
+            $('BODY').jLoadingOverlay('');
+            open = true;
+        }
 
+    }
+    function CloseSppiner() {
+
+        $('BODY').jLoadingOverlay('close');
+        open = false;
+
+
+    }
 
     $(document).ready(function () {
         // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
         //$("#Savebutton").tooltip();      
-        
+        CloseSppiner();
         var DateFormat = '@Model.CurrentCultureDateFormat'
         DateFormat = DateFormat.toLocaleLowerCase().toString()
         
         
         $(".datepicker").datepicker("option", "dateFormat", DateFormat);
         
+        //Sppiner Start
         
-          
- 
+
+        //$(function () {
+
+        //    $('BODY').jLoadingOverlay('')
+
+        //    setInterval(
+        //    function () {
+        //        if (open) {
+        //            $('BODY').jLoadingOverlay('close');
+        //            open = false;
+        //        }
+        //        else {
+        //            $('BODY').jLoadingOverlay('');
+        //            open = true;
+        //        }
+        //    }, 3000);
+
+        //})
+       
+         //Sppiner End
 
         $("#dialog").dialog({
             autoOpen: false,
@@ -480,6 +517,7 @@
 
         /*Exit the survey */
         $("#Close").click(function (e) {
+            ShowSppiner();
             e.preventDefault();
             //alert('close')
 
@@ -538,7 +576,8 @@
 
 
         $("#Close1").click(function (e) {
-            // alert('close1')
+            //  alert('close1')
+            ShowSppiner();
             e.preventDefault();
             CCE_HasFormValuesChanged();
             if ($('#FormHasChanged').val() == 'True') {
@@ -547,8 +586,20 @@
                 DeleteRecord();
             }
         });
+        ///Savebutton
+        $("#Savebutton").click(function (e) {
+            ShowSppiner();
+            
+        });
+        $("#Savebutton1").click(function (e) {
+            ShowSppiner();
 
-
+        });
+        $('#content a[href]').click(function (e) {
+           
+            ShowSppiner();
+            
+        });
         /*Open the modal popup on link click*/
         $('#copy').click(function () {
             $("#dialog").dialog("open");
@@ -985,13 +1036,13 @@
                  &nbsp;
                  @if (Model.Form.CurrentPage != 1)
 			   {
-                     <button class="default prev" id="PreviousButton" value="PreviousButton" onclick="Previous();" name="PreviousButton" type="button"> &nbsp; Previous</button>
+                     <button class="default prev" id="PreviousButton" value="PreviousButton" onclick="ShowSppiner(); Previous();" name="PreviousButton" type="button"> &nbsp; Previous</button>
 			   }
              </div>
 
              <div id="savediv" align="center">
                  @*<button class="default save"  type="button" id ="Savebutton" onclick="Save();" name="Savebutton" value="save"> Save & Close</button>*@
-                 <button class="default save" id="Savebutton2" type="submit" onclick="Save();" name="Savebutton" value="Submit" style="margin-right:10px;">Save</button>
+                 <button class="default save" id="Savebutton2" type="submit" onclick="ShowSppiner();Save();" name="Savebutton" value="Submit" style="margin-right:10px;">Save</button>
                  <button class="default save" id="Savebutton" type="submit" name="Submitbutton" value="Submit" style="width:126px;margin-right:10px;">Save & Close</button>
                  <button class="default exitsurvey" id="Close1" type="submit" name="Submitbutton" value="Submit" style="padding: 4px 6px 4px 6px !important;">Exit</button>
              </div>
@@ -1006,7 +1057,7 @@
    else
 	   {
                  <div id="next" align="right">
-                     <button class="default next" name="ContinueButton" id="ContinueButton" onclick="Continue();" type="button">Continue &nbsp; </button>
+                     <button class="default next" name="ContinueButton" id="ContinueButton" onclick="ShowSppiner(); Continue();" type="button">Continue &nbsp; </button>
                  </div>
 	   }
 
