@@ -117,8 +117,8 @@ namespace Epi.Web.MVC
               routes.MapRoute
                 (
                     null, // Route name
-                    "FormResponse/CheckForConcurrency/{ResponseId}", // URL with parameters
-                    new { controller = "FormResponse", action = "CheckForConcurrency", ResponseId = UrlParameter.Optional }
+                    "FormResponse/CheckForConcurrency", // URL with parameters
+                    new { controller = "FormResponse", action = "CheckForConcurrency" }
                 ); 
             routes.MapRoute
             (

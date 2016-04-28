@@ -167,7 +167,7 @@ namespace Epi.Web.MVC.Controllers
 
 				return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = this.Request.Form["Parent_Response_Id"].ToString(), PageNumber = PNumber });
 			}
-            if (string.IsNullOrEmpty(EditForm) && Session["EditForm"] != null)
+            if (string.IsNullOrEmpty(EditForm) && Session["EditForm"] != null && string.IsNullOrEmpty(AddNewFormId))
             {
                 EditForm = Session["EditForm"].ToString();
             }

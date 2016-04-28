@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Epi Info™ Web Enter - Form";
 }
 
@@ -472,6 +471,7 @@
  /*Clicking the save button to save the survey*/
  function Save() 
       {
+
         var DisabledFieldsList = $('#DisabledFieldsList').val();
          
         if (DisabledFieldsList.length > 0)
@@ -692,12 +692,14 @@ function ReplaceString(string){
 /*Save the survey */
  
 function SaveForm() {
+    
     var DisabledFieldsList = $('#DisabledFieldsList').val();
 
     if (DisabledFieldsList.length > 0) {
+         
         CCE_ProcessEnableAllControls(DisabledFieldsList);
     }
-
+    
     //SaveSurvey();
     //debugger;
     //set the is_save_action hidden variable value to true to indicate that save button has been clicked
@@ -716,12 +718,12 @@ function SaveForm() {
 </script>
 
 <div id="pageHeader">
-  	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
+  	@*<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
    	<div id="userwelcome">Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
-    @*<a href="#">Log Out</a>*@
-    @Html.ActionLink("Log Out", "LogOut", "Survey", null, null)	
+    <a href="#">Log Out</a>*@
+    @*Html.ActionLink("Log Out", "LogOut", "Survey", null, null)	
     </div>
-  	<div style="clear:both;"></div>
+  	<div style="clear:both;"></div>*@
 </div>  
 
 <div id="content" class="recordcontentdiv" style="margin:20px auto 0;">
