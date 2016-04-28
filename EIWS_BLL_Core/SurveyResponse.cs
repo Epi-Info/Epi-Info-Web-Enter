@@ -55,25 +55,28 @@ namespace Epi.Web.BLL
                SurveyAnswerCriteria.PageNumber = 1;
                SurveyAnswerCriteria.IsSqlProject = Criteria.IsSqlProject;
                result = this.SurveyResponseDao.GetFormResponseByFormId(SurveyAnswerCriteria);
+               if (result[0].SqlData != null)
+               {
+                   var DataList = result[0].SqlData.ToList();
+                   DataList.RemoveAt(0);
 
-               var DataList = result[0].SqlData.ToList();
-               DataList.RemoveAt(0);
+                   //Build Response Xml
+                   PreFilledAnswerRequest Request = new PreFilledAnswerRequest();
+                   Request.AnswerInfo.ResponseId = new Guid(Criteria.SurveyAnswerIdList[0]);
+                   Request.AnswerInfo.SurveyId = new Guid(Criteria.SurveyId);
+                   Request.AnswerInfo.UserId = Criteria.UserId;
+                   Request.AnswerInfo.SurveyQuestionAnswerList = new Dictionary<string, string>();
+                   foreach (var item in DataList)
+                   {
+
+
+                       Request.AnswerInfo.SurveyQuestionAnswerList.Add(item.Key, item.Value);
+
+                   }
               
-               //Build Response Xml
-                PreFilledAnswerRequest Request = new PreFilledAnswerRequest();
-                Request.AnswerInfo.ResponseId = new Guid(Criteria.SurveyAnswerIdList[0]);
-                Request.AnswerInfo.SurveyId = new Guid(Criteria.SurveyId);
-                Request.AnswerInfo.UserId = Criteria.UserId;
-                Request.AnswerInfo.SurveyQuestionAnswerList = new Dictionary<string, string>();
-                foreach (var item in DataList)
-                    {
-                     
-                   
-                    Request.AnswerInfo.SurveyQuestionAnswerList.Add(item.Key, item.Value);
-
-                    }
               //  Request.AnswerInfo.OrganizationKey = new Guid ( "a4b6a687-610d-442a-a80c-d1c781087181");
               var response = SetSurveyAnswer(Request);
+               }
               // string Xml = CreateResponseXml(  Request,  SurveyBOList);
 
                 //Insert response xml into EWE
