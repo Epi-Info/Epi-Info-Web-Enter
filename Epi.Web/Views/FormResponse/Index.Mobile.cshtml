@@ -111,10 +111,13 @@ var pageId = $('#hidPageNumber').val();
     //Following code prevents the default behav of DeleteButton, sets the value of hidden field to the value of button click(ResponseId).
     //displays a dialog, on confirmation deletes the row through ajax call and refreshes the page.
     $(document).delegate("button[name='DeleteButton']", 'click', function (e) {
+       
         e.preventDefault();
      $("input[id=hidSelectedResponseId]").val($(this).val());
-      /*  */
-        var ActionUrl = '@Url.Action("CheckForConcurrency", "FormResponse")' + '?ResponseId=' + $("input[id=hidSelectedResponseId]").val();
+        /*  */
+     var id = $("input[id=hidSelectedResponseId]").val();
+    
+       var ActionUrl = '@Url.Action("CheckForConcurrency", "FormResponse")' + '?ResponseId=' + id;
       
         $.ajax({
             url: ActionUrl,
@@ -129,6 +132,7 @@ var pageId = $('#hidPageNumber').val();
       
 
         function successFunc(data, status) {
+           
             var loggedInUserId = data.LoggedInUserId
             var UpdatedDate = data.DateUpdated;
             var SessionTimeOut = $('#SYSTEM_SESSION_TIMEOUT_HIDDEN').val() * 60000;
@@ -161,7 +165,10 @@ var pageId = $('#hidPageNumber').val();
             {
                
                 // if time elapsed is less the   system timeout
-              
+                //alert("EditingDuration "+ EditingDuration);
+                //alert("SessionTimeOut "+ SessionTimeOut);
+                //alert("loggedInUserId "+ loggedInUserId);
+                //alert("data.LastActiveUserId " + data.LastActiveUserId);
                 if (EditingDuration <= SessionTimeOut && loggedInUserId != data.LastActiveUserId) {
                     
                     $('#inlinecontent').simpledialog({'mode': 'blank',
@@ -184,8 +191,10 @@ var pageId = $('#hidPageNumber').val();
                   
                 }
                 else {
-                   
-                    UnLockRecordForDelete(ResponseId);
+                     
+                    var Rid = $("input[id=hidSelectedResponseId]").val();
+                     
+                    UnLockRecordForDelete(Rid);
 
                 }
               
@@ -386,7 +395,7 @@ var pageId = $('#hidPageNumber').val();
     }
     function UnLockRecordForEdit(ResponseId, RecoverLastRecordVersion) {
 
-       // alert("UnLock");
+       //alert("UnLock");
 
         var ActionUrl = '@Url.Action("UnLock", "FormResponse")' + '?ResponseId=' + ResponseId + "&RecoverLastRecordVersion=" + RecoverLastRecordVersion;
          $.ajax({
@@ -409,8 +418,8 @@ var pageId = $('#hidPageNumber').val();
          }
     }
     function UnLockRecordForDelete(ResponseId) {
-
-        var ActionUrl = '@Url.Action("UnLock", "FormResponse")' + '?ResponseId=' + ResponseId ;
+     
+        var ActionUrl = '@Url.Action("UnLock", "FormResponse")' + '?ResponseId=' + ResponseId + "&RecoverLastRecordVersion=" + false ;
         $.ajax({
             url: ActionUrl,
             type: 'POST',
@@ -422,11 +431,13 @@ var pageId = $('#hidPageNumber').val();
         });
         function successFunc1(data, status)
         {
+           
             if(data =="Success")
             {
+               
                // $("#exitdialog").data('ResponseId', ResponseId)
               //  $("#exitdialog").dialog("open");
-                $(this).simpledialog({
+                $('#inlinecontent1').simpledialog({
                     'mode': 'blank',
                     'prompt': false,
                     'forceInput': false,
