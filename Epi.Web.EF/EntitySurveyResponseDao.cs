@@ -2272,10 +2272,11 @@ namespace Epi.Web.EF
 
                 ResponseXml Response = Context.ResponseXmls.FirstOrDefault(x => x.ResponseId == Id);
 
-
-                Context.ResponseXmls.DeleteObject(Response);
-                Context.SaveChanges();
-
+                if (Response != null)
+                {
+                    Context.ResponseXmls.DeleteObject(Response);
+                    Context.SaveChanges();
+                }
                 //Update Status
                 //var Query = from response in Context.SurveyResponses
                 //            where response.ResponseId == Id
