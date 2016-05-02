@@ -171,6 +171,11 @@ namespace Epi.Web.MVC.Controllers
 			{
 				int PNumber;
 				int.TryParse(Cancel, out PNumber);
+                Dictionary<string, int> SurveyPagesList = (Dictionary<string, int>)Session["RelateButtonPageId"];
+                if (SurveyPagesList != null)
+                {
+                    PNumber = SurveyPagesList[this.Request.Form["Parent_Response_Id"].ToString()];
+                }
 
 				return RedirectToRoute(new { Controller = "Survey", Action = "Index", responseid = this.Request.Form["Parent_Response_Id"].ToString(), PageNumber = PNumber });
 			}
@@ -1049,5 +1054,27 @@ namespace Epi.Web.MVC.Controllers
 
         }
 
+        public void SetRelateSession(string ResponseId, int CurrentPage)
+        {
+            // Session["RelateButtonPageId"] 
+            var Obj = Session["RelateButtonPageId"];
+            Dictionary<string, int> List = new Dictionary<string, int>();
+            if (Obj == null)
+            {
+
+                List.Add(ResponseId, CurrentPage);
+                Session["RelateButtonPageId"] = List;
+            }
+            else
+            {
+
+                List = (Dictionary<string, int>)Session["RelateButtonPageId"];
+                if (!List.ContainsKey(ResponseId))
+                {
+                    List.Add(ResponseId, CurrentPage);
+                    Session["RelateButtonPageId"] = List;
+                }
+            }
+        }
 	}
 }
