@@ -521,7 +521,7 @@ namespace Epi.Web.MVC.Controllers
                                 if (!string.IsNullOrEmpty(CloseButton))
                                 {
                                     if(!Log_Out){
-                                    return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId });
+                                        return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId, orgid = (int)Session["SelectedOrgId"] });
                                     }else{
                                     return RedirectToAction("Index", "Post");
                                     
@@ -533,11 +533,11 @@ namespace Epi.Web.MVC.Controllers
                                     {
                                         if (string.IsNullOrEmpty(this.RootFormId))
                                         {
-                                            return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId });
+                                            return RedirectToAction("Index", "Home", new { surveyid = surveyInfoModel.SurveyId, orgid = (int)Session["SelectedOrgId"] });
                                         }
                                         else
                                         {
-                                            return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId });
+                                            return RedirectToAction("Index", "Home", new { surveyid = this.RootFormId, orgid = (int)Session["SelectedOrgId"] });
 
                                         }
                                     }
