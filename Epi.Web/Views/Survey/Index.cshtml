@@ -108,17 +108,23 @@
         }
     }
 
-    function ShowSppiner() {
-
-        if (open) {
+    function ShowSppiner() 
+    {
+        var validate = $('#myform').validationEngine('validate');
+      
+        if(validate)
+        {
+            if (open) 
+            {
             $('BODY').jLoadingOverlay('close');
             open = false;
-        }
-        else {
+             }
+            else 
+            {
             $('BODY').jLoadingOverlay('');
             open = true;
+              }
         }
-
     }
     function CloseSppiner() {
 
