@@ -491,6 +491,20 @@ namespace Epi.Web.EF
       
        try
            {
+             //Delete old columns
+               using (var Context = DataObjectFactory.CreateContext())
+               {
+                   Guid Id = new Guid(FormId);
+                   IQueryable<ResponseDisplaySetting> ColumnList = Context.ResponseDisplaySettings.Where(x => x.FormId == Id);
+
+                   
+                   foreach (var item in ColumnList)
+                   {
+                       Context.ResponseDisplaySettings.DeleteObject(item);
+                   }
+                   Context.SaveChanges();
+               }
+           // Adding new columns
            List<string> ColumnNames = new List<string>();
            if (!IsSqlProject)
                {
