@@ -156,7 +156,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
 
-                    IEnumerable<ResponseDisplaySetting> ColumnList = Context.ResponseDisplaySettings.ToList().Where(x => x.FormId == Id);
+                    IQueryable<ResponseDisplaySetting> ColumnList = Context.ResponseDisplaySettings.Where(x => x.FormId == Id);
 
                     //Delete old columns
                     foreach (var item in ColumnList)
