@@ -67,8 +67,9 @@ namespace Epi.Web.MVC.Controllers
                   FormsAuthentication.SetAuthCookie("Guest@cdc.gov", false);
                   
                     Session["UserId"] = UserId;
-                    
-                    Session["UserHighestRole"] = 3;
+                     Session["UserHighestRole"] = 3;
+                     Session["UserFirstName"] = "John";
+                     Session["UserLastName"]= "Doe";
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
                 }
             }
