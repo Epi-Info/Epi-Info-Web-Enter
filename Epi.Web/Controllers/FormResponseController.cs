@@ -50,7 +50,8 @@ namespace Epi.Web.MVC.Controllers
 		public ActionResult Index(string formid, string responseid, int Pagenumber = 1, int ViewId = 0)
 		{
 
-			
+            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            ViewBag.Version = version;
 
 			if (ViewId == 0)
 			{
