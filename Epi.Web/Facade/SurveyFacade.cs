@@ -75,7 +75,7 @@ namespace Epi.Web.MVC.Facade
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
             bool IsMobileDevice, 
             List<SurveyAnswerDTO> _SurveyAnswerDTOList = null,
-            List<Epi.Web.Enter.Common.DTO.FormsHierarchyDTO> FormsHierarchyDTOList = null)
+            List<Epi.Web.Enter.Common.DTO.FormsHierarchyDTO> FormsHierarchyDTOList = null, bool IsAndroid = false)
         {
             List<SurveyInfoDTO> List = new List<SurveyInfoDTO>();
 
@@ -133,13 +133,13 @@ namespace Epi.Web.MVC.Facade
             {
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyInfoList = List;
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
-                form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
+                form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO,IsAndroid );
             }
             else
             {
                 Epi.Web.MVC.Utility.FormProvider.SurveyInfoList = List;
                 Epi.Web.MVC.Utility.FormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
-                form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO);
+                form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO,IsAndroid );
             }
             return form;
         }
