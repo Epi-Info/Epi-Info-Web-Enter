@@ -69,7 +69,8 @@ namespace Epi.Web.MVC.Controllers
                     Session["UserId"] = UserId;
                      Session["UserHighestRole"] = 3;
                      Session["UserFirstName"] = "John";
-                     Session["UserLastName"]= "Doe";
+                    Session["UserLastName"]= "Doe";
+                    Session["UserEmailAddress"] = "Guest@cdc.gov";
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
                 }
             }
