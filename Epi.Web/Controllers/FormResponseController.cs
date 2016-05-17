@@ -204,8 +204,9 @@ namespace Epi.Web.MVC.Controllers
 				}
 				Session["IsEditMode"] = true;
 				IsEditMode = true;
-                List<FormsHierarchyDTO> FormsHierarchy1 = GetFormsHierarchy();
-                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = FormsHierarchy1.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == EditForm);//GetSurveyAnswer(EditForm);
+               // List<FormsHierarchyDTO> FormsHierarchy1 = GetFormsHierarchy();
+               // FormsHierarchy1.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == EditForm);
+                Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
                 if (Session["RecoverLastRecordVersion"] != null)
                 {
                     surveyAnswerDTO.RecoverLastRecordVersion = bool.Parse(Session["RecoverLastRecordVersion"].ToString());
