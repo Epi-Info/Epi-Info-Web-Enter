@@ -17,7 +17,7 @@ namespace Epi.Web.MVC.Utility
 
         public static List<Epi.Web.Enter.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
         public static List<Epi.Web.Enter.Common.DTO.SurveyInfoDTO> SurveyInfoList;
-        public static Form GetForm(object SurveyMetaData ,int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer)
+        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer, bool IsAndroid= false)
         {
             string SurveyAnswer;
             
@@ -29,7 +29,7 @@ namespace Epi.Web.MVC.Utility
             else { SurveyAnswer = ""; }
 
             var form = new Form();
-
+            form.IsAndroid = IsAndroid;
             form.ResponseId = _SurveyAnswer.ResponseId;
 
             form.SurveyInfo = (Epi.Web.Enter.Common.DTO.SurveyInfoDTO)(SurveyMetaData);
@@ -916,7 +916,7 @@ namespace Epi.Web.MVC.Utility
                     DropDown.IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList");
                     DropDown.ControlFontSize = float.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
                     DropDown.ControlFontStyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
-                     
+                    
                     DropDown.EmptyOption = "Select";
 
                

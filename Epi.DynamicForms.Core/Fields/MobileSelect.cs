@@ -106,6 +106,11 @@ namespace MvcDynamicForms.Fields
             var select = new TagBuilder("select");
             select.Attributes.Add("id", inputName);
             select.Attributes.Add("name", inputName);
+            if (this.IsAndroidfield)
+            {
+                select.Attributes.Add("data-role", "main");
+                select.Attributes.Add("data-native-menu", "false");
+            }
             //select.Attributes.Add("data-mini", "true");
             ////////////Check code start//////////////////
             EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);

@@ -28,6 +28,7 @@ namespace MvcDynamicForms.Fields
         protected bool _IsHighlighted;
         protected bool _IsDisabled;
         protected bool _IsPlaceHolder;
+        protected bool _IsAndroidfield;
         internal Form Form
         {
             get
@@ -112,7 +113,8 @@ namespace MvcDynamicForms.Fields
         public bool IsDisabled { get { return this._IsDisabled; } set { this._IsDisabled = value; } }
 
         public bool IsPlaceHolder  { get { return this._IsPlaceHolder; } set { this._IsPlaceHolder = value; } }
-        
+        public bool IsAndroidfield { get { return this._IsAndroidfield; } set { this._IsAndroidfield = value; } }
+         
         /// <summary>
         /// This function generates control style 
         /// </summary>
