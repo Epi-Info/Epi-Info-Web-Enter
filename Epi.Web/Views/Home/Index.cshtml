@@ -935,8 +935,20 @@
       @Html.ActionLink("Site Administration", "UserList", "AdminUser", null, null);
        <span>&nbsp; | &nbsp;</span> 
       }
+@if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+{
+    if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+    {
+        <a href="http://www.cdc.gov/epiinfo/cloud/index.html">Log Out</a>
 
-      @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+    }
+    else
+    {
+
+            @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+
+        }
+    }
 	</div>
 	<div style="clear: both;">
 	</div>
