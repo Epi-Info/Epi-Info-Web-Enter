@@ -49,7 +49,18 @@
   	<div id="pageTitle"><h2>Home</h2></div>
    	<div id="userwelcome">Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp; | &nbsp;
   @*  <a href="#">Log Out</a>*@
+@if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+{
+    if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+    {
+        <a href="http://www.cdc.gov/epiinfo/cloud/index.html">Log Out</a>
+
+    }
+    else
+    {
   @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+    }
+}
     </div>
 
   	<div style="clear:both;"></div>
