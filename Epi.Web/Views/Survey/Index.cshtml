@@ -823,6 +823,11 @@
     }
     function GoHome() {
         ShowSppiner();
+        var DisabledFieldsList = $('#DisabledFieldsList').val();
+
+        if (DisabledFieldsList.length > 0) {
+            CCE_ProcessEnableAllControls(DisabledFieldsList);
+        }
         $('#myform').validationEngine('detach');
         $("#myform")[0].Go_Home_action.value = 'true';
 
@@ -835,6 +840,11 @@
 
     function GoOneLevelUp() {
         ShowSppiner();
+        var DisabledFieldsList = $('#DisabledFieldsList').val();
+
+        if (DisabledFieldsList.length > 0) {
+            CCE_ProcessEnableAllControls(DisabledFieldsList);
+        }
         $('#myform').validationEngine('detach');
         $("#myform")[0].Go_One_Level_Up_action.value = 'true';
 
