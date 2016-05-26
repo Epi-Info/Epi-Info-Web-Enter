@@ -39,14 +39,10 @@ img { border: none;}
 
 .pages span.current {
    border: 1px solid #1f3b53;
-    background: #5c53ac;
+    background: #58595b;
     font: 11pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     color: #fff;
-   /* margin-top:1px;*/
-    box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
-    -o-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
-       -webkit-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
- -moz-box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px rgba(255,255,255,0.3), inset 0 10px rgba(255,255,255,0.2), inset 0 10px 20px rgba(255,255,255,0.25), inset 0 -15px 30px rgba(158,158,158,0.3);
+   
 }
 
 .pages a {
@@ -63,7 +59,7 @@ img { border: none;}
 .pages a.nextprev {
     font-weight: bold;
     background: #fff;
-   padding: 0.2em 0.2em;
+      padding: 0.2em 0.2em;
     background-repeat:no-repeat;
     background-position:center; 
     width:23px;
@@ -71,7 +67,7 @@ img { border: none;}
 }
 
 .pages a.nextprev:hover, .pages a.nextprev:active {
-    background-color: #ffc000 !important; 
+    background-color: #4a80bd !important; 
     -webkit-tap-highlight-color:rgba(0,0,0,0.5);
 }
 .pages span.nextprev {

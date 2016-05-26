@@ -27,8 +27,8 @@ body
 #header
  {
     padding: 0.5em;
-    border-bottom: 1px solid #abafbc;
-    background: #1d60ac ;/* url('../images/header_bg.png') repeat;*/
+    /*border-bottom: 1px solid #abafbc;*/
+    background: #2f6fa3 ;/* url('../images/header_bg.png') repeat;
      background-image: linear-gradient(to bottom, #2f6fa3, #2f6fa3css3-metro-dropdown);
     -webkit-box-shadow: 0 -1px 0 rgba(77, 117, 164, 0.8) inset;
     -moz-box-shadow: 0 -1px 0 rgba(77, 117, 164,.8) inset;
@@ -248,7 +248,7 @@ div.recordcontentdiv
         height:100%;
         /*max-height:650px;*/
         overflow:auto;
-        background: #dfdeda;
+        background: #58595b;
         padding: 10px 0px 10px 10px;/*10px;*/
         border: 1px solid #c2c2c2;
         display: table-cell;
@@ -374,7 +374,7 @@ button.default, #recordstable a, a.returnto
     vertical-align:middle;
     color:#fff;
     border: 1px solid #1f3b53;
-    background: #5c53ac;
+    background: #1D60AC;
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -413,7 +413,7 @@ button.search
     /*width: 110px;*/
     height: 35px;
     padding: 4px 12px 4px 30px;
-    background-color: #5c53ac !important;
+    background-color: #1D60AC !important;
 }
 
 button.analytics
@@ -425,7 +425,7 @@ button.analytics
     /*width: 110px;*/
     height: 35px;
     padding: 4px 12px 4px 30px;
-    background-color: #5c53ac !important;
+    background-color: #1D60AC !important;
 } 
 
  #infobox1
@@ -610,12 +610,12 @@ button.paging img
     cursor: pointer; 
     vertical-align:middle;
     color:#fff;
-    border: 1px solid #1f3b53;
-    background: #5c53ac;
+    /*border: 1px solid #1f3b53;
+    background: #1D60AC;*/
     font: 12pt lighter "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#paging span {background: #ff9326;}
+/*#paging span {background: #ff9326;}*/
 
  #paging a, #paging span 
  {
@@ -1016,7 +1016,7 @@ img { border: none;}
 .pages span.current {
     border: 1px solid #5c53ac;
     font-weight: bold;
-    background: #5c53ac;
+    background: #1D60AC;
     color: #fff;
 }
 
@@ -1153,12 +1153,12 @@ button.edit {
  
  
  /*Log In Page*/
-#loginform{float: left; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; margin: 10px 30px 30px 0; height: 270px;}
+#loginform{float: left; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #8eafd5; margin: 10px 30px 30px 0; height: 270px;}
 #loginform input[type="password"], #loginform input[type="text"] {height:30px; width:260px; font-size:12pt;}
 #loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}
-#welcome {float: left; font-size: 12pt; display:inline-block; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #4d74a4; background:#e1eef4; margin: 10px 30px 0 0; height: 270px;}
+#welcome {float: left; font-size: 12pt; display:inline-block; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #8eafd5; background:#e8eff7; margin: 10px 30px 0 0; height: 270px;}
 #TOU{margin-top:20px;}
-.termsofuse {width:742px; padding:5px; /*height: 300px;*/ border:1px solid #4d74a4; font: 12px "Segoe UI"; line-height:1.8em; overflow:auto;}
+.termsofuse {width:742px; padding:5px; /*height: 300px;*/ border:1px solid #8eafd5; font: 12px "Segoe UI"; line-height:1.8em; overflow:auto;}
 .h2header {font: 20px Segoe UI; color:#4d74a4; font-weight:400; margin-bottom: 5px;}
 .validation-summary-errors {
     border: 1px solid #7b050f;
@@ -1177,6 +1177,28 @@ button.edit {
 .validation-summary-errors ul li{
 }
 
+#paging #pager a {
+    color:#1D60AC;
+    font-size:18px;
+
+}
+
+#paging #pager span {
+    color:#f37c60;
+    
+    font-size:18px;
+}
+
+#paging #pager2 a {
+    color:#1D60AC;
+    font-size:18px;
+}
+
+#paging #pager2 span {
+    color:#f37c60;
+    font-weight:bolder;
+    font-size:18px;
+}
 
 .validation-summary-errors span{
    color: #7b050f;
@@ -1208,7 +1230,7 @@ button.edit {
 #available select, #selected select { width:200px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
 #available label, #selected label {font-weight:bold; font-size:9pt;}
 #swapbtn, #updown {margin-top:58px;}
-#swapbtn button, #updown button{ font-family: Arial; width:40px; cursor: pointer; color:#fff; border: 1px solid #1f3b53; background: #5c53ac; text-decoration: none; padding: 4px 6px 4px 4px; }
+#swapbtn button, #updown button{ font-family: Arial; width:40px; cursor: pointer; color:#fff; border: 1px solid #1f3b53; background: #1D60AC; text-decoration: none; padding: 4px 6px 4px 4px; }
 
 
 #UserSelect {vertical-align:middle;}
