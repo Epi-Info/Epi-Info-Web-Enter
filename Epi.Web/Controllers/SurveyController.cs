@@ -579,7 +579,7 @@ namespace Epi.Web.MVC.Controllers
                                
 
                                 SurveyModel.RelateModel = Mapper.ToRelateModel(FormsHierarchy, form.SurveyInfo.SurveyId);
-                                if ( this.Request.Form["Click_Related_Form"] != null)
+                                if (!string.IsNullOrEmpty(this.Request.Form["Click_Related_Form"]))
                                     {
                                     bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
                                     string Edit = "";
@@ -590,8 +590,10 @@ namespace Epi.Web.MVC.Controllers
                                     //SurveyModel = GetIndex(form.ResponseId, form.CurrentPage, Edit, form.SurveyInfo.SurveyId);
                                     SurveyModel.RelatedButtonWasClicked = this.Request.Form["Click_Related_Form"].ToString();
                                     
-                                   return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
-                                   // return RedirectToAction("Index", "Survey", new { RequestId = form.ResponseId, PageNumber = form.CurrentPage });
+                                 return View(Epi.Web.MVC.Constants.Constant.INDEX_PAGE, SurveyModel);
+                                   
+                                    
+                                   //return RedirectToAction("Index", "Survey", new { RequestId = form.ResponseId, PageNumber = form.CurrentPage });
                                     }
                                 else 
                                     {
@@ -1518,7 +1520,7 @@ namespace Epi.Web.MVC.Controllers
 
 
 
-        [HttpGet]
+        [HttpPost]
 
         public ActionResult ReadResponseInfo(string SurveyId, int ViewId, string ResponseId, string CurrentPage)//List<FormInfoModel> ModelList, string formid)
         // public ActionResult ReadResponseInfo( string ResponseId)//List<FormInfoModel> ModelList, string formid)
