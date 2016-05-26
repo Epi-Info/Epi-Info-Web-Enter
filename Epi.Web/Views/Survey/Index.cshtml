@@ -108,18 +108,18 @@
         }
     }
 
-    function ShowSppiner() 
+    function ShowSppiner()
     {
         var validate = $('#myform').validationEngine('validate');
-      
+
         if(validate)
         {
-            if (open) 
+            if (open)
             {
             $('BODY').jLoadingOverlay('close');
             open = false;
              }
-            else 
+            else
             {
             $('BODY').jLoadingOverlay('');
             open = true;
@@ -724,14 +724,17 @@
     }
 
     function ReadRelatedResponse(ViewId) {
+         ShowSppiner();
+        
+       // var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
+        var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
-        var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
-        ShowSppiner();
         $.ajax({
             url: signoutUrl,
-            type: 'GET',
+            type: 'POST',
             contentType: 'application/json; charset=utf-8',
             //data: JSON.stringify(model),
+            dataType: "text",
             async: false,
             success: successFunc,
             Error: errorFunc
