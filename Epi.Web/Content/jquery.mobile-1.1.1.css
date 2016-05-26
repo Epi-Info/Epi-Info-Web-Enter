@@ -350,11 +350,11 @@
 	color: 	#333333 /*{c-body-color}*/;
 }
 .ui-body-c .ui-link {
-	color: #2489CE /*{c-body-link-color}*/;
+	color: #1D60AC /*{c-body-link-color}*/;
 	font-weight: bold;
 }
 .ui-body-c .ui-link:visited {
-    color: #2489CE /*{c-body-link-visited}*/;
+    color: #2489CE /*{c-body-link-visited};; */ /*{c-body-link-visited}*/;
 }
 .ui-body-c .ui-link:hover {
 	color: #2489CE /*{c-body-link-hover}*/;

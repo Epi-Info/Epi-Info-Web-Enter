@@ -496,7 +496,9 @@ var pageId = $('#hidPageNumber').val();
 <div id="content" style="margin-bottom: 200px;">
     @if (Model.ViewId == 0)
     {
-        @Html.ActionLink("Return to Forms List", "Index", "Home", new object { }, new { @class = "backlink" })
+        <div style="margin-top:15px; margin-bottom:15px">
+            @Html.ActionLink("Return to Forms List", "Index", "Home", new object { }, new { @class = "backlink" })
+        </div>
     }
     @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formsList" }))
     { 
@@ -513,6 +515,21 @@ var pageId = $('#hidPageNumber').val();
             <div id="right" class="col span_1_of_3" style="background: white; padding: 10px;">
                 <div id="formtitle">
                     <h2 class="surveyTitle">@Model.FormInfoModel.FormName</h2>
+                    @if (Model.FormInfoModel.IsSQLProject)
+                    {
+
+
+                        if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
+                        {
+                            <div id="launchAnalyticsBtn">
+                                <button id="btnEwavLite" data-theme="defsearch" onclick="openEWAVLiteURL()" type="button">
+                                    Launch Analytics
+                                </button>
+                            </div>
+                        }
+
+
+                    }
                 </div>
                 @{
             WebGrid webGrid = new WebGrid(rowsPerPage: 20,
@@ -556,44 +573,23 @@ var pageId = $('#hidPageNumber').val();
                         <div style="clear: both;">
                         </div>
                     </div>
+                    <div id="addnew" style="float:left; padding-right:20px">
+                        <button type="submit" name="AddNewFormId" value="@Model.FormInfoModel.FormId" data-theme="defrecord">
+                            Add New Record
+                        </button>
+                    </div>
                     @if (Model.FormInfoModel.IsSQLProject)
                     {
-                        <div id="tableSort" style="vertical-align: middle; margin-bottom: 20px; min-width: 300px;">
-                            <select id="columns" data-inline="true" data-theme="submit2">
-                                @*<option value="0" selected="selected">Sort by:</option>*@
-                                @foreach (var item in Model.Columns)
-                                {
-                                    if (@item.Value.ToString() == @Model.sortfield)
-                                    {
-                                    <option value="@item.Value.ToString()" selected= selected >@item.Value.ToString()</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@item.Value.ToString()" >@item.Value.ToString()</option>
-                                    }
-                                }
-                            </select>
-                            @*<a href="index.html" id="SortASC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Ascending.png" style="width:20px; vertical-align:middle;"/></a>
-                        <a href="index.html" id="SortDESC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Descending.png" style="width:20px; vertical-align:middle;"/></a>*@
-                            @*<button data-role="button" data-theme="submit2" name="SortASC"  onclick="" type="submit">
-                            ASC</button>*@
-                            <button type="button" data-theme="submit2" data-inline="true" name="SortASC">
-                                &#x25B2;</button>
-                            <button type="button" data-theme="submit2" data-inline="true" name="SortDESC">
-                                &#x25BC;</button>
-                        </div>
-                        <div id="editsettings" style="">
-                            <button id="btnsearch" data-theme="defsearch" onclick="" type="button">
-                                Search</button>
-                        </div>
-                        if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
-                        {
-                            <button id="btnEwavLite" data-theme="defsearch" onclick="openEWAVLiteURL()" type="button">
-                                Launch Analytics
-                            </button>
-                        }
-                    }
                         
+                       
+
+                        <div id="editsettings" style="float:right">
+                            <button id="btnsearch" data-theme="defsearch" onclick="" type="button">
+                                Search
+                            </button>
+                        </div>
+                    }
+                    
                     <div style="clear: both;">
                     </div>
                     @if (Model.SearchModel != null)
@@ -625,7 +621,7 @@ var pageId = $('#hidPageNumber').val();
                             </div>
                             <button type="button" data-theme="defbtn" name="Search">
                                 Go</button>
-                            <button type="button " data-theme="defbtn" name="ResetSearch">
+                            <button type="button" data-theme="defbtn" name="ResetSearch">
                                 Reset</button>
                         </div>
                     }
@@ -634,18 +630,41 @@ var pageId = $('#hidPageNumber').val();
                         <div id="searchmsg" style="display: block;">
                             <h4 style="margin: 2px 0 20px 0; background: #ffdead; padding: 5px; color: #794800;">
                                 Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
-                                <button type="button " data-theme="defbtnreset" name="ResetSearch" style="float: right;">
+                                <button type="button" data-theme="defbtnreset" name="ResetSearch" style="float: right;">
                                     Reset</button>
                                 <div style="clear: both;">
                                 </div>
                             </h4>
                         </div>
                     }
-                    <div id="addnew">
-                        <button  type="submit"  name="AddNewFormId"  value="@Model.FormInfoModel.FormId" data-theme="defrecord" >
-                            Add New Record
+                    
+                    <div id="tableSort" style="margin-top:15px;vertical-align: middle; margin-bottom: 20px; min-width: 300px;">
+                        <select id="columns" data-inline="true" data-theme="submit2" >
+                            @*<option value="0" selected="selected">Sort by:</option>*@
+                            @foreach (var item in Model.Columns)
+                            {
+                                if (@item.Value.ToString() == @Model.sortfield)
+                                {
+                                    <option value="@item.Value.ToString()" selected=selected>@item.Value.ToString()</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value.ToString()">@item.Value.ToString()</option>
+                                }
+                            }
+                        </select>
+                        @*<a href="index.html" id="SortASC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Ascending.png" style="width:20px; vertical-align:middle;"/></a>
+            <a href="index.html" id="SortDESC"  data-role="button" data-theme="submit2" data-inline="true"><img src="~/Content/images/Sort-Descending.png" style="width:20px; vertical-align:middle;"/></a>*@
+                        @*<button data-role="button" data-theme="submit2" name="SortASC"  onclick="" type="submit">
+            ASC</button>*@
+                        <button type="button" data-theme="submit2" data-inline="true" name="SortASC">
+                            &#x25B2;
+                        </button>
+                        <button type="button" data-theme="submit2" data-inline="true" name="SortDESC">
+                            &#x25BC;
                         </button>
                     </div>
+
                     <div style="clear: both;">
                     </div>
                 </div>
