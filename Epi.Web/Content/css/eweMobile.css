@@ -194,8 +194,15 @@ body
     border-color:black;
 }
 
-/***The Following code is for screens with a width of 320 or below**/
+/***The Following code is for screens with a width of 319 or below**/
 @media (max-width: 320px) {
+  #editsettings {
+    float:left!important;
+  }
+}
+
+/***The Following code is for screens with a width of 319 or below**/
+@media (max-width: 319) {
   #editsettings {
     float:left!important;
   }
@@ -1118,11 +1125,11 @@ a.backlink
 	}
 	
 @media only screen 
-and (min-width : 310px) 
+and (min-width : 290px) 
 and (max-width : 368px) { /* STYLES GO HERE */
                                  
-.span_1_of_3 { min-width: 210px !important; width:95% !important;}
-.ui-btn-up-metro-tile, #left .ui-btn-hover-metro-tile {min-width: 100px;width: 80%;}
+.span_1_of_3 { min-width: 210px !important; width:100% !important;}
+.ui-btn-up-metro-tile, #left .ui-btn-hover-metro-tile {min-width: 100px}
 #content {margin: 25px 10px 10px 10px;}
 #addnew {float: left;}
 #footleft {width:48%;}
