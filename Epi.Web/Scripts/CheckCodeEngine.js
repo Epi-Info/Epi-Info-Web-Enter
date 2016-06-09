@@ -457,9 +457,17 @@ CCE_Context.prototype.getValue = function (pName)
                         return value;
                     case "numeric": //string has been converted to number to compare with another number
                         value = new Number(field.val()).valueOf();
+                       
                         if (value == "" || isNaN(value))
                         {
-                            return null;
+                            if (value==0)
+                            {
+                                return value;
+                            }
+                            else
+                            {
+                                return null;
+                            }
                         }
                         else
                         {
