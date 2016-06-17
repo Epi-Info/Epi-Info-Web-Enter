@@ -289,7 +289,19 @@
         });
 
         //Sort by Logic for ASC and DESC button clicks
+        $(document).on("click", "button[id='ResetSort']", function (e) {
+            
+            e.preventDefault();
+            $("#right").show();
+            var formid = $('#hidFormId').val();
+            var pageNumber = $('#hidPageNumber').val();
+            var Sort = '';
+            var SortField = ''; // 'PetsName';
+            $("#FORM_SORTORDER_HIDDEN").val(Sort);
+            $("#FORM_SORTFIELD_HIDDEN").val(SortField);
+            ReadResponses(formid, 1, Sort, SortField,true);
 
+        });
         $(document).on("click", "button[id='SortASC']", function (e) {
             e.preventDefault();
             $("#right").show();
@@ -588,8 +600,8 @@
         $("#SearchModel_SearchCol5").val('');
         $("#SearchModel_Value5").val('');
     }
-    function ReadResponses(formid, pagenumber, sortOrder, sortField) {
-
+    function ReadResponses(formid, pagenumber, sortOrder, sortField, reset ) {
+       
 
         var SessioOrgId =' @Session["SelectedOrgId"]';
 
@@ -599,7 +611,7 @@
 
         $.ajax({
             //url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + "&page=" + pagenumber + "&sort=" + sortOrder + "&sortfield=" + sortField,
-            url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField + '&orgid=' + OrgId
+            url: '@Url.Action("ReadSortedResponseInfo","Home")' + '?formid=' + formid + '&page=' + pagenumber + '&sort=' + sortOrder + '&sortfield=' + sortField + '&orgid=' + OrgId + '&reset=' + reset
                 + ReadSearchFields(),
             cache: false,
             type: 'GET',
