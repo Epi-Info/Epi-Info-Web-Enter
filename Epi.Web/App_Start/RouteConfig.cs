@@ -44,7 +44,7 @@ namespace Epi.Web.MVC
           (
               null, // Route name
               "Home/ReadSortedResponseInfo", ///{formid}/{page}/{sort}/{sortfield} URL with parameters
-              new { controller = "Home", action = "ReadSortedResponseInfo", formid = UrlParameter.Optional, page = UrlParameter.Optional, sort = UrlParameter.Optional, sortfield = UrlParameter.Optional,orgid = UrlParameter.Optional }
+              new { controller = "Home", action = "ReadSortedResponseInfo", formid = UrlParameter.Optional, page = UrlParameter.Optional, sort = UrlParameter.Optional, sortfield = UrlParameter.Optional, orgid = UrlParameter.Optional, reset = UrlParameter.Optional }
           ); // Parameter defaults
 
 
@@ -88,6 +88,7 @@ namespace Epi.Web.MVC
                 "Home/Delete/{ResponseId}", // URL with parameters
                 new { controller = "Home", action = "Delete", ResponseId = UrlParameter.Optional }
             );
+           
             routes.MapRoute
     (
         null, // Route name

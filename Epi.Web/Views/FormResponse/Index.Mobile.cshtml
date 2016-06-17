@@ -85,7 +85,15 @@ var pageId = $('#hidPageNumber').val();
         var homePageUrl = '@Url.Action("Index", "FormResponse", new { formid = @Model.FormInfoModel.FormId, ViewId = @Model.ViewId, Pagenumber = 1 })';
         window.location.href = homePageUrl + searchQString + "&sort=" + Sort + "&sortfield=" + SortField;
     });
-
+    $(document).delegate("button[name='ResetSort']", 'click', function (e) {
+        
+        e.preventDefault();
+        var Sort = '';
+        var searchQString = ReadSearchFields();
+        var SortField = '';
+        var homePageUrl = '@Url.Action("Index", "FormResponse", new { formid = @Model.FormInfoModel.FormId, ViewId = @Model.ViewId, Pagenumber = 1 })';
+        window.location.href = homePageUrl + searchQString + "&sort=" + Sort + "&sortfield=" + SortField +"&reset=" + true;
+    });
     $(document).delegate("button[name='Search']", 'click', function (e) {
         //$(document).on("click", "button[name='Search']", function (e) {
         e.preventDefault();
@@ -662,6 +670,9 @@ var pageId = $('#hidPageNumber').val();
                         </button>
                         <button type="button" data-theme="submit2" data-inline="true" name="SortDESC">
                             &#x25BC;
+                        </button>
+                        <button type="button" data-theme="submit2" data-inline="true" name="ResetSort">
+                            Reset
                         </button>
                     </div>
 
