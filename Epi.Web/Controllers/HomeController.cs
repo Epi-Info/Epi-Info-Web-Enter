@@ -329,9 +329,14 @@ namespace Epi.Web.MVC.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield, int orgid)//List<FormInfoModel> ModelList, string formid)
+        public ActionResult ReadSortedResponseInfo(string formid, int page, string sort, string sortfield, int orgid,bool reset = false)//List<FormInfoModel> ModelList, string formid)
         {
             //Code added to retain Search Starts
+            if(reset)
+            {
+            Session["SortOrder"] = "";
+            Session["SortField"] = "";
+            }
             Session["SelectedOrgId"] = orgid;
             if (Session["RootFormId"] != null && Session["RootFormId"].ToString() == formid)
             {
@@ -383,7 +388,14 @@ namespace Epi.Web.MVC.Controllers
                 return View("ListResponses", model);
             }
         }
-
+        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult ResetSort(string formid)
+        {
+            Session["SortOrder"] = null;
+            Session["SortField"] = null;
+            return Json(true);
+        }
         private string CreateSearchCriteria(System.Collections.Specialized.NameValueCollection nameValueCollection, SearchBoxModel SearchModel, FormResponseInfoModel Model)
         {
             FormCollection Collection = new FormCollection(nameValueCollection);

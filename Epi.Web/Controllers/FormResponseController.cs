@@ -50,6 +50,13 @@ namespace Epi.Web.MVC.Controllers
 		public ActionResult Index(string formid, string responseid, int Pagenumber = 1, int ViewId = 0)
 		{
 
+            bool Reset = false;
+            bool.TryParse(Request.QueryString["reset"], out Reset);
+            if (Reset)
+            {
+                Session["SortOrder"] = "";
+                Session["SortField"] = "";
+            }
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             ViewBag.Version = version;
             bool IsAndroid = false;
@@ -359,6 +366,9 @@ namespace Epi.Web.MVC.Controllers
 				{
 					Sort = Request.QueryString["sort"];
 					Session["SortOrder"] = Sort;
+
+
+                   
 				}
 
 				if (Session["SortField"] != null &&
