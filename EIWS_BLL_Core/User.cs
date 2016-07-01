@@ -30,6 +30,7 @@ namespace Epi.Web.BLL
             User.PasswordHash = PasswordHasher.HashPassword(salt, User.PasswordHash);
 
             UserResponseBO = UserDao.GetUser(User);
+            if (UserResponseBO != null)
             UserResponseBO.UserHighestRole = UserDao.GetUserHighestRole(UserResponseBO.UserId);
             
 
