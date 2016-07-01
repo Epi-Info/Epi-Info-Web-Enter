@@ -10,13 +10,10 @@ namespace Epi.Web.MVC.Models
 {
     public class UserResetPasswordModel
     {
+
         [Required]
         public string UserName { get; set; }
-        [Required]
-        public string Password { get; set; }
-
-        [System.ComponentModel.DataAnnotations.Compare("Password")]
-        public string ConfirmPassword { get; set; }
+       
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -40,5 +37,16 @@ namespace Epi.Web.MVC.Models
         public bool UseUserNameInPassword { get; set; }
 
         public int NumberOfTypesRequiredInPassword { get; set; }
+
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(10, ErrorMessage = "Password Too Short.", MinimumLength =  6 )]
+        [RegularExpression(@"^.*(?=.*[!@#$%^&*\(\)_\-+=]).*$", ErrorMessage = "Weak password! Please refer to password policy.")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+
+        public string Password { get; set; }
+
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        public string ConfirmPassword { get; set; }
     }
 }

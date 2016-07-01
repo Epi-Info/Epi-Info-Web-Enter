@@ -125,20 +125,21 @@
             open = true;
               }
         }
+        $("#parent-selector :input").attr("disabled", true);
     }
     function CloseSppiner() {
 
         $('BODY').jLoadingOverlay('close');
         open = false;
 
-
+        $("#parent-selector :input").attr("disabled", false);
     }
 
     $(document).ready(function () {
         // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
         //$("#Savebutton").tooltip();
-        CloseSppiner();
+         CloseSppiner();
         var DateFormat = '@Model.CurrentCultureDateFormat'
         DateFormat = DateFormat.toLocaleLowerCase().toString()
 
@@ -1133,7 +1134,7 @@
 
 
 
-			  <div id="SimpleDialogBox" title="Error">
+			  <div id="SimpleDialogBox" title="">
 			  <p><label id="SimpleDialogBoxPrempt">Prempt</label></p>
 			  <p style="text-align:right;"> <button  id="SimpleDialogBoxButton" type="button" class="login" style="width:50px;" onclick="CCE_CloseSimpleDialogBox();">Ok</button></p>
 			  </div>
@@ -1193,7 +1194,7 @@
 
 <div id="exitAndLogoutdialog" title="Exit Record">
 
-    @if (ViewBag.Edit == "Edit")
+    @{if (ViewBag.Edit == "Edit")
     {
 
 
@@ -1204,7 +1205,7 @@
         <p style="font-size:1.20em; font-weight:600;">Do you want to save the record before exiting?</p>
 
     }
-
+    }
 </div>
 
 

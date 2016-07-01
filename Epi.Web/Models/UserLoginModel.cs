@@ -9,10 +9,12 @@ namespace Epi.Web.MVC.Models
 {
     public class UserLoginModel
     {
-        [Required]
+        [Required(ErrorMessage = "Email is required.")]
+        [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email address.")]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
         public string Password { get; set; }
 
+        public bool ViewValidationSummary { get; set; }
     }
 }

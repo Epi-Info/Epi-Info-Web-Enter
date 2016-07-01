@@ -47,6 +47,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Index(string responseId, string ReturnUrl)
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            UserLoginModel UserLoginModel = new Models.UserLoginModel();
             ViewBag.Version = version;
             if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
                 Session["IsDemoMode"] = ConfigurationManager.AppSettings["IsDemoMode"].ToUpper();
@@ -78,7 +79,7 @@ namespace Epi.Web.MVC.Controllers
             var authenticationSection = (AuthenticationSection)configuration.GetSection("system.web/authentication");
             if (authenticationSection.Mode == AuthenticationMode.Forms)
             {
-                return View("Index");
+                return View("Index", UserLoginModel);
             }
             else
             {
@@ -108,13 +109,13 @@ namespace Epi.Web.MVC.Controllers
                    } 
                     else
                     {
-                   
-                    return View("Index");
+
+                        return View("Index", UserLoginModel);
                    }
                } 
                 catch(Exception ){
-                
-                return View("Index");
+
+                    return View("Index", UserLoginModel);
                 }
             }
 
@@ -126,7 +127,7 @@ namespace Epi.Web.MVC.Controllers
         public ActionResult Index(UserLoginModel Model, string Action, string ReturnUrl)
         {
 
-            return ValidateUser(Model.UserName, Model.Password, ReturnUrl);
+            return ValidateUser(Model, ReturnUrl);
 
             //if (ReturnUrl == null || !ReturnUrl.Contains("/"))
             //{
@@ -224,8 +225,12 @@ namespace Epi.Web.MVC.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Error sending email.");
-                return View("ForgotPassword", Model);
+                UserResetPasswordModel model = new UserResetPasswordModel();
+                model.UserName = Model.UserName;
+                 
+                ReadPasswordPolicy(model);
+                ModelState.AddModelError("UserName", "The email you provided does not exist.");
+                return View("ForgotPassword", model);
             }
 
         }
@@ -246,25 +251,30 @@ namespace Epi.Web.MVC.Controllers
             {
                 UserResetPasswordModel model = new UserResetPasswordModel();
                 model.UserName = Model.UserName;
-                ModelState.AddModelError("", "Passwords do not match. Please try again.");
-                return View("ResetPassword", Model);
+                ReadPasswordPolicy(model);
+               // ModelState.AddModelError("", "Passwords do not match. Please try again.");
+                return View("ResetPassword", model);
             }
 
-            if (!ValidatePassword(Model))
-            {
-                ModelState.AddModelError("", "Password is not strong enough. Please try again.");
-                return View("ResetPassword", Model);
-            }
+            //if (!ValidatePassword(Model))
+            //{
+               
+            //    ModelState.AddModelError("", "Password is not strong enough. Please try again.");
+            //    return View("ResetPassword", Model);
+            //}
 
             _isurveyFacade.UpdateUser(new Enter.Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
-
-            return ValidateUser(Model.UserName, Model.Password, ReturnUrl);
+            UserLoginModel UserLoginModel = new UserLoginModel();
+            UserLoginModel.Password = Model.Password;
+            UserLoginModel.UserName = Model.UserName;
+            return ValidateUser(UserLoginModel, ReturnUrl);
 
         }
 
-        private ActionResult ValidateUser(string UserName, string Password, string ReturnUrl)
+        private ActionResult ValidateUser(UserLoginModel Model, string ReturnUrl)
         {
             string formId = "", pageNumber;
+            
             if (ReturnUrl == null || !ReturnUrl.Contains("/"))
             {
                 ReturnUrl = "/Home/Index";
@@ -277,13 +287,13 @@ namespace Epi.Web.MVC.Controllers
 
             try
             {
-                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(UserName, Password);
+                Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(Model.UserName, Model.Password);
                 if (result.UserIsValid)
                 {
                     if (result.User.ResetPassword)
                     {
                         UserResetPasswordModel model = new UserResetPasswordModel();
-                        model.UserName = UserName;
+                        model.UserName = Model.UserName;
                         model.FirstName = result.User.FirstName;
                         model.LastName = result.User.LastName;
                         ReadPasswordPolicy(model);
@@ -292,7 +302,7 @@ namespace Epi.Web.MVC.Controllers
                     else
                     {
 
-                        FormsAuthentication.SetAuthCookie(UserName, false);
+                        FormsAuthentication.SetAuthCookie(Model.UserName, false);
                         string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User.UserId.ToString());
                         Session["UserId"] = UserId;
                         //Session["UsertRole"] = result.User.Role;
@@ -305,16 +315,18 @@ namespace Epi.Web.MVC.Controllers
                         //return Redirect(ReturnUrl);
                     }
                 }
-                else
+                //else
                 {
-                    ModelState.AddModelError("", "The email or password you entered is incorrect.");
-                    return View();
+                ModelState.AddModelError("", "The email or password you entered is incorrect.");
+                  Model.ViewValidationSummary = true;
+                 return View(Model);
                 }
             }
             catch (Exception)
             {
                 ModelState.AddModelError("", "The email or password you entered is incorrect.");
-                return View();
+                Model.ViewValidationSummary = true;
+                return View(Model);
                 throw;
             }
 
