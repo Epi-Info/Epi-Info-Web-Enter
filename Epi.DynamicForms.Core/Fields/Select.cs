@@ -101,14 +101,20 @@ namespace MvcDynamicForms.Fields
             if (FunctionObjectAfter != null && !FunctionObjectAfter.IsNull())
             {
 
-              //  select.Attributes.Add("onblur", "return " + _key + "_after();"); //After
-                select.Attributes.Add("onchange", "return " + _key + "_after();"); //After
+                select.Attributes.Add("onblur", "return " + _key + "_after();"); //After
+               // select.Attributes.Add("onchange", "return " + _key + "_after();"); //After
             }
             EnterRule FunctionObjectBefore = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=before&identifier=" + _key);
             if (FunctionObjectBefore != null && !FunctionObjectBefore.IsNull())
             {
 
                 select.Attributes.Add("onfocus", "return " + _key + "_before();"); //Before
+            }
+            EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
+
+            if (FunctionObjectClick != null && !FunctionObjectClick.IsNull())
+            {
+                select.Attributes.Add("onclick", "return " + _key + "_click();"); //click
             }
 
             ////////////Check code end//////////////////
