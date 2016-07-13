@@ -139,6 +139,7 @@ namespace Epi.Web.BLL
         SurveyInfoBO result = pRequestMessage;
         if (ValidateSurveyFields(pRequestMessage))
             {
+                
             if (this.IsRelatedForm(pRequestMessage.XML))
                     {
 
@@ -173,12 +174,15 @@ namespace Epi.Web.BLL
                         this.SurveyInfoDao.UpdateSurveyInfo(SurveyInfoBO);
 
 
+                        this.SurveyInfoDao.InsertFormdefaultSettings(pRequestMessage.SurveyId, pRequestMessage.IsSqlProject, GetSurveyControls(SurveyInfoBO));
                         }
                     }
                 else
                     {
 
                     this.SurveyInfoDao.UpdateSurveyInfo(pRequestMessage);
+
+                    this.SurveyInfoDao.InsertFormdefaultSettings(pRequestMessage.SurveyId, pRequestMessage.IsSqlProject, GetSurveyControls(pRequestMessage));
                     }
                 result.StatusText = "Successfully updated survey information.";
             }else{
@@ -328,5 +332,28 @@ namespace Epi.Web.BLL
 
             return XmlList;
             }
+        private List<string> GetSurveyControls(SurveyInfoBO SurveyInfoBO)
+        {
+            List<string> List = new List<string>();
+
+            XDocument xdoc = XDocument.Parse(SurveyInfoBO.XML);
+
+            var _FieldsTypeIDs = from _FieldTypeID in
+                                     xdoc.Descendants("Field")
+                                 select _FieldTypeID;
+
+            string fieldType = "";
+
+            foreach (var _FieldTypeID in _FieldsTypeIDs.Take(5))
+            {
+                fieldType = _FieldTypeID.Attribute("FieldTypeId").Value;
+
+                if (fieldType != "2" && fieldType != "21" && fieldType != "3" && fieldType != "20")
+                {
+                    List.Add(_FieldTypeID.Attribute("Name").Value.ToString());
+                }
+            }
+            return List;
+        }
     }
 }
