@@ -303,6 +303,7 @@ namespace Epi.Web.MVC.Utility
                   else
                       {
                       nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[0].Value.ToString());
+                      if (nodes.Count() > 0)
                       ResponseModel.Column1 = nodes.First().Value;
                       }
                   if (Columns.Count >= 2)
@@ -315,6 +316,7 @@ namespace Epi.Web.MVC.Utility
                       else
                           {
                           nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[1].Value.ToString());
+                          if (nodes.Count() > 0)
                           ResponseModel.Column2 = nodes.First().Value;
                           }
                       }
@@ -330,6 +332,7 @@ namespace Epi.Web.MVC.Utility
                       else
                           {
                           nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[2].Value.ToString());
+                          if (nodes.Count() > 0)
                           ResponseModel.Column3 = nodes.First().Value;
                           }
                       }
@@ -344,6 +347,7 @@ namespace Epi.Web.MVC.Utility
                       else
                           {
                           nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[3].Value.ToString());
+                          if (nodes.Count() > 0)
                           ResponseModel.Column4 = nodes.First().Value;
                           }
                       }
@@ -358,6 +362,7 @@ namespace Epi.Web.MVC.Utility
                       else
                           {
                           nodes = document.Descendants().Where(e => e.Name.LocalName.StartsWith("ResponseDetail") && e.Attribute("QuestionName").Value == Columns[4].Value.ToString());
+                          if (nodes.Count()>0)
                           ResponseModel.Column5 = nodes.First().Value;
                           }
                       }
