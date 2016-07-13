@@ -32,7 +32,7 @@ namespace Epi.Web.MVC.Models
         }
 
          [Required(ErrorMessage = "Email is required.")]
-         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email address.")]
+         [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "The email address you entered is not in the proper format.")]
         public string AdminEmail
             {
             get { return _AdminEmail; }
@@ -45,7 +45,7 @@ namespace Epi.Web.MVC.Models
             set { _OrgName = value; }
             }
           [Required(ErrorMessage = "Confirm email is required.")]
-          [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "Invalid email address.")]
+          [RegularExpression(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", ErrorMessage = "The email address you entered is not in the proper format.")]
           [System.ComponentModel.DataAnnotations.Compare("AdminEmail", ErrorMessage = "The email and confirmation do not match.")]
           public string ConfirmAdminEmail
               {
