@@ -225,11 +225,10 @@ namespace Epi.Web.MVC.Controllers
             }
             else
             {
-                UserResetPasswordModel model = new UserResetPasswordModel();
+                UserForgotPasswordModel model = new UserForgotPasswordModel();
                 model.UserName = Model.UserName;
-                 
-                ReadPasswordPolicy(model);
-                ModelState.AddModelError("UserName", "The email you provided does not exist.");
+
+                ModelState.AddModelError("UserName", "You may have entered an email address that does not match our records. Please try again.");
                 return View("ForgotPassword", model);
             }
 
