@@ -15,10 +15,19 @@ namespace MvcDynamicForms.Fields
         protected string _responseDelimiter = ", ";
         protected float _ControlFontSize;
         protected string _ControlFontStyle;
-        
-        /// <summary>
-        /// The choices that the end user can choose from.
-        /// </summary>
+        protected string _RelateCondition;
+       
+        public string RelateCondition
+        {
+            get
+            {
+                return _RelateCondition;
+            }
+            set
+            {
+                _RelateCondition = value;
+            }
+        }
         public Dictionary<string, bool> Choices
         {
             get
@@ -30,6 +39,7 @@ namespace MvcDynamicForms.Fields
                 _choices = value;
             }
         }
+
         /// <summary>
         /// The text used to delimit multiple choices from the end user.
         /// </summary>
@@ -81,8 +91,13 @@ namespace MvcDynamicForms.Fields
                 {
                     value.Append(choice.Value ? choice.Key + _responseDelimiter : string.Empty);
                 }
+                var _Value = value.ToString().TrimEnd(_responseDelimiter.ToCharArray()).Trim();
+                //if (_Value.Contains("(:)"))
+                //{
 
-                return value.ToString().TrimEnd(_responseDelimiter.ToCharArray()).Trim();
+                //    _Value = _Value.Remove(_Value.IndexOf("(:)"));
+                //}
+                return _Value;
             }
             set 
             {
@@ -214,14 +229,19 @@ namespace MvcDynamicForms.Fields
         /// </summary>
         /// <param name="choices">A delimited string of choices.</param>
         /// <param name="delimiter">The delimiter used to seperate the choices.</param>
-        public void AddChoices(string choices, string delimiter)
+        public void AddChoices(string choices, string delimiter )
         {
-            if (string.IsNullOrEmpty(choices)) return;
+            
+                if (string.IsNullOrEmpty(choices)) return;
 
-            choices.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Distinct()
-                .ToList()
-                .ForEach(c => _choices.Add(c, false));
+                choices.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+                    .Distinct()
+                    .ToList()
+                    .ForEach(c => _choices.Add(c, false));
+          
+                
+            
+            
         }
         public string SelectedValue{ get;set;}
     }

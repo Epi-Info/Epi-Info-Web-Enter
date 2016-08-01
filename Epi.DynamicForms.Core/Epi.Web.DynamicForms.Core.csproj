@@ -63,6 +63,8 @@
     <Reference Include="EpiInfo.Plugin">
       <HintPath>..\Epi.Web\bin\EpiInfo.Plugin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.JScript" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core">
