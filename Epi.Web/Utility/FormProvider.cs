@@ -17,6 +17,7 @@ namespace Epi.Web.MVC.Utility
 
         public static List<Epi.Web.Enter.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
         public static List<Epi.Web.Enter.Common.DTO.SurveyInfoDTO> SurveyInfoList;
+        public static Dictionary<string, List<string>> CodesList = new Dictionary<string, List<string>>();
         public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer, bool IsAndroid= false)
         {
             string SurveyAnswer;
@@ -217,7 +218,7 @@ namespace Epi.Web.MVC.Utility
                             case "18"://DropDown Codes
 
                                 string DropDownValues2 = "";
-                                DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
+                                DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
                                 var _DropDownSelectedValue2 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form));
                                 //                                             pName, pType, pSource
@@ -382,7 +383,7 @@ namespace Epi.Web.MVC.Utility
 
                         case "18": //DropDown Codes
                             string DropDownValues2 = "";
-                            DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value);
+                            DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("CodeColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
                             var _DropDownSelectedValue2 = Value;
                             field = GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form);
                             break;
@@ -879,7 +880,7 @@ namespace Epi.Web.MVC.Utility
             }
 
 
-        private static Select GetDropDown(XElement _FieldTypeID, double _Width, double _Height, XDocument SurveyAnswer, string _ControlValue, string DropDownValues, int FieldTypeId, Form form)
+        private static Select GetDropDown(XElement _FieldTypeID, double _Width, double _Height, XDocument SurveyAnswer, string _ControlValue, string DropDownValues, int FieldTypeId, Form form  )
         {
 
 
@@ -916,15 +917,17 @@ namespace Epi.Web.MVC.Utility
                     DropDown.IsDisabled = GetControlState(SurveyAnswer, _FieldTypeID.Attribute("Name").Value, "DisabledFieldsList");
                     DropDown.ControlFontSize = float.Parse(_FieldTypeID.Attribute("ControlFontSize").Value);
                     DropDown.ControlFontStyle = _FieldTypeID.Attribute("ControlFontStyle").Value;
-                    
+                    DropDown.RelateCondition = _FieldTypeID.Attribute("RelateCondition").Value;
                     DropDown.EmptyOption = "Select";
+                    DropDown.FieldTypeId = FieldTypeId;
+                    if (CodesList.Count()>0)
+                    {
+                    DropDown.CodesList = CodesList;
+                    }
 
-               
-
-        
-           
-                DropDown.AddChoices(DropDownValues, "&#;");
-
+                    
+                        DropDown.AddChoices(DropDownValues, "&#;");
+                    
                 if (!string.IsNullOrWhiteSpace(_ControlValue))
                 {
                     DropDown.Choices[_ControlValue] = true;
@@ -933,10 +936,21 @@ namespace Epi.Web.MVC.Utility
             return DropDown;
         }
 
-        public static string GetDropDownValues(XDocument xdoc, string ControlName, string TableName, string  CodeColumnName )
+        public static string GetDropDownValues(XDocument xdoc, string ControlName, string TableName, string CodeColumnName, string RelateCondition ="")
         {
             StringBuilder DropDownValues = new StringBuilder();
-
+             List<string> CodesItemList1 = new List<string>  ();
+             CodesList = new Dictionary<string,List<string>> ();
+            if (!string.IsNullOrEmpty(RelateCondition))
+            {
+                List<string> CodesItemList = RelateCondition.Split(',').ToList();
+               
+                foreach (var item in CodesItemList)
+                        {
+                            CodesItemList1.Add(item.Remove(item.IndexOf(':')));
+                        
+                        }         
+            }
 
             if (!string.IsNullOrEmpty(xdoc.ToString()))
             {
@@ -968,10 +982,24 @@ namespace Epi.Web.MVC.Utility
                             if (NewXElement.Attribute(CodeColumnName.ToLower()) != null)
                             {
                                 DropDownValues.Append(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim());
+                                if (CodesItemList1.Count() > 0)
+                                {
+                                    List<string> List = new List<string>();
+                                    foreach (var item in CodesItemList1)
+                                    {
+                                        //DropDownValues.Append("(:)");
+                                        //DropDownValues.Append(NewXElement.Attribute(item.ToLower()));
+                                        List.Add(NewXElement.Attribute(item.ToLower()).ToString());
+
+                                       
+                                    }
+                                     CodesList.Add(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim(),List);
+                                }
                             }
                             else {
+
                                 DropDownValues.Append(_SourceTableValue.Attributes().FirstOrDefault().Value.Trim());
-                              
+                               
                             }
                             
                         }

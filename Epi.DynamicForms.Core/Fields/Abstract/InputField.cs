@@ -28,10 +28,22 @@ namespace MvcDynamicForms.Fields
         protected double _InputFieldfontSize;
         protected string _InputFieldfontfamily;
         protected string _BackgroundColor;
+        protected int _FieldTypeId;
         protected Dictionary<string, string> _inputHtmlAttributes = new Dictionary<string, string>();
         /// <summary>
         /// Used to identify each InputField when performing model binding.
         /// </summary>
+        public int FieldTypeId
+        {
+            get
+            {
+                return _FieldTypeId;
+            }
+            set
+            {
+                _FieldTypeId = value ;
+            }
+        }
         public string Key
         {
             get
