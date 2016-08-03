@@ -270,14 +270,18 @@ namespace MvcDynamicForms.Fields
                         var opt = new TagBuilder("option");
                         if (choice.Key.Contains("-"))
                         {
-                            opt.Attributes.Add("value", choice.Key.Remove(choice.Key.IndexOf("-")));
+                            string[] keyValue = choice.Key.Split(new char[] { '-' }, 2);
+                            string comment = keyValue[0].Trim();
+                            string description = keyValue[1].Trim();
 
-                            //if (choice.Key.Remove(choice.Key.IndexOf("-")) == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
-                            if (choice.Value || choice.Key.Remove(choice.Key.IndexOf("-")) == SelectedValue.ToString())
+                            opt.Attributes.Add("value", comment);
+
+                            if (choice.Value || comment == SelectedValue.ToString())
                             {
                                 opt.Attributes.Add("selected", "selected");
                             }
-                            opt.SetInnerText(choice.Key.Substring(choice.Key.IndexOf("-") + 1));
+
+                            opt.SetInnerText(description);
                         }
                         html.Append(opt.ToString());
                     }
