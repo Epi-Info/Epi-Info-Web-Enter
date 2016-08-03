@@ -45,11 +45,13 @@
     </div>
     
     <div style="clear:both;"></div>
+@if (@System.Configuration.ConfigurationManager.AppSettings["SHOW_TERMS_OF_USE"].ToUpper() == "TRUE")
+{
     <div id="TOU">
         <h2 class="h2header">Terms of service and conditions of use</h2>
         <div class="termsofuse">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse accumsan egestas diam at tempus. Quisque mattis fringilla tortor, dapibus varius ligula aliquet non. Fusce a volutpat ligula. Mauris tincidunt imperdiet nibh sit amet volutpat. Curabitur vehicula faucibus odio, a pharetra quam semper et. Integer felis mi, dignissim in lectus vitae, sollicitudin vulputate mi. Quisque quis felis nunc. Mauris rhoncus tristique sapien vel rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pellentesque malesuada felis in faucibus. Quisque tristique cursus sodales. Phasellus feugiat felis pretium erat fringilla faucibus. In non nunc accumsan, lobortis mauris ac, porta neque. Proin auctor condimentum interdum. Quisque bibendum, metus id tristique tristique, libero sapien iaculis tellus, non mollis eros orci id magna. Donec blandit quam id consectetur elementum. Etiam velit ligula, lacinia a mattis vitae, facilisis et massa. Curabitur eu eros non urna porttitor ornare. Morbi vitae enim a neque viverra commodo eget vel nisl. Aliquam sagittis, justo vitae fringilla molestie, urna augue consectetur nisl, eget sagittis risus ipsum non enim.
-        </div>
+            @Html.Raw(ViewData["TermOfUse"].ToString())
+          </div>
     </div>
-     
+}
 </div>
