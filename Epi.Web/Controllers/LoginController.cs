@@ -23,6 +23,7 @@ using System.Security.Principal;
 using System.Web.Hosting;
 using System.DirectoryServices.AccountManagement;
 using System.Security.Principal;
+using System.IO;
 
 namespace Epi.Web.MVC.Controllers
 {
@@ -49,6 +50,7 @@ namespace Epi.Web.MVC.Controllers
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             UserLoginModel UserLoginModel = new Models.UserLoginModel();
             ViewBag.Version = version;
+            SetTermOfUse();
             if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
                 Session["IsDemoMode"] = ConfigurationManager.AppSettings["IsDemoMode"].ToUpper();
             else
@@ -119,6 +121,27 @@ namespace Epi.Web.MVC.Controllers
                 }
             }
 
+        }
+
+        private void SetTermOfUse()
+        {
+            string filepath = Server.MapPath("~\\Content\\Text\\TermOfUse.txt");
+            string content = string.Empty;
+            try
+            {
+                using (var stream = new StreamReader(filepath))
+                {
+                    content = stream.ReadToEnd();
+                }
+            }
+            catch (Exception exc)
+            {
+
+            }
+            if (ConfigurationManager.AppSettings["SHOW_TERMS_OF_USE"].ToUpper() == "TRUE")
+            {
+                ViewData["TermOfUse"] = content;
+            }
         }
 
         
@@ -272,6 +295,7 @@ namespace Epi.Web.MVC.Controllers
 
         private ActionResult ValidateUser(UserLoginModel Model, string ReturnUrl)
         {
+            SetTermOfUse();
             string formId = "", pageNumber;
             
             if (ReturnUrl == null || !ReturnUrl.Contains("/"))
