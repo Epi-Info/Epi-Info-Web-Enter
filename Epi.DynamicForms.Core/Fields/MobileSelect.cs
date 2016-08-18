@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web;
 using Epi.Core.EnterInterpreter;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace MvcDynamicForms.Fields
 {
@@ -54,7 +55,7 @@ namespace MvcDynamicForms.Fields
         /// Determines whether a valueless option is rendered as the first option in the list.
         /// </summary>
         public bool ShowEmptyOption { get; set; }
-
+        public Dictionary<string, List<string>> CodesList { get; set; }
         public override string RenderHtml()
         {
             var html = new StringBuilder();
@@ -92,7 +93,21 @@ namespace MvcDynamicForms.Fields
            // prompt.Attributes.Add("style", StyleValues.ToString());
             prompt.Attributes.Add("style", "display:block !important; ");
             html.Append(prompt.ToString());
+            var OuterDiv = new TagBuilder("div");
+            if (this.IsAndroidfield)
+            {
 
+                OuterDiv.Attributes.Add("class", "mainselection");
+                OuterDiv.SetInnerText("");
+                html.Append(OuterDiv.ToString(TagRenderMode.StartTag));
+            }
+            if (this.IsAndroidfield)
+            {
+                var Div = new TagBuilder("div");
+                Div.Attributes.Add("class", "arrow_icon");
+                Div.SetInnerText("");
+                html.Append(Div.ToString());
+            }
             // error label
             if (!IsValid)
             {
@@ -108,7 +123,7 @@ namespace MvcDynamicForms.Fields
             select.Attributes.Add("name", inputName);
             if (this.IsAndroidfield)
             {
-                select.Attributes.Add("data-role", "main");
+                select.Attributes.Add("data-role", "none");
                 select.Attributes.Add("data-native-menu", "false");
             }
             //select.Attributes.Add("data-mini", "true");
@@ -214,7 +229,35 @@ namespace MvcDynamicForms.Fields
                 opt.SetInnerText(EmptyOption);
                 html.Append(opt.ToString());
             }
+            if (this.CodesList != null)
+            {
+                if (this.CodesList.Count() > 0)
+                {
+                    string Html = "";
+                    var ScriptRelateCondition = new TagBuilder("script");
+                    foreach (var code in CodesList)
+                    {
+                        Html = "";
+                        Html = "var " + code.Key.ToString() + "=[";
+                        var json1 = JsonConvert.SerializeObject(code.Value);
+                        foreach (var item in code.Value)
+                        {
+                            var values = item.Split('=');
+                            Html = Html + "\"" + values[0] + "," + values[1].ToString().Replace("\"", "") + "\",";
 
+
+                        }
+                        Html = Html + "]; ";
+                        ScriptRelateCondition.InnerHtml = ScriptRelateCondition.InnerHtml + Html.ToString();
+
+                    }
+                    html.Append(ScriptRelateCondition.ToString(TagRenderMode.Normal));
+                    //var JasonObj =
+                    // var jsonSerialiser = new JavaScriptSerializer();
+                    var json = JsonConvert.SerializeObject(CodesList);
+
+                }
+            }
             // options
 
             switch (this.SelectType.ToString())
@@ -292,6 +335,11 @@ namespace MvcDynamicForms.Fields
             html.Append(select.ToString(TagRenderMode.EndTag));
             //html.Append(Div.ToString(TagRenderMode.EndTag));
             // add hidden tag, so that a value always gets sent for select tags
+            if (this.IsAndroidfield)
+            {
+
+                html.Append(OuterDiv.ToString(TagRenderMode.EndTag));
+            }
             var hidden = new TagBuilder("input");
             hidden.Attributes.Add("type", "hidden");
             hidden.Attributes.Add("id", inputName + "_hidden");
@@ -302,15 +350,19 @@ namespace MvcDynamicForms.Fields
 
 
             var wrapper = new TagBuilder(_fieldWrapper);
-
+            string AndroidClasses = "";
+            if (this.IsAndroidfield)
+            {
+                AndroidClasses = " ui-field-contain   ";
+            }
             if (!IsValid)
             {
 
-                wrapper.Attributes["class"] = _fieldWrapperClass + " SelectNotValid";
+                wrapper.Attributes["class"] = _fieldWrapperClass + " SelectNotValid" + AndroidClasses ;
             }
             else
             {
-                wrapper.Attributes["class"] = _fieldWrapperClass;
+                wrapper.Attributes["class"] = _fieldWrapperClass + AndroidClasses  ;
 
             }
          if (_IsHidden)

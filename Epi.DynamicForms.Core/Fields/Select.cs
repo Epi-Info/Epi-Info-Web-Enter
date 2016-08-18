@@ -240,36 +240,37 @@ namespace MvcDynamicForms.Fields
             // options
 
             // Build codes RelateCondition script object 
-           
 
 
-            if ( this.CodesList.Count()>0)
+            if (this.CodesList != null)
             {
-                string Html = "";
-                var ScriptRelateCondition = new TagBuilder("script");
-                foreach (var code in CodesList)
+                if (this.CodesList.Count() > 0)
                 {
-                    Html = "";
-                    Html = "var " + code.Key.ToString() + "=[";
-                    var json1 = JsonConvert.SerializeObject(code.Value);
-                    foreach (var item in code.Value)
+                    string Html = "";
+                    var ScriptRelateCondition = new TagBuilder("script");
+                    foreach (var code in CodesList)
                     {
-                        var values = item.Split('=');
-                        Html = Html + "\"" + values[0] + "," + values[1].ToString().Replace("\"", "") + "\",";
+                        Html = "";
+                        Html = "var " + code.Key.ToString() + "=[";
+                        var json1 = JsonConvert.SerializeObject(code.Value);
+                        foreach (var item in code.Value)
+                        {
+                            var values = item.Split('=');
+                            Html = Html + "\"" + values[0] + "," + values[1].ToString().Replace("\"", "") + "\",";
 
-                        
+
+                        }
+                        Html = Html + "]; ";
+                        ScriptRelateCondition.InnerHtml = ScriptRelateCondition.InnerHtml + Html.ToString();
+
                     }
-                    Html = Html + "]; ";
-                    ScriptRelateCondition.InnerHtml = ScriptRelateCondition.InnerHtml + Html.ToString();
-                   
+                    html.Append(ScriptRelateCondition.ToString(TagRenderMode.Normal));
+                    //var JasonObj =
+                    // var jsonSerialiser = new JavaScriptSerializer();
+                    var json = JsonConvert.SerializeObject(CodesList);
+
                 }
-                html.Append(ScriptRelateCondition.ToString(TagRenderMode.Normal));
-                //var JasonObj =
-                   // var jsonSerialiser = new JavaScriptSerializer();
-                var json = JsonConvert.SerializeObject(CodesList);
-
             }
-
             switch (this.SelectType.ToString())
             {
                 case "11":
