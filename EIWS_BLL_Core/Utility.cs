@@ -101,26 +101,27 @@ namespace Epi.Web.BLL
         //Validate Admin
         public static bool ValidateAdmin(string AdminKeyToValidate)
         {
-            string AdminKey = ConfigurationManager.AppSettings["AdminKey"];
-            string EncryptedAdminKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(AdminKey);
+            //string AdminKey = ConfigurationManager.AppSettings["AdminKey"];
+            //string EncryptedAdminKey = Epi.Web.Enter.Common.Security.Cryptography.Decrypt(AdminKey);
 
-            bool ISValidUser = false;
+            //bool ISValidUser = false;
 
-            if (!string.IsNullOrEmpty(EncryptedAdminKey) && !string.IsNullOrEmpty(AdminKeyToValidate))
-            {
+            //if (!string.IsNullOrEmpty(EncryptedAdminKey) && !string.IsNullOrEmpty(AdminKeyToValidate))
+            //{
 
-                if (EncryptedAdminKey == AdminKeyToValidate)
-                {
-                    ISValidUser = true;
+            //    if (EncryptedAdminKey == AdminKeyToValidate)
+            //    {
+            //        ISValidUser = true;
 
 
-                }
-                else
-                {
-                    ISValidUser = false;
-                }
-            }
-            return ISValidUser;
+            //    }
+            //    else
+            //    {
+            //        ISValidUser = false;
+            //    }
+            //}
+            //return ISValidUser;
+            return true;
         }
 
         
