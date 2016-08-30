@@ -106,7 +106,7 @@ namespace Epi.Web.BLL
 
             //bool ISValidUser = false;
 
-            //if (!string.IsNullOrEmpty(EncryptedAdminKey) && !string.IsNullOrEmpty(AdminKeyToValidate))
+            //if (!string.IsNullOrEmpty(EncryptedAdminKey) && !string.IsNullOrEmpty(Admi0nKeyToValidate))
             //{
 
             //    if (EncryptedAdminKey == AdminKeyToValidate)
