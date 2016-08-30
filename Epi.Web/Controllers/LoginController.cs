@@ -278,12 +278,12 @@ namespace Epi.Web.MVC.Controllers
                 return View("ResetPassword", model);
             }
 
-            //if (!ValidatePassword(Model))
-            //{
-               
-            //    ModelState.AddModelError("", "Password is not strong enough. Please try again.");
-            //    return View("ResetPassword", Model);
-            //}
+            if (!ValidatePassword(Model))
+            {
+
+                ModelState.AddModelError("", "Password is not strong enough. Please try again.");
+                return View("ResetPassword", Model);
+            }
 
             _isurveyFacade.UpdateUser(new Enter.Common.DTO.UserDTO() { UserName = Model.UserName, PasswordHash = Model.Password, Operation = Constant.OperationMode.UpdatePassword, ResetPassword = true });
             UserLoginModel UserLoginModel = new UserLoginModel();

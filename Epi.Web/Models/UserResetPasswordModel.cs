@@ -39,10 +39,10 @@ namespace Epi.Web.MVC.Models
         public int NumberOfTypesRequiredInPassword { get; set; }
 
         [Required(ErrorMessage = "Password is required.")]
-        [StringLength(10, ErrorMessage = "Password Too Short.", MinimumLength =  6 )]
-        [RegularExpression(@"^.*(?=.*[!@#$%^&*\(\)_\-+=]).*$", ErrorMessage = "Weak password! Please refer to password policy.")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        //[StringLength(10, ErrorMessage = "Password Too Short.", MinimumLength =  6 )]
+        //[RegularExpression(@"^.*(?=.*[!@#$%^&*\(\)_\-+=]).*$", ErrorMessage = "Weak password! Please refer to password policy.")]
+        //[DataType(DataType.Password)]
+        //[Display(Name = "Password")]
 
         public string Password { get; set; }
 
