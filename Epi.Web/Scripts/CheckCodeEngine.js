@@ -499,7 +499,8 @@ CCE_Context.prototype.getValue = function (pName)
                         
                 }
             }
-            else {
+            else 
+            {
                 switch (cce_Symbol.Type) {
 
                     case "checkbox":
@@ -568,22 +569,28 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
         if (ControlType == 'hidden') {
             IsHidden = true;
         }
-
+        // setTimeout(function () { 
         if (cce_Symbol.Source == "datasource") {
             switch (cce_Symbol.Type) {
                 case "datepicker": //string has been converted to date for comparison with another date
 
-                    if (eval(document.getElementById("IsMobile"))) {
-                        var FormatedDate;
-                        var date = new Date(pValue);
-                        FormatedDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
-                        cce_Symbol.Value = FormatedDate;
+                    //  if (eval(document.getElementById("IsMobile"))) {
+                    var FormatedDate;
+                    if (cce_Symbol.Value != null && cce_Symbol.Value !="")
+                    {
+                   var date = new Date(cce_Symbol.Value);
+                    FormatedDate = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                    cce_Symbol.Value = FormatedDate;
+                       } 
                         $(Jquery).val(FormatedDate);
-                    }
-                    else {
-                        $(Jquery).datepicker("setDate", new Date(pValue));
-                        cce_Symbol.Value = pValue;
-                    }
+                    //}
+                    //else {
+                    
+                            
+                    //        $(Jquery).datepicker("setDate", new Date(pValue));
+                    
+                    //    cce_Symbol.Value = pValue;
+                    //}
 
                     break;
 
@@ -591,7 +598,7 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
 
                     if (eval(document.getElementById("IsMobile"))) {
                         var FormatedTime;
-                        var date = new Date();
+                        var date = new Date(cce_Symbol.Value);
                         FormatedTime = FormatTime(date);
                         $(Jquery).val(FormatedTime);
                         cce_Symbol.Value = FormatedTime;
@@ -604,30 +611,75 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
 
                 case "yesno":
 
-                    $(Jquery).val(pValue);
-                    cce_Symbol.Value = pValue;
-                    if (pValue == "") {
-                        if (!IsHidden) {
-                            return null;
+                    //                    if (pValue != " ") {
+                    //                        if (eval(document.getElementById("IsMobile"))) {
+                    //                            if (!IsHidden) {
+                    //                                $(Jquery).val(null).attr("selected", null);
+                    //                                $(Jquery).selectmenu('refresh', null);
+                    //                                cce_Symbol.Value = null;
+                    //                            }
+                    //                        }
+                    //                        else {
+                    //                            $(Jquery).val(null);
+                    //                            cce_Symbol.Value = null;
+                    //                        }
+                    //                    }
+                    //                    else 
+                  //  setTimeout(function () { 
+                    if (pValue) 
+                    {
+                        if (eval(document.getElementById("IsMobile"))) 
+                        {
+                            if (!IsHidden)
+                             {
+                                $(Jquery).val('1').attr("selected", "Yes");
+                                $(Jquery).selectmenu('refresh', true);
+                                cce_Symbol.Value = true;
+                            }
+                        }
+                        else 
+                        {
+                            $(Jquery).val("1");
+                            cce_Symbol.Value = true;
+                        }
+                    }
+                    else if (!pValue && pValue != null) 
+                    {
+                        if (eval(document.getElementById("IsMobile"))) 
+                        {
+                            if (!IsHidden) 
+                            {
+                                $(Jquery).val('0').attr("selected", "No");
+                                $(Jquery).selectmenu('refresh', true);
+                                cce_Symbol.Value = false;
+                            }
+                        }
+                        else 
+                        {
+                            $(Jquery).val("0");
+                            cce_Symbol.Value = false;
+                        }
+                    } 
+                    else 
+                    { 
+                     
+                        if (eval(document.getElementById("IsMobile"))) 
+                        {
+                            if (!IsHidden)
+                             {
+                                $(Jquery).val(null).attr("selected", null);
+                                $(Jquery).selectmenu('refresh', null);
+                                cce_Symbol.Value = null;
+                            }
+                        }
+                        else 
+                        {
                             $(Jquery).val(null);
+                            cce_Symbol.Value = null;
                         }
-
-                        cce_Symbol.Value = null;
-                    }
-                    else if (pValue) {
-                        if (!IsHidden) {
-                            return true; //"Yes";
-                            $(Jquery).val(true);
-                        }
-
-                        cce_Symbol.Value = true;
-                    }
-                    else {
-                        if (!IsHidden) {
-                            $(Jquery).val(false);
-                        }
-                        cce_Symbol.Value = false;
-                    }
+                  }
+                    
+                   // }, 250);
                     break;
 
                 case "checkbox":
@@ -664,25 +716,44 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                     break;
 
                 case "radiobutton":
+                    if (eval(document.getElementById("IsMobile"))) {
+                       // var selector = "input[id='" + FieldName + pValue + "'";
+                        var selector = "#" + FieldName + pValue + "";
 
-                    var RadiofieldName = "." + FieldName;
-                    $(RadiofieldName).each(function (i, obj) {
-                        if ($(this).val() == pValue) {
-                            if (eval(document.getElementById("IsMobile"))) {
-                                if (!IsHidden) {
-                                    $(this).prop('checked', true).checkboxradio('refresh');
-                                }
-                            } else {
+
+                        $(selector).prop("checked", true).checkboxradio("refresh");
+                        $("input[type='radio']").checkboxradio("refresh");
+                      
+                    } else {
+                        var RadiofieldName = "." + FieldName;
+                        $(RadiofieldName).each(function (i, obj) {
+                            if ($(this).val() == pValue) {
                                 $(this).prop('checked', true);
                             }
-                        }
-                    });
-
-                    $(Jquery).val(pValue);
+                        });
+                        $(Jquery).val(pValue);
+                    }
                     cce_Symbol.Value = pValue;
-
                     break;
-                case "label": // lable
+
+                case "commentlegal":
+                case "legalvalues":
+                   // setTimeout(function () {
+                    if (eval(document.getElementById("IsMobile"))) {
+                        if (!IsHidden) {
+                            $(Jquery).val(pValue).attr("selected", true);
+                            $(Jquery).selectmenu('refresh', true);
+                            cce_Symbol.Value = pValue;
+                        } else {
+                            cce_Symbol.Value = pValue;
+                        }
+                    } else {
+                        $(Jquery).val(pValue);
+                        cce_Symbol.Value = pValue;
+                    }
+                   /// }, 250);
+                    break;
+                case "label":
                     Jquery = Jquery + '_fieldWrapper';
                     $(Jquery).html(pValue);
                     cce_Symbol.Value = pValue;
@@ -693,6 +764,7 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                     break;
             }
         }
+     //   }, 500);
     }
 }
 
@@ -791,15 +863,24 @@ Rule_Hide.prototype.Execute = function ()
                     break;
                 case "legalvalues":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
-                    $(query).find('span').css("background-color","yellow");
+                    $(query).find('span').css("background-color", "yellow");
+                    //mainselection
+                    query = '#mvcdynamicfield_' + pCheckCodeList[i] ;
+                   $(query).css("background-color", "yellow");
                     break;
                 case "yesno":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
-                    $(query).find('span').css("background-color","yellow");
+                    $(query).find('span').css("background-color", "yellow");
+                    //mainselection
+                    query = '#mvcdynamicfield_' + pCheckCodeList[i] ;
+                    $(query).css("background-color", "yellow");
                     break;
                 case "commentlegal":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
-                    $(query).find('span').css("background-color","yellow");
+                    $(query).find('span').css("background-color", "yellow");
+                    //mainselection
+                    query = '#mvcdynamicfield_' + pCheckCodeList[i] ;
+                    $(query).css("background-color", "yellow");
                     break;
                 case "datepicker":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
@@ -930,15 +1011,24 @@ if (eval(document.getElementById("IsMobile"))){
                     break;
                 case "legalvalues":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
-                    $(query).find('span').removeAttr('Style'); 
+                    $(query).find('span').removeAttr('Style');
+                    //mainselection
+                    query = '#mvcdynamicfield_' + pCheckCodeList[i];
+                    $(query).removeAttr('Style');
                     break;
                  case "yesno":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
-                      $(query).find('span').removeAttr('Style'); 
+                    $(query).find('span').removeAttr('Style');
+                     //mainselection
+                    query = '#mvcdynamicfield_' + pCheckCodeList[i];
+                    $(query).removeAttr('Style');
                     break;
                 case "commentlegal":
                     query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
-                      $(query).find('span').removeAttr('Style'); 
+                    $(query).find('span').removeAttr('Style');
+                    //mainselection
+                    query = '#mvcdynamicfield_' + pCheckCodeList[i];
+                    $(query).removeAttr('Style');
                     break;
                case "datepicker":
                       query = '#mvcdynamicfield_' + pCheckCodeList[i] + "_fieldWrapper";
@@ -1455,7 +1545,7 @@ function CCE_RemoveFromFieldsList(FieldName,ListName) {
                                       {
                                                    $(controlId).attr('checked', false);
 			                          }
-                                      $(controlId).val('');
+                                    //  $(controlId).val('');
                                     break;
                                  case "radiobutton":
                                   if (eval(document.getElementById("IsMobile")))
@@ -1685,35 +1775,37 @@ function CCE_Days(pValue1, pValue2)
 
     var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
 
-   // var result = Math.round(Math.abs((date1.getTime() - date2.getTime())/(oneDay)));
+  //  var result = Math.round(Math.abs((date2.getTime() - date1.getTime())/(oneDay)));
     var result = Math.round((date2.getTime() - date1.getTime()) / (oneDay));
     return result;
 }
 /////////////////Simple  Dialogbox //////////////////////
-function CCE_ContextOpenMobileSimpleDialogBox(Title, Prompt, id) {
-    //var passcode1 = '@Model.PassCode';
-
-    $(this).simpledialog({
-        'mode': 'blank',
+function CCE_ContextOpenMobileSimpleDialogBox(Title,Prompt,id) 
+{
+        var passcode1 = '@Model.PassCode';
+   
+     
+                         $('#'+ id).simpledialog({
+                'mode' : 'blank',
+                'headerText' : Title,
+                'headerClose' : true,
                 'dialogAllow' : true,
                 'useDialogForceTrue': true, 
                 'useDialogForceFalse': false,
-        'prompt': false,
-        'forceInput': false,
-        'useModal': true,
-        'buttons': {
-            'OK': {
-                click: function () {
-                    $('#dialogoutput').text('OK');
-                }
-            }
 
-        },
-        'fullHTML': "<div id='SimpleDialogBox1' title='" + Title + "'><p><label id='SimpleDialogBoxPrempt'>" + Prompt + "</label></p><p style='text-align:right;'> <a class='login'   style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Ok</a></p></div>"
-
-    });
-
-
+                'prompt': Title,
+                'forceInput': false,
+                'useModal':true,
+                'buttons' : {
+                              'OK': {
+                                click: function () {
+                                  $('#dialogoutput').text('OK');
+                                }
+                              }
+                       
+                            },
+                       'fullHTML': "<div id='SimpleDialogBox' title='"+ Title +"'><p><label id='SimpleDialogBoxPrempt'>"+ Prompt +"</label></p><p style='text-align:right;'><button  id='SimpleDialogBoxButton' type='button' style='width:100%;'onclick='CCE_CloseMobileSimpleDialogBox("+ id.toString() +");'>Ok</button></p></div>"
+                  })
  
  
 }
@@ -1936,9 +2028,10 @@ function OpenVideoDialog()
 function CCE_ContextOpenSimpleDialogBox(Title,Prompt,id) 
 {
  if (!eval(document.getElementById("IsMobile")))
-    {
-     $('#ui-dialog-title-SimpledialogBox span').text("simo");
-      
+ {
+
+        $('#ui-dialog-title-SimpledialogBox').text(Title.toString());
+        $('.ui-dialog-title').text(Title.toString());
         $('#SimpleDialogBoxPrempt').text(Prompt.toString());
         $('#SimpleDialogBoxButton').text('Ok');
         setTimeout(function () {
