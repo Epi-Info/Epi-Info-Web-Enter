@@ -85,7 +85,7 @@
 
         $(document).on("click", "button[name='DeleteButton']", function (e) {
             e.preventDefault();
-             
+            
             var ResponseId = $(this).attr("value");
             var SessionTimeOut = $('#SYSTEM_SESSION_TIMEOUT_HIDDEN').val() * 60000;
 
@@ -153,7 +153,9 @@
 
 
 
-    $("button[class*='metro-tile']").click(function (e) {
+        $("button[class*='metro-tile']").click(function (e) {
+            ShowSppiner();
+           
         $("#dropdown-2").val( $("#FORM_SelectedOrgId_HIDDEN").val());
         e.preventDefault();
         if ('@Model.SelectedForm' == "") {
@@ -208,7 +210,9 @@
 
             //            ReadResponses($(this).attr('data-FormId'), 1, '', '');
             //return page to the top when a form is selected if the list of forms is too long.
+
             $("html, body").animate({ scrollTop: 0 }, "slow");
+           // CloseSppiner()
             return false;
         });
 
@@ -894,6 +898,29 @@
             alert('error');
         }
     }
+    function ShowSppiner() {
+        var validate = $('#formsList').validationEngine('validate');
+
+        if (validate) {
+            if (open) {
+                $('BODY').jLoadingOverlay('close');
+                open = false;
+            }
+            else {
+                $('BODY').jLoadingOverlay('');
+                open = true;
+            }
+        }
+        $("#parent-selector :input").attr("disabled", true);
+    }
+    function CloseSppiner() {
+
+        $('BODY').jLoadingOverlay('close');
+        open = false;
+
+        $("#parent-selector :input").attr("disabled", false);
+    }
+
 </script>
 <script>
 	$(document).ajaxStop(function () {
