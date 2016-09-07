@@ -443,8 +443,8 @@ CCE_Context.prototype.getValue = function (pName)
                         }
                         return value;
                     case "timepicker":
-                        var refDate = "09/06/2016 ";//It is a reference date 
-                        var dateTime = refDate + field.val();
+                        var refDate = CCE_GetTodaysDate();//It is a reference date 
+                        var dateTime = refDate + " " + value;
                         value = new Date(dateTime).getTime();
                         if (value == "" || isNaN(value))
                         {
@@ -522,8 +522,8 @@ CCE_Context.prototype.getValue = function (pName)
                         return value;
                     case "timepicker":
                         var refDate = CCE_GetTodaysDate();//It is a reference date 
-                        var dateTime = refDate+ " " + cce_Symbol.Value;
-                        value = new Date(dateTime).valueOf();
+                        var dateTime = refDate+ " " + value;
+                        value = new Date(dateTime).getTime();
                         if (value == "" || isNaN(value)) {
                             return null;
                         }
@@ -1879,13 +1879,16 @@ function CCE_Truncate(pValue)
 
 function CCE_SystemDate()
 {
-    return new Date();
+
+    var SystemDate = new Date();
+    return SystemDate;
 }
 
 
 function CCE_SystemTime()
 {
-    return new Date().getTime();
+    var SystemTime = new Date().getTime();
+    return  SystemTime;
 }
 
 
