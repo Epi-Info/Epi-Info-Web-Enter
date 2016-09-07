@@ -258,7 +258,7 @@ namespace Epi.Web.MVC.Models
                     break;
 
                 case 3:
-                    Role = "Admin";
+                    Role = "Super Administrator";
                     break;
 
                 default:
