@@ -250,11 +250,11 @@ namespace Epi.Web.MVC.Models
             switch (p)
                 {
                 case 1:
-                    Role = "User";
+                        Role = "Analyst";
                     break;
 
                 case 2:
-                    Role = "Organization Admin";
+                    Role = "Administrator";
                     break;
 
                 case 3:
