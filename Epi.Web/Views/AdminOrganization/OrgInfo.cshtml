@@ -219,7 +219,7 @@
 				@*@Html.LabelFor(m => m.OrganizationModel.Organization)
 				@Html.TextBoxFor(m => m.OrgName)*@
                  @*@Html.ValidationMessage("Error") *@
-               <label class="accountlabel" id="OrganizationNamelabel">* Organization Name:</label> 
+                <label class="accountlabel" id="OrganizationNamelabel" for="OrgName">* Organization Name:</label> 
                  @Html.TextBoxFor(m => m.OrgName, new { @class = "Account" }) <br>
                 @Html.ValidationMessageFor(m => m.OrgName, null, new { @class = "required" })
                 
@@ -243,23 +243,23 @@
 				<h3>Administrator Information.</h3>
 			</li>
              <li>
-               <label class="accountlabel" id="AdminEmaillabel">* Admin Email:</label> 
+                 <label class="accountlabel" id="AdminEmaillabel" for="persons">* Admin Email:</label> 
 				  @Html.TextBoxFor(m => m.AdminEmail, new { @id = "persons", @class = "Account" }) <br>
                 @Html.ValidationMessageFor(m => m.AdminEmail, null, new { @class = "required" })
 			</li>
 			 
 			<li>
-             <label class="accountlabel" id="ConfirmAdminEmaillabel">* Confirm Admin Email:</label> 
+                <label class="accountlabel" id="ConfirmAdminEmaillabel" for="ConfirmAdminEmail">* Confirm Admin Email:</label> 
 				  @Html.TextBoxFor(m => m.ConfirmAdminEmail, new { @class = "Account" }) <br>
                 @Html.ValidationMessageFor(m => m.ConfirmAdminEmail, null, new { @class = "required" })
 			<li></li>
 			<li>
-              <label class="accountlabel" id="AdminFirstNamelabel">* Admin First Name:</label> 
+                <label class="accountlabel" id="AdminFirstNamelabel" for="AdminFirstName">* Admin First Name:</label> 
 			  @Html.TextBoxFor(m => m.AdminFirstName, new { @class = "Account" }) <br>
                 @Html.ValidationMessageFor(m => m.AdminFirstName, null, new { @class = "required" })
 			</li>
 			<li>
-              <label class="accountlabel" id="AdminLastNamelabel">* Admin Last Name:</label> 
+                <label class="accountlabel" id="AdminLastNamelabel" for="AdminLastName">* Admin Last Name:</label> 
 				  @Html.TextBoxFor(m => m.AdminLastName, new { @class = "Account" }) <br>
                 @Html.ValidationMessageFor(m => m.AdminLastName, null, new { @class = "required" })
 			</li>
