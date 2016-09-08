@@ -829,8 +829,8 @@ button.paging img
 
 	#recordstable
 	{
-	   /* height:421px;*/
-        overflow:auto;
+	   /* height:421px;
+        overflow:auto;*/
         /*max-height:510px;*/
         margin-bottom:10px;
        /* max-width: 800px;*/
@@ -874,8 +874,9 @@ button.paging img
 	
 	#recordstable th { 
 		vertical-align: top;
-white-space: nowrap;
-overflow: hidden;
+/*white-space: nowrap;
+overflow: hidden;*/
+word-wrap: break-word;
 text-overflow: ellipsis;
 		
 	}
