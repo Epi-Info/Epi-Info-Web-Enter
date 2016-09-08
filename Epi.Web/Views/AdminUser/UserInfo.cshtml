@@ -118,8 +118,9 @@
                         @Html.ValidationMessage("Error")<br>
                     </li>
                     <li>
-                        <label class="accountlabel" id="Emaillabel">
-                            * Email:</label>
+                        <label class="accountlabel" id="Emaillabel" for="Email">
+                            * Email:
+                        </label>
                             @if (disable_attr)
                             {
                                 @Html.TextBoxFor(m => m.Email, new { @class = "Account", @readonly = "readonly" })
@@ -133,16 +134,18 @@
                         @Html.ValidationMessageFor(m => m.Email, null, new { @class = "required" })
                     </li>
                     <li>
-                        <label class="accountlabel" id="FirstNamelabel">
-                            * First Name:</label>
+                        <label class="accountlabel" id="FirstNamelabel" for="FirstName">
+                            * First Name:
+                        </label>
                         @Html.TextBoxFor(m => m.FirstName, new { @class = "Account" })
                         <br>
                         @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "required" })
                     </li>
                     <li>
-                        <label class="accountlabel" id="LastNamelabel">
-                            * Last Name:</label>
-                        @Html.TextBoxFor(m => m.LastName, new { @class = "Account" })
+                        <label class="accountlabel" for="LastName">
+                            * Last Name:
+                        </label>
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "Account"})
                         <br>
                         @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "required" })
                     </li>

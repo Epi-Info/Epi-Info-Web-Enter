@@ -133,9 +133,10 @@
     margin: 1px;
     color: #FFFFFF;
     border: 1px solid #1f3b53;
-    background: #5c53ac;
+    background: #1D60AC;
 }
-.datagrid  a:hover { text-decoration: none;border-color: #AEB8BD; color: #FFFFFF; background: none; background-color:#7597bd;}
+.datagrid  a:hover { text-decoration: none;border-color: #AEB8BD; color: #58595b; background: none; background-color:#d2dfee;}
+
 
 .datagrid table td .rowaction { width: 28px; border:0;}
 
@@ -197,7 +198,7 @@ fieldset {
         border: 1px solid #787878;*/
         cursor: pointer;
         border: 1px solid #1f3b53;
-        background: #5c53ac;
+        background: #1D60AC;
         font-weight: 600;
         text-decoration: none; display: inline-block;  padding: 8px 14px; margin: 1px;color: #FFFFFF; 
     }
@@ -205,12 +206,32 @@ fieldset {
     fieldset a.cancelbtn 
     {
         padding:5px 14px 5px !important;
-        height:24px;
+        height:22px;
         font-weight: 600;
     }
+
+
+    fieldset a.cancelbtn:hover {
+        background-color: #d2dfee;
+        color: #58595b;
+
+    }
+    fieldset a.cancelbtn:focus {
+        background-color: #d2dfee;
+        color: #58595b;
+
+    }
+
+ .datagrid a:focus {
+   background-color: #d2dfee;
+        color: #58595b;
+}
+
+
     
-    fieldset input[type="submit"]:hover, fieldset input[type="submit"]:focus, input[type="submit"]:hover, input[type="submit"]:focus
-     { text-decoration: none;border-color: #AEB8BD; color: #3f3f3f; background: none; background-color:#ffc000;}
+fieldset input[type="submit"]:hover, fieldset input[type="submit"]:focus, input[type="submit"]:hover, input[type="submit"]:focus
+     { text-decoration: none;border-color: #AEB8BD; color: #58595b; background: none; background-color:#d2dfee;}
+
 
 select {
     letter-spacing: 0.02em;
