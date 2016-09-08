@@ -551,14 +551,18 @@ namespace Epi.Web.BLL
                                  select _FieldTypeID;
 
             string fieldType = "";
-
-            foreach (var _FieldTypeID in _FieldsTypeIDs.Take(5))
+            int counter =0;
+            foreach (var _FieldTypeID in _FieldsTypeIDs)
             {
                 fieldType = _FieldTypeID.Attribute("FieldTypeId").Value;
 
                 if (fieldType != "2" && fieldType != "21" && fieldType != "3" && fieldType != "20")
                 {
                     List.Add(_FieldTypeID.Attribute("Name").Value.ToString());
+                    counter++;
+                }
+                if(counter == 5){
+                    break;
                 }
             }
             return List;
