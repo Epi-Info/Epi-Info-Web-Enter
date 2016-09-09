@@ -18,7 +18,7 @@ body
     background-color: #fff;
     color: #333;
     border: 1px solid #abafbc;
-    line-height: 130%;
+    /*line-height: 130%;*/
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     min-width:1300px;
     min-height:773px;
@@ -346,7 +346,7 @@ div.recordcontentdiv
     
     padding: 0 10px 10px 0;
     float:left;
-    line-height: 130%;
+    /*line-height: 130%;*/
     max-width:70%;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -1228,7 +1228,7 @@ button.edit {
 /*Settings*/
 #columnselect {vertical-align:middle; margin-bottom: 22px;}
 #available, #swapbtn, #selected, #updown {display:inline-block; float: left; margin: 0 20px 0 0; }
-#available select, #selected select { width:200px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
+#available select, #selected select { width:300px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
 #available label, #selected label {font-weight:bold; font-size:9pt;}
 #swapbtn, #updown {margin-top:58px;}
 #swapbtn button, #updown button{ font-family: Arial; width:40px; cursor: pointer; color:#fff; border: 1px solid #1f3b53; background: #1D60AC; text-decoration: none; padding: 4px 6px 4px 4px; }
@@ -1236,7 +1236,7 @@ button.edit {
 
 #UserSelect {vertical-align:middle;}
 #available1, #swapbtn1, #selected1, #updown1 {display:inline-block; float: left; margin: 0 20px 0 0; }
-#available1 select, #selected1 select { width:200px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
+#available1 select, #selected1 select { width:300px; height:150px; font-size: 11pt; font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;}
 #available1 label, #selected1 label {font-weight:bold; font-size:9pt;}
 
 #mode select{font-size: 12pt;height: 30px;width: 150px;}
