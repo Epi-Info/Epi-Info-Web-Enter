@@ -101,7 +101,7 @@ input.createbtn {
      text-overflow: ellipsis;
       width: 600px;
     white-space: normal;
-    overflow: hidden;
+   /* overflow: hidden;*/
     height:28px;
  }
  
