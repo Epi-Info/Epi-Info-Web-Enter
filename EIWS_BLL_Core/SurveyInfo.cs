@@ -173,8 +173,8 @@ namespace Epi.Web.BLL
 
                         this.SurveyInfoDao.UpdateSurveyInfo(SurveyInfoBO);
 
-
-                        this.SurveyInfoDao.InsertFormdefaultSettings(pRequestMessage.SurveyId, pRequestMessage.IsSqlProject, GetSurveyControls(SurveyInfoBO));
+                        //Commented as updating mode does not require update of the display settings
+                        //this.SurveyInfoDao.InsertFormdefaultSettings(pRequestMessage.SurveyId, pRequestMessage.IsSqlProject, GetSurveyControls(SurveyInfoBO));
                         }
                     }
                 else
@@ -182,7 +182,8 @@ namespace Epi.Web.BLL
 
                     this.SurveyInfoDao.UpdateSurveyInfo(pRequestMessage);
 
-                    this.SurveyInfoDao.InsertFormdefaultSettings(pRequestMessage.SurveyId, pRequestMessage.IsSqlProject, GetSurveyControls(pRequestMessage));
+                    //Commented as updating mode does not require update of the display settings
+                    //this.SurveyInfoDao.InsertFormdefaultSettings(pRequestMessage.SurveyId, pRequestMessage.IsSqlProject, GetSurveyControls(pRequestMessage));
                     }
                 result.StatusText = "Successfully updated survey information.";
             }else{
