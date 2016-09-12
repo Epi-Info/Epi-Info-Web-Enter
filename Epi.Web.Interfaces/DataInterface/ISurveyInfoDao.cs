@@ -117,5 +117,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          void UpdateParentId(string SurveyId, int ViewId, string ParentId);
          void InsertConnectionString(DbConnectionStringBO ConnectionString);
          void UpdateConnectionString(DbConnectionStringBO ConnectionString);
+         void ValidateServername(SurveyInfoBO pRequestMessage);
     }
 }

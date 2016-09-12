@@ -192,7 +192,8 @@ namespace Epi.Web.BLL
                             {
                             try
                                 {
-
+                                    if (pRequestMessage.IsSqlProject)
+                                         this.SurveyInfoDao.ValidateServername(pRequestMessage);
                                     var BO = ToBusinessObject(pRequestMessage, SurveyId);
                                     this.SurveyInfoDao.InsertSurveyInfo(BO);
                                 
@@ -316,7 +317,8 @@ namespace Epi.Web.BLL
                             try
                                 {
 
-
+                                    if (pRequestMessage.IsSqlProject)
+                                        this.SurveyInfoDao.ValidateServername(pRequestMessage);
                                     this.SurveyInfoDao.UpdateSurveyInfo(ToBusinessObject(pRequestMessage, SurveyId));
                                 ////Insert Connection string..
                                 //DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
