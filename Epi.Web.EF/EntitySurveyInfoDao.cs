@@ -622,5 +622,17 @@ namespace Epi.Web.EF
            }
        }
 
+       public void ValidateServername(SurveyInfoBO pRequestMessage)
+       {
+           string eweAdostring = DataObjectFactory.EWEADOConnectionString.Substring(0, DataObjectFactory.EWEADOConnectionString.IndexOf(";"));
+
+           string epiDBstring= pRequestMessage.DBConnectionString.Substring(0, pRequestMessage.DBConnectionString.IndexOf(";"));
+
+           if (eweAdostring.ToLower() != epiDBstring.ToLower())
+           {
+               pRequestMessage.IsSqlProject = false;
+           }
+       }
+
     }
 }
