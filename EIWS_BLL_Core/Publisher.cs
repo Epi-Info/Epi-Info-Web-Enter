@@ -556,7 +556,7 @@ namespace Epi.Web.BLL
             {
                 fieldType = _FieldTypeID.Attribute("FieldTypeId").Value;
 
-                if (fieldType != "2" && fieldType != "21" && fieldType != "3" && fieldType != "20")
+                if (fieldType != "2" && fieldType != "21" && fieldType != "3" && fieldType != "20" && fieldType != "4")
                 {
                     List.Add(_FieldTypeID.Attribute("Name").Value.ToString());
                     counter++;
