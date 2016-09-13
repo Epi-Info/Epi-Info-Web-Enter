@@ -972,16 +972,17 @@ namespace Epi.Web.MVC.Utility
                                              select _SourceTableValue;
                     
                     foreach (var _SourceTableValue in _SourceTableValues)
-                    {
+                    { 
                          
                        // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
                         if (!string.IsNullOrEmpty(CodeColumnName)  )
                         {
                             string Xelement = _SourceTableValue.ToString().ToLower();
+                            
                             XElement NewXElement =   XElement.Parse(Xelement);
-                            if (NewXElement.Attribute(CodeColumnName.ToLower()) != null)
+                            if (NewXElement.Attribute(CodeColumnName) != null)
                             {
-                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim());
+                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName).Value.Trim());
                                 if (CodesItemList1.Count() > 0)
                                 {
                                     List<string> List = new List<string>();
@@ -989,11 +990,11 @@ namespace Epi.Web.MVC.Utility
                                     {
                                         //DropDownValues.Append("(:)");
                                         //DropDownValues.Append(NewXElement.Attribute(item.ToLower()));
-                                        List.Add(NewXElement.Attribute(item.ToLower()).ToString());
+                                        List.Add(NewXElement.Attribute(item).ToString());
 
                                        
                                     }
-                                     CodesList.Add(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim(),List);
+                                     CodesList.Add(NewXElement.Attribute(CodeColumnName).Value.Trim(),List);
                                 }
                             }
                             else {
