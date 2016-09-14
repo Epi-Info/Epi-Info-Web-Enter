@@ -170,7 +170,11 @@ namespace Epi.Web.BLL
                         SurveyInfoBO.ParentId = pBO.ParentId;
                         SurveyInfoBO.UserPublishKey = pBO.UserPublishKey;
                         SurveyInfoBO.OwnerId = pRequestMessage.OwnerId;
-
+                        if (SurveyInfoBO.IsSqlProject == true)
+                        {
+                            this.SurveyInfoDao.ValidateServername(pRequestMessage);
+                            SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
+                        }
                         this.SurveyInfoDao.UpdateSurveyInfo(SurveyInfoBO);
 
                         //Commented as updating mode does not require update of the display settings
@@ -179,6 +183,11 @@ namespace Epi.Web.BLL
                     }
                 else
                     {
+                        if (pRequestMessage.IsSqlProject == true)
+                        {
+                            this.SurveyInfoDao.ValidateServername(pRequestMessage);
+                        }
+                        this.SurveyInfoDao.UpdateSurveyInfo(pRequestMessage);
 
                     this.SurveyInfoDao.UpdateSurveyInfo(pRequestMessage);
 
@@ -355,6 +364,6 @@ namespace Epi.Web.BLL
                 }
             }
             return List;
-        }
+        }     
     }
 }
