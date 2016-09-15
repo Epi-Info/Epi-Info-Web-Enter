@@ -1246,8 +1246,9 @@ namespace Epi.Web.EF
                 sortBuilder.Append(" LastSaveTime DESC "); //default sort on lastsavetime 
             }
 
-
-            stringBuilder.Append(" SELECT ROW_NUMBER() OVER( " + sortBuilder.ToString() + ") RowNumber," + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".LastSaveTime," + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId,");
+            //EW-236
+          //  stringBuilder.Append(" SELECT ROW_NUMBER() OVER( " + sortBuilder.ToString() + ") RowNumber," + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".LastSaveTime," + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId,");
+            stringBuilder.Append(" SELECT ROW_NUMBER() OVER( " + sortBuilder.ToString() + ") RowNumber," + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".LastSaveTime," + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId,");
             cteSelectBuilder.Append(" RowNumber, GlobalRecordId, LastSaveTime, ");
             // Builds the select part of the query.
             foreach (DataRow row in EweDS.Tables[0].Rows)
@@ -1270,12 +1271,17 @@ namespace Epi.Web.EF
             {
                 if (i + 1 < TableNames.Rows.Count)
                 {
-                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["TableName"]);
+                    //EW-236
+                    //stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["TableName"]);
+                    stringBuilder.Append(" FULL JOIN " + TableNames.Rows[i + 1]["TableName"]);
                     stringBuilder.Append(" ON " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId =" + TableNames.Rows[i + 1]["TableName"] + ".GlobalRecordId");
 
                 }
             }
-            stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
+            //EW-236
+            //stringBuilder.Append(" INNER JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
+
+            stringBuilder.Append(" FULL JOIN " + EweDS.Tables[0].Rows[0]["ViewTableName"] + " ON " + EweDS.Tables[0].Rows[0]["TableName"] + ".GlobalRecordId =" + EweDS.Tables[0].Rows[0]["ViewTableName"] + ".GlobalRecordId");
 
             stringBuilder.Append(" WHERE RECSTATUS = 1 ");
             //  User filter Start 
@@ -1599,7 +1605,7 @@ namespace Epi.Web.EF
             {
                 if (i + 1 < TableNames.Rows.Count)
                 {
-                    stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["TableName"]);
+                   stringBuilder.Append(" INNER JOIN " + TableNames.Rows[i + 1]["TableName"]);                    
                     stringBuilder.Append(" ON " + TableNames.Rows[0]["TableName"] + ".GlobalRecordId =" + TableNames.Rows[i + 1]["TableName"] + ".GlobalRecordId");
 
                 }
