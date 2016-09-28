@@ -10,22 +10,22 @@
         $("#btnsearch").click(function () {
             $("#searchbox").toggle();
         });
-       
-            if ('@Session["IsDemoMode"]' == "TRUE")         
-            {
-               // $('[name="AddNewFormId"]').attr("disabled", true);
-               // $('[name="DeleteButton"]').attr("disabled", true);
-                //$('[name="AddNewFormId"]').attr("title", "This feature is not available in demo mode");
-                //$('[name="DeleteButton"]').attr("title", "This feature is not available in demo mode");
-            }        
+
+        if ('@Session["IsDemoMode"]' == "TRUE")
+        {
+            // $('[name="AddNewFormId"]').attr("disabled", true);
+            // $('[name="DeleteButton"]').attr("disabled", true);
+            //$('[name="AddNewFormId"]').attr("title", "This feature is not available in demo mode");
+            //$('[name="DeleteButton"]').attr("title", "This feature is not available in demo mode");
+        }
     });
 
     function openEWAVLiteURL()
-    {
-        window.open('@System.Configuration.ConfigurationManager.AppSettings["EWAVLiteBaseURL"]?userid=@Session["UGuid"]&datasourceid=@Model.FormInfoModel.FormId');
+    {       
+        window.open('@System.Configuration.ConfigurationManager.AppSettings["EWAVLiteBaseURL"]?userid=@Session["UGuid"]&datasourceid=@Model.FormInfoModel.FormId');      
     }
 
-  
+
 </script>
 <div id="editsettings">
     @if (Model.FormInfoModel.IsSQLProject) 
@@ -36,9 +36,10 @@
     @if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
     {
 
-        <button id="btnEwavLite" onclick="openEWAVLiteURL()" class="default analytics" type="button">
-            Launch Analytics
-        </button>
+        @*<button id="btnEwavLite" onclick="openEWAVLiteURL()" class="default analytics" type="button">*@
+    <a href="@System.Configuration.ConfigurationManager.AppSettings["EWAVLiteBaseURL"]?userid=@Session["UGuid"]&datasourceid=@Model.FormInfoModel.FormId" class="newanalytics" target="_blank" role="button">Launch Analytics</a>
+
+        //</button>
     }
     @if (Model.FormInfoModel.IsOwner || (Session["UsertRole"].ToString() == "2" && Model.FormInfoModel.IsShared))
     {

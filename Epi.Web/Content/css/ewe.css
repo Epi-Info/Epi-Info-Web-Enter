@@ -1334,6 +1334,36 @@ button.edit {
   animation-delay: -0.16s;
 }
 
+
+
+
+.newanalytics
+{
+    margin: 0 auto; 
+    cursor: pointer; 
+    vertical-align:middle;
+    color:#fff;
+    border: 1px solid #1f3b53;
+
+
+    background-image: url('../images/graphs_icon.png');
+    background-repeat: no-repeat; 
+    background-size: 18px;
+    background-position: 8px center;
+    /*width: 110px;*/
+    height: 55px;
+    font-size: 14px;
+    padding: 7px 12px 6px 30px;
+    background-color: #1D60AC !important;
+    text-decoration: none;
+
+  
+     /*margin: 4em auto;*/
+
+} 
+
+
+
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }
   40% { -webkit-transform: scale(1.0) }
