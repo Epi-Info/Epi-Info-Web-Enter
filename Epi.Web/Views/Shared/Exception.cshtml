@@ -42,8 +42,11 @@
             @Html.ActionLink("Return to Home", "Index", "Home", new { surveyid = Session["RootFormId"] }, new { @class = "returnto" })
         }
         else
-        {    
-            @Html.ActionLink("Log Out", "LogOut", "Home", null, new { @class = "returnto" })
+        {
+            if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+            {
+                @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+            }
         }
         
     </div>
