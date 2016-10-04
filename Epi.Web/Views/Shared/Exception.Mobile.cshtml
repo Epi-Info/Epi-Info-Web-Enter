@@ -30,7 +30,11 @@
     }
     else
     {    
-        @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, new { @class = "returnto" })
+        
+    if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+    {
+       @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, new { @class = "returnto" })
+    }
     }
 </div>
 @if (Convert.ToInt16(Session["UserHighestRole"].ToString()) > 1)
