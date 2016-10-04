@@ -510,6 +510,16 @@ namespace Epi.Web.EF
                     //   DataRow.ResponsePasscode = SurveyResponse.ResponsePassCode;
                     DataRow.IsDraftMode = SurveyResponse.IsDraftMode;
                     DataRow.ResponseXMLSize = RemoveWhitespace(SurveyResponse.XML).Length;
+
+
+                    if (SurveyResponse.UserId > 0)//StatusID=2 -saved
+                    {
+                        User User = DataRow.Users.ElementAt(0);
+                        DataRow.Users.Remove(User);
+                        User LastUser = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
+                        DataRow.Users.Add(LastUser);
+                    }
+
                     Context.SaveChanges();
                 }
             }
