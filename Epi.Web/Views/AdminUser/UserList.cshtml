@@ -69,7 +69,10 @@
     <div id="userwelcome">
         Welcome <strong>@Session["UserFirstName"] @Session["UserLastName"]</strong>&nbsp;
         | &nbsp; @*  <a href="#">Log Out</a>*@
-        @Html.ActionLink("Home", "Index", "Home", null, null) &nbsp; | &nbsp;
+        @Html.ActionLink("Home", "Index", "Home", null, null) @if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        {
+            <span>&nbsp; | &nbsp;</span>
+        }
 @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
 {
     if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
@@ -79,7 +82,10 @@
     }
     else
     {
-        @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+        if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        {
+            @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+        }
     }
 }
     </div>

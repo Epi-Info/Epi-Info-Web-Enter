@@ -494,9 +494,17 @@ var pageId = $('#hidPageNumber').val();
             Home</h2>
     </div>
     <div id="userwelcome">
-        Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>&nbsp;
-        | &nbsp; @*  <a href="#">Log Out</a>*@
-        @Html.ActionLink("Log Out", "LogOut", "FormResponse", null, null)
+        Welcome <strong>@Session["UserFirstName"]&nbsp; @Session["UserLastName"]</strong>@if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        {
+            <span>&nbsp; | &nbsp;</span>
+        } @*  <a href="#">Log Out</a>*@
+        @if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        {
+            if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+            {
+                @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+            }
+        }
     </div>
     <div style="clear: both;">
     </div>

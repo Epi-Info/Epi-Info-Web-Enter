@@ -170,7 +170,10 @@
  
 	
 	<div id="userwelcome">
-		Welcome <strong>@Session["UserFirstName"] @Session["UserLastName"]</strong>&nbsp; | &nbsp;
+		Welcome <strong>@Session["UserFirstName"] @Session["UserLastName"]</strong>@if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        {
+            <span>&nbsp; | &nbsp;</span>
+        }
 	  @*  <a href="#">Log Out</a>*@
 	  
 	  @Html.ActionLink("Home", "Index", "Home", null, null) &nbsp; | &nbsp;
@@ -183,7 +186,10 @@
     }
     else
     {
-	  @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+        if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        { 
+	         @Html.ActionLink("Log Out", "LogOut", "Home", null, null)	
+        }
     }
 }
 	</div>
