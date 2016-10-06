@@ -977,12 +977,12 @@ namespace Epi.Web.MVC.Utility
                        // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
                         if (!string.IsNullOrEmpty(CodeColumnName)  )
                         {
-                            string Xelement = _SourceTableValue.ToString().ToLower();
+                            string Xelement = _SourceTableValue.ToString() ;
                             
                             XElement NewXElement =   XElement.Parse(Xelement);
-                            if (NewXElement.Attribute(CodeColumnName) != null)
+                            if (NewXElement.Attribute(CodeColumnName ) != null)
                             {
-                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName).Value.Trim());
+                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName ).Value.Trim());
                                 if (CodesItemList1.Count() > 0)
                                 {
                                     List<string> List = new List<string>();
@@ -990,7 +990,7 @@ namespace Epi.Web.MVC.Utility
                                     {
                                         //DropDownValues.Append("(:)");
                                         //DropDownValues.Append(NewXElement.Attribute(item.ToLower()));
-                                        List.Add(NewXElement.Attribute(item).ToString());
+                                        List.Add(NewXElement.Attribute(item ).ToString());
 
                                        
                                     }
