@@ -7,6 +7,7 @@ using  System.Web;
 using Epi.Core.EnterInterpreter;
 using System.Drawing;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
  
 namespace MvcDynamicForms.Fields
 {
@@ -251,7 +252,10 @@ namespace MvcDynamicForms.Fields
                     foreach (var code in CodesList)
                     {
                         Html = "";
-                        Html = "var " + code.Key.ToString() + "=[";
+
+                        var NewCode = Regex.Replace(code.Key.ToString(), @"[^0-9a-zA-Z]+", "");
+                        NewCode = Regex.Replace(NewCode, @"\s+", "");
+                        Html = "var " + NewCode + "=[";
                         var json1 = JsonConvert.SerializeObject(code.Value);
                         foreach (var item in code.Value)
                         {
@@ -267,7 +271,7 @@ namespace MvcDynamicForms.Fields
                     html.Append(ScriptRelateCondition.ToString(TagRenderMode.Normal));
                     //var JasonObj =
                     // var jsonSerialiser = new JavaScriptSerializer();
-                    var json = JsonConvert.SerializeObject(CodesList);
+                   // var json = JsonConvert.SerializeObject(CodesList);
 
                 }
             }
