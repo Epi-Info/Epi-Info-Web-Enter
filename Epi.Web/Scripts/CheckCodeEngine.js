@@ -2568,7 +2568,8 @@ function SetCodes_Val(obj)
     var ListArray = RelateCondition.split(',');
     var selectedValue = obj.value;
     
-    
+    selectedValue = selectedValue.replace(/[^\w\s]/gi, '')
+    selectedValue = selectedValue.replace(/\s+/g, '');
     var array = eval(selectedValue);
     //alert(array[0]);
     for (var i = 0; i < ListArray.length; i++)
@@ -2577,7 +2578,8 @@ function SetCodes_Val(obj)
         // alert(Query);
         for (var j = 0; j < array.length; j++)
         {
-            if (array[j].toString().indexOf(ListArray[i]) !== -1)
+            var temp = array[j].toLowerCase();
+            if (temp.toString().indexOf(ListArray[i]) !== -1)
             {
               //  alert(array[j]);
                 var Value = array[j].split(',');
