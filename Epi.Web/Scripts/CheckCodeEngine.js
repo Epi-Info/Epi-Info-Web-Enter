@@ -1798,19 +1798,23 @@ function CCE_Days(pValue1, pValue2)
 function CCE_ContextOpenMobileSimpleDialogBox(Title,Prompt,id) 
 {
         var passcode1 = '@Model.PassCode';
-   
+         
      
-                         $('#'+ id).simpledialog({
-                'mode' : 'blank',
-                'headerText' : Title,
-                'headerClose' : true,
-                'dialogAllow' : true,
-                'useDialogForceTrue': true, 
-                'useDialogForceFalse': false,
-
-                'prompt': Title,
-                'forceInput': false,
-                'useModal':true,
+                         $('#'+ id).simpledialog2({
+                //'mode' : 'blank',
+                //'headerText' : Title,
+                //'headerClose' : true,
+                //'dialogAllow' : true,
+                //'useDialogForceTrue': true, 
+                //'useDialogForceFalse': false,
+                //'cleanOnClose': true,
+                //'prompt': Title,
+                //'forceInput': false,
+                             //'useModal':true,
+                             mode: 'button',
+                             headerText: Title,
+                             headerClose: true,
+                             buttonPrompt: Prompt,
                 'buttons' : {
                               'OK': {
                                 click: function () {
@@ -1818,8 +1822,10 @@ function CCE_ContextOpenMobileSimpleDialogBox(Title,Prompt,id)
                                 }
                               }
                        
-                            },
-                       'fullHTML': "<div id='SimpleDialogBox' title='"+ Title +"'><p><label id='SimpleDialogBoxPrempt'>"+ Prompt +"</label></p><p style='text-align:right;'><button  id='SimpleDialogBoxButton' type='button' style='width:100%;'onclick='CCE_CloseMobileSimpleDialogBox("+ id.toString() +");'>Ok</button></p></div>"
+                },
+                icon: "delete",
+                theme: "c"
+                      // 'fullHTML': "<div id='SimpleDialogBox' title='"+ Title +"'><p><label id='SimpleDialogBoxPrempt'>"+ Prompt +"</label></p><p style='text-align:right;'><button  id='SimpleDialogBoxButton' type='button' style='width:100%;'onclick='CCE_CloseMobileSimpleDialogBox("+ id.toString() +");'>Ok</button></p></div>"
                   })
  
  
@@ -1828,7 +1834,7 @@ function CCE_ContextOpenMobileSimpleDialogBox(Title,Prompt,id)
 function CCE_CloseMobileSimpleDialogBox(id) 
 {
         
-        $(id).simpledialog('close');
+        $(id).simpledialog2('close');
        
 }
 
