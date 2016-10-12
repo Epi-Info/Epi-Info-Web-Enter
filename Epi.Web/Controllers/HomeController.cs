@@ -900,7 +900,7 @@ namespace Epi.Web.MVC.Controllers
                  //ResponseId;
 
                 EmilObj.Subject = "Record locked notification.";
-                EmilObj.Body = " A user was unable to edit/delete a Epi Info™ Web Enter recored. \n \n Please login to Epi Info™ Web Enter system to Unlock this record.\n \n Below are the needed info to unlock the record.\n \n Response id: " + ResponseId + "\n\n User email: " + UserInfo.User.EmailAddress+ "\n\n";
+                EmilObj.Body = " A user was unable to edit/delete a Epi Info™ Cloud Data Capture recored. \n \n Please login to Epi Info™ Cloud Data Capture system to Unlock this record.\n \n Below are the needed info to unlock the record.\n \n Response id: " + ResponseId + "\n\n User email: " + UserInfo.User.EmailAddress+ "\n\n";
                 EmilObj.From = ConfigurationManager.AppSettings["EMAIL_FROM"];
                 EmilObj.To =  new List<string>();
                 EmilObj.To.Add(OwnerInfo.User.EmailAddress);
