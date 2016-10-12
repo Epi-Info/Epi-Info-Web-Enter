@@ -210,21 +210,21 @@ namespace Epi.Web.BLL
                     Epi.Web.Enter.Common.Email.Email Email = new Web.Enter.Common.Email.Email();
                      if(!ShareForm ){
                    
-                    Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has assigned the following form  to you in Epi Info™ Web Enter.\n\nTitle: " + FormInfoBO.FormName + " \n \n \nPlease click the link below to launch Epi Info™ Web Enter.";
+                    Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has assigned the following form  to you in Epi Info™ Cloud Data Capture.\n\nTitle: " + FormInfoBO.FormName + " \n \n \nPlease click the link below to launch Epi Info™ Cloud Data Capture.";
                     Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
                     Email.From = UserBO.EmailAddress;
                     Email.To = UsersEmail;
-                    Email.Subject = "An Epi Info Web Enter Form - " + FormInfoBO.FormName + " has been assigned to You";
+                    Email.Subject = "An Epi Info Cloud Data Capture Form - " + FormInfoBO.FormName + " has been assigned to You";
                    
                      }
                      else
                      {
                           
-                    Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has shared the following form  with your organization in Epi Info™ Web Enter.\n\nTitle: " + FormInfoBO.FormName + " \n \n \nPlease click the link below to launch Epi Info™ Web Enter.";
+                    Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has shared the following form  with your organization in Epi Info™ Cloud Data Capture.\n\nTitle: " + FormInfoBO.FormName + " \n \n \nPlease click the link below to launch Epi Info™ Cloud Data Capture.";
                     Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
                     Email.From = UserBO.EmailAddress;
                     Email.To = UsersEmail;
-                    Email.Subject = "An Epi Info Web Enter Form - " + FormInfoBO.FormName + " has been shered with your organization.";
+                    Email.Subject = "An Epi Info Cloud Data Capture Form - " + FormInfoBO.FormName + " has been shered with your organization.";
                           
                      
                      }
