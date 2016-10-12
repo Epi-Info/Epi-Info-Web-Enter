@@ -1196,6 +1196,9 @@ if (eval(document.getElementById("IsMobile"))){
                 case "timepicker":
                     $(query).datebox('disable');
                     break;
+                case "relatebutton":
+                    $(query).button('disable');
+                    break;
                 //case "groupbox":
                   // break;
 
@@ -1334,7 +1337,10 @@ query = '#mvcdynamicfield_' + pCheckCodeList[i];
                     break;
                case "groupbox":
                    
-                    break;
+                   break;
+               case "relatebutton":
+                   $(query).button('enable');
+                 break;
                 default:
                     $(query).textinput('enable');
                     break;
