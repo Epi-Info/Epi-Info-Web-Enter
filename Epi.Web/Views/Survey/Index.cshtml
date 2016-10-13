@@ -116,14 +116,14 @@
         {
             if (open)
             {
-            $('BODY').jLoadingOverlay('close');
-            open = false;
-             }
+                $('BODY').jLoadingOverlay('close');
+                open = false;
+            }
             else
             {
-            $('BODY').jLoadingOverlay('');
-            open = true;
-              }
+                $('BODY').jLoadingOverlay('');
+                open = true;
+            }
         }
         $("#parent-selector :input").attr("disabled", true);
     }
@@ -139,7 +139,7 @@
         // a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
 
         //$("#Savebutton").tooltip();
-         CloseSppiner();
+        CloseSppiner();
         var DateFormat = '@Model.CurrentCultureDateFormat'
         DateFormat = DateFormat.toLocaleLowerCase().toString()
 
@@ -232,7 +232,7 @@
             serverResponseEquals: 'OK',
             onTimeout: function () {
                 //window.location = "timeout.htm";
-                window.location = GetRedirectionUrl() + '/1';
+                window.location = '@Url.Action("Index","Login")';//GetRedirectionUrl() + '/1';  
                 //'~/Login/Index';
 
 
@@ -725,9 +725,9 @@
     }
 
     function ReadRelatedResponse(ViewId) {
-         ShowSppiner();
-        
-       // var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
+        ShowSppiner();
+
+        // var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&FormValuesHasChanged=' + $('#FormHasChanged').val() + '&CurrentPage=' + '@Model.Form.CurrentPage';
         var signoutUrl = '@Url.Action("ReadResponseInfo", "Survey")' + '?SurveyId=' + '@Model.Form.SurveyInfo.SurveyId' + '&ViewId=' + ViewId + '&ResponseId=' + '@Model.Form.ResponseId' + '&CurrentPage=' + '@Model.Form.CurrentPage';
 
         $.ajax({
