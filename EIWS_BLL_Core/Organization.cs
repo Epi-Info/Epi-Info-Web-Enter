@@ -134,9 +134,7 @@ namespace Epi.Web.BLL
                     {
                         Body.Append("\n\nEmail: " + UserBO.EmailAddress + "\nPassword: " + tempPassword);
                     }
-                    else {
-                        Body.Append("\n\nEmail: " + " Not applicable" + "\nPassword: " + " Not applicable");
-                    }
+                    
                     Body.Append("\nOrganization Key: " + OrgKey);
                     Body.Append("\n\nPlease click the link below to launch the Epi Info™ Cloud Data Capture and log in with your email and temporary password. You will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
                     //Add email and temporary password for new user. 
