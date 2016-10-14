@@ -54,7 +54,7 @@
             <div>
 
                 <p style="margin-bottom: 4px; font-weight: bold; font-size: 0.9em;">Delete Staging records:</p>
-                <input type="checkbox" id="RemoveTestData" name="RemoveTestData" onclick="RemoveTestData()"  title="Delete"/> 
+                <input type="checkbox" id="RemoveTestData" name="RemoveTestData" onclick="RemoveTestDatafun()"  title="Delete"/> 
                 <label for="RemoveTestData">Delete</label>
           </div>
         }
@@ -376,11 +376,12 @@
         alert("By selecting this option the form will be no longer available in the system.");
         }
         $('#RemoveTestData').attr('checked', false); // Unchecks it
-
+       
     }
 
-    function RemoveTestData() {
-        $('#SoftDeleteForm').attr('checked', false);
+    function RemoveTestDatafun() {
          
+        $('#SoftDeleteForm').attr('checked', false);
+       
     }
 	</script>
