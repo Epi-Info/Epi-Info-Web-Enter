@@ -135,26 +135,35 @@ namespace MvcDynamicForms.Fields
 
             chk.MergeAttributes(_inputHtmlAttributes);
             ////////////Check code start//////////////////
+            StringBuilder on_click_builder = new StringBuilder();
+            
+
+
             EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
             if (FunctionObjectAfter != null && !FunctionObjectAfter.IsNull())
             {
-                chk.Attributes.Add("onblur", "return " + _key + "_after(this.id);"); //After
+                //chk.Attributes.Add("onblur", "return " + _key + "_after(this.id);"); //After
+                on_click_builder.AppendLine(_key + "_after(this.id);");
             }
             EnterRule FunctionObjectBefore = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=before&identifier=" + _key);
             if (FunctionObjectBefore != null && !FunctionObjectBefore.IsNull())
             {
-                chk.Attributes.Add("onfocus", "return " + _key + "_before(this.id);"); //Before
+                //chk.Attributes.Add("onfocus", "return " + _key + "_before(this.id);"); //Before
+                on_click_builder.AppendLine(_key + "_before(this.id);");
             }
 
 
             EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
             if (FunctionObjectClick != null && !FunctionObjectClick.IsNull())
             {
-                chk.Attributes.Add("onclick", "return " + _key + "_click(this.id);");
+                //chk.Attributes.Add("onclick", "return " + _key + "_click(this.id);");
+                on_click_builder.AppendLine(_key + "_click(this.id);");
             }
 
-
-
+            if(on_click_builder.Length > 0)
+            {
+                chk.Attributes.Add("onclick", "return new function() { " + on_click_builder.ToString() + "}(this);");
+            }
 
             ////////////Check code end//////////////////
             html.Append(chk.ToString(TagRenderMode.SelfClosing));
