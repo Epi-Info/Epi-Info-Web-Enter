@@ -13,12 +13,12 @@
 	@if(!Model[0].IsDraftMode)
 		{
 		   
-	  <span class="boldlabel">Production</span>
+	  <span class="boldlabel">FINAL</span>
 	  
 		}
  else
 	 {
-		<span class="boldlabel">Staging </span>
+		<span class="boldlabel">DRAFT </span>
 		
 	 }
   
@@ -37,13 +37,13 @@
         <select name="Mode" id="FormMode" onchange="SetSettingMode()">
             @if (!Model[0].IsDraftMode)
             {
-                <option value="0" selected="selected">Production</option>
+                <option value="0" selected="selected">FINAL</option>
                 <option value="1">Staging</option>
             }
             else
             {
-                <option value="0" selected="selected">Production</option>
-                <option value="1" selected="selected">Staging</option>
+                <option value="0" selected="selected">FINAL</option>
+                <option value="1" selected="selected">DRAFT</option>
 
             }
         </select>
