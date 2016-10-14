@@ -210,11 +210,11 @@ namespace Epi.Web.BLL
                     Epi.Web.Enter.Common.Email.Email Email = new Web.Enter.Common.Email.Email();
                      if(!ShareForm ){
                    
-                    Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has assigned the following form  to you in Epi Info™ Cloud Data Capture.\n\nTitle: " + FormInfoBO.FormName + " \n \n \nPlease click the link below to launch Epi Info™ Cloud Data Capture.";
+                    Email.Body = UserBO.FirstName + " " + UserBO.LastName + " has assigned the following form to you in Epi Info™ Cloud Data Capture.\n\nTitle: " + FormInfoBO.FormName + " \n \n \nPlease click the link below to launch Epi Info™ Cloud Data Capture.";
                     Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
                     Email.From = UserBO.EmailAddress;
                     Email.To = UsersEmail;
-                    Email.Subject = "An Epi Info Cloud Data Capture Form - " + FormInfoBO.FormName + " has been assigned to You";
+                    Email.Subject = "An Epi Info Cloud Data Capture Form - " + FormInfoBO.FormName + " has been assigned to you";
                    
                      }
                      else
@@ -224,7 +224,7 @@ namespace Epi.Web.BLL
                     Email.Body = Email.Body.ToString() + " \n \n" + ConfigurationManager.AppSettings["BaseURL"];
                     Email.From = UserBO.EmailAddress;
                     Email.To = UsersEmail;
-                    Email.Subject = "An Epi Info Cloud Data Capture Form - " + FormInfoBO.FormName + " has been shered with your organization.";
+                    Email.Subject = "An Epi Info Cloud Data Capture Form - " + FormInfoBO.FormName + " has been shared with your organization.";
                           
                      
                      }
