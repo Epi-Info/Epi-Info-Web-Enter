@@ -740,12 +740,12 @@
             var FormId = $("#FORM_ID_HIDDEN").val();
             var FormMode = $("#FORM_MODE_HIDDEN").val();
 
-            if (FormMode == "Production") {
+            if (FormMode == "Final") {
 
                 $('#' + FormId).removeClass("metro-staging");
                 $('#' + FormId).addClass("metro-prod");
             }
-            if (FormMode == "Staging") {
+            if (FormMode == "Draft") {
                 $('#' + FormId).removeClass("metro-prod")
                 $('#' + FormId).addClass("metro-staging");
             }
