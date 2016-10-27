@@ -65,11 +65,11 @@ namespace Epi.Web.BLL
         }
 
 
-        public bool IsSurveyInfoValidByOrgKeyAndPublishKey(string SurveyId, string Okey, Guid publishKey)
+        public bool IsSurveyInfoValidByOrgKeyAndPublishKey(string SurveyId, string Okey, Guid publishKey ,int UserId = -1)
         {
 
             string EncryptedKey = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(Okey);
-            List<SurveyInfoBO> result = this.SurveyInfoDao.GetSurveyInfoByOrgKeyAndPublishKey(SurveyId, EncryptedKey, publishKey);
+            List<SurveyInfoBO> result = this.SurveyInfoDao.GetSurveyInfoByOrgKeyAndPublishKey(SurveyId, EncryptedKey, publishKey,UserId);
 
              
             if (result != null && result.Count > 0)

@@ -183,12 +183,12 @@ namespace Epi.Web.EF
             return result;
         }
 
-        public List<SurveyInfoBO> GetSurveyInfoByOrgKeyAndPublishKey(string SurveyId, string Okey, Guid publishKey)
+        public List<SurveyInfoBO> GetSurveyInfoByOrgKeyAndPublishKey(string SurveyId, string Okey, Guid publishKey,int UserId =-1)
         {
             List<SurveyInfoBO> result = new List<SurveyInfoBO>();
-
+            Guid Id = new Guid(SurveyId);
             List<SurveyMetaData> responseList = new List<SurveyMetaData>();
-
+            bool IsUserBelongsToOrg = false;
             int OrganizationId = 0;
             try
             {
@@ -196,25 +196,34 @@ namespace Epi.Web.EF
                 {
 
                     var Query = (from response in Context.Organizations
-                                 where response.OrganizationKey == Okey
+                                 where response.OrganizationKey == Okey 
                                  select response).SingleOrDefault();
+
 
                     if (Query != null) {
                         OrganizationId = Query.OrganizationId;
                     }
-                
+                    if (UserId != -1 && publishKey == Guid.Empty)
+                    {
+                        var User = Query.UserOrganizations.Where(x => x.OrganizationID == OrganizationId && x.UserID == UserId);
+                        if (User.Count()>0)
+                        {
+                    
+                             IsUserBelongsToOrg = true;
+                        }
+                    }
                 }
             }
            catch (Exception ex)
            {
                throw (ex);
            }
-           
-           if (!string.IsNullOrEmpty(SurveyId))
-           {
+
+            if (!string.IsNullOrEmpty(SurveyId) && publishKey != Guid.Empty)
+            {
                 try
                 {
-                    Guid Id = new Guid(SurveyId);
+                     
                     using (var Context = DataObjectFactory.CreateContext())
                     {
                         responseList.Add(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id && x.OrganizationId == OrganizationId && x.UserPublishKey == publishKey));
@@ -228,7 +237,27 @@ namespace Epi.Web.EF
                 {
                     throw (ex);
                 }
-           }
+            }
+            else if (UserId != -1 && publishKey == Guid.Empty && IsUserBelongsToOrg) 
+            {
+                try
+                {
+                   
+                    using (var Context = DataObjectFactory.CreateContext())
+                    {
+                        responseList.Add(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id && x.OrganizationId == OrganizationId  ));
+                        if (responseList[0] != null)
+                        {
+                            result = Mapper.Map(responseList);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw (ex);
+                }
+            
+            }
 
             return result;
         }

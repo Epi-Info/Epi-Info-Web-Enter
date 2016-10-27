@@ -294,7 +294,7 @@ namespace Epi.Web.WCF.SurveyService
         /// <param name="pRequest"></param>
         /// <returns></returns>
         public SurveyAnswerResponse GetSurveyAnswer(SurveyAnswerRequest pRequest)
-        {
+         {
             try
             {
                 SurveyAnswerResponse result = new SurveyAnswerResponse(pRequest.RequestId);
@@ -352,7 +352,7 @@ namespace Epi.Web.WCF.SurveyService
                     bool validSurvey = false;
                    // if (string.IsNullOrEmpty(criteria.SurveyId.ToString()))
                    // {
-                    validSurvey = SurveyInfo.IsSurveyInfoValidByOrgKeyAndPublishKey(criteria.SurveyId, criteria.OrganizationKey.ToString(), criteria.UserPublishKey);
+                    validSurvey = SurveyInfo.IsSurveyInfoValidByOrgKeyAndPublishKey(criteria.SurveyId, criteria.OrganizationKey.ToString(), criteria.UserPublishKey, criteria.UserId);
 
                     //}
 
@@ -442,7 +442,16 @@ namespace Epi.Web.WCF.SurveyService
                     }
                     else
                     {
-                        result.Message = "SurveyId or Organization Key or Publish Key are invalid.";
+                         
+
+                        if (criteria.UserId != -1 && criteria.UserPublishKey == Guid.Empty)
+                        {
+                            result.Message = "InvalidUserId";
+                        }
+                        if (criteria.UserId == -1 && criteria.UserPublishKey != Guid.Empty)
+                        {
+                            result.Message = "InvalidPublishKey";
+                        }
                     }
                 }
                 else
