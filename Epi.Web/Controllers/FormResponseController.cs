@@ -697,11 +697,11 @@ namespace Epi.Web.MVC.Controllers
                 case "_Mode":
                     if (item.IsDraftMode.ToString().ToUpper() == "TRUE")
                     {
-                        ColumnValue = "Staging";
+                        ColumnValue = "Draft";
                     }
                     else
                     {
-                        ColumnValue = "Production";
+                        ColumnValue = "Final";
 
                     }
                     break;
