@@ -162,7 +162,7 @@ namespace Epi.Web.MVC.Controllers
                    // surveyAnswerDTO = GetSurveyAnswer(responseId, RelateSurveyId);
                         //surveyAnswerDTO = (SurveyAnswerDTO)SurveyAnswerResponseList.SurveyResponseList.First(x => x.ResponseId == responseId ) ;
                         surveyAnswerDTO = (SurveyAnswerDTO)FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == responseId) ;
-                        
+                                               
                   // }
                 //else
                 //    {
@@ -198,6 +198,12 @@ namespace Epi.Web.MVC.Controllers
                     default:
 
                         var form = _isurveyFacade.GetSurveyFormData(surveyAnswerDTO.SurveyId, PageNumber, surveyAnswerDTO, IsMobileDevice, null, FormsHierarchy,IsAndroid);
+
+                        SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyAnswerDTO.SurveyId, FormsHierarchy);                       
+                        surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
+                        int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
+                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, surveyAnswerDTO, false, false, PageNumber, UserId);
+                        
                         //var form = _isurveyFacade.GetSurveyFormData1(surveyAnswerDTO.SurveyId, responseId, PageNumber,temp.SurveyResponseList, IsMobileDevice);
                         ////////////////Assign data to a child
                         TempData["Width"] = form.Width + 5;
