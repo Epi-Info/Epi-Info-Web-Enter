@@ -140,6 +140,11 @@ namespace MvcDynamicForms.Fields
 
                 select.Attributes.Add("onfocus", "return " + _key + "_before(this.id);"); //Before
             }
+             EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
+             if (FunctionObjectClick != null && !FunctionObjectClick.IsNull())
+             {
+                 select.Attributes.Add("onclick", "return " + _key + "_click(this.id);"); //click
+             }
 
             ////////////Check code end//////////////////
             int LargestChoiseLength = 0;
