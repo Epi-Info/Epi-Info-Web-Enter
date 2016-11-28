@@ -64,7 +64,8 @@ namespace Epi.Web.EF
 
                         foreach (var item in items)
                             {
-                            
+                                if (item.UserInfo !=null)
+                                { 
                         FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo,item.UserInfo,false);
                         //if (string.IsNullOrEmpty(FormInfoBO.ParentId))
                         //    {
@@ -102,7 +103,7 @@ namespace Epi.Web.EF
                                 }
 
                            // FormList.Add(FormInfoBO);
-                              // }
+                               }
                             }
                          }
                 }
