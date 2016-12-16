@@ -994,7 +994,10 @@ namespace Epi.Web.MVC.Utility
 
                                        
                                     }
+                                    if (!CodesList.ContainsKey(NewXElement.Attribute(CodeColumnName).Value.Trim().ToString()))
+                                    {
                                      CodesList.Add(NewXElement.Attribute(CodeColumnName).Value.Trim(),List);
+                                    }
                                 }
                             }
                             else {
