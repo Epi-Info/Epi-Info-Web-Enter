@@ -81,7 +81,7 @@ namespace MvcDynamicForms.Fields
             //    CssStyles.Append("position:absolute;left:" + Left +
             //            "px;top:" + Top + "px" + ";width:" + Width + "px" + ";Height:" + Height + "px");
             //}
-            CssStyles.Append("border-bottom: 2px solid #4e9689;color: #4e9689;font-size: 18px;font-weight: bold;line-height: 2em;");
+            CssStyles.Append("border-bottom: 2px solid #4e9689;color: #4e9689;font-weight: bold;line-height: 2em;font:");
             foreach (string Style in Styles)
             {
                 switch (Style.ToString())

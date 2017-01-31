@@ -30,6 +30,8 @@ namespace MvcDynamicForms.Fields
             prompt.Attributes.Add("class", "EpiLabel");
 
             StringBuilder StyleValues = new StringBuilder();
+            StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
+            prompt.Attributes.Add("style", StyleValues.ToString());
 
             //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), _PromptWidth.ToString(), Height.ToString()));
             //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
@@ -50,7 +52,7 @@ namespace MvcDynamicForms.Fields
             txt.Attributes.Add("name", inputName);
             txt.Attributes.Add("id", inputName);
             txt.Attributes.Add("type", "text");
-
+            string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
 
             string IsHiddenStyle = "";
             string IsHighlightedStyle = "";
@@ -95,7 +97,7 @@ namespace MvcDynamicForms.Fields
             txt.Attributes.Add("class", GetControlClass());
             txt.Attributes.Add("data-prompt-position", "topLeft:15");
             //txt.Attributes.Add("style", "position:absolute "+  ";color:#111; background-color:white ;width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
-            txt.Attributes.Add("style", "" +  ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
+            txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + InputFieldStyle);
             txt.MergeAttributes(_inputHtmlAttributes);
             html.Append(txt.ToString(TagRenderMode.SelfClosing));
 
@@ -189,6 +191,86 @@ namespace MvcDynamicForms.Fields
 
             return ControlClass.ToString();
 
+        }
+
+        public  string GetControlStyle(string ControlFontStyle, string Top, string Left, string Width, string Height, bool IsHidden)
+        {
+            StringBuilder FontStyle = new StringBuilder();
+            StringBuilder FontWeight = new StringBuilder();
+            StringBuilder TextDecoration = new StringBuilder();
+            StringBuilder CssStyles = new StringBuilder();
+
+            char[] delimiterChars = { ' ', ',' };
+            string[] Styles = ControlFontStyle.Split(delimiterChars);
+            // CssStyles.Append("width: auto");
+
+            foreach (string Style in Styles)
+            {
+                switch (Style.ToString())
+                {
+                    case "Italic":
+                        FontStyle.Append(Style.ToString());
+                        break;
+                    case "Oblique":
+                        FontStyle.Append(Style.ToString());
+                        break;
+                }
+
+            }
+
+            foreach (string Style in Styles)
+            {
+                switch (Style.ToString())
+                {
+                    case "Bold":
+                        FontWeight.Append(Style.ToString());
+                        break;
+                    case "Normal":
+                        FontWeight.Append(Style.ToString());
+                        break;
+                }
+            }
+
+            CssStyles.Append(" font:");//1
+
+            if (!string.IsNullOrEmpty(FontStyle.ToString()))
+            {
+                CssStyles.Append(FontStyle);//2
+                CssStyles.Append(" ");//3
+            }
+
+            CssStyles.Append(FontWeight);
+            CssStyles.Append(" ");
+            CssStyles.Append(_fontSize.ToString() + "pt ");
+            CssStyles.Append(" ");
+            CssStyles.Append(_fontfamily.ToString());
+
+            foreach (string Style in Styles)
+            {
+                switch (Style.ToString())
+                {
+                    case "Strikeout":
+                        TextDecoration.Append("line-through");
+                        break;
+                    case "Underline":
+                        TextDecoration.Append(Style.ToString());
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(TextDecoration.ToString()))
+            {
+                CssStyles.Append(";text-decoration:");
+            }
+
+            if (IsHidden)
+            {
+                CssStyles.Append(";display:none");
+            }
+
+            CssStyles.Append(TextDecoration);
+
+            return CssStyles.ToString();
         }
     }
 }

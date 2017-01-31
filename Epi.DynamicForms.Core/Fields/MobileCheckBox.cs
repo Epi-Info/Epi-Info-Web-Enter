@@ -174,6 +174,9 @@ namespace MvcDynamicForms.Fields
             prompt.Attributes.Add("for", inputName);
             prompt.Attributes.Add("class", "EpiLabel");
             prompt.Attributes.Add("Id", "label" + inputName);
+            StringBuilder StyleValues = new StringBuilder();
+            StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
+            prompt.Attributes.Add("style", StyleValues.ToString());
             //StringBuilder StyleValues = new StringBuilder();
             //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
             //prompt.Attributes.Add("style", StyleValues.ToString());
@@ -230,6 +233,86 @@ namespace MvcDynamicForms.Fields
             wrapper.Attributes["id"] = inputName + "_fieldWrapper";
             wrapper.InnerHtml = html.ToString();
             return wrapper.ToString();
+        }
+
+        public  string GetControlStyle(string ControlFontStyle, string Top, string Left, string Width, string Height, bool IsHidden)
+        {
+            StringBuilder FontStyle = new StringBuilder();
+            StringBuilder FontWeight = new StringBuilder();
+            StringBuilder TextDecoration = new StringBuilder();
+            StringBuilder CssStyles = new StringBuilder();
+
+            char[] delimiterChars = { ' ', ',' };
+            string[] Styles = ControlFontStyle.Split(delimiterChars);
+            // CssStyles.Append("width: auto");
+
+            foreach (string Style in Styles)
+            {
+                switch (Style.ToString())
+                {
+                    case "Italic":
+                        FontStyle.Append(Style.ToString());
+                        break;
+                    case "Oblique":
+                        FontStyle.Append(Style.ToString());
+                        break;
+                }
+
+            }
+
+            foreach (string Style in Styles)
+            {
+                switch (Style.ToString())
+                {
+                    case "Bold":
+                        FontWeight.Append(Style.ToString());
+                        break;
+                    case "Normal":
+                        FontWeight.Append(Style.ToString());
+                        break;
+                }
+            }
+
+            CssStyles.Append(" font:");//1
+
+            if (!string.IsNullOrEmpty(FontStyle.ToString()))
+            {
+                CssStyles.Append(FontStyle);//2
+                CssStyles.Append(" ");//3
+            }
+
+            CssStyles.Append(FontWeight);
+            CssStyles.Append(" ");
+            CssStyles.Append(_fontSize.ToString() + "pt ");
+            CssStyles.Append(" ");
+            CssStyles.Append(_fontfamily.ToString());
+
+            foreach (string Style in Styles)
+            {
+                switch (Style.ToString())
+                {
+                    case "Strikeout":
+                        TextDecoration.Append("line-through");
+                        break;
+                    case "Underline":
+                        TextDecoration.Append(Style.ToString());
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(TextDecoration.ToString()))
+            {
+                CssStyles.Append(";text-decoration:");
+            }
+
+            if (IsHidden)
+            {
+                CssStyles.Append(";display:none");
+            }
+
+            CssStyles.Append(TextDecoration);
+
+            return CssStyles.ToString();
         }
     }
 }
