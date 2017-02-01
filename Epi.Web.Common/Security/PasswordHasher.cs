@@ -55,7 +55,7 @@ namespace Epi.Web.Enter.Common.Security
 
         public string CreateSalt(string UserName)
         {
-            Rfc2898DeriveBytes hasher = new Rfc2898DeriveBytes(UserName,
+            Rfc2898DeriveBytes hasher = new Rfc2898DeriveBytes(UserName.ToLower(),
                 System.Text.Encoding.UTF8.GetBytes(SALT_FOR_SALT), 10000);
             return Convert.ToBase64String(hasher.GetBytes(25));
         }
