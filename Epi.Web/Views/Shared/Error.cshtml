@@ -1,8 +1,10 @@
-﻿@{
+﻿@*@model System.Web.Mvc.HandleErrorInfo*@
+@{
     ViewBag.Title = "Error";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
     <h2>
-        Sorry, an error occurred while processing your request.
+        Sorry, an error occurred while processing your request.</br>
+        @ViewBag.ErrorName
     </h2>
