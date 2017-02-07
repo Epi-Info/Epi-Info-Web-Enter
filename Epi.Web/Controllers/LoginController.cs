@@ -40,15 +40,15 @@ namespace Epi.Web.MVC.Controllers
         public LoginController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
-        }
-
+        }      
+        
         // GET: /Login/
        
-        [HttpGet]
+        [HttpGet]     
         public ActionResult Index(string responseId, string ReturnUrl)
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            UserLoginModel UserLoginModel = new Models.UserLoginModel();
+            UserLoginModel UserLoginModel = new Models.UserLoginModel();          
             ViewBag.Version = version;
             SetTermOfUse();
             if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
@@ -85,7 +85,7 @@ namespace Epi.Web.MVC.Controllers
             }
             else
             {
-               var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+                var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
                try
                {
                     var UserAD = Utility.WindowsAuthentication.GetCurrentUserFromAd(CurrentUserName);
@@ -114,11 +114,12 @@ namespace Epi.Web.MVC.Controllers
 
                         return View("Index", UserLoginModel);
                    }
-               } 
-                catch(Exception ){
-
-                    return View("Index", UserLoginModel);
-                }
+               }
+               catch (Exception ex)
+               {                   
+                   ViewBag.ErrorName = ex.Message;  
+                   return View("Error");
+               }
             }
 
         }
