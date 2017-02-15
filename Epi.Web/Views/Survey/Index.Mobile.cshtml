@@ -573,26 +573,29 @@
 
 
 
-$(document).delegate('#close', 'click', function () {
-    CCE_HasFormValuesChanged();
-    if ($('#FormHasChanged').val() == 'True') {
-        $(this).simpledialog({
-            'mode': 'blank',
-            'prompt': false,
-            'forceInput': false,
-            'useModal': true,
-            'buttons': {
-                'OK': {
-                    click: function () {
-                        $('#dialogoutput').text('OK');
-                        alert(test);
-                    }
-                }
+    $(document).delegate('#close', 'click', function () {
+        CCE_HasFormValuesChanged();
+        if ($('#FormHasChanged').val() == 'True') {
+            $(this).simpledialog2({
+                'mode': 'blank',
+                // 'prompt': false,
+                'forceInput': false,
+                'headerText': 'Exit Record',
+                'headerClose': true,
+                'themeDialog': "b",
+                //'useModal': true,
+                //'buttons': {
+                //    'OK': {
+                //        click: function () {
+                //            $('#dialogoutput').text('OK');
+                //            alert(test);
+                //        }
+                //    }
 
-            },
+                //},
 
 
-            'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to save the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick=\"SaveForm();\"  class='login'  style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login' onclick ='ExitSurvey();'  style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'  id='simpleclose' >Don't Save</a> <a class='login'   style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Cancel</a></div></p>"
+                'blankContent': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to save the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a  onclick=\"SaveForm();\"  class='login'  style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login' onclick ='ExitSurvey();'  style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'  id='simpleclose' >Don't Save</a> <a class='login'   style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Cancel</a></div></p>"
         })
     } else {
         //        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
@@ -606,23 +609,27 @@ $(document).delegate('#close1', 'click', function () {
 
     CCE_HasFormValuesChanged();
     if ($('#FormHasChanged').val() == 'True') {
-        $(this).simpledialog({
+        $(this).simpledialog2({
             'mode': 'blank',
-            'prompt': false,
+           // 'prompt': false,
             'forceInput': false,
-            'useModal': true,
-            'buttons': {
-                'OK': {
-                    click: function () {
-                        $('#dialogoutput').text('OK');
-                        alert(test);
-                    }
-                }
+            'headerText': 'Exit Record',
+            'headerClose': true,
+            'themeDialog': "b",
 
-            },
+            //'useModal': true,
+            //'buttons': {
+            //    'OK': {
+            //        click: function () {
+            //            $('#dialogoutput').text('OK');
+            //            alert(test);
+            //        }
+            //    }
+
+            //},
 
 
-            'fullHTML': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to update the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a onclick=\"SaveForm();\"  class='login'  style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login' onclick ='ExitSurvey();'    style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Don't Save</a> <a class='login'   style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Cancel</a></div></p>"
+            'blankContent': "<div id=\"exitdialog\" title=\"Exit Record\" ><p style=\"font-size:1.20em; font-weight:400;\">Do you want to update the record before exiting?</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'> <a onclick=\"SaveForm();\"  class='login'  style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'>Save</a>        <a class='login' onclick ='ExitSurvey();'    style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Don't Save</a> <a class='login'   style='width:50px; padding:4px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' >Cancel</a></div></p>"
         })
     } else {
         //        var homePageUrl = '@Url.Action("Index", "Home")' + '/' + '@Model.Form.SurveyInfo.SurveyId';
