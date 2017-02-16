@@ -23,11 +23,10 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkProfile />
-    <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -52,6 +51,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Epi.Web.Enter.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="EpiInfo.Plugin, Version=7.0.9.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\EpiInfo.Plugin.dll</HintPath>
@@ -599,6 +599,7 @@
     <None Include="Properties\DataSources\Epi.Web.Common.Message.UserAuthenticationResponse.datasource">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Properties\DataSources\Epi.Web.Enter.Common.Message.DropDownsResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.OrganizationResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.PublishResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.UserResponse.datasource" />
@@ -740,16 +741,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:54611/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

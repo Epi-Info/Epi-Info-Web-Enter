@@ -8,7 +8,8 @@ using Epi.Core.EnterInterpreter;
 using System.Drawing;
 using Newtonsoft.Json;
 using System.Text.RegularExpressions;
- 
+using System.Web.Caching;
+using System.Configuration;
 namespace MvcDynamicForms.Fields
 {
     /// <summary>
@@ -45,9 +46,11 @@ namespace MvcDynamicForms.Fields
             }
             set { _inputHtmlAttributes["multiple"] = value.ToString(); }
         }
-
+        private string CacheIsOn = "";
+        private string IsCacheSlidingExpiration = "";
+        private int CacheDuration = 0;
         public int SelectType { get; set; }
-        public Dictionary<string, List<string>> CodesList { get; set; }
+ 
         /// <summary>
         /// The text to be rendered as the first option in the select list when ShowEmptyOption is set to true.
         /// </summary>
@@ -60,6 +63,9 @@ namespace MvcDynamicForms.Fields
 
         public override string RenderHtml()
         {
+            int.TryParse(ConfigurationManager.AppSettings["CACHE_DURATION"].ToString(), out CacheDuration);
+            CacheIsOn = ConfigurationManager.AppSettings["CACHE_IS_ON"];//false;
+            IsCacheSlidingExpiration = ConfigurationManager.AppSettings["CACHE_SLIDING_EXPIRATION"].ToString();
             var html = new StringBuilder();
 
             var inputName = _form.FieldPrefix + _key;
@@ -96,6 +102,38 @@ namespace MvcDynamicForms.Fields
             }
 
             // open select element
+            //if (this.CodesList != null)
+            //{
+            //    if (this.CodesList.Count() > 0)
+            //    {
+            //        string Html = "";
+            //        var ScriptRelateCondition = new TagBuilder("script");
+            //        foreach (var code in CodesList)
+            //        {
+            //            Html = "";
+
+            //            var NewCode = Regex.Replace(code.Key.ToString(), @"[^0-9a-zA-Z]+", "");
+            //            NewCode = Regex.Replace(NewCode, @"\s+", "");
+            //            Html = "var " + NewCode + "=[";
+            //            var json1 = JsonConvert.SerializeObject(code.Value);
+            //            foreach (var item in code.Value)
+            //            {
+            //                var values = item.Split('=');
+            //                Html = Html + "\"" + values[0] + "," + values[1].ToString().Replace("\"", "") + "\",";
+
+
+            //            }
+            //            Html = Html + "]; ";
+            //            ScriptRelateCondition.InnerHtml = ScriptRelateCondition.InnerHtml + Html.ToString();
+
+            //        }
+            //        html.Append(ScriptRelateCondition.ToString(TagRenderMode.Normal));
+            //        //var JasonObj =
+            //        // var jsonSerialiser = new JavaScriptSerializer();
+            //        // var json = JsonConvert.SerializeObject(CodesList);
+
+            //    }
+            //}
             var select = new TagBuilder("select");
             select.Attributes.Add("id", inputName);
             select.Attributes.Add("name", inputName);
@@ -121,26 +159,9 @@ namespace MvcDynamicForms.Fields
             }
             if (!string.IsNullOrEmpty(this.RelateCondition))
             {
-                
-                    select.Attributes.Add("onchange", "return SetCodes_Val(this);"); //click
-                    var List = RelateCondition.Split(',');
-                    StringBuilder NewString = new StringBuilder();
-                    int i = 1;
-                    foreach(var item in List)
-                    {
-                        NewString.Append(item.Remove(item.IndexOf(':')).ToLower());
-                        if (List.Count() > i)
-                        {
-                            i++;
-                            NewString.Append(",");
-                        }
-                    }
-                    var hidden = new TagBuilder("input");
-                    hidden.Attributes.Add("type", "hidden");
-                    hidden.Attributes.Add("id", inputName + "_RelateConditionHidden");
-                    hidden.Attributes.Add("name", inputName + "_RelateConditionHidden");
-                    hidden.Attributes.Add("value", NewString.ToString());
-                    html.Append(hidden.ToString(TagRenderMode.SelfClosing));
+
+                select.Attributes.Add("onchange", "return SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+                    
             }
             ////////////Check code end//////////////////
             int LargestChoiseLength =0 ;
@@ -243,38 +264,7 @@ namespace MvcDynamicForms.Fields
             // Build codes RelateCondition script object 
 
 
-            if (this.CodesList != null)
-            {
-                if (this.CodesList.Count() > 0)
-                {
-                    string Html = "";
-                    var ScriptRelateCondition = new TagBuilder("script");
-                    foreach (var code in CodesList)
-                    {
-                        Html = "";
-
-                        var NewCode = Regex.Replace(code.Key.ToString(), @"[^0-9a-zA-Z]+", "");
-                        NewCode = Regex.Replace(NewCode, @"\s+", "");
-                        Html = "var " + NewCode + "=[";
-                        var json1 = JsonConvert.SerializeObject(code.Value);
-                        foreach (var item in code.Value)
-                        {
-                            var values = item.Split('=');
-                            Html = Html + "\"" + values[0] + "," + values[1].ToString().Replace("\"", "") + "\",";
-
-
-                        }
-                        Html = Html + "]; ";
-                        ScriptRelateCondition.InnerHtml = ScriptRelateCondition.InnerHtml + Html.ToString();
-
-                    }
-                    html.Append(ScriptRelateCondition.ToString(TagRenderMode.Normal));
-                    //var JasonObj =
-                    // var jsonSerialiser = new JavaScriptSerializer();
-                   // var json = JsonConvert.SerializeObject(CodesList);
-
-                }
-            }
+            
             switch (this.SelectType.ToString())
             {
                 case "11":
@@ -312,21 +302,21 @@ namespace MvcDynamicForms.Fields
                 
                     break;
                 case "18":
+
+
                     foreach (var choice in _choices)
                     {
                         var opt = new TagBuilder("option");
                         opt.Attributes.Add("value", choice.Key);
-                        if (choice.Key== SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
-                      //  if (choice.ToString().Contains("(:)"))
-                      //  {
-                        //    opt.SetInnerText(choice.Key.Remove(choice.Key.IndexOf("(:)")));
-                      //  }
-                        //else {
-                            opt.SetInnerText(choice.Key );
-                        //}
+                        if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
+                        {
+                            opt.SetInnerText(choice.Key);
+                        }
                         html.Append(opt.ToString());
                     }
-
+                   
+                   
+                
                     break;
                 case "19":
                     foreach (var choice in _choices)
@@ -376,6 +366,8 @@ namespace MvcDynamicForms.Fields
             wrapper.InnerHtml = html.ToString();
             return wrapper.ToString();
         }
+
+        
         public string GetControlClass()
         {
 

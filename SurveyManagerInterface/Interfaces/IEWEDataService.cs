@@ -119,6 +119,9 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         bool HasResponse(string SurveyId, string ResponseId);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        SourceTablesResponse GetSourceTables(SourceTablesRequest Request);
     }
 
 }

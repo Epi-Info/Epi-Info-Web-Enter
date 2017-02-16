@@ -118,5 +118,8 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          void InsertConnectionString(DbConnectionStringBO ConnectionString);
          void UpdateConnectionString(DbConnectionStringBO ConnectionString);
          void ValidateServername(SurveyInfoBO pRequestMessage);
+
+         void InsertSourceTable(string SourcetableXml, string SourcetableName, string FormId);
+         List<SourceTableBO> GetSourceTables(string SurveyId);
     }
 }

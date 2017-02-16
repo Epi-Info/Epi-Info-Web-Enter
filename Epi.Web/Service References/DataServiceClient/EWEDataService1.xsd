@@ -421,4 +421,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetDropDowns">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q57="http://www.yourcompany.com/types/" minOccurs="0" name="Request" nillable="true" type="q57:DropDownsRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDropDownsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q58="http://www.yourcompany.com/types/" minOccurs="0" name="GetDropDownsResult" nillable="true" type="q58:DropDownsResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

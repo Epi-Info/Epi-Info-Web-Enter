@@ -18,10 +18,17 @@ namespace Epi.Web.MVC.Repositories
 
 
         private Epi.Web.WCF.SurveyService.IEWEDataService _iDataService;
-
+         private string CacheIsOn = "";
+        private string IsCacheSlidingExpiration = "";
+        private int CacheDuration = 0;
+       
         public IntegratedSurveyInfoRepository(Epi.Web.WCF.SurveyService.IEWEDataService iDataService)
         {
             _iDataService = iDataService;
+            int.TryParse(ConfigurationManager.AppSettings["CACHE_DURATION"].ToString(), out CacheDuration);
+            CacheIsOn = ConfigurationManager.AppSettings["CACHE_IS_ON"];//false;
+            IsCacheSlidingExpiration = ConfigurationManager.AppSettings["CACHE_SLIDING_EXPIRATION"].ToString();
+       
         }
         
         /// <summary>
@@ -40,10 +47,7 @@ namespace Epi.Web.MVC.Repositories
                 string SurveyId = pRequest.Criteria.SurveyIdList[0].ToString();
                 var CacheObj =   HttpRuntime.Cache.Get(SurveyId);
 
-                int CacheDuration = 0;
-                int.TryParse(ConfigurationManager.AppSettings["CACHE_DURATION"].ToString(), out CacheDuration);
-                string CacheIsOn = ConfigurationManager.AppSettings["CACHE_IS_ON"];//false;
-                string IsCacheSlidingExpiration = ConfigurationManager.AppSettings["CACHE_SLIDING_EXPIRATION"].ToString();
+                
 
                 if (CacheIsOn.ToUpper() == "TRUE")
                 {
@@ -178,13 +182,68 @@ namespace Epi.Web.MVC.Repositories
                 return _iDataService.GetFormChildInfo(SurveyInfoRequest);
                 
                 }
-            public FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest)
+            public FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest pRequest)
                 {
+                try{
+                    string SurveyId = pRequest.SurveyInfo.FormId + "_Hierarchy";
+                    var CacheObj = HttpRuntime.Cache.Get(SurveyId);
+                    FormsHierarchyResponse result = new FormsHierarchyResponse();
 
-                return _iDataService.GetFormsHierarchy(FormsHierarchyRequest);
+
+                    if (CacheIsOn.ToUpper() == "TRUE")
+                    {
+                        if (CacheObj == null)
+                        {
+                            result = (FormsHierarchyResponse)_iDataService.GetFormsHierarchy(pRequest);
+
+                            if (IsCacheSlidingExpiration.ToUpper() == "TRUE")
+                            {
+
+                                HttpRuntime.Cache.Insert(SurveyId, result, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(CacheDuration));
+                            }
+                            else
+                            {
+                                HttpRuntime.Cache.Insert(SurveyId, result, null, DateTime.Now.AddMinutes(CacheDuration), Cache.NoSlidingExpiration);
+
+                            }
+                            return result;
+                        }
+                        else
+                        {
 
 
+                            return (FormsHierarchyResponse)CacheObj;
 
+                        }
+                    }
+                    else
+                    {
+                        result = (FormsHierarchyResponse)_iDataService.GetFormsHierarchy(pRequest);
+                        return result;
+
+                    }
+
+                  }
+            catch (FaultException<CustomFaultException> cfe)
+            {
+                throw cfe;
+            }
+            catch (FaultException fe)
+            {
+                throw fe;
+            }
+            catch (CommunicationException ce)
+            {
+                throw ce;
+            }
+            catch (TimeoutException te)
+            {
+                throw te;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
                 }
             public SurveyAnswerResponse GetResponseAncestor(SurveyAnswerRequest SARequest) 
                 {
@@ -192,5 +251,77 @@ namespace Epi.Web.MVC.Repositories
                 return _iDataService.GetAncestorResponseIdsByChildId(SARequest);
                 
                 }
+            public SourceTablesResponse GetSourceTables(SourceTablesRequest pRequest)
+            {
+
+               
+                try
+                {
+                    string SurveyId = pRequest.SurveyId + "_SourceTables";
+                    var CacheObj = HttpRuntime.Cache.Get(SurveyId);
+                    SourceTablesResponse result = new SourceTablesResponse();
+
+
+                    if (CacheIsOn.ToUpper() == "TRUE")
+                    {
+                        if (CacheObj == null)
+                        {
+                            result = (SourceTablesResponse)_iDataService.GetSourceTables(pRequest); 
+
+                            if (IsCacheSlidingExpiration.ToUpper() == "TRUE")
+                            {
+
+                                HttpRuntime.Cache.Insert(SurveyId, result, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(CacheDuration));
+                            }
+                            else
+                            {
+                                HttpRuntime.Cache.Insert(SurveyId, result, null, DateTime.Now.AddMinutes(CacheDuration), Cache.NoSlidingExpiration);
+
+                            }
+                            return result;
+                        }
+                        else
+                        {
+
+
+                            return (SourceTablesResponse)CacheObj;
+
+                        }
+                    }
+                    else
+                    {
+                        result = (SourceTablesResponse)_iDataService.GetSourceTables(pRequest);
+                        return result;
+
+                    }
+
+                }
+                catch (FaultException<CustomFaultException> cfe)
+                {
+                    throw cfe;
+                }
+                catch (FaultException fe)
+                {
+                    throw fe;
+                }
+                catch (CommunicationException ce)
+                {
+                    throw ce;
+                }
+                catch (TimeoutException te)
+                {
+                    throw te;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            
+            }
+            public SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest)
+            {
+
+                return _iDataService.GetSurveyAnswerHierarchy(pRequest);
+            }
     }
 }

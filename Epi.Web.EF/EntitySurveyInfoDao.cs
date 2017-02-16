@@ -10,6 +10,7 @@ using Epi.Web.Enter.Common.BusinessObject;
 using Epi.Web.Enter.Common.Extension;
 using System.Data.Objects;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace Epi.Web.EF
 {
@@ -36,7 +37,8 @@ namespace Epi.Web.EF
 
                         using (var Context = DataObjectFactory.CreateContext())
                         {
-                            result.Add(Mapper.Map(Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id)));
+                            var response = Context.SurveyMetaDatas.FirstOrDefault(x => x.SurveyId == Id);
+                            result.Add(Mapper.Map(response));
                         }
                     }
                 }
@@ -662,6 +664,75 @@ namespace Epi.Web.EF
                pRequestMessage.IsSqlProject = false;
            }
        }
+       public void InsertSourceTable(string SourcetableXml, string SourcetableName, string FormId)
+       {
+          
+            string EWEConnectionString = DataObjectFactory.EWEADOConnectionString;
+             SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
+             EWEConnection.Open();
+            // SqlCommand Command = new SqlCommand(Query, EWEConnection);
+                SqlCommand Command = new SqlCommand();
+                Command.Connection = EWEConnection;
+              try
+               {
+                   Guid Id = new Guid(FormId);
+                Command.CommandType = CommandType.Text;
+                //Command.CommandText = "Insert into Sourcetables (SourceTableName, FormId,SourceTableXml) values ('@SourceTableName','@FormId','@SourceTableXml')";
+                //Command.Parameters.AddWithValue("SourceTableName", SourcetableName);
+                //Command.Parameters.AddWithValue("FormId", Id);
+                //Command.Parameters.AddWithValue("SourceTableXml", SourcetableXml);
 
+
+              Command.CommandText = "Insert into Sourcetables (SourceTableName, FormId,SourceTableXml) values ('" + SourcetableName + "','" + FormId + "','" + SourcetableXml.Replace("'","''")  + "')";
+               
+                Command.ExecuteNonQuery();
+                //SqlDataAdapter  Adapter = new SqlDataAdapter( Command);
+
+               // DataSet  DS = new DataSet();
+
+               
+
+               
+                      
+                     EWEConnection.Close();
+                }
+                catch (Exception)
+                {
+                    EWEConnection.Close();
+                    
+                }
+
+       
+       }
+       public List<SourceTableBO> GetSourceTables(string FormId)
+       {
+           List<SourceTableBO> result = new List<SourceTableBO>();
+           string EWEConnectionString = DataObjectFactory.EWEADOConnectionString;
+           SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
+           EWEConnection.Open();
+          
+           SqlCommand Command = new SqlCommand();
+           Command.Connection = EWEConnection;
+           try
+           {
+              Command.CommandType = CommandType.Text;
+              Command.CommandText = "select * from Sourcetables  where  FormId ='" + FormId+"'";
+             // Command.ExecuteNonQuery();
+              SqlDataAdapter  Adapter = new SqlDataAdapter( Command);
+              DataSet  DS = new DataSet();
+              Adapter.Fill(DS);
+               if(DS.Tables.Count>0){
+              result = Mapper.MapToSourceTableBO(DS.Tables[0]);
+               }
+              EWEConnection.Close();
+           }
+           catch (Exception)
+           {
+               EWEConnection.Close();
+
+           }
+
+           return result;
+       }
     }
 }
