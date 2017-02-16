@@ -149,12 +149,13 @@ namespace Epi.Web.EF
         private static List<string> GetAssignedForms(OSELS_EWEEntities Context, User CurrentUser)
         {
             List<string> Assigned = new List<string>();
-            IQueryable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null
+            IQueryable<SurveyMetaData> AllForms = Context.SurveyMetaDatas.Where(x => x.ParentId == null 
           && x.Users.Any(r => r.UserID == CurrentUser.UserID)
          ).Distinct();
+            string temp = AllForms.Count().ToString();
             foreach (var form in AllForms)
             {
-                if (form.Users.Contains(CurrentUser))
+                if (form.Users.Contains(CurrentUser) && form.ParentId == null)
                 {
                     Assigned.Add(form.SurveyId.ToString());
                 }
@@ -220,54 +221,111 @@ namespace Epi.Web.EF
                                   
 
 
-                              var items = from FormInfo in Context.SurveyMetaDatas
-                                          join UserInfo in Context.Users
-                                          on FormInfo.OwnerId equals UserInfo.UserID
-                                          into temp
-                                          from UserInfo in temp.DefaultIfEmpty()
-                                          where FormInfo.SurveyId == Id
-                                          select new { FormInfo, UserInfo };
-                              SurveyMetaData Response = Context.SurveyMetaDatas.First(x => x.SurveyId == Id);
-                              var _Org = new HashSet<int>(Response.Organizations.Select(x => x.OrganizationId));
-                              var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
-
-
-
-                              bool IsShared = false;
-
-                              foreach(var org in Orgs)
-                              {
-                                  
-
-                                  var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
-                                  if (UserInfo.Count()>0)
-                                 {
-                                     IsShared = true;
-                                     break;
-                                 
-                                 }
                             
-                              }
-
-
-
-
-                              foreach (var item in items)
+                              //SurveyMetaData Response = Context.SurveyMetaDatas.First(x => x.SurveyId == Id);
+                              //var _Org = new HashSet<int>(Response.Organizations.Select(x => x.OrganizationId));
+                            //  var Response = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id);
+                                  
+                              if (GetXml)
                                   {
-                                 
-                                  FormInfoBO = Mapper.MapToFormInfoBO(item.FormInfo, item.UserInfo,GetXml);
-                                  FormInfoBO.IsShared = IsShared;
+                                      var Response = from r in Context.SurveyMetaDatas
+                                                     where r.SurveyId == Id
+                                                     select r;
+                                      var item = Response.First();
+                                      var _Org = new HashSet<int>(Response.Select(x => x.OrganizationId));
+                                      var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                                      bool IsShared = false;
 
-                                  if (item.UserInfo.UserID == UserId)
+                                      foreach (var org in Orgs)
                                       {
-                                      FormInfoBO.IsOwner = true;
-                                      }
-                                  else
-                                      {
-                                      FormInfoBO.IsOwner = false;
-                                      }
 
-                                  }
+
+                                          var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
+                                          if (UserInfo.Count() > 0)
+                                          {
+                                              IsShared = true;
+                                              break;
+
+                                          }
+
+                                      }
+                                      FormInfoBO = Mapper.MapToFormInfoBO(item, null, GetXml);
+                                      FormInfoBO.IsShared = IsShared;
+
+                                      if (item.OwnerId == UserId)
+                                      {
+                                          FormInfoBO.IsOwner = true;
+                                      }
+                                      else
+                                      {
+                                          FormInfoBO.IsOwner = false;
+                                      }
+                                }
+                              
+                              
+                              else
+                              
+                              {
+                                  var Response = from r in Context.SurveyMetaDatas
+                                                 where r.SurveyId == Id
+                                                 select new { r.IsSQLProject ,
+                                                            r.SurveyId  ,
+                                                            r.SurveyName ,
+                                                            r.SurveyNumber ,
+                                                            r.OrganizationName  ,
+                                                            r.OrganizationId  ,
+                                                            r.IsDraftMode ,
+                                                            r.IsShareable ,      
+                                                            r.OwnerId  ,
+                                                            r.ParentId };
+                                   var item = Response.First() ;
+                                   var _Org = new HashSet<int>(Response.Select(x => x.OrganizationId));
+                                   var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                                   bool IsShared = false;
+
+                                   foreach (var org in Orgs)
+                                   {
+
+
+                                       var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
+                                       if (UserInfo.Count() > 0)
+                                       {
+                                           IsShared = true;
+                                           break;
+
+                                       }
+
+                                   }
+                                   FormInfoBO.IsSQLProject = (item.IsSQLProject == null) ? false : (bool)item.IsSQLProject;
+                                   FormInfoBO.FormId = item.SurveyId.ToString();
+                                   FormInfoBO.FormName = item.SurveyName;
+                                   FormInfoBO.FormNumber = item.SurveyNumber;
+                                   FormInfoBO.OrganizationName = item.OrganizationName;
+                                   FormInfoBO.OrganizationId = item.OrganizationId;
+                                   FormInfoBO.IsDraftMode = item.IsDraftMode;
+                                   FormInfoBO.UserId = item.OwnerId;
+
+                                   if (FormInfoBO.IsShareable != null)
+                                   {
+                                       FormInfoBO.IsShareable = (bool)item.IsShareable;
+                                   }
+
+
+                                   FormInfoBO.ParentId = item.ParentId.ToString();
+                                   FormInfoBO.IsShared = IsShared;
+
+                                   if (item.OwnerId == UserId)
+                                   {
+                                       FormInfoBO.IsOwner = true;
+                                   }
+                                   else
+                                   {
+                                       FormInfoBO.IsOwner = false;
+                                   }
+                              }
+                             
+ 
+                             
                               }
                           }
                       catch (Exception ex)

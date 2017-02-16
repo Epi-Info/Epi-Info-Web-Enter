@@ -21,5 +21,8 @@ namespace Epi.Web.MVC.Repositories.Core
         SurveyInfoResponse GetFormChildInfo(SurveyInfoRequest SurveyInfoRequest);
         FormsHierarchyResponse GetFormsHierarchy(FormsHierarchyRequest FormsHierarchyRequest);
         SurveyAnswerResponse GetResponseAncestor(SurveyAnswerRequest SARequest);
+
+        SourceTablesResponse GetSourceTables(SourceTablesRequest Request);
+        SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
     }
 }

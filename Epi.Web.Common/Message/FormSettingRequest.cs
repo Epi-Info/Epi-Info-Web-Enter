@@ -25,6 +25,7 @@ namespace Epi.Web.Enter.Common.Message
          public bool GetXml;
          [DataMember]
          public int CurrentOrgId;
-
+         [DataMember]
+         public bool FormInfoOnly;
         }
     }

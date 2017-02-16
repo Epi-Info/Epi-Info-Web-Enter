@@ -635,7 +635,7 @@
         }
     }
     function ReadResponse(ActionUrl) {
-
+        ShowSppiner();
         var Url = window.location.pathname;
         var Formid = "";
         if (Url.indexOf("/") != -1) {
@@ -654,11 +654,13 @@
         //		$.ajaxSetup({ cache: false });
 
         function successFunc(data, status) {
-            $('#right').html(data);
 
+            $('#right').html(data);
+            CloseSppiner();
         }
 
         function errorFunc() {
+            CloseSppiner();
             alert('error');
         }
 
@@ -666,6 +668,7 @@
 
     function GetSettings() {
         var ActionUrl = '@Url.Action("GetSettings","Home")' + '?formid=' + $("#FORM_ID_HIDDEN").val();
+        ShowSppiner();
         $.ajax({
             url: ActionUrl,
             type: 'GET',
@@ -679,16 +682,17 @@
 
         function successFunc(data, status) {
             $('#right').html(data);
-
+            CloseSppiner();
         }
 
         function errorFunc() {
             alert('error');
+            CloseSppiner();
         }
 
     }
     function SaveSettings() {
-
+        ShowSppiner();
         var validation = true;
         $('.SelectedColumns').each(function () {
 
@@ -719,6 +723,7 @@
 
         }
         else {
+            CloseSppiner();
             alert('User should select at least one column for each form.');
             $('select.SelectedColumns option').focus();
         }
@@ -749,9 +754,11 @@
                 $('#' + FormId).removeClass("metro-prod")
                 $('#' + FormId).addClass("metro-staging");
             }
+            CloseSppiner();
         }
 
         function errorFunc() {
+            CloseSppiner();
             alert('error');
         }
 

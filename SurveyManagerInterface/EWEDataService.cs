@@ -759,7 +759,7 @@ namespace Epi.Web.WCF.SurveyService
 
                 SurveyAnswerCriteria criteria = pRequest.Criteria;
                 //result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(pRequest.Criteria.SurveyId, pRequest.Criteria.PageNumber, pRequest.Criteria.IsMobile));
-                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(criteria));
+                result.SurveyResponseList = Mapper.ToDataTransferObject(Implementation.GetFormResponseListById(criteria));//Pain point
                 //Query The number of records
 
                 //result.NumberOfPages = Implementation.GetNumberOfPages(pRequest.Criteria.SurveyId, pRequest.Criteria.IsMobile);
@@ -807,7 +807,7 @@ namespace Epi.Web.WCF.SurveyService
                 Epi.Web.Enter.Interfaces.DataInterface.IUserDao IUserDao = entityDaoFactory.UserDao;
                 Epi.Web.Enter.Interfaces.DataInterface.IFormInfoDao IFormInfoDao = entityDaoFactory.FormInfoDao;
                 Epi.Web.BLL.FormSetting SettingsImplementation = new Epi.Web.BLL.FormSetting(IFormSettingDao, IUserDao, IFormInfoDao);
-          Response.FormSetting = Mapper.ToDataTransferObject(SettingsImplementation.GetFormSettings(pRequest.FormInfo.FormId.ToString(), FormInfoBO.Xml,pRequest.CurrentOrgId));
+                Response.FormSetting = Mapper.ToDataTransferObject(SettingsImplementation.GetFormSettings(pRequest.FormInfo.FormId.ToString(), FormInfoBO.Xml, pRequest.CurrentOrgId, pRequest.FormInfoOnly));
 
 
 
@@ -1005,24 +1005,24 @@ namespace Epi.Web.WCF.SurveyService
 
             List<FormsHierarchyBO> RelatedFormIDsList = Implementation.GetFormsHierarchyIdsByRootId(FormsHierarchyRequest.SurveyInfo.FormId);
 
-
+            FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(RelatedFormIDsList);
 
             //2- Get all Responses ID's
 
-            Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
-            Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
-            if (!string.IsNullOrEmpty(FormsHierarchyRequest.SurveyResponseInfo.ResponseId))
-            {
-                AllResponsesIDsList = Implementation1.GetResponsesHierarchyIdsByRootId(FormsHierarchyRequest.SurveyResponseInfo.ResponseId);
+            //Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao ISurveyResponseDao = entityDaoFactory.SurveyResponseDao;
+            //Epi.Web.BLL.SurveyResponse Implementation1 = new Epi.Web.BLL.SurveyResponse(ISurveyResponseDao);
+            //if (!string.IsNullOrEmpty(FormsHierarchyRequest.SurveyResponseInfo.ResponseId))
+            //{
+            //    AllResponsesIDsList = Implementation1.GetResponsesHierarchyIdsByRootId(FormsHierarchyRequest.SurveyResponseInfo.ResponseId);
 
-            }
-            else
-            {
-                AllResponsesIDsList = null;
-            }
-            //3 Combining the lists.
+            //}
+            //else
+            //{
+            //    AllResponsesIDsList = null;
+            //}
+            ////3 Combining the lists.
 
-            FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(CombineLists(RelatedFormIDsList, AllResponsesIDsList));
+            //FormsHierarchyResponse.FormsHierarchy = Mapper.ToFormHierarchyDTO(CombineLists(RelatedFormIDsList, AllResponsesIDsList));
 
             return FormsHierarchyResponse;
 
@@ -1508,6 +1508,17 @@ namespace Epi.Web.WCF.SurveyService
 
             return Implementation.HasResponse(SurveyId, ResponseId);
 
+        }
+        public SourceTablesResponse GetSourceTables(SourceTablesRequest Request) {
+
+            SourceTablesResponse DropDownsResponse = new SourceTablesResponse();
+            Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+            Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+            Epi.Web.BLL.SurveyInfo Implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
+
+            DropDownsResponse.List = Mapper.ToSourceTableDTO(Implementation.GetSourceTables(Request.SurveyId));
+            return DropDownsResponse;
+        
         }
     }
 }

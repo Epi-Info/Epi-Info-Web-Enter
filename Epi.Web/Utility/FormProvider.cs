@@ -10,6 +10,9 @@ using System;
 using System.Xml.XPath;
 using Epi.Core.EnterInterpreter;
 using System.Drawing;
+using System.Web.Mvc;
+using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 namespace Epi.Web.MVC.Utility
 {
     public static class FormProvider
@@ -18,7 +21,7 @@ namespace Epi.Web.MVC.Utility
         public static List<Epi.Web.Enter.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
         public static List<Epi.Web.Enter.Common.DTO.SurveyInfoDTO> SurveyInfoList;
         public static Dictionary<string, List<string>> CodesList = new Dictionary<string, List<string>>();
-        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer, bool IsAndroid= false)
+        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer, bool IsAndroid = false, List<Epi.Web.Enter.Common.DTO.SourceTableDTO> SourceTableList= null)
         {
             string SurveyAnswer;
             
@@ -63,7 +66,7 @@ namespace Epi.Web.MVC.Utility
   
                 var _FieldsTypeIDs = from _FieldTypeID in
                                          xdoc.Descendants("Field")
-                                     //where _FieldTypeID.Attribute("Position").Value == (PageNumber - 1).ToString()
+                                     where _FieldTypeID.Attribute("Position").Value == (PageNumber - 1).ToString()
                                      select _FieldTypeID;
 
                 
@@ -108,7 +111,7 @@ namespace Epi.Web.MVC.Utility
                 JavaScript.Append(GetPageLevelJS(PageNumber, form, PageName,"Before"));
                 //Generate page level Java script (After)
                 JavaScript.Append(GetPageLevelJS(PageNumber, form, PageName, "After"));
-              
+               
                 foreach (var _FieldTypeID in _FieldsTypeIDs)
                 {
                     var Value = GetControlValue(xdocResponse, _FieldTypeID.Attribute("Name").Value);
@@ -206,9 +209,14 @@ namespace Epi.Web.MVC.Utility
                                 break;
                          
                             case "17"://DropDown LegalValues
-
+                                string TableName1 = _FieldTypeID.Attribute("SourceTableName").Value;
                                 string DropDownValues1 = "";
-                                DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
+                                if (SourceTableList!= null && SourceTableList.Count() > 0)
+                                {
+                                var SourceTableXml1 = SourceTableList.Where(x => x.TableName == TableName1).Select(y=>y.TableXml).ToList();
+                              
+                                DropDownValues1 = GetDropDownValues( XDocument.Parse(SourceTableXml1[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName1, _FieldTypeID.Attribute("TextColumnName").Value);
+                                }
                                 var _DropDownSelectedValue1 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue1, DropDownValues1, 17, form));
                                 //                                             pName, pType, pSource
@@ -216,9 +224,13 @@ namespace Epi.Web.MVC.Utility
 
                                 break;
                             case "18"://DropDown Codes
-
+                                string TableName2 = _FieldTypeID.Attribute("SourceTableName").Value;
                                 string DropDownValues2 = "";
-                                DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
+                                if (SourceTableList != null && SourceTableList.Count() > 0)
+                                {
+                                    var SourceTableXml2 = SourceTableList.Where(x => x.TableName == TableName2).Select(y=>y.TableXml).ToList();;
+                                    DropDownValues2 = GetDropDownValues( XDocument.Parse(SourceTableXml2[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName2, _FieldTypeID.Attribute("TextColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
+                                }
                                 var _DropDownSelectedValue2 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form));
                                 //                                             pName, pType, pSource
@@ -226,10 +238,14 @@ namespace Epi.Web.MVC.Utility
 
                                 break;
                             case "19"://DropDown CommentLegal
-
+                                string TableName = _FieldTypeID.Attribute("SourceTableName").Value;
                                 string DropDownValues = "";
-                                DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
-                                var _DropDownSelectedValue = Value;
+                                if (SourceTableList != null && SourceTableList.Count() > 0)
+                                {
+                                    var SourceTableXml = SourceTableList.Where(x => x.TableName == TableName).Select(y=>y.TableXml).ToList();;
+                                    DropDownValues = GetDropDownValues( XDocument.Parse(SourceTableXml[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName, _FieldTypeID.Attribute("TextColumnName").Value);
+                                }
+                                    var _DropDownSelectedValue = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue, DropDownValues, 19, form));
                                 //                                             pName, pType, pSource
                                 //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "commentlegal", "datasource",Value)); 
@@ -249,27 +265,7 @@ namespace Epi.Web.MVC.Utility
 
                 }
 
-                //var gender = new RadioList
-                //{
-                //    DisplayOrder = 30,
-                //    Title = "Gender",
-                //    Prompt = "Select your gender:",
-                //    Required = true,
-                //    Orientation = Orientation.Vertical
-                //};
-                //gender.AddChoices("Male,Female", ",");
-
-
-                //var sports = new CheckBoxList
-                //{
-                //    DisplayOrder = 40,
-                //    Title = "Favorite Sports",
-                //    Prompt = "What are your favorite sports?",
-                //    Orientation = Orientation.Horizontal
-                //};
-                //sports.AddChoices("Baseball,Football,Soccer,Basketball,Tennis,Boxing,Golf", ",");
-
-
+             
 
 
                
@@ -920,10 +916,7 @@ namespace Epi.Web.MVC.Utility
                     DropDown.RelateCondition = _FieldTypeID.Attribute("RelateCondition").Value;
                     DropDown.EmptyOption = "Select";
                     DropDown.FieldTypeId = FieldTypeId;
-                    if (CodesList.Count()>0)
-                    {
-                    DropDown.CodesList = CodesList;
-                    }
+                     
 
                     
                         DropDown.AddChoices(DropDownValues, "&#;");
@@ -939,18 +932,9 @@ namespace Epi.Web.MVC.Utility
         public static string GetDropDownValues(XDocument xdoc, string ControlName, string TableName, string CodeColumnName, string RelateCondition ="")
         {
             StringBuilder DropDownValues = new StringBuilder();
-             List<string> CodesItemList1 = new List<string>  ();
-             CodesList = new Dictionary<string,List<string>> ();
-            if (!string.IsNullOrEmpty(RelateCondition))
-            {
-                List<string> CodesItemList = RelateCondition.Split(',').ToList();
-               
-                foreach (var item in CodesItemList)
-                        {
-                            CodesItemList1.Add(item.Remove(item.IndexOf(':')));
-                        
-                        }         
-            }
+            
+           
+            
 
             if (!string.IsNullOrEmpty(xdoc.ToString()))
             {
@@ -970,7 +954,8 @@ namespace Epi.Web.MVC.Utility
                     var _SourceTableValues = from _SourceTableValue in  _ControlValues.Descendants("Item")
                                            
                                              select _SourceTableValue;
-                    
+                     
+                    var ScriptRelateCondition = new TagBuilder("script");
                     foreach (var _SourceTableValue in _SourceTableValues)
                     { 
                          
@@ -983,22 +968,7 @@ namespace Epi.Web.MVC.Utility
                             if (NewXElement.Attribute(CodeColumnName ) != null)
                             {
                                 DropDownValues.Append(NewXElement.Attribute(CodeColumnName ).Value.Trim());
-                                if (CodesItemList1.Count() > 0)
-                                {
-                                    List<string> List = new List<string>();
-                                    foreach (var item in CodesItemList1)
-                                    {
-                                        //DropDownValues.Append("(:)");
-                                        //DropDownValues.Append(NewXElement.Attribute(item.ToLower()));
-                                        List.Add(NewXElement.Attribute(item ).ToString());
-
-                                       
-                                    }
-                                    if (!CodesList.ContainsKey(NewXElement.Attribute(CodeColumnName).Value.Trim().ToString()))
-                                    {
-                                     CodesList.Add(NewXElement.Attribute(CodeColumnName).Value.Trim(),List);
-                                    }
-                                }
+                                 
                             }
                             else {
 

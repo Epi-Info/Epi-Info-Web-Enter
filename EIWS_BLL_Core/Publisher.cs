@@ -40,7 +40,7 @@ namespace Epi.Web.BLL
         public SurveyRequestResultBO PublishSurvey(SurveyInfoBO  pRequestMessage)
         {
         SurveyRequestResultBO result = new SurveyRequestResultBO();
-
+       
         if (IsRelatedForm(pRequestMessage.XML))
             {
             result = PublishRelatedFormSurvey(pRequestMessage);
@@ -177,7 +177,7 @@ namespace Epi.Web.BLL
         private SurveyRequestResultBO Publish(SurveyInfoBO pRequestMessage)
             {
             SurveyRequestResultBO result = new SurveyRequestResultBO();
-
+            string _Xml = pRequestMessage.XML;
            
                 var SurveyId = Guid.NewGuid();
 
@@ -194,6 +194,9 @@ namespace Epi.Web.BLL
                                 {
                                     if (pRequestMessage.IsSqlProject)
                                          this.SurveyInfoDao.ValidateServername(pRequestMessage);
+                                    XDocument xdoc = XDocument.Parse(pRequestMessage.XML);
+                                    xdoc.Descendants().Where(e => e.Name == "SourceTable").Remove();
+                                    pRequestMessage.XML = xdoc.ToString();
                                     var BO = ToBusinessObject(pRequestMessage, SurveyId);
                                     this.SurveyInfoDao.InsertSurveyInfo(BO);
                                 
@@ -244,7 +247,7 @@ namespace Epi.Web.BLL
 
                         }
                     }
-               
+                SetSourceTable(_Xml, SurveyId.ToString());
             return result;
             }
 
@@ -302,7 +305,7 @@ namespace Epi.Web.BLL
             {
 
             SurveyRequestResultBO result = new SurveyRequestResultBO();
-            
+            string _Xml = pRequestMessage.XML;
                 var SurveyId = new Guid(pRequestMessage.SurveyId);
 
                 if (pRequestMessage != null)
@@ -319,6 +322,9 @@ namespace Epi.Web.BLL
 
                                     if (pRequestMessage.IsSqlProject)
                                         this.SurveyInfoDao.ValidateServername(pRequestMessage);
+                                    XDocument xdoc = XDocument.Parse(pRequestMessage.XML);
+                                   xdoc.Descendants().Where(e => e.Name == "SourceTable").Remove();
+                                   pRequestMessage.XML = xdoc.ToString();
                                     this.SurveyInfoDao.UpdateSurveyInfo(ToBusinessObject(pRequestMessage, SurveyId));
                                 ////Insert Connection string..
                                 //DbConnectionStringBO DbConnectionStringBO = new DbConnectionStringBO();
@@ -364,7 +370,7 @@ namespace Epi.Web.BLL
 
                         }
                     }
-                
+                SetSourceTable(_Xml, SurveyId.ToString());
             return result;
             }
         private SurveyRequestResultBO RePublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
@@ -372,7 +378,7 @@ namespace Epi.Web.BLL
             SurveyRequestResultBO SurveyRequestResultBO = new Web.Enter.Common.BusinessObject.SurveyRequestResultBO();
             Dictionary<int, int> ViewIds = new Dictionary<int, int>();
             Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
-         
+            string _Xml = pRequestMessage.XML;
             List<SurveyInfoBO> FormsHierarchyIds = this.GetFormsHierarchyIdsByRootId(pRequestMessage.SurveyId.ToString());
             // 1- breck down the xml to n views
             List<string> XmlList = new List<string>();
@@ -431,7 +437,7 @@ namespace Epi.Web.BLL
                 this.SurveyInfoDao.UpdateParentId(SId, _ViewId.Key, PId);
 
                 }
-        
+            SetSourceTable(_Xml, SurveyIds[1].ToString());
             return SurveyRequestResultBO;
             }
 
@@ -443,7 +449,7 @@ namespace Epi.Web.BLL
             }
         private SurveyRequestResultBO PublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
             {
-
+            string _Xml = pRequestMessage.XML;
             SurveyRequestResultBO SurveyRequestResultBO = new Web.Enter.Common.BusinessObject.SurveyRequestResultBO();
            // Dictionary<int, int> ViewIds = new Dictionary<int, int>();
             Dictionary<int, string> SurveyIds = new Dictionary<int, string>();
@@ -451,10 +457,10 @@ namespace Epi.Web.BLL
             
             // 1- breck down the xml to n views
             List<string> XmlList = new List<string>();
-            XmlList = XmlChunking(pRequestMessage.XML);  
-
+            XmlList = XmlChunking(pRequestMessage.XML);
+            
             // 2- call publish() with each of the views
-            foreach (string Xml in XmlList)
+            foreach (string Xml in XmlList) //Pain Point
             {
             XDocument xdoc = XDocument.Parse(Xml);
             SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
@@ -473,7 +479,7 @@ namespace Epi.Web.BLL
             SurveyInfoBO.IsSqlProject = pRequestMessage.IsSqlProject;
             SurveyInfoBO.IsShareable = pRequestMessage.IsShareable;
             SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
-            SurveyRequestResultBO = Publish(SurveyInfoBO);
+            SurveyRequestResultBO = Publish(SurveyInfoBO); //temp
            // ParentId = SurveyRequestResultBO.URL.Split('/').Last();
             if (SurveyRequestResultBO.ViewIdAndFormIdList != null)
             {
@@ -482,20 +488,26 @@ namespace Epi.Web.BLL
             SurveyIds.Add(_ViewId, ParentId);
 
             }
-
+           
            
             foreach(var ViewId in this.ViewIds )
                 {
-              
-                string PId = SurveyIds[ViewId.Value].ToString();
-                string SId = SurveyIds[ViewId.Key].ToString();
-                this.SurveyInfoDao.UpdateParentId(SId, ViewId.Key, PId);
+                    try
+                    {
+                        string PId = SurveyIds[ViewId.Value].ToString();
+                        string SId = SurveyIds[ViewId.Key].ToString();
+                        this.SurveyInfoDao.UpdateParentId(SId, ViewId.Key, PId);
+                    } 
+                catch(Exception ex){
+
+                    throw ex;
+                }
            
                  }
-
+            SetSourceTable(_Xml, SurveyIds[1].ToString());
             SurveyRequestResultBO.ViewIdAndFormIdList = SurveyIds;
             SurveyRequestResultBO.URL = SurveyRequestResultBO.URL.Remove(SurveyRequestResultBO.URL.LastIndexOf('/'));
-
+            
             return SurveyRequestResultBO;
             }
 
@@ -512,7 +524,7 @@ namespace Epi.Web.BLL
 
                 int RelateViewId = 0;
                 int.TryParse(Item.Attribute("RelatedViewId").Value, out RelateViewId);
-                if (!this.ViewIds.ContainsKey(RelateViewId))
+                if (!this.ViewIds.ContainsKey(RelateViewId) )
                 {
                     this.ViewIds.Add(RelateViewId, ViewId);
                 }
@@ -520,7 +532,18 @@ namespace Epi.Web.BLL
 
           
             }
-
+        private void SetSourceTable(string Xml , string FormId)
+        {
+            
+            XDocument xdoc1 = XDocument.Parse(Xml);
+            foreach (XElement Xelement in xdoc1.Descendants("Template").Elements("SourceTable"))
+            {
+              //  Xelement.ToString()
+                string SourcetableName = Xelement.Attribute("TableName").Value;
+                this.SurveyInfoDao.InsertSourceTable(Xelement.ToString(), SourcetableName, FormId);
+            }
+            
+        }
         private List<string> XmlChunking(string Xml)
             {
             List<string> XmlList = new List<string>();
@@ -528,7 +551,8 @@ namespace Epi.Web.BLL
             XDocument xdoc1 = XDocument.Parse(Xml);
            
             xdoc.Descendants("View").Remove();
-
+          
+            xdoc.Descendants().Where(e => e.Name == "SourceTable").Remove(); //Remove the recouce table for the new process
             foreach (XElement Xelement in xdoc1.Descendants("Project").Elements("View"))
                 {
 
@@ -536,6 +560,7 @@ namespace Epi.Web.BLL
                 xdoc.Root.Element("Project").Add(Xelement);
                 XmlList.Add(xdoc.ToString());
                 xdoc.Descendants("View").Remove();
+             
                 }
 
             return XmlList;

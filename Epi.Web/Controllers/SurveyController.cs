@@ -95,7 +95,7 @@ namespace Epi.Web.MVC.Controllers
                     SurveyModel = GetIndex(responseId, PageNumber, "Edit", surveyid, IsAndroid);
                 }
             else{
-                SurveyModel = GetIndex(responseId, PageNumber, "",surveyid,IsAndroid);
+                SurveyModel = GetIndex(responseId, PageNumber, "",surveyid,IsAndroid);//Pain Point
                 
                 }
             string DateFormat = currentCulture.DateTimeFormat.ShortDatePattern;
@@ -130,7 +130,7 @@ namespace Epi.Web.MVC.Controllers
             //SurveyAnswerResponse SurveyAnswerResponseList = _isurveyFacade.GetAncestorResponses(SurveyAnswerRequest);
             
             
-            List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
+            List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();// Pain Point
 
                 if (!string.IsNullOrEmpty(SurveyId))
                 {
@@ -153,35 +153,18 @@ namespace Epi.Web.MVC.Controllers
                 {
                      IsMobileDevice = Epi.Web.MVC.Utility.SurveyHelper.IsMobileDevice(this.Request.UserAgent.ToString());
                 }
-
-
-                SurveyAnswerDTO surveyAnswerDTO = new SurveyAnswerDTO();
-                //if (Session["RequestedViewId"] != null)
-                //{
-
-                   // surveyAnswerDTO = GetSurveyAnswer(responseId, RelateSurveyId);
-                        //surveyAnswerDTO = (SurveyAnswerDTO)SurveyAnswerResponseList.SurveyResponseList.First(x => x.ResponseId == responseId ) ;
-                        surveyAnswerDTO = (SurveyAnswerDTO)FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == responseId) ;
-                                               
-                  // }
-                //else
-                //    {
-                //  //  surveyAnswerDTO = GetSurveyAnswer(responseId);
-                //        surveyAnswerDTO = (SurveyAnswerDTO)SurveyAnswerResponseList.SurveyResponseList.First(x => x.ResponseId == responseId) ;
-
-                //    }
                 if (!string.IsNullOrEmpty(Edit))
-                    {
-
-                    //Session["RootResponseId"] = responseId;
+                {//Session["RootResponseId"] = responseId;
                     if (IsMobileDevice == false)
                         {
                         Session["RootFormId"] = FormsHierarchy[0].FormId;
                         }
-                    }
+                 }
 
-                
 
+                SurveyAnswerDTO surveyAnswerDTO = new SurveyAnswerDTO();
+                surveyAnswerDTO = (SurveyAnswerDTO)FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == responseId.ToLower());
+               
                 PreValidationResultEnum ValidationTest = PreValidateResponse(Mapper.ToSurveyAnswerModel(surveyAnswerDTO));
                 if (PageNumber == 0)
                     {
@@ -570,7 +553,7 @@ namespace Epi.Web.MVC.Controllers
 
                                 //////////////////////UpDate Survey Mode//////////////////////////
 
-                                form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice, null, FormsHierarchy, IsAndroid);
+                                form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, PageNumber, SurveyAnswer, IsMobileDevice, null, FormsHierarchy, IsAndroid,false);
                                 form.FormValuesHasChanged = FormValuesHasChanged;
                                 TempData["Width"] = form.Width + 5;
                                 //PassCode start
@@ -675,15 +658,46 @@ namespace Epi.Web.MVC.Controllers
         {
             FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
             FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
+            SurveyAnswerRequest ResponseIDsHierarchyRequest = new SurveyAnswerRequest();
+            SurveyAnswerResponse ResponseIDsHierarchyResponse = new SurveyAnswerResponse();
+          // FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
             if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
             {
                 FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
                 FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
                 FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
+
+                SurveyAnswerDTO SurveyAnswerDTO = new Enter.Common.DTO.SurveyAnswerDTO();
+                SurveyAnswerDTO.ResponseId = Session["RootResponseId"].ToString();
+                ResponseIDsHierarchyRequest.SurveyAnswerList.Add(SurveyAnswerDTO);
+                ResponseIDsHierarchyResponse = _isurveyFacade.GetSurveyAnswerHierarchy(ResponseIDsHierarchyRequest);
+                FormsHierarchyResponse.FormsHierarchy = CombineLists(FormsHierarchyResponse.FormsHierarchy, ResponseIDsHierarchyResponse.SurveyResponseList);
             }
+
             return FormsHierarchyResponse.FormsHierarchy;
         }
+        private List<FormsHierarchyDTO> CombineLists(List<FormsHierarchyDTO> RelatedFormIDsList, List<SurveyAnswerDTO> AllResponsesIDsList)
+        {
 
+            List<FormsHierarchyDTO> List = new List<FormsHierarchyDTO>();
+
+            foreach (var Item in RelatedFormIDsList)
+            {
+                FormsHierarchyDTO FormsHierarchyDTO= new FormsHierarchyDTO();
+                FormsHierarchyDTO.FormId = Item.FormId;
+                FormsHierarchyDTO.ViewId = Item.ViewId;
+                FormsHierarchyDTO.IsSqlProject = Item.IsSqlProject;
+                FormsHierarchyDTO.IsRoot = Item.IsRoot;
+                FormsHierarchyDTO.SurveyInfo = Item.SurveyInfo;
+                if (AllResponsesIDsList != null)
+                {
+                    FormsHierarchyDTO.ResponseIds = AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId).ToList();
+                }
+                List.Add(FormsHierarchyDTO);
+            }
+            return List;
+
+        }
 
         private int GetCurrentPage()
         {
@@ -1272,7 +1286,7 @@ namespace Epi.Web.MVC.Controllers
                 }
                 else
                 {
-                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice, null,   FormsHierarchy,IsAndroid );
+                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice, null,   FormsHierarchy,IsAndroid,false );
                     form.FormValuesHasChanged = FormValuesHasChanged;
                     if (IsMobileDevice)
                     {
@@ -1619,6 +1633,75 @@ namespace Epi.Web.MVC.Controllers
                 Session["RelateButtonPageId"] = List;
                 }
             }
+        }
+        [HttpGet]
+        public JsonResult GetCodesValue(string SourceTableName= "", string SelectedValue="",string SurveyId="") 
+        {
+            string CacheIsOn = ConfigurationManager.AppSettings["CACHE_IS_ON"]; ;
+            string IsCacheSlidingExpiration = ConfigurationManager.AppSettings["CACHE_SLIDING_EXPIRATION"].ToString();
+            int CacheDuration = 0;
+            int.TryParse(ConfigurationManager.AppSettings["CACHE_DURATION"].ToString(), out CacheDuration);
+
+            var TableCode = Regex.Replace(SourceTableName.ToString(), @"[^0-9a-zA-Z]+", "");
+            TableCode = Regex.Replace(TableCode, @"\s+", "");
+            var CacheId = SurveyId + "_SourceTables";
+            SourceTablesResponse CacheObj = (SourceTablesResponse)HttpRuntime.Cache.Get(CacheId);
+           
+           
+
+            if (CacheIsOn.ToUpper() == "TRUE")
+            {
+                if (CacheObj == null)
+                {
+                    var SourceTables = _isurveyFacade.GetSourceTables(SurveyId);
+                    CacheObj = (SourceTablesResponse)SourceTables;
+                    if (IsCacheSlidingExpiration.ToUpper() == "TRUE")
+                    {
+
+                        HttpRuntime.Cache.Insert(CacheId, SourceTables, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(CacheDuration));
+                    }
+                    else
+                    {
+                        HttpRuntime.Cache.Insert(CacheId, SourceTables, null, DateTime.Now.AddMinutes(CacheDuration), Cache.NoSlidingExpiration);
+
+                    }
+                }
+               
+            }
+            else {
+                var SourceTables = _isurveyFacade.GetSourceTables(SurveyId);
+                CacheObj = (SourceTablesResponse)SourceTables;
+            
+            }
+            
+            try
+            {
+              
+                SourceTableDTO Table = CacheObj.List.Where(x => x.TableName.Contains(SourceTableName.ToString())).Single();
+                XDocument Xdoc = XDocument.Parse(Table.TableXml);
+                var _ControlValues = from _ControlValue in Xdoc.Descendants("Item")
+                                     where _ControlValue.Attributes().SingleOrDefault(xa => string.Equals(xa.Name.LocalName, SourceTableName,
+                                     StringComparison.InvariantCultureIgnoreCase)).Value == SelectedValue.ToString()
+                                     select _ControlValue;
+
+                 var Attributes = _ControlValues.Attributes().ToList();
+                Dictionary<string,string> List = new  Dictionary<string,string>();
+                 foreach (var Attribute in Attributes)
+                {
+                    List.Add(Attribute.Name.LocalName.ToLower(), Attribute.Value);
+                }
+
+
+
+                 return Json(List, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+                //throw ex;
+            }
+           
+        
         }
     }
 }

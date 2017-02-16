@@ -118,9 +118,11 @@ namespace Epi.Web.EF
             {
                // result. =  entity.DataAccessRuleId;
             }
-            result.OwnerFName = UserEntity.FirstName;
-            result.OwnerLName = UserEntity.LastName;
-           
+            if (UserEntity != null)
+            {
+                result.OwnerFName = UserEntity.FirstName;
+                result.OwnerLName = UserEntity.LastName;
+            }
             if (GetXml)
             {
                 result.Xml = entity.TemplateXML;
@@ -468,7 +470,7 @@ namespace Epi.Web.EF
         {
             User UserEntity = new User();
             UserEntity.EmailAddress = User.EmailAddress;
-            UserEntity.UserName = User.EmailAddress;
+            UserEntity.UserName = User.EmailAddress.ToLower();
             UserEntity.LastName = User.LastName;
             UserEntity.FirstName = User.FirstName;
             UserEntity.PhoneNumber = User.PhoneNumber;
@@ -550,6 +552,25 @@ namespace Epi.Web.EF
             Datasource.SurveyId = ConnectionString.SurveyId;
             Datasource.PersistSecurityInfo = ConnectionString.PersistSecurityInfo;
             return Datasource;
+        }
+
+        internal static List<SourceTableBO> MapToSourceTableBO(System.Data.DataTable dataTable)
+        {
+            List<SourceTableBO> List = new List<SourceTableBO>();
+          
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                 SourceTableBO SourceTableBO = new SourceTableBO();
+                 SourceTableBO.TableName = dataTable.Rows[i][0].ToString();
+                 SourceTableBO.TableXml = dataTable.Rows[i][2].ToString();
+                 
+
+
+                List.Add(SourceTableBO);
+            }
+            return List;
+            
         }
     }
 }

@@ -59,6 +59,7 @@
     <Compile Include="BusinessObject\OrganizationBO.cs" />
     <Compile Include="BusinessObject\PageInfoBO.cs" />
     <Compile Include="BusinessObject\ResponseXmlBO.cs" />
+    <Compile Include="BusinessObject\SourceTableBO.cs" />
     <Compile Include="BusinessObject\UserAuthenticationRequestBO.cs" />
     <Compile Include="BusinessObject\SurveyInfoBO.cs" />
     <Compile Include="BusinessObject\SurveyRequestBO.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\SurveyInfoCriteria.cs" />
     <Compile Include="DTO\AdminDTO.cs" />
+    <Compile Include="DTO\SourceTableDTO.cs" />
     <Compile Include="DTO\FormInfoDTO.cs" />
     <Compile Include="DTO\FormResponseInfoDTO.cs" />
     <Compile Include="DTO\FormSettingDTO.cs" />
@@ -105,6 +107,8 @@
     <Compile Include="Message\Base\PersistType.cs" />
     <Compile Include="Message\Base\RequestBase.cs" />
     <Compile Include="Message\Base\ResponseBase.cs" />
+    <Compile Include="Message\SourceTablesRequest.cs" />
+    <Compile Include="Message\SourceTablesResponse.cs" />
     <Compile Include="Message\FormResponseInfoRequest.cs" />
     <Compile Include="Message\FormResponseInfoResponse.cs" />
     <Compile Include="Message\FormSettingRequest.cs" />
