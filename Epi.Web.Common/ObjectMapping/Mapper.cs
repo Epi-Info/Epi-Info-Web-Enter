@@ -489,5 +489,19 @@ namespace Epi.Web.Enter.Common.ObjectMapping
 
             return xml.Trim();
             }
+
+        public static List<SourceTableDTO> ToSourceTableDTO(List<SourceTableBO> list)
+        {
+            List<SourceTableDTO> DTOList = new List<SourceTableDTO>();
+           
+            foreach (var item in list)
+            {
+                SourceTableDTO SourceTableDTO = new SourceTableDTO();
+                SourceTableDTO.TableName = item.TableName;
+                SourceTableDTO.TableXml  = item.TableXml ;
+                DTOList.Add(SourceTableDTO);
+           }
+            return DTOList;
+        }
         }
 }

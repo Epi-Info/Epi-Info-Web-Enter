@@ -13,7 +13,7 @@ namespace Epi.Web.EF
 {
     public class EntityFormSettingDao : IFormSettingDao
     {
-        public FormSettingBO GetFormSettings(string FormId, int CurrentOrgId)
+        public FormSettingBO GetFormSettings(string FormId, int CurrentOrgId, bool FormInfoOnly)
         {
 
             FormSettingBO FormSettingBO = new FormSettingBO();
@@ -44,82 +44,92 @@ namespace Epi.Web.EF
 
                     }
 
-                    
 
-
-                    //var SelectedUserQuery = from FormInfo in Context.SurveyMetaDatas
-                    //            join UserInfo in Context.Users
-                    //            on FormInfo.OwnerId equals UserInfo.UserID
-                    //            into temp
-                    //            from UserInfo in temp.DefaultIfEmpty()
-                    //            where FormInfo.SurveyId == id
-                    //            select new { FormInfo, UserInfo };
-
-                    SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
-
-                   // var SelectedOrgId = SelectedUserQuery.OrganizationId;
-                    var SelectedOrgId = CurrentOrgId;
-                    var query = (from user in SelectedUserQuery.Users
-                                join userorg in Context.UserOrganizations
-                            on user.UserID equals userorg.UserID
-                                where userorg.Active == true &&
-                                userorg.OrganizationID == SelectedOrgId
-                               // orderby user.UserName
-                                select user).Distinct().OrderBy(user => user.UserName) ;
-
-                    // IEnumerable<User> Users = SelectedUserQuery.Users;
-                    foreach (var user in query)
+                    if (!FormInfoOnly)
                     {
-                        SelectedUsers.Add(user.UserID, user.UserName);
-                    }
 
-                    //foreach (var Selecteduser in SelectedUserQuery)
-                    //    {
-                    //    SelectedUsers.Add(Selecteduser.UserInfo.UserID, Selecteduser.UserInfo.UserName);
-                    //    }
+                        //var SelectedUserQuery = from FormInfo in Context.SurveyMetaDatas
+                        //            join UserInfo in Context.Users
+                        //            on FormInfo.OwnerId equals UserInfo.UserID
+                        //            into temp
+                        //            from UserInfo in temp.DefaultIfEmpty()
+                        //            where FormInfo.SurveyId == id
+                        //            select new { FormInfo, UserInfo };
 
+                        SurveyMetaData SelectedUserQuery = Context.SurveyMetaDatas.First(x => x.SurveyId == id);
 
-                    var UserQuery = (from user in Context.Users
-                                    join userorg in Context.UserOrganizations
-                                    on user.UserID equals userorg.UserID
+                        // var SelectedOrgId = SelectedUserQuery.OrganizationId;
+                        var SelectedOrgId = CurrentOrgId;
+                        var query = (from user in SelectedUserQuery.Users
+                                     join userorg in Context.UserOrganizations
+                                 on user.UserID equals userorg.UserID
                                      where userorg.Active == true &&
-                                 userorg.OrganizationID == SelectedOrgId
-                                    //orderby user.UserName
+                                     userorg.OrganizationID == SelectedOrgId
+                                     // orderby user.UserName
                                      select user).Distinct().OrderBy(user => user.UserName);
 
-
-
-                    foreach (var user in UserQuery)
-                    {
-                        if (!SelectedUsers.ContainsValue(user.UserName) && user.UserID != SelectedUserQuery.OwnerId)
+                        // IEnumerable<User> Users = SelectedUserQuery.Users;
+                        foreach (var user in query)
                         {
-                            AvailableUsers.Add(user.UserID, user.UserName);
+                            SelectedUsers.Add(user.UserID, user.UserName);
+                        }
+
+                        //foreach (var Selecteduser in SelectedUserQuery)
+                        //    {
+                        //    SelectedUsers.Add(Selecteduser.UserInfo.UserID, Selecteduser.UserInfo.UserName);
+                        //    }
+
+
+                        var UserQuery = (from user in Context.Users
+                                         join userorg in Context.UserOrganizations
+                                         on user.UserID equals userorg.UserID
+                                         where userorg.Active == true &&
+                                     userorg.OrganizationID == SelectedOrgId
+                                         //orderby user.UserName
+                                         select user).Distinct().OrderBy(user => user.UserName);
+
+
+
+                        foreach (var user in UserQuery)
+                        {
+                            if (!SelectedUsers.ContainsValue(user.UserName) && user.UserID != SelectedUserQuery.OwnerId)
+                            {
+                                AvailableUsers.Add(user.UserID, user.UserName);
+                            }
+                        }
+
+                        //// Select Orgnization list 
+                        var OrganizationQuery = Context.Organizations.Where(c => c.SurveyMetaDatas.Any(a => a.SurveyId == id)).ToList();
+
+
+                        foreach (var org in OrganizationQuery)
+                        {
+
+                            SelectedOrgs.Add(org.OrganizationId, org.Organization1);
+                        }
+                        ////  Available Orgnization list 
+
+                        IQueryable<Organization> OrganizationList = Context.Organizations.ToList().AsQueryable();
+                        foreach (var Org in OrganizationList)
+                        {
+                            if (!SelectedOrgs.ContainsValue(Org.Organization1) && Org.IsEnabled == true)
+                            {
+                                AvailableOrgs.Add(Org.OrganizationId, Org.Organization1);
+                            }
                         }
                     }
-                   
-                    //// Select Orgnization list 
-                    var OrganizationQuery = Context.Organizations.Where(c => c.SurveyMetaDatas.Any(a => a.SurveyId == id)).ToList();
-
- 
-                       foreach(var org in OrganizationQuery){
-
-                           SelectedOrgs.Add(org.OrganizationId, org.Organization1);
-                       }
-                       ////  Available Orgnization list 
-
-                       IQueryable<Organization> OrganizationList = Context.Organizations.ToList().AsQueryable();
-                       foreach (var Org in OrganizationList)
-                       {
-                           if (!SelectedOrgs.ContainsValue(Org.Organization1) && Org.IsEnabled== true)
-                           {
-                               AvailableOrgs.Add(Org.OrganizationId, Org.Organization1);
-                           }
-                       }
                        //// Select DataAccess Rule Ids  list 
-                     var MetaData = Context.SurveyMetaDatas.Where( a => a.SurveyId == id).Single();
+               //     var MetaData = Context.SurveyMetaDatas.Where(a => a.SurveyId == id).Select(u => u.DataAccessRuleId); ;
 
+                    var MetaData = from r in Context.SurveyMetaDatas
+                                   where r.SurveyId == id
+                                   select new
+                                    {
+                                        Id = r.DataAccessRuleId,
+                                 
+                                    };
 
-                      selectedDataAccessRuleId = int.Parse(MetaData.DataAccessRuleId.ToString()); 
+                    selectedDataAccessRuleId = int.Parse(MetaData.First().Id.ToString()); 
                        ////  Available DataAccess Rule Ids  list 
 
                        IQueryable<DataAccessRule> RuleIDs = Context.DataAccessRules.ToList().AsQueryable();

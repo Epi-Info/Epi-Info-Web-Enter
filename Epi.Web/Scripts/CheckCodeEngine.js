@@ -2573,35 +2573,7 @@ function CCE_HasFormValuesChanged()
     }
  
 
-function SetCodes_Val(obj)
-{
-    
-    var RelateCondition = $("#" +obj.id + "_RelateConditionHidden").val();
-    var ListArray = RelateCondition.split(',');
-    var selectedValue = obj.value;
-    
-    selectedValue = selectedValue.replace(/[^\w\s]/gi, '')
-    selectedValue = selectedValue.replace(/\s+/g, '');
-    var array = eval(selectedValue);
-    //alert(array[0]);
-    for (var i = 0; i < ListArray.length; i++)
-    {
-        var Query = "#mvcdynamicfield_" + ListArray[i];
-        // alert(Query);
-        for (var j = 0; j < array.length; j++)
-        {
-            var temp = array[j].toLowerCase();
-            if (temp.toString().indexOf(ListArray[i]) !== -1)
-            {
-              //  alert(array[j]);
-                var Value = array[j].split(',');
-              //  alert(Value[0]);
-                $(Query).val(Value[1]);
-            }
-        }
-    }
 
-}
   
 
 

@@ -65,15 +65,19 @@
       <xs:element minOccurs="0" name="DBConnectionString" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DataAccessRuleId" type="xs:int" />
       <xs:element minOccurs="0" name="DepartmentName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EwavLiteToggleSwitch" type="xs:boolean" />
       <xs:element minOccurs="0" name="ExitText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HasDraftModeData" type="xs:boolean" />
       <xs:element minOccurs="0" name="IntroductionText" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsDraftMode" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsShareable" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsShared" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsSqlProject" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsSuccess" type="xs:boolean" />
       <xs:element minOccurs="0" name="OrganizationKey" type="ser:guid" />
       <xs:element minOccurs="0" name="OrganizationName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="OwnerId" type="xs:int" />
+      <xs:element minOccurs="0" name="ParentId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StartDate" type="xs:dateTime" />
       <xs:element minOccurs="0" name="SurveyId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SurveyName" nillable="true" type="xs:string" />
@@ -315,6 +319,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="CurrentOrgId" type="xs:int" />
           <xs:element minOccurs="0" name="FormInfo" nillable="true" type="tns:FormInfoDTO" />
+          <xs:element minOccurs="0" name="FormInfoOnly" type="xs:boolean" />
           <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.DTO" minOccurs="0" name="FormSetting" nillable="true" type="q8:ArrayOfFormSettingDTO" />
           <xs:element minOccurs="0" name="GetXml" type="xs:boolean" />
         </xs:sequence>
@@ -364,7 +369,9 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="FormId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IsRoot" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSqlProject" type="xs:boolean" />
       <xs:element minOccurs="0" name="ResponseIds" nillable="true" type="tns:ArrayOfSurveyAnswerDTO" />
+      <xs:element minOccurs="0" name="SurveyInfo" nillable="true" type="tns:SurveyInfoDTO" />
       <xs:element minOccurs="0" name="ViewId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
@@ -396,4 +403,20 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="OrganizationResponse" nillable="true" type="tns:OrganizationResponse" />
+  <xs:complexType name="DropDownsRequest">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DropDownsRequest" nillable="true" type="tns:DropDownsRequest" />
+  <xs:complexType name="DropDownsResponse">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:RequestBase">
+        <xs:sequence />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DropDownsResponse" nillable="true" type="tns:DropDownsResponse" />
 </xs:schema>

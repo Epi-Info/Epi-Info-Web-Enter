@@ -75,7 +75,7 @@ namespace Epi.Web.MVC.Facade
             Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
             bool IsMobileDevice, 
             List<SurveyAnswerDTO> _SurveyAnswerDTOList = null,
-            List<Epi.Web.Enter.Common.DTO.FormsHierarchyDTO> FormsHierarchyDTOList = null, bool IsAndroid = false)
+            List<Epi.Web.Enter.Common.DTO.FormsHierarchyDTO> FormsHierarchyDTOList = null, bool IsAndroid = false, bool GetSourceTables = true)
         {
             List<SurveyInfoDTO> List = new List<SurveyInfoDTO>();
 
@@ -84,7 +84,7 @@ namespace Epi.Web.MVC.Facade
             Epi.Web.Enter.Common.DTO.SurveyInfoDTO surveyInfoDTO;
             if (FormsHierarchyDTOList == null)
             {
-            surveyInfoDTO =  SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest, _iSurveyInfoRepository, surveyId);
+            surveyInfoDTO =  SurveyHelper.GetSurveyInfoDTO(_surveyInfoRequest, _iSurveyInfoRepository, surveyId);//Pain Point 5s
             if (_SurveyAnswerDTOList != null)
             {
                 foreach (var item in _SurveyAnswerDTOList)
@@ -106,17 +106,17 @@ namespace Epi.Web.MVC.Facade
              
                 _SurveyAnswerDTOList = new List<SurveyAnswerDTO>();
                 _SurveyAnswerDTOList.Add(surveyAnswerDTO);
-
-                foreach (var item in FormsHierarchyDTOList)
+                var DTOList = FormsHierarchyDTOList.Where(x => x.ResponseIds.Count() > 0);
+                foreach (var item in DTOList)
                 {
-                    if (item.ResponseIds.Count() > 0)
-                    {
+                    //if (item.ResponseIds.Count() > 0)
+                    //{
                         var DTO = item.ResponseIds.FirstOrDefault(z => z.ResponseId == surveyAnswerDTO.RelateParentId);
                         if (DTO != null && !_SurveyAnswerDTOList.Contains(DTO))
 
                             _SurveyAnswerDTOList.Add(DTO);
                         
-                    }
+                    //}
                 }
 
                 foreach (var item in _SurveyAnswerDTOList)
@@ -127,8 +127,15 @@ namespace Epi.Web.MVC.Facade
                  
                   
             }
-                MvcDynamicForms.Form form = null;
-
+            MvcDynamicForms.Form form = null;
+            SourceTablesResponse Response = new SourceTablesResponse();
+            SourceTablesRequest Request = new Enter.Common.Message.SourceTablesRequest();
+            if (GetSourceTables)
+            { 
+                Request.SurveyId = surveyId;
+                Response = _iSurveyInfoRepository.GetSourceTables( Request);//Pain Point 
+                  
+            }
             if (IsMobileDevice)
             {
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyInfoList = List;
@@ -139,7 +146,7 @@ namespace Epi.Web.MVC.Facade
             {
                 Epi.Web.MVC.Utility.FormProvider.SurveyInfoList = List;
                 Epi.Web.MVC.Utility.FormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
-                form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO,IsAndroid );
+                form = Epi.Web.MVC.Utility.FormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO, IsAndroid, Response.List);
             }
             return form;
         }
@@ -447,6 +454,15 @@ namespace Epi.Web.MVC.Facade
         {
 
             return _iSurveyAnswerRepository.HasResponse(SurveyId, ResponseId);
+        }
+        public SourceTablesResponse GetSourceTables(string surveyId)
+        {
+            SourceTablesResponse Response = new SourceTablesResponse();
+            SourceTablesRequest Request = new SourceTablesRequest();
+
+            Request.SurveyId = surveyId;
+            Response = _iSurveyInfoRepository.GetSourceTables(Request);//Pain Point 
+            return Response;
         }
     }
 }

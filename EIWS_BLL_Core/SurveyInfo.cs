@@ -364,6 +364,14 @@ namespace Epi.Web.BLL
                 }
             }
             return List;
-        }     
+        }
+
+        public List<SourceTableBO> GetSourceTables( string SurveyId)
+        {
+            List<SourceTableBO> List = new List<SourceTableBO>();
+            List = this.SurveyInfoDao.GetSourceTables(SurveyId);
+
+            return List;
+        }
     }
 }

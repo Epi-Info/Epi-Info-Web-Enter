@@ -1679,10 +1679,18 @@ namespace Epi.Web.EF
             {
 
 
-                var Response = Context.SurveyMetaDatas.Single(x => x.SurveyId == Id);
+                 
+                var Response = from r in Context.SurveyMetaDatas
+                               where r.SurveyId == Id
+                               select new
+                               {
+                                   IsSQLProject = r.IsSQLProject,
+
+                               };
+
                 if (Response != null)
                 {
-                    IsSqlProj = (bool)Response.IsSQLProject;
+                    IsSqlProj = (bool)Response.First().IsSQLProject;
 
                 }
 
@@ -2505,9 +2513,18 @@ namespace Epi.Web.EF
             Guid Id = new Guid(FormId);
              using (var Context = DataObjectFactory.CreateContext())
                 {
-                    var FormInfo = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id ).First();
+                    //var FormInfo = Context.SurveyMetaDatas.Where(x => x.SurveyId == Id ).First();
 
-                    RuleId = int.Parse(FormInfo.DataAccessRuleId.ToString());
+                    //RuleId = int.Parse(FormInfo.DataAccessRuleId.ToString());
+                    var MetaData = from r in Context.SurveyMetaDatas
+                                   where r.SurveyId == Id
+                                   select new
+                                   {
+                                       Id = r.DataAccessRuleId,
+
+                                   };
+
+                    RuleId = int.Parse(MetaData.First().Id.ToString()); 
                
                }
 

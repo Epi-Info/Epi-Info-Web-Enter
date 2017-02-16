@@ -204,6 +204,7 @@ namespace Epi.Web.MVC
             //    "EIWST/ManagerService", // URL with parameters
             //    new { controller = "EIWST", action = "TestManagerService" }
             //); // Parameter defaults
+           
             routes.MapRoute
              (
                null,                                              // Route name
@@ -235,7 +236,12 @@ namespace Epi.Web.MVC
                    "Survey/AddChild", // URL with parameters
                    new { controller = "Survey", action = "AddChild" }
                );
-          
+            routes.MapRoute
+            (
+                null, // Route name
+                "Survey/GetCodesValue", // URL with parameters
+                new { controller = "Survey", action = "GetCodesValue" }
+            ); 
             routes.MapRoute
               (
                   null, // Route name
@@ -383,7 +389,8 @@ namespace Epi.Web.MVC
                   "AdminUser/{userid}/{iseditmode}/{orgid}", // URL with parameters
                   new { controller = "AdminUser", action = "UserInfo", userid = UrlParameter.Optional, iseditmode = UrlParameter.Optional, orgid = UrlParameter.Optional }
               ); // Parameter defaults
-
+            //GetCodesValue
+          
             //routes.MapRoute(
             //   "Default", // Route name
             //   "{*url}", // URL with parameters
