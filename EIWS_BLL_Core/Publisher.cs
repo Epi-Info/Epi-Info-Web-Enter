@@ -180,7 +180,7 @@ namespace Epi.Web.BLL
             string _Xml = pRequestMessage.XML;
            
                 var SurveyId = Guid.NewGuid();
-
+               
                 if (pRequestMessage != null)
                     {
 
@@ -351,6 +351,7 @@ namespace Epi.Web.BLL
 
 
 
+
                             }
                         else
                             {
@@ -370,7 +371,7 @@ namespace Epi.Web.BLL
 
                         }
                     }
-                SetSourceTable(_Xml, SurveyId.ToString());
+               
             return result;
             }
         private SurveyRequestResultBO RePublishRelatedFormSurvey(SurveyInfoBO pRequestMessage)
@@ -437,7 +438,9 @@ namespace Epi.Web.BLL
                 this.SurveyInfoDao.UpdateParentId(SId, _ViewId.Key, PId);
 
                 }
-            SetSourceTable(_Xml, SurveyIds[1].ToString());
+            var _SId = SurveyIds.Keys.ElementAt(0);
+
+            SetSourceTable(_Xml, SurveyIds[_SId].ToString());
             return SurveyRequestResultBO;
             }
 
@@ -481,6 +484,7 @@ namespace Epi.Web.BLL
             SurveyInfoBO.DBConnectionString = pRequestMessage.DBConnectionString;
             SurveyRequestResultBO = Publish(SurveyInfoBO); //temp
            // ParentId = SurveyRequestResultBO.URL.Split('/').Last();
+          
             if (SurveyRequestResultBO.ViewIdAndFormIdList != null)
             {
             ParentId = SurveyRequestResultBO.ViewIdAndFormIdList[_ViewId];
