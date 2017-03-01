@@ -131,8 +131,8 @@ namespace Epi.Web.MVC.Facade
             SourceTablesResponse Response = new SourceTablesResponse();
             SourceTablesRequest Request = new Enter.Common.Message.SourceTablesRequest();
             if (GetSourceTables)
-            { 
-                Request.SurveyId = surveyId;
+            {
+                Request.SurveyId = FormsHierarchyDTOList[0].FormId.ToString();
                 Response = _iSurveyInfoRepository.GetSourceTables( Request);//Pain Point 
                   
             }
