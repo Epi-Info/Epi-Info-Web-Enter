@@ -440,7 +440,7 @@ namespace Epi.Web.BLL
                 }
             var _SId = SurveyIds.Keys.ElementAt(0);
 
-            SetSourceTable(_Xml, SurveyIds[_SId].ToString());
+            ReSetSourceTable(_Xml, FormsHierarchyIds[0].SurveyId);
             return SurveyRequestResultBO;
             }
 
@@ -547,6 +547,18 @@ namespace Epi.Web.BLL
                 this.SurveyInfoDao.InsertSourceTable(Xelement.ToString(), SourcetableName, FormId);
             }
             
+        }
+        private void ReSetSourceTable(string Xml, string FormId)
+        {
+
+            XDocument xdoc1 = XDocument.Parse(Xml);
+            foreach (XElement Xelement in xdoc1.Descendants("Template").Elements("SourceTable"))
+            {
+                //  Xelement.ToString()
+                string SourcetableName = Xelement.Attribute("TableName").Value;
+                this.SurveyInfoDao.UpdateSourceTable(Xelement.ToString(), SourcetableName, FormId);
+            }
+
         }
         private List<string> XmlChunking(string Xml)
             {

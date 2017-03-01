@@ -704,6 +704,38 @@ namespace Epi.Web.EF
 
        
        }
+       public void UpdateSourceTable(string SourcetableXml, string SourcetableName, string FormId)
+       {
+
+
+
+           string EWEConnectionString = DataObjectFactory.EWEADOConnectionString;
+           SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
+           EWEConnection.Open();
+           // SqlCommand Command = new SqlCommand(Query, EWEConnection);
+           SqlCommand Command = new SqlCommand();
+           Command.Connection = EWEConnection;
+           try
+           {
+               Guid Id = new Guid(FormId);
+               Command.CommandType = CommandType.Text;
+
+
+               Command.CommandText = "UPDATE Sourcetables  SET SourceTableXml ='" + SourcetableXml.Replace("'", "''") + "'  where FormId =" + "'" + FormId + "' And  SourcetableName='" + SourcetableName + "'";
+
+               Command.ExecuteNonQuery();
+                
+
+               EWEConnection.Close();
+           }
+           catch (Exception)
+           {
+               EWEConnection.Close();
+
+           }
+       
+       
+       }
        public List<SourceTableBO> GetSourceTables(string FormId)
        {
            List<SourceTableBO> result = new List<SourceTableBO>();
