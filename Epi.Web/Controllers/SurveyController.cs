@@ -1653,7 +1653,7 @@ namespace Epi.Web.MVC.Controllers
             {
                 if (CacheObj == null)
                 {
-                    var SourceTables = _isurveyFacade.GetSourceTables(SurveyId);
+                    var SourceTables = _isurveyFacade.GetSourceTables(Session["RootFormId"].ToString());
                     CacheObj = (SourceTablesResponse)SourceTables;
                     if (IsCacheSlidingExpiration.ToUpper() == "TRUE")
                     {
@@ -1669,7 +1669,7 @@ namespace Epi.Web.MVC.Controllers
                
             }
             else {
-                var SourceTables = _isurveyFacade.GetSourceTables(SurveyId);
+                var SourceTables = _isurveyFacade.GetSourceTables(Session["RootFormId"].ToString());
                 CacheObj = (SourceTablesResponse)SourceTables;
             
             }
