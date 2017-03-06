@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System;
 using System.Xml.XPath;
 using Epi.Core.EnterInterpreter;
+using System.Web.Mvc;
 
 namespace Epi.Web.MVC.Utility
 {
@@ -869,18 +870,9 @@ namespace Epi.Web.MVC.Utility
         public static string GetDropDownValues(XDocument xdoc, string ControlName, string TableName, string CodeColumnName, string RelateCondition = "")
         {
             StringBuilder DropDownValues = new StringBuilder();
-            List<string> CodesItemList1 = new List<string>();
-            CodesList = new Dictionary<string, List<string>>();
-            if (!string.IsNullOrEmpty(RelateCondition))
-            {
-                List<string> CodesItemList = RelateCondition.Split(',').ToList();
 
-                foreach (var item in CodesItemList)
-                {
-                    CodesItemList1.Add(item.Remove(item.IndexOf(':')));
 
-                }
-            }
+
 
             if (!string.IsNullOrEmpty(xdoc.ToString()))
             {
@@ -901,30 +893,20 @@ namespace Epi.Web.MVC.Utility
 
                                              select _SourceTableValue;
 
+                    var ScriptRelateCondition = new TagBuilder("script");
                     foreach (var _SourceTableValue in _SourceTableValues)
                     {
 
                         // DropDownValues.Append(_SourceTableValue.LastAttribute.Value );
                         if (!string.IsNullOrEmpty(CodeColumnName))
                         {
-                            string Xelement = _SourceTableValue.ToString().ToLower();
+                            string Xelement = _SourceTableValue.ToString();
+
                             XElement NewXElement = XElement.Parse(Xelement);
-                            if (NewXElement.Attribute(CodeColumnName.ToLower()) != null)
+                            if (NewXElement.Attribute(CodeColumnName) != null)
                             {
-                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim());
-                                if (CodesItemList1.Count() > 0)
-                                {
-                                    List<string> List = new List<string>();
-                                    foreach (var item in CodesItemList1)
-                                    {
-                                        //DropDownValues.Append("(:)");
-                                        //DropDownValues.Append(NewXElement.Attribute(item.ToLower()));
-                                        List.Add(NewXElement.Attribute(item.ToLower()).ToString());
+                                DropDownValues.Append(NewXElement.Attribute(CodeColumnName).Value.Trim());
 
-
-                                    }
-                                    CodesList.Add(NewXElement.Attribute(CodeColumnName.ToLower()).Value.Trim(), List);
-                                }
                             }
                             else
                             {
