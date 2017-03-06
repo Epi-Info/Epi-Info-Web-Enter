@@ -18,7 +18,7 @@ namespace Epi.Web.MVC.Utility
         public static List<Epi.Web.Enter.Common.DTO.SurveyAnswerDTO> SurveyAnswerList;
         public static List<Epi.Web.Enter.Common.DTO.SurveyInfoDTO> SurveyInfoList;
         public static Dictionary<string, List<string>> CodesList = new Dictionary<string, List<string>>();
-        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer, bool IsAndroid = false)
+        public static Form GetForm(object SurveyMetaData, int PageNumber, Epi.Web.Enter.Common.DTO.SurveyAnswerDTO _SurveyAnswer, bool IsAndroid = false, List<Epi.Web.Enter.Common.DTO.SourceTableDTO> SourceTableList = null)
         {
             string SurveyAnswer;
 
@@ -219,33 +219,55 @@ namespace Epi.Web.MVC.Utility
                                 break;
                             case "17"://DropDown LegalValues
 
+                                //string DropDownValues1 = "";
+                                //DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
+                                //var _DropDownSelectedValue1 = Value;
+                                //form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue1, DropDownValues1, 17, form));
+                                  string TableName1 = _FieldTypeID.Attribute("SourceTableName").Value;
                                 string DropDownValues1 = "";
-                                DropDownValues1 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
+                                if (SourceTableList!= null && SourceTableList.Count() > 0)
+                                {
+                                var SourceTableXml1 = SourceTableList.Where(x => x.TableName == TableName1).Select(y=>y.TableXml).ToList();
+                              
+                                DropDownValues1 = GetDropDownValues( XDocument.Parse(SourceTableXml1[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName1, _FieldTypeID.Attribute("TextColumnName").Value);
+                                }
                                 var _DropDownSelectedValue1 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue1, DropDownValues1, 17, form));
-                                //                                             pName, pType, pSource
-                                //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "legalvalue", "datasource",Value)); 
-
+                                
                                 break;
                             case "18"://DropDown Codes
 
+                                //string DropDownValues2 = "";
+                                //DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
+                                //var _DropDownSelectedValue2 = Value;
+                                //form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form));
+                                string TableName2 = _FieldTypeID.Attribute("SourceTableName").Value;
                                 string DropDownValues2 = "";
-                                DropDownValues2 = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
+                                if (SourceTableList != null && SourceTableList.Count() > 0)
+                                {
+                                    var SourceTableXml2 = SourceTableList.Where(x => x.TableName == TableName2).Select(y=>y.TableXml).ToList();
+                                    DropDownValues2 = GetDropDownValues( XDocument.Parse(SourceTableXml2[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName2, _FieldTypeID.Attribute("TextColumnName").Value, _FieldTypeID.Attribute("RelateCondition").Value);
+                                }
                                 var _DropDownSelectedValue2 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form));
-                                //                                             pName, pType, pSource
-                                //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "code", "datasource",Value)); 
-
+                                
                                 break;
                             case "19"://DropDown CommentLegal
 
+                                //string DropDownValues = "";
+                                //DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
+                                //var _DropDownSelectedValue = Value;
+                                //form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue, DropDownValues, 19, form));
+                                 string TableName = _FieldTypeID.Attribute("SourceTableName").Value;
                                 string DropDownValues = "";
-                                DropDownValues = GetDropDownValues(xdoc, _FieldTypeID.Attribute("Name").Value, _FieldTypeID.Attribute("SourceTableName").Value, _FieldTypeID.Attribute("TextColumnName").Value);
-                                var _DropDownSelectedValue = Value;
+                                if (SourceTableList != null && SourceTableList.Count() > 0)
+                                {
+                                    var SourceTableXml = SourceTableList.Where(x => x.TableName == TableName).Select(y=>y.TableXml).ToList();
+                                    DropDownValues = GetDropDownValues( XDocument.Parse(SourceTableXml[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName, _FieldTypeID.Attribute("TextColumnName").Value);
+                                }
+                                    var _DropDownSelectedValue = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue, DropDownValues, 19, form));
-                                //                                             pName, pType, pSource
-                                //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "commentlegal", "datasource",Value)); 
-
+                                
                                 break;
                                 
                             case "20"://RelateButton
@@ -824,6 +846,7 @@ namespace Epi.Web.MVC.Utility
                 ControlFontSize = float.Parse(_FieldTypeID.Attribute("ControlFontSize").Value),
                 ControlFontStyle = _FieldTypeID.Attribute("ControlFontStyle").Value,
                 IsAndroidfield = form.IsAndroid,
+                RelateCondition = _FieldTypeID.Attribute("RelateCondition").Value,
                 EmptyOption = "Select"
 
             };

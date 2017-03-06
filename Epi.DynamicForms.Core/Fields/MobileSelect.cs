@@ -148,7 +148,12 @@ namespace MvcDynamicForms.Fields
              {
                  select.Attributes.Add("onclick", "return " + _key + "_click(this.id);"); //click
              }
+             if (!string.IsNullOrEmpty(this.RelateCondition))
+             {
 
+                 select.Attributes.Add("onchange", "return SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+
+             }
             ////////////Check code end//////////////////
             int LargestChoiseLength = 0;
             string measureString = "";
