@@ -245,8 +245,8 @@ namespace Epi.Web.MVC.Controllers
 			SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
 			XDocument xdoc = XDocument.Parse(surveyInfoModel.XML);
 
-            MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice, null, FormsHierarchy,IsAndroid );
-
+           // MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice, null, FormsHierarchy,IsAndroid,false );
+            MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice, null, null, IsAndroid, true);
 			var _FieldsTypeIDs = from _FieldTypeID in
 									 xdoc.Descendants("Field")
 								 select _FieldTypeID;
@@ -309,7 +309,7 @@ namespace Epi.Web.MVC.Controllers
 			}
 
 			//SurveyAnswer = _isurveyFacade.GetSurveyAnswerResponse(SurveyAnswer.ResponseId).SurveyResponseList[0];
-            SurveyAnswer = (SurveyAnswerDTO)FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == SurveyAnswer.ResponseId);
+          //  SurveyAnswer = (SurveyAnswerDTO)FormsHierarchy.SelectMany(x => x.ResponseIds).FirstOrDefault(z => z.ResponseId == SurveyAnswer.ResponseId);
 			///////////////////////////// Execute - Record Before - End//////////////////////
 			//string page;
 			// return RedirectToAction(Epi.Web.Models.Constants.Constant.INDEX, Epi.Web.Models.Constants.Constant.SURVEY_CONTROLLER, new {id="page" });

@@ -132,15 +132,23 @@ namespace Epi.Web.MVC.Facade
             SourceTablesRequest Request = new Enter.Common.Message.SourceTablesRequest();
             if (GetSourceTables)
             {
-                Request.SurveyId = FormsHierarchyDTOList[0].FormId.ToString();
-                Response = _iSurveyInfoRepository.GetSourceTables( Request);//Pain Point 
-                  
+                if (IsMobileDevice)
+                {
+                    Request.SurveyId = surveyId;
+                    Response = _iSurveyInfoRepository.GetSourceTables(Request);//Pain Point 
+                }
+                else 
+                {
+                    Request.SurveyId = FormsHierarchyDTOList[0].FormId.ToString();
+                    Response = _iSurveyInfoRepository.GetSourceTables(Request);//Pain Point 
+                
+                }  
             }
             if (IsMobileDevice)
             {
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyInfoList = List;
                 Epi.Web.MVC.Utility.MobileFormProvider.SurveyAnswerList = _SurveyAnswerDTOList;
-                form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO,IsAndroid );
+                form = Epi.Web.MVC.Utility.MobileFormProvider.GetForm(surveyInfoDTO, pageNumber, surveyAnswerDTO, IsAndroid, Response.List);
             }
             else
             {
