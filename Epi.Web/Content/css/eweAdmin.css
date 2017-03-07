@@ -142,7 +142,7 @@
 
 /* forms */
 fieldset {
-    border: none;
+    border: 0px solid !important;
     margin: 0;
     padding: 0;
 }
@@ -238,12 +238,12 @@ select {
     font-family: "Segoe UI",Helvetica,"Helvetica Neue",Sans-Serif;
     font-weight: 300;
     font-size:1.0em;
-     height: 36px;
+    /* height: 36px;*/
     line-height: 24px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding: 5px;
+    /*padding: 5px;*/
     margin: 5px 0 4px;
     min-height: 24px;
     min-width: 80px;
