@@ -1101,6 +1101,7 @@ namespace Epi.Web.MVC.Controllers
         {
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
             bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
+            List<FormsHierarchyDTO> FormsHierarchy = GetFormsHierarchy();
             //if (!string.IsNullOrEmpty(EditForm))
             //    {
             //    Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm);
@@ -1134,7 +1135,7 @@ namespace Epi.Web.MVC.Controllers
             SurveyAnswer.IsDraftMode = surveyInfoModel.IsDraftMode;
             XDocument xdoc = XDocument.Parse(surveyInfoModel.XML);
 
-            MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice,null,null,IsAndroid);
+            MvcDynamicForms.Form form = _isurveyFacade.GetSurveyFormData(SurveyAnswer.SurveyId, 1, SurveyAnswer, IsMobileDevice, null, FormsHierarchy, IsAndroid);
 
             var _FieldsTypeIDs = from _FieldTypeID in
                                      xdoc.Descendants("Field")
