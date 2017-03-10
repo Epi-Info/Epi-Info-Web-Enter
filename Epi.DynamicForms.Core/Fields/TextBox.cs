@@ -15,7 +15,7 @@ namespace MvcDynamicForms.Fields
     {
 
 
-        
+        public bool Iscodes { get; set; }
 
         public override string RenderHtml()
         { 
@@ -60,7 +60,16 @@ namespace MvcDynamicForms.Fields
                     
                     txt.Attributes.Add("onfocus", "return "+ _key + "_before();"); //Before
                 }
+                if (this.Iscodes)
+                {
 
+                  
+                    txt.Attributes.Add("onkeyup", "return GetAutoComplete_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+                    txt.Attributes.Add("onpaste", "return GetAutoComplete_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+                    txt.Attributes.Add("oninput", "return GetAutoComplete_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+                    txt.Attributes.Add("onchange", "return GetAutoComplete_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+
+                }
             ////////////Check code end//////////////////
             
             txt.Attributes.Add("value", Value);
@@ -148,8 +157,11 @@ namespace MvcDynamicForms.Fields
                 ControlClass.Append("required");
 
             }
-            ControlClass.Append("]");
-
+            ControlClass.Append("] ");
+            if (Iscodes)
+            {
+                ControlClass.Append("Search");
+            }
             return ControlClass.ToString();
 
         }

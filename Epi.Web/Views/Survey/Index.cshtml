@@ -250,7 +250,7 @@ switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLo
             serverResponseEquals: 'OK',
             onTimeout: function () {
                 //window.location = "timeout.htm";
-                window.location = '@Url.Action("Index","Login")';//GetRedirectionUrl() + '/1';  
+                window.location = '@Url.Action("Index","Login")';//GetRedirectionUrl() + '/1';
                 //'~/Login/Index';
 
 
@@ -951,12 +951,16 @@ switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLo
         return HasResponse;
 
     }
-    function SetCodes_Val(obj,SurveyId ,TableName)
+    function SetCodes_Val(obj,SurveyId ,TableName ,AutoComplete)
     {
-     
 
-        var signoutUrl = '@Url.Action("GetCodesValue","Survey")' + '?SourceTableName=' + TableName + '&SelectedValue=' + obj.value + '&SurveyId=' + SurveyId;
-       
+        var availableTags = [obj.value];
+        var signoutUrl ="";
+        if(AutoComplete){
+          signoutUrl = '@Url.Action("GetCodesValue","Survey")' + '?SourceTableName=' + TableName + '&SelectedValue=' + obj  + '&SurveyId=' + SurveyId;
+         }else{
+             signoutUrl = '@Url.Action("GetCodesValue","Survey")' + '?SourceTableName=' + TableName + '&SelectedValue=' + obj.value + '&SurveyId=' + SurveyId;
+        }
         $.ajax({
             url: signoutUrl,
             type: 'GET',
@@ -966,25 +970,77 @@ switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLo
             success: successFunc,
             error: errorFunc
         });
-     
+
 
         function successFunc(data, status) {
-            
-            $.each(data, function (key, value){
+
+            $.each(data, function (key, value)
+            {
                 var Query = "#mvcdynamicfield_" + key;
-               // alert(Query);
-                $(Query).val(value);
+
+                 $(Query).val(value);
+            });
+
+
+        }
+
+        function errorFunc() {
+            alert('error');
+        }
+
+
+    }
+    function GetAutoComplete_Val(obj,SurveyId ,TableName)
+    {
+
+        var availableTags = new Array();
+        var signoutUrl = '@Url.Action("GetAutoCompleteList", "Survey")' + '?SourceTableName=' + TableName + '&SelectedValue=' + obj.value + '&SurveyId=' + SurveyId;
+
+        $.ajax({
+            url: signoutUrl,
+            type: 'GET',
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            async: false,
+            success: successFunc,
+            error: errorFunc
+        });
+
+
+        function successFunc(data, status) {
+            var Query = "#mvcdynamicfield_" + TableName;
+            $.each(data, function (key, value)
+            {
+
+                availableTags.push(value);
+
+
+            });
+
+            $( Query).autocomplete({
+                source: availableTags,
+                select: function (event, ui) {
+                    SetCodes_Val(ui.item.label,SurveyId ,TableName,true);
+                },
             });
         }
 
         function errorFunc() {
             alert('error');
         }
-       
+
 
     }
 </script>
-
+<style>
+    .Search {
+        
+        background-image: url('/Content/images/icon-search-black.png');
+        background-repeat: no-repeat;
+        background-position: right;
+        outline: 0;
+    }
+</style>
  <div id="pageHeader">
 	<div id="pageTitle"><h2>@Model.Form.SurveyInfo.SurveyName</h2></div>
 
