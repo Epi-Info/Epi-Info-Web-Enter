@@ -1638,6 +1638,77 @@ namespace Epi.Web.MVC.Controllers
         [HttpGet]
         public JsonResult GetCodesValue(string SourceTableName= "", string SelectedValue="",string SurveyId="") 
         {
+            SourceTablesResponse CacheObj = GetCodesList(SourceTableName, SurveyId);
+            
+            try
+            {
+              
+                SourceTableDTO Table = CacheObj.List.Where(x => x.TableName.Contains(SourceTableName.ToString())).Single();
+                XDocument Xdoc = XDocument.Parse(Table.TableXml);
+                var _ControlValues = from _ControlValue in Xdoc.Descendants("Item")
+                                     where _ControlValue.Attributes().SingleOrDefault(xa => string.Equals(xa.Name.LocalName, SourceTableName,
+                                     StringComparison.InvariantCultureIgnoreCase)).Value == SelectedValue.ToString()
+                                     select _ControlValue;
+                var Attributes = _ControlValues.Attributes().ToList();
+           
+
+             
+                Dictionary<string,string> List = new  Dictionary<string,string>();
+                 foreach (var Attribute in Attributes)
+                {
+                    List.Add(Attribute.Name.LocalName.ToLower(), Attribute.Value);
+                }
+
+
+
+                 return Json(List, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+                //throw ex;
+            }
+           
+        
+        }
+        [HttpGet]
+        public JsonResult GetAutoCompleteList(string SourceTableName = "", string SelectedValue = "", string SurveyId = "")
+        {
+            SourceTablesResponse CacheObj = GetCodesList(SourceTableName, SurveyId);
+
+            try
+            {
+                SourceTableDTO Table = CacheObj.List.Where(x => x.TableName.Contains(SourceTableName.ToString())).Single();
+                XDocument Xdoc = XDocument.Parse(Table.TableXml);
+                var _ControlValues = from _ControlValue in Xdoc.Descendants("Item")
+                                     where _ControlValue.Attributes().SingleOrDefault(xa => string.Equals(xa.Name.LocalName, SourceTableName, StringComparison.InvariantCultureIgnoreCase)).Value.ToLower().Contains(SelectedValue.ToString().ToLower())
+                                     select _ControlValue;
+
+                var Items = _ControlValues.ToList().Take(10);
+                Dictionary<string, string> List = new Dictionary<string, string>();
+                foreach (var Item in Items)
+                {
+                    var Attributes =  Item.Attributes().ToList();
+                    if (!List.ContainsKey(Attributes[0].Value.ToString()))
+                    {
+                        List.Add(Attributes[0].Value, Attributes[0].Value);
+                    }
+                }
+
+
+
+                return Json(List, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(false);
+                //throw ex;
+            }
+
+
+        }
+        private SourceTablesResponse GetCodesList(string SourceTableName, string SurveyId)
+        {
             string CacheIsOn = ConfigurationManager.AppSettings["CACHE_IS_ON"]; ;
             string IsCacheSlidingExpiration = ConfigurationManager.AppSettings["CACHE_SLIDING_EXPIRATION"].ToString();
             int CacheDuration = 0;
@@ -1647,8 +1718,8 @@ namespace Epi.Web.MVC.Controllers
             TableCode = Regex.Replace(TableCode, @"\s+", "");
             var CacheId = SurveyId + "_SourceTables";
             SourceTablesResponse CacheObj = (SourceTablesResponse)HttpRuntime.Cache.Get(CacheId);
-           
-           
+
+
 
             if (CacheIsOn.ToUpper() == "TRUE")
             {
@@ -1667,42 +1738,15 @@ namespace Epi.Web.MVC.Controllers
 
                     }
                 }
-               
+
             }
-            else {
+            else
+            {
                 var SourceTables = _isurveyFacade.GetSourceTables(Session["RootFormId"].ToString());
                 CacheObj = (SourceTablesResponse)SourceTables;
-            
+
             }
-            
-            try
-            {
-              
-                SourceTableDTO Table = CacheObj.List.Where(x => x.TableName.Contains(SourceTableName.ToString())).Single();
-                XDocument Xdoc = XDocument.Parse(Table.TableXml);
-                var _ControlValues = from _ControlValue in Xdoc.Descendants("Item")
-                                     where _ControlValue.Attributes().SingleOrDefault(xa => string.Equals(xa.Name.LocalName, SourceTableName,
-                                     StringComparison.InvariantCultureIgnoreCase)).Value == SelectedValue.ToString()
-                                     select _ControlValue;
-
-                 var Attributes = _ControlValues.Attributes().ToList();
-                Dictionary<string,string> List = new  Dictionary<string,string>();
-                 foreach (var Attribute in Attributes)
-                {
-                    List.Add(Attribute.Name.LocalName.ToLower(), Attribute.Value);
-                }
-
-
-
-                 return Json(List, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                return Json(false);
-                //throw ex;
-            }
-           
-        
+            return CacheObj;
         }
     }
 }
