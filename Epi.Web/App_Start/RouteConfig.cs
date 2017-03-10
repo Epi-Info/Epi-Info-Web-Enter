@@ -242,6 +242,13 @@ namespace Epi.Web.MVC
                 "Survey/GetCodesValue", // URL with parameters
                 new { controller = "Survey", action = "GetCodesValue" }
             ); 
+            
+                 routes.MapRoute
+            (
+                null, // Route name
+                "Survey/GetAutoCompleteList", // URL with parameters
+                new { controller = "Survey", action = "GetAutoCompleteList" }
+            ); 
             routes.MapRoute
               (
                   null, // Route name
