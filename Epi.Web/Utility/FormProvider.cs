@@ -234,14 +234,14 @@ namespace Epi.Web.MVC.Utility
                                 }
                                 var _DropDownSelectedValue2 = Value;
                                 var Dropdown = GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form);
-                                if (Dropdown.Choices.Count() > 100)
-                                {
+                                //if (Dropdown.Choices.Count() > 100)
+                                //{
                                    
-                                    form.AddFields(GetTextBox(_FieldTypeID, _Width, _Height, xdocResponse, _TextBoxValue1, form,true));
-                                }
-                                else {
+                                //    form.AddFields(GetTextBox(_FieldTypeID, _Width, _Height, xdocResponse, _TextBoxValue1, form,true));
+                                //}
+                                //else {
                                     form.AddFields(Dropdown);
-                                }
+                               // }
                                
                                 //                                             pName, pType, pSource
                                 //VariableDefinitions.AppendLine(string.Format(defineFormat, _FieldTypeID.Attribute("Name").Value, "code", "datasource",Value)); 
