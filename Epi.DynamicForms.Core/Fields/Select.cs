@@ -134,7 +134,15 @@ namespace MvcDynamicForms.Fields
 
             //    }
             //}
-            var select = new TagBuilder("select");
+             TagBuilder select = null;
+            if(this._choices.Count()<100){
+              select = new TagBuilder("select");
+            }else {
+            
+               select =new  TagBuilder("input");
+               select.Attributes.Add("list", inputName + "_DataList");
+               select.Attributes.Add("data-autofirst", "true");
+            }
             select.Attributes.Add("id", inputName);
             select.Attributes.Add("name", inputName);
             ////////////Check code start//////////////////
@@ -159,9 +167,9 @@ namespace MvcDynamicForms.Fields
             }
             if (!string.IsNullOrEmpty(this.RelateCondition))
             {
-
-                select.Attributes.Add("onchange", "return SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
-                    
+              select.Attributes.Add("onchange", "return SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+              
+            
             }
             ////////////Check code end//////////////////
             int LargestChoiseLength =0 ;
@@ -195,32 +203,70 @@ namespace MvcDynamicForms.Fields
 
             if (_IsRequired == true)
             {
-                        if ((size.Width) > _ControlWidth)
-                        {
-                           // select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
-                            select.Attributes.Add("class", GetControlClass() + "fix-me");
-                        }
-                        else
-                        {
-                           // select.Attributes.Add("class", GetControlClass() + "text-input");
-                            select.Attributes.Add("class", GetControlClass()  );
-                        }
-                       select.Attributes.Add("data-prompt-position", "topRight:10");
+                //awesomplete
+                if (this._choices.Count() < 100)
+                {
+                    if ((size.Width) > _ControlWidth)
+                    {
+                        // select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
+                        select.Attributes.Add("class", GetControlClass() + "fix-me");
+                    }
+                    else
+                    {
+                        // select.Attributes.Add("class", GetControlClass() + "text-input");
+                        select.Attributes.Add("class", GetControlClass());
+                    }
+                    select.Attributes.Add("data-prompt-position", "topRight:10");
+
+                }
+                else {
+                    if ((size.Width) > _ControlWidth)
+                    {
+                         
+                        // select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
+                        select.Attributes.Add("class", GetControlClass() + "fix-me awesomplete");
+                    }
+                    else
+                    {
+                        // select.Attributes.Add("class", GetControlClass() + "text-input");
+                        select.Attributes.Add("class", GetControlClass() + " awesomplete");
+                    }
+                    select.Attributes.Add("data-prompt-position", "topRight:10");
+                
+                }
             }
             else 
             {
-                        //select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
-                if ((size.Width) > _ControlWidth)
+                 //awesomplete
+                if (this._choices.Count() < 100)
                 {
-                    select.Attributes.Add("class", GetControlClass() +"fix-me ");
-                }
-                else
-                {
+                    //select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
+                    if ((size.Width) > _ControlWidth)
+                    {
+                        select.Attributes.Add("class", GetControlClass() + "fix-me ");
+                    }
+                    else
+                    {
 
-                    select.Attributes.Add("class", GetControlClass() );
+                        select.Attributes.Add("class", GetControlClass());
+                    }
+                    select.Attributes.Add("data-prompt-position", "topRight:10");
                 }
-                select.Attributes.Add("data-prompt-position", "topRight:10");
-                 
+                else {
+                    if ((size.Width) > _ControlWidth)
+                    {
+                        select.Attributes.Add("class", GetControlClass() + "fix-me awesomplete");
+                    }
+                    else
+                    {
+
+                        select.Attributes.Add("class", GetControlClass() + " awesomplete");
+                    }
+                    select.Attributes.Add("data-prompt-position", "topRight:10");
+                
+                
+                
+                }
             }
             string IsHiddenStyle = "";
             string IsHighlightedStyle = "";
@@ -249,99 +295,140 @@ namespace MvcDynamicForms.Fields
                 scriptReadOnlyText.InnerHtml = "$(function(){  var List = new Array();List.push('" + _key + "');CCE_Disable(List, false);});";
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
             }
-            
-            // initial empty option
-            if (ShowEmptyOption)
+
+            if (this._choices.Count() > 100)
             {
-                var opt = new TagBuilder("option");
-                opt.Attributes.Add("value", null);
-                opt.SetInnerText(EmptyOption);
-                html.Append(opt.ToString());
+
+                var scriptReadOnlyText = new TagBuilder("script");
+                StringBuilder Script = new StringBuilder();
+                Script.Append("$(window).load(function () {  ");
+                //Script.Append(" $( '#" + inputName + "' ).next().css( 'width', '" + _ControlWidth.ToString() + "px' );  ");
+                Script.Append(" $( '#" + inputName + "' ).next().css( 'left', '" + _left.ToString() + "px' );  ");
+                Script.Append(" $( '#" + inputName + "' ).next().css( 'top', '" + (_top + 20).ToString() + "px' );  ");
+               
+                Script.Append("});");
+                scriptReadOnlyText.InnerHtml = Script.ToString();
+                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
             }
 
+            // initial empty option
+            if (this._choices.Count() < 100)
+            {
+                if (ShowEmptyOption)
+                {
+                    var opt = new TagBuilder("option");
+                    opt.Attributes.Add("value", null);
+                    opt.SetInnerText(EmptyOption);
+                    html.Append(opt.ToString());
+                }
+            }
             // options
 
             // Build codes RelateCondition script object 
 
 
-            
-            switch (this.SelectType.ToString())
+            if (this._choices.Count() < 100 && this.SelectType.ToString() != "18")
             {
-                case "11":
-                    foreach (var choice in _choices)
-                    {
-                        var opt = new TagBuilder("option");
-                        var optSelectedVale = "";
-                        if (!string.IsNullOrEmpty(SelectedValue.ToString()))
+                switch (this.SelectType.ToString() )
+                {
+                    case "11":
+                        foreach (var choice in _choices)
                         {
-                         optSelectedVale = SelectedValue.ToString();//=="1"? "Yes" : "No";
+                            var opt = new TagBuilder("option");
+                            var optSelectedVale = "";
+                            if (!string.IsNullOrEmpty(SelectedValue.ToString()))
+                            {
+                                optSelectedVale = SelectedValue.ToString();//=="1"? "Yes" : "No";
+                            }
+                            opt.Attributes.Add("value", (choice.Key == "Yes" ? "1" : "0"));
+                            if (choice.Key == optSelectedVale.ToString())
+                            {
+                                opt.Attributes.Add("selected", "selected");
+
+                            }
+                            if (choice.Key == "Yes" || choice.Key == "No")
+                            {
+                                opt.SetInnerText(choice.Key);
+                                html.Append(opt.ToString());
+                            }
+
                         }
-                         opt.Attributes.Add("value",( choice.Key =="Yes"? "1":"0"));
-                        if (choice.Key == optSelectedVale.ToString())
+                        break;
+                    case "17":
+                        foreach (var choice in _choices)
                         {
-                            opt.Attributes.Add("selected", "selected");
-                            
-                        }
-                        if (choice.Key == "Yes" || choice.Key == "No")
-                        {
+                            var opt = new TagBuilder("option");
+                            opt.Attributes.Add("value", choice.Key);
+                            if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
                             opt.SetInnerText(choice.Key);
                             html.Append(opt.ToString());
                         }
-                        
-                    }
-                    break;
-                case "17":
-                    foreach (var choice in _choices)
-                    {
-                        var opt = new TagBuilder("option");
-                        opt.Attributes.Add("value", choice.Key);
-                        if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
-                        opt.SetInnerText(choice.Key);
-                        html.Append(opt.ToString());
-                    }
-                
-                    break;
-                case "18":
+
+                        break;
+                    case "18":
 
 
-                    foreach (var choice in _choices)
-                    {
-                        var opt = new TagBuilder("option");
-                        opt.Attributes.Add("value", choice.Key);
-                        if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
+                        foreach (var choice in _choices)
                         {
-                            opt.SetInnerText(choice.Key);
-                        }
-                        html.Append(opt.ToString());
-                    }
-                   
-                   
-                
-                    break;
-                case "19":
-                    foreach (var choice in _choices)
-                    {
-                        var opt = new TagBuilder("option");
-
-                        if (choice.Key.Contains("-"))
-                        {
-                            string[] keyValue = choice.Key.Split(new char[] { '-' },2);
-                            string comment = keyValue[0].Trim();
-                            string description = keyValue[1].Trim();
-
-                            opt.Attributes.Add("value", comment);
-
-                            if (choice.Value || comment == SelectedValue.ToString())
+                            var opt = new TagBuilder("option");
+                            opt.Attributes.Add("value", choice.Key);
+                            if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
                             {
-                                opt.Attributes.Add("selected", "selected");
+                                opt.SetInnerText(choice.Key);
+                            }
+                            html.Append(opt.ToString());
+                        }
+
+
+
+                        break;
+                    case "19":
+                        foreach (var choice in _choices)
+                        {
+                            var opt = new TagBuilder("option");
+
+                            if (choice.Key.Contains("-"))
+                            {
+                                string[] keyValue = choice.Key.Split(new char[] { '-' }, 2);
+                                string comment = keyValue[0].Trim();
+                                string description = keyValue[1].Trim();
+
+                                opt.Attributes.Add("value", comment);
+
+                                if (choice.Value || comment == SelectedValue.ToString())
+                                {
+                                    opt.Attributes.Add("selected", "selected");
+                                }
+
+                                opt.SetInnerText(description);
                             }
 
-                            opt.SetInnerText(description);
+                            html.Append(opt.ToString());
                         }
+                        break;
+                }
+            }
+            else { 
+            ///////////////////////////
 
-                        html.Append(opt.ToString());
-                    }
-                    break;
+                var datalist = new TagBuilder("datalist ");
+                datalist.Attributes.Add("id", inputName + "_DataList");
+                html.Append(datalist.ToString(TagRenderMode.StartTag));
+            foreach (var choice in _choices)
+            {
+                var opt = new TagBuilder("option");
+                opt.Attributes.Add("value", choice.Key);
+                if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
+                {
+                    opt.SetInnerText(choice.Key);
+                }
+                 html.Append(opt.ToString());
+            }
+
+           
+                 
+            
+            ///////////////////////////
             }
  
             // close select element

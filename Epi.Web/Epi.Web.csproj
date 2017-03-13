@@ -334,6 +334,7 @@
     <Content Include="bin\System.Web.WebPages.Razor.dll" />
     <Content Include="bin\Unity.Mvc3.dll" />
     <Content Include="bin\WebGrease.dll" />
+    <Content Include="Content\css\awesomplete.css" />
     <Content Include="Content\css\demos.css" />
     <Content Include="Content\css\epistyle.css" />
     <Content Include="Content\css\ewe.css" />
@@ -524,6 +525,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\autoNumeric-1.7.4.js" />
+    <Content Include="Scripts\awesomplete.js" />
     <Content Include="Scripts\CheckCodeEngine.js" />
     <Content Include="Scripts\idle-timer.js" />
     <Content Include="Scripts\jloading-overlay.js" />
