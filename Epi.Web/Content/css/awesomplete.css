@@ -8,8 +8,11 @@
 }
 
 .awesomplete {
-    display: inline-block;
-    position: relative;
+  /*display: inline-block;
+    position: relative;*/ 
+    /*left: 172px;
+         top: 290px;
+         width: 482px;*/ 
 }
 
 .awesomplete > input {
@@ -40,13 +43,15 @@
 	border: 1px solid rgba(0,0,0,.3);
 	box-shadow: .05em .2em .6em rgba(0,0,0,.2);
 	text-shadow: none;
+     display: inline-block;
+         position: relative;
 }
 
 @supports (transform: scale(0)) {
 	.awesomplete > ul {
 		transition: .3s cubic-bezier(.4,.2,.5,1.4);
 		/*transform-origin: 1.43em -.43em;*/
-         
+        
          /*left: 172px;
          top: 290px;
          width: 482px;*/ 

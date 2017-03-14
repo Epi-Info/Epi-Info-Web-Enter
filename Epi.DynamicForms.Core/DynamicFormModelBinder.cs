@@ -20,6 +20,7 @@ namespace MvcDynamicForms
             foreach (var key in postedForm.AllKeys.Where(x => x.StartsWith(form.FieldPrefix)))
             {
                 string fieldKey = key.Remove(0, form.FieldPrefix.Length);
+                
                 try
                 {
                     InputField dynField = form.InputFields.SingleOrDefault(f => f.Key == fieldKey);
@@ -48,7 +49,7 @@ namespace MvcDynamicForms
                             var timepickerField = (TimePickerField)dynField;
                             timepickerField.Value = postedForm[key];
                         }
-
+                       
                         else if (dynField is ListField)
                         {
                             var lstField = (ListField)dynField;
@@ -81,6 +82,11 @@ namespace MvcDynamicForms
                             {
                                 chkField.Checked = test;
                             }
+                        }
+                        else if (dynField is AutoComplete)
+                        {
+                            var AutoCompleteField = (AutoComplete)dynField;
+                            AutoCompleteField.Value = postedForm[key];
                         }
                     }
                 }
