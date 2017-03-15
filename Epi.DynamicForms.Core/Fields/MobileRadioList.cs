@@ -72,8 +72,8 @@ namespace MvcDynamicForms.Fields
               
             legend.SetInnerText(Prompt);
             StringBuilder StyleValues = new StringBuilder();
-            StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
-            legend.Attributes.Add("style", StyleValues.ToString());
+           // StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
+            //legend.Attributes.Add("style", StyleValues.ToString());
             html.Append(legend.ToString());
 
           
@@ -105,8 +105,8 @@ namespace MvcDynamicForms.Fields
                 rad.Attributes.Add("name", inputName);
                 rad.Attributes.Add("class", inputName);
                 rad.Attributes.Add("id", radId);
-                string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
-                rad.Attributes.Add("style", InputFieldStyle);
+               // string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
+                //rad.Attributes.Add("style", InputFieldStyle);
                 
                 //StringBuilder RadioButton = new StringBuilder();
                 //RadioButton.Append("<input type='Radio'");

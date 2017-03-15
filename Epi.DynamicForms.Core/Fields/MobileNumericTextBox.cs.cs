@@ -30,8 +30,8 @@ namespace MvcDynamicForms.Fields
             prompt.Attributes.Add("class", "EpiLabel");
 
             StringBuilder StyleValues = new StringBuilder();
-            StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
-            prompt.Attributes.Add("style", StyleValues.ToString());
+           // StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
+           // prompt.Attributes.Add("style", StyleValues.ToString());
 
             //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), _PromptWidth.ToString(), Height.ToString()));
             //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
@@ -52,7 +52,7 @@ namespace MvcDynamicForms.Fields
             txt.Attributes.Add("name", inputName);
             txt.Attributes.Add("id", inputName);
             txt.Attributes.Add("type", "text");
-            string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
+           // string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());
 
             string IsHiddenStyle = "";
             string IsHighlightedStyle = "";
@@ -97,7 +97,7 @@ namespace MvcDynamicForms.Fields
             txt.Attributes.Add("class", GetControlClass());
             txt.Attributes.Add("data-prompt-position", "topLeft:15");
             //txt.Attributes.Add("style", "position:absolute "+  ";color:#111; background-color:white ;width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
-            txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + InputFieldStyle);
+            txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
             txt.MergeAttributes(_inputHtmlAttributes);
             html.Append(txt.ToString(TagRenderMode.SelfClosing));
 
