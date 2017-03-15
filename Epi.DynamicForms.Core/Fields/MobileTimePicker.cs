@@ -26,7 +26,7 @@ namespace MvcDynamicForms.Fields
 
             StringBuilder StyleValues = new StringBuilder();
             StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
-            prompt.Attributes.Add("style", StyleValues.ToString());
+           // prompt.Attributes.Add("style", StyleValues.ToString());
             html.Append(prompt.ToString());
 
             // error label
@@ -48,7 +48,7 @@ namespace MvcDynamicForms.Fields
             
             
             txt.Attributes.Add("value", Value);
-            string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());         
+           // string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());         
             ////////////Check code start//////////////////
             EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
             //if Pattern is empty and the control has after event then treat it like a text box
@@ -116,7 +116,7 @@ namespace MvcDynamicForms.Fields
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
                 }
 
-            txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + InputFieldStyle);
+            txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle );
 
             txt.MergeAttributes(_inputHtmlAttributes);
             html.Append(txt.ToString(TagRenderMode.SelfClosing));

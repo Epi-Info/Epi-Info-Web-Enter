@@ -26,7 +26,7 @@ namespace MvcDynamicForms.Fields
 
             StringBuilder StyleValues = new StringBuilder();
             StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
-            prompt.Attributes.Add("style", StyleValues.ToString());
+           // prompt.Attributes.Add("style", StyleValues.ToString());
             html.Append(prompt.ToString());
 
             // error label
@@ -46,7 +46,7 @@ namespace MvcDynamicForms.Fields
             txt.Attributes.Add("data-options", "{\"mode\": \"datebox\", \"pickPageButtonTheme\": \"e\", \"pickPageInputTheme\":\"e\", \"pickPageFlipButtonTheme\":\"a\", \"pickPageTheme\":\"e\" ,  \"useNewStyle\":true}");
             txt.Attributes.Add("value", Value);
 
-            string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());         
+           // string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());         
             ////////////Check code start//////////////////
             EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
             if (FunctionObjectAfter != null && !FunctionObjectAfter.IsNull())
@@ -86,7 +86,7 @@ namespace MvcDynamicForms.Fields
             txt.Attributes.Add("data-prompt-position", "topLeft:15");
             //txt.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
 
-            txt.Attributes.Add("style", "" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + InputFieldStyle);
+            txt.Attributes.Add("style", "" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
             //if (ReadOnly)
             //    {
                 

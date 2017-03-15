@@ -29,12 +29,12 @@ namespace MvcDynamicForms.Fields
              prompt.Attributes.Add("class", "EpiLabel");
              prompt.Attributes.Add("Id", "label" + inputName);
              StringBuilder StyleValues = new StringBuilder();            
-             StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
-             prompt.Attributes.Add("style", StyleValues.ToString());
+             //StyleValues.Append(GetControlStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
+             //prompt.Attributes.Add("style", StyleValues.ToString());
              //StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), _IsHidden));
              //prompt.Attributes.Add("style", StyleValues.ToString());
              //prompt.Attributes.Add("style", "width: auto; white-space: nowrap");
-            // prompt.Attributes.Add("style", "width: auto");
+              prompt.Attributes.Add("style", "width: auto");
              html.Append(prompt.ToString());
 
              // error label
@@ -49,7 +49,7 @@ namespace MvcDynamicForms.Fields
              txt.Attributes.Add("name", inputName);
              txt.Attributes.Add("id", inputName);
              txt.Attributes.Add("type", "text");
-             string InputFieldStyle =  GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());                          
+            // string InputFieldStyle =  GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());                          
 
              ////////////Check code start//////////////////
              EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
@@ -106,7 +106,7 @@ namespace MvcDynamicForms.Fields
 
             // txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle  + ";width:" + _ControlWidth.ToString() + "px");
             // txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + ";width: auto");
-             txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + InputFieldStyle);
+             txt.Attributes.Add("style", "" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle );
              txt.MergeAttributes(_inputHtmlAttributes);
              html.Append(txt.ToString(TagRenderMode.SelfClosing));
 
