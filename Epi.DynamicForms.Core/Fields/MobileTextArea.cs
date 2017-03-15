@@ -26,10 +26,10 @@ namespace MvcDynamicForms.Fields
             prompt.Attributes.Add("class", "EpiLabel");
             prompt.Attributes.Add("Id", "label" + inputName);
             StringBuilder StyleValues = new StringBuilder();
-            StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
+          //  StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null, Height.ToString(), IsHidden));
             
-          //  prompt.Attributes.Add("style", "");
-            prompt.Attributes.Add("style", StyleValues.ToString());
+            prompt.Attributes.Add("style", "");
+           // prompt.Attributes.Add("style", StyleValues.ToString());
             html.Append(prompt.ToString());
             // error label
             if (!IsValid)
@@ -44,7 +44,7 @@ namespace MvcDynamicForms.Fields
             var txt = new TagBuilder("textarea");
             txt.Attributes.Add("name", inputName);
             txt.Attributes.Add("id", inputName);
-            string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());            
+           // string InputFieldStyle = GetInputFieldStyle(_InputFieldfontstyle.ToString(), _InputFieldfontSize, _InputFieldfontfamily.ToString());            
             // txt.SetInnerText(Value);
             ////////////Check code start//////////////////
             EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
@@ -82,7 +82,7 @@ namespace MvcDynamicForms.Fields
             //}
             //txt.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ";height:" + _ControlHeight.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
            // txt.Attributes.Add("style", "height:" + _ControlHeight.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);
-            txt.Attributes.Add("style", "height:" + "100" + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle + InputFieldStyle);
+            txt.Attributes.Add("style", "height:" + "100" + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle );
             
             txt.MergeAttributes(_inputHtmlAttributes);
             html.Append(txt.ToString());
