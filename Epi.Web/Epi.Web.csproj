@@ -339,6 +339,7 @@
     <Content Include="Content\css\epistyle.css" />
     <Content Include="Content\css\ewe.css" />
     <Content Include="Content\css\eweMobile.css" />
+    <Content Include="Content\css\Formthemes\theme4.css" />
     <Content Include="Content\css\images\check.gif" />
     <Content Include="Content\css\images\footer_bar.png" />
     <Content Include="Content\css\images\prod1.png" />
