@@ -17,9 +17,14 @@ switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLo
     <link href="@Url.Content("~/Content/css/Formthemes/theme2.css")" rel="Stylesheet" type="text/css" />
         break;
         case "theme3":
-    <link href="@Url.Content("~/Content/css/Formthemes/theme3.css")" rel="Stylesheet" type="text/css" />
-        break;
-}
+        <link href="@Url.Content("~/Content/css/Formthemes/theme3.css")" rel="Stylesheet" type="text/css" />
+            break;
+        case "theme4":
+        <link href="@Url.Content("~/Content/css/Formthemes/theme4.css")" rel="Stylesheet" type="text/css" />
+
+
+            break;
+    }
 }
 
 @*<script src="../../Scripts/jquery-1.5.1-vsdoc.js" type="text/javascript"></script>*@
@@ -484,6 +489,42 @@ switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLo
 
 
     $(document).ready(function () {
+
+        $('fieldset').each(function(){
+
+            var fieldsetBgColor = $(this).css("backgroundColor"),
+            rgbColors = fieldsetBgColor.substring(fieldsetBgColor.indexOf('(') + 1, fieldsetBgColor.lastIndexOf(')')).split(/,\s*/),
+            red = rgbColors[0],
+            green = rgbColors[1],
+            blue = rgbColors[2];
+
+            if (red == blue && blue == green){
+                $(this).css("backgroundColor", fieldsetBgColor);
+            }else if(fieldsetBgColor == "transparent"){
+                $(this).css("backgroundColor", "#ffffff");
+            }else{
+                var themeCheck = '@System.Configuration.ConfigurationManager.AppSettings["FormTheme"]'
+
+                    if (themeCheck == "Theme1"){
+                        $(this).css("backgroundColor","#f1e9e5");
+                    } else if (themeCheck == "Theme2"){
+                        $(this).css("backgroundColor","#eeeedd");
+                    }else if (themeCheck == "Theme3"){
+                        $(this).css("backgroundColor","#f5faec");
+                    }else if (themeCheck == "Theme4"){
+                        $(this).css("backgroundColor","#f3fef7");
+                    }
+                
+            }
+            
+        });
+       
+
+        
+
+
+
+
 
 
         $('#maincontent').live("click", function () {
