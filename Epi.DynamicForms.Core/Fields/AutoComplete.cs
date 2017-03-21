@@ -142,16 +142,15 @@ namespace MvcDynamicForms.Fields
             }
             EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
 
-            if (FunctionObjectClick != null && !FunctionObjectClick.IsNull())
-            {
-                input.Attributes.Add("onclick", "return " + _key + "_click();"); //click
-            }
-            if (!string.IsNullOrEmpty(this.RelateCondition))
-            {
-                input.Attributes.Add("onchange", "return SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');"); //click
+            
+            //if (!string.IsNullOrEmpty(this.RelateCondition))
+            //{
+            //    input.Attributes.Add("onchange", "SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');  "); //click
+               
+              
 
 
-            }
+            //}
             ////////////Check code end//////////////////
             int LargestChoiseLength = 0;
             string measureString = "";
@@ -292,9 +291,25 @@ namespace MvcDynamicForms.Fields
                 Script.Append(" $( '#" + inputName + "' ).next().css( 'left', '" + _left.ToString() + "px' );  ");
                 Script.Append(" $( '#" + inputName + "' ).next().css( 'top', '" + (_top + 29).ToString() + "px' );  ");
 
+               
                 Script.Append("});");
                 scriptReadOnlyText.InnerHtml = Script.ToString();
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
+
+
+                var scriptReadOnlyText1 = new TagBuilder("script");
+                StringBuilder Script1 = new StringBuilder();
+                Script1.Append("  $(document).ready(function () {");
+
+              
+                Script1.Append("$( '#" + inputName + "').blur(function() { ");
+                Script1.Append("SetCodes_Val(this,'" + _form.SurveyInfo.SurveyId + "','" + _key + "');  ");
+              
+                Script1.Append("});");
+                Script1.Append("});");
+                scriptReadOnlyText1.InnerHtml = Script1.ToString();
+                html.Append(scriptReadOnlyText1.ToString(TagRenderMode.Normal));
+
             }
 
             
