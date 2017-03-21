@@ -123,5 +123,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          List<SourceTableBO> GetSourceTables(string SurveyId);
 
          void UpdateSourceTable(string p, string SourcetableName, string FormId);
+         bool TableExist(string FormId, string Tablename);
     }
 }
