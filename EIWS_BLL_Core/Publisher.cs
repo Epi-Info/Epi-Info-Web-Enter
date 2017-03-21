@@ -338,6 +338,7 @@ namespace Epi.Web.BLL
                                 result.ViewIdAndFormIdList = SurveyIdsList;
                                 result.URL = GetURL(pRequestMessage, SurveyId);
                                 result.IsPulished = true;
+                                ReSetSourceTable(_Xml, SurveyId.ToString());
                                 }
                             catch (Exception ex)
                                 {
@@ -554,9 +555,17 @@ namespace Epi.Web.BLL
             XDocument xdoc1 = XDocument.Parse(Xml);
             foreach (XElement Xelement in xdoc1.Descendants("Template").Elements("SourceTable"))
             {
-                //  Xelement.ToString()
+                 
                 string SourcetableName = Xelement.Attribute("TableName").Value;
-                this.SurveyInfoDao.UpdateSourceTable(Xelement.ToString(), SourcetableName, FormId);
+                if (SurveyInfoDao.TableExist(FormId, SourcetableName))
+                {
+                    this.SurveyInfoDao.UpdateSourceTable(Xelement.ToString(), SourcetableName, FormId);
+                }
+                else {
+
+                    this.SurveyInfoDao.InsertSourceTable(Xelement.ToString(), SourcetableName, FormId);
+                
+                }
             }
 
         }

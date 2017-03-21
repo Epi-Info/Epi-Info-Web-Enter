@@ -766,5 +766,44 @@ namespace Epi.Web.EF
 
            return result;
        }
+       public bool  TableExist(string FormId, string Tablename)
+       {
+           List<SourceTableBO> result = new List<SourceTableBO>();
+           string EWEConnectionString = DataObjectFactory.EWEADOConnectionString;
+           SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
+           EWEConnection.Open();
+           bool TableExist = false;
+           SqlCommand Command = new SqlCommand();
+           Command.Connection = EWEConnection;
+           try
+           {
+               Command.CommandType = CommandType.Text;
+               Command.CommandText = "select * from Sourcetables  where  FormId ='" + FormId + "' And SourceTableName='" + Tablename + "'";
+               // Command.ExecuteNonQuery();
+               SqlDataAdapter Adapter = new SqlDataAdapter(Command);
+               DataSet DS = new DataSet();
+               Adapter.Fill(DS);
+               if (DS.Tables.Count > 0)
+               {
+                   if (DS.Tables[0].Rows.Count>0)
+               {
+                   TableExist =  true;
+               }
+               else {
+                    TableExist=  false;
+
+               }
+               }
+               EWEConnection.Close();
+               
+           }
+           catch (Exception)
+           {
+               EWEConnection.Close();
+
+           }
+           return TableExist;
+            
+       }
     }
 }
