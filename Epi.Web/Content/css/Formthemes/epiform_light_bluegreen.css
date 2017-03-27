@@ -1,21 +1,23 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /* Added CSS for Theme Styling */
 
-div legend {background-color: #fb541e;
+div legend {background-color: #127bc0;
 		color: #ffffff;
 		padding: 1px 5px;
 		font-size:13px !important;
 		margin-top:-5px;
 		margin-left:10px;
-		border-radius: 5px;
+		/*border-radius: 5px;*/
 		text-transform: uppercase;
+		
 
 }
 
 
 /* might need to change this on main EWE CSS*/
+
 
 select {font-size:12px!important}
 
@@ -25,7 +27,7 @@ select {font-size:12px!important}
 
 input {
     border: 1px solid #B3B3B3;
-	height: 21px;
+    height: 21px;
     font-size:12px!important;
 }
 
@@ -40,9 +42,9 @@ select {
   /* make arrow and background */
 
  background-image:
-    linear-gradient(45deg, transparent 50%, #613f2f 50%),
-    linear-gradient(135deg, #613f2f 50%, transparent 50%),
-    linear-gradient(to right, #613f2f, #613f2f);
+    linear-gradient(45deg, transparent 50%, #8dbd3c 50%),
+    linear-gradient(135deg, #8dbd3c 50%, transparent 50%),
+    linear-gradient(to right, #8dbd3c, #8dbd3c);
   background-position:
     calc(100% - 9px) calc(0.8em + 0px),
     calc(100% - 4px) calc(0.8em + 0px),
@@ -79,14 +81,15 @@ select:-moz-focusring {
   text-shadow: 0 0 0 #000;
 }
 
+
 div.MvcFieldWrapper {padding-bottom:10px !important}
 
 /* Changed CSS for Theme Styling */
 div fieldset
 {
-  border:3px solid #613f2f;
+  border:1px solid #8dbd3c;
   padding:2px;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   padding-top:-100px;
 	}
 
@@ -112,13 +115,13 @@ input[type=checkbox] + label:before {
 }
 
 input [type=checkbox][disabled] + label:before {
-  background-color: #b7b8b9;
+background-color: #b7b8b9;
 
 }
 
 input[type=checkbox]:checked + label:before {
-  background-color: #ffffff;
-  background-image: url("../images/checkmark1.png");
+ background-color: #ffffff;
+ background-image: url("../images/checkmark1.png");
   
 }
 
@@ -126,5 +129,3 @@ textarea {
 	border: 1px solid #b3b3b3; 
 	
 	}
-
-/*End Custome CSS - Jayshreema*/

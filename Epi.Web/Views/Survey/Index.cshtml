@@ -4,23 +4,23 @@
     ViewBag.Title = "Epi Info™ Cloud Data Capture - Form";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @if (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"] != null)
 {
-   
-switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLower())
-{
-    case "theme1":
-        <link href="@Url.Content("~/Content/css/Formthemes/theme1.css")" rel="Stylesheet" type="text/css" />
-        break;
-    case "theme2":
-    <link href="@Url.Content("~/Content/css/Formthemes/theme2.css")" rel="Stylesheet" type="text/css" />
-        break;
-        case "theme3":
-        <link href="@Url.Content("~/Content/css/Formthemes/theme3.css")" rel="Stylesheet" type="text/css" />
+
+    switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLower())
+    {
+        case "epiform_orangebrown":
+            <link href="@Url.Content("~/Content/css/Formthemes/epiform_orangebrown.css")" rel="Stylesheet" type="text/css" />
+
             break;
-        case "theme4":
-        <link href="@Url.Content("~/Content/css/Formthemes/theme4.css")" rel="Stylesheet" type="text/css" />
+        case "epiform_mid_bluegreen":
+        <link href="@Url.Content("~/Content/css/Formthemes/epiform_mid_bluegreen.css")" rel="Stylesheet" type="text/css" />
+            break;
+        case "epiform_light_bluegreen":
+        <link href="@Url.Content("~/Content/css/Formthemes/epiform_light_bluegreen.css")" rel="Stylesheet" type="text/css" />
+            break;
+        case "epiform_charcoalgreen":
+        <link href="@Url.Content("~/Content/css/Formthemes/epiform_charcoalgreen.css")" rel="Stylesheet" type="text/css" />
 
 
             break;
@@ -498,33 +498,25 @@ switch (@System.Configuration.ConfigurationManager.AppSettings["FormTheme"].ToLo
             green = rgbColors[1],
             blue = rgbColors[2];
 
-            if (red == blue && blue == green){
-                $(this).css("backgroundColor", fieldsetBgColor);
-            }else if(fieldsetBgColor == "transparent"){
-                $(this).css("backgroundColor", "#ffffff");
-            }else{
-                var themeCheck = '@System.Configuration.ConfigurationManager.AppSettings["FormTheme"]'
+            if (red == "255" && blue=="255" && green=="255" || fieldsetBgColor=="transparent"){
+         
+                    var themeCheck = '@System.Configuration.ConfigurationManager.AppSettings["FormTheme"]'
 
-                    if (themeCheck == "Theme1"){
+                if (themeCheck == "epiform_orangebrown"){
                         $(this).css("backgroundColor","#f1e9e5");
-                    } else if (themeCheck == "Theme2"){
+                } else if (themeCheck == "epiform_mid_bluegreen"){
                         $(this).css("backgroundColor","#eeeedd");
-                    }else if (themeCheck == "Theme3"){
+                }else if (themeCheck == "epiform_light_bluegreen"){
                         $(this).css("backgroundColor","#f5faec");
-                    }else if (themeCheck == "Theme4"){
+                }else if (themeCheck == "epiform_charcoalgreen"){
                         $(this).css("backgroundColor","#f3fef7");
                     }
-                
-            }
+          
+                }   
+            
             
         });
        
-
-        
-
-
-
-
 
 
         $('#maincontent').live("click", function () {
