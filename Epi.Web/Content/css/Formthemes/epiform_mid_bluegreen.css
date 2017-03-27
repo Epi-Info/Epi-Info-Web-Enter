@@ -1,18 +1,17 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 /* Added CSS for Theme Styling */
 
-div legend {background-color: #127bc0;
+div legend {background-color: #003366;
 		color: #ffffff;
 		padding: 1px 5px;
 		font-size:13px !important;
 		margin-top:-5px;
 		margin-left:10px;
-		border-radius: 5px;
+		/*border-radius: 5px;*/
 		text-transform: uppercase;
 		
-
 }
 
 
@@ -27,7 +26,7 @@ select {font-size:12px!important}
 
 input {
     border: 1px solid #B3B3B3;
-    height: 21px;
+	height: 21px;
     font-size:12px!important;
 }
 
@@ -42,9 +41,9 @@ select {
   /* make arrow and background */
 
  background-image:
-    linear-gradient(45deg, transparent 50%, #8dbd3c 50%),
-    linear-gradient(135deg, #8dbd3c 50%, transparent 50%),
-    linear-gradient(to right, #8dbd3c, #8dbd3c);
+    linear-gradient(45deg, transparent 50%, #1c7941 50%),
+    linear-gradient(135deg, #1c7941 50%, transparent 50%),
+    linear-gradient(to right, #1c7941, #613f2f);
   background-position:
     calc(100% - 9px) calc(0.8em + 0px),
     calc(100% - 4px) calc(0.8em + 0px),
@@ -87,9 +86,9 @@ div.MvcFieldWrapper {padding-bottom:10px !important}
 /* Changed CSS for Theme Styling */
 div fieldset
 {
-  border:3px solid #8dbd3c;
+  border:1px solid #1c7941;
   padding:2px;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   padding-top:-100px;
 	}
 
@@ -120,8 +119,8 @@ background-color: #b7b8b9;
 }
 
 input[type=checkbox]:checked + label:before {
- background-color: #ffffff;
- background-image: url("../images/checkmark1.png");
+  background-color: #ffffff;
+  background-image: url("../images/checkmark1.png");
   
 }
 
