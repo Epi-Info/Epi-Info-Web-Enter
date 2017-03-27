@@ -8,7 +8,7 @@ div legend
 	font-size:13px !important;
 	margin-top:-5px;
 	margin-left:10px;
-	border-radius: 5px;
+	/*border-radius: 5px;*/
 	text-transform: uppercase;
 
 }
@@ -90,9 +90,9 @@ div.MvcFieldWrapper
 
 div fieldset 
 {
-	border:3px solid #727272;
+	border:1px solid #727272;
 	padding:2px;
-	border-radius: 6px;
+	/*border-radius: 6px;*/
 	padding-top:-100px;
 }
 
@@ -119,6 +119,16 @@ input[type=checkbox] + label:before
 	/*margin-left: 10px;*/
 	margin-right:5px;
     margin-left:-20px;
+}
+
+input[type=checkbox]#RemoveTestData + label:before 
+{
+    margin-left:0px;
+}
+
+input[type=checkbox]#SoftDeleteForm + label:before 
+{
+    margin-left:0px;
 }
 
 input [type=checkbox][disabled] + label:before {

@@ -339,7 +339,10 @@
     <Content Include="Content\css\epistyle.css" />
     <Content Include="Content\css\ewe.css" />
     <Content Include="Content\css\eweMobile.css" />
-    <Content Include="Content\css\Formthemes\theme4.css" />
+    <Content Include="Content\css\Formthemes\epiform_charcoalgreen.css" />
+    <Content Include="Content\css\Formthemes\epiform_light_bluegreen.css" />
+    <Content Include="Content\css\Formthemes\epiform_mid_bluegreen.css" />
+    <Content Include="Content\css\Formthemes\epiform_orangebrown.css" />
     <Content Include="Content\css\images\check.gif" />
     <Content Include="Content\css\images\footer_bar.png" />
     <Content Include="Content\css\images\prod1.png" />
@@ -378,9 +381,6 @@
     <Content Include="Content\css\eweAdmin.css" />
     <Content Include="Content\css\TabletEpiStyle.css" />
     <Content Include="Content\css\TabletEweStyle.css" />
-    <Content Include="Content\css\Formthemes\theme1.css" />
-    <Content Include="Content\css\Formthemes\theme2.css" />
-    <Content Include="Content\css\Formthemes\theme3.css" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\css\ui-lightness\images\ui-bg_flat_10_000000_40x100.png" />

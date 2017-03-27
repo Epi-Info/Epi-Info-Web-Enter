@@ -9,7 +9,7 @@ div legend {background-color: #49464c;
 		font-size:13px !important;
 		margin-top:-5px;
 		margin-left:10px;
-		border-radius: 5px;
+		/*border-radius: 5px;*/
 		text-transform: uppercase;
 
 }
@@ -86,9 +86,9 @@ div.MvcFieldWrapper {padding-bottom:10px !important}
 /* Changed CSS for Theme Styling */
 div fieldset
 {
-  border:3px solid #677848;
+  border:1px solid #677848;
   padding:2px;
-  border-radius: 6px;
+  /*border-radius: 6px;*/
   padding-top:-100px;
 	}
 
