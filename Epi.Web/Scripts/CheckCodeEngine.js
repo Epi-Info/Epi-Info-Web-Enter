@@ -2508,6 +2508,7 @@ function CreateHiddenField(pFieldName, pFieldType)
 //Check the form values has changed 
 function CCE_HasFormValuesChanged() 
 {
+   // alert(num);
    // var count = Object.size(cce_Context.symbolTable);
     var obj = cce_Context.symbolTable;
     //for (var i = 0; i < count; i++)
@@ -2530,14 +2531,18 @@ function CCE_HasFormValuesChanged()
 
                     if (symbol.Type == "checkbox") {
                         var isChecked = $(ControlName).prop('checked');
-                        if (isChecked) {
+                        //alert("isChecked:   " + isChecked + "  symbol_value:" + symbol_value);
+                         
+                        if (isChecked)
+                        {
                          CurrentValue ="Yes";
                         }
-                        else {
+                        else
+                        {
                             CurrentValue = "No";
                         }
                         
-                        if (symbol_value  == "true" || symbol_value  == "yes") {
+                        if (symbol_value.toLowerCase() == "true" || symbol_value.toLowerCase() == "yes") {
                             symbol_value = "Yes";
                         }
                         // if (symbol_value == "false" || symbol_value == "no")
@@ -2564,7 +2569,7 @@ function CCE_HasFormValuesChanged()
                         if (HasChanged)
                          {
                              $('#FormHasChanged').val('True');
-                              
+                            // alert($('#FormHasChanged').val());
                         }
                     }
              }
