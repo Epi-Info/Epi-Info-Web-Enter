@@ -177,11 +177,33 @@ namespace Epi.Core.EnterInterpreter.Rules
 
         public override void ToJavaScript(StringBuilder pJavaScriptBuilder)
         {
-            pJavaScriptBuilder.Append("cce_Context.setValue('");
-            pJavaScriptBuilder.Append(this.QualifiedId.ToLower());
-            pJavaScriptBuilder.Append("', ");
-            this.value.ToJavaScript(pJavaScriptBuilder);
-            pJavaScriptBuilder.AppendLine(");");
+            if (this.Namespace != null && this.QualifiedId.ToLower().Equals("color"))
+            {
+               string fieldname = "";
+               var  field= this.Context.GetVariable(this.Namespace.ToLower());
+               if (((Epi.Core.EnterInterpreter.PluginVariable)(field)).ControlType.ToString() == "groupbox")
+               {
+                   fieldname = "mvcdynamicfield_" + this.Namespace.ToLower() + "_groupbox";
+               }
+               else
+               {
+                   fieldname = "mvcdynamicfield_" + this.Namespace.ToLower() + "_fieldWrapper";
+               }
+               pJavaScriptBuilder.Append("$(");
+               pJavaScriptBuilder.Append("'#"+ fieldname);            
+               pJavaScriptBuilder.Append("').css('background-color','");            
+               pJavaScriptBuilder.Append( "#" + this.value.Execute().ToString().Substring(2));
+               //pJavaScriptBuilder.AppendLine("!important');");
+               pJavaScriptBuilder.AppendLine("');");             
+            }
+            else
+            {
+                pJavaScriptBuilder.Append("cce_Context.setValue('");
+                pJavaScriptBuilder.Append(this.QualifiedId.ToLower());
+                pJavaScriptBuilder.Append("', ");
+                this.value.ToJavaScript(pJavaScriptBuilder);
+                pJavaScriptBuilder.AppendLine(");");
+           }
         }
 
 
