@@ -443,9 +443,10 @@ CCE_Context.prototype.getValue = function (pName)
                         }
                         return value;
                     case "timepicker":
-                        var refDate = CCE_GetTodaysDate();//It is a reference date 
-                        var dateTime = refDate + " " + value;
-                        value = new Date(dateTime).getTime();
+                        //var refDate = CCE_GetTodaysDate();//It is a reference date 
+                        //var dateTime = refDate + " " + value;
+                        //value = new Date(dateTime).getTime();
+                        value = new Date(field.val()).valueOf();
                         if (value == "" || isNaN(value))
                         {
                             return null;
