@@ -151,7 +151,7 @@ namespace Epi.Web.MVC.Controllers
             if (!string.IsNullOrEmpty(EditForm) && string.IsNullOrEmpty(AddNewFormId))
             {
                 
-                Session["RootResponseId"] = EditForm;
+                Session["RootResponseId"] = EditForm.ToLower();
 
                 Session["IsEditMode"] = true;
                 Epi.Web.Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO = GetSurveyAnswer(EditForm, Session["RootFormId"].ToString());
@@ -822,7 +822,7 @@ namespace Epi.Web.MVC.Controllers
                     DataAccessRuleDescription = DataAccessRuleDescription + item.Key.ToString() + " : " + item.Value + "\n";
                 }
 
-                Model.DataAccessRuleDescription = DataAccessRuleDescription;
+                Model.DataAccessRuleDescription = DataAccessRuleDescription;        
                 ModelList.Add(Model);
             }
             return PartialView("Settings", ModelList);
