@@ -207,7 +207,7 @@ namespace Epi.Web.MVC.Controllers
 				//Session["RootFormId"] = surveyid;
 				if (Session["RootResponseId"] == null)
 				{
-					Session["RootResponseId"] = EditForm;
+					Session["RootResponseId"] = EditForm.ToLower();
 				}
 				Session["IsEditMode"] = true;
 				IsEditMode = true;
