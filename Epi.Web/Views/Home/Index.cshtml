@@ -114,7 +114,7 @@
                 var EditingDuration = Math.abs(new Date() - UpdatedDate);
 
 
-                if (data.Status == 2 || data.Status == 4) {
+                if (data.Status == 2 || data.Status == 4 || data.Status == 3) {
 
 
                     $("#exitdialog").data('ResponseId', ResponseId)
@@ -796,7 +796,7 @@
             UpdatedDate = UpdatedDate.replace(/[^0-9 +]/g, '');
             UpdatedDate = new Date(parseInt(UpdatedDate));
             var EditingDuration = Math.abs(new Date() - UpdatedDate);
-            if (data.Status == 2 || data.Status == 4) {
+            if (data.Status == 2 || data.Status == 4 || data.Status == 3) {
                 $('#' + obj.id).closest("form").submit();
             }
             else
