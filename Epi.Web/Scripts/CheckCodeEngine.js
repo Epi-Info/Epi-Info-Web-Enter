@@ -446,15 +446,19 @@ CCE_Context.prototype.getValue = function (pName)
                         //var refDate = CCE_GetTodaysDate();//It is a reference date 
                         //var dateTime = refDate + " " + value;
                         //value = new Date(dateTime).getTime();
-                        value = new Date(field.val()).valueOf();
-                        if (value == "" || isNaN(value))
+                        value = field.val();
+                      
+                        if (value == "" )
                         {
+                            alert(value)
                             return null;
                         }
                         else
                         {
+                             
                             return value;
                         }
+                      
                         return value;
                     case "numeric": //string has been converted to number to compare with another number
                         value = new Number(field.val()).valueOf();
