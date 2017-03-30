@@ -450,7 +450,7 @@ CCE_Context.prototype.getValue = function (pName)
                       
                         if (value == "" )
                         {
-                            alert(value)
+                            
                             return null;
                         }
                         else
