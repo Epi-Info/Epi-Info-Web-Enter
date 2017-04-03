@@ -249,15 +249,15 @@
 
         // start the idle timer plugin
         $.idleTimeout('#TimeOutdialog', 'div.ui-dialog-buttonpane button:first', {
-            idleAfter: 840,
-            pollingInterval: 2,
-            keepAliveURL: 'keepalive.php',
-            serverResponseEquals: 'OK',
+          //  idleAfter:  840 ,// 900,
+            //pollingInterval: 2,
+            //keepAliveURL: 'keepalive.php',
+            //serverResponseEquals: 'OK',
             onTimeout: function () {
                 //window.location = "timeout.htm";
                 window.location = '@Url.Action("Index","Login")';//GetRedirectionUrl() + '/1';
                 //'~/Login/Index';
-
+                 
 
             },
             onIdle: function () {
