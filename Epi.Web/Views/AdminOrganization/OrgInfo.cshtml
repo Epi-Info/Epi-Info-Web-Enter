@@ -68,7 +68,10 @@
 .validation-summary-valid {
     display: none;
 }
-
+input[type="checkbox"] {
+    display: inline-block;
+    width: 0;
+}
 </style>
  
 <link  href="@Url.Content("~/Content/css/eweAdmin.css")" rel="Stylesheet" type="text/css" />
@@ -233,10 +236,13 @@
 			</li>
 			<li>
            
-               <label class="accountlabel"  id="Activelabel"> @Html.CheckBoxFor(m => m.IsOrgEnabled , new { @checked = "checked" }) 
-               Organization is Enabled</label> 
-               @Html.ValidationMessageFor(m => m.IsOrgEnabled, null, new { @class = "required" })
-               
+              
+                @Html.ValidationMessageFor(m => m.IsOrgEnabled, null, new { @class = "required" })
+                <label class="accountlabel" id="Activelabel">
+                    @Html.CheckBoxFor(m => m.IsOrgEnabled, new { @checked = "checked" })
+                    Organization is Enabled
+                </label>
+                
 			</li>
 			 
 		</ol>
