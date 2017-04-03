@@ -120,6 +120,18 @@ input[type=checkbox] + label:before
 	margin-right:5px;
     margin-left:-20px;
 }
+input[type=checkbox] + input[type=hidden] + label:before 
+{
+	background-color: #ffffff;
+	border: 1px solid #b3b3b3;  
+	display: inline-block;
+	transition-duration: 0.3s;
+	width: 14px;
+	height: 14px;
+	content: '';
+	/*margin-left: 10px;*/
+	margin-right:5px;
+}
 
 input[type=checkbox]#RemoveTestData + label:before 
 {
@@ -131,8 +143,13 @@ input[type=checkbox]#SoftDeleteForm + label:before
     margin-left:0px;
 }
 
-input [type=checkbox][disabled] + label:before {
-background-color: #b7b8b9;
+input[type=checkbox][disabled] + label:before {
+    background-color: #e3e3e3;
+
+}
+
+input[type=checkbox][disabled] + input[type=hidden] + label:before {
+    background-color: #e3e3e3;
 
 }
 
@@ -141,6 +158,14 @@ input[type=checkbox]:checked + label:before
  	background-color: #ffffff;
 	background-image: url("../images/checkmark1.png");
 }
+
+input[type=checkbox]:checked + input[type=hidden] + label:before 
+{
+ 	background-color: #ffffff;
+	background-image: url("../images/checkmark1.png");
+}
+
+
 
 textarea 
 {
@@ -1308,10 +1333,10 @@ button.edit {
  
  
  /*Log In Page*/
-#loginform{float: left; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #8eafd5; margin: 10px 30px 30px 0; height: 270px;}
+#loginform{float: left; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #8eafd5; margin: 10px 30px 30px 0; height:320px }
 #loginform input[type="password"], #loginform input[type="text"] {height:30px; width:260px; font-size:12pt;}
 #loginform button {height: 30px; padding: 4px 6px 4px 4px; margin-left:2px; width:80px; font-size:12pt; font-weight:bold;}
-#welcome {float: left; font-size: 12pt; display:inline-block; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #8eafd5; background:#e8eff7; margin: 10px 30px 0 0; height: 270px;}
+#welcome {float: left; font-size: 12pt; display:inline-block; width: 310px; padding: 0px 30px 10px 20px; border:1px solid #8eafd5; background:#e8eff7; margin: 10px 30px 0 0; height: 320px;}
 #TOU{margin-top:20px;}
 .termsofuse {width:742px; padding:5px; /*height: 300px;*/ border:1px solid #8eafd5; font: 12px "Segoe UI"; line-height:1.8em; overflow:auto;}
 .h2header {font: 20px Segoe UI; color:#4d74a4; font-weight:400; margin-bottom: 5px;}

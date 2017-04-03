@@ -206,19 +206,31 @@
                         </li>
                         <li></li>
                         <li>
-                            <label class="accountlabel" id="Activelabel">
-                            @if (disable_attr)
-                            {
-                              @*@Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @disabled = "disabled" })*@   
-                                 @Html.DisplayFor(model => model.IsActive)
-    @Html.HiddenFor(model => model.IsActive)
-                            }
-                            else
-                            {
-                                     @Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked" })
-                            }
-                                @Html.HiddenFor(model => model.IsActive, new { id = "IsActive_Hidden" })
-                                User is Active</label>
+                            
+                               
+
+                                @if (disable_attr)
+                                {
+                                    @*@Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @disabled = "disabled" })*@
+                                    @Html.DisplayFor(model => model.IsActive, new { @class = "1" })
+                                    @Html.HiddenFor(model => model.IsActive, new { @class = "2" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @class = "3" }) 
+                               
+                                    
+                                    
+                                }
+
+                            <label for="IsActive" class="accountlabel" id="Activelabel">
+                                User is Active
+                            </label>
+                                
+                                
+                                @Html.HiddenFor(model => model.IsActive, new { id = "IsActive_Hidden", @class = "4" })
+
+                               
                         </li>
                         <li></li>
                     </ol>

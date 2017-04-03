@@ -154,27 +154,28 @@
                     <li>Manage the data on the web using your PC or mobile devices.</li>    
                     </ul>
                 </div>
-                <div id="loginform" style="margin-bottom:2px; font-size:12pt;  display: block;">
-                     <h3>Log In</h3>
-                     <label for="Email" style="display: block; font-weight: bold;margin-top:10px;" >Email:</label>
-                     @Html.TextBoxFor(m => m.UserName)<br/>
-                    @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "required" })
-                    <label for="Passcode" style="display: block; font-weight: bold;margin-top:10px;" >Password:</label>
-                    @Html.PasswordFor(m => m.Password)<br/>
-                    @Html.ValidationMessageFor(m => m.Password, null, new { @class = "required" })
-                    <p><button type="submit" value="Log in" class="default">Log In</button><br /><br />
-                        @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
-                        {
-                            @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")
-                        }
-                        @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
-                        {
-                            if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
-                            {
-                                @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")
-                            }
-                        }
-                        </p>
+    <div id="loginform" style="margin-bottom:2px; font-size:12pt;  display: block;">
+        <h3>Log In</h3>
+        <label for="Email" style="display: block; font-weight: bold;margin-top:10px;">Email:</label>
+        @Html.TextBoxFor(m => m.UserName)<br />
+        @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "required" })
+        <label for="Passcode" style="display: block; font-weight: bold;margin-top:10px;">Password:</label>
+        @Html.PasswordFor(m => m.Password)<br />
+        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "required" })
+        <p><button type="submit" value="Log in" class="default">Log In</button></p>
+        @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] == null)
+        {
+            <div> @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")</div>
+        }
+                @if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+                {
+                    if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "FALSE")
+                    {
+                    <div>@Html.ActionLink("Forgot Password?", "ForgotPassword", "Login")
+                    </div>
+                    }
+                }
+                        
                 </div>
           } 
        
