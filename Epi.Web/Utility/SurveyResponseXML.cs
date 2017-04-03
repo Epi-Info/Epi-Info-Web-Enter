@@ -42,10 +42,39 @@ namespace Epi.Web.MVC.Utility
                 {
                     if (this.ResponseDetailList.ContainsKey(field.Title))
                     {
+
+                        if (field.FieldTypeId==11)
+                        {
+                            if(field.Response=="Yes")
+                            {
+                                field.Response = "1";
+                            }
+                            else if(field.Response=="No")
+                            {
+                                field.Response = "0";
+                            }
+                            else
+                                this.ResponseDetailList[field.Title] = field.Response;
+                        }
+                        else
                         this.ResponseDetailList[field.Title] = field.Response;
                     }
                     else
                     {
+                        if (field.FieldTypeId == 11)
+                        {
+                            if (field.Response == "Yes")
+                            {
+                                this.ResponseDetailList.Add(field.Title, "1");
+                            }
+                            else if (field.Response == "No")
+                            {
+                                this.ResponseDetailList.Add(field.Title, "0");
+                            }
+                            else
+                            this.ResponseDetailList.Add(field.Title, field.Response);
+                        }
+                        else
                         this.ResponseDetailList.Add(field.Title, field.Response);
                     }
                 }
