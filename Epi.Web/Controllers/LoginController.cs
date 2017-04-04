@@ -85,9 +85,10 @@ namespace Epi.Web.MVC.Controllers
             }
             else
             {
-                var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+              
                try
                {
+                   var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
                     var UserAD = Utility.WindowsAuthentication.GetCurrentUserFromAd(CurrentUserName);
                     // validate user in EWE system
                     UserRequest User = new UserRequest();
