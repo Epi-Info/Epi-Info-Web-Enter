@@ -99,7 +99,11 @@ input[type=checkbox] label {
   
 }
 input[type=checkbox]  {
-  display: none;
+  display: inline;
+  ms-transform: scale(0); /* IE */
+ -moz-transform: scale(0); /* FF */
+ -webkit-transform: scale(0); /* Safari and Chrome */
+ -o-transform: scale(0); /* Opera */
 }
 
 input[type=checkbox] + label:before {
@@ -121,7 +125,7 @@ background-color: #b7b8b9;
 
 input[type=checkbox]:checked + label:before {
  background-color: #ffffff;
- background-image: url("../images/checkmark1.png");
+ background-image: url("../../images/checkmark1.png");
   
 }
 
