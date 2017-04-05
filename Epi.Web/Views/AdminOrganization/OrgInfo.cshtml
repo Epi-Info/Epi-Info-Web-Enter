@@ -236,13 +236,14 @@ input[type="checkbox"] {
 			</li>
 			<li>
            
-              
                 @Html.ValidationMessageFor(m => m.IsOrgEnabled, null, new { @class = "required" })
-              ;
-                   
+                @Html.CheckBoxFor(m => m.IsOrgEnabled, new { @checked = "checked" })
                 <label class="accountlabel" id="Activelabel">
+                  
                     Organization is Enabled
                 </label>
+              
+                
 			</li>
 			 
 		</ol>
