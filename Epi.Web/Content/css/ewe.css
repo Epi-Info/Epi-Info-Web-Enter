@@ -99,21 +99,21 @@ div fieldset
 input[type=checkbox] label 
 {
  	display: inline-block;
-    
+
      
 }
+
 
 
 		
 input[type=checkbox]
 {
-display: inline-block;
-vertical-align:middle;
-  ms-transform: scale(0); /* IE */
- -moz-transform: scale(0); /* FF */
- -webkit-transform: scale(0); /* Safari and Chrome */
- -o-transform: scale(0); /* Opera */
- 
+    display: inline-block;
+    vertical-align:middle;
+    ms-transform: scale(0); /* IE */
+    -moz-transform: scale(0); /* FF */
+    -webkit-transform: scale(0); /* Safari and Chrome */
+    -o-transform: scale(0); /* Opera */ 
 }
 
 input[type=checkbox] + label:before 
@@ -223,10 +223,12 @@ input.createbtn {
     color: #ffffff;
     cursor: pointer;
     display: inline-block;
-    font-weight: 600;
+    font-size:14px;
     margin: 1px;
     padding: 8px 14px;
     text-decoration: none;
+    
+
 }
 #header h1
  {
