@@ -135,14 +135,9 @@ namespace MvcDynamicForms.Fields
             //    }
             //}
              TagBuilder select = null;
-            if(this._choices.Count()<100){
+             
               select = new TagBuilder("select");
-            }else {
-            
-               select =new  TagBuilder("input");
-               select.Attributes.Add("list", inputName + "_DataList");
-               select.Attributes.Add("data-autofirst", "true");
-            }
+             
             select.Attributes.Add("id", inputName);
             select.Attributes.Add("name", inputName);
             ////////////Check code start//////////////////
@@ -204,8 +199,7 @@ namespace MvcDynamicForms.Fields
             if (_IsRequired == true)
             {
                 //awesomplete
-                if (this._choices.Count() < 100)
-                {
+                
                     if ((size.Width) > _ControlWidth)
                     {
                         // select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
@@ -218,28 +212,12 @@ namespace MvcDynamicForms.Fields
                     }
                     select.Attributes.Add("data-prompt-position", "topRight:10");
 
-                }
-                else {
-                    if ((size.Width) > _ControlWidth)
-                    {
-                         
-                        // select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
-                        select.Attributes.Add("class", GetControlClass() + "fix-me awesomplete");
-                    }
-                    else
-                    {
-                        // select.Attributes.Add("class", GetControlClass() + "text-input");
-                        select.Attributes.Add("class", GetControlClass() + " awesomplete");
-                    }
-                    select.Attributes.Add("data-prompt-position", "topRight:10");
-                
-                }
+              
             }
             else 
             {
                  //awesomplete
-                if (this._choices.Count() < 100)
-                {
+              
                     //select.Attributes.Add("class", GetControlClass() + "text-input fix-me");
                     if ((size.Width) > _ControlWidth)
                     {
@@ -251,22 +229,7 @@ namespace MvcDynamicForms.Fields
                         select.Attributes.Add("class", GetControlClass());
                     }
                     select.Attributes.Add("data-prompt-position", "topRight:10");
-                }
-                else {
-                    if ((size.Width) > _ControlWidth)
-                    {
-                        select.Attributes.Add("class", GetControlClass() + "fix-me awesomplete");
-                    }
-                    else
-                    {
-
-                        select.Attributes.Add("class", GetControlClass() + " awesomplete");
-                    }
-                    select.Attributes.Add("data-prompt-position", "topRight:10");
                 
-                
-                
-                }
             }
             string IsHiddenStyle = "";
             string IsHighlightedStyle = "";
@@ -296,21 +259,7 @@ namespace MvcDynamicForms.Fields
                 html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
             }
 
-            if (this._choices.Count() > 100)
-            {
-
-                var scriptReadOnlyText = new TagBuilder("script");
-                StringBuilder Script = new StringBuilder();
-                Script.Append("$(window).load(function () {  ");
-                //Script.Append(" $( '#" + inputName + "' ).next().css( 'width', '" + _ControlWidth.ToString() + "px' );  ");
-                Script.Append(" $( '#" + inputName + "' ).next().css( 'left', '" + _left.ToString() + "px' );  ");
-                Script.Append(" $( '#" + inputName + "' ).next().css( 'top', '" + (_top + 20).ToString() + "px' );  ");
-               
-                Script.Append("});");
-                scriptReadOnlyText.InnerHtml = Script.ToString();
-                html.Append(scriptReadOnlyText.ToString(TagRenderMode.Normal));
-            }
-
+           
             // initial empty option
             if (this._choices.Count() < 100)
             {
@@ -327,8 +276,7 @@ namespace MvcDynamicForms.Fields
             // Build codes RelateCondition script object 
 
 
-            if (this._choices.Count() < 100 && this.SelectType.ToString() != "18")
-            {
+            
                 switch (this.SelectType.ToString() )
                 {
                     case "11":
@@ -407,29 +355,8 @@ namespace MvcDynamicForms.Fields
                         }
                         break;
                 }
-            }
-            else { 
-            ///////////////////////////
-
-                var datalist = new TagBuilder("datalist ");
-                datalist.Attributes.Add("id", inputName + "_DataList");
-                html.Append(datalist.ToString(TagRenderMode.StartTag));
-            foreach (var choice in _choices)
-            {
-                var opt = new TagBuilder("option");
-                opt.Attributes.Add("value", choice.Key);
-                if (choice.Key == SelectedValue.ToString()) opt.Attributes.Add("selected", "selected");
-                {
-                    opt.SetInnerText(choice.Key);
-                }
-                 html.Append(opt.ToString());
-            }
-
-           
-                 
             
-            ///////////////////////////
-            }
+    
  
             // close select element
             html.Append(select.ToString(TagRenderMode.EndTag));
