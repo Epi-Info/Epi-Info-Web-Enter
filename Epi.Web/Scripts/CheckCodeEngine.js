@@ -1679,11 +1679,16 @@ function CCE_RemoveFromFieldsList(FieldName,ListName) {
 
  function CCE_GoToControlOrPage(controlOrPage) 
  {
+    // alert(location.href);
      if (parseInt(controlOrPage) == controlOrPage) 
      {
-         var currentUrl = window.location.href;
+         var currentUrl = location.href;
          //get the url in the format of http://localhost/<Server>/survey/<ResponseID>
+         var StringArray = currentUrl.split('?')
+         currentUrl = StringArray[0];
          currentUrl = processUrl(currentUrl, 'RedirectionUrl', "");
+        
+        // alert(currentUrl);
          $("#myform")[0].action = currentUrl + "/" + controlOrPage;
          $("#myform")[0].is_goto_action.value = 'true';
          //detach the validation engine as we don't want to validate data to go to another page as directed by check code
