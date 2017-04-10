@@ -137,14 +137,26 @@ namespace MvcDynamicForms.Fields
             string[] Styles = ControlFontStyle.Split(delimiterChars);
             if (string.IsNullOrEmpty(Width))
             {
-                CssStyles.Append("position:absolute;left:" + Left +
-                    "px;top:" + Top + "px" + ";Height:" + Height + "px");
-
+                if (Height!=null)
+                {
+                 CssStyles.Append("position:absolute;left:" + Left +"px;top:" + Top + "px" + ";Height:" + Height + "px");
+                }
+                else
+                {
+                CssStyles.Append("position:absolute;left:" + Left +"px;top:" + Top + "px" );
+                }
             }
             else
             {
-                CssStyles.Append("position:absolute;left:" + Left +
-                        "px;top:" + Top + "px" + ";width:" + Width + "px" + ";Height:" + Height + "px");
+               
+                if (Height != null)
+                {
+                    CssStyles.Append("position:absolute;left:" + Left + "px;top:" + Top + "px" + ";width:" + Width + "px" + ";Height:" + Height + "px");
+                }
+                else
+                {
+                    CssStyles.Append("position:absolute;left:" + Left + "px;top:" + Top + "px" + ";width:" + Width + "px" );
+                }
             }
 
             foreach (string Style in Styles)
