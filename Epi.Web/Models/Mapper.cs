@@ -101,15 +101,17 @@ namespace Epi.Web.MVC.Models
 
         public static SurveyAnswerModel ToSurveyAnswerModel(this Epi.Web.Enter.Common.DTO.SurveyAnswerDTO SurveyAnswerDTO)
         {
-            return new SurveyAnswerModel
+            SurveyAnswerModel Model = new SurveyAnswerModel();
+            if (SurveyAnswerDTO != null)
             {
-                ResponseId = SurveyAnswerDTO.ResponseId,
-                SurveyId = SurveyAnswerDTO.SurveyId,
-                DateUpdated = SurveyAnswerDTO.DateUpdated,
-                DateCompleted = SurveyAnswerDTO.DateCompleted,
-                Status = SurveyAnswerDTO.Status,
-                XML = SurveyAnswerDTO.XML
-            };
+               Model. ResponseId = SurveyAnswerDTO.ResponseId;
+                 Model.SurveyId = SurveyAnswerDTO.SurveyId;
+                 Model.DateUpdated = SurveyAnswerDTO.DateUpdated;
+                 Model.DateCompleted = SurveyAnswerDTO.DateCompleted;
+                 Model.Status = SurveyAnswerDTO.Status;
+                 Model.XML = SurveyAnswerDTO.XML;
+            }
+            return Model;
         }
 
         /// <summary>
