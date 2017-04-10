@@ -620,11 +620,14 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                         var FormatedTime;
                         var date = new Date(cce_Symbol.Value);
                         FormatedTime = FormatTime(date);
+                        alert(FormatedTime);
                         $(Jquery).val(FormatedTime);
                         cce_Symbol.Value = FormatedTime;
                     }
                     else {
-                        $(Jquery).timepicker("setTime", new Date(pValue));
+                        $(Jquery).val(cce_Symbol.Value)
+                        // $(Jquery).timepicker("set   cce_Symbol.Value = pValue;
+                        
                         cce_Symbol.Value = pValue;
                     }
                     break;
