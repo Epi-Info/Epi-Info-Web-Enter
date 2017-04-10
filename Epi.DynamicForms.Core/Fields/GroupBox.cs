@@ -51,15 +51,15 @@ namespace MvcDynamicForms.Fields
             StringBuilder StyleValues = new StringBuilder();
             StyleValues.Append(GetStyle(_fontstyle.ToString() ));
 
-            double PromptSize = Prompt.Length * fontSize;
+            //double PromptSize = Prompt.Length * fontSize;
 
-            if (PromptSize > this.ControlWidth )
-            {
-            prompt.Attributes.Add("style", StyleValues.ToString() + ";width:" + _ControlWidth.ToString() + "px" );
-            }else{
+            //if (PromptSize > this.ControlWidth )
+            //{
+            //prompt.Attributes.Add("style", StyleValues.ToString() + ";width:" + _ControlWidth.ToString() + "px" );
+            //}else{
               prompt.Attributes.Add("style", StyleValues.ToString()   );
             
-            }
+            //}
             //html.Append(prompt.ToString());
 
 
