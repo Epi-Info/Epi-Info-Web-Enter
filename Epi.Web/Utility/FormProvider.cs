@@ -214,8 +214,10 @@ namespace Epi.Web.MVC.Utility
                                 if (SourceTableList!= null && SourceTableList.Count() > 0)
                                 {
                                 var SourceTableXml1 = SourceTableList.Where(x => x.TableName == TableName1).Select(y=>y.TableXml).ToList();
-                              
+                                if (SourceTableXml1.Count()>0)
+                                {
                                 DropDownValues1 = GetDropDownValues( XDocument.Parse(SourceTableXml1[0].ToString()), _FieldTypeID.Attribute("Name").Value, TableName1, _FieldTypeID.Attribute("TextColumnName").Value);
+                              }
                                 }
                                 var _DropDownSelectedValue1 = Value;
                                 form.AddFields(GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue1, DropDownValues1, 17, form));
@@ -234,7 +236,7 @@ namespace Epi.Web.MVC.Utility
                                 }
                                 var _DropDownSelectedValue2 = Value;
                                 var Dropdown = GetDropDown(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 18, form);
-                                if (Dropdown.Choices.Count() > 100)
+                                if (Dropdown.Choices.Count() > 200)
                                 {
 
                                     form.AddFields(GetAutoComplete(_FieldTypeID, _Width, _Height, xdocResponse, _DropDownSelectedValue2, DropDownValues2, 1, form));
