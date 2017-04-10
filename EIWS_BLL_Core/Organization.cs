@@ -136,7 +136,7 @@ namespace Epi.Web.BLL
                     }
                     
                     Body.Append("\nOrganization Key: " + OrgKey);
-                    Body.Append("\n\nPlease click the link below to launch the Epi Info™ Cloud Data Capture and log in with your email and temporary password. You will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
+                    Body.Append("\n\nPlease click the link below to launch Epi Info™ Cloud Data Capture and log in with your email and temporary password. \nYou will then be asked to create a new password. \n" + ConfigurationManager.AppSettings["BaseURL"]);
                     //Add email and temporary password for new user. 
                 }
 
@@ -148,13 +148,13 @@ namespace Epi.Web.BLL
                     Body.Append("\n\tStep 1: Download and install the latest version of Epi Info™ 7 from:" + ConfigurationManager.AppSettings["EPI_INFO_DOWNLOAD_URL"]);
                     Body.Append("\n\tStep 2: On the Main Menu, click on “Tools” and select “Options”");
                     Body.Append("\n\tStep 3: On the Options dialog, click on the “Cloud Data Capture” Tab.");
-                    Body.Append("\n\tStep 4: On the Cloud Data Capture tab, enter the following information.");
+                    Body.Append("\n\tStep 4: On the Cloud Data Capture tab, enter the following information:");
 
-                    Body.Append("\n\t\t-Endpoint Address:" + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
-                    Body.Append("\n\t\t-Binding Protocol:" + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
+                    Body.Append("\n\t\t-Endpoint Address: " + ConfigurationManager.AppSettings["ENDPOINT_ADDRESS"] + "\n\t\t-Connect using Windows Authentication:  " + ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"]);
+                    Body.Append("\n\t\t-Binding Protocol: " + ConfigurationManager.AppSettings["BINDING_PROTOCOL"]);
 
-                    Body.Append("\n\tStep 5:Click “OK’ button.");
-                    Body.Append("\nOrganization key provided here is to be used in Epi Info™ 7 during publish process.");
+                    Body.Append("\n\tStep 5:Click “OK” button.");
+                    Body.Append("\nThe Organization Key provided here is to be used during the Epi Info™ 7 publish process.");
                     Body.Append("\n\nPlease contact the system administrator for any questions.");
                 }
 
