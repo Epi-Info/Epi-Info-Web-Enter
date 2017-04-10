@@ -918,22 +918,29 @@ Rule_Hide.prototype.Execute = function ()
                     break;
                     }
    }else{
-           if(symbol.Type == "radiobutton")
-            {
-                query = '.labelmvcdynamicfield_' + pCheckCodeList[i];
-                $(query).each(function(i, obj) 
-                {
-                    $(query).css("background-color","yellow");
-                });
-            }
-            else
-            {
+               switch (symbol.Type) {
+                   case "radiobutton":
 
-             $(query).css("background-color","yellow");
-             query = '#labelmvcdynamicfield_' + pCheckCodeList[i];
-            
-            
-             }
+                       query = '.labelmvcdynamicfield_' + pCheckCodeList[i];
+                       $(query).each(function (i, obj) {
+                           $(query).css("background-color", "yellow");
+                       });
+
+                       break;
+                   case "checkbox":
+
+                       query = '#labelmvcdynamicfield_' + pCheckCodeList[i];
+                      
+                       $(query).css("background-color", "yellow");
+                      
+                       break;
+
+
+                   default:
+                       $(query).css("background-color", "yellow");
+                       //query = '#labelmvcdynamicfield_' + pCheckCodeList[i];
+                       break;
+               }
 }
  
               CCE_AddToFieldsList(pCheckCodeList[i], 'HighlightedFieldsList');
@@ -1065,21 +1072,28 @@ if (eval(document.getElementById("IsMobile"))){
                     break;
                     }
 }else{
-           if(symbol.Type == "radiobutton")
-            {
-                query = '.labelmvcdynamicfield_' + pCheckCodeList[i];
-                $(query).each(function(i, obj) 
-                {
-                  $(query).css("background-color", "");
-                });
-            }
-            else
-            {
+    switch (symbol.Type) {
+        case "radiobutton":
+
+            query = '.labelmvcdynamicfield_' + pCheckCodeList[i];
+            $(query).each(function (i, obj) {
                 $(query).css("background-color", "");
-               
-                 query = '#labelmvcdynamicfield_' + pCheckCodeList[i];
-                 //CCE_AddToHilightedFieldsList(pCheckCodeList[i]);
-             }
+            });
+            break;
+        case "checkbox":
+
+            query = '#labelmvcdynamicfield_' + pCheckCodeList[i];
+            $(query).css("background-color", "");
+
+            break;
+
+
+        default:
+            $(query).css("background-color", "");
+
+            //query = '#labelmvcdynamicfield_' + pCheckCodeList[i];
+            break;
+    }
         }
  
              CCE_RemoveFromFieldsList(pCheckCodeList[i], 'HighlightedFieldsList');
