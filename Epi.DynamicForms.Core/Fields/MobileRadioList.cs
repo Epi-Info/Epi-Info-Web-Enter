@@ -122,6 +122,11 @@ namespace MvcDynamicForms.Fields
                     // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
                     rad.Attributes.Add("onclick", "return " + _key + "_after(this.id);"); //After
                 }
+                EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
+                if (FunctionObjectClick != null)
+                {                    
+                    rad.Attributes.Add("onclick", "return " + _key + "_click(this.id);"); //click
+                }
 
                 ////////////Check code end//////////////////
                 rad.SetInnerText(choicesList[i].Key);
