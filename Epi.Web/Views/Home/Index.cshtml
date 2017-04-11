@@ -855,7 +855,8 @@
 
 
 
-        var ActionUrl = '@Url.Action("UnLock", "Home")' + '?responseid=' + ResponseId;
+        var ActionUrl = '@Url.Action("UnLock", "Home")' + '/' + ResponseId+'/False';
+        
         $.ajax({
             url: ActionUrl,
             type: 'POST',
@@ -867,6 +868,7 @@
         });
         function successFunc1(data, status)
         {
+           
             if(data =="Success")
             {
                 $("#exitdialog").data('ResponseId', ResponseId)
@@ -879,6 +881,7 @@
         }
 
         function errorFunc1() {
+            
             alert('error');
         }
     }
