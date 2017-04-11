@@ -106,8 +106,8 @@ namespace Epi.Web.MVC
               routes.MapRoute
     (
         null, // Route name
-        "Home/Unlock", // URL with parameters
-        new { controller = "Home", action = "Unlock", responseid = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
+        "Home/Unlock/{ResponseId}/{RecoverLastRecordVersion}", // URL with parameters
+        new { controller = "Home", action = "Unlock", ResponseId = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
     ); // Param
               routes.MapRoute
                   (
