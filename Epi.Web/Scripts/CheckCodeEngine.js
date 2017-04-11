@@ -2585,7 +2585,7 @@ function CCE_HasFormValuesChanged()
                             CurrentValue = "No";
                         }
                         
-                        if (symbol_value.toLowerCase() == "true" || symbol_value.toLowerCase() == "yes") {
+                        if (symbol_value.toString().toLowerCase() == "true" || symbol_value.toString().toLowerCase() == "yes") {
                             symbol_value = "Yes";
                         }
                         // if (symbol_value == "false" || symbol_value == "no")
