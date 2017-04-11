@@ -627,8 +627,9 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                     else {
                        
                         var str = cce_Symbol.Value.toString();
-                        var nincluded= str.includes(":");
-                        if (nincluded)
+                        //var nincluded= str.includes(":");
+                        var array = str.split(':');
+                        if (array != null && array.length>1)
                         {
                              
                              $(Jquery).val(cce_Symbol.Value)
