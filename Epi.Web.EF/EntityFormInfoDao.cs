@@ -37,19 +37,19 @@ namespace Epi.Web.EF
                        List<string> Assigned = GetAssignedForms(Context, CurrentUser);
 
 
-                       List<KeyValuePair<int, string>> Shared = GetSharedForms(CurrentOrgId, Context);
+                       //List<KeyValuePair<int, string>> Shared = GetSharedForms(CurrentOrgId, Context);
                             
-                        // find the forms that are shared with the current user 
-                       List<KeyValuePair<int, string>> SharedForms = new List<KeyValuePair<int, string>>();
-                       foreach (var item in Shared)
-                       {
+                       // // find the forms that are shared with the current user 
+                       //List<KeyValuePair<int, string>> SharedForms = new List<KeyValuePair<int, string>>();
+                       //foreach (var item in Shared)
+                       //{
 
-                           if (UserOrganizations.Where(x => x.OrganizationID == item.Key).Count()>0)
-                           {
-                               KeyValuePair<int, string> Item = new KeyValuePair<int, string>(item.Key, item.Value);
-                               SharedForms.Add(Item);
-                           }
-                       }
+                       //    if (UserOrganizations.Where(x => x.OrganizationID == item.Key).Count()>0)
+                       //    {
+                       //        KeyValuePair<int, string> Item = new KeyValuePair<int, string>(item.Key, item.Value);
+                       //        SharedForms.Add(Item);
+                       //    }
+                       //}
 
 
                        var items = from FormInfo in Context.SurveyMetaDatas
@@ -80,16 +80,29 @@ namespace Epi.Web.EF
                             else
                                 {
 
-                                //Only Share or Assign
-                                    if (SharedForms.Where(x=>x.Value == FormInfoBO.FormId).Count()>0)
+                                ////Only Share or Assign
+                                //    if (SharedForms.Where(x=>x.Value == FormInfoBO.FormId).Count()>0)
+                                //    {
+                                //        FormInfoBO.IsShared = true;
+                                //        FormInfoBO.UserId = Id;
+                                //        //FormInfoBO.OrganizationId = Shared.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
+                                //        FormInfoBO.OrganizationId = SharedForms.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
+                                //        FormList.Add(FormInfoBO);
+                                //    }
+                                //    else 
+                                    foreach (var item2 in UserOrganizations)
                                     {
-                                        FormInfoBO.IsShared = true;
-                                        FormInfoBO.UserId = Id;
-                                        //FormInfoBO.OrganizationId = Shared.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
-                                        FormInfoBO.OrganizationId = SharedForms.FirstOrDefault(x => x.Value.Equals(FormInfoBO.FormId)).Key;
-                                        FormList.Add(FormInfoBO);
-                                    }
-                                    else if (Assigned.Contains(FormInfoBO.FormId))
+                                        if (FormIsShared(item.FormInfo.SurveyId.ToString(), item2.OrganizationID))
+                                    {
+                                    FormInfoBO.IsShared = true;
+                                    FormInfoBO.UserId = Id;
+
+                                    FormInfoBO.OrganizationId = item.FormInfo.OrganizationId;
+                                    FormList.Add(FormInfoBO);
+                                
+                                   }
+                                }
+                                    if (Assigned.Contains(FormInfoBO.FormId))
                                      {
                                       FormInfoBO.IsOwner = false;
                                       var UserOrgId =this.GetUserOrganization(FormInfoBO.FormId, UserId);
@@ -124,6 +137,7 @@ namespace Epi.Web.EF
             IQueryable<SurveyMetaData> AllForms1 = Context.SurveyMetaDatas.Where(x => x.ParentId == null
         && x.Organizations.Any(r => r.OrganizationId == CurrentOrgId)
        ).Distinct();
+
             foreach (var form in AllForms1)
             {
                 // checking if the form is shared with any organization
@@ -232,21 +246,28 @@ namespace Epi.Web.EF
                                                      where r.SurveyId == Id
                                                      select r;
                                       var item = Response.First();
-                                      var _Org = new HashSet<int>(Response.Select(x => x.OrganizationId));
-                                      var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                                      //var _Org = new HashSet<int>(Response.Select(x => x.OrganizationId));
+                                      //var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                                      User CurrentUser = Context.Users.Single(x => x.UserID == UserId);
+                                      var UserOrganizations = CurrentUser.UserOrganizations.Where(x => x.RoleId == 2);
                                       bool IsShared = false;
 
-                                      foreach (var org in Orgs)
+                                      foreach (var org in UserOrganizations)
                                       {
 
-
-                                          var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
-                                          if (UserInfo.Count() > 0)
+                                          IsShared = FormIsShared(FormId, org.OrganizationID);
+                                          if (IsShared)
                                           {
-                                              IsShared = true;
+                                              FormInfoBO.IsShared = IsShared;
                                               break;
-
                                           }
+                                          //var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
+                                          //if (UserInfo.Count() > 0)
+                                          //{
+                                          //    IsShared = true;
+                                          //    break;
+
+                                          //}
 
                                       }
                                       FormInfoBO = Mapper.MapToFormInfoBO(item, null, GetXml);
@@ -279,23 +300,31 @@ namespace Epi.Web.EF
                                                             r.OwnerId  ,
                                                             r.ParentId };
                                    var item = Response.First() ;
-                                   var _Org = new HashSet<int>(Response.Select(x => x.OrganizationId));
-                                   var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                                   //var _Org = new HashSet<int>(Response.Select(x => x.OrganizationId));
+                                   //var Orgs = Context.Organizations.Where(t => _Org.Contains(t.OrganizationId)).ToList();
+                                   User CurrentUser = Context.Users.Single(x => x.UserID == UserId);
+                                   var UserOrganizations = CurrentUser.UserOrganizations.Where(x => x.RoleId == 2);
                                    bool IsShared = false;
 
-                                   foreach (var org in Orgs)
+                                   foreach (var org in UserOrganizations)
                                    {
 
-
-                                       var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
-                                       if (UserInfo.Count() > 0)
+                                       IsShared = FormIsShared(FormId, org.OrganizationID);
+                                       if (IsShared)
                                        {
-                                           IsShared = true;
-                                           break;
-
+                                         FormInfoBO.IsShared = IsShared;
+                                       break;
                                        }
+                                       //var UserInfo = Context.UserOrganizations.Where(x => x.OrganizationID == org.OrganizationId && x.UserID == UserId && x.RoleId == 2);
+                                       //if (UserInfo.Count() > 0)
+                                       //{
+                                       //    IsShared = true;
+                                       //    break;
+
+                                       //}
 
                                    }
+                                  
                                    FormInfoBO.IsSQLProject = (item.IsSQLProject == null) ? false : (bool)item.IsSQLProject;
                                    FormInfoBO.FormId = item.SurveyId.ToString();
                                    FormInfoBO.FormName = item.SurveyName;
@@ -312,7 +341,7 @@ namespace Epi.Web.EF
 
 
                                    FormInfoBO.ParentId = item.ParentId.ToString();
-                                   FormInfoBO.IsShared = IsShared;
+                               
 
                                    if (item.OwnerId == UserId)
                                    {
@@ -423,6 +452,45 @@ namespace Epi.Web.EF
             }
            
         }
+        public bool FormIsShared(string SurveyId, int OrganizationId)
+        {
+            List<SourceTableBO> result = new List<SourceTableBO>();
+            string EWEConnectionString = DataObjectFactory.EWEADOConnectionString;
+            SqlConnection EWEConnection = new SqlConnection(EWEConnectionString);
+            EWEConnection.Open();
+            bool IsShared = false;
+            SqlCommand Command = new SqlCommand();
+            Command.Connection = EWEConnection;
+            try
+            {
+                Command.CommandType = CommandType.Text;
+                Command.CommandText = "select * from SurveyMetadataOrganization  where  SurveyId ='" + SurveyId + "' And OrganizationId='" + OrganizationId + "'";
+                // Command.ExecuteNonQuery();
+                SqlDataAdapter Adapter = new SqlDataAdapter(Command);
+                DataSet DS = new DataSet();
+                Adapter.Fill(DS);
+                if (DS.Tables.Count > 0)
+                {
+                    if (DS.Tables[0].Rows.Count > 0)
+                    {
+                        IsShared = true;
+                    }
+                    else
+                    {
+                        IsShared = false;
 
+                    }
+                }
+                EWEConnection.Close();
+
+            }
+            catch (Exception)
+            {
+                EWEConnection.Close();
+
+            }
+            return IsShared;
+
+        }
         }
     }
