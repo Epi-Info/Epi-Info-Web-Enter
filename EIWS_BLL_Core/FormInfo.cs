@@ -33,8 +33,11 @@ namespace Epi.Web.BLL
         public FormInfoBO GetFormInfoByFormId(string FormId, bool GetXml, int UserId)
         {
             //Owner Forms
-            FormInfoBO result = this.FormInfoDao.GetFormByFormId(FormId, GetXml, UserId);
-
+            FormInfoBO result = new FormInfoBO();
+            if (UserId>0)
+            {
+               result = this.FormInfoDao.GetFormByFormId(FormId, GetXml, UserId);
+             }
             if (ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && result.IsSQLProject)
             {
                 bool toggleSwitchValue = this.FormInfoDao.GetEwavLiteToggleSwitch(FormId, UserId);
