@@ -443,23 +443,17 @@ CCE_Context.prototype.getValue = function (pName)
                         }
                         return value;
                     case "timepicker":
-                        //var refDate = CCE_GetTodaysDate();//It is a reference date 
-                        //var dateTime = refDate + " " + value;
-                        //value = new Date(dateTime).getTime();
-                        value = field.val();
-                      
-                        if (value == "" )
-                        {
-                            
+                        var refDate = CCE_GetTodaysDate();//It is a reference date 
+                        var dateTime = refDate + " " + field.val();
+                        value = new Date(dateTime).getTime();
+                        if (value == "" || isNaN(value)) {
                             return null;
                         }
-                        else
-                        {
-                             
+                        else {
                             return value;
                         }
-                      
                         return value;
+                       
                     case "numeric": //string has been converted to number to compare with another number
                         value = new Number(field.val()).valueOf();
                        
