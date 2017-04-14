@@ -40,7 +40,7 @@ namespace MvcDynamicForms.Fields
             var txt = new TagBuilder("input");
             txt.Attributes.Add("name", inputName);
             txt.Attributes.Add("id", inputName);
-            txt.Attributes.Add("type", "date");
+            txt.Attributes.Add("type", "text");
             txt.Attributes.Add("Theme", "b");
             txt.Attributes.Add("data-role", "datebox");
             txt.Attributes.Add("data-options", "{\"mode\": \"datebox\", \"pickPageButtonTheme\": \"e\", \"pickPageInputTheme\":\"e\", \"pickPageFlipButtonTheme\":\"a\", \"pickPageTheme\":\"e\" ,  \"useNewStyle\":true}");
