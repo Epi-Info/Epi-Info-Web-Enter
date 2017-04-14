@@ -125,7 +125,7 @@ namespace MvcDynamicForms.Fields
             //    chk.Attributes.Add("disabled", "disabled");
             //}
 
-            chk.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";" + IsHighlightedStyle);            
+            chk.Attributes.Add("style", "position:absolute;left:" + _left.ToString() + "px;top:" + _top.ToString() + "px" + ";width:" + _ControlWidth.ToString() + "px" + ErrorStyle + ";" + IsHiddenStyle + ";");            
           
             chk.MergeAttributes(_inputHtmlAttributes);
             ////////////Check code start//////////////////
@@ -161,7 +161,7 @@ namespace MvcDynamicForms.Fields
             prompt.Attributes.Add("Id", "label" + inputName);
             StringBuilder StyleValues = new StringBuilder();
             StyleValues.Append(GetContolStyle(_fontstyle.ToString(), _Prompttop.ToString(), _Promptleft.ToString(), null,null, IsHidden));
-            prompt.Attributes.Add("style", StyleValues.ToString());
+            prompt.Attributes.Add("style", StyleValues.ToString() + " ; " + IsHighlightedStyle );
             html.Append(prompt.ToString());
             if (ReadOnly || _IsDisabled)
                 {
