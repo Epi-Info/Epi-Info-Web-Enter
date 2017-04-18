@@ -597,7 +597,10 @@ namespace Epi.Web.MVC.Controllers
                         {
                             //Invalid Data - stay on same page
                             int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
-
+                            if (IsMobileDevice)
+                            {
+                                CurrentPageNum--;
+                            }
 
 
                             if (CurrentPageNum != PageNumber) // failed validation and navigating to different page// must keep url the same 
