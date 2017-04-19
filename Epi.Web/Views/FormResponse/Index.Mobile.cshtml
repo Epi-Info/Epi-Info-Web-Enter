@@ -369,16 +369,21 @@ var pageId = $('#hidPageNumber').val();
             }
             else
             {
+               
                 //alert('loggedInUserId' + loggedInUserId);
                // alert('data.LastActiveUserId' + data.LastActiveUserId);
                 // if time elapsed is less the   system timeout
               
                 if (EditingDuration <= SessionTimeOut && loggedInUserId != data.LastActiveUserId) {
-                    
-                    $('#inlinecontent').simpledialog2({'mode': 'blank',
+                    alert("hi");
+                    $(this).simpledialog2({
+                        'mode': 'blank',
+                        
                         //'prompt': false,
                         'forceInput': false,
-
+                        'headerText': 'Edit Record',
+                        'headerClose': true,
+                        'themeDialog': "b",
                         //'useModal': true,
                         //'buttons': {
                         //    'OK': {
@@ -390,8 +395,8 @@ var pageId = $('#hidPageNumber').val();
 
                         //},
 
-
-                        'fullHTML': "<div id=\"exitdialog\" title=\"Delete Record\" ><p id='simpletext' style=\"font-size:1.20em; font-weight:400;\">This record is being edited by another user.</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'><a class='login'   style='width:50px; padding:8px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' \">OK</a></div></p>"
+                        
+                       'blankContent': "<div id=\"exitdialog\" title=\"Delete Record\" ><p id='simpletext' style=\"font-size:1.20em; font-weight:400;\">This record is being edited by another user.</p><p style=\"font-size:1.20em; font-weight:300;\"></p><p><div align='right' id='exitbtns'><a class='login'   style='width:50px; padding:8px 5px !important; border: 1px solid #1f3b53 !important; background: #5c53ac !important; color:#fff !important; text-shadow: none !important;'rel='close'   id='simpleclose' \">OK</a></div></p>"
                     });
                   
                 }
@@ -459,7 +464,7 @@ var pageId = $('#hidPageNumber').val();
             {
                // $("#exitdialog").data('ResponseId', ResponseId)
               //  $("#exitdialog").dialog("open");
-                $(this).simpledialog2({
+                $("#inlinecontent1").simpledialog2({
                     'mode': 'blank',
                    // 'prompt': false,
                     'forceInput': false,
