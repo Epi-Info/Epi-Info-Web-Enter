@@ -123,7 +123,7 @@ namespace MvcDynamicForms.Fields
                     rad.Attributes.Add("onclick", "return " + _key + "_after(this.id);"); //After
                 }
                 EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
-                if (FunctionObjectClick != null)
+                if (FunctionObjectClick != null && !FunctionObjectClick.IsNull())
                 {                    
                     rad.Attributes.Add("onclick", "return " + _key + "_click(this.id);"); //click
                 }
