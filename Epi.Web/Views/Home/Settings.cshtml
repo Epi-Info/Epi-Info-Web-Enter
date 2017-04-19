@@ -54,20 +54,21 @@
             <div>
 
                 <p style="margin-bottom: 4px; font-weight: bold; font-size: 0.9em;">Delete DRAFT records:</p>
-      
-                <input type="checkbox" id="RemoveTestData" name="RemoveTestData" onclick="RemoveTestData()" title="Delete" />
-                <label for="RemoveTestData">
-                  Delete
-                </label>
-
+                <div style="margin-left:20px">
+                    <input type="checkbox" id="RemoveTestData" class="checkboxHideCB" name="RemoveTestData" onclick="RemoveTestData()" title="Delete" />
+                    <label for="RemoveTestData">
+                        Delete
+                    </label>
+                </div>
           </div>
         }
         <br />
         <br />
          <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Disable Form:</p>
-        <input type="checkbox" id="SoftDeleteForm" name="SoftDeleteForm" onchange="DeleteFormWarning();" title="Disable Form" />
-        <label for="SoftDeleteForm">Disable</label>
-
+        <div style="margin-left:20px">
+            <input type="checkbox" id="SoftDeleteForm" class="checkboxHideCB" name="SoftDeleteForm" onchange="DeleteFormWarning();" title="Disable Form" />
+            <label for="SoftDeleteForm">Disable</label>
+        </div>
         <p style="margin-bottom: 4px;font-weight:bold;font-size: 0.9em;">Select up to 5 columns to display when viewing the list of records.</p>
         @foreach (var FormModel in Model)
         {
