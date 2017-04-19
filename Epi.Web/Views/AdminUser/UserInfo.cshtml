@@ -212,12 +212,12 @@
                                 @if (disable_attr)
                                 {
                                     @*@Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @disabled = "disabled" })*@
-                                    @Html.DisplayFor(model => model.IsActive, new { @class = "1" })
-                                    @Html.HiddenFor(model => model.IsActive, new { @class = "2" })
+                                    @Html.DisplayFor(model => model.IsActive, new { @class = "checkboxHideCB" })
+                                    @Html.HiddenFor(model => model.IsActive, new { @class = "checkboxHideCB" })
                                 }
                                 else
                                 {
-                                    @Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @class = "3" }) 
+                                    @Html.CheckBoxFor(model => model.IsActive, new { @checked = "checked", @class = "checkboxHideCB" }) 
                                
                                     
                                     
@@ -228,7 +228,7 @@
                             </label>
                                 
                                 
-                                @Html.HiddenFor(model => model.IsActive, new { id = "IsActive_Hidden", @class = "4" })
+                                @Html.HiddenFor(model => model.IsActive, new { id = "IsActive_Hidden", @class = "checkboxHideCB" })
 
                                
                         </li>

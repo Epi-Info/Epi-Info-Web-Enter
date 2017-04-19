@@ -104,8 +104,9 @@ input[type=checkbox] label
 }
 
 
-
-		
+input[type=checkbox].checkboxHideCB {
+    display:none;
+}
 input[type=checkbox]
 {
     display: inline-block;
