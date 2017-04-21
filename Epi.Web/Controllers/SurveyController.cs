@@ -337,7 +337,7 @@ namespace Epi.Web.MVC.Controllers
                         bool IsSaved = false;
 
                         form = SetLists(form);
-
+                        int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
                          _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
                         
 
@@ -596,11 +596,11 @@ namespace Epi.Web.MVC.Controllers
                         else
                         {
                             //Invalid Data - stay on same page
-                            int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
-                            if (IsMobileDevice)
-                            {
-                                CurrentPageNum--;
-                            }
+                          
+                            //if (IsMobileDevice)
+                            //{
+                            //    CurrentPageNum--;
+                            //}
 
 
                             if (CurrentPageNum != PageNumber) // failed validation and navigating to different page// must keep url the same 

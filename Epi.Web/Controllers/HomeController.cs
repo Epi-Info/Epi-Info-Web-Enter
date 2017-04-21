@@ -880,10 +880,12 @@ namespace Epi.Web.MVC.Controllers
        {
            try
            {
+               int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
                SurveyAnswerRequest SurveyAnswerRequest = new SurveyAnswerRequest();
                SurveyAnswerRequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = ResponseId });
                SurveyAnswerRequest.Criteria.StatusId = 2;
                SurveyAnswerRequest.Criteria.SurveyAnswerIdList.Add(ResponseId);
+               SurveyAnswerRequest.Criteria.UserId = UserId;
                Session["RecoverLastRecordVersion"] = RecoverLastRecordVersion;
                _isurveyFacade.UpdateResponseStatus(SurveyAnswerRequest);
            }
