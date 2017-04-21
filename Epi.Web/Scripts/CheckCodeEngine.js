@@ -667,7 +667,7 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                             if (!IsHidden)
                              {
                                 $(Jquery).val('1').attr("selected", "Yes");
-                                $(Jquery).selectmenu();
+                               // $(Jquery).selectmenu();
                                 $(Jquery).selectmenu('refresh', true);
                                 cce_Symbol.Value = true;
                             }
@@ -685,7 +685,7 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                             if (!IsHidden) 
                             {
                                 $(Jquery).val('0').attr("selected", "No");
-                                $(Jquery).selectmenu();
+                              //  $(Jquery).selectmenu();
                                 $(Jquery).selectmenu('refresh', true);
                                 cce_Symbol.Value = false;
                             }
@@ -704,7 +704,7 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                             if (!IsHidden)
                              {
                                 $(Jquery).val(null).attr("selected", null);
-                                $(Jquery).selectmenu();
+                               // $(Jquery).selectmenu();
                                 $(Jquery).selectmenu('refresh', null);
                                 cce_Symbol.Value = null;
                             }
@@ -779,8 +779,8 @@ CCE_Context.prototype.setValue = function (pName, pValue) {
                     if (eval(document.getElementById("IsMobile"))) {
                         if (!IsHidden) {
                             $(Jquery).val(pValue).attr("selected", true);
-                            $(Jquery).selectmenu();
-                            $(Jquery).selectmenu('refresh', true);
+                           // $(Jquery).selectmenu();
+                           $(Jquery).selectmenu('refresh', true);
                             cce_Symbol.Value = pValue;
                         } else {
                             cce_Symbol.Value = pValue;
@@ -1217,19 +1217,22 @@ if (eval(document.getElementById("IsMobile"))){
                     var checkboxcontrolId = '#mvcdynamicfield_' + pCheckCodeList[i] ;
                      $(checkboxcontrolId).attr("disabled", true);
                      $(Labelquery).css("color", "LightGray")
-                    break;
-               case "legalvalues":
-                    $(query).selectmenu();
-                    $(query).selectmenu('disable');
-                    break;
+                     break;
                case "yesno":
-                    $(query).selectmenu();
-                    $(query).selectmenu('disable');
+               case "legalvalues":
+               case "commentlegal":
+                  //  $(query).selectmenu();
+                   // $(query).selectmenu('disable');
+                   $(query).attr("disabled", "disabled");
                     break;
-              case "commentlegal":
-                    $(query).selectmenu();
-                    $(query).selectmenu('disable');
-                    break;
+              // case "yesno":
+              //    //  $(query).selectmenu();
+              //      $(query).selectmenu('disable');
+              //      break;
+              //case "commentlegal":
+              //     // $(query).selectmenu();
+              //      $(query).selectmenu('disable');
+              //      break;
                case "datepicker":
                      $(query).datebox('disable');
                       break;
@@ -1360,18 +1363,21 @@ query = '#mvcdynamicfield_' + pCheckCodeList[i];
                        
 
                     break;
-       case "legalvalues":
-                    $(query).selectmenu();
-                    $(query).selectmenu('enable');
+                case "yesno":
+                case "legalvalues":
+                case "commentlegal":
+                   // $(query).selectmenu();
+                    //$(query).selectmenu('enable');
+                    $(query).attr('disabled', false);
                     break;
-       case "yesno":
-                    $(query).selectmenu();
-                    $(query).selectmenu('enable');
-                    break;
-       case "commentlegal":
-                    $(query).selectmenu();
-                    $(query).selectmenu('enable');
-                    break;
+       //case "yesno":
+       //            // $(query).selectmenu();
+       //             $(query).selectmenu('enable');
+       //             break;
+       //case "commentlegal":
+       //           //  $(query).selectmenu();
+       //             $(query).selectmenu('enable');
+       //             break;
                case "datepicker":
                      $(query).datebox('enable');
                       break;
