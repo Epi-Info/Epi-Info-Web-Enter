@@ -123,7 +123,7 @@ namespace MvcDynamicForms.Fields
                 //   rad.Attributes.Add("onclick", "return " + _key + "_after(this.id);"); //After
                 }
                 EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
-                if (FunctionObjectClick != null && !FunctionObjectClick.IsNull())
+                if (FunctionObjectClick != null)
                 {                    
                     rad.Attributes.Add("onclick", "return " + _key + "_click(this.id);"); //click
                 }
@@ -131,7 +131,7 @@ namespace MvcDynamicForms.Fields
                 ////////////Check code end//////////////////
                 rad.SetInnerText(choicesList[i].Key);
                 rad.Attributes.Add("value", i.ToString());
-               // rad.Attributes.Add("style", IsHiddenStyle);
+                 rad.Attributes.Add("style", IsHiddenStyle);
                 if (_IsDisabled)
                 {
                     rad.Attributes.Add("disabled", "disabled");
