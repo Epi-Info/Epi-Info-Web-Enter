@@ -35,6 +35,7 @@ namespace MvcDynamicForms.Fields
             var html = new StringBuilder();
             var inputName = _form.FieldPrefix + _key;
             var choicesList = _choices.ToList();
+            var selectedValue = string.Empty;
          
             var choicesList1 = GetChoices(_ChoicesList);
             choicesList = choicesList1.ToList();
@@ -119,8 +120,12 @@ namespace MvcDynamicForms.Fields
                 if (FunctionObjectAfter != null && !FunctionObjectAfter.IsNull())
                 {
 
-               rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
-                //   rad.Attributes.Add("onclick", "return " + _key + "_after(this.id);"); //After
+
+
+                    rad.Attributes.Add("onblur", "$('#" + inputName + "').val('" + i.ToString() + "');return " + _key + "_after();"); //After
+                   // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
+
+                     //rad.Attributes.Add("onclick", "return " + _key + "_after(this.id);"); //After
                 }
                 EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
                 if (FunctionObjectClick != null)
@@ -137,7 +142,12 @@ namespace MvcDynamicForms.Fields
                     rad.Attributes.Add("disabled", "disabled");
                 }
 
-                if (Value == i.ToString()) rad.Attributes.Add("checked", "checked");
+                if (Value == i.ToString())
+                {
+                    selectedValue = Value;
+                    rad.Attributes.Add("checked", "checked");
+                    
+                }
                 rad.MergeAttributes(_inputHtmlAttributes);
                 html.Append(rad.ToString(TagRenderMode.SelfClosing));
 
@@ -163,8 +173,8 @@ namespace MvcDynamicForms.Fields
             hidden.Attributes.Add("type", "hidden");
             hidden.Attributes.Add("id", inputName);
             hidden.Attributes.Add("name", inputName);
-            
-            hidden.Attributes.Add("value", string.Empty);
+
+            hidden.Attributes.Add("value", selectedValue);
             html.Append(hidden.ToString(TagRenderMode.SelfClosing));
 
             var wrapper = new TagBuilder(_fieldWrapper);
