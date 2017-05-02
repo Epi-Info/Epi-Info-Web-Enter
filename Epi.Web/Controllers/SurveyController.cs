@@ -1290,7 +1290,7 @@ namespace Epi.Web.MVC.Controllers
                 }
                 else
                 {
-                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice, null,   FormsHierarchy,IsAndroid,false );
+                    form = _isurveyFacade.GetSurveyFormData(surveyInfoModel.SurveyId, CurrentPageNum, SurveyAnswer, IsMobileDevice, null,   FormsHierarchy,IsAndroid,true );
                     form.FormValuesHasChanged = FormValuesHasChanged;
                     if (IsMobileDevice)
                     {
