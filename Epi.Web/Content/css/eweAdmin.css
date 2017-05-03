@@ -87,7 +87,12 @@
 }
 
 .userorg { float:left;}
-.userorg select {width:200px;}
+
+.userorg select#OrgList {
+    width:200px;
+    padding:0px 0px 0px 0px!important}
+
+select#Role {width:200px; padding:0px 0px 0px 0px!important}
 
 #adminpaging { margin-bottom:15px;} 
 
