@@ -511,7 +511,7 @@ namespace Epi.Web.BLL
                  }
             SetSourceTable(_Xml, SurveyIds[1].ToString());
             SurveyRequestResultBO.ViewIdAndFormIdList = SurveyIds;
-            SurveyRequestResultBO.URL = SurveyRequestResultBO.URL.Remove(SurveyRequestResultBO.URL.LastIndexOf('/'));
+           // SurveyRequestResultBO.URL = SurveyRequestResultBO.URL.Remove(SurveyRequestResultBO.URL.LastIndexOf('/'));
             
             return SurveyRequestResultBO;
             }
