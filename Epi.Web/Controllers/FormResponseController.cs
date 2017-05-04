@@ -954,17 +954,57 @@ namespace Epi.Web.MVC.Controllers
 		}
 		private List<FormsHierarchyDTO> GetFormsHierarchy()
 		{
-			FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
-			FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
-			if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
-			{
-				FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
-				FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
-				FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
-			}
-			return FormsHierarchyResponse.FormsHierarchy;
-		}
+            //FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
+            //FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
+            //if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
+            //{
+            //    FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
+            //    FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
+            //    FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
+            //}
+            //return FormsHierarchyResponse.FormsHierarchy;
+            FormsHierarchyResponse FormsHierarchyResponse = new FormsHierarchyResponse();
+            FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
+            SurveyAnswerRequest ResponseIDsHierarchyRequest = new SurveyAnswerRequest();
+            SurveyAnswerResponse ResponseIDsHierarchyResponse = new SurveyAnswerResponse();
+            // FormsHierarchyRequest FormsHierarchyRequest = new FormsHierarchyRequest();
+            if (Session["RootFormId"] != null && Session["RootResponseId"] != null)
+            {
+                FormsHierarchyRequest.SurveyInfo.FormId = Session["RootFormId"].ToString();
+                FormsHierarchyRequest.SurveyResponseInfo.ResponseId = Session["RootResponseId"].ToString();
+                FormsHierarchyResponse = _isurveyFacade.GetFormsHierarchy(FormsHierarchyRequest);
 
+                SurveyAnswerDTO SurveyAnswerDTO = new Enter.Common.DTO.SurveyAnswerDTO();
+                SurveyAnswerDTO.ResponseId = Session["RootResponseId"].ToString();
+                ResponseIDsHierarchyRequest.SurveyAnswerList.Add(SurveyAnswerDTO);
+                ResponseIDsHierarchyResponse = _isurveyFacade.GetSurveyAnswerHierarchy(ResponseIDsHierarchyRequest);
+                FormsHierarchyResponse.FormsHierarchy = CombineLists(FormsHierarchyResponse.FormsHierarchy, ResponseIDsHierarchyResponse.SurveyResponseList);
+            }
+
+            return FormsHierarchyResponse.FormsHierarchy;
+		}
+        private List<FormsHierarchyDTO> CombineLists(List<FormsHierarchyDTO> RelatedFormIDsList, List<SurveyAnswerDTO> AllResponsesIDsList)
+        {
+
+            List<FormsHierarchyDTO> List = new List<FormsHierarchyDTO>();
+
+            foreach (var Item in RelatedFormIDsList)
+            {
+                FormsHierarchyDTO FormsHierarchyDTO = new FormsHierarchyDTO();
+                FormsHierarchyDTO.FormId = Item.FormId;
+                FormsHierarchyDTO.ViewId = Item.ViewId;
+                FormsHierarchyDTO.IsSqlProject = Item.IsSqlProject;
+                FormsHierarchyDTO.IsRoot = Item.IsRoot;
+                FormsHierarchyDTO.SurveyInfo = Item.SurveyInfo;
+                if (AllResponsesIDsList != null)
+                {
+                    FormsHierarchyDTO.ResponseIds = AllResponsesIDsList.Where(x => x.SurveyId == Item.FormId).ToList();
+                }
+                List.Add(FormsHierarchyDTO);
+            }
+            return List;
+
+        }
 		private FormResponseInfoModel GetFormResponseInfoModel(string SurveyId, string ResponseId)
 		{
 			int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
