@@ -1232,7 +1232,9 @@ if (eval(document.getElementById("IsMobile"))){
               //case "commentlegal":
               //     // $(query).selectmenu();
               //      $(query).selectmenu('disable');
-              //      break;
+                   //      break;
+               case "label":
+                      break;
                case "datepicker":
                      $(query).datebox('disable');
                       break;
@@ -1389,7 +1391,9 @@ query = '#mvcdynamicfield_' + pCheckCodeList[i];
                    break;
                case "relatebutton":
                    $(query).button('enable');
-                 break;
+                   break;
+              case "label":
+                    break;
                 default:
                     $(query).textinput('enable');
                     break;
