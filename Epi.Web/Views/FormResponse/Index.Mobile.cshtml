@@ -261,9 +261,16 @@ var pageId = $('#hidPageNumber').val();
     });
 
     function ExitSurvey() {
+        var hid = $("input[id=hidSelectedResponseId]").val();
+        var url = '@Url.Action("Delete", "FormResponse")';
+        var uarray = url.split('/');
+        if (uarray.length > 3) {
+            uarray[3] = "";
+            var furl = uarray.slice(0, 4).join("/");
+            url = furl;
+        }
 
-
-        var signoutUrl = '@Url.Action("Delete", "FormResponse")' + '?ResponseId=' + $("input[id=hidSelectedResponseId]").val() + '&surveyid=' + '@Model.FormInfoModel.FormId';
+        var signoutUrl = url + '?ResponseId=' + hid + '&surveyid=' + '@Model.FormInfoModel.FormId';
         $.ajax({
             url: signoutUrl,
             type: 'POST',
@@ -276,8 +283,8 @@ var pageId = $('#hidPageNumber').val();
 
 
     }
-
-    function successFunc(data) {
+    
+       function successFunc(data) {
 
         //var homePageUrl = '@Url.Action("Index", "FormResponse")' + '/' + getQueryStringValue()["formid"].toString();
         //var homePageUrl = '@Url.Action("Index", "Survey", new { responseId = "RId", PageNumber = "1" })';
@@ -463,7 +470,7 @@ var pageId = $('#hidPageNumber').val();
             {
                // $("#exitdialog").data('ResponseId', ResponseId)
               //  $("#exitdialog").dialog("open");
-                $("#inlinecontent1").simpledialog2({
+                $(this).simpledialog2({
                     'mode': 'blank',
                    // 'prompt': false,
                     'forceInput': false,
