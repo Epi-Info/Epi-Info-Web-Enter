@@ -96,7 +96,7 @@ namespace Epi.Web.MVC.Controllers
                     User.User.EmailAddress = UserAD.EmailAddress;
              
                     UserResponse result = _isurveyFacade.GetUserInfo(User);
-                    if (result != null && result.User.Count() > 0)
+                    if (result  != null && result.User != null && result.User.Count() > 0)
                     {
                     FormsAuthentication.SetAuthCookie(CurrentUserName.Split('\\')[0].ToString(), false);
                     string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User[0].UserId.ToString());
@@ -113,13 +113,16 @@ namespace Epi.Web.MVC.Controllers
                     else
                     {
 
-                        return View("Index", UserLoginModel);
+                        //return View("Index", UserLoginModel);
+                        ViewBag.ErrorName = "--Please contact system admin.--";
+                        return View("Error");
                    }
                }
                catch (Exception ex)
                {                   
-                   ViewBag.ErrorName = ex.Message;  
-                   return View("Error");
+                   //ViewBag.ErrorName = ex.Message;  
+                   //return View("Error");
+                   return View("Index", UserLoginModel);
                }
             }
 
