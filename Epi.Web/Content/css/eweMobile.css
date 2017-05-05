@@ -382,7 +382,7 @@ div.MvcFieldWrapper
  }
  
  .ui-btn-up-submit1 {background-image: url('../images/saveset.png'); background-repeat:no-repeat; background-size: 18px 18px; background-position:center center; height:41px; width: 35px; display: inline-block;}
- .ui-btn-up-submit12 {height:41px; width: 88px; display:inline-block;}
+ .ui-btn-up-submit12 {width: 88px; display:inline-block;}
  
  #savediv .ui-btn-inner {font-size: 9pt; padding: .8em 5px;}
  
