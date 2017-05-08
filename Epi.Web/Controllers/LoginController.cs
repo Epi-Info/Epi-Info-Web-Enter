@@ -114,7 +114,7 @@ namespace Epi.Web.MVC.Controllers
                     {
 
                         //return View("Index", UserLoginModel);
-                        ViewBag.ErrorName = "--Please contact system admin.--";
+                        ViewBag.ErrorName = "--You are not an authorized user of the system.--";
                         return View("Error");
                    }
                }
