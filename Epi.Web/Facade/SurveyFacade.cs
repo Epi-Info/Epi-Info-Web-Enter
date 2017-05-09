@@ -134,7 +134,14 @@ namespace Epi.Web.MVC.Facade
             {
                 if (IsMobileDevice)
                 {
-                    Request.SurveyId = surveyId;
+                    if (FormsHierarchyDTOList != null && FormsHierarchyDTOList.Count() > 0)
+                    {
+                        Request.SurveyId = FormsHierarchyDTOList[0].FormId.ToString();
+                    }
+                    else
+                    {
+                        Request.SurveyId = surveyId;
+                    }
                     Response = _iSurveyInfoRepository.GetSourceTables(Request);//Pain Point 
                 }
                 else 
