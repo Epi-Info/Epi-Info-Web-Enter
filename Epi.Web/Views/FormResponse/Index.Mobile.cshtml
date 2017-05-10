@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Epi Info™ Cloud Data Capture - Form Details"; //+ " - " +
       // Model.SurveyName + " - " + Model.IsDraftModeStyleClass + " - Mobile";  
+ 
 }
 <script type="text/javascript">
 @*var formId =  document.getElementById('hidFormId').value; //$('#hidFormId').val();
@@ -262,15 +263,8 @@ var pageId = $('#hidPageNumber').val();
 
     function ExitSurvey() {
         var hid = $("input[id=hidSelectedResponseId]").val();
-        var url = '@Url.Action("Delete", "FormResponse")';
-        var uarray = url.split('/');
-        if (uarray.length > 3) {
-            uarray[3] = "";
-            var furl = uarray.slice(0, 4).join("/");
-            url = furl;
-        }
-
-        var signoutUrl = url + '?ResponseId=' + hid + '&surveyid=' + '@Model.FormInfoModel.FormId';
+        var url = '@Url.Content("~")' + "FormResponse/Delete";
+        var signoutUrl = url + '?ResponseId=' + hid + '&surveyid=' + '@Model.FormInfoModel.FormId';      
         $.ajax({
             url: signoutUrl,
             type: 'POST',
