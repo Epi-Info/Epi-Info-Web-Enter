@@ -117,15 +117,15 @@ namespace MvcDynamicForms.Fields
                 
                 ////////////Check code start//////////////////
                 EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
-                if (FunctionObjectAfter != null && !FunctionObjectAfter.IsNull())
+                if (FunctionObjectAfter != null)
                 {
 
 
 
-                    rad.Attributes.Add("onblur", "$('#" + inputName + "').val('" + i.ToString() + "');return " + _key + "_after();"); //After
+                   // rad.Attributes.Add("onblur", "$('#" + inputName + "').val('" + i.ToString() + "');return " + _key + "_after();"); //After
                    // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
 
-                     //rad.Attributes.Add("onclick", "return " + _key + "_after(this.id);"); //After
+                     rad.Attributes.Add("onchange", "return " + _key + "_after(this.id);"); //After
                 }
                 EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
                 if (FunctionObjectClick != null)
