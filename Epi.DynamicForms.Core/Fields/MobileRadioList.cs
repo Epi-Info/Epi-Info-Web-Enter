@@ -122,10 +122,10 @@ namespace MvcDynamicForms.Fields
 
 
 
-                   // rad.Attributes.Add("onblur", "$('#" + inputName + "').val('" + i.ToString() + "');return " + _key + "_after();"); //After
+                    rad.Attributes.Add("onchange", "$('#" + inputName + "').val('" + i.ToString() + "');$('#" + inputName + "').parent().next().find('input[type=hidden]')[0].value='" + i.ToString() + "'; return " + _key + "_after();"); //After
                    // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
 
-                     rad.Attributes.Add("onchange", "return " + _key + "_after(this.id);"); //After
+                    // rad.Attributes.Add("onchange", "return " + _key + "_after(this.id);"); //After
                 }
                 EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
                 if (FunctionObjectClick != null)

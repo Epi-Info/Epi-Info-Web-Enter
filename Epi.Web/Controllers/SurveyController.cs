@@ -185,7 +185,7 @@ namespace Epi.Web.MVC.Controllers
                         SurveyInfoModel surveyInfoModel = GetSurveyInfo(surveyAnswerDTO.SurveyId, FormsHierarchy);                       
                         surveyAnswerDTO.IsDraftMode = surveyInfoModel.IsDraftMode;
                         int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
-                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, surveyAnswerDTO, false, false, PageNumber, UserId);
+                      //  _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, surveyAnswerDTO, false, false, PageNumber, UserId);
                         
                         //var form = _isurveyFacade.GetSurveyFormData1(surveyAnswerDTO.SurveyId, responseId, PageNumber,temp.SurveyResponseList, IsMobileDevice);
                         ////////////////Assign data to a child
