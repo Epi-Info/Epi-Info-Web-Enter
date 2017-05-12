@@ -771,7 +771,7 @@
     }
     // Check For Concurrency
     function CheckForConcurrency(obj) {
-       ;
+        debugger;
         $("#ConcurrencyMessage").show();
         $(".dialogbtn").show();
         $("#NotifyMessage").hide();
@@ -805,7 +805,7 @@
                 // if time elapsed is less the   system timeout
                // alert("loggedInUserId " + loggedInUserId)
               //  alert("data.LastActiveUserId " + data.LastActiveUserId)
-                if (EditingDuration <= SessionTimeOut && loggedInUserId != data.LastActiveUserId) {
+                if (EditingDuration <= SessionTimeOut && data.LastActiveUserId>0 && loggedInUserId != data.LastActiveUserId) {
                     alert("This record is being edited by another user.");
                 }
                 else {
