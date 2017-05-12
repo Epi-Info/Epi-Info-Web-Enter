@@ -114,13 +114,15 @@ namespace MvcDynamicForms.Fields
                 //RadioButton.Append(" name='" + inputName + "'");
                 //RadioButton.Append(" id='" + radId + "'/>");
 
-                
+
+
+                ////http://stackoverflow.com/questions/13492881/why-is-blur-event-not-fired-in-ios-safari-mobile-iphone-ipad 
+                //Changed from onblur to onchange as its not supported in IOS devices. Please refer to the link above
+
                 ////////////Check code start//////////////////
                 EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
                 if (FunctionObjectAfter != null)
                 {
-
-
 
                     rad.Attributes.Add("onchange", "$('#" + inputName + "').val('" + i.ToString() + "');$('#" + inputName + "').parent().next().find('input[type=hidden]')[0].value='" + i.ToString() + "'; return " + _key + "_after();"); //After
                    // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
