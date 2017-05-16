@@ -54,7 +54,12 @@
 
     });
 
+    function Cancel() {
 
+        var signoutUrl = '@Url.Action("UserList", "AdminUser")';
+
+        window.location.href = signoutUrl;
+    }
 </script>
 <div id="pageHeader">
     
@@ -244,15 +249,15 @@
                     </div>
                     @if (!@Model.IsEditMode)
                     {
-                        <input type="submit" name="input" value="Create" id="Create" />
+                        <input type="submit" class="cancelbtn" name="input" value="Create " id="Create" />
                     }
                     else
-                    { 
-                        <input type="submit" name="input" value="Update" id="Update" />
-             
+                    {
+                        <input type="submit" class="cancelbtn" name="input" value="Update" id="Update" />
+
                     }
-                    @*<input type="submit" value="Cancel"  style="margin-left:20px;"/>*@
-                    @Html.ActionLink("Cancel", "UserList", "AdminUser", null, new { @class = "cancelbtn" })
+                    <input type="button" value="Cancel" class="cancelbtn"  onclick="Cancel()" />
+                    @*@Html.ActionLink("Cancel", "UserList", "AdminUser", null, new { @class = "cancelbtn" })*@
                 </div>
             </fieldset>
         }
