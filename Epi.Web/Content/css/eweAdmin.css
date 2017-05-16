@@ -198,7 +198,7 @@ fieldset {
             border: 1px solid #7ac0da;
         }
 
-    fieldset input[type="submit"], input[type="submit"], fieldset a.cancelbtn {
+    fieldset input[type="submit"], input[type="button"], fieldset a.cancelbtn {
         /*background-color: #d3dce0;
         border: 1px solid #787878;*/
         cursor: pointer;
@@ -241,7 +241,7 @@ fieldset {
 
 
     
-fieldset input[type="submit"]:hover, fieldset input[type="submit"]:focus, input[type="submit"]:hover, input[type="submit"]:focus
+fieldset input[type="submit"]:hover, fieldset input[type="submit"]:focus, input[type="button"]:hover, input[type="button"]:focus
      { text-decoration: none;border-color: #AEB8BD; color: #58595b; background: none; background-color:#d2dfee;}
 
 

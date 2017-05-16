@@ -162,7 +162,12 @@ input[type="checkbox"] {
             disableElements(el[i].children);
         }
     }
+    function Cancel() {
 
+        var signoutUrl = '@Url.Action("OrgList", "AdminOrganization")';
+       
+        window.location.href = signoutUrl ;
+    }
 
 </script>
 <div id="pageHeader">
@@ -287,12 +292,13 @@ input[type="checkbox"] {
          }
          else
          {
-              <input type="submit" name="input" value="Update" id="Update"/>
-             
-             }
-		@*<input type="button" onclick="Cancel();" value="Cancel"  style="margin-left:20px;"/>*@
-         @Html.ActionLink("Cancel", "OrgList", "AdminOrganization", null, new { @class = "cancelbtn" })
+            <input class="createbtn"  type="submit" name="input" value="Update" id="Update" />
 
+         }
+            <input class="createbtn" type="button" name="input" onclick="Cancel();" value="Cancel" />
+         @*@Html.ActionLink("Cancel", "OrgList", "AdminOrganization", null, new { @class = "cancelbtn" })*@
+
+          
         
 		</div>
 	</fieldset>

@@ -24,6 +24,10 @@ input[type=submit]
 	height: 31px!important;
 }
 
+input[type=button ]
+{
+	height: 31px!important;
+}
 input
 {
 	border: 1px solid #B3B3B3;
