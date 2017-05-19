@@ -36,6 +36,7 @@ namespace MvcDynamicForms.Fields
             var inputName = _form.FieldPrefix + _key;
             var choicesList = _choices.ToList();
             var selectedValue = string.Empty;
+            bool IsAfterControl = false;
          
             var choicesList1 = GetChoices(_ChoicesList);
             choicesList = choicesList1.ToList();
@@ -123,17 +124,23 @@ namespace MvcDynamicForms.Fields
                 EnterRule FunctionObjectAfter = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=after&identifier=" + _key);
                 if (FunctionObjectAfter != null)
                 {
-
                     rad.Attributes.Add("onchange", "$('#" + inputName + "').val('" + i.ToString() + "');$('#" + inputName + "').parent().next().find('input[type=hidden]')[0].value='" + i.ToString() + "'; return " + _key + "_after();"); //After
-                   // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
-
+                    IsAfterControl = true;
+                    // rad.Attributes.Add("onblur", "return " + _key + "_after();"); //After
                     // rad.Attributes.Add("onchange", "return " + _key + "_after(this.id);"); //After
                 }
                 EnterRule FunctionObjectClick = (EnterRule)_form.FormCheckCodeObj.GetCommand("level=field&event=click&identifier=" + _key);
                 if (FunctionObjectClick != null)
                 {                    
                     rad.Attributes.Add("onclick", "return " + _key + "_click(this.id);"); //click
+                    IsAfterControl = true;
                 }
+                if (!IsAfterControl)
+                {
+                    rad.Attributes.Add("onchange", "$('#" + inputName + "').val('" + i.ToString() + "');"); //click
+                }
+
+
 
                 ////////////Check code end//////////////////
                 rad.SetInnerText(choicesList[i].Key);
