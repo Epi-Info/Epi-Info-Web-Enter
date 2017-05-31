@@ -229,16 +229,25 @@ namespace MvcDynamicForms.Fields
         /// </summary>
         /// <param name="choices">A delimited string of choices.</param>
         /// <param name="delimiter">The delimiter used to seperate the choices.</param>
-        public void AddChoices(string choices, string delimiter )
+        public void AddChoices(string choices, string delimiter, bool Sort = false)
         {
-            
-                if (string.IsNullOrEmpty(choices)) return;
 
-                choices.Split(delimiter.ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
+            if (string.IsNullOrEmpty(choices)) return;
+            string[] array = { delimiter };
+            if (!Sort)
+            {
+                choices.Split(array, StringSplitOptions.RemoveEmptyEntries)
                     .Distinct()
                     .ToList()
                     .ForEach(c => _choices.Add(c, false));
-          
+            }
+            else
+            {
+                choices.Split(array, StringSplitOptions.RemoveEmptyEntries)
+                 .Distinct()
+                 .ToList().OrderBy(a => a).ToList()
+                 .ForEach(c => _choices.Add(c, false));
+            }
                 
             
             
