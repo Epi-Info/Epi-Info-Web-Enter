@@ -633,7 +633,7 @@ namespace Epi.Web.BLL
 
         public void UpdateRecordStatus(SurveyResponseBO SurveyResponseBO)
             {
-            if(SurveyResponseBO.Status == 1)
+            if(SurveyResponseBO.Status == 1)//TODO item for WebSurveyIntegration [RecordSourceID=4 and StatusID=3]
                 {
                 SurveyResponseBO.Status = 2;
                 }
