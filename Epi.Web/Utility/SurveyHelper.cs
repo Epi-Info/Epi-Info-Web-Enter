@@ -185,7 +185,7 @@ namespace Epi.Web.MVC.Utility
             //    Xdoc.Root.Attribute("RequiredFieldsList").Remove(); 
             //    RemovePageNumAtt(Xdoc);
             //}
-            if (IsSaved)
+               if (IsSaved)//TODO item for WebSurveyIntegration [RecordSourceID=4 and StatusID=3]
             {
                 surveyAnswerRequest.SurveyAnswerList[0].Status = 2;
             }
