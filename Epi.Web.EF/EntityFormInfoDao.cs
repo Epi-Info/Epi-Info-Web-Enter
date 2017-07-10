@@ -97,9 +97,9 @@ namespace Epi.Web.EF
                                     FormInfoBO.IsShared = true;
                                     FormInfoBO.UserId = Id;
 
-                                    FormInfoBO.OrganizationId = item.FormInfo.OrganizationId;
+                                    FormInfoBO.OrganizationId = this.GetUserOrganization(FormInfoBO.FormId, UserId);//item.FormInfo.OrganizationId;
                                     FormList.Add(FormInfoBO);
-                                
+                                 
                                    }
                                 }
                                     if (Assigned.Contains(FormInfoBO.FormId))
