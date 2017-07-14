@@ -343,8 +343,10 @@
 
 	    else
 	    {
+	       
+	        $('#SelectedOrg option').prop('selected', true);
+	        listbox_moveacross('SelectedOrg', 'Shared', false)
 	        $('#ShareDiv').hide();
-
         }
 
 	}
