@@ -18,7 +18,7 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
 
        void UpDateFormMode(FormInfoBO FormInfoBO);
 
-       void UpDateSettingsList(FormSettingBO FormSettingBO, string FormId);
+       void UpDateSettingsList(FormSettingBO FormSettingBO, string FormId, int CurrentOrg = -1);
 
        List<string> GetAllColumnNames(string FormId);
        Dictionary<int, string> GetOrgAdmins(Dictionary<int, string> SelectedOrgList);

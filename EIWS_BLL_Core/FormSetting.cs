@@ -92,7 +92,7 @@ namespace Epi.Web.BLL
 
 
        // public string SaveSettings(bool IsDraftMode, Dictionary<int, string> ColumnNameList, Dictionary<int, string> AssignedUserList, string FormId, Dictionary<int, string> SelectedOrgList, bool IsShareable)
-        public string SaveSettings(bool IsDraftMode, FormSettingDTO FormSettingDTO)
+        public string SaveSettings(bool IsDraftMode, FormSettingDTO FormSettingDTO, int CurrentOrg = -1)
         {
             string Message = "";
             FormSettingBO FormSettingBO = new FormSettingBO();
@@ -111,7 +111,7 @@ namespace Epi.Web.BLL
                // this.FormSettingDao.UpDateFormMode(FormInfoBO);
                 Dictionary<int, string> AssignedOrgAdminList = this.FormSettingDao.GetOrgAdmins(FormSettingDTO.SelectedOrgList);// about to share with
                 List<UserBO> CurrentOrgAdminList = this.FormSettingDao.GetOrgAdminsByFormId(FormSettingDTO.FormId);// shared with 
-                this.FormSettingDao.UpDateSettingsList(FormSettingBO, FormSettingDTO.FormId);
+                this.FormSettingDao.UpDateSettingsList(FormSettingBO, FormSettingDTO.FormId,CurrentOrg);
 
                 // Clear all Draft records
                 if (FormSettingDTO.DeleteDraftData)
