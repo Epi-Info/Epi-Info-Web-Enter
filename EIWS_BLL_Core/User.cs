@@ -150,7 +150,7 @@ namespace Epi.Web.BLL
                     break;
                 case Constant.EmailCombinationEnum.PasswordChanged:
                     email.Subject = "Your Epi Info Cloud Data Capture Password has been updated";
-                    email.Body = " You recently updated your password for Epi Info™ Cloud Data Capture. \n \n If you have not accessed password help, please contact the administrator for you organization. \n \n ";
+                    email.Body = " You recently updated your password for Epi Info™ Cloud Data Capture. \n \n If you have not accessed password help, please contact the administrator for your organization. \n \n ";
                     break;
                 case Constant.EmailCombinationEnum.UpdateUserInfo:
                     email.Subject = "Your Epi Info Cloud Data Capture Account info has been updated";
