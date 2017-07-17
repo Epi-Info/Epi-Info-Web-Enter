@@ -902,6 +902,7 @@ namespace Epi.Web.MVC.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult SaveSettings(string formid)
         {
+            int CurrentOrgId = int.Parse(Session["SelectedOrgId"].ToString());
             List<FormsHierarchyDTO> FormList = GetFormsHierarchy(formid);
             FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
             int UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
@@ -928,7 +929,7 @@ namespace Epi.Web.MVC.Controllers
                 }
                 FormSettingReq.FormSetting.Add(FormSetting);
                 FormSettingReq.FormInfo.IsDraftMode = GetBoolValue(this.Request.Form["Mode"]);
-                
+                FormSettingReq.CurrentOrgId = CurrentOrgId;
             }
             FormSettingResponse FormSettingResponse = _isurveyFacade.SaveSettings(FormSettingReq);
 
@@ -938,7 +939,7 @@ namespace Epi.Web.MVC.Controllers
 
             var model = new FormResponseInfoModel();
 
-            int  CurrentOrgId =int.Parse(Session["SelectedOrgId"].ToString());
+           
             model = GetFormResponseInfoModel(formid, 1, "", "", CurrentOrgId);
 
             if (IsMobileDevice == false)

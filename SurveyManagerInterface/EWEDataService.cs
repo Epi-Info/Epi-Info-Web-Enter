@@ -941,7 +941,7 @@ namespace Epi.Web.WCF.SurveyService
                         SettingsImplementation.UpDateColumnNames(FormSettingReq.FormInfo.IsDraftMode, item);
 
                     }
-                    string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting[0]);
+                    string Message = SettingsImplementation.SaveSettings(FormSettingReq.FormInfo.IsDraftMode, FormSettingReq.FormSetting[0],FormSettingReq.CurrentOrgId);
                 }
                 return Response;
 
