@@ -1,4 +1,4 @@
-## Epi Info Cloud Data Capture
+## Epi Info™ Cloud Data Capture
 The vision of the Epi Info™ Cloud Data Capture system is to provide public health 
 community a data collection tool that allows authorized public health professionals 
 to collect and manage the data on the web and mobile devices on premises and in the 
