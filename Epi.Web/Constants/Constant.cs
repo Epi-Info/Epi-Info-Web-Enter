@@ -13,6 +13,7 @@ namespace Epi.Web.MVC.Constants
            Complete = 2
         }
 
+
         /*sql commands*/
         public const string UPDATE = "Update";
         public const string UpdateMulti = "UpdateMulti";
