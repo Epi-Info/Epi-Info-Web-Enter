@@ -823,7 +823,7 @@ namespace Epi.Web.EF
                 string EI7Query;
                 if (!criteria.GetAllColumns)
                 {
-                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber, false, "", criteria.UserId, criteria.IsShareable, criteria.UserOrganizationId, DataAccessRuleId);
+                    EI7Query = BuildEI7Query(criteria.SurveyId, criteria.SortOrder, criteria.Sortfield, EI7ConnectionString, criteria.SearchCriteria, false, criteria.PageSize, criteria.PageNumber, criteria.IsChild, criteria.ParentResponseId, criteria.UserId, criteria.IsShareable, criteria.UserOrganizationId, DataAccessRuleId);
 
                 }
                 else

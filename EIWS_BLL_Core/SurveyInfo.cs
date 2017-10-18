@@ -268,6 +268,7 @@ namespace Epi.Web.BLL
                 FormsHierarchyBO.ViewId = item.ViewId;
                 FormsHierarchyBO.FormId = item.SurveyId;
                 FormsHierarchyBO.SurveyInfo = item;
+                FormsHierarchyBO.IsSqlProject = item.IsSqlProject;
                 if (item.SurveyId == RootId)
                     {
                     FormsHierarchyBO.IsRoot = true;
