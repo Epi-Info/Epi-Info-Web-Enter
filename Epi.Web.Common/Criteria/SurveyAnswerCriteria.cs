@@ -115,6 +115,9 @@ namespace Epi.Web.Enter.Common.Criteria
             get;
             set;
         }
-         
+        [DataMember]
+        public string ParentResponseId { get; set; }
+        [DataMember]
+        public bool IsChild { get; set; }
     }
 }

@@ -314,5 +314,18 @@ namespace Epi.Web.MVC.Models
                 FormOwnerId = SurveyInfoDTO.OwnerId
             };
         }
+
+        internal static Enter.Common.DTO.SurveyAnswerDTO ToSurveyAnswerDTO(Enter.Common.DTO.FormsHierarchyDTO formsHierarchyDTO)
+        {
+            Enter.Common.DTO.SurveyAnswerDTO SurveyAnswerDTO = new Enter.Common.DTO.SurveyAnswerDTO();
+            SurveyAnswerDTO.SurveyId = formsHierarchyDTO.FormId;
+            //SurveyAnswerDTO.ViewId = formsHierarchyDTO.ViewId;
+            //SurveyAnswerDTO.XML = formsHierarchyDTO.SurveyInfo.XML;
+            //SurveyAnswerDTO.ParentRecordId = formsHierarchyDTO.SurveyInfo._ParentId;
+            //SurveyAnswerDTO.IsDraftMode = formsHierarchyDTO.SurveyInfo.IsDraftMode;
+            //SurveyAnswerDTO.DateCompleted = formsHierarchyDTO.SurveyInfo.;
+            //SurveyAnswerDTO.XML = formsHierarchyDTO.SurveyInfo.XML;
+            return SurveyAnswerDTO;
+        }
     }
 }

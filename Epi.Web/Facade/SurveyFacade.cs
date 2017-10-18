@@ -99,7 +99,9 @@ namespace Epi.Web.MVC.Facade
             
             else
             {
-                var SurveyInfoDTO = FormsHierarchyDTOList.First(x => x.FormId == surveyAnswerDTO.SurveyId);
+              //  var SurveyInfoDTO = FormsHierarchyDTOList.First(x => x.FormId == surveyAnswerDTO.SurveyId);
+
+                var SurveyInfoDTO = FormsHierarchyDTOList.First(x => x.FormId == surveyId);
                 surveyInfoDTO = SurveyInfoDTO.SurveyInfo;
 
 
