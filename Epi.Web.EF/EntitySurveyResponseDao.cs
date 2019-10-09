@@ -910,9 +910,9 @@ namespace Epi.Web.EF
                                 case 2:    // All users in host organization will have access to all data of all organizations  
 
                                     // get All the users of Host organization
-                                    var Users = Context.UserOrganizations.Where(x => x.OrganizationID == criteria.UserOrganizationId && x.Active == true).ToList();
-                                    int Count = Users.Where(x => x.UserID == criteria.UserId).Count();
-                                    if ( Count > 0  )
+                                    var Users = Context.UserOrganizations.SingleOrDefault(x => x.OrganizationID == criteria.UserOrganizationId && x.Active == true&& x.Organization.IsHostOrganization == true);
+                                  //  int Count = Users.Where(x => x.UserID == criteria.UserId).Count();
+                                    if (Users != null && Users.UserID == criteria.UserId)
                                     {
                                     SurveyResponseList = Context.SurveyResponses.Where(
                                      x => x.SurveyId == Id 
@@ -2426,6 +2426,33 @@ namespace Epi.Web.EF
                                
                              && x.StatusId >=1 
                              && x.OrganizationId == Criteria.UserOrganizationId);
+                        }
+                        else if (Criteria.IsShareable && this.DataAccessRuleId == 2)
+                        {
+                            // get All the users of Host organization
+                            var Users = Context.UserOrganizations.SingleOrDefault(x => x.OrganizationID == Criteria.UserOrganizationId && x.Active == true && x.Organization.IsHostOrganization == true);
+                           
+                            if (Users != null && Users.UserID == Criteria.UserId)
+                            {
+                                SurveyResponseList = Context.SurveyResponses.Where(
+                                 x => x.SurveyId == Id
+                                                 
+                                                 && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                 && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                 && x.StatusId >= 1)
+                                                  .OrderByDescending(x => x.DateUpdated);
+                            }
+                            else
+                            {
+
+                                SurveyResponseList = Context.SurveyResponses.Where(
+                                   x => x.SurveyId == Id
+                                                 
+                                                 && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                 && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                 && x.StatusId >= 1 && x.OrganizationId == Criteria.UserOrganizationId)
+                                                  .OrderByDescending(x => x.DateUpdated);
+                            }
                         }
                         else
                         {
