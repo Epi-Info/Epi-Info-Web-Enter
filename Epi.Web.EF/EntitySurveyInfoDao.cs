@@ -53,7 +53,7 @@ namespace Epi.Web.EF
                 {
                     using (var Context = DataObjectFactory.CreateContext())
                     {
-                        result = Mapper.Map(Context.SurveyMetaDatas.ToList());
+                         result.Add(Mapper.Map(Context.SurveyMetaDatas.First()));
                     }
                 }
                 catch (Exception ex)

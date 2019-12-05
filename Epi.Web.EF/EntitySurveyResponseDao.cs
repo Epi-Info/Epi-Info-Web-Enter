@@ -910,10 +910,16 @@ namespace Epi.Web.EF
                                 case 2:    // All users in host organization will have access to all data of all organizations  
 
                                     // get All the users of Host organization
-                                    var Users = Context.UserOrganizations.SingleOrDefault(x => x.OrganizationID == criteria.UserOrganizationId && x.Active == true&& x.Organization.IsHostOrganization == true);
-                                  //  int Count = Users.Where(x => x.UserID == criteria.UserId).Count();
-                                    if (Users != null && Users.UserID == criteria.UserId)
-                                    {
+                                    // var Users = Context.UserOrganizations.SingleOrDefault(x => x.OrganizationID == criteria.UserOrganizationId && x.Active == true&& x.Organization.IsHostOrganization == true);
+                                    //  int Count = Users.Where(x => x.UserID == criteria.UserId).Count();
+
+                                    // Step1 - check if organization is a host organisation 
+                                    var ISHostOrg = Context.Organizations.Any(x => x.OrganizationId == criteria.UserOrganizationId && x.IsEnabled == true && x.IsHostOrganization == true);
+                                    // Step2 - check if the loged in user belongs to the host organization 
+
+                                   // if (Users != null && Users.UserID == criteria.UserId)
+                                        if (ISHostOrg)
+                                        {
                                     SurveyResponseList = Context.SurveyResponses.Where(
                                      x => x.SurveyId == Id 
                                                      //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
@@ -2430,9 +2436,13 @@ namespace Epi.Web.EF
                         else if (Criteria.IsShareable && this.DataAccessRuleId == 2)
                         {
                             // get All the users of Host organization
-                            var Users = Context.UserOrganizations.SingleOrDefault(x => x.OrganizationID == Criteria.UserOrganizationId && x.Active == true && x.Organization.IsHostOrganization == true);
-                           
-                            if (Users != null && Users.UserID == Criteria.UserId)
+                            //var Users = Context.UserOrganizations.SingleOrDefault(x => x.OrganizationID == Criteria.UserOrganizationId && x.Active == true && x.Organization.IsHostOrganization == true);
+
+                            //if (Users != null && Users.UserID == Criteria.UserId)
+
+                            var IsHostOrg = Context.Organizations.Any(x => x.OrganizationId == Criteria.UserOrganizationId && x.IsEnabled == true && x.IsHostOrganization == true);
+
+                           if (IsHostOrg)
                             {
                                 SurveyResponseList = Context.SurveyResponses.Where(
                                  x => x.SurveyId == Id
