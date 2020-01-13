@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Epi.Web.Enter.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
-    <Reference Include="EpiInfo.Plugin, Version=7.0.9.8, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EpiInfo.Plugin, Version=7.1.1.5, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\EpiInfo.Plugin.dll</HintPath>
     </Reference>
