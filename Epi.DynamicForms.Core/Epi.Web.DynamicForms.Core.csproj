@@ -43,7 +43,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\..\Epi.Web\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -60,7 +60,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Epi.Web.CheckCodeEngine">
-      <HintPath>..\Epi.Web\bin\Epi.Web.CheckCodeEngine.dll</HintPath>
+      <HintPath>..\Epi.Web.CheckCodeEngine\bin\Debug\Epi.Web.CheckCodeEngine.dll</HintPath>
     </Reference>
     <Reference Include="EpiInfo.Plugin">
       <HintPath>..\Epi.Web\bin\EpiInfo.Plugin.dll</HintPath>
