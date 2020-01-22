@@ -248,6 +248,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Constants\Constant.cs" />
+    <Compile Include="Controllers\AccountController.OIDC.cs" />
     <Compile Include="Controllers\AdminOrganizationController.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\FinalController.cs" />
