@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
+//////using Microsoft.AspNetCore.Mvc;
+//////using Microsoft.AspNetCore.Authorization;
+//////using Microsoft.AspNetCore.Authentication;
+//////using Microsoft.AspNetCore.Authentication.Cookies;
+//////using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Web;
 using System.Net.Http;
@@ -17,18 +17,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 
-using Microsoft.IdentityModel.Tokens;
+//////using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
-using System.IdentityModel.Tokens.Jwt;
+//////using System.IdentityModel.Tokens.Jwt;
 using System.Net;
-using System.Security.Cryptography.X509Certificates;
+//////using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpOverrides;
-using Akka.Actor;
+//////using Microsoft.AspNetCore.Http;
+//////using Microsoft.AspNetCore.HttpOverrides;
+//////using Akka.Actor;
 
-using mmria.server.Controllers;
+//////using mmria.server.Controllers;
+
+
+using System.Web.Mvc;
 
 
 /*
@@ -36,7 +39,7 @@ https://github.com/18F/identity-oidc-aspnet
 
 */
 
-namespace mmria.common.Controllers
+namespace Epi.Web.MVC.Controllers
 {
     public partial class AccountController : Controller
     {
@@ -47,16 +50,17 @@ namespace mmria.common.Controllers
 
 
        // private IConfiguration _configuration;
-        private IHttpContextAccessor _accessor;
-        private ActorSystem _actorSystem;
+        //////private IHttpContextAccessor _accessor;
+        //////private ActorSystem _actorSystem;
 
 
-        public AccountController(IHttpContextAccessor httpContextAccessor, ActorSystem actorSystem, IConfiguration configuration)
-        {
-            _accessor = httpContextAccessor;
-            _actorSystem = actorSystem;
-            _configuration = configuration;
-        }
+        //////public AccountController(IHttpContextAccessor httpContextAccessor, ActorSystem actorSystem, IConfiguration configuration)
+        //////{
+        //////    _accessor = httpContextAccessor;
+        //////    _actorSystem = actorSystem;
+        //////    _configuration = configuration;
+        //////}
+
         private IConfiguration _configuration;
 /*
         public ActionResult Index()
@@ -219,8 +223,10 @@ namespace mmria.common.Controllers
             var config_timer_user_name = _configuration["mmria_settings:timer_user_name"];
             var config_timer_password = _configuration["mmria_settings:timer_password"];
 
-            mmria.common.model.couchdb.user user = null;
-			try
+            //////mmria.common.model.couchdb.user user = null;
+            Epi.Web.MVC.Models.UserModel user = null;
+
+            try
 			{
 				string request_string = config_couchdb_url + "/_users/" + System.Web.HttpUtility.HtmlEncode("org.couchdb.user:" + email.ToLower());
 				var user_curl = new mmria.server.cURL("GET", null, request_string, null, config_timer_user_name, config_timer_password);
