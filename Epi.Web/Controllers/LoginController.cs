@@ -27,10 +27,9 @@ using System.IO;
 
 namespace Epi.Web.MVC.Controllers
 {
-   
-    public class LoginController : Controller
+
+    public partial class LoginController : Controller
     {
-        //declare SurveyTransactionObject object
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         /// <summary>
         /// Injectinting SurveyTransactionObject through Constructor
@@ -41,8 +40,6 @@ namespace Epi.Web.MVC.Controllers
         {
             _isurveyFacade = isurveyFacade;
         }
-
-        // GET: /Login/
 
         [HttpGet]
         public ActionResult Index(string responseId, string ReturnUrl)
@@ -157,7 +154,7 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
-        
+
         [HttpPost]
 
         public ActionResult Index(UserLoginModel Model, string Action, string ReturnUrl)
@@ -287,7 +284,7 @@ namespace Epi.Web.MVC.Controllers
                 UserResetPasswordModel model = new UserResetPasswordModel();
                 model.UserName = Model.UserName;
                 ReadPasswordPolicy(model);
-               // ModelState.AddModelError("", "Passwords do not match. Please try again.");
+                // ModelState.AddModelError("", "Passwords do not match. Please try again.");
                 return View("ResetPassword", model);
             }
 
@@ -310,7 +307,7 @@ namespace Epi.Web.MVC.Controllers
         {
             SetTermOfUse();
             string formId = "", pageNumber;
-            
+
             if (ReturnUrl == null || !ReturnUrl.Contains("/"))
             {
                 ReturnUrl = "/Home/Index";
@@ -353,9 +350,9 @@ namespace Epi.Web.MVC.Controllers
                 }
                 //else
                 {
-                ModelState.AddModelError("", "The email or password you entered is incorrect.");
-                  Model.ViewValidationSummary = true;
-                 return View(Model);
+                    ModelState.AddModelError("", "The email or password you entered is incorrect.");
+                    Model.ViewValidationSummary = true;
+                    return View(Model);
                 }
             }
             catch (Exception)
