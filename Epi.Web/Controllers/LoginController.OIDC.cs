@@ -12,10 +12,8 @@ using System.Security.Claims;
 using System.Web;
 using System.Net.Http;
 
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 
 //////using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Linq;
@@ -31,17 +29,12 @@ using System.Text;
 //////using mmria.server.Controllers;
 
 
+
 using System.Web.Mvc;
-
-
-/*
-https://github.com/18F/identity-oidc-aspnet
-
-*/
 
 namespace Epi.Web.MVC.Controllers
 {
-    public partial class AccountController : Controller
+    public partial class LoginController : Controller
     {
         public const string ClientId = "urn:gov:gsa:openidconnect.profiles:sp:sso:logingov:aspnet_example";
         public const string ClientUrl = "http://localhost:50764";
@@ -116,18 +109,19 @@ namespace Epi.Web.MVC.Controllers
             var sams_client_id = _configuration["sams:client_id"];
             var sams_client_secret = _configuration["sams:client_secret"];
             
-            var sams_callback_url = _configuration["sams:callback_url"];        
+            var sams_callback_url = _configuration["sams:callback_url"];
 
             //?code=6c17b2a3-d65a-44fd-a28c-9aee982f80be&state=a4c8326ca5574999aa13ca02e9384c3d
             // Retrieve code and state from query string, pring for debugging
-            var querystring = Request.QueryString.Value;
+            string querystring = ""; ////// Request.QueryString.Value;
+            System.Diagnostics.Debug.Assert(false, "look");
             var querystring_skip = querystring.Substring(1, querystring.Length -1);
-            var querystring_array = querystring_skip.Split("&");
+            var querystring_array = querystring_skip.Split('&');
 
             var querystring_dictionary = new Dictionary<string,string>();
             foreach(string item in querystring_array)
             {
-                var pair = item.Split("=");
+                var pair = item.Split('=');
                 querystring_dictionary.Add(pair[0], pair[1]);
             }
 
@@ -175,8 +169,6 @@ namespace Epi.Web.MVC.Controllers
             var unix_time = DateTimeOffset.UtcNow.AddSeconds(expires_in);
             //HttpContext.Session.SetString("expires_at", unix_time.ToString());
 
-
-
             var id_token = payload.Value<string>("id_token");;
             var id_array = id_token.Split('.');
 
@@ -206,17 +198,13 @@ namespace Epi.Web.MVC.Controllers
             });
             */
 
-
-
             response = await client.SendAsync(user_info_sys_request);
             response.EnsureSuccessStatusCode();
 
             var temp_string = await response.Content.ReadAsStringAsync();
             payload = JObject.Parse(temp_string);
-
             
             var email = payload.Value<string>("email");
-
 
             //check if user exists
             var config_couchdb_url = _configuration["mmria_settings:couchdb_url"];
@@ -441,7 +429,6 @@ namespace Epi.Web.MVC.Controllers
                 int.TryParse(_configuration["mmria_settings:session_idle_timeout_minutes"], out session_idle_timeout_minutes);
             }
 
-
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 userPrincipal,
@@ -451,7 +438,6 @@ namespace Epi.Web.MVC.Controllers
                     IsPersistent = false,
                     AllowRefresh = true,
                 });
-
         }
 
         private string DecodeToken(string p_value)
@@ -466,9 +452,7 @@ namespace Epi.Web.MVC.Controllers
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
-
- 
-
+        
         private bool checkID(string idBody, string issuer, string clientID)
         {
             dynamic o = JObject.Parse(idBody);
