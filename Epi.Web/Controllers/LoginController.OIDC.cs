@@ -212,92 +212,91 @@ namespace Epi.Web.MVC.Controllers
             var config_timer_password = _configuration["mmria_settings:timer_password"];
 
             //////mmria.common.model.couchdb.user user = null;
-            Epi.Web.MVC.Models.UserModel user = null;
+            Models.User user = null;
 
             try
 			{
 				string request_string = config_couchdb_url + "/_users/" + System.Web.HttpUtility.HtmlEncode("org.couchdb.user:" + email.ToLower());
-				var user_curl = new mmria.server.cURL("GET", null, request_string, null, config_timer_user_name, config_timer_password);
+				var user_curl = new Epi.Web.MVC.Utility.cURL("GET", null, request_string, null, config_timer_user_name, config_timer_password);
 				var responseFromServer = await user_curl.executeAsync();
 
-				user = Newtonsoft.Json.JsonConvert.DeserializeObject<mmria.common.model.couchdb.user>(responseFromServer);
+				user = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.User>(responseFromServer);
 			}
 			catch(Exception ex)
 			{
 				Console.WriteLine (ex);
+            } 
 
-			} 
+            ////////mmria.common.model.couchdb.document_put_response user_save_result = null;
 
-            mmria.common.model.couchdb.document_put_response user_save_result = null;
+            ////////if(user == null)// if user does NOT exists create user with email
+            ////////{
+            ////////    user = add_new_user(email.ToLower(), Guid.NewGuid().ToString());
 
-            if(user == null)// if user does NOT exists create user with email
-            {
-                user = add_new_user(email.ToLower(), Guid.NewGuid().ToString());
+            ////////    try
+            ////////    {
+            ////////        Newtonsoft.Json.JsonSerializerSettings settings = new Newtonsoft.Json.JsonSerializerSettings ();
+            ////////        settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            ////////        var object_string = Newtonsoft.Json.JsonConvert.SerializeObject(user, settings);
 
-                try
-                {
-                    Newtonsoft.Json.JsonSerializerSettings settings = new Newtonsoft.Json.JsonSerializerSettings ();
-                    settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                    var object_string = Newtonsoft.Json.JsonConvert.SerializeObject(user, settings);
+            ////////        string user_db_url = config_couchdb_url + "/_users/"  + user._id;
 
-                    string user_db_url = config_couchdb_url + "/_users/"  + user._id;
+            ////////        var user_curl = new mmria.server.cURL("PUT", null, user_db_url, object_string, config_timer_user_name, config_timer_password);
+            ////////        var responseFromServer = await user_curl.executeAsync();
+            ////////        user_save_result = Newtonsoft.Json.JsonConvert.DeserializeObject<mmria.common.model.couchdb.document_put_response>(responseFromServer);
 
-                    var user_curl = new mmria.server.cURL("PUT", null, user_db_url, object_string, config_timer_user_name, config_timer_password);
-                    var responseFromServer = await user_curl.executeAsync();
-                    user_save_result = Newtonsoft.Json.JsonConvert.DeserializeObject<mmria.common.model.couchdb.document_put_response>(responseFromServer);
+            ////////    }
+            ////////    catch(Exception ex) 
+            ////////    {
+            ////////        Console.WriteLine (ex);
+            ////////    }
+            ////////}
 
-                }
-                catch(Exception ex) 
-                {
-                    Console.WriteLine (ex);
-                }
-            }
+            //////////create login session
+            ////////if(user_save_result == null || user_save_result.ok)
+            ////////{
+            ////////    var session_data = new System.Collections.Generic.Dictionary<string,string>(StringComparer.InvariantCultureIgnoreCase);
+            ////////    session_data["access_token"] = access_token;
+            ////////    session_data["refresh_token"] = refresh_token;
+            ////////    session_data["expires_at"] = unix_time.ToString();
 
-            //create login session
-            if(user_save_result == null || user_save_result.ok)
-            {
-                var session_data = new System.Collections.Generic.Dictionary<string,string>(StringComparer.InvariantCultureIgnoreCase);
-                session_data["access_token"] = access_token;
-                session_data["refresh_token"] = refresh_token;
-                session_data["expires_at"] = unix_time.ToString();
-
-                await create_user_principal(user.name, new List<string>(), unix_time.DateTime);
+            ////////    await create_user_principal(user.name, new List<string>(), unix_time.DateTime);
 
 
-                var Session_Event_Message = new mmria.server.model.actor.Session_Event_Message
-                (
-                    DateTime.Now,
-                    user.name,
-                    this.GetRequestIP(),
-                    mmria.server.model.actor.Session_Event_Message.Session_Event_Message_Action_Enum.successful_login
-                );
+            ////////    var Session_Event_Message = new mmria.server.model.actor.Session_Event_Message
+            ////////    (
+            ////////        DateTime.Now,
+            ////////        user.name,
+            ////////        this.GetRequestIP(),
+            ////////        mmria.server.model.actor.Session_Event_Message.Session_Event_Message_Action_Enum.successful_login
+            ////////    );
 
-                _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Record_Session_Event>()).Tell(Session_Event_Message);
-
+            ////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Record_Session_Event>()).Tell(Session_Event_Message);
 
 
 
-                var Session_Message = new mmria.server.model.actor.Session_Message
-                (
-                    Guid.NewGuid().ToString(), //_id = 
-                    null, //_rev = 
-                    DateTime.Now, //date_created = 
-                    DateTime.Now, //date_last_updated = 
-                    null, //date_expired = 
 
-                    true, //is_active = 
-                    user.name, //user_id = 
-                    this.GetRequestIP(), //ip = 
-                    Session_Event_Message._id, // session_event_id = 
-                    session_data
-                );
+            ////////    var Session_Message = new mmria.server.model.actor.Session_Message
+            ////////    (
+            ////////        Guid.NewGuid().ToString(), //_id = 
+            ////////        null, //_rev = 
+            ////////        DateTime.Now, //date_created = 
+            ////////        DateTime.Now, //date_last_updated = 
+            ////////        null, //date_expired = 
 
-                _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Post_Session>()).Tell(Session_Message);
-                Response.Cookies.Append("sid", Session_Message._id, new CookieOptions{ HttpOnly = true });
-                Response.Cookies.Append("expires_at", unix_time.ToString(), new CookieOptions{ HttpOnly = true });
-                //return RedirectToAction("Index", "HOME");
-                //return RedirectToAction("Index", "HOME");
-            }
+            ////////        true, //is_active = 
+            ////////        user.name, //user_id = 
+            ////////        this.GetRequestIP(), //ip = 
+            ////////        Session_Event_Message._id, // session_event_id = 
+            ////////        session_data
+            ////////    );
+
+            ////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Post_Session>()).Tell(Session_Message);
+            ////////    Response.Cookies.Append("sid", Session_Message._id, new CookieOptions{ HttpOnly = true });
+            ////////    Response.Cookies.Append("expires_at", unix_time.ToString(), new CookieOptions{ HttpOnly = true });
+            ////////    //return RedirectToAction("Index", "HOME");
+            ////////    //return RedirectToAction("Index", "HOME");
+            ////////}
 
             return RedirectToAction("Index", "HOME");
 
@@ -360,35 +359,35 @@ namespace Epi.Web.MVC.Controllers
             // approach might be to read each IP from right to left and use the first public IP.
             // http://stackoverflow.com/a/43554000/538763
             //
-            if (tryUseXForwardHeader)
-                ip = GetHeaderValueAs<string>("X-Forwarded-For").SplitCsv().FirstOrDefault();
+            ////////if (tryUseXForwardHeader)
+            ////////    ip = GetHeaderValueAs<string>("X-Forwarded-For").SplitCsv().FirstOrDefault();
 
-            // RemoteIpAddress is always null in DNX RC1 Update1 (bug).
-            if (ip.IsNullOrWhitespace() && _accessor.HttpContext?.Connection?.RemoteIpAddress != null)
-                ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            ////////// RemoteIpAddress is always null in DNX RC1 Update1 (bug).
+            ////////if (ip.IsNullOrWhitespace() && _accessor.HttpContext?.Connection?.RemoteIpAddress != null)
+            ////////    ip = _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
 
-            if (ip.IsNullOrWhitespace())
-                ip = GetHeaderValueAs<string>("REMOTE_ADDR");
+            ////////if (ip.IsNullOrWhitespace())
+            ////////    ip = GetHeaderValueAs<string>("REMOTE_ADDR");
 
-            // _httpContextAccessor.HttpContext?.Request?.Host this is the local host.
+            ////////// _httpContextAccessor.HttpContext?.Request?.Host this is the local host.
 
-            if (ip.IsNullOrWhitespace())
-                throw new Exception("Unable to determine caller's IP.");
+            ////////if (ip.IsNullOrWhitespace())
+            ////////    throw new Exception("Unable to determine caller's IP.");
 
             return ip;
         }
 
         public T GetHeaderValueAs<T>(string headerName)
         {
-            Microsoft.Extensions.Primitives.StringValues values;
+            ////////Microsoft.Extensions.Primitives.StringValues values;
 
-            if (_accessor.HttpContext?.Request?.Headers?.TryGetValue(headerName, out values) ?? false)
-            {
-                string rawValues = values.ToString();   // writes out as Csv when there are multiple.
+            ////////if (_accessor.HttpContext?.Request?.Headers?.TryGetValue(headerName, out values) ?? false)
+            ////////{
+            ////////    string rawValues = values.ToString();   // writes out as Csv when there are multiple.
 
-                if (!rawValues.IsNullOrWhitespace())
-                    return (T)Convert.ChangeType(values.ToString(), typeof(T));
-            }
+            ////////    if (!rawValues.IsNullOrWhitespace())
+            ////////        return (T)Convert.ChangeType(values.ToString(), typeof(T));
+            ////////}
             return default(T);
         }
 
@@ -407,37 +406,34 @@ namespace Epi.Web.MVC.Controllers
                 }
             }
 
+            ////////foreach(var role in mmria.server.util.authorization.get_current_user_role_jurisdiction_set_for(p_user_name).Select( jr => jr.role_name).Distinct())
+            ////////{
+            ////////    claims.Add(new Claim(ClaimTypes.Role, role, ClaimValueTypes.String, Issuer));
+            ////////}
 
-            foreach(var role in mmria.server.util.authorization.get_current_user_role_jurisdiction_set_for(p_user_name).Select( jr => jr.role_name).Distinct())
-            {
-
-                claims.Add(new Claim(ClaimTypes.Role, role, ClaimValueTypes.String, Issuer));
-            }
-
-
-            //Response.Cookies.Append("uid", p_user_name);
-            //Response.Cookies.Append("roles", string.Join(",",p_role_list));
+            //////////Response.Cookies.Append("uid", p_user_name);
+            //////////Response.Cookies.Append("roles", string.Join(",",p_role_list));
             
-            var userIdentity = new ClaimsIdentity("SuperSecureLogin");
-            userIdentity.AddClaims(claims);
-            var userPrincipal = new ClaimsPrincipal(userIdentity);
+            ////////var userIdentity = new ClaimsIdentity("SuperSecureLogin");
+            ////////userIdentity.AddClaims(claims);
+            ////////var userPrincipal = new ClaimsPrincipal(userIdentity);
 
-            var session_idle_timeout_minutes = 30;
+            ////////var session_idle_timeout_minutes = 30;
             
-            if(_configuration["mmria_settings:session_idle_timeout_minutes"] != null)
-            {
-                int.TryParse(_configuration["mmria_settings:session_idle_timeout_minutes"], out session_idle_timeout_minutes);
-            }
+            ////////if(_configuration["mmria_settings:session_idle_timeout_minutes"] != null)
+            ////////{
+            ////////    int.TryParse(_configuration["mmria_settings:session_idle_timeout_minutes"], out session_idle_timeout_minutes);
+            ////////}
 
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                userPrincipal,
-                new AuthenticationProperties
-                {
-                    ExpiresUtc = p_session_expire_date_time,
-                    IsPersistent = false,
-                    AllowRefresh = true,
-                });
+            ////////await HttpContext.SignInAsync(
+            ////////    CookieAuthenticationDefaults.AuthenticationScheme,
+            ////////    userPrincipal,
+            ////////    new AuthenticationProperties
+            ////////    {
+            ////////        ExpiresUtc = p_session_expire_date_time,
+            ////////        IsPersistent = false,
+            ////////        AllowRefresh = true,
+            ////////    });
         }
 
         private string DecodeToken(string p_value)
@@ -464,9 +460,9 @@ namespace Epi.Web.MVC.Controllers
             return true;
         }
 
-        private mmria.common.model.couchdb.user add_new_user(string p_name, string p_password)
+        private Models.User add_new_user(string p_name, string p_password)
         {
-            return new mmria.common.model.couchdb.user(){
+            return new Models.User(){
                 _id = $"org.couchdb.user:{p_name}",
                 password =  p_password,
                 password_scheme = "pbkdf2",
