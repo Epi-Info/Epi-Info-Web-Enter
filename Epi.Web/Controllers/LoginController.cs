@@ -27,10 +27,9 @@ using System.IO;
 
 namespace Epi.Web.MVC.Controllers
 {
-   
-    public class LoginController : Controller
+
+    public partial class LoginController : Controller
     {
-        //declare SurveyTransactionObject object
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         /// <summary>
         /// Injectinting SurveyTransactionObject through Constructor
@@ -40,92 +39,98 @@ namespace Epi.Web.MVC.Controllers
         public LoginController(Epi.Web.MVC.Facade.ISurveyFacade isurveyFacade)
         {
             _isurveyFacade = isurveyFacade;
-        }      
-        
-        // GET: /Login/
-       
-        [HttpGet]     
+        }
+
+        [HttpGet]
         public ActionResult Index(string responseId, string ReturnUrl)
         {
             string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            UserLoginModel UserLoginModel = new Models.UserLoginModel();          
+            UserLoginModel UserLoginModel = new Models.UserLoginModel();
             ViewBag.Version = version;
+
             SetTermOfUse();
+
             if (ConfigurationManager.AppSettings["IsDemoMode"] != null)
+            {
                 Session["IsDemoMode"] = ConfigurationManager.AppSettings["IsDemoMode"].ToUpper();
+            }
             else
+            {
                 Session["IsDemoMode"] = "null";
+            }
+
             //   //get the responseId
-            //    responseId = GetResponseId(ReturnUrl);
-            //    //get the surveyId
-            //     string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
-            //     //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
-            //     ViewBag.SurveyId = SurveyId;
+            //   responseId = GetResponseId(ReturnUrl);
+            //   //get the surveyId
+            //   string SurveyId = _isurveyFacade.GetSurveyAnswerResponse(responseId).SurveyResponseList[0].SurveyId;
+            //   //put surveyId in viewbag so can be retrieved in Login/Index.cshtml
+            //   ViewBag.SurveyId = SurveyId;
+
             if (System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
             {
                 var IsDemoMode = System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"];
                 string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt("1");
+
                 if (!string.IsNullOrEmpty(IsDemoMode) && IsDemoMode.ToUpper() == "TRUE")
                 {
-                  FormsAuthentication.SetAuthCookie("Guest@cdc.gov", false);
-                  
+                    FormsAuthentication.SetAuthCookie("Guest@cdc.gov", false);
+
                     Session["UserId"] = UserId;
-                     Session["UserHighestRole"] = 3;
-                     Session["UserFirstName"] = "John";
-                    Session["UserLastName"]= "Doe";
+                    Session["UserHighestRole"] = 3;
+                    Session["UserFirstName"] = "John";
+                    Session["UserLastName"] = "Doe";
                     Session["UserEmailAddress"] = "Guest@cdc.gov";
                     return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
                 }
             }
+
             var configuration = WebConfigurationManager.OpenWebConfiguration("/");
             var authenticationSection = (AuthenticationSection)configuration.GetSection("system.web/authentication");
+
             if (authenticationSection.Mode == AuthenticationMode.Forms)
             {
                 return View("Index", UserLoginModel);
             }
             else
             {
-              
-               try
-               {
-                   var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
+                try
+                {
+                    var CurrentUserName = System.Web.HttpContext.Current.User.Identity.Name;
                     var UserAD = Utility.WindowsAuthentication.GetCurrentUserFromAd(CurrentUserName);
                     // validate user in EWE system
                     UserRequest User = new UserRequest();
                     User.IsAuthenticated = true;
                     User.User.EmailAddress = UserAD.EmailAddress;
-             
-                    UserResponse result = _isurveyFacade.GetUserInfo(User);
-                    if (result  != null && result.User != null && result.User.Count() > 0)
-                    {
-                    FormsAuthentication.SetAuthCookie(CurrentUserName.Split('\\')[0].ToString(), false);
-                    string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User[0].UserId.ToString());
-                    Session["UserId"] = UserId;
-                    //Session["UsertRole"] = result.User.Role;
-                    Session["UserHighestRole"] = result.User[0].UserHighestRole;
 
-                    Session["UserEmailAddress"] = result.User[0].EmailAddress;
-                    Session["UserFirstName"] = result.User[0].FirstName;
-                    Session["UserLastName"] = result.User[0].LastName;
-                    Session["UGuid"] = result.User[0].UGuid;
-                    return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
-                   } 
+                    UserResponse result = _isurveyFacade.GetUserInfo(User);
+                    if (result != null && result.User != null && result.User.Count() > 0)
+                    {
+                        FormsAuthentication.SetAuthCookie(CurrentUserName.Split('\\')[0].ToString(), false);
+                        string UserId = Epi.Web.Enter.Common.Security.Cryptography.Encrypt(result.User[0].UserId.ToString());
+                        Session["UserId"] = UserId;
+                        //Session["UsertRole"] = result.User.Role;
+                        Session["UserHighestRole"] = result.User[0].UserHighestRole;
+
+                        Session["UserEmailAddress"] = result.User[0].EmailAddress;
+                        Session["UserFirstName"] = result.User[0].FirstName;
+                        Session["UserLastName"] = result.User[0].LastName;
+                        Session["UGuid"] = result.User[0].UGuid;
+                        return RedirectToAction(Epi.Web.MVC.Constants.Constant.INDEX, "Home", new { surveyid = "" });
+                    }
                     else
                     {
-
                         //return View("Index", UserLoginModel);
                         ViewBag.ErrorName = "--You are not an authorized user of the system.--";
                         return View("Error");
-                   }
-               }
-               catch (Exception ex)
-               {                   
-                   //ViewBag.ErrorName = ex.Message;  
-                   //return View("Error");
-                   return View("Index", UserLoginModel);
-               }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //ViewBag.ErrorName = ex.Message;  
+                    //return View("Error");
+                    return View("Index", UserLoginModel);
+                }
             }
-
         }
 
         private void SetTermOfUse()
@@ -149,7 +154,7 @@ namespace Epi.Web.MVC.Controllers
             }
         }
 
-        
+
         [HttpPost]
 
         public ActionResult Index(UserLoginModel Model, string Action, string ReturnUrl)
@@ -279,7 +284,7 @@ namespace Epi.Web.MVC.Controllers
                 UserResetPasswordModel model = new UserResetPasswordModel();
                 model.UserName = Model.UserName;
                 ReadPasswordPolicy(model);
-               // ModelState.AddModelError("", "Passwords do not match. Please try again.");
+                // ModelState.AddModelError("", "Passwords do not match. Please try again.");
                 return View("ResetPassword", model);
             }
 
@@ -302,7 +307,7 @@ namespace Epi.Web.MVC.Controllers
         {
             SetTermOfUse();
             string formId = "", pageNumber;
-            
+
             if (ReturnUrl == null || !ReturnUrl.Contains("/"))
             {
                 ReturnUrl = "/Home/Index";
@@ -345,9 +350,9 @@ namespace Epi.Web.MVC.Controllers
                 }
                 //else
                 {
-                ModelState.AddModelError("", "The email or password you entered is incorrect.");
-                  Model.ViewValidationSummary = true;
-                 return View(Model);
+                    ModelState.AddModelError("", "The email or password you entered is incorrect.");
+                    Model.ViewValidationSummary = true;
+                    return View(Model);
                 }
             }
             catch (Exception)
