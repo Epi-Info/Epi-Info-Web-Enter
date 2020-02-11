@@ -185,7 +185,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     Organization OrganizationEntity = Mapper.ToEF(Organization);
-                    Context.AddToOrganizations(OrganizationEntity);
+                    Context.Organizations.Add(OrganizationEntity);
 
                     Context.SaveChanges();
                 }
@@ -212,7 +212,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
 
-                    Context.AddToUserOrganizations(UserOrganizationEntity);
+                    Context.UserOrganizations.Add(UserOrganizationEntity);
                     //Context.AddToUsers(User);
 
                     Context.SaveChanges();
@@ -236,7 +236,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
 
-                    Context.AddToUserOrganizations(UserOrganizationEntity);
+                    Context.UserOrganizations.Add(UserOrganizationEntity);
 
                     Context.SaveChanges();
                     return true;

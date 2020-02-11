@@ -437,7 +437,7 @@ namespace Epi.Web.EF
                     //SurveyResponseEntity.Users.Add(new User { UserID = 2 });
                     User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
                     SurveyResponseEntity.Users.Add(User);
-                    Context.AddToSurveyResponses(SurveyResponseEntity);
+                    Context.SurveyResponses.Add(SurveyResponseEntity);
 
                     Context.SaveChanges();
                 }
@@ -468,7 +468,7 @@ namespace Epi.Web.EF
                     SurveyResponse SurveyResponseEntity = Mapper.ToEF(SurveyResponse, SurveyResponse.CurrentOrgId);
                     User User = Context.Users.FirstOrDefault(x => x.UserID == SurveyResponse.UserId);
                     SurveyResponseEntity.Users.Add(User);
-                    Context.AddToSurveyResponses(SurveyResponseEntity);
+                    Context.SurveyResponses.Add(SurveyResponseEntity);
 
                     Context.SaveChanges();
                 }
@@ -630,7 +630,7 @@ namespace Epi.Web.EF
                             Response.Users.Remove(User);
                            
                             
-                            Context.SurveyResponses.DeleteObject(Response);
+                            Context.SurveyResponses.Remove(Response);
 
                             Context.SaveChanges();
                         }
@@ -683,7 +683,7 @@ namespace Epi.Web.EF
                             SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == NewId);
                             Response.Users.Remove(User);
 
-                            Context.SurveyResponses.DeleteObject(Response);
+                            Context.SurveyResponses.Remove(Response);
 
                             Context.SaveChanges();
                         }
@@ -696,7 +696,7 @@ namespace Epi.Web.EF
                             SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == pId);
                             Response.Users.Remove(User);
 
-                            Context.SurveyResponses.DeleteObject(Response);
+                            Context.SurveyResponses.Remove(Response);
 
                             Context.SaveChanges();
 
@@ -735,7 +735,7 @@ namespace Epi.Web.EF
                     SurveyResponse Response = Context.SurveyResponses.First(x => x.ResponseId == Id);
                     Response.Users.Remove(User);
 
-                    Context.SurveyResponses.DeleteObject(Response);
+                    Context.SurveyResponses.Remove(Response);
 
                     Context.SaveChanges();
 
@@ -2307,7 +2307,7 @@ namespace Epi.Web.EF
 
                 if (Response != null)
                 {
-                    Context.ResponseXmls.DeleteObject(Response);
+                    Context.ResponseXmls.Remove(Response);
                     Context.SaveChanges();
                 }
                 //Update Status
@@ -2355,7 +2355,7 @@ namespace Epi.Web.EF
                 using (var Context = DataObjectFactory.CreateContext())
                 {
                     ResponseXml ResponseXml = Mapper.ToEF(ResponseXmlBO);
-                    Context.AddToResponseXmls(ResponseXml);
+                    Context.ResponseXmls.Add(ResponseXml);
 
                     //Update Status
                     var Query = from response in Context.SurveyResponses
@@ -2572,5 +2572,35 @@ namespace Epi.Web.EF
         
         }
 
+        public void SetJsonColumn(string json, string responseid)
+        {
+            try
+            {
+                Guid Id = new Guid(responseid);
+
+
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                    var Query = from response in Context.SurveyResponses
+                                where response.ResponseId == Id
+                                select response;
+
+                    var DataRow = Query.Single();
+
+
+                    DataRow.ResponseJsonSize = RemoveWhitespace(json).Length;
+                    DataRow.ResponseJson = json;
+
+
+                    Context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
         }
+
+    }
 }

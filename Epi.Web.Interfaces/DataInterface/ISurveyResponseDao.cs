@@ -126,6 +126,6 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
          void UpdateRecordStatus(string ResponseId, int Status);
 
          int GetDataAccessRule(string FormId,int UserId);
-        
+        void SetJsonColumn(string json, string responseid);
     }
 }

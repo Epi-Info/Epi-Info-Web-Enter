@@ -7,6 +7,7 @@ using Epi.Web.MVC.Models;
 using Epi.Web.MVC.Facade;
 using System.Collections.Generic;
 using Epi.Web.Enter.Common.Criteria;
+using Epi.Web.Common.Json;
 using Epi.Web.Enter.Common.DTO;
 using System.Linq;
 namespace Epi.Web.MVC.Facade
@@ -481,5 +482,20 @@ namespace Epi.Web.MVC.Facade
             Response = _iSurveyInfoRepository.GetSourceTables(Request);//Pain Point 
             return Response;
         }
+        public bool SetJsonColumn(string Json, string ResponseId)
+        {
+
+
+            return _iSurveyAnswerRepository.SetJsonColumn(Json, ResponseId);
+
+           // return true;
+
+        }
+        public string GetSurveyResponseJson(SurveyAnswerDTO surveyAnswerDTO, List<FormsHierarchyDTO> FormsHierarchyDTOList, SurveyControlsResponse List)
+        {
+            SurveyResponseJson Implementation = new SurveyResponseJson();
+            return Implementation.GetSurveyResponseJson(surveyAnswerDTO, FormsHierarchyDTOList, List);
+        }
+        
     }
 }

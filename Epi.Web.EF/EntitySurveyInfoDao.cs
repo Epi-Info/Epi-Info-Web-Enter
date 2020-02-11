@@ -352,7 +352,7 @@ namespace Epi.Web.EF
                    SurveyMetaDataEntity.Users.Add(User);
 
                    SurveyMetaDataEntity.OrganizationId = OrganizationId;
-                   Context.AddToSurveyMetaDatas(SurveyMetaDataEntity);
+                   Context.SurveyMetaDatas.Add(SurveyMetaDataEntity);
 
                    Context.SaveChanges();
                }
@@ -531,7 +531,7 @@ namespace Epi.Web.EF
                    
                    foreach (var item in ColumnList)
                    {
-                       Context.ResponseDisplaySettings.DeleteObject(item);
+                       Context.ResponseDisplaySettings.Remove(item);
                    }
                    Context.SaveChanges();
                }
@@ -554,7 +554,7 @@ namespace Epi.Web.EF
 
                    ResponseDisplaySetting SettingEntity = Mapper.Map(FormId, i, Column);
 
-                   Context.AddToResponseDisplaySettings(SettingEntity);
+                   Context.ResponseDisplaySettings.Add(SettingEntity);
 
                    Context.SaveChanges();
                    
@@ -641,7 +641,7 @@ namespace Epi.Web.EF
                var DataRow = Query.Single();
                DataRow = Mapper.Map(ConnectionString);
 
-               Context.AddToEIDatasources(DataRow);
+               Context.EIDatasources.Add(DataRow);
 
                Context.SaveChanges();
 

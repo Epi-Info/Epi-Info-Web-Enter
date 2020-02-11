@@ -11,6 +11,7 @@ using Epi.Web.Enter.Common.ObjectMapping;
 using System.Xml;
 using System.Xml.Linq;
 using Epi.Web.Enter.Common.Xml;
+using Epi.Web.Enter.Interfaces.DataInterfaces;
 namespace Epi.Web.BLL
 {
     public class SurveyResponse
@@ -21,11 +22,12 @@ namespace Epi.Web.BLL
               Success = 2,
            
             }
-        private Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao;
-
-        public SurveyResponse(Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao pSurveyResponseDao)
+        private  ISurveyResponseDao SurveyResponseDao;
+        private ISurveyInfoDao SurveyInfoDao;
+        public SurveyResponse(ISurveyResponseDao pSurveyResponseDao,ISurveyInfoDao pSurveyInfoDao = null)
         {
             this.SurveyResponseDao = pSurveyResponseDao;
+            this.SurveyInfoDao = pSurveyInfoDao;
         }
 
      
@@ -640,5 +642,19 @@ namespace Epi.Web.BLL
 
             this.SurveyResponseDao.UpdateRecordStatus(SurveyResponseBO);
             }
+        public bool SetJsonColumn(string json, string responseid)
+        {
+            try
+            {
+                this.SurveyResponseDao.SetJsonColumn(json, responseid);
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+
+            }
+        }
     }
 }

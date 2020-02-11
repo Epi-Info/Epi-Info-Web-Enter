@@ -179,9 +179,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0-rc\lib\net40\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -612,6 +609,7 @@
     <Content Include="Properties\DataSources\Epi.Web.Enter.Common.Message.DropDownsResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.OrganizationResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.PublishResponse.datasource" />
+    <Content Include="Properties\DataSources\Epi.Web.Enter.Common.Message.SourceTablesResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.UserResponse.datasource" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
     <None Include="Service References\DataServiceClient\EWEDataService.disco" />
@@ -716,10 +714,6 @@
     <ProjectReference Include="..\Epi.Web.CheckCodeEngine\Epi.Web.CheckCodeEngine.csproj">
       <Project>{6B084882-EF4F-4CF0-85B1-1E8C357AE822}</Project>
       <Name>Epi.Web.CheckCodeEngine</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Epi.Web.Common\Epi.Web.Common.csproj">
-      <Project>{6e2f059b-c1cd-401f-8a63-dc2933cfb0d8}</Project>
-      <Name>Epi.Web.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Epi.Web.EF\Epi.Web.EF.csproj">
       <Project>{05a484ab-a555-4200-936b-bec573285bcc}</Project>

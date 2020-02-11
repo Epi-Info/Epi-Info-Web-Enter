@@ -172,7 +172,7 @@ namespace Epi.Web.EF
                     //Delete old columns
                     foreach (var item in ColumnList)
                     {
-                        Context.ResponseDisplaySettings.DeleteObject(item);
+                        Context.ResponseDisplaySettings.Remove(item);
                     }
                     Context.SaveChanges();
 
@@ -183,7 +183,7 @@ namespace Epi.Web.EF
                     {
 
                         ResponseDisplaySettingEntity = Mapper.ToColumnName(item, Id);
-                        Context.AddToResponseDisplaySettings(ResponseDisplaySettingEntity);
+                        Context.ResponseDisplaySettings.Add(ResponseDisplaySettingEntity);
                         //Context.SaveChanges();
                     }
                     Context.SaveChanges();
@@ -514,8 +514,11 @@ namespace Epi.Web.EF
 
 
                      Guid _Id = new Guid(Id);
-                    Context.SurveyResponses.Where(x => x.SurveyId == _Id && x.IsDraftMode == true).ToList().ForEach(Context.SurveyResponses.DeleteObject);
-
+                        var list = Context.SurveyResponses.Where(x => x.SurveyId == _Id && x.IsDraftMode == true).ToList();//.ForEach(Context.SurveyResponses.DeleteObject);
+                        foreach (var item in list )
+                            {
+                            Context.SurveyResponses.Remove(item);
+                           }
                     Context.SaveChanges();
                     }
                   

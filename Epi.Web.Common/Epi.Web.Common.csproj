@@ -22,7 +22,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\Workspace\EWE\Epi.Web\bin\</OutputPath>
+    <OutputPath>..\Epi.Web\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -39,6 +39,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Epi.Web\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -96,6 +100,7 @@
     <Compile Include="DTO\PassCodeDTO.cs" />
     <Compile Include="DTO\PreFilledAnswerDTO.cs" />
     <Compile Include="DTO\ResponseXmlDTO.cs" />
+    <Compile Include="DTO\StateDTO.cs" />
     <Compile Include="DTO\SurveyAnswerDTO.cs" />
     <Compile Include="DTO\SurveyControlDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
@@ -103,10 +108,15 @@
     <Compile Include="Exception\CustomFaultException.cs" />
     <Compile Include="Extension\LinqExtensions.cs" />
     <Compile Include="Helper\RelatedFormsObj.cs" />
+    <Compile Include="Json\JsonConverter.cs" />
+    <Compile Include="Json\ResponseDetail.cs" />
+    <Compile Include="Json\SurveyJson.cs" />
     <Compile Include="Message\Base\AcknowledgeType.cs" />
     <Compile Include="Message\Base\PersistType.cs" />
     <Compile Include="Message\Base\RequestBase.cs" />
     <Compile Include="Message\Base\ResponseBase.cs" />
+    <Compile Include="Message\OrganizationAccountRequest.cs" />
+    <Compile Include="Message\OrganizationAccountResponse.cs" />
     <Compile Include="Message\SourceTablesRequest.cs" />
     <Compile Include="Message\SourceTablesResponse.cs" />
     <Compile Include="Message\FormResponseInfoRequest.cs" />
@@ -121,6 +131,8 @@
     <Compile Include="Message\OrganizationResponse.cs" />
     <Compile Include="Message\PreFilledAnswerRequest.cs" />
     <Compile Include="Message\PreFilledAnswerResponse.cs" />
+    <Compile Include="Message\SurveyControlsRequest.cs" />
+    <Compile Include="Message\SurveyControlsResponse.cs" />
     <Compile Include="Message\UserAuthenticationRequest.cs" />
     <Compile Include="Message\SurveyAnswerRequest.cs" />
     <Compile Include="Message\SurveyAnswerResponse.cs" />

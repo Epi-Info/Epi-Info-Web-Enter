@@ -82,10 +82,10 @@ namespace Epi.Web.EF
 
 
                    
-                    Context.Users.AddObject(Mapper.ToUserEntity(User));
+                    Context.Users.Add(Mapper.ToUserEntity(User));
 
                     UserOrganization UserOrganizationEntity = Mapper.ToUserOrganizationEntity(User, OrgBO);
-                    Context.UserOrganizations.AddObject(UserOrganizationEntity);
+                    Context.UserOrganizations.Add(UserOrganizationEntity);
 
                                    
 
@@ -304,7 +304,7 @@ namespace Epi.Web.EF
             using (var Context = DataObjectFactory.CreateContext())
             {
                 UserOrganizationEntity.UserID = User.UserId;
-                Context.AddToUserOrganizations(UserOrganizationEntity);
+                Context.UserOrganizations.Add(UserOrganizationEntity);
                 Context.SaveChanges();
 
                 return true;

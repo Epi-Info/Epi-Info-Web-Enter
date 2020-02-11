@@ -1520,5 +1520,22 @@ namespace Epi.Web.WCF.SurveyService
             return DropDownsResponse;
         
         }
+        public bool SetJsonColumn(string json, string responseid)
+        {
+            Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyResponseDao SurveyResponseDao = new EF.EntitySurveyResponseDao();
+            Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao ISurveyInfoDao = new EF.EntitySurveyInfoDao();
+            Epi.Web.BLL.SurveyResponse Implementation = new Epi.Web.BLL.SurveyResponse(SurveyResponseDao, ISurveyInfoDao);
+            try
+            {
+                return Implementation.SetJsonColumn(json, responseid);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw ex;
+            }
+            return true;
+        }
     }
 }
