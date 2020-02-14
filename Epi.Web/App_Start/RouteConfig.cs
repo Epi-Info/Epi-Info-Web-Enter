@@ -235,6 +235,11 @@ namespace Epi.Web.MVC
 			);
 			routes.MapRoute(
 				null,
+				"Login/Callback",
+				new { controller = "Login", action = "SignInCallback" }
+			);
+			routes.MapRoute(
+				null,
 				"Final/{surveyid}",
 				new { controller = "Final", action = "Index", surveyid = UrlParameter.Optional }
 			);
