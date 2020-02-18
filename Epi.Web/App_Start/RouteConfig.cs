@@ -1,409 +1,303 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Epi.Web.MVC
 {
-    public class RouteConfig
-    {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+	public class RouteConfig
+	{
+		public static void RegisterRoutes(RouteCollection routes)
+		{
+			// -----------------
+			// BEGIN IGNORE ROUTE
+			// -----------------
+			routes.IgnoreRoute(
+				"{resource}.axd/{*pathInfo}"
+			);
+			routes.IgnoreRoute(
+				"{resource}.axd/{*pathInfo}"
+			);
+			routes.IgnoreRoute(
+				"{*staticfile}",
+				new { staticfile = @".*\.(jpg|gif|jpeg|png|js|css|htm|html|htc|php)$" }
+			);
 
-            routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+			// -----------------
+			// BEGIN MAP HTTP ROUTE
+			// -----------------
+			routes.MapHttpRoute(
+				name: "DefaultApi",
+				routeTemplate: "api/{controller}/{id}",
+				defaults: new { id = RouteParameter.Optional }
+			);
 
-            //routes.MapRoute(
-            //    name: "Default",
-            //    url: "{controller}/{action}/{id}",
-            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            //);
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-            routes.IgnoreRoute
-            (
-                "{*staticfile}",
-                new { staticfile = @".*\.(jpg|gif|jpeg|png|js|css|htm|html|htc|php)$" }
-            );
-
-
-            //routes.MapRoute
-            //(
-            //   "ListForms", // Route name
-            //    "Home/ListForms", // URL with parameters
-            //    new { controller = "Home", action = "ListForms" }
-            //); // Parameter defaults
-
-            routes.MapRoute
-          (
-              null, // Route name
-              "Home/ReadSortedResponseInfo", ///{formid}/{page}/{sort}/{sortfield} URL with parameters
-              new { controller = "Home", action = "ReadSortedResponseInfo", formid = UrlParameter.Optional, page = UrlParameter.Optional, sort = UrlParameter.Optional, sortfield = UrlParameter.Optional, orgid = UrlParameter.Optional, reset = UrlParameter.Optional }
-          ); // Parameter defaults
-
-
-            routes.MapRoute
-           (
-               null, // Route name
-               "Home/ReadResponseInfo", // URL with parameters
-               new { controller = "Home", action = "ReadResponseInfo" }
-           ); // Parameter defaults
-         
-           
-            routes.MapRoute
-         (
-             null, // Route name
-             "Home/GetSettings", // URL with parameters
-             new { controller = "Home", action = "GetSettings", formid = UrlParameter.Optional }
-         ); // Parameter defaults
-
-             
-            routes.MapRoute
-      (
-          null, // Route name
-          "Home/SaveSettings", // URL with parameters
-          new { controller = "Home", action = "SaveSettings", formid = UrlParameter.Optional }
-      ); // Param
-            routes.MapRoute
-               (
-                   null, // Route name
-                   "Home/Edit", // URL with parameters
-                   new { controller = "Home", action = "Edit", ResId = UrlParameter.Optional }
-               );
-            routes.MapRoute
-              (
-                  null, // Route name
-                  "Home/LogOut", // URL with parameters
-                  new { controller = "Home", action = "LogOut", ResId = UrlParameter.Optional }
-              ); 
-            routes.MapRoute
-            (
-                null, // Route name
-                "Home/Delete/{ResponseId}", // URL with parameters
-                new { controller = "Home", action = "Delete", ResponseId = UrlParameter.Optional }
-            );
-           
-            routes.MapRoute
-    (
-        null, // Route name
-        "Home/CheckForConcurrency", // URL with parameters
-        new { controller = "Home", action = "CheckForConcurrency", responseid = UrlParameter.Optional }
-    ); // Param
-            
-
-    routes.MapRoute
-    (
-        null, // Route name
-        "Home/Notify", // URL with parameters
-        new { controller = "Home", action = "Notify", responseid = UrlParameter.Optional }
-    ); // Param
-              routes.MapRoute
-    (
-        null, // Route name
-        "Home/Unlock/{ResponseId}/{RecoverLastRecordVersion}", // URL with parameters
-        new { controller = "Home", action = "Unlock", ResponseId = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
-    ); // Param
-              routes.MapRoute
-                  (
-                      null, // Route name
-                      "FormResponse/Unlock/{ResponseId}/{RecoverLastRecordVersion}", // URL with parameters
-                      new { controller = "FormResponse", action = "Unlock", ResponseId = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
-                  ); // Param
-              routes.MapRoute
-                (
-                    null, // Route name
-                    "FormResponse/CheckForConcurrency", // URL with parameters
-                    new { controller = "FormResponse", action = "CheckForConcurrency" }
-                ); 
-            routes.MapRoute
-            (
-                null, // Route name
-                "FormResponse/Delete/{ResponseId}", // URL with parameters
-                new { controller = "FormResponse", action = "Delete", ResponseId = UrlParameter.Optional }
-            );
-            /*routes.MapRoute
-               (
-                   null, // Route name
-                   "FormResponse/CheckForConcurrency", // URL with parameters
-                   new { controller = "FormResponse", action = "CheckForConcurrency", ResponseId = UrlParameter.Optional }
-               ); // Param*/
-           
-            routes.MapRoute
-           (
-               null, // Route name
-               "FormResponse/DeleteBranch/{ResponseId}", // URL with parameters
-               new { controller = "FormResponse", action = "DeleteBranch", ResponseId = UrlParameter.Optional }
-           );
-            routes.MapRoute
-            (
-                null, // Route name
-                "Home/{surveyid}/{orgid}", // URL with parameters
-                new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, orgid = UrlParameter.Optional }
-            ); // Parameter defaults
-
-            routes.MapRoute
-            (
-                null, // Route name
-                "Home/Index/{surveyid}/{AddNewFormId}", // URL with parameters
-                new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, AddNewFormId = UrlParameter.Optional }
-            ); // Parameter defaults
-            routes.MapRoute
-          (
-              null, // Route name
-              "Home/Index/{surveyid}/{EditForm}", // URL with parameters
-              new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, EditForm = UrlParameter.Optional }
-          ); // Parameter defaults
-            routes.MapRoute
-            (
-                null, // Route name
-                "FormResponse/LogOut", // URL with parameters
-                new { controller = "FormResponse", action = "LogOut", ResId = UrlParameter.Optional }
-            );
-            routes.MapRoute
-           (
-               null, // Route name
-               "FormResponse/ReadResponseInfo", // URL with parameters
-               new { controller = "FormResponse", action = "ReadResponseInfo", ResId = UrlParameter.Optional }
-           );
-           
-            routes.MapRoute
-            (
-                null, // Route name
-                "FormResponse/{formid}/{responseid}", // URL with parameters
-                new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional, responseid = UrlParameter.Optional }
-            ); // Parameter defaults
-            routes.MapRoute
-                      (
-                          null, // Route name
-                          "FormResponse/{formid}", // URL with parameters
-                          new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional }
-                      ); // Parameter defaults
-
-            routes.MapRoute
-           (
-             null,                                              // Route name
-             "EIWST/Notify/{id}",                           // URL with parameters
-             new { controller = "EIWST", action = "Notify", id = "" }
-             );  // Parameter defaults
-            routes.MapRoute
-         (
-             null, // Route name
-             "EIWST/DataService/{surveyid}", // URL with parameters
-             new { controller = "EIWST", action = "Index", surveyid = UrlParameter.Optional }
-         ); // Parameter defaults
-
-            //     routes.MapRoute
-            //(
-            //    null, // Route name
-            //    "EIWST/ManagerService", // URL with parameters
-            //    new { controller = "EIWST", action = "TestManagerService" }
-            //); // Parameter defaults
-           
-            routes.MapRoute
-             (
-               null,                                              // Route name
-               "Survey/UpdateResponseXml/{id}",                           // URL with parameters
-               new { controller = "Survey", action = "UpdateResponseXml", id = "" }
-               );  // Parameter defaults
-
-            routes.MapRoute(
-                   null,                                              // Route name
-                   "Survey/SaveSurvey/{id}",                           // URL with parameters
-                   new { controller = "Survey", action = "SaveSurvey", id = "" }
-                   );
-            routes.MapRoute
-               (
-                   null, // Route name
-                   "Survey/Delete/{responseid}", // URL with parameters
-                   new { controller = "Survey", action = "Delete", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
-               );
-            routes.MapRoute
-               (
-                   null, // Route name
-                   "Survey/DeleteBranch/{responseid}", // URL with parameters
-                   new { controller = "Survey", action = "DeleteBranch", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
-               );
-            
-            routes.MapRoute
-               (
-                   null, // Route name
-                   "Survey/AddChild", // URL with parameters
-                   new { controller = "Survey", action = "AddChild" }
-               );
-            routes.MapRoute
-            (
-                null, // Route name
-                "Survey/GetCodesValue", // URL with parameters
-                new { controller = "Survey", action = "GetCodesValue" }
-            ); 
-            
-                 routes.MapRoute
-            (
-                null, // Route name
-                "Survey/GetAutoCompleteList", // URL with parameters
-                new { controller = "Survey", action = "GetAutoCompleteList" }
-            ); 
-            routes.MapRoute
-              (
-                  null, // Route name
-                  "Survey/HasResponse", // URL with parameters
-                  new { controller = "Survey", action = "HasResponse" }
-              );
-            routes.MapRoute
-             (
-                 null, // Route name
-                 "Survey/UpDateGrid", // URL with parameters
-                 new { controller = "Survey", action = "UpDateGrid" }
-             );
-            routes.MapRoute
-            (
-                null, // Route name
-                "Survey/ReadResponseInfo", // URL with parameters
-                new { controller = "Survey", action = "ReadResponseInfo" }
-            );
-            routes.MapRoute
-             (
-                 null, // Route name
-                 "Survey/LogOut", // URL with parameters
-                 new { controller = "Survey", action = "LogOut", ResId = UrlParameter.Optional }
-             ); 
-
-            routes.MapRoute
-                (
-                    null, // Route name
-                    "Survey/{responseid}/{PageNumber}", // URL with parameters
-                    new { controller = "Survey", action = "Index", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
-                ); // Parameter defaults
-            
-           
-            routes.MapRoute
-             (
-                 null, // Route name
-                 "Login/ForgotPassword", // URL with parameters
-                 new { controller = "Login", action = "ForgotPassword" }
-             ); // Parameter defaults
-
-            routes.MapRoute
-            (
-                null, // Route name
-                "Login/ResetPassword", // URL with parameters
-                new { controller = "Login", action = "ResetPassword" }
-            ); // Parameter defaults
-
-            routes.MapRoute
-              (
-                  null, // Route name
-                  "Login/Index", // URL with parameters
-                  new { controller = "Login", action = "Index" }
-              ); // Parameter defaults
-
-            routes.MapRoute
-              (
-                  null, // Route name
-                  "Login", // URL with parameters
-                  new { controller = "Login", action = "Index" }
-              ); // Parameter defaults
-
-           
-
-
-            routes.MapRoute
-           (
-               null, // Route name
-               "Final/{surveyid}", // URL with parameters
-               new { controller = "Final", action = "Index", surveyid = UrlParameter.Optional }
-           ); // Parameter defaults
-
-            routes.MapRoute
-            (
-              null,                                              // Route name
-              "Post/Notify/{id}",                           // URL with parameters
-              new { controller = "Post", action = "Notify", id = "" }
-              );  // Parameter defaults
-
-
-
-
-            routes.MapRoute
-           (
-             null,                                              // Route name
-             "Post/SignOut/{id}",                           // URL with parameters
-             new { controller = "Post", action = "SignOut", id = "" }
-             );  // Parameter defaults
-            routes.MapRoute
-          (
-              null, // Route name
-              "AdminOrganization/AutoComplete", // URL with parameters
-              new { controller = "AdminOrganization", action = "AutoComplete" }
-          ); // Parameter defaults
-
-            routes.MapRoute
-       (
-           null, // Route name
-           "AdminOrganization/GetUserInfoAD", // URL with parameters
-           new { controller = "AdminOrganization", action = "GetUserInfoAD", email = UrlParameter.Optional }
-       ); // Parameter defaults
-            routes.MapRoute
-                 (
-                     null, // Route name
-                     "AdminOrganization/OrgList", // URL with parameters
-                     new { controller = "AdminOrganization", action = "OrgList" }
-                 ); // Parameter defaults
-            routes.MapRoute
-                (
-                    null, // Route name
-                    "AdminOrganization/{orgkey}/{iseditmode}", // URL with parameters
-                    new { controller = "AdminOrganization", action = "OrgInfo", orgkey = UrlParameter.Optional, iseditmode = UrlParameter.Optional }
-                ); // Parameter defaults
-            routes.MapRoute
-                (
-                    null, // Route name
-                    "AdminOrganization/Cancel", // URL with parameters
-                    new { controller = "AdminOrganization", action = "Cancel"}
-                ); // Parameter defaults
-
-
-            routes.MapRoute
-       (
-           null, // Route name
-           "AdminUser/GetUserInfoAD", // URL with parameters
-           new { controller = "AdminUser", action = "GetUserInfoAD", email = UrlParameter.Optional }
-       ); // Parameter defaults
-           
-            routes.MapRoute
-            (
-                null, // Route name
-                "AdminUser/GetUserList", // URL with parameters
-                new { controller = "AdminUser", action = "GetUserList", orgid = UrlParameter.Optional }
-            ); // Parameter defaults
-          
-            routes.MapRoute
-              (
-                  null, // Route name
-                  "AdminUser/UserList", // URL with parameters
-                  new { controller = "AdminUser", action = "UserList" }
-              ); // Parameter defaults
-        
-            routes.MapRoute
-              (
-                  null, // Route name
-                  "AdminUser/{userid}/{iseditmode}/{orgid}", // URL with parameters
-                  new { controller = "AdminUser", action = "UserInfo", userid = UrlParameter.Optional, iseditmode = UrlParameter.Optional, orgid = UrlParameter.Optional }
-              ); // Parameter defaults
-            //GetCodesValue
-          
-            //routes.MapRoute(
-            //   "Default", // Route name
-            //   "{*url}", // URL with parameters
-            //   new { controller = "Login", action = "Index", id = UrlParameter.Optional }
-            //  );
-              
-        }
-    }
+			// -----------------
+			// BEGIN MAP ROUTE
+			//
+			// Route name
+			// URL with parameters
+			// Parameter defaults
+			// -----------------
+			routes.MapRoute(
+				null,
+				"Home/ReadSortedResponseInfo",
+				new { controller = "Home", action = "ReadSortedResponseInfo", formid = UrlParameter.Optional, page = UrlParameter.Optional, sort = UrlParameter.Optional, sortfield = UrlParameter.Optional, orgid = UrlParameter.Optional, reset = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/ReadResponseInfo",
+				new { controller = "Home", action = "ReadResponseInfo" }
+			);
+			routes.MapRoute(
+				null,
+				"Home/GetSettings",
+				new { controller = "Home", action = "GetSettings", formid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/SaveSettings",
+				new { controller = "Home", action = "SaveSettings", formid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/Edit",
+				new { controller = "Home", action = "Edit", ResId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/LogOut",
+				new { controller = "Home", action = "LogOut", ResId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/Delete/{ResponseId}",
+				new { controller = "Home", action = "Delete", ResponseId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/CheckForConcurrency",
+				new { controller = "Home", action = "CheckForConcurrency", responseid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/Notify",
+				new { controller = "Home", action = "Notify", responseid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/Unlock/{ResponseId}/{RecoverLastRecordVersion}",
+				new { controller = "Home", action = "Unlock", ResponseId = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/Unlock/{ResponseId}/{RecoverLastRecordVersion}",
+				new { controller = "FormResponse", action = "Unlock", ResponseId = UrlParameter.Optional, RecoverLastRecordVersion = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/CheckForConcurrency",
+				new { controller = "FormResponse", action = "CheckForConcurrency" }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/Delete/{ResponseId}",
+				new { controller = "FormResponse", action = "Delete", ResponseId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/DeleteBranch/{ResponseId}",
+				new { controller = "FormResponse", action = "DeleteBranch", ResponseId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/{surveyid}/{orgid}",
+				new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, orgid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/Index/{surveyid}/{AddNewFormId}",
+				new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, AddNewFormId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Home/Index/{surveyid}/{EditForm}",
+				new { controller = "Home", action = "Index", surveyid = UrlParameter.Optional, EditForm = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/LogOut",
+				new { controller = "FormResponse", action = "LogOut", ResId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/ReadResponseInfo",
+				new { controller = "FormResponse", action = "ReadResponseInfo", ResId = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/{formid}/{responseid}",
+				new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional, responseid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"FormResponse/{formid}",
+				new { controller = "FormResponse", action = "Index", formid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"EIWST/Notify/{id}",
+				new { controller = "EIWST", action = "Notify", id = "" }
+			);
+			routes.MapRoute(
+				null,
+				"EIWST/DataService/{surveyid}",
+				new { controller = "EIWST", action = "Index", surveyid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/UpdateResponseXml/{id}",
+				new { controller = "Survey", action = "UpdateResponseXml", id = "" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/SaveSurvey/{id}",
+				new { controller = "Survey", action = "SaveSurvey", id = "" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/Delete/{responseid}",
+				new { controller = "Survey", action = "Delete", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/DeleteBranch/{responseid}",
+				new { controller = "Survey", action = "DeleteBranch", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/AddChild",
+				new { controller = "Survey", action = "AddChild" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/GetCodesValue",
+				new { controller = "Survey", action = "GetCodesValue" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/GetAutoCompleteList",
+				new { controller = "Survey", action = "GetAutoCompleteList" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/HasResponse",
+				new { controller = "Survey", action = "HasResponse" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/UpDateGrid",
+				new { controller = "Survey", action = "UpDateGrid" }
+			);
+			routes.MapRoute(
+				null,
+				"Survey/ReadResponseInfo",
+				new { controller = "Survey", action = "ReadResponseInfo" }
+			);
+			routes.MapRoute(
+				 null,
+				 "Survey/LogOut",
+				 new { controller = "Survey", action = "LogOut", ResId = UrlParameter.Optional }
+			 );
+			routes.MapRoute(
+				null,
+				"Survey/{responseid}/{PageNumber}",
+				new { controller = "Survey", action = "Index", responseid = UrlParameter.Optional, PageNumber = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Login/ForgotPassword",
+				new { controller = "Login", action = "ForgotPassword" }
+			 );
+			routes.MapRoute(
+				null,
+				"Login/ResetPassword",
+				new { controller = "Login", action = "ResetPassword" }
+			);
+			routes.MapRoute(
+				null,
+				"Login/Index",
+				new { controller = "Login", action = "Index" }
+			);
+			routes.MapRoute(
+				null,
+				"Login",
+				new { controller = "Login", action = "Index" }
+			);
+			routes.MapRoute(
+				null,
+				"Login/Callback",
+				new { controller = "Login", action = "SignInCallback" }
+			);
+			routes.MapRoute(
+				null,
+				"Final/{surveyid}",
+				new { controller = "Final", action = "Index", surveyid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"Post/Notify/{id}",
+				new { controller = "Post", action = "Notify", id = "" }
+			);
+			routes.MapRoute(
+				null,
+				"Post/SignOut/{id}",
+				new { controller = "Post", action = "SignOut", id = "" }
+			);
+			routes.MapRoute(
+				null,
+				"AdminOrganization/AutoComplete",
+				new { controller = "AdminOrganization", action = "AutoComplete" }
+			);
+			routes.MapRoute(
+				null,
+				"AdminOrganization/GetUserInfoAD",
+				new { controller = "AdminOrganization", action = "GetUserInfoAD", email = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"AdminOrganization/OrgList",
+				new { controller = "AdminOrganization", action = "OrgList" }
+			);
+			routes.MapRoute(
+				null,
+				"AdminOrganization/{orgkey}/{iseditmode}",
+				new { controller = "AdminOrganization", action = "OrgInfo", orgkey = UrlParameter.Optional, iseditmode = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"AdminOrganization/Cancel",
+				new { controller = "AdminOrganization", action = "Cancel" }
+			);
+			routes.MapRoute(
+				null,
+				"AdminUser/GetUserInfoAD",
+				new { controller = "AdminUser", action = "GetUserInfoAD", email = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"AdminUser/GetUserList",
+				new { controller = "AdminUser", action = "GetUserList", orgid = UrlParameter.Optional }
+			);
+			routes.MapRoute(
+				null,
+				"AdminUser/UserList",
+				new { controller = "AdminUser", action = "UserList" }
+			);
+			routes.MapRoute(
+				null,
+				"AdminUser/{userid}/{iseditmode}/{orgid}",
+				new { controller = "AdminUser", action = "UserInfo", userid = UrlParameter.Optional, iseditmode = UrlParameter.Optional, orgid = UrlParameter.Optional }
+			);
+		}
+	}
 }
