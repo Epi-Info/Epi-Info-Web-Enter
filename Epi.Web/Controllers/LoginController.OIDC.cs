@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Linq;
 //////using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,6 @@ using System.Text;
 
 //////using mmria.server.Controllers;
 
-
-
 using System.Web.Mvc;
 
 namespace Epi.Web.MVC.Controllers
@@ -37,24 +36,21 @@ namespace Epi.Web.MVC.Controllers
     public partial class LoginController : Controller
     {
         public const string ClientId = "urn:gov:gsa:openidconnect.profiles:sp:sso:logingov:aspnet_example";
-        public const string ClientUrl = "http://localhost:50764";
+        public const string ClientUrl = "http://localhost:60201";
         public const string IdpUrl = "https://idp.int.identitysandbox.gov";
         public const string AcrValues = "http://idmanagement.gov/ns/assurance/loa/1";
 
+		//////private IConfiguration _configuration;
+		//////private IHttpContextAccessor _accessor;
+		//////private ActorSystem _actorSystem;
 
-       // private IConfiguration _configuration;
-        //////private IHttpContextAccessor _accessor;
-        //////private ActorSystem _actorSystem;
 
-
-        //////public AccountController(IHttpContextAccessor httpContextAccessor, ActorSystem actorSystem, IConfiguration configuration)
-        //////{
-        //////    _accessor = httpContextAccessor;
-        //////    _actorSystem = actorSystem;
-        //////    _configuration = configuration;
-        //////}
-
-        private IConfiguration _configuration;
+		//////public AccountController(IHttpContextAccessor httpContextAccessor, ActorSystem actorSystem, IConfiguration configuration)
+		//////{
+		//////    _accessor = httpContextAccessor;
+		//////    _actorSystem = actorSystem;
+		//////    _configuration = configuration;
+		//////}
 /*
         public ActionResult Index()
         {
@@ -70,19 +66,21 @@ namespace Epi.Web.MVC.Controllers
             return View();
         }
 */
-        [AllowAnonymous] 
+        [AllowAnonymous]
         public ActionResult SignIn()
         {
+			var useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
 
-            var sams_endpoint_authorization = _configuration["sams:endpoint_authorization"];
-            var sams_endpoint_token = _configuration["sams:endpoint_token"];
-            var sams_endpoint_user_info = _configuration["sams:endpoint_user_info"];
-            var sams_endpoint_token_validation = _configuration["sams:token_validation"];
-            var sams_endpoint_user_info_sys = _configuration["sams:user_info_sys"];
-            var sams_client_id = _configuration["sams:client_id"];
-            var sams_callback_url = _configuration["sams:callback_url"];        
+			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS:ENDPOINT_AUTHORIZATION"];
+			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS:ENDPOINT_TOKEN"];
+			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO"];
+			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS:TOKEN_VALIDATION"];
+			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO_SYS"];
+			var sams_client_id = ConfigurationManager.AppSettings["SAMS:CLIENT_ID"];
+			var sams_client_secret = ConfigurationManager.AppSettings["SAMS:CLIENT_SECRET"];
+			var sams_callback_url = ConfigurationManager.AppSettings["SAMS:CALLBACK_URL"];
 
-            var state = Guid.NewGuid().ToString("N");
+			var state = Guid.NewGuid().ToString("N");
             var nonce = Guid.NewGuid().ToString("N");
 
             var sams_url = $"{sams_endpoint_authorization}?" +
@@ -98,27 +96,26 @@ namespace Epi.Web.MVC.Controllers
             return Redirect(sams_url);
         }
 
-        [AllowAnonymous] 
+        [AllowAnonymous]
         public async Task<ActionResult> SignInCallback()
         {
-            var sams_endpoint_authorization = _configuration["sams:endpoint_authorization"];
-            var sams_endpoint_token = _configuration["sams:endpoint_token"];
-            var sams_endpoint_user_info = _configuration["sams:endpoint_user_info"];
-            var sams_endpoint_token_validation = _configuration["sams:token_validation"];
-            var sams_endpoint_user_info_sys = _configuration["sams:endpoint_user_info_sys"];
-            var sams_client_id = _configuration["sams:client_id"];
-            var sams_client_secret = _configuration["sams:client_secret"];
-            
-            var sams_callback_url = _configuration["sams:callback_url"];
+			var useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
 
-            //?code=6c17b2a3-d65a-44fd-a28c-9aee982f80be&state=a4c8326ca5574999aa13ca02e9384c3d
-            // Retrieve code and state from query string, pring for debugging
-            string querystring = ""; ////// Request.QueryString.Value;
+			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS:ENDPOINT_AUTHORIZATION"];
+			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS:ENDPOINT_TOKEN"];
+			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO"];
+			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS:TOKEN_VALIDATION"];
+			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO_SYS"];
+			var sams_client_id = ConfigurationManager.AppSettings["SAMS:CLIENT_ID"];
+			var sams_client_secret = ConfigurationManager.AppSettings["SAMS:CLIENT_SECRET"];
+			var sams_callback_url = ConfigurationManager.AppSettings["SAMS:CALLBACK_URL"];
+
+            string querystring = "";
             System.Diagnostics.Debug.Assert(false, "look");
-            var querystring_skip = querystring.Substring(1, querystring.Length -1);
+            var querystring_skip = querystring.Substring(1, querystring.Length - 1);
             var querystring_array = querystring_skip.Split('&');
+			var querystring_dictionary = new Dictionary<string,string>();
 
-            var querystring_dictionary = new Dictionary<string,string>();
             foreach(string item in querystring_array)
             {
                 var pair = item.Split('=');
@@ -185,11 +182,11 @@ namespace Epi.Web.MVC.Controllers
             var user_info_sys_request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_user_info + "?token=" + id_token);
 
 
-            user_info_sys_request.Headers.Add("Authorization","Bearer " + access_token); 
-            user_info_sys_request.Headers.Add("client_id", sams_client_id); 
-            user_info_sys_request.Headers.Add("client_secret", sams_client_secret); 
+            user_info_sys_request.Headers.Add("Authorization","Bearer " + access_token);
+            user_info_sys_request.Headers.Add("client_id", sams_client_id);
+            user_info_sys_request.Headers.Add("client_secret", sams_client_secret);
 
-            /* 
+            /*
             user_info_sys_request.Content = new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "client_id", sams_client_id },
                 { "client_secret", sams_client_secret },
@@ -203,29 +200,29 @@ namespace Epi.Web.MVC.Controllers
 
             var temp_string = await response.Content.ReadAsStringAsync();
             payload = JObject.Parse(temp_string);
-            
+
             var email = payload.Value<string>("email");
 
             //check if user exists
-            var config_couchdb_url = _configuration["mmria_settings:couchdb_url"];
-            var config_timer_user_name = _configuration["mmria_settings:timer_user_name"];
-            var config_timer_password = _configuration["mmria_settings:timer_password"];
+            ////////var config_couchdb_url = _configuration["mmria_settings:couchdb_url"];
+            ////////var config_timer_user_name = _configuration["mmria_settings:timer_user_name"];
+            ////////var config_timer_password = _configuration["mmria_settings:timer_password"];
 
             //////mmria.common.model.couchdb.user user = null;
             Models.User user = null;
 
             try
 			{
-				string request_string = config_couchdb_url + "/_users/" + System.Web.HttpUtility.HtmlEncode("org.couchdb.user:" + email.ToLower());
-				var user_curl = new Epi.Web.MVC.Utility.cURL("GET", null, request_string, null, config_timer_user_name, config_timer_password);
-				var responseFromServer = await user_curl.executeAsync();
+				////////string request_string = config_couchdb_url + "/_users/" + System.Web.HttpUtility.HtmlEncode("org.couchdb.user:" + email.ToLower());
+				////////var user_curl = new Epi.Web.MVC.Utility.cURL("GET", null, request_string, null, config_timer_user_name, config_timer_password);
+				////////var responseFromServer = await user_curl.executeAsync();
 
-				user = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.User>(responseFromServer);
+				////////user = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.User>(responseFromServer);
 			}
 			catch(Exception ex)
 			{
 				Console.WriteLine (ex);
-            } 
+            }
 
             ////////mmria.common.model.couchdb.document_put_response user_save_result = null;
 
@@ -246,7 +243,7 @@ namespace Epi.Web.MVC.Controllers
             ////////        user_save_result = Newtonsoft.Json.JsonConvert.DeserializeObject<mmria.common.model.couchdb.document_put_response>(responseFromServer);
 
             ////////    }
-            ////////    catch(Exception ex) 
+            ////////    catch(Exception ex)
             ////////    {
             ////////        Console.WriteLine (ex);
             ////////    }
@@ -273,21 +270,18 @@ namespace Epi.Web.MVC.Controllers
 
             ////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Record_Session_Event>()).Tell(Session_Event_Message);
 
-
-
-
             ////////    var Session_Message = new mmria.server.model.actor.Session_Message
             ////////    (
-            ////////        Guid.NewGuid().ToString(), //_id = 
-            ////////        null, //_rev = 
-            ////////        DateTime.Now, //date_created = 
-            ////////        DateTime.Now, //date_last_updated = 
-            ////////        null, //date_expired = 
+            ////////        Guid.NewGuid().ToString(), //_id =
+            ////////        null, //_rev =
+            ////////        DateTime.Now, //date_created =
+            ////////        DateTime.Now, //date_last_updated =
+            ////////        null, //date_expired =
 
-            ////////        true, //is_active = 
-            ////////        user.name, //user_id = 
-            ////////        this.GetRequestIP(), //ip = 
-            ////////        Session_Event_Message._id, // session_event_id = 
+            ////////        true, //is_active =
+            ////////        user.name, //user_id =
+            ////////        this.GetRequestIP(), //ip =
+            ////////        Session_Event_Message._id, // session_event_id =
             ////////        session_data
             ////////    );
 
@@ -306,7 +300,7 @@ namespace Epi.Web.MVC.Controllers
             var cert = new X509Certificate2();
             var signingCredentials = new SigningCredentials(new X509SecurityKey(cert), SecurityAlgorithms.RsaSha256);
             var header = new JwtHeader(signingCredentials);
-             
+
             var header = new JwtHeader();
             var payload = new JwtPayload
             {
@@ -345,8 +339,6 @@ namespace Epi.Web.MVC.Controllers
                 return RedirectToAction("Index", "HOME");
             }*/
         }
-
-
 
         public string GetRequestIP(bool tryUseXForwardHeader = true)
         {
