@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -19,34 +20,44 @@ namespace Epi.Web.MVC
 
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+			string useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+			if(string.IsNullOrEmpty(useSAMS) == false && useSAMS.ToLower() == "true")
+			{
 
-            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0) });
-            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0) });
-            DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile") { ContextCondition = (context => context.Request.UserAgent.IndexOf("iPad", StringComparison.OrdinalIgnoreCase) >= 0) });
+			}
+			else
+			{
+				AreaRegistration.RegisterAllAreas();
 
-			//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Android") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0) });
-			//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Opera") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0) });
-			//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("iPhone") { ContextCondition = (context => context.Request.UserAgent.IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) });
+				FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+				RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-			BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Bootstrapper.Initialise();
+				DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0) });
+				DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0) });
+				DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile") { ContextCondition = (context => context.Request.UserAgent.IndexOf("iPad", StringComparison.OrdinalIgnoreCase) >= 0) });
 
-            //DisplayModes.Modes.Insert(0, new  DefaultDisplayMode("Mobile")
-            //DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile")
-            //{
-            //    ContextCondition = (ctx => ctx.Request.UserAgent != null
-            //      && (ctx.Request.UserAgent.IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0
-            //      || ctx.Request.UserAgent.IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0
-            //      || ctx.Request.UserAgent.IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0
-            //      || ctx.Request.UserAgent.IndexOf("Opera", StringComparison.OrdinalIgnoreCase) >= 0
-            //      || ctx.Request.UserAgent.IndexOf("opera", StringComparison.OrdinalIgnoreCase) >= 0
-            //      || ctx.Request.UserAgent.IndexOf("Opera Mini", StringComparison.OrdinalIgnoreCase) >= 0))
-            //});
-        }
+				//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Android") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0) });
+				//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Opera") { ContextCondition = (context => context.Request.UserAgent.IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0) });
+				//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("iPhone") { ContextCondition = (context => context.Request.UserAgent.IndexOf("iPhone", StringComparison.OrdinalIgnoreCase) >= 0) });
+
+				BundleConfig.RegisterBundles(BundleTable.Bundles);
+				Bootstrapper.Initialise();
+
+				//DisplayModes.Modes.Insert(0, new  DefaultDisplayMode("Mobile")
+				//DisplayModeProvider.Instance.Modes.Insert(0, new DefaultDisplayMode("Mobile")
+				//{
+				//    ContextCondition = (ctx => ctx.Request.UserAgent != null
+				//      && (ctx.Request.UserAgent.IndexOf("Android", StringComparison.OrdinalIgnoreCase) >= 0
+				//      || ctx.Request.UserAgent.IndexOf("Mobile", StringComparison.OrdinalIgnoreCase) >= 0
+				//      || ctx.Request.UserAgent.IndexOf("Opera Mobi", StringComparison.OrdinalIgnoreCase) >= 0
+				//      || ctx.Request.UserAgent.IndexOf("Opera", StringComparison.OrdinalIgnoreCase) >= 0
+				//      || ctx.Request.UserAgent.IndexOf("opera", StringComparison.OrdinalIgnoreCase) >= 0
+				//      || ctx.Request.UserAgent.IndexOf("Opera Mini", StringComparison.OrdinalIgnoreCase) >= 0))
+				//});
+			}
+
+		}
 
 		/// <summary>
 		///  HKLM\SYSTEM\CurrentControlSet\services\eventlog
