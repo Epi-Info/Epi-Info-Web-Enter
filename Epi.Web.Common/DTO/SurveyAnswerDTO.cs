@@ -66,5 +66,11 @@ namespace Epi.Web.Enter.Common.DTO
              get;
              set;
          }
+        [DataMember]
+        public string Json
+        {
+            get;
+            set;
+        }
     }
 }

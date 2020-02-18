@@ -1537,5 +1537,40 @@ namespace Epi.Web.WCF.SurveyService
             }
             return true;
         }
+
+
+
+
+        public SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage)
+        {
+
+            SurveyControlsResponse SurveyControlsResponse = new SurveyControlsResponse();
+
+            try
+            {
+
+
+                Epi.Web.Enter.Interfaces.DataInterfaces.IDaoFactory entityDaoFactory = new EF.EntityDaoFactory();
+                Epi.Web.Enter.Interfaces.DataInterfaces.ISurveyInfoDao surveyInfoDao = entityDaoFactory.SurveyInfoDao;
+                Epi.Web.BLL.SurveyInfo implementation = new Epi.Web.BLL.SurveyInfo(surveyInfoDao);
+
+                SurveyControlsResponse = implementation.GetSurveyControlList(pRequestMessage.SurveyId);
+
+            }
+            catch (Exception ex)
+            {
+                SurveyControlsResponse.Message = "Error";
+                throw ex;
+            }
+
+
+
+
+
+
+            return SurveyControlsResponse;
+        }
     }
+
 }
+

@@ -24,5 +24,7 @@ namespace Epi.Web.MVC.Repositories.Core
 
         SourceTablesResponse GetSourceTables(SourceTablesRequest Request);
         SurveyAnswerResponse GetSurveyAnswerHierarchy(SurveyAnswerRequest pRequest);
+        SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage);
+
     }
 }

@@ -510,8 +510,8 @@ namespace Epi.Web.EF
                     //   DataRow.ResponsePasscode = SurveyResponse.ResponsePassCode;
                     DataRow.IsDraftMode = SurveyResponse.IsDraftMode;
                     DataRow.ResponseXMLSize = RemoveWhitespace(SurveyResponse.XML).Length;
-
-
+                    DataRow.ResponseJson = SurveyResponse.Json;
+                    DataRow.ResponseJsonSize = RemoveWhitespace(SurveyResponse.Json).Length;
                     if (SurveyResponse.UserId > 0)//StatusID=2 -saved
                     {
                         if (DataRow.Users.Count > 0)

@@ -126,6 +126,10 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         bool SetJsonColumn(string json, string responseid);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage);
     }
 
 }

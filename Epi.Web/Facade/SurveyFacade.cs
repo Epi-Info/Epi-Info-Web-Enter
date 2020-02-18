@@ -496,6 +496,11 @@ namespace Epi.Web.MVC.Facade
             SurveyResponseJson Implementation = new SurveyResponseJson();
             return Implementation.GetSurveyResponseJson(surveyAnswerDTO, FormsHierarchyDTOList, List);
         }
-        
+        public SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage)
+        {
+            SurveyControlsResponse SurveyControlsResponse = _iSurveyInfoRepository.GetSurveyControlList(pRequestMessage);
+
+            return SurveyControlsResponse;
+        }
     }
 }

@@ -7,6 +7,8 @@ using Epi.Web.Enter.Common.Criteria;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using Epi.Web.Common.DTO;
+
 namespace Epi.Web.BLL
 {
 
@@ -374,5 +376,116 @@ namespace Epi.Web.BLL
 
             return List;
         }
+        public Web.Enter.Common.Message.SurveyControlsResponse GetSurveyControlList(string SurveyId)
+        {
+            Web.Enter.Common.Message.SurveyControlsResponse SurveyControlsResponse = new Web.Enter.Common.Message.SurveyControlsResponse();
+            if (!string.IsNullOrEmpty(SurveyId))
+            {
+                SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
+                try
+                {
+                    SurveyInfoBO = GetSurveyInfoById(SurveyId);
+                }
+                catch (Exception ex)
+                {
+                    SurveyControlsResponse.Message = "Survey doesn’t exist.";
+
+                }
+                List<SurveyControlDTO> SurveyControlList = new List<SurveyControlDTO>();
+                SurveyControlList = _GetSurveyControls(SurveyInfoBO);
+                SurveyControlsResponse.SurveyControlList = SurveyControlList;
+            }
+            return SurveyControlsResponse;
+        }
+        private List<SurveyControlDTO> _GetSurveyControls(SurveyInfoBO SurveyInfoBO)
+        {
+            List<SurveyControlDTO> List = new List<SurveyControlDTO>();
+
+            XDocument xdoc = XDocument.Parse(SurveyInfoBO.XML);
+
+
+            var _FieldsTypeIDs = from _FieldTypeID in
+                                      xdoc.Descendants("Field")
+                                 select _FieldTypeID;
+
+            foreach (var _FieldTypeID in _FieldsTypeIDs)
+            {
+                Web.Common.DTO.SurveyControlDTO SurveyControlDTO = new Web.Common.DTO.SurveyControlDTO();
+                SurveyControlDTO.ControlId = _FieldTypeID.Attribute("Name").Value.ToString();
+                SurveyControlDTO.ControlPrompt = _FieldTypeID.Attribute("PromptText").Value.ToString();
+                SurveyControlDTO.ControlType = GetControlType(_FieldTypeID.Attribute("FieldTypeId").Value);
+                List.Add(SurveyControlDTO);
+
+            }
+            return List;
+
+        }
+        private string GetControlType(string Type)
+        {
+            string ControlType = "";
+            switch (Type)
+            {
+                case "1":
+                case "3"://UpperCase
+                case "15"://Mirror
+                    ControlType = "TextBox";
+                    break;
+
+                case "2"://Literal
+                    ControlType = "Literal";
+                    break;
+
+                case "4"://TextArea
+                    ControlType = "TextArea";
+                    break;
+
+                case "5"://NumericTextBox
+                    ControlType = "NumericTextBox";
+                    break;
+
+                case "7"://DatePicker
+                    ControlType = "Date";
+                    break;
+
+                case "8"://TimePicker
+                    ControlType = "Time";
+                    break;
+
+                case "10"://CheckBox
+                    ControlType = "CheckBox";
+                    break;
+
+                case "11": // YesNo
+                    ControlType = "YesNo";
+                    break;
+
+                case "12"://GroupBoxRadioList
+                    ControlType = "GroupBoxRadioList";
+                    break;
+
+                case "13"://Button
+                    ControlType = "Button";
+                    break;
+
+                case "17": // LegalValues/DropDown
+                    ControlType = "LegalValues";
+                    break;
+
+                case "18": // Codes
+                    ControlType = "Codes";
+                    break;
+
+                case "19": // CommentLegal
+                    ControlType = "CommentLegal";
+                    break;
+
+                case "21": //GroupBox
+                    ControlType = "GroupBox";
+                    break;
+            }
+
+            return ControlType;
+        }
+
     }
 }

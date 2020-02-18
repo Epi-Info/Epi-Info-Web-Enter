@@ -341,7 +341,12 @@ namespace Epi.Web.MVC.Controllers
 
                         form = SetLists(form);
                         int CurrentPageNum = GetSurveyPageNumber(SurveyAnswer.XML.ToString());
-                         _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
+                        SurveyControlsRequest Request = new SurveyControlsRequest();
+                        Request.SurveyId = surveyInfoModel.SurveyId;
+                        SurveyControlsResponse ControlsList = _isurveyFacade.GetSurveyControlList(Request);
+                        var json = _isurveyFacade.GetSurveyResponseJson(SurveyAnswer, FormsHierarchy, ControlsList);
+                        SurveyAnswer.Json = json;
+                        _isurveyFacade.UpdateSurveyResponse(surveyInfoModel, responseId, form, SurveyAnswer, IsSubmited, IsSaved, PageNumber, UserId);
                         
 
 

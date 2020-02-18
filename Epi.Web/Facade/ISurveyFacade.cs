@@ -67,6 +67,6 @@ namespace Epi.Web.MVC.Facade
         bool SetJsonColumn(string Json, string Responseid);
 
         string GetSurveyResponseJson(SurveyAnswerDTO surveyAnswerDTO, List<FormsHierarchyDTO> FormsHierarchyDTOList, SurveyControlsResponse List);
-        
+        SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage);
     }
 }
