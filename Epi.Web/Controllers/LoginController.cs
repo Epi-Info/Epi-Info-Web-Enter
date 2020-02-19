@@ -41,10 +41,22 @@ namespace Epi.Web.MVC.Controllers
             _isurveyFacade = isurveyFacade;
         }
 
-        [HttpGet]
+		[HttpGet]
         public ActionResult Index(string responseId, string ReturnUrl)
         {
-            string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			bool useSAMS = false;
+
+			if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"]))
+			{
+				bool.TryParse(ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"], out useSAMS);
+			}
+
+			if (useSAMS)
+			{
+				return Redirect("SignIn");
+			}
+
+			string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             UserLoginModel UserLoginModel = new Models.UserLoginModel();
             ViewBag.Version = version;
 
@@ -126,7 +138,7 @@ namespace Epi.Web.MVC.Controllers
                 }
                 catch (Exception ex)
                 {
-                    //ViewBag.ErrorName = ex.Message;  
+                    //ViewBag.ErrorName = ex.Message;
                     //return View("Error");
                     return View("Index", UserLoginModel);
                 }
@@ -192,7 +204,7 @@ namespace Epi.Web.MVC.Controllers
             //}
         }
         /// <summary>
-        /// parse and return the responseId from response Url 
+        /// parse and return the responseId from response Url
         /// </summary>
         /// <param name="returnUrl"></param>
         /// <returns></returns>
