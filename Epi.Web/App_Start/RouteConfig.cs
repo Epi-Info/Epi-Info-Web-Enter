@@ -235,6 +235,11 @@ namespace Epi.Web.MVC
 			);
 			routes.MapRoute(
 				null,
+				"SignIn",
+				new { controller = "Login", action = "SignIn" }
+			);
+			routes.MapRoute(
+				null,
 				"Login/Callback",
 				new { controller = "Login", action = "SignInCallback" }
 			);
