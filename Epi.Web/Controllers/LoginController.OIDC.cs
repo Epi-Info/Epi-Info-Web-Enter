@@ -69,15 +69,8 @@ namespace Epi.Web.MVC.Controllers
         [AllowAnonymous]
         public ActionResult SignIn()
         {
-			var useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
-
 			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
-			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
-			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
-			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS_TOKEN_VALIDATION"];
-			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO_SYS"];
 			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
-			var sams_client_secret = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
 			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
 
 			var state = Guid.NewGuid().ToString("N");
@@ -85,12 +78,12 @@ namespace Epi.Web.MVC.Controllers
 
             var sams_url = $"{sams_endpoint_authorization}?" +
                 "&client_id=" + sams_client_id +
-                //"&prompt=select_account" +
                 "&redirect_uri=" + $"{sams_callback_url}" +
                 "&response_type=code" +
                 "&scope=" + System.Web.HttpUtility.HtmlEncode("openid profile email") +
                 "&state=" + state +
                 "&nonce=" + nonce;
+
             System.Diagnostics.Debug.WriteLine($"url: {sams_url}");
 
             return Redirect(sams_url);
@@ -99,8 +92,6 @@ namespace Epi.Web.MVC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SignInCallback()
         {
-			var useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
-
 			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
 			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
 			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
@@ -110,17 +101,15 @@ namespace Epi.Web.MVC.Controllers
 			var sams_client_secret = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
 			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
 
-			string querystring = "";
-            System.Diagnostics.Debug.Assert(false, "look");
-            var querystring_skip = querystring.Substring(1, querystring.Length - 1);
+			var querystring = this.Request.QueryString.ToString();
+			var querystring_skip = querystring.Substring(1, querystring.Length - 1);
             var querystring_array = querystring_skip.Split('&');
 			var querystring_dictionary = new Dictionary<string,string>();
 
-            foreach(string item in querystring_array)
+            foreach(string item in this.Request.QueryString)
             {
-                var pair = item.Split('=');
-                querystring_dictionary.Add(pair[0], pair[1]);
-            }
+				querystring_dictionary.Add(item, this.Request.QueryString[item]);
+			}
 
             var code = querystring_dictionary["code"];
             var state = querystring_dictionary["state"];

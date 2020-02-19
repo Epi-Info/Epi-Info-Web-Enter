@@ -20,9 +20,14 @@ namespace Epi.Web.MVC
 
         protected void Application_Start()
         {
-			string useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
+			bool useSAMS = false;
 
-			if(string.IsNullOrEmpty(useSAMS) == false && useSAMS.ToLower() == "true")
+			if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"]))
+			{
+				bool.TryParse(ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"], out useSAMS);
+			}
+
+			if (useSAMS)
 			{
 				AreaRegistration.RegisterAllAreas();
 
