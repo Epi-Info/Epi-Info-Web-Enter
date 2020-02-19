@@ -71,14 +71,14 @@ namespace Epi.Web.MVC.Controllers
         {
 			var useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
 
-			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS:ENDPOINT_AUTHORIZATION"];
-			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS:ENDPOINT_TOKEN"];
-			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO"];
-			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS:TOKEN_VALIDATION"];
-			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO_SYS"];
-			var sams_client_id = ConfigurationManager.AppSettings["SAMS:CLIENT_ID"];
-			var sams_client_secret = ConfigurationManager.AppSettings["SAMS:CLIENT_SECRET"];
-			var sams_callback_url = ConfigurationManager.AppSettings["SAMS:CALLBACK_URL"];
+			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
+			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
+			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
+			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS_TOKEN_VALIDATION"];
+			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO_SYS"];
+			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
+			var sams_client_secret = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
+			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
 
 			var state = Guid.NewGuid().ToString("N");
             var nonce = Guid.NewGuid().ToString("N");
@@ -101,16 +101,16 @@ namespace Epi.Web.MVC.Controllers
         {
 			var useSAMS = ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"];
 
-			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS:ENDPOINT_AUTHORIZATION"];
-			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS:ENDPOINT_TOKEN"];
-			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO"];
-			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS:TOKEN_VALIDATION"];
-			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS:ENDPOINT_USER_INFO_SYS"];
-			var sams_client_id = ConfigurationManager.AppSettings["SAMS:CLIENT_ID"];
-			var sams_client_secret = ConfigurationManager.AppSettings["SAMS:CLIENT_SECRET"];
-			var sams_callback_url = ConfigurationManager.AppSettings["SAMS:CALLBACK_URL"];
+			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
+			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
+			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
+			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS_TOKEN_VALIDATION"];
+			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO_SYS"];
+			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
+			var sams_client_secret = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
+			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
 
-            string querystring = "";
+			string querystring = "";
             System.Diagnostics.Debug.Assert(false, "look");
             var querystring_skip = querystring.Substring(1, querystring.Length - 1);
             var querystring_array = querystring_skip.Split('&');
@@ -405,13 +405,13 @@ namespace Epi.Web.MVC.Controllers
 
             //////////Response.Cookies.Append("uid", p_user_name);
             //////////Response.Cookies.Append("roles", string.Join(",",p_role_list));
-            
+
             ////////var userIdentity = new ClaimsIdentity("SuperSecureLogin");
             ////////userIdentity.AddClaims(claims);
             ////////var userPrincipal = new ClaimsPrincipal(userIdentity);
 
             ////////var session_idle_timeout_minutes = 30;
-            
+
             ////////if(_configuration["mmria_settings:session_idle_timeout_minutes"] != null)
             ////////{
             ////////    int.TryParse(_configuration["mmria_settings:session_idle_timeout_minutes"], out session_idle_timeout_minutes);
@@ -435,16 +435,16 @@ namespace Epi.Web.MVC.Controllers
             return Base64Decode(base64);
         }
 
-        private string Base64Decode(string base64EncodedData) 
+        private string Base64Decode(string base64EncodedData)
         {
             var base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
-        
+
         private bool checkID(string idBody, string issuer, string clientID)
         {
             dynamic o = JObject.Parse(idBody);
-            
+
             if (o.iss != issuer) return false;
             if (o.aud != clientID) return false;
             if (o.exp < DateTime.UtcNow) return false;

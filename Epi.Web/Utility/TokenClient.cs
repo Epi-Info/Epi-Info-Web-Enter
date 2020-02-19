@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
@@ -25,15 +26,15 @@ namespace Epi.Web.MVC.Utility
         {
             _configuration = configuration;
 
-            sams_endpoint_authorization = _configuration["sams:endpoint_authorization"];
-            sams_endpoint_token = _configuration["sams:endpoint_token"];
-            sams_endpoint_user_info = _configuration["sams:endpoint_user_info"];
-            sams_endpoint_token_validation = _configuration["sams:token_validation"];
-            sams_endpoint_user_info_sys = _configuration["sams:user_info_sys"];
-            sams_client_id = _configuration["sams:client_id"];
-            sams_callback_url = _configuration["sams:callback_url"];   
-            sams_client_secret = _configuration["sams:client_secret"];
-        }
+			sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
+			sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
+			sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
+			sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS_TOKEN_VALIDATION"];
+			sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO_SYS"];
+			sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
+			sams_callback_url = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
+			sams_client_secret = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
+		}
         public async Task<(string id_token, string access_token)> Get_Id_And_Access_Token
         (
             string code,
