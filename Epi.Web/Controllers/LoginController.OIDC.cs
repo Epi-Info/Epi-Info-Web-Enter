@@ -26,8 +26,12 @@ using System.Text;
 //////using Microsoft.AspNetCore.Http;
 //////using Microsoft.AspNetCore.HttpOverrides;
 //////using Akka.Actor;
-
 //////using mmria.server.Controllers;
+
+using Epi.Web.Enter.Common.Message;
+using System.Web.Security;
+using Epi.Web.MVC.Models;
+
 
 using System.Web.Mvc;
 
@@ -119,15 +123,6 @@ namespace Epi.Web.MVC.Controllers
             HttpClient client = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_token);
 
-            /*
-            request.Content = new FormUrlEncodedContent(new Dictionary<string, string> {
-                { "client_id", sams_client_id },
-                { "client_secret", sams_client_secret },
-                { "grant_type", "client_credentials" },
-                { "code", code },
-            });
-             */
-
             request.Content = new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "client_id", sams_client_id },
                 { "client_secret", sams_client_secret },
@@ -137,7 +132,6 @@ namespace Epi.Web.MVC.Controllers
                 {"redirect_uri", sams_callback_url }
             });
 
-
             var response = await client.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
@@ -145,44 +139,23 @@ namespace Epi.Web.MVC.Controllers
             var access_token = payload.Value<string>("access_token");
             var refresh_token = payload.Value<string>("refresh_token");
             var expires_in = payload.Value<int>("expires_in");
-
-
-            var scope = payload.Value<string>("scope");
-
-            //HttpContext.Session.SetString("access_token", access_token);
-            //HttpContext.Session.SetString("refresh_token", refresh_token);
-
-            var unix_time = DateTimeOffset.UtcNow.AddSeconds(expires_in);
-            //HttpContext.Session.SetString("expires_at", unix_time.ToString());
-
+			var unix_time = DateTimeOffset.UtcNow.AddSeconds(expires_in);
+			var scope = payload.Value<string>("scope");
             var id_token = payload.Value<string>("id_token");;
+
             var id_array = id_token.Split('.');
-
-
             var replaced_value = id_array[1].Replace('-', '+').Replace('_', '/');
             var base64 = replaced_value.PadRight(replaced_value.Length + (4 - replaced_value.Length % 4) % 4, '=');
 
-
             var id_0 = DecodeToken(id_array[0]);
             var id_1 = DecodeToken(id_array[1]);
-
             var id_body = Base64Decode(base64);
 
             var user_info_sys_request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_user_info + "?token=" + id_token);
 
-
             user_info_sys_request.Headers.Add("Authorization","Bearer " + access_token);
             user_info_sys_request.Headers.Add("client_id", sams_client_id);
             user_info_sys_request.Headers.Add("client_secret", sams_client_secret);
-
-            /*
-            user_info_sys_request.Content = new FormUrlEncodedContent(new Dictionary<string, string> {
-                { "client_id", sams_client_id },
-                { "client_secret", sams_client_secret },
-                { "grant_type", "client_credentials" },
-                { "scope", scope },
-            });
-            */
 
             response = await client.SendAsync(user_info_sys_request);
             response.EnsureSuccessStatusCode();
@@ -192,15 +165,13 @@ namespace Epi.Web.MVC.Controllers
 
             var email = payload.Value<string>("email");
 
-            //check if user exists
-            ////////var config_couchdb_url = _configuration["mmria_settings:couchdb_url"];
-            ////////var config_timer_user_name = _configuration["mmria_settings:timer_user_name"];
-            ////////var config_timer_password = _configuration["mmria_settings:timer_password"];
+			UserLoginModel UserLoginModel = new UserLoginModel();
+			UserLoginModel.Password = "";
+			UserLoginModel.UserName = email;
+			return ValidateUser(UserLoginModel, "Home/Index"); //>> return GetValidatedUser(... dpbrown
 
-            //////mmria.common.model.couchdb.user user = null;
-            Models.User user = null;
 
-            try
+			try
 			{
 				////////string request_string = config_couchdb_url + "/_users/" + System.Web.HttpUtility.HtmlEncode("org.couchdb.user:" + email.ToLower());
 				////////var user_curl = new Epi.Web.MVC.Utility.cURL("GET", null, request_string, null, config_timer_user_name, config_timer_password);
@@ -213,75 +184,75 @@ namespace Epi.Web.MVC.Controllers
 				Console.WriteLine (ex);
             }
 
-            ////////mmria.common.model.couchdb.document_put_response user_save_result = null;
+			////////mmria.common.model.couchdb.document_put_response user_save_result = null;
 
-            ////////if(user == null)// if user does NOT exists create user with email
-            ////////{
-            ////////    user = add_new_user(email.ToLower(), Guid.NewGuid().ToString());
+			////////if(user == null)// if user does NOT exists create user with email
+			////////{
+			////////    user = add_new_user(email.ToLower(), Guid.NewGuid().ToString());
 
-            ////////    try
-            ////////    {
-            ////////        Newtonsoft.Json.JsonSerializerSettings settings = new Newtonsoft.Json.JsonSerializerSettings ();
-            ////////        settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-            ////////        var object_string = Newtonsoft.Json.JsonConvert.SerializeObject(user, settings);
+			////////    try
+			////////    {
+			////////        Newtonsoft.Json.JsonSerializerSettings settings = new Newtonsoft.Json.JsonSerializerSettings ();
+			////////        settings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+			////////        var object_string = Newtonsoft.Json.JsonConvert.SerializeObject(user, settings);
 
-            ////////        string user_db_url = config_couchdb_url + "/_users/"  + user._id;
+			////////        string user_db_url = config_couchdb_url + "/_users/"  + user._id;
 
-            ////////        var user_curl = new mmria.server.cURL("PUT", null, user_db_url, object_string, config_timer_user_name, config_timer_password);
-            ////////        var responseFromServer = await user_curl.executeAsync();
-            ////////        user_save_result = Newtonsoft.Json.JsonConvert.DeserializeObject<mmria.common.model.couchdb.document_put_response>(responseFromServer);
+			////////        var user_curl = new mmria.server.cURL("PUT", null, user_db_url, object_string, config_timer_user_name, config_timer_password);
+			////////        var responseFromServer = await user_curl.executeAsync();
+			////////        user_save_result = Newtonsoft.Json.JsonConvert.DeserializeObject<mmria.common.model.couchdb.document_put_response>(responseFromServer);
 
-            ////////    }
-            ////////    catch(Exception ex)
-            ////////    {
-            ////////        Console.WriteLine (ex);
-            ////////    }
-            ////////}
+			////////    }
+			////////    catch(Exception ex)
+			////////    {
+			////////        Console.WriteLine (ex);
+			////////    }
+			////////}
 
-            //////////create login session
-            ////////if(user_save_result == null || user_save_result.ok)
-            ////////{
-            ////////    var session_data = new System.Collections.Generic.Dictionary<string,string>(StringComparer.InvariantCultureIgnoreCase);
-            ////////    session_data["access_token"] = access_token;
-            ////////    session_data["refresh_token"] = refresh_token;
-            ////////    session_data["expires_at"] = unix_time.ToString();
+			//////////create login session
+			////////if(user_save_result == null || user_save_result.ok)
+			////////{
+			////////    var session_data = new System.Collections.Generic.Dictionary<string,string>(StringComparer.InvariantCultureIgnoreCase);
+			////////    session_data["access_token"] = access_token;
+			////////    session_data["refresh_token"] = refresh_token;
+			////////    session_data["expires_at"] = unix_time.ToString();
 
-            ////////    await create_user_principal(user.name, new List<string>(), unix_time.DateTime);
+			////////    await create_user_principal(user.name, new List<string>(), unix_time.DateTime);
 
 
-            ////////    var Session_Event_Message = new mmria.server.model.actor.Session_Event_Message
-            ////////    (
-            ////////        DateTime.Now,
-            ////////        user.name,
-            ////////        this.GetRequestIP(),
-            ////////        mmria.server.model.actor.Session_Event_Message.Session_Event_Message_Action_Enum.successful_login
-            ////////    );
+			////////    var Session_Event_Message = new mmria.server.model.actor.Session_Event_Message
+			////////    (
+			////////        DateTime.Now,
+			////////        user.name,
+			////////        this.GetRequestIP(),
+			////////        mmria.server.model.actor.Session_Event_Message.Session_Event_Message_Action_Enum.successful_login
+			////////    );
 
-            ////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Record_Session_Event>()).Tell(Session_Event_Message);
+			////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Record_Session_Event>()).Tell(Session_Event_Message);
 
-            ////////    var Session_Message = new mmria.server.model.actor.Session_Message
-            ////////    (
-            ////////        Guid.NewGuid().ToString(), //_id =
-            ////////        null, //_rev =
-            ////////        DateTime.Now, //date_created =
-            ////////        DateTime.Now, //date_last_updated =
-            ////////        null, //date_expired =
+			////////    var Session_Message = new mmria.server.model.actor.Session_Message
+			////////    (
+			////////        Guid.NewGuid().ToString(), //_id =
+			////////        null, //_rev =
+			////////        DateTime.Now, //date_created =
+			////////        DateTime.Now, //date_last_updated =
+			////////        null, //date_expired =
 
-            ////////        true, //is_active =
-            ////////        user.name, //user_id =
-            ////////        this.GetRequestIP(), //ip =
-            ////////        Session_Event_Message._id, // session_event_id =
-            ////////        session_data
-            ////////    );
+			////////        true, //is_active =
+			////////        user.name, //user_id =
+			////////        this.GetRequestIP(), //ip =
+			////////        Session_Event_Message._id, // session_event_id =
+			////////        session_data
+			////////    );
 
-            ////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Post_Session>()).Tell(Session_Message);
-            ////////    Response.Cookies.Append("sid", Session_Message._id, new CookieOptions{ HttpOnly = true });
-            ////////    Response.Cookies.Append("expires_at", unix_time.ToString(), new CookieOptions{ HttpOnly = true });
-            ////////    //return RedirectToAction("Index", "HOME");
-            ////////    //return RedirectToAction("Index", "HOME");
-            ////////}
+			////////    _actorSystem.ActorOf(Props.Create<mmria.server.model.actor.Post_Session>()).Tell(Session_Message);
+			////////    Response.Cookies.Append("sid", Session_Message._id, new CookieOptions{ HttpOnly = true });
+			////////    Response.Cookies.Append("expires_at", unix_time.ToString(), new CookieOptions{ HttpOnly = true });
+			////////    //return RedirectToAction("Index", "HOME");
+			////////    //return RedirectToAction("Index", "HOME");
+			////////}
 
-            return RedirectToAction("Index", "HOME");
+			return RedirectToAction("Index", "HOME");
 
             // Generate JWT for token request
             //var cert = new X509Certificate2(Server.MapPath("~/App_Data/cert.pfx"), "1234");
