@@ -969,49 +969,53 @@
 	</div>
  
 	
-	<div id="userwelcome">
-		Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
-	  @*  <a href="#">Log Out</a>*@
-	 
-     @if ( Model.UserHighestRole == 3)
-      {
-      @Html.ActionLink("Site Administration", "OrgList", "AdminOrganization", null, null);
-    if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
-        {
-       <span>&nbsp; | &nbsp;</span> 
-    }
-      }
-      
-      @if (Model.UserHighestRole == 2)
-      {
-      @Html.ActionLink("Site Administration", "UserList", "AdminUser", null, null);
-    if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
-        {
-       <span>&nbsp; | &nbsp;</span> 
-    }
-      }
-      
-@if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
-{
-    if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
-    {
-        <a href="http://www.cdc.gov/epiinfo/cloud/index.html">Log Out</a>
+    <div id="userwelcome">
+        Welcome <strong>@Model.UserFirstName&nbsp;@Model.UserLastName </strong>&nbsp; | &nbsp;
+        @*  <a href="#">Log Out</a>*@
 
-    }
-    else
-    {
-
-        if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+        @if (Model.UserHighestRole == 3)
         {
+            @Html.ActionLink("Site Administration", "OrgList", "AdminOrganization", null, null);
             if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
             {
-                @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+                <span>&nbsp; | &nbsp;</span>
             }
         }
 
-    }
-}
-	</div>
+        @if (Model.UserHighestRole == 2)
+        {
+            @Html.ActionLink("Site Administration", "UserList", "AdminUser", null, null);
+            if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+            {
+                <span>&nbsp; | &nbsp;</span>
+            }
+        }
+
+        @if (@System.Configuration.ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"] != null && @System.Configuration.ConfigurationManager.AppSettings["USE_SAMS_AUTHENTICATION"].ToUpper() == "TRUE")
+        {
+            @Html.ActionLink("Sign Out", "SignOut", "Login", null, null)
+        }
+        else if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"] != null)
+        {
+            if (@System.Configuration.ConfigurationManager.AppSettings["IsDemoMode"].ToUpper() == "TRUE")
+            {
+                <a href="http://www.cdc.gov/epiinfo/cloud/index.html">Log Out</a>
+
+            }
+            else
+            {
+                if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"] != null)
+                {
+                    if (@System.Configuration.ConfigurationManager.AppSettings["WINDOW_AUTHENTICATION"].ToUpper() == "NO")
+                    {
+                        @Html.ActionLink("Log Out", "LogOut", "Home", null, null)
+                    }
+
+                }
+            }
+        }
+               
+    </div>
 	<div style="clear: both;">
 	</div>
 </div>

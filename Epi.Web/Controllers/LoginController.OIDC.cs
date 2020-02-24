@@ -44,58 +44,15 @@ namespace Epi.Web.MVC.Controllers
         public const string IdpUrl = "https://idp.int.identitysandbox.gov";
         public const string AcrValues = "http://idmanagement.gov/ns/assurance/loa/1";
 
-		//////private IConfiguration _configuration;
-		//////private IHttpContextAccessor _accessor;
-		//////private ActorSystem _actorSystem;
-
-
-		//////public AccountController(IHttpContextAccessor httpContextAccessor, ActorSystem actorSystem, IConfiguration configuration)
-		//////{
-		//////    _accessor = httpContextAccessor;
-		//////    _actorSystem = actorSystem;
-		//////    _configuration = configuration;
-		//////}
-		/*
-				public ActionResult Index()
-				{
-					if (TempData["email"] == null)
-					{
-						ViewBag.Message = "Log in to see your account.";
-					}
-					else
-					{
-						ViewBag.Message = $"Welcome back {TempData["email"]}!";
-						ViewBag.Content = $"Your user ID is: {TempData["id"]}";
-					}
-					return View();
-				}
-		*/
-
-
-		private ActionResult SignOut()
+		[AllowAnonymous]
+		public ActionResult SignOut()
 		{
-			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
-			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
-			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
-
-			var state = Guid.NewGuid().ToString("N");
-			var nonce = Guid.NewGuid().ToString("N");
-
-			var sams_url = $"{sams_endpoint_authorization}?" +
-				"&client_id=" + sams_client_id +
-				"&redirect_uri=" + $"{sams_callback_url}" +
-				"&response_type=code" +
-				"&scope=" + System.Web.HttpUtility.HtmlEncode("openid profile email") +
-				"&state=" + state +
-				"&nonce=" + nonce;
-
-			System.Diagnostics.Debug.WriteLine($"url: {sams_url}");
-
-			return Redirect(sams_url);
+			var sams_logout_url = ConfigurationManager.AppSettings["SAMS_LOGOUT_URL"];
+			return Redirect(sams_logout_url);
 		}
 
 		[AllowAnonymous]
-        public ActionResult SignIn()
+		public ActionResult SignIn()
         {
 			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
 			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];

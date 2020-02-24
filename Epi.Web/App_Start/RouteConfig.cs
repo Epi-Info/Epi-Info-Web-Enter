@@ -245,7 +245,7 @@ namespace Epi.Web.MVC
 			);
 			routes.MapRoute(
 				null,
-				"SignOut",
+				"Login/SignOut",
 				new { controller = "Login", action = "SignOut" }
 			);
 			routes.MapRoute(
