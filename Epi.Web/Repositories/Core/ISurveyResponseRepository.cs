@@ -15,7 +15,8 @@ namespace Epi.Web.MVC.Repositories.Core
         SurveyAnswerResponse GetSurveyAnswer(SurveyAnswerRequest pRequest);
         SurveyAnswerResponse SaveSurveyAnswer(SurveyAnswerRequest pRequest);
         UserAuthenticationResponse ValidateUser(UserAuthenticationRequest pRequest);
-        UserAuthenticationResponse UpdatePassCode(UserAuthenticationRequest PassCodeDTO);
+		UserAuthenticationResponse GetAuthenticatedUser(UserAuthenticationRequest pRequest);
+		UserAuthenticationResponse UpdatePassCode(UserAuthenticationRequest PassCodeDTO);
         UserAuthenticationResponse GetAuthenticationResponse(UserAuthenticationRequest pRequest);
         SurveyAnswerResponse GetFormResponseList(SurveyAnswerRequest pRequest);
         FormSettingResponse GetFormSettings(FormSettingRequest pRequest);

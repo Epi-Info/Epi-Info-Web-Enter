@@ -78,7 +78,7 @@ namespace Epi.Web.Enter.Common.DTO
             get { return _Role; }
             set { _Role = value; }
         }
-        
+
         private Epi.Web.Enter.Common.Constants.Constant.OperationMode updateMode;
 
         public Epi.Web.Enter.Common.Constants.Constant.OperationMode Operation

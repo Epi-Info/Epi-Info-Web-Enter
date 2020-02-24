@@ -30,13 +30,28 @@ namespace Epi.Web.BLL
             User.PasswordHash = PasswordHasher.HashPassword(salt, User.PasswordHash);
 
             UserResponseBO = UserDao.GetUser(User);
-            if (UserResponseBO != null)
-            UserResponseBO.UserHighestRole = UserDao.GetUserHighestRole(UserResponseBO.UserId);
-            
+			if (UserResponseBO != null)
+			{
+				UserResponseBO.UserHighestRole = UserDao.GetUserHighestRole(UserResponseBO.UserId);
+			}
 
             return UserResponseBO;
         }
-        public bool GetExistingUser(UserBO User)
+
+		public UserBO GetUserByUserName(UserBO User)
+		{
+			UserBO UserResponseBO;
+
+			UserResponseBO = UserDao.GetUserByUserName(User);
+			if (UserResponseBO != null)
+			{
+				UserResponseBO.UserHighestRole = UserDao.GetUserHighestRole(UserResponseBO.UserId);
+			}
+
+			return UserResponseBO;
+		}
+
+		public bool GetExistingUser(UserBO User)
         {
             bool Exists = false;
             Exists = UserDao.GetExistingUser(User);

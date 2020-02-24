@@ -150,7 +150,6 @@ namespace Epi.Web.MVC.Repositories
         {
             try
             {
-
                 //UserAuthenticationResponse result = _iDataService.PassCodeLogin(pRequest);
                 UserAuthenticationResponse result = _iDataService.UserLogin(pRequest);
                 return result;
@@ -244,7 +243,6 @@ namespace Epi.Web.MVC.Repositories
         {
             try
             {
-
                 UserAuthenticationResponse result = _iDataService.GetAuthenticationResponse(pRequest);
                 return result;
             }
@@ -269,7 +267,37 @@ namespace Epi.Web.MVC.Repositories
                 throw ex;
             }
         }
-        public SurveyAnswerResponse SaveSurveyAnswer(SurveyAnswerRequest pRequest)
+
+		public UserAuthenticationResponse GetAuthenticatedUser(UserAuthenticationRequest pRequest)
+		{
+			try
+			{
+				//UserAuthenticationResponse result = _iDataService.PassCodeLogin(pRequest);
+				UserAuthenticationResponse result = _iDataService.UserLogin(pRequest);
+				return result;
+			}
+			catch (FaultException<CustomFaultException> cfe)
+			{
+				throw cfe;
+			}
+			catch (FaultException fe)
+			{
+				throw fe;
+			}
+			catch (CommunicationException ce)
+			{
+				throw ce;
+			}
+			catch (TimeoutException te)
+			{
+				throw te;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+		}
+		public SurveyAnswerResponse SaveSurveyAnswer(SurveyAnswerRequest pRequest)
         {
             try
             {

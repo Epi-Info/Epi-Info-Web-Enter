@@ -55,22 +55,46 @@ namespace Epi.Web.MVC.Controllers
 		//////    _actorSystem = actorSystem;
 		//////    _configuration = configuration;
 		//////}
-/*
-        public ActionResult Index()
-        {
-            if (TempData["email"] == null)
-            {
-                ViewBag.Message = "Log in to see your account.";
-            }
-            else
-            {
-                ViewBag.Message = $"Welcome back {TempData["email"]}!";
-                ViewBag.Content = $"Your user ID is: {TempData["id"]}";
-            }
-            return View();
-        }
-*/
-        [AllowAnonymous]
+		/*
+				public ActionResult Index()
+				{
+					if (TempData["email"] == null)
+					{
+						ViewBag.Message = "Log in to see your account.";
+					}
+					else
+					{
+						ViewBag.Message = $"Welcome back {TempData["email"]}!";
+						ViewBag.Content = $"Your user ID is: {TempData["id"]}";
+					}
+					return View();
+				}
+		*/
+
+
+		private ActionResult SignOut()
+		{
+			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
+			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
+			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
+
+			var state = Guid.NewGuid().ToString("N");
+			var nonce = Guid.NewGuid().ToString("N");
+
+			var sams_url = $"{sams_endpoint_authorization}?" +
+				"&client_id=" + sams_client_id +
+				"&redirect_uri=" + $"{sams_callback_url}" +
+				"&response_type=code" +
+				"&scope=" + System.Web.HttpUtility.HtmlEncode("openid profile email") +
+				"&state=" + state +
+				"&nonce=" + nonce;
+
+			System.Diagnostics.Debug.WriteLine($"url: {sams_url}");
+
+			return Redirect(sams_url);
+		}
+
+		[AllowAnonymous]
         public ActionResult SignIn()
         {
 			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
@@ -167,12 +191,12 @@ namespace Epi.Web.MVC.Controllers
 
 			UserLoginModel UserLoginModel = new UserLoginModel();
 			UserLoginModel.UserName = email;
-			UserLoginModel.Password = "cO3wJrlcn";
+			UserLoginModel.Password = "";
 			UserLoginModel.SAMS = true;
-			return GetAuthenticatedUserr(UserLoginModel, "/Home/Index"); //>> return GetValidatedUser(... dpbrown
+			return GetAuthenticatedUser(UserLoginModel, "/Home/Index");
         }
 
-		private ActionResult GetAuthenticatedUserr(UserLoginModel Model, string ReturnUrl)
+		private ActionResult GetAuthenticatedUser(UserLoginModel Model, string ReturnUrl)
 		{
 			SetTermOfUse();
 			string formId = "", pageNumber;
@@ -189,7 +213,7 @@ namespace Epi.Web.MVC.Controllers
 
 			try
 			{
-				Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.ValidateUser(Model.UserName, Model.Password);
+				Epi.Web.Enter.Common.Message.UserAuthenticationResponse result = _isurveyFacade.GetAuthenticatedUser(Model.UserName, Model.SAMS);
 				if (result.UserIsValid)
 				{
 					if (result.User.ResetPassword)
@@ -231,9 +255,6 @@ namespace Epi.Web.MVC.Controllers
 				return View(Model);
 				throw;
 			}
-
-
-
 		}
 
 		public string GetRequestIP(bool tryUseXForwardHeader = true)

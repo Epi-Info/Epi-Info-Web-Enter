@@ -241,7 +241,24 @@ namespace Epi.Web.EF
             return null;
         }
 
-        public List<UserBO> GetUserByOrgId(int OrgId)
+		public UserBO GetUserByUserName(UserBO User)
+		{
+			var Context = DataObjectFactory.CreateContext();
+			var UserQuery = from Users in Context.Users
+							where Users.UserName == User.UserName
+							select Users;
+			UserBO Result = new UserBO();
+
+			foreach (var user in UserQuery)
+			{
+				Result = Mapper.MapToUserBO(user);
+				return Result;
+			}
+
+			return null;
+		}
+
+		public List<UserBO> GetUserByOrgId(int OrgId)
         {
 
             List<UserBO> UserList = new List<UserBO>();

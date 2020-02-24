@@ -20,7 +20,8 @@ namespace Epi.Web.MVC.Facade
 
         SurveyAnswerResponse GetSurveyAnswerResponse(string responseId, string FormId = "", int UserId = 0);
         UserAuthenticationResponse ValidateUser(string userName, string password);
-        void UpdatePassCode(string responseId, string passcode);
+		UserAuthenticationResponse GetAuthenticatedUser(string userName, bool isSAMS = false);
+		void UpdatePassCode(string responseId, string passcode);
         UserAuthenticationResponse GetAuthenticationResponse(string responseId);
         ISurveyAnswerRepository GetSurveyAnswerRepository();
 

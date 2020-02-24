@@ -30,8 +30,12 @@ namespace Epi.Web.MVC.Facade
 
         //declare UserAuthenticationRequest
         private Epi.Web.Enter.Common.Message.UserAuthenticationRequest _surveyAuthenticationRequest;
-        //declare PassCodeDTO
-        private Epi.Web.Enter.Common.DTO.PassCodeDTO _PassCodeDTO;
+
+		//declare UserRequest
+		private Epi.Web.Enter.Common.Message.UserRequest _userRequest;
+
+		//declare PassCodeDTO
+		private Epi.Web.Enter.Common.DTO.PassCodeDTO _PassCodeDTO;
         //declare SurveyAnswerDTO
         private Enter.Common.DTO.SurveyAnswerDTO _surveyAnswerDTO;
 
@@ -236,7 +240,25 @@ namespace Epi.Web.MVC.Facade
             UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.ValidateUser(_surveyAuthenticationRequest);
             return AuthenticationResponse;
         }
-        public void UpdatePassCode(string ResponseId, string Passcode)
+
+		public UserAuthenticationResponse GetAuthenticatedUser(string userName, bool isSAMS = false)
+		{
+			if (isSAMS)
+			{
+				UserDTO User = new UserDTO();
+				User.UserName = userName;
+				////User.PasswordHash = password;
+				_surveyAuthenticationRequest.User = User;
+
+				UserAuthenticationResponse AuthenticationResponse = _iSurveyAnswerRepository.GetAuthenticatedUser(_surveyAuthenticationRequest);
+				return AuthenticationResponse;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		public void UpdatePassCode(string ResponseId, string Passcode)
         {
 
             // convert DTO to  UserAuthenticationRquest

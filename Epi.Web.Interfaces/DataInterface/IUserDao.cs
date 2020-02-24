@@ -20,7 +20,8 @@ namespace Epi.Web.Enter.Interfaces.DataInterface
         List<UserBO> GetUserByFormId(string FormId);
         UserBO GetCurrentUser(int userId);
         UserBO GetUserByEmail(UserBO User);
-        bool IsUserExistsInOrganizaion(UserBO User, OrganizationBO OrgBO);
+		UserBO GetUserByUserName(UserBO User);
+		bool IsUserExistsInOrganizaion(UserBO User, OrganizationBO OrgBO);
         List<UserBO> GetUserByOrgId(int OrgId);
 
         UserBO GetUserByUserIdAndOrgId(UserBO UserBO, OrganizationBO OrgBO);

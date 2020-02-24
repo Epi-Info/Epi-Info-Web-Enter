@@ -245,6 +245,11 @@ namespace Epi.Web.MVC
 			);
 			routes.MapRoute(
 				null,
+				"SignOut",
+				new { controller = "Login", action = "SignOut" }
+			);
+			routes.MapRoute(
+				null,
 				"Final/{surveyid}",
 				new { controller = "Final", action = "Index", surveyid = UrlParameter.Optional }
 			);
