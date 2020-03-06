@@ -708,11 +708,9 @@ namespace Epi.Web.MVC.Controllers
             FormsAuthentication.SignOut();
             this.Session.Clear();
             return RedirectToAction("Index", "Login");
-
-
         }
-        [HttpGet]
 
+        [HttpGet]
         public ActionResult GetSettings(string formid)//List<FormInfoModel> ModelList, string formid)
         {
             FormSettingRequest FormSettingReq = new Enter.Common.Message.FormSettingRequest();
