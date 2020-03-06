@@ -40,7 +40,6 @@ namespace Epi.Core.EnterInterpreter.Rules
 
 
 
-
         public override void ToJavaScript(StringBuilder pJavaScriptBuilder)
         {
             pJavaScriptBuilder.Append("CCE_GoToControlOrPage('");
