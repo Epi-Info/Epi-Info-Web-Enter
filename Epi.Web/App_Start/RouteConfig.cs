@@ -25,11 +25,11 @@ namespace Epi.Web.MVC
 			// -----------------
 			// BEGIN MAP HTTP ROUTE
 			// -----------------
-			routes.MapHttpRoute(
-				name: "DefaultApi",
-				routeTemplate: "api/{controller}/{id}",
-				defaults: new { id = RouteParameter.Optional }
-			);
+			//routes.MapHttpRoute(
+			//	name: "DefaultApi",
+			//	routeTemplate: "api/{controller}/{id}",
+			//	defaults: new { id = RouteParameter.Optional }
+			//);
 
 			// -----------------
 			// BEGIN MAP ROUTE
