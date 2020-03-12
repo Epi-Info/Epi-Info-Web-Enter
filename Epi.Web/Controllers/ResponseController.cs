@@ -8,7 +8,7 @@ using System.Configuration;
  
 namespace Epi.Web.Controllers
 {
-    public class ResponseController : Controller
+	public class ResponseController : Controller
     {
 
 
@@ -16,6 +16,7 @@ namespace Epi.Web.Controllers
    
 
         [HttpGet]
+
         public ActionResult Index(string surveyId ,string responseid, int PageNumber = 1)
         {
 

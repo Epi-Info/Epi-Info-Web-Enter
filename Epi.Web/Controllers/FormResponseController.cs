@@ -22,6 +22,7 @@ using System.Text;
 namespace Epi.Web.MVC.Controllers
 {
 	[Authorize]
+	[AllowCrossSite]
 	public class FormResponseController : Controller
 	{
 		//

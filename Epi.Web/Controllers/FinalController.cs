@@ -15,7 +15,8 @@ using System.Reflection;
 using System.Diagnostics;
 namespace Epi.Web.MVC.Controllers
 {
-    public class FinalController : Controller
+	[AllowCrossSite]
+	public class FinalController : Controller
     {
         private ISurveyFacade _isurveyFacade;
 

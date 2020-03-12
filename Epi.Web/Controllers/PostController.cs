@@ -10,14 +10,16 @@ using System.Text.RegularExpressions;
 using System.Configuration;
 namespace Epi.Web.Controllers
 {
-    public class PostController : Controller
+
+	public class PostController : Controller
     {
         //
         // GET: /Notify/
 
         [AcceptVerbs(HttpVerbs.Post)]
        [ValidateAntiForgeryToken]
-        public JsonResult Notify(string emailAddress, string redirectUrl, string surveyName,string passCode, string EmailSubject)
+
+		public JsonResult Notify(string emailAddress, string redirectUrl, string surveyName,string passCode, string EmailSubject)
         {
             try
             {

@@ -31,13 +31,14 @@ using System.Text;
 using Epi.Web.Enter.Common.Message;
 using System.Web.Security;
 using Epi.Web.MVC.Models;
-
+using Epi.Web.MVC.Utility;
 
 using System.Web.Mvc;
 
 namespace Epi.Web.MVC.Controllers
 {
-    public partial class LoginController : Controller
+	[AllowCrossSite]
+	public partial class LoginController : Controller
     {
         public const string ClientId = "urn:gov:gsa:openidconnect.profiles:sp:sso:logingov:aspnet_example";
         public const string ClientUrl = "http://localhost:60201";

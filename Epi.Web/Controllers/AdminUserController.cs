@@ -13,7 +13,8 @@ using System.DirectoryServices.AccountManagement;
 using System.Reflection;
 namespace Epi.Web.MVC.Controllers
 {
-    public class AdminUserController : Controller
+	[AllowCrossSite]
+	public class AdminUserController : Controller
     {
         //
         // GET: /Organization/

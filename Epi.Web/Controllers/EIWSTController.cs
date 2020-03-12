@@ -19,7 +19,8 @@ using System.Reflection;
 using System.Diagnostics;
 namespace Epi.Web.MVC.Controllers
 {
-    public class EIWSTController : Controller
+	[AllowCrossSite]
+	public class EIWSTController : Controller
     {
        //declare  SurveyFacade
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;

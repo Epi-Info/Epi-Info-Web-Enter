@@ -30,7 +30,8 @@ using System.Threading;
 namespace Epi.Web.MVC.Controllers
 {
     [Authorize]
-    public class SurveyController : Controller
+	[AllowCrossSite]
+	public class SurveyController : Controller
     {
           
 

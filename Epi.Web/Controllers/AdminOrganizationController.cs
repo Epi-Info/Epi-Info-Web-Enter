@@ -13,7 +13,8 @@ using System.Text.RegularExpressions;
 using System.Reflection;
 namespace Epi.Web.MVC.Controllers
 {
-    public class AdminOrganizationController : Controller
+	[AllowCrossSite]
+	public class AdminOrganizationController : Controller
     {
 
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;

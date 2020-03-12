@@ -22,7 +22,8 @@ using System.Text;
 namespace Epi.Web.MVC.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+	[AllowCrossSite]
+	public class HomeController : Controller
     {
         private Epi.Web.MVC.Facade.ISurveyFacade _isurveyFacade;
         private IEnumerable<XElement> PageFields;
