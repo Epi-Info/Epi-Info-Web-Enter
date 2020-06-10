@@ -7,6 +7,10 @@ namespace Epi.Web.Enter.Common.Constants
 {
     public  static class Constant
     {
+        public const string WRAPPER = "div";
+        public const string FIELDWRAPPERCLASS = "mvcfieldwrapper";
+        public const string FORMWRAPPERCLASS = "MvcDynamicForm";
+        public const string FIELDPREFIX = "mvcdynamicfield_";
         public enum OperationMode
         {
             NoChange =0,

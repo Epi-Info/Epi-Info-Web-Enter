@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using MvcDynamicForms.Fields;
 using MvcDynamicForms.Utilities;
@@ -48,8 +49,21 @@ namespace MvcDynamicForms
 
                         else if (dynField is DatePickerField)
                         {
+                            //var datepickerField = (DatePickerField)dynField;
+                            //datepickerField.Value = postedForm[key];
                             var datepickerField = (DatePickerField)dynField;
-                            datepickerField.Value = postedForm[key];
+                            DateTime dt;
+                            // datepickerField.Response = DateTimeOffset.Parse(postedForm[key]).UtcDateTime.ToString()  ;
+                            var isValidDate = DateTime.TryParse(postedForm[key], out dt);
+                            if (!string.IsNullOrEmpty(postedForm[key]) && isValidDate)
+                            {
+                                string date = DateTimeOffset.Parse(postedForm[key]).ToUniversalTime().ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
+                                datepickerField.Response = date.Remove(date.IndexOf('T'));
+                            }
+                            else
+                            {
+                                datepickerField.Response = postedForm[key];
+                            }
                         }
                         else if (dynField is TimePickerField)
                         {
@@ -81,6 +95,7 @@ namespace MvcDynamicForms
                                 chkField.Checked = test;
                             }
                         }
+                        
                         else if (dynField is MobileCheckBox)
                         {
                             var chkField = (MobileCheckBox)dynField;

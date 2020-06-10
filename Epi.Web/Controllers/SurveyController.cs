@@ -988,8 +988,9 @@ namespace Epi.Web.MVC.Controllers
 
         public ActionResult Delete(string responseid)//List<FormInfoModel> ModelList, string formid)
         {
+            if (Session["IsEditMode"] != null) { 
             bool.TryParse(Session["IsEditMode"].ToString(), out this.IsEditMode);
-
+        }
             SurveyAnswerRequest SARequest = new SurveyAnswerRequest();
             SARequest.SurveyAnswerList.Add(new SurveyAnswerDTO() { ResponseId = Session["RootResponseId"].ToString() });
             SARequest.Criteria.UserId = SurveyHelper.GetDecryptUserId(Session["UserId"].ToString());
