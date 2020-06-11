@@ -250,7 +250,7 @@ namespace Epi.Web.MVC.Repositories
                {
                    if (CacheObj == null)
                    {
-                       result = (SourceTablesResponse)_iDataService.GetDropDowns(pRequest);
+                       result = (SourceTablesResponse)_iDataService.GetSourceTables(pRequest);
 
                        if (IsCacheSlidingExpiration.ToUpper() == "TRUE")
                        {
@@ -274,7 +274,7 @@ namespace Epi.Web.MVC.Repositories
                }
                else
                {
-                   result = (SourceTablesResponse)_iDataService.GetDropDowns(pRequest);
+                   result = (SourceTablesResponse)_iDataService.GetSourceTables(pRequest);
                    return result;
 
                }

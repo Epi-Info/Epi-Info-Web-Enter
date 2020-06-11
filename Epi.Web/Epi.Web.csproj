@@ -622,11 +622,9 @@
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.OrganizationResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.PublishResponse.datasource" />
     <Content Include="Properties\DataSources\Epi.Web.Enter.Common.Message.SourceTablesResponse.datasource" />
+    <Content Include="Properties\DataSources\Epi.Web.Enter.Common.Message.SurveyControlsResponse.datasource" />
     <None Include="Properties\DataSources\Epi.Web.Enter.Common.Message.UserResponse.datasource" />
     <None Include="Properties\PublishProfiles\Profile1.pubxml" />
-    <Content Include="Service References\DataServiceClient\Epi.Web.MVC.DataServiceClient.DropDownsResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
     <None Include="Service References\DataServiceClient\EWEDataService.disco" />
     <None Include="Service References\DataServiceClient\configuration91.svcinfo" />
     <None Include="Service References\DataServiceClient\configuration.svcinfo" />
@@ -709,6 +707,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\DataServiceClient\EWEDataService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\DataServiceClient\EWEDataService8.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

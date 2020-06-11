@@ -100,6 +100,13 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/UserLogin", ReplyAction="http://tempuri.org/IEWEDataService/UserLoginResponse")]
         System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.UserAuthenticationResponse> UserLoginAsync(Epi.Web.Enter.Common.Message.UserAuthenticationRequest pRequest);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetOAuthUser", ReplyAction="http://tempuri.org/IEWEDataService/GetOAuthUserResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetOAuthUserCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.UserAuthenticationResponse GetOAuthUser(Epi.Web.Enter.Common.Message.UserAuthenticationRequest pRequest);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetOAuthUser", ReplyAction="http://tempuri.org/IEWEDataService/GetOAuthUserResponse")]
+        System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.UserAuthenticationResponse> GetOAuthUserAsync(Epi.Web.Enter.Common.Message.UserAuthenticationRequest pRequest);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetUser", ReplyAction="http://tempuri.org/IEWEDataService/GetUserResponse")]
         [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetUserCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
         Epi.Web.Enter.Common.Message.UserAuthenticationResponse GetUser(Epi.Web.Enter.Common.Message.UserAuthenticationRequest request);
@@ -231,12 +238,26 @@ namespace Epi.Web.MVC.DataServiceClient {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/HasResponse", ReplyAction="http://tempuri.org/IEWEDataService/HasResponseResponse")]
         System.Threading.Tasks.Task<bool> HasResponseAsync(string SurveyId, string ResponseId);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetDropDowns", ReplyAction="http://tempuri.org/IEWEDataService/GetDropDownsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetDropDownsCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
-        Epi.Web.Enter.Common.Message.SourceTablesResponse GetDropDowns(Epi.Web.Enter.Common.Message.SourceTablesRequest Request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetSourceTables", ReplyAction="http://tempuri.org/IEWEDataService/GetSourceTablesResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetSourceTablesCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.SourceTablesResponse GetSourceTables(Epi.Web.Enter.Common.Message.SourceTablesRequest Request);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetDropDowns", ReplyAction="http://tempuri.org/IEWEDataService/GetDropDownsResponse")]
-        System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.SourceTablesResponse> GetDropDownsAsync(Epi.Web.Enter.Common.Message.SourceTablesRequest Request);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetSourceTables", ReplyAction="http://tempuri.org/IEWEDataService/GetSourceTablesResponse")]
+        System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.SourceTablesResponse> GetSourceTablesAsync(Epi.Web.Enter.Common.Message.SourceTablesRequest Request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/SetJsonColumn", ReplyAction="http://tempuri.org/IEWEDataService/SetJsonColumnResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/SetJsonColumnCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        bool SetJsonColumn(string json, string responseid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/SetJsonColumn", ReplyAction="http://tempuri.org/IEWEDataService/SetJsonColumnResponse")]
+        System.Threading.Tasks.Task<bool> SetJsonColumnAsync(string json, string responseid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetSurveyControlList", ReplyAction="http://tempuri.org/IEWEDataService/GetSurveyControlListResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Epi.Web.Enter.Common.Exception.CustomFaultException), Action="http://tempuri.org/IEWEDataService/GetSurveyControlListCustomFaultExceptionFault", Name="CustomFaultException", Namespace="http://www.yourcompany.com/types/")]
+        Epi.Web.Enter.Common.Message.SurveyControlsResponse GetSurveyControlList(Epi.Web.Enter.Common.Message.SurveyControlsRequest pRequestMessage);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEWEDataService/GetSurveyControlList", ReplyAction="http://tempuri.org/IEWEDataService/GetSurveyControlListResponse")]
+        System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.SurveyControlsResponse> GetSurveyControlListAsync(Epi.Web.Enter.Common.Message.SurveyControlsRequest pRequestMessage);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -360,6 +381,14 @@ namespace Epi.Web.MVC.DataServiceClient {
         
         public System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.UserAuthenticationResponse> UserLoginAsync(Epi.Web.Enter.Common.Message.UserAuthenticationRequest pRequest) {
             return base.Channel.UserLoginAsync(pRequest);
+        }
+        
+        public Epi.Web.Enter.Common.Message.UserAuthenticationResponse GetOAuthUser(Epi.Web.Enter.Common.Message.UserAuthenticationRequest pRequest) {
+            return base.Channel.GetOAuthUser(pRequest);
+        }
+        
+        public System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.UserAuthenticationResponse> GetOAuthUserAsync(Epi.Web.Enter.Common.Message.UserAuthenticationRequest pRequest) {
+            return base.Channel.GetOAuthUserAsync(pRequest);
         }
         
         public Epi.Web.Enter.Common.Message.UserAuthenticationResponse GetUser(Epi.Web.Enter.Common.Message.UserAuthenticationRequest request) {
@@ -505,15 +534,29 @@ namespace Epi.Web.MVC.DataServiceClient {
         public System.Threading.Tasks.Task<bool> HasResponseAsync(string SurveyId, string ResponseId) {
             return base.Channel.HasResponseAsync(SurveyId, ResponseId);
         }
-
-        public Epi.Web.Enter.Common.Message.SourceTablesResponse GetDropDowns(Epi.Web.Enter.Common.Message.SourceTablesRequest Request)
-        {
-            return base.Channel.GetDropDowns(Request);
+        
+        public Epi.Web.Enter.Common.Message.SourceTablesResponse GetSourceTables(Epi.Web.Enter.Common.Message.SourceTablesRequest Request) {
+            return base.Channel.GetSourceTables(Request);
         }
-
-        public System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.SourceTablesResponse> GetDropDownsAsync(Epi.Web.Enter.Common.Message.SourceTablesRequest Request)
-        {
-            return base.Channel.GetDropDownsAsync(Request);
+        
+        public System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.SourceTablesResponse> GetSourceTablesAsync(Epi.Web.Enter.Common.Message.SourceTablesRequest Request) {
+            return base.Channel.GetSourceTablesAsync(Request);
+        }
+        
+        public bool SetJsonColumn(string json, string responseid) {
+            return base.Channel.SetJsonColumn(json, responseid);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SetJsonColumnAsync(string json, string responseid) {
+            return base.Channel.SetJsonColumnAsync(json, responseid);
+        }
+        
+        public Epi.Web.Enter.Common.Message.SurveyControlsResponse GetSurveyControlList(Epi.Web.Enter.Common.Message.SurveyControlsRequest pRequestMessage) {
+            return base.Channel.GetSurveyControlList(pRequestMessage);
+        }
+        
+        public System.Threading.Tasks.Task<Epi.Web.Enter.Common.Message.SurveyControlsResponse> GetSurveyControlListAsync(Epi.Web.Enter.Common.Message.SurveyControlsRequest pRequestMessage) {
+            return base.Channel.GetSurveyControlListAsync(pRequestMessage);
         }
     }
 }

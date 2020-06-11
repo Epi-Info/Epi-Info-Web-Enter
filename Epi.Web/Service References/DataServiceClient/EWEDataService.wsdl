@@ -10,6 +10,7 @@
       <xsd:import schemaLocation="http://localhost:22587/EWEDataService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Constants" />
       <xsd:import schemaLocation="http://localhost:22587/EWEDataService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Criteria" />
       <xsd:import schemaLocation="http://localhost:22587/EWEDataService.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Enter.Common.Message" />
+      <xsd:import schemaLocation="http://localhost:22587/EWEDataService.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/Epi.Web.Common.DTO" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IEWEDataService_GetSurveyInfo_InputMessage">
@@ -120,6 +121,15 @@
   <wsdl:message name="IEWEDataService_UserLogin_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q12="http://www.yourcompany.com/types/" name="detail" element="q12:CustomFaultException" />
   </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetOAuthUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOAuthUser" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetOAuthUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOAuthUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetOAuthUser_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://www.yourcompany.com/types/" name="detail" element="q13:CustomFaultException" />
+  </wsdl:message>
   <wsdl:message name="IEWEDataService_GetUser_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUser" />
   </wsdl:message>
@@ -127,7 +137,7 @@
     <wsdl:part name="parameters" element="tns:GetUserResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetUser_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q13="http://www.yourcompany.com/types/" name="detail" element="q13:CustomFaultException" />
+    <wsdl:part xmlns:q14="http://www.yourcompany.com/types/" name="detail" element="q14:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_UpdateUser_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateUser" />
@@ -136,7 +146,7 @@
     <wsdl:part name="parameters" element="tns:UpdateUserResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_UpdateUser_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q14="http://www.yourcompany.com/types/" name="detail" element="q14:CustomFaultException" />
+    <wsdl:part xmlns:q15="http://www.yourcompany.com/types/" name="detail" element="q15:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_SaveSettings_InputMessage">
     <wsdl:part name="parameters" element="tns:SaveSettings" />
@@ -145,7 +155,7 @@
     <wsdl:part name="parameters" element="tns:SaveSettingsResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_SaveSettings_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q15="http://www.yourcompany.com/types/" name="detail" element="q15:CustomFaultException" />
+    <wsdl:part xmlns:q16="http://www.yourcompany.com/types/" name="detail" element="q16:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetFormChildInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFormChildInfo" />
@@ -154,7 +164,7 @@
     <wsdl:part name="parameters" element="tns:GetFormChildInfoResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetFormChildInfo_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q16="http://www.yourcompany.com/types/" name="detail" element="q16:CustomFaultException" />
+    <wsdl:part xmlns:q17="http://www.yourcompany.com/types/" name="detail" element="q17:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetFormsHierarchy_InputMessage">
     <wsdl:part name="parameters" element="tns:GetFormsHierarchy" />
@@ -163,7 +173,7 @@
     <wsdl:part name="parameters" element="tns:GetFormsHierarchyResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetFormsHierarchy_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q17="http://www.yourcompany.com/types/" name="detail" element="q17:CustomFaultException" />
+    <wsdl:part xmlns:q18="http://www.yourcompany.com/types/" name="detail" element="q18:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetSurveyAnswerHierarchy_InputMessage">
     <wsdl:part name="parameters" element="tns:GetSurveyAnswerHierarchy" />
@@ -172,7 +182,7 @@
     <wsdl:part name="parameters" element="tns:GetSurveyAnswerHierarchyResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetSurveyAnswerHierarchy_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q18="http://www.yourcompany.com/types/" name="detail" element="q18:CustomFaultException" />
+    <wsdl:part xmlns:q19="http://www.yourcompany.com/types/" name="detail" element="q19:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetAncestorResponseIdsByChildId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAncestorResponseIdsByChildId" />
@@ -181,7 +191,7 @@
     <wsdl:part name="parameters" element="tns:GetAncestorResponseIdsByChildIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetAncestorResponseIdsByChildId_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q19="http://www.yourcompany.com/types/" name="detail" element="q19:CustomFaultException" />
+    <wsdl:part xmlns:q20="http://www.yourcompany.com/types/" name="detail" element="q20:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetResponsesByRelatedFormId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetResponsesByRelatedFormId" />
@@ -190,7 +200,7 @@
     <wsdl:part name="parameters" element="tns:GetResponsesByRelatedFormIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetResponsesByRelatedFormId_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q20="http://www.yourcompany.com/types/" name="detail" element="q20:CustomFaultException" />
+    <wsdl:part xmlns:q21="http://www.yourcompany.com/types/" name="detail" element="q21:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetOrganizationsByUserId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOrganizationsByUserId" />
@@ -199,7 +209,7 @@
     <wsdl:part name="parameters" element="tns:GetOrganizationsByUserIdResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetOrganizationsByUserId_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q21="http://www.yourcompany.com/types/" name="detail" element="q21:CustomFaultException" />
+    <wsdl:part xmlns:q22="http://www.yourcompany.com/types/" name="detail" element="q22:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetUserOrganizations_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUserOrganizations" />
@@ -208,7 +218,7 @@
     <wsdl:part name="parameters" element="tns:GetUserOrganizationsResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetUserOrganizations_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q22="http://www.yourcompany.com/types/" name="detail" element="q22:CustomFaultException" />
+    <wsdl:part xmlns:q23="http://www.yourcompany.com/types/" name="detail" element="q23:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetAdminOrganizations_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAdminOrganizations" />
@@ -217,7 +227,7 @@
     <wsdl:part name="parameters" element="tns:GetAdminOrganizationsResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetAdminOrganizations_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q23="http://www.yourcompany.com/types/" name="detail" element="q23:CustomFaultException" />
+    <wsdl:part xmlns:q24="http://www.yourcompany.com/types/" name="detail" element="q24:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetOrganizationInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOrganizationInfo" />
@@ -226,7 +236,7 @@
     <wsdl:part name="parameters" element="tns:GetOrganizationInfoResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetOrganizationInfo_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q24="http://www.yourcompany.com/types/" name="detail" element="q24:CustomFaultException" />
+    <wsdl:part xmlns:q25="http://www.yourcompany.com/types/" name="detail" element="q25:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_SetOrganization_InputMessage">
     <wsdl:part name="parameters" element="tns:SetOrganization" />
@@ -235,7 +245,7 @@
     <wsdl:part name="parameters" element="tns:SetOrganizationResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_SetOrganization_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q25="http://www.yourcompany.com/types/" name="detail" element="q25:CustomFaultException" />
+    <wsdl:part xmlns:q26="http://www.yourcompany.com/types/" name="detail" element="q26:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetOrganizationUsers_InputMessage">
     <wsdl:part name="parameters" element="tns:GetOrganizationUsers" />
@@ -244,7 +254,7 @@
     <wsdl:part name="parameters" element="tns:GetOrganizationUsersResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetOrganizationUsers_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q26="http://www.yourcompany.com/types/" name="detail" element="q26:CustomFaultException" />
+    <wsdl:part xmlns:q27="http://www.yourcompany.com/types/" name="detail" element="q27:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetUserInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUserInfo" />
@@ -253,7 +263,7 @@
     <wsdl:part name="parameters" element="tns:GetUserInfoResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_GetUserInfo_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q27="http://www.yourcompany.com/types/" name="detail" element="q27:CustomFaultException" />
+    <wsdl:part xmlns:q28="http://www.yourcompany.com/types/" name="detail" element="q28:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_SetUserInfo_InputMessage">
     <wsdl:part name="parameters" element="tns:SetUserInfo" />
@@ -262,7 +272,7 @@
     <wsdl:part name="parameters" element="tns:SetUserInfoResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_SetUserInfo_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q28="http://www.yourcompany.com/types/" name="detail" element="q28:CustomFaultException" />
+    <wsdl:part xmlns:q29="http://www.yourcompany.com/types/" name="detail" element="q29:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_UpdateResponseStatus_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateResponseStatus" />
@@ -271,7 +281,7 @@
     <wsdl:part name="parameters" element="tns:UpdateResponseStatusResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_UpdateResponseStatus_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q29="http://www.yourcompany.com/types/" name="detail" element="q29:CustomFaultException" />
+    <wsdl:part xmlns:q30="http://www.yourcompany.com/types/" name="detail" element="q30:CustomFaultException" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_HasResponse_InputMessage">
     <wsdl:part name="parameters" element="tns:HasResponse" />
@@ -280,16 +290,34 @@
     <wsdl:part name="parameters" element="tns:HasResponseResponse" />
   </wsdl:message>
   <wsdl:message name="IEWEDataService_HasResponse_CustomFaultExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q30="http://www.yourcompany.com/types/" name="detail" element="q30:CustomFaultException" />
-  </wsdl:message>
-  <wsdl:message name="IEWEDataService_GetDropDowns_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetDropDowns" />
-  </wsdl:message>
-  <wsdl:message name="IEWEDataService_GetDropDowns_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetDropDownsResponse" />
-  </wsdl:message>
-  <wsdl:message name="IEWEDataService_GetDropDowns_CustomFaultExceptionFault_FaultMessage">
     <wsdl:part xmlns:q31="http://www.yourcompany.com/types/" name="detail" element="q31:CustomFaultException" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetSourceTables_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSourceTables" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetSourceTables_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSourceTablesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetSourceTables_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q32="http://www.yourcompany.com/types/" name="detail" element="q32:CustomFaultException" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SetJsonColumn_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetJsonColumn" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SetJsonColumn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetJsonColumnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_SetJsonColumn_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q33="http://www.yourcompany.com/types/" name="detail" element="q33:CustomFaultException" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetSurveyControlList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSurveyControlList" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetSurveyControlList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSurveyControlListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEWEDataService_GetSurveyControlList_CustomFaultExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q34="http://www.yourcompany.com/types/" name="detail" element="q34:CustomFaultException" />
   </wsdl:message>
   <wsdl:portType name="IEWEDataService">
     <wsdl:operation name="GetSurveyInfo">
@@ -351,6 +379,11 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/UserLogin" message="tns:IEWEDataService_UserLogin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/UserLoginResponse" message="tns:IEWEDataService_UserLogin_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/UserLoginCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_UserLogin_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOAuthUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetOAuthUser" message="tns:IEWEDataService_GetOAuthUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetOAuthUserResponse" message="tns:IEWEDataService_GetOAuthUser_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetOAuthUserCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetOAuthUser_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetUser" message="tns:IEWEDataService_GetUser_InputMessage" />
@@ -442,10 +475,20 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/HasResponseResponse" message="tns:IEWEDataService_HasResponse_OutputMessage" />
       <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/HasResponseCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_HasResponse_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetDropDowns">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetDropDowns" message="tns:IEWEDataService_GetDropDowns_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetDropDownsResponse" message="tns:IEWEDataService_GetDropDowns_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetDropDownsCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetDropDowns_CustomFaultExceptionFault_FaultMessage" />
+    <wsdl:operation name="GetSourceTables">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSourceTables" message="tns:IEWEDataService_GetSourceTables_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetSourceTablesResponse" message="tns:IEWEDataService_GetSourceTables_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetSourceTablesCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetSourceTables_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetJsonColumn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/SetJsonColumn" message="tns:IEWEDataService_SetJsonColumn_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/SetJsonColumnResponse" message="tns:IEWEDataService_SetJsonColumn_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/SetJsonColumnCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_SetJsonColumn_CustomFaultExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSurveyControlList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyControlList" message="tns:IEWEDataService_GetSurveyControlList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyControlListResponse" message="tns:IEWEDataService_GetSurveyControlList_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IEWEDataService/GetSurveyControlListCustomFaultExceptionFault" name="CustomFaultExceptionFault" message="tns:IEWEDataService_GetSurveyControlList_CustomFaultExceptionFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IEWEDataService" type="tns:IEWEDataService">
@@ -584,6 +627,18 @@
     </wsdl:operation>
     <wsdl:operation name="UserLogin">
       <soap:operation soapAction="http://tempuri.org/IEWEDataService/UserLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetOAuthUser">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetOAuthUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -810,8 +865,32 @@
         <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
-    <wsdl:operation name="GetDropDowns">
-      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetDropDowns" style="document" />
+    <wsdl:operation name="GetSourceTables">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetSourceTables" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SetJsonColumn">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/SetJsonColumn" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="CustomFaultExceptionFault">
+        <soap:fault use="literal" name="CustomFaultExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetSurveyControlList">
+      <soap:operation soapAction="http://tempuri.org/IEWEDataService/GetSurveyControlList" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
