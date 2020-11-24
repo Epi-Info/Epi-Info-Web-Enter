@@ -900,14 +900,27 @@ namespace Epi.Web.EF
                             switch (DataAccessRuleId) 
                             {
                                 case 1: //   Organization users can only access the data of there organization
-                                    SurveyResponseList = Context.SurveyResponses.Where(
-                                x => x.SurveyId == Id 
-                                                      //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                      //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                    if (!string.IsNullOrEmpty(criteria.SearchCriteria))
+                                    {
+                                        var SearchList = GetResponses1(criteria.SurveyId, criteria);
+                                        SurveyResponseList = Context.SurveyResponses.Where(
+                                      x => x.SurveyId == Id && SearchList.Contains(x.ResponseId)
+
                                                       && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
                                                       && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                                       && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                        .OrderByDescending(x => x.DateUpdated);
+                                    }
+                                    else {
+
+                                        SurveyResponseList = Context.SurveyResponses.Where(
+                                      x => x.SurveyId == Id   
+                                                    && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                    && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                    && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                     .OrderByDescending(x => x.DateUpdated);
+
+                                    }
                                     break;
                                 case 2:    // All users in host organization will have access to all data of all organizations  
 
@@ -922,47 +935,100 @@ namespace Epi.Web.EF
                                    // if (Users != null && Users.UserID == criteria.UserId)
                                         if (ISHostOrg)
                                         {
-                                    SurveyResponseList = Context.SurveyResponses.Where(
-                                     x => x.SurveyId == Id 
-                                                     //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                     //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                        if (!string.IsNullOrEmpty(criteria.SearchCriteria))
+                                        {
+                                            var SearchList = GetResponses1(criteria.SurveyId, criteria);
+                                            SurveyResponseList = Context.SurveyResponses.Where(
+                                                        x => x.SurveyId == Id && SearchList.Contains(x.ResponseId)
+
                                                      && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
                                                      && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
-                                                     && x.StatusId >= 1  )
+                                                     && x.StatusId >= 1)
                                                       .OrderByDescending(x => x.DateUpdated);
+                                        }
+                                        else {
+
+                                            SurveyResponseList = Context.SurveyResponses.Where(
+                                                        x => x.SurveyId == Id
+
+                                                     && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                     && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                     && x.StatusId >= 1)
+                                                      .OrderByDescending(x => x.DateUpdated);
+
+
+                                        }
                                     }
                                     else
                                     {
-                                    
-                                    SurveyResponseList = Context.SurveyResponses.Where(
-                                       x => x.SurveyId == Id 
-                                                     //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                                     //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                        if (!string.IsNullOrEmpty(criteria.SearchCriteria))
+                                        {
+                                            var SearchList = GetResponses1(criteria.SurveyId, criteria);
+                                            SurveyResponseList = Context.SurveyResponses.Where(
+                                                       x => x.SurveyId == Id && SearchList.Contains(x.ResponseId)
+
                                                      && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
                                                      && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                                      && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                       .OrderByDescending(x => x.DateUpdated);
+                                        }
+                                        else {
+
+                                            SurveyResponseList = Context.SurveyResponses.Where(
+                                                      x => x.SurveyId == Id
+
+                                                    && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                                    && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                    && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                     .OrderByDescending(x => x.DateUpdated);
+                                        }
                                     }
                                     break;
                                 case 3: // All users of all organizations can access all data 
-                                    SurveyResponseList = Context.SurveyResponses.Where(
-                               x => x.SurveyId == Id 
-                                  // && string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                  //&& string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
-                                  && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
-                                && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
-                                                     && x.StatusId >= 1  )
-                                                      .OrderByDescending(x => x.DateUpdated);
+                                    if (!string.IsNullOrEmpty(criteria.SearchCriteria))
+                                    {
+                                        var SearchList = GetResponses1(criteria.SurveyId, criteria);
+                                                SurveyResponseList = Context.SurveyResponses.Where(
+                                       x => x.SurveyId == Id && SearchList.Contains(x.ResponseId)
+
+                                          && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                        && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                             && x.StatusId >= 1)
+                                                              .OrderByDescending(x => x.DateUpdated);
+                                    }
+                                    else {
+
+                                                SurveyResponseList = Context.SurveyResponses.Where(
+                                       x => x.SurveyId == Id
+                                  
+                                          && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                        && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                                             && x.StatusId >= 1)
+                                                              .OrderByDescending(x => x.DateUpdated);
+                                    }
                                     break;
                                 default :
-                                    SurveyResponseList = Context.SurveyResponses.Where(
-                                  x => x.SurveyId == Id 
-                                      //&& string.IsNullOrEmpty(x.ParentRecordId.ToString()) == true
-                                      //  && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
+                                    if (!string.IsNullOrEmpty(criteria.SearchCriteria))
+                                    {
+                                        var SearchList = GetResponses1(criteria.SurveyId, criteria);
+                                        SurveyResponseList = Context.SurveyResponses.Where(
+                                  x => x.SurveyId == Id && SearchList.Contains(x.ResponseId)
+
                                       && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
                                      && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
                                           && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
                                                          .OrderByDescending(x => x.DateUpdated);
+                                    }
+                                    else {
+                                        SurveyResponseList = Context.SurveyResponses.Where(
+                                 x => x.SurveyId == Id
+                                    
+                                     && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                    && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                         && x.StatusId >= 1 && x.OrganizationId == criteria.UserOrganizationId)
+                                                        .OrderByDescending(x => x.DateUpdated);
+
+                                    }
                                     break;
 
                             }
@@ -978,13 +1044,33 @@ namespace Epi.Web.EF
                             //    && string.IsNullOrEmpty(x.RelateParentId.ToString()) == true
                             //    && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated); 
 
-                            SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id
+                            //SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id
+                            //&& (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                            //   && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                            //   && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated);
+
+                            ///////////////////////////////////////////
+                            ///
+                            if (!string.IsNullOrEmpty(criteria.SearchCriteria))
+                            {
+                                var SearchList = GetResponses1(criteria.SurveyId, criteria);
+                                SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id && SearchList.Contains(x.ResponseId)
                             && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
                                && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
-                               && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated); 
+                               && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated) ;
 
-                        
-                        
+                            }
+                            else {
+
+                                SurveyResponseList = Context.SurveyResponses.Where(x => x.SurveyId == Id
+                                && (x.ParentRecordId == null || x.ParentRecordId == Guid.Empty)
+                                    && (x.RelateParentId == null || x.RelateParentId == Guid.Empty)
+                                    && x.StatusId >= 1).OrderByDescending(x => x.DateUpdated);
+
+
+                            }
+                            ///////////////////////////////////////////////
+
                         }
                         
                       
@@ -997,7 +1083,7 @@ namespace Epi.Web.EF
                             result.Add(Mapper.Map(Response, Response.Users.First()));
 
                         }
-
+                     
 
                     }
 
@@ -1013,8 +1099,78 @@ namespace Epi.Web.EF
             return result;
         }
 
+        public List<Guid> GetResponses1(string SurveyID, SurveyAnswerCriteria criteria) {
 
-        /// <summary>
+            List<Guid> Result = new List<Guid>();
+
+            string EI7ConnectionString = DataObjectFactory.EWEADOConnectionString;
+
+            SqlConnection EI7Connection = new SqlConnection(EI7ConnectionString);
+            string Column = string.Empty;
+            string value = string.Empty;
+            string Command = string.Empty;
+            //Test = 'simo' AND Test = 'grace'
+            if (criteria.SearchCriteria.Contains("AND"))
+            {
+                Command = "SELECT ResponseId FROM  SurveyResponse WHERE SurveyId = '" + SurveyID +"'" ;
+                var CriteriaList = criteria.SearchCriteria.Replace("AND", "&").Split('&');
+                foreach (var item in CriteriaList)
+                {
+                    var _Criteria = item.Split('=');
+                    Column = _Criteria[0];
+                    value = _Criteria[1].Replace("'", "");
+                    Command += " And  JSON_VALUE(ResponseJson,'$.ResponseQA." + Column.Trim() + "') LIKE \'%" + value.Trim() + "%\'";
+                }
+            }
+            else {
+                if (!string.IsNullOrEmpty(criteria.SearchCriteria)) {
+                    var _Criteria = criteria.SearchCriteria.Split('=');
+                    Column = _Criteria[0];
+                    value = _Criteria[1].Replace("'","");
+                }
+                Command = "SELECT ResponseId FROM  SurveyResponse WHERE SurveyId = '" + SurveyID + "' And  JSON_VALUE(ResponseJson,'$.ResponseQA." + Column.Trim() + "') LIKE \'%" + value.Trim() + "%\'";
+            }
+
+
+            SqlCommand EI7Command = new SqlCommand(Command, EI7Connection);
+            
+ 
+            SqlDataAdapter EI7Adapter = new SqlDataAdapter(EI7Command);
+
+            DataSet EI7DS = new DataSet();
+
+            EI7Connection.Open();
+
+            try
+            {
+                EI7Adapter.Fill(EI7DS);
+                EI7Connection.Close();
+            }
+            catch (Exception)
+            {
+                EI7Connection.Close();
+                throw;
+            }
+          
+            for (int i = 0; i < EI7DS.Tables[0].Rows.Count; i++)
+            {
+                
+                for (int j = 0; j < EI7DS.Tables[0].Columns.Count; j++)
+                {
+                    // rowDic.Add(EI7DS.Tables[0].Columns[j].ColumnName, EI7DS.Tables[0].Rows[i][j].ToString());
+                    Result.Add(Guid.Parse(EI7DS.Tables[0].Rows[i][j].ToString()));
+                }
+             
+               
+            }
+           
+            return Result;
+
+
+        }
+            
+            
+            /// <summary>
         /// Builds SQL Select query by reading the columns, tablename from the EWE database.
         /// </summary>
         /// <param name="FormId"></param>

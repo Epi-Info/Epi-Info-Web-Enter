@@ -28,11 +28,12 @@
 
 </script>
 <div id="editsettings">
-    @if (Model.FormInfoModel.IsSQLProject) 
-    {
+    @*@if (Model.FormInfoModel.IsSQLProject)
+     {*@
         <button id="btnsearch" onclick="" class="default search" type="button">
             Search</button> 
-    }
+     @*}*@
+
     @if (System.Configuration.ConfigurationManager.AppSettings["IsEWAVLiteIntegrationEnabled"].ToUpper() == "TRUE" && Model.FormInfoModel.EwavLiteToggleSwitch)
     {
 
@@ -153,9 +154,9 @@
         @Html.DropDownListFor(m => m.SearchModel.SearchCol5, Model.SearchColumns5, string.Empty)
         @Html.TextBoxFor(m => m.SearchModel.Value5, string.Empty)
     </div>
-    <button class="default" style="width: 80px;" name="Search">
+    <button class="default" onclick="ShowSppiner();" style="width: 80px;" name="Search">
         Go</button>
-    <button class="default" name="ResetSearch">
+    <button class="default" onclick="ShowSppiner();" name="ResetSearch">
         Reset</button>
 </div>
 @{
@@ -200,28 +201,30 @@
 </div>
     }
    
-    <div style="clear: both; margin-bottom: 10px; padding: 10px 0 0;">
-     @if (Model.FormInfoModel.IsSQLProject && Model.SearchModel.SearchCol1 != null)
-    {
-        <div id="searchmsg" style="display:block;">
-            <h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px 5px 8px 5px; color:#794800; ">
-                Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
-                <button class="default" name="ResetSearch" style="float:right;">Reset Search</button>
-            </h4>
-        </div>
-         }
+<div style="clear: both; margin-bottom: 10px; padding: 10px 0 0;">
+   @* @if (Model.FormInfoModel.IsSQLProject && Model.SearchModel.SearchCol1 != null)  *@
+        @if (  Model.SearchModel.SearchCol1 != null)
+        {
+            <div id="searchmsg" style="display:block;">
+                <h4 style="margin: 2px 0 20px 0; background:#ffdead; padding:5px 5px 8px 5px; color:#794800; ">
+                    Only showing records matching your search criteria. &nbsp;&nbsp;&nbsp;
+                    <button class="default" onclick="ShowSppiner();" name="ResetSearch" style="float:right;">Reset Search</button>
+                </h4>
+            </div>
+        }
         <div id="NumberOfRecords" style="float: left;">
             <div>
                 @{
                     if (Model.NumberOfPages == 0)
                     {
-                    <span class="boldlabel" style="font-size: 14pt;">0 Records </span>
+                        <span class="boldlabel" style="font-size: 14pt;">0 Records </span>
                     }
                     else
                     {
-@*<span >Showing</span>*@
-                    <span class="boldlabel" style="font-size: 14pt;">@(
- Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
+                        @*<span >Showing</span>*@
+                        <span class="boldlabel" style="font-size: 14pt;">
+                            @(
+                                Model.CurrentPage * Model.PageSize - (Model.PageSize - 1))
                         -
                         @if (Model.CurrentPage * Model.PageSize < Model.NumberOfResponses)
                         {
@@ -230,13 +233,15 @@
                         else
                         {
                             @Model.NumberOfResponses
-                        }</span>
-                    <span>of </span><span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses
+                        }
                     </span>
-                    }
+                    <span>of </span><span class="boldlabel" style="font-size: 14pt;">
+                        @Model.NumberOfResponses
+                </span>
+            }
                 }
             </div>
-            
+
             @* <span>Total Records:</span> <span class="boldlabel" style="font-size: 14pt;">@Model.NumberOfResponses</span>*@
         </div>
         <!--<div id="paging" >
@@ -245,16 +250,16 @@
                     &nbsp; <span class="boldlabel">21-40 of 80</span> &nbsp;
                     <button class="default paging">
                         <img alt="Next" src="~/Content/images/next.png" align="middle" /></button>
-                        
+
                 </div>-->
         <div id="paging">
             @{
-                    
+
                 if (Model.NumberOfPages > 1)
                 {
-                <div id='pager'>
-                    @Html.Partial("PagerPartial", Model)
-                </div>  
+                    <div id='pager'>
+                        @Html.Partial("PagerPartial", Model)
+                    </div>
                 }
 
 
@@ -264,7 +269,7 @@
         </div>
         <div id="recordstable">
             @{
-       
+
                 var gridColumns = new List<WebGridColumn>();
 
                 gridColumns.Add(webGrid.Column(header: "",
@@ -293,27 +298,28 @@
                 }
                 @webGrid.GetHtml(columns: gridColumns);
 
-               
+
             }
             @Html.Hidden("hidFormId", @Model.FormInfoModel.FormId)
             @Html.Hidden("hidPageNumber", @Model.CurrentPage)
             @{
                 if (Model.NumberOfPages == 0)
                 {
-                <div class="zerorec">
-                    No records found.</div>
+                    <div class="zerorec">
+                        No records found.
+                    </div>
                 }
             }
         </div>
         <div id="paging">
             @{
-                    
+
                 if (Model.NumberOfPages > 1)
                 {
-                <div id='pager2'>
-                    @*@Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
-                    @Html.Partial("PagerPartial", Model)
-                </div>  
+                    <div id='pager2'>
+                        @*@Html.Partial("~\\views\\shared\\PagerPartial.cshtml", Model)*@
+                        @Html.Partial("PagerPartial", Model)
+                    </div>
                 }
 
 
