@@ -60,8 +60,10 @@
     <Compile Include="BusinessObject\FormInfoBO.cs" />
     <Compile Include="BusinessObject\FormSettingBO.cs" />
     <Compile Include="BusinessObject\FormsHierarchyBO.cs" />
+    <Compile Include="BusinessObject\GadgetBO.cs" />
     <Compile Include="BusinessObject\OrganizationBO.cs" />
     <Compile Include="BusinessObject\PageInfoBO.cs" />
+    <Compile Include="BusinessObject\ReportInfoBO.cs" />
     <Compile Include="BusinessObject\ResponseXmlBO.cs" />
     <Compile Include="BusinessObject\SourceTableBO.cs" />
     <Compile Include="BusinessObject\UserAuthenticationRequestBO.cs" />
@@ -90,6 +92,8 @@
     <Compile Include="Criteria\Criteria.cs" />
     <Compile Include="Criteria\SurveyInfoCriteria.cs" />
     <Compile Include="DTO\AdminDTO.cs" />
+    <Compile Include="DTO\GadgetDTO.cs" />
+    <Compile Include="DTO\ReportInfoDTO.cs" />
     <Compile Include="DTO\SourceTableDTO.cs" />
     <Compile Include="DTO\FormInfoDTO.cs" />
     <Compile Include="DTO\FormResponseInfoDTO.cs" />
@@ -108,7 +112,9 @@
     <Compile Include="Exception\CustomFaultException.cs" />
     <Compile Include="Extension\LinqExtensions.cs" />
     <Compile Include="Helper\RelatedFormsObj.cs" />
+    <Compile Include="Helper\SqlHelper.cs" />
     <Compile Include="Json\JsonConverter.cs" />
+    <Compile Include="Json\JsonMessage.cs" />
     <Compile Include="Json\ResponseDetail.cs" />
     <Compile Include="Json\SurveyJson.cs" />
     <Compile Include="Message\Base\AcknowledgeType.cs" />
@@ -117,6 +123,8 @@
     <Compile Include="Message\Base\ResponseBase.cs" />
     <Compile Include="Message\OrganizationAccountRequest.cs" />
     <Compile Include="Message\OrganizationAccountResponse.cs" />
+    <Compile Include="Message\PublishReportRequest.cs" />
+    <Compile Include="Message\PublishReportResponse.cs" />
     <Compile Include="Message\SourceTablesRequest.cs" />
     <Compile Include="Message\SourceTablesResponse.cs" />
     <Compile Include="Message\FormResponseInfoRequest.cs" />

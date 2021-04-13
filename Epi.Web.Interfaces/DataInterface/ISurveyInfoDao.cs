@@ -124,5 +124,9 @@ namespace Epi.Web.Enter.Interfaces.DataInterfaces
 
          void UpdateSourceTable(string p, string SourcetableName, string FormId);
          bool TableExist(string FormId, string Tablename);
+        List<SurveyInfoBO> GetAllSurveysByOrgKey(string Okey);
+
+        int GetOrganizationId(string OrgKey);
+
     }
 }

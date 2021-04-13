@@ -805,5 +805,102 @@ namespace Epi.Web.EF
            return TableExist;
             
        }
+
+        public List<SurveyInfoBO> GetAllSurveysByOrgKey(string Okey)
+        {
+            List<SurveyInfoBO> result = new List<SurveyInfoBO>();
+
+            List<SurveyMetaData> responseList = new List<SurveyMetaData>();
+
+            int OrganizationId = 0;
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                    var Query = (from response in Context.Organizations
+                                 where response.OrganizationKey == Okey
+                                 select response).SingleOrDefault();
+
+                    if (Query != null)
+                    {
+                        OrganizationId = Query.OrganizationId;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+                    var responseList1 =
+                        from r in Context.SurveyMetaDatas
+                        where r.OrganizationId == OrganizationId
+                        select new
+                        {
+                            SurveyName = r.SurveyName,
+                            SurveyId = r.SurveyId,
+                            IsDraftMode = r.IsDraftMode,
+                            ClosingDate = r.ClosingDate,
+                            StartDate = r.StartDate
+                        };
+
+                    if (responseList1.Count() > 0)
+                    {
+                        var SortedList = responseList1.OrderBy(x => x.SurveyName);
+                        foreach (var item in SortedList)
+                        {
+                            SurveyInfoBO SurveyInfoBO = new SurveyInfoBO();
+                            SurveyInfoBO.SurveyId = item.SurveyId.ToString();
+                            SurveyInfoBO.SurveyName = item.SurveyName;
+                            SurveyInfoBO.IsDraftMode = item.IsDraftMode;
+                            SurveyInfoBO.ClosingDate = item.ClosingDate;
+                            SurveyInfoBO.StartDate = item.StartDate;
+                            result.Add(SurveyInfoBO);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            return result;
+        }
+        public int GetOrganizationId(string OrgKey)
+        {
+
+            int OrganizationId = -1;
+            try
+            {
+                using (var Context = DataObjectFactory.CreateContext())
+                {
+
+                    var Query = (from response in Context.Organizations
+                                 where response.OrganizationKey == OrgKey
+                                 select response).SingleOrDefault();
+
+                    if (Query != null)
+                    {
+                        OrganizationId = Query.OrganizationId;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+            return OrganizationId;
+
+        }
     }
+
 }

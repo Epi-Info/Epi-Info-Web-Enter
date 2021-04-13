@@ -1,15 +1,12 @@
-﻿using System;
-using Epi.Web.MVC.Repositories.Core;
+﻿using Epi.Web.MVC.Repositories.Core;
 using Epi.Web.Enter.Common.Message;
-using Epi.Web.MVC.Constants;
 using Epi.Web.MVC.Utility;
 using Epi.Web.MVC.Models;
-using Epi.Web.MVC.Facade;
 using System.Collections.Generic;
-using Epi.Web.Enter.Common.Criteria;
 using Epi.Web.Common.Json;
 using Epi.Web.Enter.Common.DTO;
 using System.Linq;
+
 namespace Epi.Web.MVC.Facade
 {
     public class SurveyFacade : ISurveyFacade
@@ -43,7 +40,7 @@ namespace Epi.Web.MVC.Facade
         private SurveyResponseXML _surveyResponseXML;
 
         private FormInfoDTO _FormInfoDTO;
-       
+        private IReportRepository _iReportRepository;
         /// <summary>
         /// Injectinting ISurveyInfoRepository through Constructor
         /// </summary>
@@ -51,7 +48,7 @@ namespace Epi.Web.MVC.Facade
         public SurveyFacade(ISurveyInfoRepository iSurveyInfoRepository, ISurveyAnswerRepository iSurveyResponseRepository,
                                   Epi.Web.Enter.Common.Message.SurveyInfoRequest surveyInfoRequest, Epi.Web.Enter.Common.Message.SurveyAnswerRequest surveyResponseRequest,
                                   Enter.Common.DTO.SurveyAnswerDTO surveyAnswerDTO,
-                                   SurveyResponseXML surveyResponseXML, UserAuthenticationRequest surveyAuthenticationRequest, Epi.Web.Enter.Common.DTO.PassCodeDTO PassCodeDTO, FormInfoDTO FormInfoDTO)
+                                   SurveyResponseXML surveyResponseXML, UserAuthenticationRequest surveyAuthenticationRequest, Epi.Web.Enter.Common.DTO.PassCodeDTO PassCodeDTO, FormInfoDTO FormInfoDTO, IReportRepository iReportRepsitory)
         {
             _iSurveyInfoRepository = iSurveyInfoRepository;
             _iSurveyAnswerRepository = iSurveyResponseRepository;
@@ -62,7 +59,7 @@ namespace Epi.Web.MVC.Facade
             _surveyAuthenticationRequest = surveyAuthenticationRequest;
             _PassCodeDTO = PassCodeDTO;
             _FormInfoDTO = FormInfoDTO;
-          
+            _iReportRepository = iReportRepsitory;
 
         }
 
@@ -523,6 +520,16 @@ namespace Epi.Web.MVC.Facade
             SurveyControlsResponse SurveyControlsResponse = _iSurveyInfoRepository.GetSurveyControlList(pRequestMessage);
 
             return SurveyControlsResponse;
+        }
+        public PublishReportResponse GetSurveyReportList(PublishReportRequest publishReportRequest)
+        {
+
+            return _iReportRepository.GetSurveyReportList(publishReportRequest);
+        }
+        public PublishReportResponse GetSurveyReport(PublishReportRequest publishReportRequest)
+        {
+
+            return _iReportRepository.GetSurveyReport(publishReportRequest);
         }
     }
 }

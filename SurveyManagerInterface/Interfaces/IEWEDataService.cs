@@ -135,6 +135,13 @@ namespace Epi.Web.WCF.SurveyService
         [OperationContract]
         [FaultContract(typeof(CustomFaultException))]
         SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage);
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        PublishReportResponse GetSurveyReportList(PublishReportRequest publishReportRequest);
+
+        [OperationContract]
+        [FaultContract(typeof(CustomFaultException))]
+        PublishReportResponse GetSurveyReport(PublishReportRequest publishReportRequest);
     }
 
 }

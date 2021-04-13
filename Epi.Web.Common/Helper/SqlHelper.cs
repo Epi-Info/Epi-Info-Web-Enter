@@ -1,4 +1,5 @@
-﻿//using Epi.Web.EF;
+﻿
+//using Epi.Web.EF;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,7 +12,7 @@ using System.Web;
 //using System.Web.Helpers;
 //using System.Web.Http.Results;
 //using System.Web.Mvc;
-using Epi.Web.Common.Json;
+using Epi.Web.Enter.Common.Json;
 
 using System.Configuration;
 using Epi.Web.Enter.Common.Security;
@@ -23,12 +24,12 @@ namespace Epi.Web.Enter.Common.Helper
 
         public static string GetHeadData(string surveyid)
         {
-          var  _ADOConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings["EIWSADO"].ConnectionString);
+            var _ADOConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings["EWEADO"].ConnectionString);
             SqlConnection conn = new SqlConnection(_ADOConnectionString);
 
 
 
-            
+
 
             try
             {
@@ -64,13 +65,14 @@ namespace Epi.Web.Enter.Common.Helper
                 Dictionary<string, string> NewKeys = new Dictionary<string, string>();
                 NewKeys.Add("MetaData_ResponseId", "MetaData_ResponseId");
                 NewKeys.Add("MetaData_ResponseStatus", "MetaData_ResponseStatus");
-                
-                foreach (var key in keys) {
+
+                foreach (var key in keys)
+                {
 
                     NewKeys.Add(key, key);
 
                 }
-                
+
                 var json = JsonConvert.SerializeObject(NewKeys);
 
                 return json;
@@ -104,54 +106,54 @@ namespace Epi.Web.Enter.Common.Helper
             }
         }
 
-        public static string GetSurveyJsonData(string surveyid , bool IsDraft)
+        public static string GetSurveyJsonData(string surveyid, bool IsDraft)
         {
-            var _ADOConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings["EIWSADO"].ConnectionString);
+            var _ADOConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings["EWEADO"].ConnectionString);
             SqlConnection conn = new SqlConnection(_ADOConnectionString);
 
             StringBuilder json = new StringBuilder("[");
 
-            
-                try
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(conn.ConnectionString))
                 {
-                    using (SqlConnection connection = new SqlConnection(conn.ConnectionString))
-                    {
-                        connection.Open();
+                    connection.Open();
                     string commandString = "select ResponseJson , StatusId , ResponseId from SurveyResponse where ResponseJson is not null and surveyid = '" + surveyid + "'" + "and IsDraftMode = '" + IsDraft + "'";
                     // string commandString = "select ResponseJson from SurveyResponse r inner join SurveyMetaData m on r.SurveyId = m.SurveyId inner join UserOrganization uo on m.OrganizationId = uo.OrganizationID inner join [User] u on uo.UserID = u.UserID where r.ResponseJson is not null and r.SurveyId = '" + surveyid + "' and u.UserName = '" + userName + "' order by DateUpdated desc";
                     using (SqlCommand command = new SqlCommand(commandString, connection))
+                    {
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            using (SqlDataReader reader = command.ExecuteReader())
+                            if (reader.HasRows)
                             {
-                                if (reader.HasRows)
+                                while (reader.Read())
                                 {
-                                    while (reader.Read())
-                                    {
-                                        string row = JsonConvert.DeserializeObject<JsonMessage>(reader.GetFieldValue<string>(0)).ResponseQA.ToString();
-                                       JObject newJson =   JObject.Parse(row);
-                                       newJson.AddFirst(new JProperty("MetaData_ResponseStatus", GetStatus(reader.GetFieldValue<Int32>(1))));
-                                       newJson.AddFirst(new JProperty("MetaData_ResponseId", reader.GetFieldValue<Guid>(2)));
+                                    string row = JsonConvert.DeserializeObject<JsonMessage>(reader.GetFieldValue<string>(0)).ResponseQA.ToString();
+                                    JObject newJson = JObject.Parse(row);
+                                    newJson.AddFirst(new JProperty("MetaData_ResponseStatus", GetStatus(reader.GetFieldValue<Int32>(1))));
+                                    newJson.AddFirst(new JProperty("MetaData_ResponseId", reader.GetFieldValue<Guid>(2)));
                                     row = newJson.ToString();
-                                        if (!row.Equals("{}"))
-                                        {
-                                            json.Append(row);
-                                            json.Append(",");
-                                        }
-                                    }
-                                    if (json.Length > 1)
+                                    if (!row.Equals("{}"))
                                     {
-                                        json.Remove(json.Length - 1, 1);
+                                        json.Append(row);
+                                        json.Append(",");
                                     }
+                                }
+                                if (json.Length > 1)
+                                {
+                                    json.Remove(json.Length - 1, 1);
                                 }
                             }
                         }
                     }
                 }
-                catch (System.Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-            
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
 
             json.Append("]");
 
@@ -161,7 +163,7 @@ namespace Epi.Web.Enter.Common.Helper
         }
         public static string GetJsonResponseAll(string surveyid)
         {
-            var _ADOConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings["EIWSADO"].ConnectionString);
+            var _ADOConnectionString = Cryptography.Decrypt(ConfigurationManager.ConnectionStrings["EWEADO"].ConnectionString);
             SqlConnection conn = new SqlConnection(_ADOConnectionString);
 
             StringBuilder json = new StringBuilder("[");

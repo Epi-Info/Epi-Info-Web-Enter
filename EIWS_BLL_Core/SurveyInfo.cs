@@ -487,5 +487,37 @@ namespace Epi.Web.BLL
             return ControlType;
         }
 
+
+
+        public bool ValidateOrganization(Enter.Common.Message.OrganizationRequest Request)
+        {
+            bool IsValid = false;
+            string EncryptedKey = Enter.Common.Security.Cryptography.Encrypt(Request.Organization.OrganizationKey);
+            int OrgId = this.SurveyInfoDao.GetOrganizationId(EncryptedKey);
+            if (OrgId != -1)
+            {
+                IsValid = true;
+
+            }
+            else
+            {
+                EncryptedKey = Enter.Common.Security.Cryptography.Encrypt(Request.Organization.OrganizationKey.ToLower());
+                OrgId = this.SurveyInfoDao.GetOrganizationId(EncryptedKey);
+                if (OrgId != -1)
+                {
+                    IsValid = true;
+
+                }
+            }
+            return IsValid;
+        }
+
+        public List<SurveyInfoBO> GetAllSurveysByOrgKey(string OrgKey)
+        {
+            string EncryptedKey = Enter.Common.Security.Cryptography.Encrypt(OrgKey);
+            List<SurveyInfoBO> SurveyInfoResponse = this.SurveyInfoDao.GetAllSurveysByOrgKey(EncryptedKey);
+            return SurveyInfoResponse;
+        }
+
     }
 }

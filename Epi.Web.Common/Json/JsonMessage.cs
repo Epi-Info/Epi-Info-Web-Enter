@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace Epi.Web.Common.Json
+namespace Epi.Web.Enter.Common.Json
 {
     public class JsonMessage
     {

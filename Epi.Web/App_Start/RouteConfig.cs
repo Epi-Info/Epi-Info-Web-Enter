@@ -308,6 +308,12 @@ namespace Epi.Web.MVC
 				"AdminUser/{userid}/{iseditmode}/{orgid}",
 				new { controller = "AdminUser", action = "UserInfo", userid = UrlParameter.Optional, iseditmode = UrlParameter.Optional, orgid = UrlParameter.Optional }
 			);
+            routes.MapRoute
+                    (
+                        null, // Route name
+                        "Report/{reportid}", // URL with parameters
+                        new { controller = "Report", action = "Index", reportid = UrlParameter.Optional }
+                    ); // Param
 		}
 	}
 }

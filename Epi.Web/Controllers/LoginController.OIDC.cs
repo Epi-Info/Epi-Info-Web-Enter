@@ -78,34 +78,39 @@ namespace Epi.Web.MVC.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SignInCallback()
         {
-			var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
-			var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
-			var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
-			var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS_TOKEN_VALIDATION"];
-			var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO_SYS"];
-			var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
-			var sams_client_secret = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
-			var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
-
-			var querystring = this.Request.QueryString.ToString();
-			var querystring_skip = querystring.Substring(1, querystring.Length - 1);
-            var querystring_array = querystring_skip.Split('&');
-			var querystring_dictionary = new Dictionary<string,string>();
-
-            foreach(string item in this.Request.QueryString)
-            {
-				querystring_dictionary.Add(item, this.Request.QueryString[item]);
-			}
-
-            var code = querystring_dictionary["code"];
-            var state = querystring_dictionary["state"];
-            System.Diagnostics.Debug.WriteLine($"code: {code}");
-            System.Diagnostics.Debug.WriteLine($"state: {state}");
-
             HttpClient client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_token);
+            var sams_endpoint_authorization = ConfigurationManager.AppSettings["SAMS_ENDPOINT_AUTHORIZATION"];
+            var sams_endpoint_token = ConfigurationManager.AppSettings["SAMS_ENDPOINT_TOKEN"];
+            var sams_endpoint_user_info = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO"];
+            var sams_endpoint_token_validation = ConfigurationManager.AppSettings["SAMS_TOKEN_VALIDATION"];
+            var sams_endpoint_user_info_sys = ConfigurationManager.AppSettings["SAMS_ENDPOINT_USER_INFO_SYS"];
+            var sams_client_id = ConfigurationManager.AppSettings["SAMS_CLIENT_ID"];
+            var sams_client_secret = ConfigurationManager.AppSettings["SAMS_CLIENT_SECRET"];
+            var sams_callback_url = ConfigurationManager.AppSettings["SAMS_CALLBACK_URL"];
 
-            request.Content = new FormUrlEncodedContent(new Dictionary<string, string> {
+            var querystring = this.Request.QueryString.ToString();
+            var querystring_skip = querystring.Substring(1, querystring.Length - 1);
+            var querystring_array = querystring_skip.Split('&');
+            var querystring_dictionary = new Dictionary<string, string>();
+            JObject payload;
+            string code="";
+            try
+            {
+                
+                foreach (string item in this.Request.QueryString)
+                {
+                    querystring_dictionary.Add(item, this.Request.QueryString[item]);
+                }
+
+                  code = querystring_dictionary["code"];
+                var state = querystring_dictionary["state"];
+                //System.Diagnostics.Debug.WriteLine($"code: {code}");
+                //System.Diagnostics.Debug.WriteLine($"state: {state}");
+
+               
+                var request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_token);
+
+                request.Content = new FormUrlEncodedContent(new Dictionary<string, string> {
                 { "client_id", sams_client_id },
                 { "client_secret", sams_client_secret },
                 { "grant_type", "authorization_code" },
@@ -113,45 +118,65 @@ namespace Epi.Web.MVC.Controllers
                 { "scope", "openid profile email"},
                 {"redirect_uri", sams_callback_url }
             });
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
 
-            var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+                  payload = JObject.Parse(await response.Content.ReadAsStringAsync());
 
-            var payload = JObject.Parse(await response.Content.ReadAsStringAsync());
-            var access_token = payload.Value<string>("access_token");
-            var refresh_token = payload.Value<string>("refresh_token");
-            var expires_in = payload.Value<int>("expires_in");
-			var unix_time = DateTimeOffset.UtcNow.AddSeconds(expires_in);
-			var scope = payload.Value<string>("scope");
-            var id_token = payload.Value<string>("id_token");;
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorName = "2 " + ex.InnerException.Message + " code: " + code;
+                return View("Error");
 
-            var id_array = id_token.Split('.');
-            var replaced_value = id_array[1].Replace('-', '+').Replace('_', '/');
-            var base64 = replaced_value.PadRight(replaced_value.Length + (4 - replaced_value.Length % 4) % 4, '=');
 
-            var id_0 = DecodeToken(id_array[0]);
-            var id_1 = DecodeToken(id_array[1]);
-            var id_body = Base64Decode(base64);
+            }
+            try
+            {
+              
+                var access_token = payload.Value<string>("access_token");
+                var refresh_token = payload.Value<string>("refresh_token");
+                var expires_in = payload.Value<int>("expires_in");
+                var unix_time = DateTimeOffset.UtcNow.AddSeconds(expires_in);
+                var scope = payload.Value<string>("scope");
+                var id_token = payload.Value<string>("id_token"); ;
 
-            var user_info_sys_request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_user_info + "?token=" + id_token);
+                var id_array = id_token.Split('.');
+                var replaced_value = id_array[1].Replace('-', '+').Replace('_', '/');
+                var base64 = replaced_value.PadRight(replaced_value.Length + (4 - replaced_value.Length % 4) % 4, '=');
 
-            user_info_sys_request.Headers.Add("Authorization","Bearer " + access_token);
-            user_info_sys_request.Headers.Add("client_id", sams_client_id);
-            user_info_sys_request.Headers.Add("client_secret", sams_client_secret);
+                var id_0 = DecodeToken(id_array[0]);
+                var id_1 = DecodeToken(id_array[1]);
+                var id_body = Base64Decode(base64);
 
-            response = await client.SendAsync(user_info_sys_request);
-            response.EnsureSuccessStatusCode();
+                var user_info_sys_request = new HttpRequestMessage(HttpMethod.Post, sams_endpoint_user_info + "?token=" + id_token);
 
-            var temp_string = await response.Content.ReadAsStringAsync();
-            payload = JObject.Parse(temp_string);
+                user_info_sys_request.Headers.Add("Authorization", "Bearer " + access_token);
+                user_info_sys_request.Headers.Add("client_id", sams_client_id);
+                user_info_sys_request.Headers.Add("client_secret", sams_client_secret);
 
-            var email = payload.Value<string>("email");
+              //  response = await client.SendAsync(user_info_sys_request);
+              //  response.EnsureSuccessStatusCode();
 
-			UserLoginModel UserLoginModel = new UserLoginModel();
-			UserLoginModel.UserName = email;
-			UserLoginModel.Password = "";
-			UserLoginModel.SAMS = true;
-			return GetAuthenticatedUser(UserLoginModel, "/Home/Index");
+              //  var temp_string = await response.Content.ReadAsStringAsync();
+              //  payload = JObject.Parse(temp_string);
+
+               // var email = payload.Value<string>("email");
+
+                UserLoginModel UserLoginModel = new UserLoginModel();
+              //  UserLoginModel.UserName = email;
+                UserLoginModel.Password = "";
+                UserLoginModel.SAMS = true;
+                return GetAuthenticatedUser(UserLoginModel, "/Home/Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorName ="1 "+ ex.InnerException.Message;
+                return View("Error");
+
+
+            }
+           
         }
 
 		private ActionResult GetAuthenticatedUser(UserLoginModel Model, string ReturnUrl)

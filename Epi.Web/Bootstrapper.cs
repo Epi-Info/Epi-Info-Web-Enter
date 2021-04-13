@@ -53,6 +53,7 @@ namespace Epi.Web.MVC
                     .ConfigureInjectionFor<SurveyResponseXML>(new InjectionConstructor());
 
                 container.RegisterType<Epi.Web.MVC.Repositories.Core.ISurveyInfoRepository, Epi.Web.MVC.Repositories.IntegratedSurveyInfoRepository>();
+                container.RegisterType<Epi.Web.MVC.Repositories.Core.IReportRepository, Epi.Web.MVC.Repositories.IntegratedReportInfoRepository>();
             }
             else
             {
@@ -60,6 +61,7 @@ namespace Epi.Web.MVC
                 .Configure<InjectedMembers>()
                 .ConfigureInjectionFor<Epi.Web.MVC.DataServiceClient.EWEDataServiceClient>(new InjectionConstructor(ConfigurationManager.AppSettings["ENDPOINT_USED"]));
                 container.RegisterType<Epi.Web.MVC.Repositories.Core.ISurveyInfoRepository, Epi.Web.MVC.Repositories.SurveyInfoRepository>();
+                container.RegisterType<Epi.Web.MVC.Repositories.Core.IReportRepository, Epi.Web.MVC.Repositories.ReportInfoRepository>();
             }
 
             container.RegisterType<Epi.Web.Enter.Common.Message.SurveyAnswerRequest, Epi.Web.Enter.Common.Message.SurveyAnswerRequest>();

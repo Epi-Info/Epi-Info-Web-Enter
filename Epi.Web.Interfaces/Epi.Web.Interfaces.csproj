@@ -51,6 +51,7 @@
     <Compile Include="DataInterface\IFormInfoDao.cs" />
     <Compile Include="DataInterface\IFormSettingDao.cs" />
     <Compile Include="DataInterface\IOrganizationDao.cs" />
+    <Compile Include="DataInterface\IReportDao.cs" />
     <Compile Include="DataInterface\ISurveyResponseDao.cs" />
     <Compile Include="DataInterface\ISurveyInfoDao.cs" />
     <Compile Include="DataInterface\IDaoFactory.cs" />

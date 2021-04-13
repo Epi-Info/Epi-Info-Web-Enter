@@ -261,6 +261,12 @@ namespace MvcDynamicForms.Fields
                         MM = dateList[1];
                         DD = dateList[2];
                         YYYY = dateList[0];
+                        if (YYYY.Length<4) {
+                            MM = dateList[0];
+                            DD = dateList[1];
+                            YYYY = dateList[2];
+
+                        }
                         break;
                     case "MM-DD-YYYY":
                         MM = dateList[0];

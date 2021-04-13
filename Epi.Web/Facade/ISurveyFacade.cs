@@ -69,5 +69,7 @@ namespace Epi.Web.MVC.Facade
 
         string GetSurveyResponseJson(SurveyAnswerDTO surveyAnswerDTO, List<FormsHierarchyDTO> FormsHierarchyDTOList, SurveyControlsResponse List);
         SurveyControlsResponse GetSurveyControlList(SurveyControlsRequest pRequestMessage);
+        PublishReportResponse GetSurveyReportList(PublishReportRequest publishReportRequest);
+        PublishReportResponse GetSurveyReport(PublishReportRequest publishReportRequest);
     }
 }
